@@ -1,0 +1,90 @@
+---
+import "../styles/global.css";
+import { LANGS, useT, type Lang } from "../lib/i18n";
+import { UI_ICON, svg } from "../lib/icons";
+import { getData } from "../lib/data";
+
+interface Props {
+  lang: Lang;
+  title?: string;
+  description?: string;
+  tab?: "explore" | "map" | "saved" | "add";
+}
+const { lang, title, description, tab } = Astro.props;
+const t = useT(lang);
+const { region } = await getData();
+// Path without the language prefix, so the switcher keeps the reader on the same page.
+const rest = Astro.url.pathname.replace(/^\/(de|en|zh)\//, "");
+const tabs = [
+  ["explore", ""],
+  ["map", "karte/"],
+  ["saved", "merkliste/"],
+  ["add", "mitmachen/"],
+] as const;
+const pageTitle = title ? `${title} · ${t("siteName")}` : `${t("siteName")} · ${t("tagline")}`;
+const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
+// Strings the browser scripts need, in this language.
+const ui = {
+  km: t("km"), approxKm: t("approxKm"), nearby: t("nearby"), save: t("save"), saved: t("saved"),
+  answered: t("answered"), inboxSoon: t("inboxSoon"),
+};
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description ?? t("tagline")} />
+    <meta property="og:title" content={title ?? t("siteName")} />
+    <meta property="og:description" content={description ?? t("tagline")} />
+    <meta name="theme-color" content="#ffcc00" />
+    {LANGS.map((l) => <link rel="alternate" hreflang={l} href={`${site}/${l}/${rest}`} />)}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Barlow+Semi+Condensed:wght@600;700&family=Bricolage+Grotesque:opsz,wght@12..96,600..800&display=swap" />
+  </head>
+  <body data-ui={JSON.stringify(ui)} data-lang={lang} data-home={region.center} data-towns={JSON.stringify(region.towns.map((x) => [x.name, x.lat, x.lon]))}>
+    <div class="flag" aria-hidden="true"></div>
+    <div class="app">
+      {process.env.DEMO && <p class="demo">{t("demo")}</p>}
+      <header class="top">
+        <a class="brand" href={`/${lang}/`}>
+          <span class="brand-mark" set:html={svg(UI_ICON.brand)} />
+          <span>{t("siteName")}</span>
+        </a>
+        <nav class="topnav" aria-label={t("siteName")}>
+          {tabs.map(([k, p]) => <a href={`/${lang}/${p}`} aria-current={tab === k ? "page" : undefined}>{t(`tabs.${k}`)}</a>)}
+        </nav>
+        <div class="top-right">
+          <nav class="lang" aria-label="Sprache · Language · 语言">
+            {LANGS.map((l) => (
+              <a href={`/${l}/${rest}`} hreflang={l} lang={l} aria-current={l === lang ? "true" : undefined} title={useT(l)("langName")}>
+                {l === "zh" ? "中" : l.toUpperCase()}
+              </a>
+            ))}
+          </nav>
+        </div>
+      </header>
+      <main>
+        <slot />
+      </main>
+      <footer class="foot">
+        <p>{t("footer")}</p>
+        <slot name="footer" />
+      </footer>
+    </div>
+    <nav class="tabs" aria-label={t("siteName")}>
+      {tabs.map(([k, p]) => (
+        <a href={`/${lang}/${p}`} aria-current={tab === k ? "page" : undefined}>
+          <Fragment set:html={svg(UI_ICON[k])} />
+          <span>{t(`tabs.${k}`)}{k === "saved" && <span class="badge-n" data-saved-count hidden></span>}</span>
+        </a>
+      ))}
+    </nav>
+    <script>
+      import "../scripts/app";
+    </script>
+  </body>
+</html>

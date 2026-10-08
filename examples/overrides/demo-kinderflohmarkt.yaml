@@ -1,0 +1,5 @@
+# Human fix on top of the imported event. Survives every nightly import.
+price: { free: true }
+ages: [0, 12]
+indoor: true
+tags: [market]

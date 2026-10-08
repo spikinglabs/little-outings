@@ -1,0 +1,77 @@
+---
+// One card for an event or a place. The data-* attributes drive the filters in the browser.
+import Stamp from "./Stamp.astro";
+import { tr, type T } from "../lib/i18n";
+import { ageText, dateRange, isFree, pathFor, townName } from "../lib/format";
+import { FEATURE_ICON, ROW, svg, UI_ICON } from "../lib/icons";
+import { getData } from "../lib/data";
+import type { Item } from "../lib/types";
+
+interface Props { item: Item; t: T; hidden?: boolean }
+const { item, t, hidden } = Astro.props;
+const lang = t.lang;
+const { region, placeById, events } = await getData();
+const place = item.type === "event" && item.place ? placeById.get(item.place) : item.type === "place" ? item : undefined;
+const facilities = place?.facilities ?? {};
+const yes = Object.entries(facilities).filter(([, v]) => v.status === "yes").map(([k]) => k);
+const tags = item.type === "event" ? item.tags : [];
+const name = item.type === "event" ? tr(item.title, lang) : item.name;
+const town = townName(item.town, lang, region.towns);
+const where = item.type === "event" ? [item.venue, town].filter(Boolean).join(", ") : [t(`kinds.${item.kind}`), town].join(" · ");
+const meta = item.type === "event"
+  ? [item.end !== item.start ? dateRange(t, item) : "", item.time, where].filter(Boolean).join(" · ")
+  : where;
+const soon = item.type === "place" ? events.filter((e) => e.place === item.id).length : 0;
+const prec = item.geo.precision;
+const search = [
+  item.type === "event" ? (typeof item.title === "string" ? item.title : Object.values(item.title).join(" ")) : item.name,
+  item.type === "event" ? item.venue : t(`kinds.${item.kind}`), item.town, town, ...tags.map((g) => t(`tags.${g}`)),
+].filter(Boolean).join(" ").toLowerCase();
+---
+<article
+  class="item"
+  hidden={hidden}
+  data-id={item.id}
+  data-type={item.type}
+  data-kind={item.type === "place" ? item.kind : undefined}
+  data-start={item.type === "event" ? item.start : undefined}
+  data-end={item.type === "event" ? item.end : undefined}
+  data-lat={item.geo.lat}
+  data-lon={item.geo.lon}
+  data-precision={prec}
+  data-indoor={item.indoor ? "1" : undefined}
+  data-free={isFree(item) ? "1" : undefined}
+  data-ages={item.ages?.join("-")}
+  data-feat={[...yes, ...tags].join(" ")}
+  data-verified={item.trust.level === "verified" ? "1" : undefined}
+  data-q={search}
+>
+  <Stamp item={item} t={t} />
+  <div class="item-body">
+    <h3><a href={pathFor(lang, item)}>{name}</a></h3>
+    <div class="meta">{meta}<span data-km></span>{item.type === "place" && item.rating && ` · ★ ${item.rating.stars.toLocaleString(t.locale)}`}</div>
+    {item.type === "place" && (
+      <div class="frow">
+        {ROW.map((f) => {
+          const on = facilities[f]?.status === "yes";
+          const label = `${t(`features.${f}`)}${on ? "" : ": ?"}`;
+          return <span class:list={["fi", { on }]} title={label} aria-label={label} set:html={svg(FEATURE_ICON[f])} />;
+        })}
+      </div>
+    )}
+    <div class="pills">
+      {(prec === "venue" || prec === "area") && <span class="pill loc">📍 {t(`locPill.${prec}`)}</span>}
+      {item.indoor && <span class="pill rain">{t("indoorPill")}</span>}
+      {isFree(item) && <span class="pill free">{t("free")}</span>}
+      {item.ages && <span class="pill">{ageText(t, item.ages)}</span>}
+      {tags.slice(0, 2).map((g) => <span class="pill">{t(`tags.${g}`)}</span>)}
+    </div>
+    <div class="trust">
+      {soon > 0 ? <b>{t("soonAt", { n: soon })}</b>
+        : item.trust.level === "verified" ? <><b>{t("trust.verified")}</b>{item.trust.source && ` · ${tr(item.trust.source, lang)}`}</>
+        : item.trust.level === "official" ? <>{t("trust.official")}{item.trust.source && ` · ${tr(item.trust.source, lang)}`}</>
+        : t("trust.community")}
+    </div>
+  </div>
+  <button class="save" type="button" data-save={item.id} aria-pressed="false" aria-label={t("save")} set:html={svg(UI_ICON.saved, 'stroke-width="2"')} />
+</article>

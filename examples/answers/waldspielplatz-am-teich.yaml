@@ -1,0 +1,3 @@
+# Written by the inbox bot after two parents agreed.
+facilities:
+  toilets: { status: "no", confirmed: 2 }

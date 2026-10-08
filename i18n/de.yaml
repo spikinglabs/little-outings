@@ -1,0 +1,96 @@
+locale: de-DE
+langName: Deutsch
+siteName: Raus mit Kids
+tagline: Ausflüge mit Kindern in eurer Nähe
+tabs: { explore: Entdecken, map: Karte, saved: Merkliste, add: Mitmachen }
+when: { today: Heute, tomorrow: Morgen, weekend: Wochenende, soon: Nächste 2 Wochen }
+whenIn: { today: heute, tomorrow: morgen, weekend: am Wochenende, soon: in den nächsten 2 Wochen }
+ask: "Was machen wir <em>{when}</em> mit den Kindern?"
+near: Rund um
+search: Suche
+searchPh: Hof, Café, Spielplatz oder Fest suchen
+filters: { rain: "☂ Bei Regen", free: Kostenlos, animals: Mit Tieren, changing: Wickeltisch, age: Alter, ageAll: alle, radius: Umkreis }
+tip: "Unser Tipp {when}"
+only: "Nur {when}"
+always: Geht immer
+allKinds: Alle
+nEvents: { one: "1 Termin", other: "{n} Termine" }
+nPlaces: { one: "1 Ort bis {r} km", other: "{n} Orte bis {r} km" }
+noEvents: Keine Termine mit diesen Filtern. Probiert einen größeren Umkreis oder einen anderen Tag.
+noPlaces: Keine Orte mit diesen Filtern in der Nähe.
+nothingMore: Mehr gibt's in diesem Zeitraum nicht.
+soonAt: { one: "1 Termin demnächst", other: "{n} Termine demnächst" }
+allAges: Alle Altersstufen
+years: "{a}–{b} Jahre"
+indoorPill: Auch bei Regen
+indoor: Drinnen, auch bei Regen
+outdoor: Draußen
+free: Kostenlos
+paid: Kostenpflichtig
+trust: { verified: "✓ Geprüft", official: Offizielle Quelle, community: "Von Eltern gemeldet, noch nicht geprüft" }
+save: Merken
+saved: Gemerkt
+route: Route planen
+routeTown: Route ins Ortszentrum
+until: bis
+locPill: { venue: Ort ungefähr, area: Nur Stadt bekannt }
+locNote: { venue: "Der Ort ist nur ungefähr auf der Karte.", area: "Wir wissen nur: irgendwo in {town}.", unknown: "Der Ort fehlt noch." }
+approxKm: "ca. {d} km"
+nearby: ganz in der Nähe
+thePlace: Der Ort
+forFamilies: Für Familien
+unknownNote: "? heißt: wissen wir noch nicht. Wart ihr da? Sagt es uns."
+confirmedBy: "{n}× bestätigt"
+upcomingHere: Hier demnächst
+parentsSay: "Eltern sagen · ★ {r} aus {n} Bewertungen"
+onPoster: Auf dem Plakat
+translated: ""
+gapsTitle: Fehlt noch
+gapsSub: Wisst ihr etwas davon? Eine Antwort reicht.
+gapLabel: { where: "Wo?", time: "Wann?", price: Preis, fac: Ausstattung, still: "Findet statt?", hours: Öffnungszeiten }
+q: { where: "Wo genau findet es statt?", time: "Um wie viel Uhr?", price: "Was kostet es?", hours: "Wann ist geöffnet?", fac: "Gibt es dort: {f}?", still: "Findet es wie angegeben statt?" }
+ph: { where: Adresse oder Treffpunkt, time: "z. B. 14:00–17:00", price: "z. B. 3 € pro Kind", hours: "z. B. Sa–So 10–18 Uhr" }
+"yes": Ja
+"no": Nein
+dunno: Weiß nicht
+send: Senden
+answered: Danke! Sobald zwei Eltern übereinstimmen, übernehmen wir es.
+inboxSoon: Danke! Das Einsenden wird gerade eingerichtet. Bis dahin gern per GitHub melden.
+mapTitle: Karte
+mapSub: "Termine {when} und Orte rund um {home}."
+legend: { event: Termin, place: "Ort, geht immer", approx: "Gestrichelter Ring: Ort ungefähr", area: "Fläche: nur Stadt bekannt" }
+savedTitle: Merkliste
+savedSub: Bleibt auf diesem Gerät.
+savedEmpty: Noch nichts gemerkt. Tippt bei einem Termin oder Ort auf das Lesezeichen.
+events: Termine
+places: Orte
+addTitle: Mitmachen
+addSub: Ihr habt ein Plakat am Hofladen gesehen oder kennt einen tollen Spielplatz? Erzählt es uns, gern auch auf Englisch oder Chinesisch. Wir prüfen jeden Hinweis, bevor er erscheint.
+posterTitle: Plakat gesehen? Einfach fotografieren.
+posterSub: Oder einen Link oder eine Nachricht einfügen. Wir lesen Name, Datum, Uhrzeit und Ort automatisch aus, ihr prüft nur kurz.
+posterBtn: Plakat fotografieren oder hochladen
+orPaste: oder Link bzw. Text einfügen
+pastePh: Website, Instagram-Post oder WhatsApp-Nachricht
+pasteBtn: Auslesen
+posterNote: Das Foto wird nicht veröffentlicht, nur die Fakten.
+tasksTitle: Kleine Aufgaben in eurer Nähe
+tasksSub: Jede dauert eine Minute und macht die Seite für alle Familien besser.
+kinds: { farm: Bauernhof, cafe: Café, playground: Spielplatz, park: "Park & Wald", museum: Museum, pool: Schwimmbad }
+features: { playground: Spielplatz, changing_table: Wickeltisch, highchairs: Hochstühle, kids_menu: Kinderkarte, toys: "Spielzeug & Mitgebsel", animals: Tiere, stroller_friendly: Kinderwagen-tauglich, nursing_room: Stillecke, indoor_play: Spielecke drinnen, toilets: Toiletten, farm_shop: Hofladen, parking: Parkplatz }
+tags: { fest: Fest, animals: Tiere, market: Markt, diy: Mitmachen, season: Saison, reading: Vorlesen, music: Musik, outside: Draußen }
+empty: Hier ist noch nichts eingetragen. Kennt ihr etwas? Unter „Mitmachen“ könnt ihr es melden.
+footer: "Alle Angaben ohne Gewähr. Bitte vor dem Besuch beim Veranstalter prüfen."
+dataFrom: "Daten u. a. von {sources}."
+back: Zurück
+km: "{d} km"
+untilShort: bis
+website: Website
+source: Quelle
+demo: Demo mit erfundenen Beispieldaten.
+reading: Wird gelesen …
+draftTitle: Bitte kurz prüfen
+pleaseCheck: Bitte prüfen
+field: { title: Titel, date: Datum, time: Uhrzeit, place: Ort oder Adresse, price: Preis, note: "Was gibt es für Kinder?" }
+parseSoon: Automatisches Auslesen ist noch nicht eingerichtet. Bitte füllt die Felder selbst aus.
+typeIt: Lieber selbst eintippen
+mapNoJs: Die Karte braucht JavaScript. Alle Einträge findet ihr auch unter Entdecken.

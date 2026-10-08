@@ -1,0 +1,39 @@
+/* Raus mit Kids design tokens. Colours from German public signage and the flag. */
+:root {
+  --paper: #f6f5f2;
+  --card: #ffffff;
+  --ink: #17191b;        /* Schwarz */
+  --ink-soft: #5b6066;
+  --line: #dddbd5;
+  --tint: #ecebe6;
+  --gold: #ffcc00;       /* flag gold, close to RAL 1023 Verkehrsgelb */
+  --gold-ink: #17191b;
+  --gold-bg: #fff4c2;
+  --rot: #d1001f;        /* flag red, close to RAL 3020 Verkehrsrot */
+  --rot-ink: #ffffff;
+  --braun: #6f4a2a;      /* touristic sign brown, close to RAL 8008 */
+  --braun-ink: #ffffff;
+  --braun-bg: #f2e9df;
+  --blau: #1d4f91;       /* Verkehrsblau, close to RAL 5017 */
+  --blau-bg: #e3eaf4;
+  --cjk: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, var(--cjk);
+  --body: "Atkinson Hyperlegible", "Segoe UI", system-ui, var(--cjk);
+  --sign: "Barlow Semi Condensed", "Bahnschrift", "DIN Alternate", "Arial Narrow", var(--cjk);
+  --r: 14px;
+  --shadow: 0 1px 2px rgb(23 25 27 / .06), 0 6px 18px rgb(23 25 27 / .06);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #121314; --card: #1c1d1f; --ink: #ecebe8; --ink-soft: #a5a9ae; --line: #303235; --tint: #27292c;
+    --gold: #ffcc00; --gold-ink: #17191b; --gold-bg: #3a3212; --rot: #ff5a6a; --rot-ink: #17191b;
+    --braun: #c79d6f; --braun-ink: #17191b; --braun-bg: #2e251c; --blau: #8fb4ea; --blau-bg: #1b2535;
+    --shadow: 0 1px 2px rgb(0 0 0 / .3); color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #121314; --card: #1c1d1f; --ink: #ecebe8; --ink-soft: #a5a9ae; --line: #303235; --tint: #27292c;
+  --gold: #ffcc00; --gold-ink: #17191b; --gold-bg: #3a3212; --rot: #ff5a6a; --rot-ink: #17191b;
+  --braun: #c79d6f; --braun-ink: #17191b; --braun-bg: #2e251c; --blau: #8fb4ea; --blau-bg: #1b2535;
+  --shadow: 0 1px 2px rgb(0 0 0 / .3); color-scheme: dark;
+}

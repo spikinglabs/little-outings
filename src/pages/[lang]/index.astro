@@ -1,0 +1,103 @@
+---
+// Entdecken: "What shall we do with the kids today?" Every upcoming event and place is rendered;
+// the filter script shows the ones that match the chosen day, distance and filters.
+import Base from "../../layouts/Base.astro";
+import Card from "../../components/Card.astro";
+import Stamp from "../../components/Stamp.astro";
+import { LANGS, tr, useT, type Lang } from "../../lib/i18n";
+import { getData } from "../../lib/data";
+import { pathFor, townName } from "../../lib/format";
+import { KINDS } from "../../content.config";
+import { KIND_ICON, UI_ICON, svg } from "../../lib/icons";
+
+export const getStaticPaths = () => LANGS.map((lang) => ({ params: { lang } }));
+const lang = Astro.params.lang as Lang;
+const t = useT(lang);
+const { region, events, places, placeById } = await getData();
+// Events without any position can't be placed near anyone; they live on the tasks page.
+const listed = events.filter((e) => e.geo.precision !== "unknown");
+// Tip candidates: checked events at an exact spot, farms first. The script picks the first visible one.
+const tips = listed
+  .filter((e) => e.trust.level === "verified" && e.geo.precision === "exact")
+  .sort((a, b) => Number(placeById.get(b.place ?? "")?.kind === "farm") - Number(placeById.get(a.place ?? "")?.kind === "farm"));
+const presentKinds = KINDS.filter((k) => places.some((p) => p.kind === k));
+const whenKeys = ["today", "tomorrow", "weekend", "soon"];
+const whenIn = t.group("whenIn");
+const pluralUi = { nEvents: t.group("nEvents"), nPlaces: t.group("nPlaces"), tip: t("tip"), only: t("only"), whenIn };
+const homes = region.towns;
+---
+<Base lang={lang} tab="explore">
+  <section class="ask">
+    <h1 set:html={t("ask", { when: `<span data-when-word>${whenIn.weekend}</span>` })} />
+    <label class="search">
+      <span class="sr-only">{t("search")}</span>
+      <Fragment set:html={svg(UI_ICON.search, 'stroke-width="2"')} />
+      <input id="q" type="search" placeholder={t("searchPh")} autocomplete="off" />
+    </label>
+    <div class="when" role="group">
+      {whenKeys.map((k) => <button type="button" data-when={k} aria-pressed={k === "weekend" ? "true" : "false"}>{t(`when.${k}`)}</button>)}
+    </div>
+    <div class="filters" role="group">
+      <label class="chip">📍 {t("near")}
+        <select id="home" aria-label={t("near")}>
+          {homes.map((h) => <option value={h.name} selected={h.name === region.center}>{townName(h.name, lang, homes)}</option>)}
+        </select>
+      </label>
+      <button class="chip rain" type="button" data-flag="rain" aria-pressed="false">{t("filters.rain")}</button>
+      <button class="chip" type="button" data-flag="free" aria-pressed="false">{t("filters.free")}</button>
+      <button class="chip" type="button" data-flag="animals" aria-pressed="false">{t("filters.animals")}</button>
+      <button class="chip" type="button" data-flag="changing" aria-pressed="false">{t("filters.changing")}</button>
+      <label class="chip">{t("filters.age")}
+        <select id="age" aria-label={t("filters.age")}>
+          <option value="">{t("filters.ageAll")}</option>
+          <option value="0-2">0–2</option><option value="3-5">3–5</option><option value="6-9">6–9</option><option value="10-18">10+</option>
+        </select>
+      </label>
+      <label class="chip">{t("filters.radius")}
+        <select id="radius" aria-label={t("filters.radius")}>
+          <option value="10">10 km</option><option value="30" selected>30 km</option><option value="60">60 km</option><option value="100">100 km</option>
+        </select>
+      </label>
+    </div>
+  </section>
+
+  {tips.map((e) => (
+    <a class="tip" href={pathFor(lang, e)} data-tip={e.id} hidden>
+      <Stamp item={e} t={t} />
+      <div>
+        <div class="kicker" data-tip-kicker></div>
+        <h2>{tr(e.title, lang)}</h2>
+        <p>{[e.venue, townName(e.town, lang, homes), e.time].filter(Boolean).join(" · ")}<span data-km></span></p>
+      </div>
+    </a>
+  ))}
+
+  <div class="explore-cols">
+    <section class="section" aria-labelledby="ev-h">
+      <div class="section-head"><h2 id="ev-h" data-only></h2><p data-ev-count></p></div>
+      <div class="grid" id="events">
+        {listed.map((e) => <Card item={e} t={t} />)}
+        <div class="empty" data-ev-empty hidden>{t("noEvents")}</div>
+        <div class="empty" data-ev-more hidden>{t("nothingMore")}</div>
+      </div>
+    </section>
+    <section class="section" aria-labelledby="pl-h">
+      <div class="section-head"><h2 id="pl-h">{t("always")}</h2><p data-pl-count></p></div>
+      <div class="filters kinds" role="group">
+        <button class="chip" type="button" data-kind-chip="" aria-pressed="true">{t("allKinds")}</button>
+        {presentKinds.map((k) => (
+          <button class="chip" type="button" data-kind-chip={k} aria-pressed="false"><Fragment set:html={svg(KIND_ICON[k])} /> {t(`kinds.${k}`)}</button>
+        ))}
+      </div>
+      <div class="grid" id="places">
+        {places.map((p) => <Card item={p} t={t} />)}
+        <div class="empty" data-pl-empty hidden>{t("noPlaces")}</div>
+      </div>
+    </section>
+  </div>
+  {events.length + places.length === 0 && <p class="empty">{t("empty")}</p>}
+  <script is:inline type="application/json" id="explore-ui" set:html={JSON.stringify(pluralUi)} />
+  <script>
+    import "../../scripts/explore";
+  </script>
+</Base>
