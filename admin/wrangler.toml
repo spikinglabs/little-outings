@@ -1,0 +1,19 @@
+# Little Outings admin: a separate Cloudflare Pages project behind Cloudflare Access.
+# Deployed by .github/workflows/deploy.yml (wrangler pages deploy, run from admin/).
+name = "little-outings-admin"
+pages_build_output_dir = "public"
+compatibility_date = "2026-09-01"
+
+# Candidates (written by cityklub) and the admin's decisions. Never the private bucket.
+[[r2_buckets]]
+binding = "OUTINGS"
+bucket_name = "spikinglabs-little-outings"
+
+[vars]
+GITHUB_REPO = "spikinglabs/little-outings"
+GITHUB_BRANCH = "main"
+
+# Set as encrypted secrets in the Pages project (Settings → Variables and Secrets):
+#   ACCESS_TEAM_DOMAIN  e.g. spikinglabs.cloudflareaccess.com
+#   ACCESS_AUD          the Application Audience (AUD) tag of the Access application
+#   GITHUB_TOKEN        fine-grained token, Contents: read and write on spikinglabs/little-outings only

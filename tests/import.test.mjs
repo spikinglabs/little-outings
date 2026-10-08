@@ -29,3 +29,17 @@ test("unknown fields stay missing so they become quick tasks", () => {
   assert.equal(out[1].data.time, undefined);
   assert.equal(out[1].data.price, undefined);
 });
+
+test("reads rows published from the admin site", () => {
+  const published = {
+    event_id: "cologne-city-events:42", title: "Laternenbasteln", start_date: "2099-11-01", family: true,
+    location: { city: "Köln", street: "Venloer Str.", house_number: "1" }, source_id: "museums",
+    source_name: "Museen Köln", source_url: "https://example.org/m", venue: "Museum",
+  };
+  const ev = fromExport(published, ctx);
+  assert.equal(ev.id, "ck-cologne-city-events-42");
+  assert.equal(ev.data.attribution, "Museen Köln");
+  assert.equal(ev.data.source_id, "museums");
+  assert.equal(ev.data.venue, "Museum, Venloer Str. 1");
+  assert.equal(fromExport({ ...published, family: undefined }, ctx), null);
+});
