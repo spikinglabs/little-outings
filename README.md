@@ -56,8 +56,9 @@ Built with the site, for the future spikinglabs app and other tools:
 
 `.github/workflows/deploy.yml` deploys with Wrangler: every push to `main` goes
 to production, every pull request gets a preview URL (in the run summary), and
-every night at 02:15 UTC it imports the cityklub export and rebuilds, because
-"today" and "this weekend" move. `ci.yml` runs tests, type check and both builds
+every night at 02:15 UTC it rebuilds, because "today" and "this weekend" move.
+Every build first imports cityklub events: `data/outings.jsonl` (published from
+the admin) when it exists, otherwise the `CITYKLUB_EXPORT` variable. `ci.yml` runs tests, type check and both builds
 on every PR.
 
 One-time setup, in GitHub → Settings → Secrets and variables → Actions:
@@ -74,3 +75,28 @@ Optional, in Cloudflare → Pages → little-outings → Settings → Variables:
 - Poster/link parsing: `ANTHROPIC_API_KEY`, `PARSE_MODEL`. Photos are sent to the
   model for that one request and never stored.
 - Without these the site works; contributions say "being set up".
+
+## Admin (admin.outings.allo.land)
+
+`admin/` is a separate Pages project, `little-outings-admin`, deployed from `main`
+by the same workflow. It reads family-event candidates that cityklub writes every
+night to the `spikinglabs-little-outings` R2 bucket (deduplicated, facts only), and
+lets you include or exclude sources, hide or show single events, fix titles and
+addresses, and **Publish**. Publishing commits `data/outings.jsonl` to this repo,
+which triggers a normal deploy. The admin never reads cityklub's private bucket.
+
+One-time setup:
+1. R2: create the bucket `spikinglabs-little-outings` (no public access, no custom
+   domain). In cityklub-event-data, let its R2 token write to it and add the secret
+   `R2_LITTLE_OUTINGS_BUCKET=spikinglabs-little-outings`.
+2. Zero Trust → Access → Applications: add a self-hosted application for
+   `admin.outings.allo.land` with a policy allowing only your email. Copy its
+   *Application Audience (AUD) tag*.
+3. Pages → little-outings-admin → Custom domains: add `admin.outings.allo.land`.
+4. Pages → little-outings-admin → Settings → Variables and Secrets (encrypted):
+   `ACCESS_TEAM_DOMAIN` (e.g. `spikinglabs.cloudflareaccess.com`), `ACCESS_AUD`, and
+   `GITHUB_TOKEN` (fine-grained, *Contents: read and write* on this repo only).
+
+Every request is checked against the Access token as well, so the admin refuses
+everything until steps 2 and 4 are done. To try it locally, run
+`cp design/tokens.css admin/public/ && npx wrangler pages dev` in `admin/`.

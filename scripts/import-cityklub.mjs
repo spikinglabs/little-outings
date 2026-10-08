@@ -1,10 +1,12 @@
-// Nightly import: cityklub public export → content/imported/cityklub/<id>.yaml
+// cityklub events → content/imported/cityklub/<id>.yaml, run before every build.
 //
-// Reads only the *public* export of spikinglabs/cityklub-event-data, which contains
-// nothing but approved, rights-cleared fields. Never needs credentials.
+// Reads data/outings.jsonl when it exists: the list published from the admin site
+// (admin/), already deduplicated and limited to family events. Otherwise reads
+// CITYKLUB_EXPORT, the public export of spikinglabs/cityklub-event-data.
 // Files here are rewritten every run. Human fixes go in content/overrides/<id>.yaml.
 //
-//   CITYKLUB_EXPORT=https://…/public/exports/events.jsonl npm run import:cityklub
+//   npm run import:cityklub
+//   CITYKLUB_EXPORT=https://…/exports/events.jsonl npm run import:cityklub
 //   CITYKLUB_EXPORT=tests/fixtures/public-events.jsonl npm run import:cityklub
 import { readFileSync, readdirSync, writeFileSync, mkdirSync, unlinkSync, existsSync } from "node:fs";
 import { join } from "node:path";
@@ -13,6 +15,7 @@ import { dump, load } from "js-yaml";
 const SOURCE_NAMES = { "cologne-city-events": "Stadt Köln" };
 const FAMILY = new Set(["children_mentioned", "family_mentioned"]);
 const ONLINE = /^online\b/i;
+const PUBLISHED = process.env.OUTINGS_FILE || "data/outings.jsonl";
 
 const slug = (s) =>
   String(s).toLowerCase().normalize("NFKD").replace(/[̀-ͯ]/g, "").replace(/ß/g, "ss")
@@ -29,13 +32,15 @@ export function fromExport(row, { towns, today }) {
   if (!row.event_id || !row.title || !row.start_date || !row.source_url) return null;
   if ((row.end_date || row.start_date) < today) return null;
   if (ONLINE.test(row.venue || "")) return null;
-  if (!(row.categories || []).some((c) => FAMILY.has(c))) return null;
+  // Published outings are family events by construction; export rows carry categories.
+  if (row.family !== true && !(row.categories || []).some((c) => FAMILY.has(c))) return null;
   const loc = row.location || {};
   const town = towns.find((t) => t.name.toLowerCase() === String(loc.city || "").toLowerCase());
   if (!town) return null;
 
-  const sourceId = row.provenance?.[0]?.source_id || "";
-  const attribution = row.rights?.attribution_text || SOURCE_NAMES[sourceId] || sourceId || "cityklub";
+  const sourceId = row.provenance?.[0]?.source_id || row.source_id || "";
+  const attribution = row.rights?.attribution_text || row.attribution_text || SOURCE_NAMES[sourceId]
+    || row.source_name || sourceId || "cityklub";
   const hasPoint = typeof loc.latitude === "number" && typeof loc.longitude === "number";
   const street = [loc.street, loc.house_number].filter(Boolean).join(" ");
   const out = {
@@ -71,10 +76,10 @@ function loadTowns(dir) {
 }
 
 async function main() {
-  const location = process.env.CITYKLUB_EXPORT;
+  const location = existsSync(PUBLISHED) ? PUBLISHED : process.env.CITYKLUB_EXPORT;
   if (!location) {
-    console.error("Set CITYKLUB_EXPORT to the public events.jsonl URL or a local file.");
-    process.exit(1);
+    console.log(`cityklub: nothing to import (no ${PUBLISHED} and no CITYKLUB_EXPORT).`);
+    return;
   }
   const root = process.env.CONTENT_DIR || "content";
   const towns = loadTowns(join(root, "regions"));

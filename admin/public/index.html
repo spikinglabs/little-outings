@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Little Outings admin</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%236f4a2a'/%3E%3Cpath d='M9 22l7-12 7 12z' fill='%23ffcc00'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="admin.css">
+  <script type="module" src="admin.js"></script>
+</head>
+<body>
+  <div class="flag" aria-hidden="true"><i></i><i></i><i></i></div>
+  <header class="top">
+    <div class="brand">
+      <span class="mark" aria-hidden="true">▲</span>
+      <div>
+        <h1>Little Outings admin</h1>
+        <p class="sub" id="who">Loading…</p>
+      </div>
+    </div>
+    <div class="publish">
+      <span class="save" id="save" role="status" aria-live="polite"></span>
+      <button class="primary" id="publish" disabled>Publish</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="banner" id="banner" hidden></div>
+
+    <section class="stats" id="stats" aria-label="Summary"></section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Sources</h2>
+        <p>Cleared sources are in by default. Including any other source puts its event facts on the public site, so only switch one on once you're happy with its rights.</p>
+      </div>
+      <div class="table-wrap"><table class="sources" id="sources"></table></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Events</h2>
+        <p>Override a single event, or fix its title and address. Every change saves automatically and goes live when you press Publish.</p>
+      </div>
+      <form class="filters" id="filters" role="search">
+        <label>Search <input type="search" name="q" placeholder="Title, venue, town"></label>
+        <label>Source <select name="source"><option value="">All sources</option></select></label>
+        <label>Town <select name="town"><option value="">All towns</option></select></label>
+        <label>Show
+          <select name="state">
+            <option value="">Everything</option>
+            <option value="published">Will be published</option>
+            <option value="unpublished">Won't be published</option>
+            <option value="changed">Changed by you</option>
+            <option value="duplicates">Merged duplicates</option>
+            <option value="noaddress">No street address</option>
+          </select>
+        </label>
+      </form>
+      <p class="count" id="count"></p>
+      <ol class="events" id="events"></ol>
+      <button class="more" id="more" hidden>Show more</button>
+    </section>
+  </main>
+
+  <dialog id="editor">
+    <form method="dialog" id="edit-form">
+      <h2>Edit event</h2>
+      <p class="sub" id="edit-source"></p>
+      <label>Title <input name="title" maxlength="300"></label>
+      <label>Venue <input name="venue" maxlength="300"></label>
+      <div class="pair">
+        <label>Street <input name="street" maxlength="120"></label>
+        <label>No. <input name="house_number" maxlength="120"></label>
+      </div>
+      <div class="pair">
+        <label>Postcode <input name="postal_code" maxlength="120"></label>
+        <label>Town <input name="city" maxlength="120"></label>
+      </div>
+      <label>Time <input name="time_text" maxlength="300" placeholder="e.g. 15:00–17:00"></label>
+      <label>Price <input name="price_text" maxlength="300" placeholder="e.g. Eintritt frei"></label>
+      <label>Note to yourself <textarea name="note" rows="2" maxlength="1000"></textarea></label>
+      <p class="hint">Leave a field as it is to keep the source's value. Changing the street drops the source's map point, so the event shows at town level until it has one again.</p>
+      <div class="dialog-actions">
+        <button value="reset" class="ghost" id="edit-reset">Undo all edits</button>
+        <span></span>
+        <button value="cancel" class="ghost">Cancel</button>
+        <button value="save" class="primary">Save</button>
+      </div>
+    </form>
+  </dialog>
+</body>
+</html>
