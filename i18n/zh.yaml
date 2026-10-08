@@ -33,7 +33,7 @@ saved: 已收藏
 route: 规划路线
 routeTown: 导航到市中心
 until: 至
-locPill: { venue: 大致位置, area: "带数字的圆圈：仅知城市" }
+locPill: { venue: 大致位置, area: 仅知城市 }
 locNote: { venue: 地图上的位置只是大概。, area: "目前只知道在{town}的某处。", unknown: 地点暂缺。 }
 approxKm: "约 {d} 公里"
 nearby: 就在附近
@@ -58,6 +58,10 @@ answered: 谢谢！两位家长的回答一致后，我们就会采用。
 inboxSoon: 谢谢！提交功能正在搭建中，目前请通过 GitHub 反馈。
 mapTitle: 地图
 mapSub: "{home}附近{when}的活动和地点。"
+mapListTitle: "地图范围内"
+mapCount: { one: "1 项", other: "{n} 项" }
+mapListEmpty: "这一区域未来两周没有活动。请移动或缩小地图。"
+mapShowMore: "再显示 {n} 项"
 mapMore: "还有 {n} 个"
 legend: { event: 活动, place: 地点，随时可去, approx: 虚线圈：大致位置, area: 带数字的圆圈：仅知城市 }
 savedTitle: 收藏
