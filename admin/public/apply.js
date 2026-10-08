@@ -77,6 +77,25 @@ export function sourceSummary(candidates, decisions) {
     .sort((a, b) => b.candidates - a.candidates || a.name.localeCompare(b.name));
 }
 
+/** Lower-case, German umlauts spelled out and other accents dropped, so "dueren" finds "Düren". */
+export function fold(text) {
+  return String(text ?? "").toLowerCase()
+    .replace(/ä/g, "ae").replace(/ö/g, "oe").replace(/ü/g, "ue").replace(/ß/g, "ss")
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
+/** Whether every word of the query appears in the row's title, venue, address, source or date. */
+export function matchesSearch(row, query, edits = {}) {
+  const words = fold(query).split(/\s+/).filter(Boolean);
+  if (!words.length) return true;
+  const loc = row.location || {};
+  const hay = fold([
+    row.title, edits.title, row.venue, edits.venue, loc.city, loc.district, loc.postal_code, loc.street,
+    edits.location?.city, edits.location?.street, row.source_name, row.source_id, row.start_date,
+  ].filter(Boolean).join(" "));
+  return words.every((w) => hay.includes(w));
+}
+
 export function parseJsonl(text) {
   return text.split("\n").filter((line) => line.trim()).map((line) => JSON.parse(line));
 }

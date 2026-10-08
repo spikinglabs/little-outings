@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { applyEdits, publishRows, rowState, sourceSummary, emptyDecisions } from "../admin/public/apply.js";
+import { applyEdits, matchesSearch, publishRows, rowState, sourceSummary, emptyDecisions } from "../admin/public/apply.js";
 import { cleanDecisions } from "../admin/lib/validate.js";
 import { verifyAccess } from "../admin/lib/access.js";
 import { onRequestPut as saveDecisions } from "../admin/functions/api/decisions.js";
@@ -39,6 +39,17 @@ test("edits replace fields, and a new street drops the old map point", () => {
   assert.equal(out.location.street, "Subbelrather Str.");
   assert.equal(out.location.latitude, undefined);
   assert.equal(applyEdits(koeln, { venue: "Bürgerzentrum" }).location.latitude, 50.9);
+});
+
+test("search ignores umlauts and case, and needs every word", () => {
+  const dueren = { ...koeln, title: "Märchenstunde", location: { city: "Düren", postal_code: "52349" } };
+  assert.equal(matchesSearch(dueren, "dueren"), true);
+  assert.equal(matchesSearch(dueren, "DÜREN maerchen"), true);
+  assert.equal(matchesSearch(dueren, "52349"), true);
+  assert.equal(matchesSearch(dueren, "stadt köln"), true);
+  assert.equal(matchesSearch(dueren, "dueren kino"), false);
+  assert.equal(matchesSearch(dueren, "   "), true);
+  assert.equal(matchesSearch(dueren, "kino", { title: "Kinotag" }), true);
 });
 
 test("decisions are validated strictly", () => {

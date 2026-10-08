@@ -1,4 +1,4 @@
-import { EDITABLE, EDITABLE_LOCATION, publishRows, rowState, sourceSummary } from "./apply.js";
+import { EDITABLE, EDITABLE_LOCATION, matchesSearch, publishRows, rowState, sourceSummary } from "./apply.js";
 
 const PAGE = 50;
 const state = { candidates: [], decisions: null, etag: null, manifest: null, lastPublish: null, user: null, shown: PAGE };
@@ -160,7 +160,7 @@ function renderSources() {
 
 function filtered() {
   const form = new FormData($("filters"));
-  const q = String(form.get("q") || "").toLowerCase().trim();
+  const q = String(form.get("q") || "");
   const source = form.get("source");
   const town = form.get("town");
   const show = form.get("state");
@@ -173,10 +173,7 @@ function filtered() {
     if (show === "changed" && !entry) return false;
     if (show === "duplicates" && !row.also_listed?.length) return false;
     if (show === "noaddress" && (entry?.edits?.location?.street || row.location?.street)) return false;
-    if (q) {
-      const hay = [row.title, row.venue, row.location?.city, row.location?.street, entry?.edits?.title].join(" ").toLowerCase();
-      if (!hay.includes(q)) return false;
-    }
+    if (!matchesSearch(row, q, entry?.edits)) return false;
     return true;
   });
 }
