@@ -9,7 +9,7 @@ ask: "<em>{when}</em>带孩子去哪儿玩？"
 near: 附近：
 search: 搜索
 searchPh: 搜索农场、咖啡馆、游乐场或活动
-filters: { rain: "☂ 下雨也能去", free: 免费, animals: 有动物, changing: 尿布台, age: 年龄, ageAll: 全部, radius: 范围 }
+filters: { farm: "🚜 农场", rain: "☂ 下雨也能去", free: 免费, animals: 有动物, changing: 尿布台, age: 年龄, ageAll: 全部, radius: 范围 }
 tip: "{when}推荐"
 only: "仅限{when}"
 always: 随时可去

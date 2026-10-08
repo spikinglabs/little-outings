@@ -9,7 +9,7 @@ ask: "Was machen wir <em>{when}</em> mit den Kindern?"
 near: Rund um
 search: Suche
 searchPh: Hof, Café, Spielplatz oder Fest suchen
-filters: { rain: "☂ Bei Regen", free: Kostenlos, animals: Mit Tieren, changing: Wickeltisch, age: Alter, ageAll: alle, radius: Umkreis }
+filters: { farm: "🚜 Bauernhof", rain: "☂ Bei Regen", free: Kostenlos, animals: Mit Tieren, changing: Wickeltisch, age: Alter, ageAll: alle, radius: Umkreis }
 tip: "Unser Tipp {when}"
 only: "Nur {when}"
 always: Geht immer

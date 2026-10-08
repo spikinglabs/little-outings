@@ -45,6 +45,19 @@ export const routeUrl = (lat: number, lon: number) =>
 
 export const isFree = (x: Item) => (x.type === "place" ? !!x.free : !!x.price?.free);
 
+// Farm words in German and English. "Gut" only counts as an estate name ("Gut Hixholz"), not the adjective.
+const FARM = /bauernhof|erlebnishof|reiterhof|ponyhof|hofladen|hoffest|hofcaf|bauernmarkt|landwirt|\bfarm|\bhof\b/i;
+const ESTATE = /\bGut [A-ZÄÖÜ]/;
+/** A farm place, an event at one, or an event whose title, venue or source names a farm or Hof. */
+export function isFarm(x: Item, place?: Item): boolean {
+  if (x.type === "place") return x.kind === "farm";
+  if (place?.type === "place" && place.kind === "farm") return true;
+  const text = [x.title, x.venue, x.trust.source]
+    .flatMap((v) => (v == null ? [] : typeof v === "string" ? [v] : Object.values(v)))
+    .join(" | ");
+  return FARM.test(text) || ESTATE.test(text);
+}
+
 /** Compact date for small signs: "Sa 11. Okt", "Sat 11 Oct", "10月11日 周六". */
 export function shortDate(t: T, d: string) {
   const p = stampParts(t, d);

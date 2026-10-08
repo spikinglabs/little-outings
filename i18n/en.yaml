@@ -9,7 +9,7 @@ ask: "What shall we do with the kids <em>{when}</em>?"
 near: Around
 search: Search
 searchPh: Search farms, cafés, playgrounds or festivals
-filters: { rain: "☂ Rainy day", free: Free, animals: Animals, changing: Changing table, age: Age, ageAll: all, radius: Within }
+filters: { farm: "🚜 Farm", rain: "☂ Rainy day", free: Free, animals: Animals, changing: Changing table, age: Age, ageAll: all, radius: Within }
 tip: "Our pick {when}"
 only: "Only {when}"
 always: Always a good idea
