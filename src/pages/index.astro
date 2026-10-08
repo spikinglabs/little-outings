@@ -1,0 +1,23 @@
+---
+// The root picks a language from the browser and falls back to German.
+---
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Little Outings</title>
+    <meta http-equiv="refresh" content="0; url=/de/" />
+    <link rel="alternate" hreflang="de" href="/de/" />
+    <link rel="alternate" hreflang="en" href="/en/" />
+    <link rel="alternate" hreflang="zh" href="/zh/" />
+    <script is:inline>
+      try {
+        var l = (navigator.languages || [navigator.language || "de"]).map(function (x) { return x.slice(0, 2); })
+          .find(function (x) { return x === "de" || x === "en" || x === "zh"; }) || "de";
+        location.replace("/" + l + "/");
+      } catch (e) {}
+    </script>
+  </head>
+  <body><a href="/de/">Deutsch</a> · <a href="/en/">English</a> · <a href="/zh/">中文</a></body>
+</html>

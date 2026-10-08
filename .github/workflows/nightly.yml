@@ -1,0 +1,34 @@
+name: Nightly import and rebuild
+on:
+  schedule:
+    - cron: "15 2 * * *" # 02:15 UTC, after the cityklub export
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - name: Import the cityklub public export
+        if: ${{ vars.CITYKLUB_EXPORT != '' }}
+        env:
+          CITYKLUB_EXPORT: ${{ vars.CITYKLUB_EXPORT }}
+        run: npm run import:cityklub
+      - name: Check the import still builds
+        run: npm run build
+      - name: Commit changed imports
+        run: |
+          git config user.name "little-outings bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add content/imported
+          git diff --cached --quiet || git commit -m "Nightly cityklub import"
+          git push
+      # Dates move every day ("today", "this weekend"), so rebuild even when nothing changed.
+      - name: Trigger a Cloudflare Pages rebuild
+        env:
+          HOOK: ${{ secrets.CF_DEPLOY_HOOK }}
+        run: if [ -n "$HOOK" ]; then curl -fsS -X POST "$HOOK"; else echo "CF_DEPLOY_HOOK not set"; fi

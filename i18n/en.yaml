@@ -1,0 +1,96 @@
+locale: en-GB
+langName: English
+siteName: Little Outings
+tagline: Family outings near you
+tabs: { explore: Discover, map: Map, saved: Saved, add: Contribute }
+when: { today: Today, tomorrow: Tomorrow, weekend: Weekend, soon: Next 2 weeks }
+whenIn: { today: today, tomorrow: tomorrow, weekend: this weekend, soon: in the next 2 weeks }
+ask: "What shall we do with the kids <em>{when}</em>?"
+near: Around
+search: Search
+searchPh: Search farms, cafés, playgrounds or festivals
+filters: { rain: "☂ Rainy day", free: Free, animals: Animals, changing: Changing table, age: Age, ageAll: all, radius: Within }
+tip: "Our pick {when}"
+only: "Only {when}"
+always: Always a good idea
+allKinds: All
+nEvents: { one: "1 event", other: "{n} events" }
+nPlaces: { one: "1 place within {r} km", other: "{n} places within {r} km" }
+noEvents: No events match these filters. Try a bigger radius or another day.
+noPlaces: No places nearby match these filters.
+nothingMore: That's everything in this period.
+soonAt: { one: "1 upcoming event", other: "{n} upcoming events" }
+allAges: All ages
+years: "Ages {a}–{b}"
+indoorPill: Rain-proof
+indoor: Indoors, fine when it rains
+outdoor: Outdoors
+free: Free
+paid: Paid entry
+trust: { verified: "✓ Checked", official: Official source, community: "Reported by parents, not checked yet" }
+save: Save
+saved: Saved
+route: Get directions
+routeTown: Directions to the town centre
+until: to
+locPill: { venue: Approximate location, area: Town only }
+locNote: { venue: "The pin is only approximate.", area: "All we know: somewhere in {town}.", unknown: "The location is still missing." }
+approxKm: "about {d} km"
+nearby: nearby
+thePlace: The place
+forFamilies: For families
+unknownNote: "? means we don't know yet. Been there? Tell us."
+confirmedBy: "confirmed {n}×"
+upcomingHere: Coming up here
+parentsSay: "Parents say · ★ {r} from {n} reviews"
+onPoster: On the poster
+translated: Translated from German.
+gapsTitle: Still missing
+gapsSub: Know any of this? One answer is enough.
+gapLabel: { where: "Where?", time: "When?", price: Price, fac: Facilities, still: "Still on?", hours: Opening hours }
+q: { where: "Where exactly is it?", time: "What time?", price: "How much does it cost?", hours: "When is it open?", fac: "Is there: {f}?", still: "Is it happening as listed?" }
+ph: { where: Address or meeting point, time: "e.g. 14:00–17:00", price: "e.g. €3 per child", hours: "e.g. Sat–Sun 10:00–18:00" }
+"yes": "Yes"
+"no": "No"
+dunno: Not sure
+send: Send
+answered: Thanks! Once two parents agree, we add it.
+inboxSoon: Thanks! Sending is being set up. Until then, please report via GitHub.
+mapTitle: Map
+mapSub: "Events {when} and places around {home}."
+legend: { event: Event, place: "Place, any day", approx: "Dashed ring: approximate", area: "Shaded area: town only" }
+savedTitle: Saved
+savedSub: Stays on this device.
+savedEmpty: Nothing saved yet. Tap the bookmark on an event or place.
+events: Events
+places: Places
+addTitle: Contribute
+addSub: Saw a poster at a farm shop or know a great playground? Tell us, in English, German or Chinese. We check every tip before it goes live.
+posterTitle: Saw a poster? Just snap it.
+posterSub: Or paste a link or a message. We read the name, date, time and place automatically; you just give it a quick check.
+posterBtn: Take or upload a photo of the poster
+orPaste: or paste a link or text
+pastePh: Website, Instagram post or WhatsApp message
+pasteBtn: Read it
+posterNote: The photo is never published, only the facts.
+tasksTitle: Quick tasks near you
+tasksSub: Each takes a minute and makes the site better for every family.
+kinds: { farm: Farm, cafe: Café, playground: Playground, park: "Park & woods", museum: Museum, pool: Swimming pool }
+features: { playground: Playground, changing_table: Changing table, highchairs: High chairs, kids_menu: "Kids' menu", toys: "Toys & little gifts", animals: Animals, stroller_friendly: Pram-friendly, nursing_room: Nursing corner, indoor_play: Indoor play area, toilets: Toilets, farm_shop: Farm shop, parking: Parking }
+tags: { fest: Festival, animals: Animals, market: Market, diy: Hands-on, season: Seasonal, reading: Story time, music: Music, outside: Outdoors }
+empty: Nothing listed here yet. Know something? Add it under Contribute.
+footer: "No guarantee for any listing. Please check with the organiser before you go."
+dataFrom: "Data includes {sources}."
+back: Back
+km: "{d} km"
+untilShort: until
+website: Website
+source: Source
+demo: Demo with made-up example data.
+reading: Reading …
+draftTitle: Please check quickly
+pleaseCheck: Please check
+field: { title: Title, date: Date, time: Time, place: Place or address, price: Price, note: "What's on for kids?" }
+parseSoon: Automatic reading isn't set up yet. Please fill in the fields yourself.
+typeIt: Type it in yourself
+mapNoJs: The map needs JavaScript. Everything is also listed under Discover.

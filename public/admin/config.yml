@@ -1,0 +1,268 @@
+# Sveltia CMS (Decap-compatible). Editors sign in with GitHub; every save is a commit or PR.
+# Field lists mirror src/content.config.ts. The build validates every file, so a mistake fails the PR preview, not the site.
+backend:
+  name: github
+  repo: spikinglabs/little-outings
+  branch: main
+publish_mode: editorial_workflow
+media_folder: public/images
+collections:
+- name: places
+  label: Orte
+  folder: content/places
+  path: '{{slug}}'
+  extension: md
+  format: frontmatter
+  create: true
+  nested:
+    depth: 2
+  identifier_field: name
+  fields:
+  - name: kind
+    label: Art
+    widget: select
+    options:
+    - farm
+    - cafe
+    - playground
+    - park
+    - museum
+    - pool
+  - name: name
+    label: Name
+  - name: address
+    label: Adresse
+    widget: object
+    fields:
+    - name: street
+      label: Straße
+      required: false
+    - name: postcode
+      label: PLZ
+      required: false
+    - name: town
+      label: Ort
+  - name: geo
+    label: Position
+    widget: object
+    required: false
+    fields:
+    - name: lat
+      widget: number
+      value_type: float
+      required: false
+    - name: lon
+      widget: number
+      value_type: float
+      required: false
+    - name: precision
+      label: Genauigkeit
+      widget: select
+      options:
+      - exact
+      - venue
+      - area
+      - unknown
+      default: exact
+  - label: Öffnungszeiten
+    widget: object
+    fields: &id001
+    - name: de
+      label: Deutsch
+      widget: text
+    - name: en
+      label: English
+      widget: text
+      required: false
+    - name: zh
+      label: 中文
+      widget: text
+      required: false
+    name: hours
+    required: false
+  - name: ages
+    label: Alter (von, bis)
+    widget: list
+    required: false
+    field:
+      name: age
+      widget: number
+  - name: indoor
+    label: Drinnen
+    widget: boolean
+    required: false
+  - name: free
+    label: Kostenlos
+    widget: boolean
+    required: false
+  - label: Beschreibung
+    widget: object
+    fields: *id001
+    name: note
+    required: false
+  - name: trust
+    label: Prüfung
+    widget: object
+    fields:
+    - name: level
+      widget: select
+      options:
+      - verified
+      - official
+      - community
+      default: community
+    - label: Quelle
+      widget: object
+      fields: *id001
+      name: source
+      required: false
+  - name: website
+    label: Website
+    required: false
+- name: events
+  label: Termine
+  folder: content/events
+  path: '{{year}}/{{slug}}'
+  extension: md
+  format: frontmatter
+  create: true
+  nested:
+    depth: 2
+  identifier_field: title.de
+  fields:
+  - label: Titel
+    widget: object
+    fields: *id001
+    name: title
+  - name: place
+    label: Ort-ID (optional, erbt Adresse und Ausstattung)
+    required: false
+  - name: venue
+    label: Veranstaltungsort
+    required: false
+  - name: town
+    label: Stadt
+    required: false
+  - name: start
+    label: Beginn
+    widget: datetime
+    date_format: YYYY-MM-DD
+    time_format: false
+    format: YYYY-MM-DD
+  - name: end
+    label: Ende
+    widget: datetime
+    date_format: YYYY-MM-DD
+    time_format: false
+    format: YYYY-MM-DD
+    required: false
+  - name: time
+    label: Uhrzeit
+    required: false
+  - name: price
+    label: Preis
+    widget: object
+    required: false
+    fields:
+    - name: free
+      label: Kostenlos
+      widget: boolean
+    - label: Preistext
+      widget: object
+      fields: *id001
+      name: text
+      required: false
+  - name: tags
+    label: Themen
+    widget: select
+    multiple: true
+    required: false
+    options:
+    - fest
+    - animals
+    - market
+    - diy
+    - season
+    - reading
+    - music
+    - outside
+  - label: Beschreibung
+    widget: object
+    fields: *id001
+    name: note
+    required: false
+  - name: trust
+    label: Prüfung
+    widget: object
+    fields:
+    - name: level
+      widget: select
+      options:
+      - verified
+      - official
+      - community
+      default: community
+    - label: Quelle
+      widget: object
+      fields: *id001
+      name: source
+      required: false
+  - name: website
+    label: Website
+    required: false
+- name: overrides
+  label: Korrekturen (Import)
+  folder: content/overrides
+  extension: yaml
+  format: yaml
+  create: true
+  identifier_field: title
+  fields:
+  - name: hidden
+    label: Ausblenden
+    widget: boolean
+    required: false
+  - name: venue
+    label: Veranstaltungsort
+    required: false
+  - name: time
+    label: Uhrzeit
+    required: false
+  - name: geo
+    label: Position
+    widget: object
+    required: false
+    fields:
+    - name: lat
+      widget: number
+      value_type: float
+    - name: lon
+      widget: number
+      value_type: float
+    - name: precision
+      widget: select
+      options:
+      - exact
+      - venue
+      default: exact
+  - name: price
+    label: Preis
+    widget: object
+    required: false
+    fields:
+    - name: free
+      widget: boolean
+  - name: tags
+    label: Themen
+    widget: select
+    multiple: true
+    required: false
+    options:
+    - fest
+    - animals
+    - market
+    - diy
+    - season
+    - reading
+    - music
+    - outside

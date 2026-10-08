@@ -1,0 +1,46 @@
+---
+// Mitmachen: send a poster, link or text, and answer quick tasks (anything still missing).
+import Base from "../../layouts/Base.astro";
+import GapBox from "../../components/GapBox.astro";
+import Contribute from "../../islands/Contribute";
+import { KIND_ICON, svg } from "../../lib/icons";
+import { LANGS, tr, useT, type Lang } from "../../lib/i18n";
+import { getData, getTasks } from "../../lib/data";
+import { pathFor, shortDate, townName } from "../../lib/format";
+
+export const getStaticPaths = () => LANGS.map((lang) => ({ params: { lang } }));
+const lang = Astro.params.lang as Lang;
+const t = useT(lang);
+const { region, eventById, placeById } = await getData();
+const tasks = (await getTasks()).slice(0, 30);
+const keys = ["posterTitle", "posterSub", "posterBtn", "orPaste", "pastePh", "pasteBtn", "posterNote", "reading",
+  "draftTitle", "pleaseCheck", "send", "answered", "inboxSoon", "parseSoon", "typeIt"];
+const ui = { ...Object.fromEntries(keys.map((k) => [k, t(k)])), field: t.group("field") } as any;
+---
+<Base lang={lang} title={t("addTitle")} tab="add">
+  <h1 class="page-title">{t("addTitle")}</h1>
+  <p class="page-sub">{t("addSub")}</p>
+  <Contribute client:visible lang={lang} ui={ui} />
+
+  <section class="section">
+    <div class="section-head"><h2>{t("tasksTitle")}</h2></div>
+    <p class="page-sub">{t("tasksSub")}</p>
+    <div class="grid" style="margin-top:12px">
+      {tasks.map((task) => {
+        const item = task.type === "event" ? eventById.get(task.id)! : placeById.get(task.id)!;
+        const title = item.type === "event" ? tr(item.title, lang) : item.name;
+        const s = item.type === "event" ? shortDate(t, item.start) : null;
+        return (
+          <div class="task" data-lat={item.geo.lat} data-lon={item.geo.lon} data-precision={item.geo.precision}>
+            <a class="task-item" href={pathFor(lang, item)}>
+              {s ? <span class="mini-stamp">{s}</span> : <span class="mini-stamp place" set:html={svg(KIND_ICON[(item as any).kind])} />}
+              <span><b>{title}</b><span class="meta">{townName(item.town, lang, region.towns)}<span data-km></span></span></span>
+            </a>
+            <GapBox item={item} t={t} compact />
+          </div>
+        );
+      })}
+      {tasks.length === 0 && <p class="empty">{t("empty")}</p>}
+    </div>
+  </section>
+</Base>

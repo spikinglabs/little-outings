@@ -1,0 +1,85 @@
+---
+import Base from "../../../layouts/Base.astro";
+import Card from "../../../components/Card.astro";
+import Stamp from "../../../components/Stamp.astro";
+import GapBox from "../../../components/GapBox.astro";
+import { LANGS, isFallback, tr, useT, type Lang } from "../../../lib/i18n";
+import { eventsAt, getData } from "../../../lib/data";
+import { ageText, routeUrl, townName } from "../../../lib/format";
+import { FEATURES } from "../../../content.config";
+import { FEATURE_ICON, UI_ICON, svg } from "../../../lib/icons";
+import type { Place } from "../../../lib/types";
+
+export async function getStaticPaths() {
+  const { places } = await getData();
+  return LANGS.flatMap((lang) => places.map((p) => ({ params: { lang, id: p.id }, props: { place: p } })));
+}
+const { place: p } = Astro.props as { place: Place };
+const lang = Astro.params.lang as Lang;
+const t = useT(lang);
+const { region, events } = await getData();
+const town = townName(p.town, lang, region.towns);
+const upcoming = eventsAt(events, p.id);
+// Known facilities first (yes, then no), unknown last: "?" means nobody has told us yet.
+const order = { yes: 0, no: 1, unknown: 2 } as const;
+const facs = FEATURES.map((f) => ({ f, ...(p.facilities[f] ?? { status: "unknown" as const, confirmed: 0 }) }))
+  .filter((x) => x.status !== "unknown" || ["playground", "changing_table", "highchairs", "kids_menu", "toys", "animals", "stroller_friendly"].includes(x.f))
+  .sort((a, b) => order[a.status] - order[b.status]);
+---
+<Base lang={lang} title={p.name} description={[t(`kinds.${p.kind}`), town].join(" · ")}>
+  <article class="detail" data-lat={p.geo.lat} data-lon={p.geo.lon} data-precision={p.geo.precision}>
+    <a class="back" href={`/${lang}/`}>← {t("back")}</a>
+    <div class="lead">
+      <Stamp item={p} t={t} />
+      <div>
+        <h1>{p.name}</h1>
+        <p class="orig">{t(`kinds.${p.kind}`)} · {town}<span data-km></span>{p.rating && ` · ★ ${p.rating.stars.toLocaleString(t.locale)}`}</p>
+      </div>
+    </div>
+    <ul class="facts">
+      <li><span>📍</span><span>{[p.street, [p.postcode, town].filter(Boolean).join(" ")].filter(Boolean).join(", ")}
+        {p.geo.precision !== "exact" && <><br /><small class="small">{t(`locNote.${p.geo.precision}`, { town })}</small></>}</span></li>
+      {p.hours && <li><span>🕘</span><span>{tr(p.hours, lang)}</span></li>}
+      {p.ages && <li><span>👧</span><span>{ageText(t, p.ages)}</span></li>}
+      {p.indoor != null && <li><span>{p.indoor ? "☂" : "☀"}</span><span>{p.indoor ? t("indoor") : t("outdoor")}</span></li>}
+      {p.free != null && <li><span>€</span><span>{p.free ? t("free") : t("paid")}</span></li>}
+    </ul>
+    {p.note && <p class="note">{tr(p.note, lang)}</p>}
+    {isFallback(p.note, lang) && <p class="orig">{t("translated")}</p>}
+
+    <h2>{t("forFamilies")}</h2>
+    <ul class="checks">
+      {facs.map(({ f, status, confirmed }) => (
+        <li class={status}>
+          <span class="dot" set:html={status === "unknown" ? "?" : svg(FEATURE_ICON[f])} />
+          <span>{t(`features.${f}`)}{status === "yes" && confirmed > 0 && <small>{t("confirmedBy", { n: confirmed })}</small>}</span>
+        </li>
+      ))}
+    </ul>
+    <p class="small">{t("unknownNote")}</p>
+
+    {p.rating && (
+      <>
+        <h2>{t("parentsSay", { r: p.rating.stars.toLocaleString(t.locale), n: p.rating.reviews })}</h2>
+        {p.quotes.map((q) => <blockquote class="quote">{tr(q.text, lang)}<small>{tr(q.who, lang)}</small></blockquote>)}
+      </>
+    )}
+
+    <div class="actions">
+      {p.geo.lat != null && p.geo.lon != null && (
+        <a class="btn primary" href={routeUrl(p.geo.lat, p.geo.lon)} target="_blank" rel="noopener">{p.geo.precision === "area" ? t("routeTown") : t("route")}</a>
+      )}
+      <button class="btn" type="button" data-save={p.id} aria-pressed="false"><Fragment set:html={svg(UI_ICON.saved, 'stroke-width="2" width="18" height="18"')} />{t("save")}</button>
+      {p.website && <a class="btn" href={p.website} target="_blank" rel="noopener">{t("website")} ↗</a>}
+    </div>
+
+    {upcoming.length > 0 && (
+      <section class="section">
+        <div class="section-head"><h2>{t("upcomingHere")}</h2></div>
+        <div class="grid">{upcoming.map((e) => <Card item={e} t={t} />)}</div>
+      </section>
+    )}
+
+    <GapBox item={p} t={t} />
+  </article>
+</Base>

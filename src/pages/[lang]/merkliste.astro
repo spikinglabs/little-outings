@@ -1,0 +1,43 @@
+---
+// The saved list lives in this browser only. Every card is rendered hidden; the script shows the saved ones.
+import Base from "../../layouts/Base.astro";
+import Card from "../../components/Card.astro";
+import { LANGS, useT, type Lang } from "../../lib/i18n";
+import { getData } from "../../lib/data";
+
+export const getStaticPaths = () => LANGS.map((lang) => ({ params: { lang } }));
+const lang = Astro.params.lang as Lang;
+const t = useT(lang);
+const { events, places } = await getData();
+---
+<Base lang={lang} title={t("savedTitle")} tab="saved">
+  <h1 class="page-title">{t("savedTitle")}</h1>
+  <p class="page-sub">{t("savedSub")}</p>
+  <section class="section" data-saved-section>
+    <div class="section-head"><h2>{t("events")}</h2></div>
+    <div class="grid">{events.map((e) => <Card item={e} t={t} hidden />)}</div>
+  </section>
+  <section class="section" data-saved-section>
+    <div class="section-head"><h2>{t("places")}</h2></div>
+    <div class="grid">{places.map((p) => <Card item={p} t={t} hidden />)}</div>
+  </section>
+  <p class="empty section" data-saved-empty>{t("savedEmpty")}</p>
+  <script>
+    import { saved } from "../../scripts/app";
+    function show() {
+      let total = 0;
+      document.querySelectorAll<HTMLElement>("[data-saved-section]").forEach((sec) => {
+        let n = 0;
+        sec.querySelectorAll<HTMLElement>(".item").forEach((el) => {
+          el.hidden = !saved.has(el.dataset.id!);
+          if (!el.hidden) n++;
+        });
+        sec.hidden = n === 0;
+        total += n;
+      });
+      document.querySelector<HTMLElement>("[data-saved-empty]")!.hidden = total > 0;
+    }
+    document.addEventListener("lo:saved", show);
+    show();
+  </script>
+</Base>

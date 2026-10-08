@@ -1,0 +1,18 @@
+---
+// The gold date sign for events (Ortstafel), the pale brown sign for places (tourist sign).
+import { stampParts } from "../lib/format";
+import { KIND_ICON, svg } from "../lib/icons";
+import type { T } from "../lib/i18n";
+import type { Item } from "../lib/types";
+
+interface Props { item: Item; t: T }
+const { item, t } = Astro.props;
+const p = item.type === "event" ? stampParts(t, item.start) : null;
+---
+{p ? (
+  <div class="stamp" aria-hidden="true" data-stamp={item.type === "event" ? `${item.start}|${item.end}` : undefined}>
+    <div class="dow">{p.dow}</div><div class="d">{p.day}</div><div class="m">{p.mon}</div>
+  </div>
+) : (
+  <div class="stamp place" aria-hidden="true" set:html={svg(KIND_ICON[(item as any).kind] ?? KIND_ICON.park)} />
+)}

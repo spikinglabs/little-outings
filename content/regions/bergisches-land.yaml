@@ -1,0 +1,52 @@
+# Launch region. Town anchors are used for "Nur Stadt bekannt" locations and the "Rund um" picker.
+name:
+  de: Bergisches Land und Umgebung
+  en: Bergisches Land and around
+  zh: 贝吉施地区及周边
+center: Velbert
+towns:
+- name: Velbert
+  lat: 51.34
+  lon: 7.043
+  zh: 费尔伯特
+- name: Wuppertal
+  lat: 51.256
+  lon: 7.15
+  zh: 伍珀塔尔
+- name: Heiligenhaus
+  lat: 51.326
+  lon: 6.971
+  zh: 海利根豪斯
+- name: Mettmann
+  lat: 51.25
+  lon: 6.975
+  zh: 梅特曼
+- name: Haan
+  lat: 51.193
+  lon: 7.013
+  zh: 哈恩
+- name: Ratingen
+  lat: 51.297
+  lon: 6.849
+  zh: 拉廷根
+- name: Düsseldorf
+  lat: 51.227
+  lon: 6.773
+  zh: 杜塞尔多夫
+- name: Köln
+  lat: 50.938
+  lon: 6.96
+  zh: 科隆
+  en: Cologne
+- name: Bergisch Gladbach
+  lat: 50.992
+  lon: 7.129
+  zh: 贝吉施格拉德巴赫
+- name: Leverkusen
+  lat: 51.03
+  lon: 6.984
+  zh: 勒沃库森
+- name: Essen
+  lat: 51.455
+  lon: 7.011
+  zh: 埃森
