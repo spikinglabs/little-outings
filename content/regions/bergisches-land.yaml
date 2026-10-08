@@ -62,3 +62,7 @@ towns:
   lat: 50.775
   lon: 6.084
   zh: 亚琛
+- name: Düren
+  lat: 50.804
+  lon: 6.493
+  zh: 迪伦
