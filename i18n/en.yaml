@@ -33,7 +33,7 @@ saved: Saved
 route: Get directions
 routeTown: Directions to the town centre
 until: to
-locPill: { venue: Approximate location, area: Town only }
+locPill: { venue: Approximate location, area: "Circle with a number: town only" }
 locNote: { venue: "The pin is only approximate.", area: "All we know: somewhere in {town}.", unknown: "The location is still missing." }
 approxKm: "about {d} km"
 nearby: nearby
@@ -58,7 +58,8 @@ answered: Thanks! Once two parents agree, we add it.
 inboxSoon: Thanks! Sending is being set up. Until then, please report via GitHub.
 mapTitle: Map
 mapSub: "Events {when} and places around {home}."
-legend: { event: Event, place: "Place, any day", approx: "Dashed ring: approximate", area: "Shaded area: town only" }
+mapMore: "and {n} more"
+legend: { event: Event, place: "Place, any day", approx: "Dashed ring: approximate", area: "Circle with a number: town only" }
 savedTitle: Saved
 savedSub: Stays on this device.
 savedEmpty: Nothing saved yet. Tap the bookmark on an event or place.

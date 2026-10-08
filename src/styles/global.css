@@ -175,6 +175,9 @@ h1, h2, h3 { font-family: var(--display); text-wrap: balance; letter-spacing: -0
 .pin { width: 26px; height: 26px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); display: grid; place-items: center; box-shadow: 0 1px 3px rgb(0 0 0 / .35); border: 2px solid #fff; }
 .pin.event { background: #ffcc00; }
 .pin.place { background: #6f4a2a; }
+.area-count { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: #fff; color: #6f4a2a; border: 2px dashed #6f4a2a; font: 700 13px/1 var(--sign, inherit); font-variant-numeric: tabular-nums; box-shadow: 0 1px 3px rgb(0 0 0 / .25); }
+.area-list { margin: 6px 0; padding-left: 16px; max-height: 220px; overflow-y: auto; }
+.area-list li + li { margin-top: 4px; }
 .pin.approx { outline: 2px dashed #17191b; outline-offset: 3px; }
 
 footer.foot { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--ink-soft); font-size: .82rem; }
