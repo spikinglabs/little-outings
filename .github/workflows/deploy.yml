@@ -68,8 +68,11 @@ jobs:
           TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           ACCOUNT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
-          if [ -n "$TOKEN" ] && [ -n "$ACCOUNT" ]; then echo "ok=true" >> "$GITHUB_OUTPUT"
-          else echo "::notice::Cloudflare secrets not set; skipping deploy."; fi
+          missing=""
+          [ -n "$TOKEN" ] || missing="$missing CLOUDFLARE_API_TOKEN"
+          [ -n "$ACCOUNT" ] || missing="$missing CLOUDFLARE_ACCOUNT_ID"
+          if [ -z "$missing" ]; then echo "ok=true" >> "$GITHUB_OUTPUT"
+          else echo "::notice::Missing repository secret(s):$missing; skipping deploy."; fi
       - name: Create the Pages project if it doesn't exist
         if: steps.cf.outputs.ok == 'true'
         env:
