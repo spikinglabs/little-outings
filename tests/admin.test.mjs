@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { applyEdits, matchesSearch, publishRows, rowState, sourceSummary, emptyDecisions } from "../admin/public/apply.js";
+import { applyEdits, familyMatch, matchesSearch, publishRows, rowState, sourceSummary, emptyDecisions } from "../admin/public/apply.js";
 import { cleanDecisions } from "../admin/lib/validate.js";
 import { verifyAccess } from "../admin/lib/access.js";
 import { onRequestPut as saveDecisions } from "../admin/functions/api/decisions.js";
@@ -52,7 +52,29 @@ test("search ignores umlauts and case, and needs every word", () => {
   assert.equal(matchesSearch(dueren, "kino", { title: "Kinotag" }), true);
 });
 
+test("included sources publish only keyword matches; Show and Hide still win", () => {
+  const zoo = { ...koeln, event_id: "z1", title: "Herbsttag im Zoo", family: false, family_signals: [], also_listed: undefined };
+  const konzert = { ...zoo, event_id: "k1", title: "Orgelkonzert" };
+  const lesung = { ...konzert, event_id: "l1", title: "Lesung", family: true, family_signals: ["description:kinder"] };
+  const d = emptyDecisions();
+  assert.deepEqual(publishRows([koeln, zoo, konzert, lesung], d).map((r) => r.event_id), ["ck1", "z1", "l1"]);
+  assert.equal(publishRows([koeln], d)[0].family, true);
+  assert.deepEqual(rowState(konzert, d), { published: false, reason: "no keyword match" });
+  assert.deepEqual(familyMatch(koeln, d).words, ["kind"]);
+
+  const own = { ...d, keywords: ["Märchen", "konzert"], use_detected: false, events: { z1: { visibility: "show" }, ck1: { visibility: "hide" } } };
+  assert.deepEqual(publishRows([koeln, zoo, konzert, lesung], own).map((r) => r.event_id), ["z1", "k1"]);
+  assert.equal(familyMatch({ ...konzert, title: "Maerchenkonzert" }, own).words.length, 2);
+  // An edited title is matched as edited.
+  assert.equal(familyMatch(konzert, own, { title: "Lesung" }).matched, false);
+});
+
 test("decisions are validated strictly", () => {
+  assert.deepEqual(cleanDecisions({ keywords: [" Zoo ", "zoo", "Zoo"], use_detected: false }),
+    { schema_version: 1, sources: {}, events: {}, keywords: ["Zoo", "zoo"], use_detected: false });
+  assert.throws(() => cleanDecisions({ keywords: "zoo" }));
+  assert.throws(() => cleanDecisions({ keywords: [""] }));
+  assert.throws(() => cleanDecisions({ use_detected: "yes" }));
   assert.deepEqual(cleanDecisions({ sources: { a: "include" }, events: { e1: { visibility: "hide", edits: { title: "x", location: { city: "Köln" } }, extra: 1 }, e2: {} } }),
     { schema_version: 1, sources: { a: "include" }, events: { e1: { visibility: "hide", edits: { title: "x", location: { city: "Köln" } } } } });
   assert.throws(() => cleanDecisions({ sources: { a: "maybe" } }));

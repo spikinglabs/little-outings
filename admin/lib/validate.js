@@ -14,6 +14,18 @@ export function cleanDecisions(input) {
     if (!ID.test(id) || !["include", "exclude"].includes(mode)) throw new Error(`bad source setting ${id}`);
     out.sources[id] = mode;
   }
+  if (input.keywords !== undefined) {
+    if (!Array.isArray(input.keywords) || input.keywords.length > 500) throw new Error("bad keywords");
+    out.keywords = [];
+    for (const word of input.keywords) {
+      if (!text(word, 60) || !word.trim()) throw new Error("bad keyword");
+      if (!out.keywords.includes(word.trim())) out.keywords.push(word.trim());
+    }
+  }
+  if (input.use_detected !== undefined) {
+    if (typeof input.use_detected !== "boolean") throw new Error("bad use_detected");
+    out.use_detected = input.use_detected;
+  }
   for (const [id, entry] of Object.entries(input.events || {})) {
     if (!ID.test(id) || !entry || typeof entry !== "object") throw new Error(`bad event entry ${id}`);
     const clean = {};

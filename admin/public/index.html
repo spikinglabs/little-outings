@@ -33,6 +33,20 @@
 
     <section class="panel">
       <div class="panel-head">
+        <h2>Keywords</h2>
+        <p>Events from included sources are published when their title or venue contains one of these keywords. Parts of words count, so “kind” also finds Kinderflohmarkt. Anything else you can still publish one by one with Show.</p>
+      </div>
+      <ul class="chips" id="keywords" aria-label="Keywords"></ul>
+      <form class="keyword-add" id="keyword-form">
+        <label class="visually-hidden" for="keyword-input">New keyword</label>
+        <input id="keyword-input" name="word" maxlength="60" placeholder="Add a keyword, e.g. Zoo" autocomplete="off">
+        <button class="ghost">Add</button>
+      </form>
+      <label class="check"><input type="checkbox" id="use-detected"> Also publish events whose description mentions children or families, and every event from farm sources</label>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
         <h2>Events</h2>
         <p>Override a single event, or fix its title and address. Every change saves automatically and goes live when you press Publish.</p>
       </div>
@@ -43,6 +57,8 @@
         <label>Show
           <select name="state">
             <option value="">Everything</option>
+            <option value="match">Keyword matches</option>
+            <option value="nomatch">No keyword match</option>
             <option value="published">Will be published</option>
             <option value="unpublished">Won't be published</option>
             <option value="changed">Changed by you</option>
@@ -51,7 +67,10 @@
           </select>
         </label>
       </form>
-      <p class="count" id="count"></p>
+      <div class="count-row">
+        <p class="count" id="count"></p>
+        <button type="button" class="ghost" id="show-all" hidden></button>
+      </div>
       <ol class="events" id="events"></ol>
       <button class="more" id="more" hidden>Show more</button>
     </section>

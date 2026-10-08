@@ -131,3 +131,17 @@ dialog label { display: grid; gap: 2px; font-size: 13px; color: var(--ink-soft);
   .stat b { font-size: 20px; }
   .stat span { font-size: 12px; }
 }
+
+.chips { list-style: none; margin: 0 0 12px; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.chips li { display: inline-flex; align-items: center; gap: 2px; border: 1px solid var(--line); border-radius: 999px; padding: 2px 4px 2px 12px; background: var(--card); }
+.chips li.sub { border: 0; padding: 0; }
+.chips small { color: var(--ink-soft); font-variant-numeric: tabular-nums; margin-left: 2px; }
+.chips button { border: 0; background: none; cursor: pointer; width: 26px; height: 26px; border-radius: 50%; color: var(--ink-soft); font-size: 16px; line-height: 1; }
+.chips button:hover { background: var(--tint); color: var(--rot); }
+.keyword-add { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+.keyword-add input { flex: 1 1 200px; min-width: 0; padding: 7px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--paper); }
+.check { display: flex; gap: 8px; align-items: flex-start; color: var(--ink-soft); font-size: 14px; }
+.check input { width: auto; flex: none; margin: 4px 0 0; padding: 0; }
+.count-row { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; justify-content: space-between; }
+.badge.match { background: transparent; color: var(--ink); border: 1px solid var(--gold); }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }

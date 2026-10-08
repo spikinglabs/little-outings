@@ -1,4 +1,7 @@
-import { EDITABLE, EDITABLE_LOCATION, matchesSearch, publishRows, rowState, sourceSummary } from "./apply.js";
+import {
+  EDITABLE, EDITABLE_LOCATION, familyMatch, fold, keywordsOf, matchesSearch, publishRows, rowState, sourceSummary,
+  usesDetected,
+} from "./apply.js";
 
 const PAGE = 50;
 const state = { candidates: [], decisions: null, etag: null, manifest: null, lastPublish: null, user: null, shown: PAGE };
@@ -107,6 +110,26 @@ function setSource(id, mode) {
   changed();
 }
 
+function setKeywords(words) {
+  state.decisions.keywords = words;
+  changed();
+}
+
+function addKeyword(word) {
+  word = word.trim();
+  const words = keywordsOf(state.decisions);
+  if (!word || words.some((w) => fold(w) === fold(word))) return;
+  setKeywords([...words, word]);
+}
+
+/** Show every listed event that isn't published yet; hidden-by-you events stay hidden. */
+function showAll(rows) {
+  const targets = rows.filter((row) => !rowState(row, state.decisions).published && state.decisions.events[row.event_id]?.visibility !== "hide");
+  if (!targets.length || !window.confirm(`Show all ${targets.length} listed events that aren't published yet?`)) return;
+  for (const row of targets) eventEntry(row.event_id).visibility = "show";
+  changed();
+}
+
 function setVisibility(id, visibility) {
   const entry = eventEntry(id);
   if (visibility === "default") delete entry.visibility;
@@ -126,8 +149,10 @@ function render() {
   $("publish").disabled = !candidates.length;
   $("publish").textContent = `Publish ${published}`;
 
+  const matches = candidates.filter((row) => familyMatch(row, decisions, decisions.events[row.event_id]?.edits).matched).length;
   $("stats").innerHTML = [
-    [candidates.length, "family events found"],
+    [candidates.length, "upcoming events found"],
+    [matches, "match your keywords"],
     [published, "will be published"],
     [manifest?.duplicates_count ?? 0, "duplicate listings merged"],
     [edited, "events you corrected"],
@@ -137,8 +162,18 @@ function render() {
   if (!candidates.length) {
     banner("No candidates yet. They appear after cityklub's next export run writes them to the Little Outings bucket.");
   }
+  renderKeywords();
   renderSources();
   renderEvents();
+}
+
+function renderKeywords() {
+  const counts = new Map();
+  for (const row of state.candidates) for (const word of familyMatch(row, state.decisions).words) counts.set(word, (counts.get(word) || 0) + 1);
+  $("keywords").innerHTML = keywordsOf(state.decisions).map((word) =>
+    `<li><span>${esc(word)} <small>${counts.get(fold(word)) || 0}</small></span><button type="button" data-act="unkeyword" data-word="${esc(word)}" aria-label="Remove ${esc(word)}">×</button></li>`,
+  ).join("") || '<li class="sub">No keywords. Only events you Show by hand will be published.</li>';
+  $("use-detected").checked = usesDetected(state.decisions);
 }
 
 function renderSources() {
@@ -172,6 +207,8 @@ function filtered() {
     if (show === "unpublished" && rowState(row, state.decisions).published) return false;
     if (show === "changed" && !entry) return false;
     if (show === "duplicates" && !row.also_listed?.length) return false;
+    if (show === "match" && !familyMatch(row, state.decisions, entry?.edits).matched) return false;
+    if (show === "nomatch" && familyMatch(row, state.decisions, entry?.edits).matched) return false;
     if (show === "noaddress" && (entry?.edits?.location?.street || row.location?.street)) return false;
     if (!matchesSearch(row, q, entry?.edits)) return false;
     return true;
@@ -183,12 +220,19 @@ function renderEvents() {
   $("count").textContent = `${rows.length} of ${state.candidates.length} events`;
   $("events").innerHTML = rows.slice(0, state.shown).map(eventHtml).join("");
   $("more").hidden = rows.length <= state.shown;
+  const waiting = rows.filter((row) => !rowState(row, state.decisions).published && state.decisions.events[row.event_id]?.visibility !== "hide").length;
+  const all = $("show-all");
+  all.hidden = !waiting || rows.length === state.candidates.length;
+  all.textContent = `Show all ${waiting} listed`;
+  state.listed = rows;
 }
 
 function eventHtml(row) {
   const entry = state.decisions.events[row.event_id] || {};
   const view = { ...row, ...(entry.edits || {}), location: { ...row.location, ...(entry.edits?.location || {}) } };
   const st = rowState(row, state.decisions);
+  const match = familyMatch(row, state.decisions, entry.edits);
+  const why = [...match.words, ...(match.detected ? ["description or farm source"] : [])];
   const day = new Date(`${row.start_date}T12:00:00`);
   const address = [[view.location.street, view.location.house_number].filter(Boolean).join(" "), view.location.postal_code, view.location.city]
     .filter(Boolean).join(", ");
@@ -204,6 +248,7 @@ function eventHtml(row) {
       <div class="meta">
         ${row.cleared ? '<span class="badge cleared">cleared</span>' : '<span class="badge private">private only</span>'}
         <span class="badge out">${esc(row.source_name)}</span>
+        ${why.length ? `<span class="badge match">${esc(why.join(", "))}</span>` : ""}
         ${st.published ? "" : `<span class="badge out">${esc(st.reason)}</span>`}
         ${entry.edits ? '<span class="badge edited">edited</span>' : ""}
         ${row.also_listed?.length ? `<span class="badge out">also in ${row.also_listed.length} other listing${row.also_listed.length > 1 ? "s" : ""}</span>` : ""}
@@ -281,7 +326,18 @@ document.addEventListener("click", (event) => {
   else if (act === "visibility") setVisibility(id, mode);
   else if (act === "edit") openEditor(id);
   else if (act === "reload") load();
+  else if (act === "unkeyword") setKeywords(keywordsOf(state.decisions).filter((w) => w !== button.dataset.word));
 });
+$("keyword-form").addEventListener("submit", (event) => {
+  event.preventDefault();
+  addKeyword($("keyword-input").value);
+  $("keyword-input").value = "";
+});
+$("use-detected").addEventListener("change", (event) => {
+  state.decisions.use_detected = event.target.checked;
+  changed();
+});
+$("show-all").addEventListener("click", () => showAll(state.listed || []));
 $("filters").addEventListener("input", () => { state.shown = PAGE; renderEvents(); });
 $("filters").addEventListener("submit", (event) => event.preventDefault());
 $("more").addEventListener("click", () => { state.shown += PAGE; renderEvents(); });
