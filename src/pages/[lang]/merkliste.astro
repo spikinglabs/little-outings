@@ -37,7 +37,7 @@ const { events, places } = await getData();
       });
       document.querySelector<HTMLElement>("[data-saved-empty]")!.hidden = total > 0;
     }
-    document.addEventListener("rmk:saved", show);
+    document.addEventListener("lo:saved", show);
     show();
   </script>
 </Base>

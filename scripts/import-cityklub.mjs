@@ -59,7 +59,7 @@ export function fromExport(row, { towns, today }) {
 
 async function readExport(location) {
   const text = /^https?:\/\//.test(location)
-    ? await (await fetch(location, { headers: { "user-agent": "raus-mit-kids import" } })).text()
+    ? await (await fetch(location, { headers: { "user-agent": "little-outings import" } })).text()
     : readFileSync(location, "utf8");
   return text.split("\n").filter((l) => l.trim()).map((l) => JSON.parse(l));
 }

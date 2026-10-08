@@ -5,7 +5,7 @@
 //
 // Environment (Cloudflare Pages → Settings → Variables):
 //   GITHUB_TOKEN      fine-grained token with Issues: write on INBOX_REPO only
-//   INBOX_REPO        e.g. spikinglabs/raus-mit-kids-inbox
+//   INBOX_REPO        e.g. spikinglabs/little-outings-inbox
 //   TURNSTILE_SECRET  optional; when set, requests must carry a valid `turnstile` token
 // Until GITHUB_TOKEN and INBOX_REPO are set, it answers 503 and the site says "being set up".
 
@@ -57,7 +57,7 @@ export async function onRequestPost({ request, env }: Ctx) {
     headers: {
       authorization: `Bearer ${env.GITHUB_TOKEN}`,
       accept: "application/vnd.github+json",
-      "user-agent": "raus-mit-kids-inbox",
+      "user-agent": "little-outings-inbox",
     },
     body: JSON.stringify({ title, labels: [label], body: "```yaml\n" + yaml + "\n```\n" }),
   });

@@ -37,7 +37,7 @@ export default function OutingsMap({ pins, center, towns }: Props) {
   useEffect(() => {
     let home = center;
     try {
-      const h = localStorage.getItem("rmk-home");
+      const h = localStorage.getItem("lo-home");
       const t = towns.find(([n]) => n === h);
       if (t) home = [t[1], t[2]];
     } catch { /* storage blocked */ }

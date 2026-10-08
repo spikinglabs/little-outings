@@ -31,7 +31,7 @@ export async function onRequestPost({ request, env }: Ctx) {
   if (typeof body.image === "string" && body.image.length < 7_000_000 && /^image\/(jpeg|png|webp|gif)$/.test(body.mediaType)) {
     content.push({ type: "image", source: { type: "base64", media_type: body.mediaType, data: body.image } });
   } else if (typeof body.url === "string" && /^https?:\/\//.test(body.url)) {
-    const page = await fetch(body.url, { headers: { "user-agent": "raus-mit-kids parser" } }).catch(() => null);
+    const page = await fetch(body.url, { headers: { "user-agent": "little-outings parser" } }).catch(() => null);
     if (!page?.ok) return json(422, { error: "could not load link" });
     const text = (await page.text()).replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/gi, " ")
       .replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").slice(0, 20000);

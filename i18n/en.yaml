@@ -1,6 +1,6 @@
 locale: en-GB
 langName: English
-siteName: Raus mit Kids
+siteName: Little Outings
 tagline: Family outings near you
 tabs: { explore: Discover, map: Map, saved: Saved, add: Contribute }
 when: { today: Today, tomorrow: Tomorrow, weekend: Weekend, soon: Next 2 weeks }

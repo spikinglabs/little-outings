@@ -9,7 +9,7 @@ const read = (k: string) => { try { return localStorage.getItem(k); } catch { re
 const write = (k: string, v: string) => { try { localStorage.setItem(k, v); } catch { /* private mode */ } };
 
 /* ---------- saved list (stays on this device) ---------- */
-export const saved = new Set<string>(JSON.parse(read("rmk-saved") || "[]"));
+export const saved = new Set<string>(JSON.parse(read("lo-saved") || "[]"));
 export function renderSaved() {
   document.querySelectorAll<HTMLButtonElement>("[data-save]").forEach((b) => {
     const on = saved.has(b.dataset.save!);
@@ -20,24 +20,24 @@ export function renderSaved() {
     el.textContent = String(saved.size);
     el.hidden = saved.size === 0;
   });
-  document.dispatchEvent(new CustomEvent("rmk:saved"));
+  document.dispatchEvent(new CustomEvent("lo:saved"));
 }
 document.addEventListener("click", (ev) => {
   const b = (ev.target as Element).closest<HTMLButtonElement>("[data-save]");
   if (!b) return;
   const id = b.dataset.save!;
   saved.has(id) ? saved.delete(id) : saved.add(id);
-  write("rmk-saved", JSON.stringify([...saved]));
+  write("lo-saved", JSON.stringify([...saved]));
   renderSaved();
 });
 renderSaved();
 
 /* ---------- home town and distances ---------- */
 export const getHome = () => {
-  const h = read("rmk-home");
+  const h = read("lo-home");
   return h && towns.has(h) ? h : body.dataset.home!;
 };
-export const setHome = (h: string) => { write("rmk-home", h); renderKm(); };
+export const setHome = (h: string) => { write("lo-home", h); renderKm(); };
 export function km(a: [number, number], b: [number, number]) {
   const R = 6371, r = Math.PI / 180, dLa = (b[0] - a[0]) * r, dLo = (b[1] - a[1]) * r;
   const h = Math.sin(dLa / 2) ** 2 + Math.cos(a[0] * r) * Math.cos(b[0] * r) * Math.sin(dLo / 2) ** 2;

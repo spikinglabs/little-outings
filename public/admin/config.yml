@@ -2,7 +2,7 @@
 # Field lists mirror src/content.config.ts. The build validates every file, so a mistake fails the PR preview, not the site.
 backend:
   name: github
-  repo: spikinglabs/raus-mit-kids
+  repo: spikinglabs/little-outings
   branch: main
 publish_mode: editorial_workflow
 media_folder: public/images

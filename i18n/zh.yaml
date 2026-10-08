@@ -1,6 +1,6 @@
 locale: zh-CN
 langName: 中文
-siteName: Raus mit Kids
+siteName: 小出游
 tagline: 附近的亲子好去处
 tabs: { explore: 发现, map: 地图, saved: 收藏, add: 投稿 }
 when: { today: 今天, tomorrow: 明天, weekend: 周末, soon: 未来两周 }
