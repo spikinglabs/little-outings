@@ -3,7 +3,7 @@ import { defineConfig } from "astro/config";
 import preact from "@astrojs/preact";
 
 export default defineConfig({
-  site: process.env.SITE_URL || "https://little-outings.pages.dev",
+  site: process.env.SITE_URL || "https://outings.allo.land",
   output: "static",
   trailingSlash: "always",
   integrations: [preact()],
