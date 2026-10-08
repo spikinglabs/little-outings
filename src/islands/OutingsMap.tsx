@@ -2,6 +2,7 @@
 // Town-only events share one circle per town, labelled with how many there are.
 // Events are limited to the next 2 weeks in the browser, so the map stays current between builds.
 // Items with an unknown location are never drawn.
+// Below the map, the cards in #map-list are shown for whatever is inside the current view.
 import { useEffect, useRef } from "preact/hooks";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -24,7 +25,7 @@ interface Props {
   center: [number, number];
   towns: [string, number, number][];
   locale: string;
-  labels: { one: string; other: string; more: string };
+  labels: { one: string; other: string; more: string; inView: { one: string; other: string }; showMore: string };
 }
 
 const icon = (p: Pin) =>
@@ -37,6 +38,8 @@ const icon = (p: Pin) =>
   });
 
 const MAX_LISTED = 8;
+/** Cards shown under the map before "Show more". */
+const PAGE = 30;
 
 /** Today and today + 13 days in Germany, as YYYY-MM-DD, matching the Discover page's window. */
 function window2w(): [string, string] {
@@ -91,6 +94,34 @@ export default function OutingsMap({ pins, center, towns, locale, labels }: Prop
         zIndexOffset: 1000,
       }).bindPopup(popup).addTo(map);
     }
+
+    // The list under the map: cards for the pins inside the current view, events by date first.
+    const cards = new Map<string, HTMLElement>();
+    document.querySelectorAll<HTMLElement>("#map-list > [data-id]").forEach((c) => cards.set(c.dataset.id!, c));
+    const countEl = document.querySelector<HTMLElement>("[data-map-count]");
+    const emptyEl = document.querySelector<HTMLElement>("[data-map-empty]");
+    const moreEl = document.querySelector<HTMLButtonElement>("[data-map-more]");
+    const shownIds = new Set(shown.map((p) => p.id));
+    let limit = PAGE;
+    const sync = () => {
+      const bounds = map.getBounds();
+      const inView = new Set(shown.filter((p) => bounds.contains([p.lat, p.lon])).map((p) => p.id));
+      let n = 0;
+      for (const [id, card] of cards) {
+        const on = shownIds.has(id) && inView.has(id);
+        if (on) n++;
+        card.hidden = !on || n > limit;
+      }
+      if (countEl) countEl.textContent = fill(plural.select(n) === "one" ? labels.inView.one : labels.inView.other, n);
+      if (emptyEl) emptyEl.hidden = n > 0;
+      if (moreEl) {
+        moreEl.hidden = n <= limit;
+        moreEl.textContent = fill(labels.showMore, Math.min(PAGE, n - limit));
+      }
+    };
+    map.on("moveend", () => { limit = PAGE; sync(); });
+    moreEl?.addEventListener("click", () => { limit += PAGE; sync(); });
+    sync();
     return () => map.remove();
   }, []);
   return <div ref={el} class="map" />;

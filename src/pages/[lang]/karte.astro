@@ -1,6 +1,7 @@
 ---
 import Base from "../../layouts/Base.astro";
 import OutingsMap, { type Pin } from "../../islands/OutingsMap";
+import Card from "../../components/Card.astro";
 import { LANGS, tr, useT, type Lang } from "../../lib/i18n";
 import { getData } from "../../lib/data";
 import { dateRange, pathFor, townName } from "../../lib/format";
@@ -10,17 +11,26 @@ const lang = Astro.params.lang as Lang;
 const t = useT(lang);
 const { region, events, places } = await getData();
 const center = region.towns.find((x) => x.name === region.center) ?? region.towns[0] ?? { lat: 51.16, lon: 10.45 };
+const mappable = <T extends { geo: { precision: string; lat?: number; lon?: number } }>(x: T) =>
+  x.geo.precision !== "unknown" && x.geo.lat != null && x.geo.lon != null;
 const pins: Pin[] = [
   ...places.map((p) => ({ item: p, title: p.name, sub: `${t(`kinds.${p.kind}`)} · ${townName(p.town, lang, region.towns)}` })),
   ...events.map((e) => ({ item: e, title: tr(e.title, lang), sub: `${dateRange(t, e)}${e.time ? ` · ${e.time}` : ""}` })),
 ]
-  .filter(({ item }) => item.geo.precision !== "unknown" && item.geo.lat != null && item.geo.lon != null)
+  .filter(({ item }) => mappable(item))
   .map(({ item, title, sub }) => ({
     id: item.id, type: item.type, title, sub, href: pathFor(lang, item),
     lat: item.geo.lat!, lon: item.geo.lon!, precision: item.geo.precision as Pin["precision"],
     ...(item.type === "event" ? { start: item.start, end: item.end ?? item.start } : {}),
   }));
-const labels = { ...(t.group("nEvents") as { one: string; other: string }), more: t("mapMore") };
+const labels = {
+  ...(t.group("nEvents") as { one: string; other: string }),
+  more: t("mapMore"),
+  inView: t.group("mapCount") as { one: string; other: string },
+  showMore: t("mapShowMore"),
+};
+// Every mappable event and place, rendered hidden; the map shows the ones inside its current view.
+const listed = [...events.filter(mappable), ...places.filter(mappable)];
 ---
 <Base lang={lang} title={t("mapTitle")} tab="map">
   <h1 class="page-title">{t("mapTitle")}</h1>
@@ -35,4 +45,10 @@ const labels = { ...(t.group("nEvents") as { one: string; other: string }), more
       <span><i style="background:rgb(111 74 42 / .12);border:1px dashed #6f4a2a;border-radius:50%"></i>{t("legend.area")}</span>
     </div>
   </div>
+  <section class="section map-list" aria-labelledby="ml-h">
+    <div class="section-head"><h2 id="ml-h">{t("mapListTitle")}</h2><p data-map-count aria-live="polite"></p></div>
+    <div class="grid" id="map-list">{listed.map((x) => <Card item={x} t={t} hidden />)}</div>
+    <p class="empty" data-map-empty hidden>{t("mapListEmpty")}</p>
+    <button class="more-btn" type="button" data-map-more hidden></button>
+  </section>
 </Base>

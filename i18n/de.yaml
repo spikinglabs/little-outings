@@ -33,7 +33,7 @@ saved: Gemerkt
 route: Route planen
 routeTown: Route ins Ortszentrum
 until: bis
-locPill: { venue: Ort ungefähr, area: "Kreis mit Zahl: nur Stadt bekannt" }
+locPill: { venue: Ort ungefähr, area: Nur Stadt bekannt }
 locNote: { venue: "Der Ort ist nur ungefähr auf der Karte.", area: "Wir wissen nur: irgendwo in {town}.", unknown: "Der Ort fehlt noch." }
 approxKm: "ca. {d} km"
 nearby: ganz in der Nähe
@@ -58,6 +58,10 @@ answered: Danke! Sobald zwei Eltern übereinstimmen, übernehmen wir es.
 inboxSoon: Danke! Das Einsenden wird gerade eingerichtet. Bis dahin gern per GitHub melden.
 mapTitle: Karte
 mapSub: "Termine {when} und Orte rund um {home}."
+mapListTitle: "Im Kartenausschnitt"
+mapCount: { one: "1 Treffer", other: "{n} Treffer" }
+mapListEmpty: "In diesem Ausschnitt ist in den nächsten 2 Wochen nichts los. Verschiebt die Karte oder zoomt heraus."
+mapShowMore: "{n} weitere zeigen"
 mapMore: "und {n} weitere"
 legend: { event: Termin, place: "Ort, geht immer", approx: "Gestrichelter Ring: Ort ungefähr", area: "Kreis mit Zahl: nur Stadt bekannt" }
 savedTitle: Merkliste
