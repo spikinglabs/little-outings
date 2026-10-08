@@ -10,7 +10,7 @@ const pr = new Intl.PluralRules(lang);
 const count = (p: Plural, n: number, r?: number) =>
   ((pr.select(n) === "one" && p.one) || p.other).replace("{n}", String(n)).replace("{r}", String(r ?? ""));
 
-const state = { when: "weekend", q: "", rain: false, free: false, animals: false, changing: false, age: "", radius: 30, kind: "" };
+const state = { when: "weekend", q: "", rain: false, farm: false, free: false, animals: false, changing: false, age: "", radius: 30, kind: "" };
 const $ = <T extends Element = HTMLElement>(s: string) => document.querySelector<T>(s)!;
 const $$ = <T extends Element = HTMLElement>(s: string) => [...document.querySelectorAll<T>(s)];
 
@@ -34,6 +34,7 @@ function passes(el: HTMLElement, dist: number | null) {
   if (state.q && !state.q.toLowerCase().split(/\s+/).every((w) => d.q!.includes(w))) return false;
   if (dist != null && dist > state.radius) return false;
   if (state.rain && !d.indoor) return false;
+  if (state.farm && !d.farm) return false;
   if (state.free && !d.free) return false;
   const feat = (d.feat || "").split(" ");
   if (state.animals && !feat.includes("animals")) return false;
@@ -102,7 +103,7 @@ document.addEventListener("click", (ev) => {
   if (w) { state.when = w.dataset.when!; apply(); }
   const f = t.closest<HTMLButtonElement>("[data-flag]");
   if (f) {
-    const k = f.dataset.flag as "rain" | "free" | "animals" | "changing";
+    const k = f.dataset.flag as "rain" | "farm" | "free" | "animals" | "changing";
     state[k] = !state[k];
     f.setAttribute("aria-pressed", String(state[k]));
     apply();
