@@ -50,3 +50,15 @@ towns:
   lat: 51.455
   lon: 7.011
   zh: 埃森
+- name: Lohmar
+  lat: 50.839
+  lon: 7.215
+  zh: 洛马尔
+- name: Bonn
+  lat: 50.737
+  lon: 7.098
+  zh: 波恩
+- name: Aachen
+  lat: 50.775
+  lon: 6.084
+  zh: 亚琛
