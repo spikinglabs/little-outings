@@ -126,4 +126,8 @@ dialog label { display: grid; gap: 2px; font-size: 13px; color: var(--ink-soft);
   .sources td.num:nth-of-type(3)::before { content: "found"; }
   .sources td.num:nth-of-type(4)::before { content: "live"; }
   .top { padding: 10px 16px; }
+  .stats { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .stat { padding: 8px 10px; }
+  .stat b { font-size: 20px; }
+  .stat span { font-size: 12px; }
 }
