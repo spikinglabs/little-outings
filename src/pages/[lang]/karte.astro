@@ -18,19 +18,21 @@ const pins: Pin[] = [
   .map(({ item, title, sub }) => ({
     id: item.id, type: item.type, title, sub, href: pathFor(lang, item),
     lat: item.geo.lat!, lon: item.geo.lon!, precision: item.geo.precision as Pin["precision"],
+    ...(item.type === "event" ? { start: item.start, end: item.end ?? item.start } : {}),
   }));
+const labels = { ...(t.group("nEvents") as { one: string; other: string }), more: t("mapMore") };
 ---
 <Base lang={lang} title={t("mapTitle")} tab="map">
   <h1 class="page-title">{t("mapTitle")}</h1>
   <p class="page-sub">{t("mapSub", { when: t("whenIn.soon"), home: townName(region.center, lang, region.towns) })}</p>
   <div class="mapwrap">
-    <OutingsMap client:only="preact" pins={pins} center={[center.lat, center.lon]} towns={region.towns.map((x) => [x.name, x.lat, x.lon])} />
+    <OutingsMap client:only="preact" pins={pins} center={[center.lat, center.lon]} towns={region.towns.map((x) => [x.name, x.lat, x.lon])} locale={t.locale} labels={labels} />
     <noscript><p class="empty">{t("mapNoJs")}</p></noscript>
     <div class="legend">
       <span><i style="background:#ffcc00"></i>{t("legend.event")}</span>
       <span><i style="background:#6f4a2a"></i>{t("legend.place")}</span>
       <span><i style="border:2px dashed currentColor"></i>{t("legend.approx")}</span>
-      <span><i style="background:rgb(111 74 42 / .25)"></i>{t("legend.area")}</span>
+      <span><i style="background:rgb(111 74 42 / .12);border:1px dashed #6f4a2a;border-radius:50%"></i>{t("legend.area")}</span>
     </div>
   </div>
 </Base>
