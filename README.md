@@ -54,11 +54,23 @@ Built with the site, for the future spikinglabs app and other tools:
 
 ## Deploy (Cloudflare Pages)
 
-- Build command `npm run build`, output `dist`, Node 22.
-- Variables for the inbox: `GITHUB_TOKEN` (Issues: write on the inbox repo only),
-  `INBOX_REPO`, optional `TURNSTILE_SECRET`.
-- Variables for poster/link parsing: `ANTHROPIC_API_KEY`, `PARSE_MODEL`.
-  Photos are sent to the model for that one request and never stored.
-- Without these variables the site works; contributions say "being set up".
-- GitHub: repository variable `CITYKLUB_EXPORT` (URL of the public
-  `events.jsonl`) and secret `CF_DEPLOY_HOOK` for the nightly rebuild.
+`.github/workflows/deploy.yml` deploys with Wrangler: every push to `main` goes
+to production, every pull request gets a preview URL (in the run summary), and
+every night at 02:15 UTC it imports the cityklub export and rebuilds, because
+"today" and "this weekend" move. `ci.yml` runs tests, type check and both builds
+on every PR.
+
+One-time setup, in GitHub → Settings → Secrets and variables → Actions:
+- Secrets `CLOUDFLARE_API_TOKEN` (a token with *Cloudflare Pages: Edit*) and
+  `CLOUDFLARE_ACCOUNT_ID`. The first deploy creates the `little-outings` Pages project.
+- Variables `CITYKLUB_EXPORT` (URL of the public `events.jsonl`) and, once you
+  have a domain, `SITE_URL`.
+
+Without the Cloudflare secrets the deploy step is skipped and runs stay green.
+
+Optional, in Cloudflare → Pages → little-outings → Settings → Variables:
+- Inbox: `GITHUB_TOKEN` (Issues: write on the inbox repo only), `INBOX_REPO`,
+  optional `TURNSTILE_SECRET`.
+- Poster/link parsing: `ANTHROPIC_API_KEY`, `PARSE_MODEL`. Photos are sent to the
+  model for that one request and never stored.
+- Without these the site works; contributions say "being set up".
