@@ -78,8 +78,16 @@ orPaste: oder Link bzw. Text einfügen
 pastePh: Website, Instagram-Post oder WhatsApp-Nachricht
 pasteBtn: Auslesen
 posterNote: Das Foto wird nicht veröffentlicht, nur die Fakten.
-tasksTitle: Kleine Aufgaben in eurer Nähe
-tasksSub: Jede dauert eine Minute und macht die Seite für alle Familien besser.
+tasksTitle: "Schon gehört, aber noch nicht alles bekannt"
+tasksSub: "Von diesen Ausflügen haben wir gehört, aber noch nicht alles erfahren, zum Beispiel den genauen Ort, die Uhrzeit oder den Preis. Schaut rein, vielleicht ist etwas Schönes dabei. Und wenn ihr mehr wisst, hilft eine Antwort allen Familien."
+tasksSearch: "Schon gehört, aber noch nicht alles bekannt"
+tasksSearchPh: "Nach Titel, Ort oder Veranstaltungsort suchen"
+tasksFilter: "Filter"
+tasksTown: "Ort"
+tasksAllTowns: "Alle Orte"
+tasksLater: "Später"
+tasksCount: { one: "{n} Ausflug", other: "{n} Ausflüge" }
+tasksNone: "Nichts gefunden. Versucht ein anderes Wort oder zeigt alles an."
 kinds: { farm: Bauernhof, cafe: Café, playground: Spielplatz, park: "Park & Wald", museum: Museum, pool: Schwimmbad }
 features: { playground: Spielplatz, changing_table: Wickeltisch, highchairs: Hochstühle, kids_menu: Kinderkarte, toys: "Spielzeug & Mitgebsel", animals: Tiere, stroller_friendly: Kinderwagen-tauglich, nursing_room: Stillecke, indoor_play: Spielecke drinnen, toilets: Toiletten, farm_shop: Hofladen, parking: Parkplatz }
 tags: { fest: Fest, animals: Tiere, market: Markt, diy: Mitmachen, season: Saison, reading: Vorlesen, music: Musik, outside: Draußen }

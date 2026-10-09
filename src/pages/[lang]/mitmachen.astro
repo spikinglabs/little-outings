@@ -1,18 +1,26 @@
 ---
-// Mitmachen: send a poster, link or text, and answer quick tasks (anything still missing).
+// Mitmachen: send a poster, link or text, and fill in what's still missing about an outing.
+// Every outing with a gap is rendered; the script below searches them and shows 30 at a time.
 import Base from "../../layouts/Base.astro";
 import GapBox from "../../components/GapBox.astro";
 import Contribute from "../../islands/Contribute";
-import { KIND_ICON, svg } from "../../lib/icons";
+import { KIND_ICON, UI_ICON, svg } from "../../lib/icons";
 import { LANGS, tr, useT, type Lang } from "../../lib/i18n";
 import { getData, getTasks } from "../../lib/data";
 import { pathFor, shortDate, townName } from "../../lib/format";
+import { fold } from "../../lib/fold";
 
 export const getStaticPaths = () => LANGS.map((lang) => ({ params: { lang } }));
 const lang = Astro.params.lang as Lang;
 const t = useT(lang);
 const { region, eventById, placeById } = await getData();
-const tasks = (await getTasks()).slice(0, 30);
+const tasks = await getTasks();
+const itemOf = (task: (typeof tasks)[number]) => (task.type === "event" ? eventById.get(task.id)! : placeById.get(task.id)!);
+// Filters use what is known about each outing: its town and its dates.
+const towns = [...new Set(tasks.map((task) => itemOf(task).town).filter(Boolean))]
+  .sort((a, b) => townName(a, lang, region.towns).localeCompare(townName(b, lang, region.towns), lang));
+const whenChips = [["", t("allKinds")], ["soon", t("when.soon")], ["later", t("tasksLater")],
+  ...(tasks.some((task) => task.type === "place") ? [["place", t("places")]] : [])];
 const keys = ["posterTitle", "posterSub", "posterBtn", "orPaste", "pastePh", "pasteBtn", "posterNote", "reading",
   "draftTitle", "pleaseCheck", "send", "answered", "inboxSoon", "parseSoon", "typeIt"];
 const ui = { ...Object.fromEntries(keys.map((k) => [k, t(k)])), field: t.group("field") } as any;
@@ -23,15 +31,36 @@ const ui = { ...Object.fromEntries(keys.map((k) => [k, t(k)])), field: t.group("
   <Contribute client:visible lang={lang} ui={ui} />
 
   <section class="section">
-    <div class="section-head"><h2>{t("tasksTitle")}</h2></div>
+    <div class="section-head"><h2>{t("tasksTitle")}</h2><p data-task-count aria-live="polite"></p></div>
     <p class="page-sub">{t("tasksSub")}</p>
-    <div class="grid" style="margin-top:12px">
+    <div class="task-tools">
+      <label class="search">
+        <span class="sr-only">{t("tasksSearch")}</span>
+        <Fragment set:html={svg(UI_ICON.search, 'stroke-width="2"')} />
+        <input id="task-q" type="search" placeholder={t("tasksSearchPh")} autocomplete="off" />
+      </label>
+      <div class="filters" role="group" aria-label={t("tasksFilter")}>
+        {whenChips.map(([k, label]) => <button class="chip" type="button" data-when-chip={k} aria-pressed={k === "" ? "true" : "false"}>{label}</button>)}
+      </div>
+      <div class="filters">
+        <label class="chip">📍
+          <select id="task-town" aria-label={t("tasksTown")}>
+            <option value="">{t("tasksAllTowns")}</option>
+            {towns.map((town) => <option value={town}>{townName(town, lang, region.towns)}</option>)}
+          </select>
+        </label>
+      </div>
+    </div>
+    <div class="grid" id="tasks" style="margin-top:12px">
       {tasks.map((task) => {
-        const item = task.type === "event" ? eventById.get(task.id)! : placeById.get(task.id)!;
+        const item = itemOf(task);
         const title = item.type === "event" ? tr(item.title, lang) : item.name;
         const s = item.type === "event" ? shortDate(t, item.start) : null;
         return (
-          <div class="task" data-lat={item.geo.lat} data-lon={item.geo.lon} data-precision={item.geo.precision}>
+          <div class="task" hidden data-lat={item.geo.lat} data-lon={item.geo.lon} data-precision={item.geo.precision}
+            data-type={item.type} data-town={item.town}
+            data-start={item.type === "event" ? item.start : undefined} data-end={item.type === "event" ? item.end ?? item.start : undefined}
+            data-q={fold([title, (item as { venue?: string }).venue, item.town, townName(item.town, lang, region.towns), s].filter(Boolean).join(" "))}>
             <a class="task-item" href={pathFor(lang, item)}>
               {s ? <span class="mini-stamp">{s}</span> : <span class="mini-stamp place" set:html={svg(KIND_ICON[(item as any).kind])} />}
               <span><b>{title}</b><span class="meta">{townName(item.town, lang, region.towns)}<span data-km></span></span></span>
@@ -42,5 +71,11 @@ const ui = { ...Object.fromEntries(keys.map((k) => [k, t(k)])), field: t.group("
       })}
       {tasks.length === 0 && <p class="empty">{t("empty")}</p>}
     </div>
+    <p class="empty" data-task-empty hidden>{t("tasksNone")}</p>
+    <button class="more-btn" type="button" data-task-more hidden></button>
+    <script is:inline type="application/json" id="tasks-ui" set:html={JSON.stringify({ count: t.group("tasksCount"), more: t("mapShowMore") })} />
   </section>
+  <script>
+    import "../../scripts/tasks";
+  </script>
 </Base>
