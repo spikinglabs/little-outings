@@ -145,3 +145,22 @@ dialog label { display: grid; gap: 2px; font-size: 13px; color: var(--ink-soft);
 .count-row { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; justify-content: space-between; }
 .badge.match { background: transparent; color: var(--ink); border: 1px solid var(--gold); }
 .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.inbox { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.inbox-item {
+  display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: start;
+  padding: 12px; border: 1px solid var(--line); border-radius: 12px;
+}
+.inbox-body { min-width: 0; }
+.inbox-body .meta { margin: 0 0 6px; font-size: 13px; }
+.inbox-body p { margin: 0; overflow-wrap: anywhere; }
+.inbox-body .said { font-size: 16px; font-weight: 600; }
+.inbox-body dl { display: flex; flex-wrap: wrap; gap: 2px 16px; margin: 4px 0 0; font-size: 13px; }
+.inbox-body dl div { display: flex; gap: 4px; min-width: 0; }
+.inbox-body dt { color: var(--ink-soft); }
+.inbox-body dd { margin: 0; overflow-wrap: anywhere; }
+.inbox-item button:disabled { opacity: .45; cursor: default; }
+@media (max-width: 640px) {
+  .inbox-item { grid-template-columns: 1fr; }
+  .inbox-item .event-actions { justify-items: start; grid-auto-flow: column; justify-content: start; }
+}

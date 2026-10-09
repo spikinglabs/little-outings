@@ -12,8 +12,12 @@ bucket_name = "spikinglabs-little-outings"
 [vars]
 GITHUB_REPO = "spikinglabs/little-outings"
 GITHUB_BRANCH = "main"
+# Tips, reports and suggestions from parents, reviewed in the Inbox panel.
+INBOX_REPO = "spikinglabs/little-outings-inbox"
+SITE_URL = "https://little-outings.pages.dev"
 
 # Set as encrypted secrets in the Pages project (Settings → Variables and Secrets):
 #   ACCESS_TEAM_DOMAIN  e.g. spikinglabs.cloudflareaccess.com
 #   ACCESS_AUD          the Application Audience (AUD) tag of the Access application
 #   GITHUB_TOKEN        fine-grained token, Contents: read and write on spikinglabs/little-outings only
+#   INBOX_TOKEN         fine-grained token, Issues: read and write on spikinglabs/little-outings-inbox only
