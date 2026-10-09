@@ -26,7 +26,7 @@ const tips = listed
 const presentKinds = KINDS.filter((k) => places.some((p) => p.kind === k));
 const whenKeys = ["today", "tomorrow", "weekend", "soon"];
 const whenIn = t.group("whenIn");
-const pluralUi = { nEvents: t.group("nEvents"), nPlaces: t.group("nPlaces"), tip: t("tip"), only: t("only"), whenIn, mapShow: t("mapShow"), mapHide: t("mapHide"), nPlacesArea: t.group("nPlacesArea"), areaBack: t("mapAreaBack") };
+const pluralUi = { nEvents: t.group("nEvents"), nPlaces: t.group("nPlaces"), tip: t("tip"), only: t("only"), whenIn, mapShow: t("mapShow"), mapHide: t("mapHide"), nPlacesArea: t.group("nPlacesArea"), areaBack: t("mapAreaBack"), showMore: t("mapShowMore") };
 const homes = region.towns;
 // The map shows whatever the filters show (explore.ts tells it which ids).
 const pins = buildPins(data, lang, t);
@@ -115,9 +115,10 @@ const mapLabels = { ...(t.group("nEvents") as { one: string; other: string }), m
         ))}
       </div>
       <div class="grid" id="places">
-        {places.map((p) => <Card item={p} t={t} />)}
+        {places.map((p, i) => <Card item={p} t={t} hidden={i >= 24} />)}
         <div class="empty" data-pl-empty hidden>{t("noPlaces")}</div>
       </div>
+      <button class="more-btn" type="button" data-pl-more hidden></button>
     </section>
   </div>
   {events.length + places.length === 0 && <p class="empty">{t("empty")}</p>}

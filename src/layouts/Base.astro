@@ -1,7 +1,7 @@
 ---
 import "../styles/global.css";
 import { LANGS, useT, type Lang } from "../lib/i18n";
-import { UI_ICON, svg } from "../lib/icons";
+import { UI_ICON, sprite, svg } from "../lib/icons";
 import { getData } from "../lib/data";
 
 interface Props {
@@ -45,6 +45,7 @@ const ui = {
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Barlow+Semi+Condensed:wght@600;700&family=Bricolage+Grotesque:opsz,wght@12..96,600..800&display=swap" />
   </head>
   <body data-ui={JSON.stringify(ui)} data-lang={lang} data-home={region.center} data-towns={JSON.stringify(region.towns.map((x) => [x.name, x.lat, x.lon]))}>
+    <Fragment set:html={sprite()} />
     <div class="flag" aria-hidden="true"></div>
     <div class="app">
       {process.env.DEMO && <p class="demo">{t("demo")}</p>}

@@ -39,3 +39,14 @@ export const UI_ICON: Record<string, string> = {
 
 export const svg = (body: string, extra = "") =>
   `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ${extra}>${body}</svg>`;
+
+// Cards repeat the same icons thousands of times, so they reference one hidden sprite
+// (rendered once by Base.astro) instead of inlining every path.
+const SETS: Record<string, Record<string, string>> = { k: KIND_ICON, f: FEATURE_ICON, u: UI_ICON };
+export const sprite = () =>
+  `<svg width="0" height="0" style="position:absolute" aria-hidden="true">${Object.entries(SETS)
+    .flatMap(([p, set]) => Object.entries(set).map(([k, body]) => `<symbol id="${p}-${k}">${body}</symbol>`))
+    .join("")}</svg>`;
+/** An icon from the sprite: set "k" (kinds), "f" (features) or "u" (UI). */
+/** Styled by the .ic rule in global.css, so each copy stays short. */
+export const icon = (set: "k" | "f" | "u", key: string) => `<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#${set}-${key}"/></svg>`;
