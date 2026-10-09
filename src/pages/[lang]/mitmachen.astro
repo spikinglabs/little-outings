@@ -38,7 +38,7 @@ const keys = ["posterTitle", "posterSub", "posterBtn", "posterPick", "orPaste", 
   "draftTitle", "pleaseCheck", "send", "answered", "inboxSoon", "parseSoon", "parseFail", "sentEvent", "sendAnother", "editTitle", "editNote", "saveEdit", "cancelEdit", "sentEdit", "typeIt"];
 const ui = { ...Object.fromEntries(keys.map((k) => [k, t(k)])), field: t.group("field") } as any;
 const placeKeys = ["placeTitle", "placeSub", "placeBtn", "placeKind", "placeTown", "placeTownPh", "placeName", "placeStreet",
-  "placeFeatures", "placeNote", "placeNotePh", "placeWebsite", "placeThanks", "send", "inboxSoon"];
+  "placeFeatures", "placeNote", "placeNotePh", "placeWebsite", "placeThanks", "placeAnother", "placeSentKind", "placeSentWhere", "send", "inboxSoon"];
 const placeUi = Object.fromEntries(placeKeys.map((k) => [k, t(k)]));
 ---
 <Base lang={lang} title={t("addTitle")} tab="add">

@@ -102,7 +102,10 @@ placeFeatures: "What's there for families?"
 placeNote: "What makes it good for kids?"
 placeNotePh: "e.g. big sandpit, goats to feed, play corner by the tables"
 placeWebsite: "Website (optional)"
-placeThanks: "Thank you! We'll check the place briefly and then add it."
+placeThanks: "Sent. We check every place before it goes live; you'll find it on Discover once it's approved."
+placeAnother: Suggest another place
+placeSentKind: Kind
+placeSentWhere: Where
 tasksTitle: "Heard about, not all details yet"
 tasksSub: "We've heard about these outings but don't know everything yet, like the exact place, time or price. Have a look, you might find something fun. And if you know more, one answer helps every family."
 tasksSearch: "Heard about, not all details yet"

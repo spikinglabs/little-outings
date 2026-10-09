@@ -2,7 +2,8 @@
 // site's /api/inbox. Taps (visits, chip answers) are counted, never reviewed, so they don't show here.
 //   approve → adds the `approved` label (the nightly tally then shows a tip). An approved event is
 //             also committed to the site repo as content/events/community/inbox-<number>.yaml and
-//             the issue is closed, so it goes live with the deploy that commit starts.
+//             the issue is closed, so it goes live with the deploy that commit starts. A suggested
+//             place works the same way, as content/places/community/inbox-<number>.yaml.
 //   done    → closes a report as completed, once you've fixed what it was about
 //   reject  → closes as "not planned", so the tally ignores it for good
 
@@ -51,7 +52,10 @@ export function reviewItem(issue) {
  * Still waiting for a decision: open and not approved yet. A suggested event waits until it is
  * published (closed), so one approved before publishing existed still shows up to be approved again.
  */
-export const waiting = (item) => item.open && (item.kind === "new-event" || !item.approved);
+export const waiting = (item) => item.open && (PUBLISHED.includes(item.kind) || !item.approved);
+
+/** Suggestions that approving turns into a content file on the site. */
+export const PUBLISHED = ["new-event", "new-place"];
 
 const q = (v) => JSON.stringify(String(v ?? "").trim());
 
@@ -87,6 +91,32 @@ export function eventFile(number, d, approvedBy) {
     "trust: { level: community }",
   ];
   return { path: `content/events/community/inbox-${number}.yaml`, text: lines.filter(Boolean).join("\n") + "\n" };
+}
+
+// Same lists as src/content.config.ts (the admin can't import the site's Astro config).
+const PLACE_KINDS = ["farm", "cafe", "playground", "park", "museum", "pool", "zoo"];
+const FEATURES = ["playground", "changing_table", "highchairs", "kids_menu", "toys", "animals", "stroller_friendly",
+  "nursing_room", "indoor_play", "toilets", "farm_shop", "parking"];
+
+/** The content file for an approved place suggestion, or an error message. */
+export function placeFile(number, d, approvedBy) {
+  if (!d?.name) return { error: "This place has no name." };
+  if (!PLACE_KINDS.includes(d.type)) return { error: `"${d.type ?? ""}" isn't a kind of place the site knows.` };
+  if (!String(d.town ?? "").trim()) return { error: "This place has no town; add one before approving." };
+  const features = (Array.isArray(d.features) ? d.features : []).filter((f) => FEATURES.includes(f));
+  const website = /^https?:\/\/[^\s]+\.[^\s]+$/.test(String(d.website ?? "").trim()) ? String(d.website).trim() : "";
+  const lines = [
+    `# Suggested by a parent (inbox #${number}), approved in the admin by ${String(approvedBy).replace(/\s+/g, " ")}.`,
+    `# Edit here to fix it.`,
+    `kind: ${d.type}`,
+    `name: ${q(d.name)}`,
+    `address: { ${d.street ? `street: ${q(d.street)}, ` : ""}town: ${q(d.town)} }`,
+    features.length ? `facilities:\n${features.map((f) => `  ${f}: { status: "yes", confirmed: 1 }`).join("\n")}` : "",
+    d.note ? `note: ${q(d.note)}` : "",
+    website ? `website: ${q(website)}` : "",
+    "trust: { level: community }",
+  ];
+  return { path: `content/places/community/inbox-${number}.yaml`, text: lines.filter(Boolean).join("\n") + "\n" };
 }
 
 function base64(text) {

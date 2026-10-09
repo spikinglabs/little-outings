@@ -102,7 +102,10 @@ placeFeatures: "Was gibt es für Familien?"
 placeNote: "Was macht ihn gut für Kinder?"
 placeNotePh: "z. B. großer Sandkasten, Ziegen zum Füttern, Spielecke bei den Tischen"
 placeWebsite: "Website (optional)"
-placeThanks: "Danke! Wir prüfen den Ort kurz und nehmen ihn dann auf."
+placeThanks: "Gesendet. Wir prüfen jeden Ort, bevor er online geht; danach findet ihr ihn unter Entdecken."
+placeAnother: Weiteren Ort vorschlagen
+placeSentKind: Art
+placeSentWhere: Wo
 tasksTitle: "Schon gehört, aber noch nicht alles bekannt"
 tasksSub: "Von diesen Ausflügen haben wir gehört, aber noch nicht alles erfahren, zum Beispiel den genauen Ort, die Uhrzeit oder den Preis. Schaut rein, vielleicht ist etwas Schönes dabei. Und wenn ihr mehr wisst, hilft eine Antwort allen Familien."
 tasksSearch: "Schon gehört, aber noch nicht alles bekannt"

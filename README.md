@@ -101,8 +101,8 @@ One-time setup:
    `GITHUB_TOKEN` (fine-grained, *Contents: read and write* on this repo only).
 5. For the Inbox panel, also `INBOX_TOKEN` (fine-grained, *Issues: read and write* on
    `spikinglabs/little-outings-inbox` only). The panel lists open tips, reports and
-   suggested events or places. Approve adds the `approved` label (an approved event is
-   also committed as `content/events/community/inbox-<n>.yaml`, which deploys it), Done closes a
+   suggested events or places. Approve adds the `approved` label (an approved event or place
+   is also committed as `content/{events,places}/community/inbox-<n>.yaml`, which deploys it), Done closes a
    report as completed, Reject closes as not planned; each leaves a comment saying
    who decided. `INBOX_REPO` and `SITE_URL` (for place and event names) are in
    `admin/wrangler.toml`.

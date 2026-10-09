@@ -116,3 +116,14 @@ test("approving a suggested event commits it as a content file and closes the is
     assert.ok(f.calls.some((c) => c.method === "PATCH" && c.body.state === "closed" && c.body.state_reason === "completed"));
   } finally { f.restore(); }
 });
+
+test("an approved place becomes a place file with only known features", async () => {
+  const { placeFile } = await import("../admin/lib/inbox.js");
+  const f = placeFile(9, { type: "farm", name: 'Hof "Sonne"', town: "Düren", street: "Weg 1", features: ["animals", "bogus"], website: "javascript:x", note: "" }, "l@x");
+  assert.equal(f.path, "content/places/community/inbox-9.yaml");
+  assert.match(f.text, /^kind: farm$/m);
+  assert.match(f.text, /^address: \{ street: "Weg 1", town: "Düren" \}$/m);
+  assert.match(f.text, /^  animals: \{ status: "yes", confirmed: 1 \}$/m);
+  assert.ok(!f.text.includes("bogus") && !f.text.includes("javascript"));
+  assert.ok(placeFile(9, { type: "castle", name: "x", town: "y" }).error);
+});
