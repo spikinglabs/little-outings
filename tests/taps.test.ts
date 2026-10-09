@@ -1,19 +1,8 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { DatabaseSync } from "node:sqlite";
-import { HOURLY_LIMIT, onRequestGet, onRequestPost, type D1 } from "../functions/api/taps.ts";
+import { HOURLY_LIMIT, moveTaps, onRequestDelete, onRequestGet, onRequestPost } from "../functions/api/taps.ts";
+import { fakeD1 } from "./fake-d1.ts";
 
-/** Just enough of Cloudflare D1 on top of node:sqlite. */
-function fakeD1(): D1 {
-  const db = new DatabaseSync(":memory:");
-  const stmt = (sql: string, args: unknown[] = []): any => ({
-    bind: (...v: unknown[]) => stmt(sql, v),
-    run: async () => db.prepare(sql).run(...(args as any[])),
-    all: async () => ({ results: db.prepare(sql).all(...(args as any[])) }),
-    first: async () => db.prepare(sql).get(...(args as any[])) ?? null,
-  });
-  return { prepare: (sql) => stmt(sql), batch: async (s: any[]) => { for (const x of s) await x.run(); } } as D1;
-}
 const post = (body: unknown, ip = "1.2.3.4") =>
   new Request("https://x/api/taps", { method: "POST", body: JSON.stringify(body), headers: { "cf-connecting-ip": ip } });
 const get = (q: string) => new Request(`https://x/api/taps?${q}`);
@@ -64,4 +53,36 @@ test("one connection is limited per hour", async () => {
   assert.equal(last, 429);
   const other = await onRequestPost({ env, request: post({ kind: "fac", item: "p-x", feature: "toys", answer: "yes", voter: "browser-one" }, "5.6.7.8") });
   assert.equal(other.status, 200);
+});
+
+test("a browser can download and delete its own taps, and only its own", async () => {
+  const env = { DB: fakeD1() };
+  const vote = (voter: string, item: string) => onRequestPost({ env, request: post({ kind: "fac", item, feature: "toys", answer: "yes", voter }) });
+  await vote("browser-one", "cafe-a");
+  await vote("browser-one", "cafe-b");
+  await vote("browser-two", "cafe-a");
+  const mine = (voter: string) => onRequestPost({ env, request: new Request("https://x/api/taps?mine=1", { method: "POST", body: JSON.stringify({ voter }) }) });
+  const rows = await (await mine("browser-one")).json();
+  assert.deepEqual(rows.map((r: any) => [r.item, r.question, r.answer]), [["cafe-a", "fac:toys", "yes"], ["cafe-b", "fac:toys", "yes"]]);
+  assert.equal((await mine("x")).status, 400);
+  const del = await onRequestDelete({ env, request: new Request("https://x/api/taps", { method: "DELETE", body: JSON.stringify({ voter: "browser-one" }) }) });
+  assert.equal(del.status, 200);
+  assert.deepEqual(await (await mine("browser-one")).json(), []);
+  assert.deepEqual(await (await onRequestGet({ env, request: get("item=cafe-a") })).json(), { fac: { toys: { yes: 1, no: 0 } } });
+});
+
+test("moving taps to another voter id keeps the newer answer where both answered", async () => {
+  const env = { DB: fakeD1() };
+  const vote = (voter: string, item: string, answer: string) => onRequestPost({ env, request: post({ kind: "fac", item, feature: "toys", answer, voter }) });
+  await vote("synced-voter", "cafe-a", "no");
+  await new Promise((r) => setTimeout(r, 5));
+  await vote("local-voter", "cafe-a", "yes"); // newer: wins
+  await vote("local-voter", "cafe-b", "yes");
+  await vote("synced-voter", "cafe-c", "yes");
+  await moveTaps(env.DB, "local-voter", "synced-voter");
+  const mine = async (voter: string) => (await (await onRequestPost({ env, request: new Request("https://x/api/taps?mine=1", { method: "POST", body: JSON.stringify({ voter }) }) })).json())
+    .map((r: any) => `${r.item}=${r.answer}`).sort();
+  assert.deepEqual(await mine("synced-voter"), ["cafe-a=yes", "cafe-b=yes", "cafe-c=yes"]);
+  assert.deepEqual(await mine("local-voter"), []);
+  assert.deepEqual(await (await onRequestGet({ env, request: get("item=cafe-a") })).json(), { fac: { toys: { yes: 1, no: 0 } } });
 });

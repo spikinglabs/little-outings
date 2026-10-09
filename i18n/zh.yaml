@@ -184,3 +184,47 @@ chipAsk:
     toilets: "那里有卫生间吗？"
     farm_shop: "那里有农场小店吗？"
     parking: "那里有停车场吗？"
+profile:
+  link: "我的资料和数据"
+  title: 我的资料
+  sub: "无需注册。小出游把你的资料保存在这部手机上：收藏、去过的地方、你的回答，以及你发给我们的内容。"
+  have: "这部手机上"
+  count:
+    saved: { other: "收藏了 {n} 个去处" }
+    went: { other: "去过 {n} 个地方" }
+    asked: { other: "回答了 {n} 个小问题" }
+    sent: { other: "发送了 {n} 条提示、报告或建议" }
+    home: "所在城市：{town}"
+  passkeyTitle: 用通行密钥保存
+  passkeySub: "开启通行密钥后，我们会保存一份你的资料副本。换手机也不会丢，在你的其他设备上也能看到。不需要邮箱和密码：手机用面容、指纹或锁屏密码解锁。"
+  passkeyOn: 开启通行密钥同步
+  passkeyLogin: 我已经有通行密钥
+  passkeySynced: "已通过通行密钥同步。"
+  passkeyLast: "上次保存：{when}。"
+  passkeyOff: 在这部手机上停止同步
+  passkeyNone: "这个浏览器不支持通行密钥。下载数据仍然可以用。"
+  passkeySoon: "通行密钥同步尚未开启。下载数据已经可以用。"
+  passkeyFailed: "没有成功，什么都没有改动。"
+  passkeyUnknown: "这个通行密钥已经没有对应的资料。开启通行密钥同步即可重新开始。"
+  passkeyWelcome: "欢迎回来，你的资料已在这部手机上。"
+  moveTitle: 转移到另一部手机
+  moveSub: "用另一部手机扫描二维码，或者把链接发给自己。资料就在链接里，不经过我们的服务器。"
+  moveButton: 显示二维码
+  moveCopy: 复制链接
+  moveCopied: 链接已复制。
+  movePartial: "你发送过的内容留在这部手机上；下载文件可以转移全部内容。"
+  incoming: { other: "来自另一部手机的资料，包含 {n} 个收藏。" }
+  incomingAdd: 导入到这部手机
+  incomingDone: "完成，已与这里原有的内容合并。"
+  incomingBad: "这个链接里没有可以读取的资料。"
+  fileTitle: 我的数据
+  fileSub: "我们保存的关于你的一切都在一个文件里：你的资料，以及记在它名下的快速投票。在任何手机上都能重新载入。"
+  download: 下载我的数据
+  load: 从文件载入
+  loaded: "已载入，并与这里原有的内容合并。"
+  loadBad: "这个文件不是小出游的资料。"
+  deleteTitle: 删除我的数据
+  deleteSub: "删除这部手机上的资料、你的快速投票，以及通行密钥副本（如果有）。已发送的提示和报告在我们的审核人员那里；如需删除某一条，请告诉我们。"
+  delete: 全部删除
+  deleteConfirm: "删除收藏、回答和投票？此操作无法撤销。"
+  deleted: 已删除，这部手机重新开始。

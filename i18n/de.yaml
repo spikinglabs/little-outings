@@ -184,3 +184,47 @@ chipAsk:
     toilets: "Gibt es Toiletten?"
     farm_shop: "Gibt es einen Hofladen?"
     parking: "Gibt es Parkplätze?"
+profile:
+  link: "Euer Profil und eure Daten"
+  title: Euer Profil
+  sub: "Ohne Anmeldung. Little Outings speichert euer Profil auf diesem Handy: was ihr gemerkt habt, wo ihr wart, eure Antworten und was ihr uns geschickt habt."
+  have: "Auf diesem Handy"
+  count:
+    saved: { one: "1 gemerkter Ausflug", other: "{n} gemerkte Ausflüge" }
+    went: { one: "1 Ort, an dem ihr wart", other: "{n} Orte, an denen ihr wart" }
+    asked: { one: "1 Antwort auf eine kurze Frage", other: "{n} Antworten auf kurze Fragen" }
+    sent: { one: "1 Tipp, Hinweis oder Vorschlag geschickt", other: "{n} Tipps, Hinweise und Vorschläge geschickt" }
+    home: "Heimatort: {town}"
+  passkeyTitle: Mit einem Passkey sichern
+  passkeySub: "Mit einem Passkey liegt eine Kopie eures Profils bei uns. So übersteht es ein neues Handy und erscheint auf euren anderen Geräten. Keine E-Mail, kein Passwort: Das Handy entsperrt ihn mit Gesicht, Fingerabdruck oder Bildschirmsperre."
+  passkeyOn: Passkey-Sync einschalten
+  passkeyLogin: Ich habe schon einen Passkey
+  passkeySynced: "Mit eurem Passkey synchronisiert."
+  passkeyLast: "Zuletzt gesichert {when}."
+  passkeyOff: Auf diesem Handy nicht mehr synchronisieren
+  passkeyNone: "Dieser Browser kann keine Passkeys. Daten herunterladen geht trotzdem."
+  passkeySoon: "Passkey-Sync ist noch nicht eingeschaltet. Daten herunterladen geht schon."
+  passkeyFailed: "Das hat nicht geklappt. Es wurde nichts geändert."
+  passkeyUnknown: "Zu diesem Passkey gibt es kein Profil mehr. Schaltet Passkey-Sync ein, um neu anzufangen."
+  passkeyWelcome: "Willkommen zurück. Euer Profil ist jetzt auf diesem Handy."
+  moveTitle: Auf ein anderes Handy umziehen
+  moveSub: "Scannt den Code mit dem anderen Handy oder schickt euch den Link. Das Profil steckt im Link selbst und geht nicht über unseren Server."
+  moveButton: Code zeigen
+  moveCopy: Link kopieren
+  moveCopied: Link kopiert.
+  movePartial: "Eure geschickten Nachrichten bleiben auf diesem Handy. Ladet die Datei herunter, um alles mitzunehmen."
+  incoming: { one: "Ein Profil von einem anderen Handy, mit 1 gemerkten Ausflug.", other: "Ein Profil von einem anderen Handy, mit {n} gemerkten Ausflügen." }
+  incomingAdd: Auf dieses Handy holen
+  incomingDone: "Fertig. Es ist mit dem zusammengeführt, was schon hier war."
+  incomingBad: "In diesem Link steckt kein Profil, das wir lesen können."
+  fileTitle: Eure Daten
+  fileSub: "Alles, was wir über euch speichern, in einer Datei: euer Profil und die kurzen Stimmen, die darunter gezählt werden. Auf jedem Handy wieder ladbar."
+  download: Meine Daten herunterladen
+  load: Aus einer Datei laden
+  loaded: "Geladen. Es ist mit dem zusammengeführt, was schon hier war."
+  loadBad: "Diese Datei ist kein Little-Outings-Profil."
+  deleteTitle: Meine Daten löschen
+  deleteSub: "Löscht euer Profil auf diesem Handy, eure kurzen Stimmen und die Passkey-Kopie, falls vorhanden. Geschickte Tipps und Hinweise liegen schon bei unserer Moderation; sagt uns Bescheid, wenn einer weg soll."
+  delete: Alles löschen
+  deleteConfirm: "Merkliste, Antworten und Stimmen löschen? Das lässt sich nicht rückgängig machen."
+  deleted: Gelöscht. Dieses Handy fängt neu an.

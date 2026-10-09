@@ -1,0 +1,248 @@
+---
+// A family's profile: what this browser remembers, with download, load, move to another phone,
+// optional passkey sync and delete. No account. See src/lib/profile.ts and functions/api/profile.
+import Base from "../../layouts/Base.astro";
+import { LANGS, useT, type Lang } from "../../lib/i18n";
+
+export const getStaticPaths = () => LANGS.map((lang) => ({ params: { lang } }));
+const lang = Astro.params.lang as Lang;
+const t = useT(lang);
+const p = (k: string) => t(`profile.${k}`);
+const ui = { ...t.group("profile"), count: t.group("profile.count") };
+---
+<Base lang={lang} title={p("title")} tab="saved">
+  <h1 class="page-title">{p("title")}</h1>
+  <p class="page-sub">{p("sub")}</p>
+
+  <div class="shared" data-incoming hidden>
+    <p data-incoming-text></p>
+    <button class="btn primary" type="button" data-incoming-add>{p("incomingAdd")}</button>
+  </div>
+  <p class="done section" role="status" data-flash hidden></p>
+
+  <section class="section profile-box">
+    <h2>{p("have")}</h2>
+    <ul class="profile-counts" data-counts></ul>
+  </section>
+
+  <section class="section profile-box" data-passkey>
+    <h2>{p("passkeyTitle")}</h2>
+    <p class="small">{p("passkeySub")}</p>
+    <div class="profile-actions" data-passkey-off>
+      <button class="btn primary" type="button" data-passkey-on>{p("passkeyOn")}</button>
+      <button class="btn" type="button" data-passkey-login>{p("passkeyLogin")}</button>
+    </div>
+    <div data-passkey-synced hidden>
+      <p class="done">{p("passkeySynced")} <span class="small" data-passkey-last></span></p>
+      <button class="btn" type="button" data-passkey-signout>{p("passkeyOff")}</button>
+    </div>
+    <p class="small" role="status" data-passkey-note hidden></p>
+  </section>
+
+  <section class="section profile-box">
+    <h2>{p("moveTitle")}</h2>
+    <p class="small">{p("moveSub")}</p>
+    <div class="profile-actions"><button class="btn" type="button" data-move>{p("moveButton")}</button></div>
+    <div class="profile-qr" data-move-out hidden>
+      <div class="qr" data-qr></div>
+      <button class="btn" type="button" data-move-copy>{p("moveCopy")}</button>
+      <p class="small" role="status" data-move-note hidden></p>
+    </div>
+  </section>
+
+  <section class="section profile-box">
+    <h2>{p("fileTitle")}</h2>
+    <p class="small">{p("fileSub")}</p>
+    <div class="profile-actions">
+      <button class="btn" type="button" data-download>{p("download")}</button>
+      <button class="btn" type="button" data-load-pick>{p("load")}</button>
+      <input type="file" accept="application/json,.json" data-load hidden />
+    </div>
+  </section>
+
+  <section class="section profile-box">
+    <h2>{p("deleteTitle")}</h2>
+    <p class="small">{p("deleteSub")}</p>
+    <div class="profile-actions"><button class="btn danger" type="button" data-delete>{p("delete")}</button></div>
+  </section>
+
+  <script is:inline type="application/json" id="profile-ui" set:html={JSON.stringify(ui)} />
+  <script>
+    import { startAuthentication, startRegistration, browserSupportsWebAuthn } from "@simplewebauthn/browser";
+    import { renderSVG } from "uqr";
+    import { clean, forget, packForMove, readProfile, unpackMove, type Profile } from "../../lib/profile";
+    import { adopt, getSync, push, setSync } from "../../scripts/sync";
+
+    type Plural = Record<string, string>;
+    const ui = JSON.parse(document.getElementById("profile-ui")!.textContent!) as Record<string, string> & { count: Record<string, Plural | string> };
+    const lang = document.body.dataset.lang!;
+    const rules = new Intl.PluralRules(lang);
+    const plural = (forms: Plural, n: number) => (forms[rules.select(n)] ?? forms.other).replace("{n}", String(n));
+    const $ = <T extends HTMLElement = HTMLElement>(sel: string) => document.querySelector<T>(sel)!;
+    const local = () => readProfile(localStorage);
+
+    const flash = (text: string) => { const el = $("[data-flash]"); el.textContent = text; el.hidden = false; };
+
+    /* ---------- what's on this phone ---------- */
+    function renderCounts() {
+      const p = local();
+      const c = ui.count;
+      const lines = [
+        p.saved.length && plural(c.saved as Plural, p.saved.length),
+        p.went.length && plural(c.went as Plural, p.went.length),
+        Object.keys(p.asked).length && plural(c.asked as Plural, Object.keys(p.asked).length),
+        p.sent.length && plural(c.sent as Plural, p.sent.length),
+        p.home && (c.home as string).replace("{town}", p.home),
+      ].filter(Boolean) as string[];
+      $("[data-counts]").replaceChildren(...(lines.length ? lines : ["–"]).map((s) => Object.assign(document.createElement("li"), { textContent: s })));
+    }
+    document.addEventListener("lo:profile", renderCounts);
+    renderCounts();
+
+    /* ---------- passkey sync ---------- */
+    const note = (text: string) => { const el = $("[data-passkey-note]"); el.textContent = text; el.hidden = !text; };
+    function renderSync() {
+      const s = getSync();
+      $("[data-passkey-off]").hidden = !!s;
+      $("[data-passkey-synced]").hidden = !s;
+      const when = s?.pushed ?? s?.pulled;
+      $("[data-passkey-last]").textContent = when
+        ? ui.passkeyLast.replace("{when}", new Intl.DateTimeFormat(lang, { dateStyle: "medium", timeStyle: "short" }).format(when)) : "";
+    }
+    document.addEventListener("lo:sync", renderSync);
+    renderSync();
+    if (!browserSupportsWebAuthn()) { $("[data-passkey-off]").hidden = true; note(ui.passkeyNone); }
+
+    const post = (path: string, body: unknown = {}) =>
+      fetch(`/api/profile/${path}`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
+
+    $("[data-passkey-on]").addEventListener("click", async () => {
+      note("");
+      try {
+        const start = await post("register-options");
+        if (start.status === 503 || start.status === 404) return note(ui.passkeySoon);
+        if (!start.ok) return note(ui.passkeyFailed);
+        const { challenge, options } = await start.json();
+        const response = await startRegistration({ optionsJSON: options });
+        const res = await post("register", { challenge, response, profile: local() });
+        if (!res.ok) return note(ui.passkeyFailed);
+        const { token, updated } = await res.json();
+        setSync({ token, pushed: updated, pulled: updated });
+      } catch (e) {
+        if ((e as Error).name !== "NotAllowedError") note(ui.passkeyFailed); // NotAllowedError: the parent cancelled
+      }
+    });
+
+    $("[data-passkey-login]").addEventListener("click", async () => {
+      note("");
+      try {
+        const start = await post("login-options");
+        if (start.status === 503 || start.status === 404) return note(ui.passkeySoon);
+        if (!start.ok) return note(ui.passkeyFailed);
+        const { challenge, options } = await start.json();
+        const response = await startAuthentication({ optionsJSON: options });
+        const res = await post("login", { challenge, response, voter: local().voter });
+        if (res.status === 404) return note(ui.passkeyUnknown);
+        if (!res.ok) return note(ui.passkeyFailed);
+        const { token, profile, updated } = await res.json();
+        setSync({ token, pulled: updated ?? Date.now() });
+        adopt(profile);
+        flash(ui.passkeyWelcome);
+      } catch (e) {
+        if ((e as Error).name !== "NotAllowedError") note(ui.passkeyFailed);
+      }
+    });
+
+    $("[data-passkey-signout]").addEventListener("click", async () => {
+      const s = getSync();
+      await push(); // the latest changes first
+      if (s) fetch("/api/profile/logout", { method: "POST", headers: { authorization: `Bearer ${s.token}` } }).catch(() => {});
+      setSync(null);
+    });
+
+    /* ---------- move to another phone ---------- */
+    let moveUrl = "";
+    $("[data-move]").addEventListener("click", async () => {
+      const { code, full } = await packForMove(local());
+      moveUrl = `${location.origin}${location.pathname}#p=${code}`;
+      $("[data-qr]").innerHTML = renderSVG(moveUrl, { border: 2, pixelSize: 4 });
+      const n = $("[data-move-note]");
+      n.textContent = full ? "" : ui.movePartial;
+      n.hidden = full;
+      $("[data-move-out]").hidden = false;
+    });
+    $("[data-move-copy]").addEventListener("click", async () => {
+      const n = $("[data-move-note]");
+      try { await navigator.clipboard.writeText(moveUrl); n.textContent = ui.moveCopied; } catch { n.textContent = moveUrl; }
+      n.hidden = false;
+    });
+
+    const code = new URLSearchParams(location.hash.slice(1)).get("p");
+    if (code) {
+      const box = $("[data-incoming]");
+      unpackMove(code).then((incoming) => {
+        if (!incoming) { history.replaceState(null, "", location.pathname); return flash(ui.incomingBad); }
+        $("[data-incoming-text]").textContent = plural(ui.incoming as unknown as Plural, incoming.saved.length);
+        box.hidden = false;
+        $("[data-incoming-add]").addEventListener("click", () => {
+          adopt(incoming);
+          box.hidden = true;
+          history.replaceState(null, "", location.pathname);
+          flash(ui.incomingDone);
+        });
+      });
+    }
+
+    /* ---------- download and load ---------- */
+    $("[data-download]").addEventListener("click", async () => {
+      const p = local();
+      // The quick votes live on our side, counted under this browser's random id: fetch them too.
+      let votes: unknown = [];
+      if (p.voter) {
+        try {
+          const res = await fetch("/api/taps?mine=1", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ voter: p.voter }) });
+          if (res.ok) votes = await res.json();
+        } catch { /* offline: the profile alone */ }
+      }
+      const file = { ...p, exported: new Date().toISOString(), site: location.origin, synced_with_passkey: !!getSync(), votes };
+      const a = Object.assign(document.createElement("a"), {
+        href: URL.createObjectURL(new Blob([JSON.stringify(file, null, 2)], { type: "application/json" })),
+        download: `little-outings-${new Date().toISOString().slice(0, 10)}.json`,
+      });
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(a.href), 10_000);
+    });
+
+    $("[data-load-pick]").addEventListener("click", () => $("[data-load]").click());
+    $<HTMLInputElement>("[data-load]").addEventListener("change", async (ev) => {
+      const input = ev.target as HTMLInputElement;
+      const f = input.files?.[0];
+      input.value = "";
+      if (!f) return;
+      try {
+        const data = JSON.parse(await f.text());
+        if (data?.app !== "little-outings") throw new Error("not ours");
+        adopt(clean(data));
+        flash(ui.loaded);
+      } catch { flash(ui.loadBad); }
+    });
+
+    /* ---------- delete ---------- */
+    $("[data-delete]").addEventListener("click", async () => {
+      if (!confirm(ui.deleteConfirm)) return;
+      const p: Profile = local();
+      const s = getSync();
+      // Our side first. If that fails, the phone keeps its ids so the parent can simply try again.
+      // 503: that store isn't set up, so it holds nothing. 401: the passkey copy is already gone.
+      const gone = (r: Response) => r.ok || r.status === 503 || r.status === 404 || r.status === 401;
+      try {
+        if (p.voter && !gone(await fetch("/api/taps", { method: "DELETE", headers: { "content-type": "application/json" }, body: JSON.stringify({ voter: p.voter }) }))) throw new Error();
+        if (s && !gone(await fetch("/api/profile/data", { method: "DELETE", headers: { authorization: `Bearer ${s.token}` } }))) throw new Error();
+      } catch { return flash(ui.passkeyFailed); }
+      forget(localStorage);
+      document.dispatchEvent(new CustomEvent("lo:profile"));
+      document.dispatchEvent(new CustomEvent("lo:sync"));
+      flash(ui.deleted);
+    });
+  </script>
+</Base>
