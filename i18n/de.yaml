@@ -84,7 +84,8 @@ addTitle: Mitmachen
 addSub: Ihr habt ein Plakat am Hofladen gesehen oder kennt einen tollen Spielplatz? Erzählt es uns, gern auch auf Englisch oder Chinesisch. Wir prüfen jeden Hinweis, bevor er erscheint.
 posterTitle: Plakat gesehen? Einfach fotografieren.
 posterSub: Oder einen Link oder eine Nachricht einfügen. Wir lesen Name, Datum, Uhrzeit und Ort automatisch aus, ihr prüft nur kurz.
-posterBtn: Plakat fotografieren oder hochladen
+posterBtn: Plakat fotografieren
+posterPick: Foto aus der Galerie wählen
 orPaste: oder Link bzw. Text einfügen
 pastePh: Website, Instagram-Post oder WhatsApp-Nachricht
 pasteBtn: Auslesen

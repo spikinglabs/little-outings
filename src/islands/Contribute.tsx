@@ -93,6 +93,12 @@ export default function Contribute({ lang, ui }: Props) {
             <span>{ui.posterBtn}</span>
             <input class="sr-only" type="file" accept="image/*" capture="environment" onChange={onPhoto} />
           </label>
+          {/* capture opens the camera straight away on Android, so photos already on the phone need their own picker. */}
+          <label class="btn pick">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" /><circle cx="9" cy="10" r="1.6" /><path d="M21 16l-5-5-8 8" /></svg>
+            <span>{ui.posterPick}</span>
+            <input class="sr-only" type="file" accept="image/*" onChange={onPhoto} />
+          </label>
           <span class="or">{ui.orPaste}</span>
           <form class="paste-row" onSubmit={(e) => { e.preventDefault(); if (paste.trim()) parse(/^https?:\/\//.test(paste.trim()) ? { url: paste.trim() } : { text: paste }); }}>
             <input value={paste} onInput={(e) => setPaste((e.target as HTMLInputElement).value)} placeholder={ui.pastePh} aria-label={ui.pastePh} />
