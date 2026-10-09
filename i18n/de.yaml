@@ -133,6 +133,8 @@ pleaseCheck: Bitte prüfen
 field: { title: Titel, date: Datum, time: Uhrzeit, place: Ort oder Adresse, price: Preis, note: "Was gibt es für Kinder?" }
 parseSoon: Automatisches Auslesen ist noch nicht eingerichtet. Bitte füllt die Felder selbst aus.
 parseFail: Das konnten wir nicht automatisch auslesen. Bitte füllt die Felder selbst aus.
+sentEvent: "Gesendet. Wir prüfen jede Veranstaltung, bevor sie online geht; danach findet ihr sie unter Entdecken."
+sendAnother: Weitere Veranstaltung senden
 typeIt: Lieber selbst eintippen
 report:
   title: Stimmt etwas nicht?

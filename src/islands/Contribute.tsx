@@ -68,7 +68,7 @@ export default function Contribute({ lang, ui }: Props) {
       ok = res.ok;
       if (ok) try { rememberSent(localStorage, { kind: "event", draft }); schedulePush(); } catch { /* storage blocked */ }
     } catch { /* offline or not set up */ }
-    setNote(ok ? ui.answered : ui.inboxSoon);
+    setNote(ok ? ui.sentEvent : ui.inboxSoon);
     setStep("sent");
   }
 
@@ -124,7 +124,17 @@ export default function Contribute({ lang, ui }: Props) {
           <button class="btn primary" type="submit">{ui.send}</button>
         </form>
       )}
-      {step === "sent" && <p class="thanks" role="status">{note}</p>}
+      {step === "sent" && (
+        <div class="sent" role="status">
+          <p class="sent-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>{note}</p>
+          <dl>
+            {draft.title && <><dt>{ui.field.title}</dt><dd>{draft.title}</dd></>}
+            {(draft.date || draft.time) && <><dt>{ui.field.date}</dt><dd>{[draft.date, draft.time].filter(Boolean).join(" · ")}</dd></>}
+            {draft.place && <><dt>{ui.field.place}</dt><dd>{draft.place}</dd></>}
+          </dl>
+          <button class="btn" type="button" onClick={() => { setDraft(EMPTY); setUnsure([]); setPhoto(""); setPaste(""); setNote(""); setStep("start"); }}>{ui.sendAnother}</button>
+        </div>
+      )}
     </section>
   );
 }
