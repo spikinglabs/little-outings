@@ -83,7 +83,7 @@ placeSub: "Ein Hof mit Tieren, ein Café, in dem Kinder willkommen sind, ein sch
 placeBtn: "Ort vorschlagen"
 placeKind: "Was für ein Ort?"
 placeTown: "Stadt"
-placeOtherTown: "Andere Stadt"
+placeTownPh: "z. B. Velbert"
 placeName: "Name"
 placeStreet: "Straße und Hausnummer (falls bekannt)"
 placeFeatures: "Was gibt es für Familien?"

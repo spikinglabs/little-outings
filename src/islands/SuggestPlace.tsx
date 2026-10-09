@@ -45,7 +45,8 @@ export default function SuggestPlace({ lang, kinds, features, towns, ui }: Props
               <select name="kind" required>{kinds.map(([k, label]) => <option value={k}>{label}</option>)}</select>
             </label>
             <label>{ui.placeTown}
-              <select name="town" required>{towns.map(([k, label]) => <option value={k}>{label}</option>)}<option value="other">{ui.placeOtherTown}</option></select>
+              <input name="town" required maxLength={100} list="place-towns" autocomplete="address-level2" placeholder={ui.placeTownPh} />
+              <datalist id="place-towns">{towns.map(([k, label]) => <option value={k}>{label === k ? undefined : label}</option>)}</datalist>
             </label>
           </div>
           <label>{ui.placeName}<input name="name" required maxLength={200} /></label>

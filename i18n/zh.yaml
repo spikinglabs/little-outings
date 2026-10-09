@@ -83,7 +83,7 @@ placeSub: "有动物的农场、欢迎孩子的咖啡馆、好玩的游乐场：
 placeBtn: "推荐地点"
 placeKind: "什么类型的地点？"
 placeTown: "城市"
-placeOtherTown: "其他城市"
+placeTownPh: "例如 Velbert"
 placeName: "名称"
 placeStreet: "街道和门牌号（如果知道）"
 placeFeatures: "有哪些适合家庭的设施？"

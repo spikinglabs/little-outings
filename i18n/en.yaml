@@ -83,7 +83,7 @@ placeSub: "A farm with animals, a café where kids are welcome, a good playgroun
 placeBtn: "Suggest a place"
 placeKind: "What kind of place?"
 placeTown: "Town"
-placeOtherTown: "Another town"
+placeTownPh: "e.g. Velbert"
 placeName: "Name"
 placeStreet: "Street and number (if you know it)"
 placeFeatures: "What's there for families?"
