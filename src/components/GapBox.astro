@@ -1,5 +1,6 @@
 ---
 // "Still missing": one small question per gap. Answers go to the inbox; two matching answers go live.
+import GapForm from "./GapForm.astro";
 import { gapsOf } from "../lib/gaps";
 import type { T } from "../lib/i18n";
 import type { Item } from "../lib/types";
@@ -7,37 +8,11 @@ import type { Item } from "../lib/types";
 interface Props { item: Item; t: T; compact?: boolean; /** the place page asks about facilities on the chips instead */ skipFacilities?: boolean }
 const { item, t, compact, skipFacilities } = Astro.props;
 const gaps = gapsOf(item).filter((g) => !(skipFacilities && g.type === "fac"));
-const withInput = new Set(["where", "time", "price", "hours"]);
 ---
 {gaps.length > 0 && (
   <div class:list={[!compact && "help"]}>
     {!compact && <h2>{t("gapsTitle")}</h2>}
     {!compact && <p>{t("gapsSub")}</p>}
-    {gaps.map((g) => {
-      const q = g.type === "fac" ? t("q.fac", { f: t(`features.${g.feature}`) }) : t(`q.${g.type}`);
-      const key = `${item.id}:${g.type}${g.feature ? `:${g.feature}` : ""}`;
-      const inputId = `g-${key.replace(/:/g, "-")}`;
-      return (
-        <form class="gap" data-gap={key} novalidate>
-          <span class="gap-tag">{t(`gapLabel.${g.type}`)}</span>
-          {withInput.has(g.type) ? <label for={inputId}><b>{q}</b></label> : <b>{q}</b>}
-          <div class="gap-form">
-            {withInput.has(g.type) ? (
-              <>
-                {g.type === "price" && <button class="chip" type="submit" name="answer" value="free">{t("free")}</button>}
-                <input id={inputId} name="text" placeholder={t(`ph.${g.type}`)} autocomplete="off" />
-                <button class="btn" type="submit">{t("send")}</button>
-              </>
-            ) : (
-              <>
-                <button class="chip" type="submit" name="answer" value="yes">{t("yes")}</button>
-                <button class="chip" type="submit" name="answer" value="no">{t("no")}</button>
-                <button class="chip" type="submit" name="answer" value="unsure">{t("dunno")}</button>
-              </>
-            )}
-          </div>
-        </form>
-      );
-    })}
+    {gaps.map((g) => <GapForm t={t} gapKey={`${item.id}:${g.type}${g.feature ? `:${g.feature}` : ""}`} type={g.type} feature={g.feature} />)}
   </div>
 )}

@@ -3,7 +3,7 @@ import { KEYS, rememberSent } from "../lib/profile";
 import { pullNowAndThen, schedulePush } from "./sync";
 
 const body = document.body;
-const ui = JSON.parse(body.dataset.ui || "{}") as Record<string, string>;
+const ui = JSON.parse(body.dataset.ui || "{}") as Record<string, string> & { fac?: [string, string][] };
 const towns = new Map<string, [number, number]>(
   (JSON.parse(body.dataset.towns || "[]") as [string, number, number][]).map(([n, la, lo]) => [n, [la, lo]]),
 );
@@ -16,10 +16,29 @@ const write = (k: string, v: string) => { try { localStorage.setItem(k, v); sche
 export const saved = new Set<string>(JSON.parse(read("lo-saved") || "[]"));
 /** Sets the save buttons under root to this device's list (cards moved into the page need it too). */
 export function markSaved(root: ParentNode = document) {
+  fillRows(root);
   root.querySelectorAll<HTMLButtonElement>("[data-save]").forEach((b) => {
     const on = saved.has(b.dataset.save!);
     b.setAttribute("aria-pressed", String(on));
     b.setAttribute("aria-label", on ? ui.saved : ui.save);
+  });
+}
+/** Draws the facility icons of place cards from their data-fac digits (one per facility, 1 = yes). */
+function fillRows(root: ParentNode) {
+  const fac = ui.fac || [];
+  root.querySelectorAll<HTMLElement>(".frow[data-fac]").forEach((row) => {
+    const bits = row.dataset.fac!;
+    row.removeAttribute("data-fac");
+    row.replaceChildren(...fac.map(([key, name], i) => {
+      const on = bits[i] === "1";
+      const s = document.createElement("span");
+      s.className = on ? "fi on" : "fi";
+      const label = on ? name : `${name}: ?`;
+      s.title = label;
+      s.setAttribute("aria-label", label);
+      s.innerHTML = `<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#f-${key}"/></svg>`;
+      return s;
+    }));
   });
 }
 export function renderSaved() {
@@ -281,6 +300,17 @@ export function remember(payload: Record<string, unknown>) {
 // The service worker makes the site installable and keeps opened pages readable offline.
 if ("serviceWorker" in navigator && !import.meta.env.DEV) {
   window.addEventListener("load", () => navigator.serviceWorker.register("/sw.js").catch(() => {}));
+  // Once the page is idle, fetch the other tabs through the service worker so switching to them
+  // opens a saved copy instantly. Skipped on data saver, and only for tabs not saved yet.
+  const conn = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
+  const idle = window.requestIdleCallback || ((f: () => void) => setTimeout(f, 2000));
+  if (navigator.serviceWorker.controller && !conn?.saveData && "caches" in window) {
+    window.addEventListener("load", () => idle(async () => {
+      for (const a of document.querySelectorAll<HTMLAnchorElement>(".tabs a:not([aria-current])")) {
+        if (!(await caches.match(a.href, { ignoreSearch: true }))) await fetch(a.href).catch(() => {});
+      }
+    }));
+  }
 }
 const standalone = matchMedia("(display-mode: standalone)").matches || (navigator as { standalone?: boolean }).standalone === true;
 const ios = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);

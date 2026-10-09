@@ -19,6 +19,26 @@ function whenOk(d: DOMStringMap) {
 // Hundreds of tasks in the live page made phones slow, so they wait in a <template> until shown.
 const cards = [...document.querySelector<HTMLTemplateElement>("#tasks-pool")!.content.querySelectorAll<HTMLElement>(".task")];
 const grid = document.getElementById("tasks")!;
+// One blank form per kind of question, keyed "@:<code>"; a task's forms are cloned from these when it is shown.
+const forms = new Map([...document.querySelector<HTMLTemplateElement>("#gap-forms")!.content.querySelectorAll<HTMLFormElement>("form")]
+  .map((f) => [f.dataset.gap!.slice(2), f]));
+function fillGaps(card: HTMLElement) {
+  const box = card.querySelector<HTMLElement>("[data-gaps]");
+  if (!box) return;
+  const codes = box.dataset.gaps!.split(" ").filter(Boolean);
+  box.removeAttribute("data-gaps");
+  box.replaceChildren(...codes.flatMap((code) => {
+    const blank = forms.get(code);
+    if (!blank) return [];
+    const form = blank.cloneNode(true) as HTMLFormElement;
+    const key = `${card.dataset.id}:${code}`;
+    const id = `g-${key.replace(/:/g, "-")}`;
+    form.dataset.gap = key;
+    form.querySelector("input")?.setAttribute("id", id);
+    form.querySelector("label")?.setAttribute("for", id);
+    return [form];
+  }));
+}
 const countEl = document.querySelector<HTMLElement>("[data-task-count]")!;
 const emptyEl = document.querySelector<HTMLElement>("[data-task-empty]")!;
 const moreEl = document.querySelector<HTMLButtonElement>("[data-task-more]")!;
@@ -32,7 +52,7 @@ function apply() {
     const ok = whenOk(d) && (!state.town || d.town === state.town) && words.every((w) => d.q!.includes(w));
     if (ok) n++;
     card.hidden = !ok || n > state.limit;
-    if (!card.hidden) shown.push(card);
+    if (!card.hidden) { fillGaps(card); shown.push(card); }
   }
   if (cards.length) grid.replaceChildren(...shown);
   renderKm();
