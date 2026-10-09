@@ -38,7 +38,7 @@
 {"osm":"way/618786006","kind":"playground","name":"Reutershagweg","town":"Aachen","lat":50.771606,"lon":6.036511,"free":true,"facilities":[]}
 {"osm":"way/40774658","kind":"playground","name":"Schillerstraße","town":"Aachen","lat":50.763597,"lon":6.077902,"free":true,"facilities":[]}
 {"osm":"way/278071269","kind":"playground","name":"Seffenter Weg","town":"Aachen","lat":50.784535,"lon":6.058022,"free":true,"facilities":[]}
-{"osm":"node/12749679551","kind":"playground","name":"Shervins Spieleparadies","town":"Aachen","street":"Dahmengraben 3-5","postcode":"52062","lat":50.776008,"lon":6.088091,"hours":"Mo off; Tu-Th 10:00-13:00,14:00-18:00; Fr-Su 12:00-19:00","website":"https://www.shervins-spieleparadies.de/","indoor":true,"free":true,"facilities":[]}
+{"osm":"node/12749679551","kind":"indoor","name":"Shervins Spieleparadies","town":"Aachen","street":"Dahmengraben 3-5","postcode":"52062","lat":50.776008,"lon":6.088091,"hours":"Mo off; Tu-Th 10:00-13:00,14:00-18:00; Fr-Su 12:00-19:00","website":"https://www.shervins-spieleparadies.de/","indoor":true,"free":true,"facilities":[]}
 {"osm":"way/871751380","kind":"playground","name":"Speelplek \"Dr Kengertreff\"","town":"Aachen","lat":50.769718,"lon":6.01362,"free":true,"facilities":[]}
 {"osm":"way/871751381","kind":"playground","name":"Speelplek \"Dr Kengertreff\"","town":"Aachen","lat":50.769764,"lon":6.013296,"free":true,"facilities":[]}
 {"osm":"way/844518532","kind":"playground","name":"Speelplek Het Kraaienbosje","town":"Aachen","lat":50.768443,"lon":6.010554,"free":true,"facilities":[]}
@@ -205,7 +205,7 @@
 {"osm":"way/590548465","kind":"playground","name":"Am Waldrand","town":"Bonn","lat":50.732762,"lon":7.176994,"free":true,"facilities":[]}
 {"osm":"way/10116204","kind":"playground","name":"An der Waldau","town":"Bonn","lat":50.691045,"lon":7.096017,"free":true,"facilities":[]}
 {"osm":"way/221583223","kind":"playground","name":"Anna Spielsplatz","town":"Bonn","lat":50.748069,"lon":7.004535,"free":true,"facilities":[]}
-{"osm":"node/6297602534","kind":"playground","name":"Baby Bee","town":"Bonn","street":"Theaterstraße 18","postcode":"53111","lat":50.739694,"lon":7.101223,"hours":"Mo-Su 08:30-18:15","website":"https://www.babybee-spielraum.de/bonn","indoor":true,"free":true,"facilities":[]}
+{"osm":"node/6297602534","kind":"indoor","name":"Baby Bee","town":"Bonn","street":"Theaterstraße 18","postcode":"53111","lat":50.739694,"lon":7.101223,"hours":"Mo-Su 08:30-18:15","website":"https://www.babybee-spielraum.de/bonn","indoor":true,"free":true,"facilities":[]}
 {"osm":"way/301390931","kind":"playground","name":"Brüser Dorf","town":"Bonn","street":"Abenteuerweg","lat":50.693516,"lon":7.050868,"website":"http://www.brueser-dorf-bonn.de/","free":true,"facilities":[]}
 {"osm":"way/26577659","kind":"playground","name":"Dorfplatz Küdinghoven","town":"Bonn","lat":50.729706,"lon":7.148197,"free":true,"facilities":[]}
 {"osm":"way/533632345","kind":"playground","name":"Frankenbadplatz","town":"Bonn","lat":50.739178,"lon":7.089558,"free":true,"facilities":[]}
@@ -282,8 +282,8 @@
 {"osm":"node/847276670","kind":"farm","name":"Lindenlädchen","town":"Düren","lat":50.834592,"lon":6.490084,"facilities":["animals","farm_shop"]}
 {"osm":"node/890954871","kind":"farm","name":"Spargel-Hof Lövenich","town":"Düren","street":"Schillingsstraße 72","postcode":"52355","lat":50.795475,"lon":6.447387,"hours":"Mo-Fr 09:00-18:30; Sa 08:00-14:00; Su,PH 10:00-12:00","website":"https://www.spargel-hof.de/","facilities":["animals","farm_shop"]}
 {"osm":"node/6128049246","kind":"farm","name":"Vitaminkiste","town":"Düren","street":"Gerichtsweg 4","postcode":"52355","lat":50.763406,"lon":6.472642,"facilities":["animals","farm_shop"]}
-{"osm":"way/59225135","kind":"park","name":"Bubenheimer Spieleland","town":"Düren","street":"Burg Bubenheim 1","postcode":"52388","lat":50.76935,"lon":6.553052,"hours":"Mar 20-Nov 01 Mo-Su,PH 09:00-19:00; Nov 01-Mar 19 Sa,Su 10:00-18:00; Dec 27-Jan 06 10:00-18:00; Dec 24-26,Dec 31 off; Jan 01 off","website":"https://www.bubenheimer-spieleland.de/","free":false,"facilities":[]}
-{"osm":"node/4649837116","kind":"park","name":"Play Arena","town":"Düren","street":"Veldener Straße 107","postcode":"52349","lat":50.814201,"lon":6.470068,"hours":"Mo-Th 14:00-20:00; Fr,Sa,PH,SH 10:00-20:00","website":"https://playarenagmbh.de/","free":false,"facilities":[]}
+{"osm":"way/59225135","kind":"fun","name":"Bubenheimer Spieleland","town":"Düren","street":"Burg Bubenheim 1","postcode":"52388","lat":50.76935,"lon":6.553052,"hours":"Mar 20-Nov 01 Mo-Su,PH 09:00-19:00; Nov 01-Mar 19 Sa,Su 10:00-18:00; Dec 27-Jan 06 10:00-18:00; Dec 24-26,Dec 31 off; Jan 01 off","website":"https://www.bubenheimer-spieleland.de/","free":false,"facilities":[]}
+{"osm":"node/4649837116","kind":"fun","name":"Play Arena","town":"Düren","street":"Veldener Straße 107","postcode":"52349","lat":50.814201,"lon":6.470068,"hours":"Mo-Th 14:00-20:00; Fr,Sa,PH,SH 10:00-20:00","website":"https://playarenagmbh.de/","free":false,"facilities":[]}
 {"osm":"way/1112649686","kind":"playground","name":"Abenteuerspielplatz","town":"Düren","lat":50.81228,"lon":6.50282,"free":true,"facilities":[]}
 {"osm":"way/358505056","kind":"playground","name":"Bungee-Trampolin","town":"Düren","lat":50.770652,"lon":6.552084,"free":true,"facilities":[]}
 {"osm":"way/358502905","kind":"playground","name":"Kletterberg","town":"Düren","lat":50.769725,"lon":6.55329,"free":true,"facilities":[]}
@@ -339,8 +339,8 @@
 {"osm":"way/24685437","kind":"playground","name":"Annaspielplatz","town":"Düsseldorf","lat":51.239664,"lon":6.788331,"free":true,"facilities":[]}
 {"osm":"way/135907148","kind":"playground","name":"Augustinusstraße / Obertor","town":"Düsseldorf","lat":51.194181,"lon":6.700466,"free":true,"facilities":[]}
 {"osm":"way/807618357","kind":"playground","name":"Augustinusstraße / Obertor","town":"Düsseldorf","lat":51.194344,"lon":6.700087,"free":true,"facilities":[]}
-{"osm":"node/14103810030","kind":"playground","name":"Baby Bee","town":"Düsseldorf","street":"Nord Carree 6","postcode":"40477","lat":51.23558,"lon":6.779468,"website":"https://www.babybee-spielraum.de/duesseldorf","indoor":true,"free":true,"facilities":[]}
-{"osm":"way/95404604","kind":"playground","name":"Bero's Kinderwelt","town":"Düsseldorf","street":"Römerstraße 132","postcode":"41462","lat":51.215793,"lon":6.683113,"hours":"Mo-Fr 14:00-19:00; Sa,Su,PH 10:00-19:00","website":"https://beros-kinderwelten.de/beros-kinderwelt-neuss/","indoor":true,"free":false,"facilities":[]}
+{"osm":"node/14103810030","kind":"indoor","name":"Baby Bee","town":"Düsseldorf","street":"Nord Carree 6","postcode":"40477","lat":51.23558,"lon":6.779468,"website":"https://www.babybee-spielraum.de/duesseldorf","indoor":true,"free":true,"facilities":[]}
+{"osm":"way/95404604","kind":"indoor","name":"Bero's Kinderwelt","town":"Düsseldorf","street":"Römerstraße 132","postcode":"41462","lat":51.215793,"lon":6.683113,"hours":"Mo-Fr 14:00-19:00; Sa,Su,PH 10:00-19:00","website":"https://beros-kinderwelten.de/beros-kinderwelt-neuss/","indoor":true,"free":false,"facilities":[]}
 {"osm":"way/1284956456","kind":"playground","name":"Blücherstraße / Büdericher Straße","town":"Düsseldorf","lat":51.215315,"lon":6.691388,"free":true,"facilities":[]}
 {"osm":"way/837529855","kind":"playground","name":"Blutturm","town":"Düsseldorf","lat":51.195306,"lon":6.694,"free":true,"facilities":[]}
 {"osm":"way/173678213","kind":"playground","name":"Brandgasse","town":"Düsseldorf","lat":51.19937,"lon":6.688703,"free":true,"facilities":[]}
@@ -354,7 +354,7 @@
 {"osm":"way/24959381","kind":"playground","name":"Gangelplatz","town":"Düsseldorf","lat":51.21082,"lon":6.801028,"free":true,"facilities":[]}
 {"osm":"way/1266057352","kind":"playground","name":"Gereonstraße","town":"Düsseldorf","lat":51.252003,"lon":6.697871,"free":true,"facilities":[]}
 {"osm":"way/587290900","kind":"playground","name":"Germanicusweg","town":"Düsseldorf","lat":51.186459,"lon":6.701559,"free":true,"facilities":[]}
-{"osm":"way/290832761","kind":"playground","name":"Gino's Kinderland Indoor-Spielplatz","town":"Düsseldorf","lat":51.258324,"lon":6.802681,"hours":"Mo, We-Fr 14:00-19:00; Sa-Su 10:30-19:00; SH 10:30-19:00","website":"https://ginoland.com/","indoor":true,"free":true,"facilities":[]}
+{"osm":"way/290832761","kind":"indoor","name":"Gino's Kinderland Indoor-Spielplatz","town":"Düsseldorf","lat":51.258324,"lon":6.802681,"hours":"Mo, We-Fr 14:00-19:00; Sa-Su 10:30-19:00; SH 10:30-19:00","website":"https://ginoland.com/","indoor":true,"free":true,"facilities":[]}
 {"osm":"way/71113997","kind":"playground","name":"Gnadentaler Allee / Grünzug","town":"Düsseldorf","lat":51.18005,"lon":6.710258,"free":true,"facilities":[]}
 {"osm":"way/115013339","kind":"playground","name":"Graf-Landsberg-Straße (Theresienheim)","town":"Düsseldorf","lat":51.22307,"lon":6.690614,"free":true,"facilities":[]}
 {"osm":"way/82011383","kind":"playground","name":"Grüner Weg","town":"Düsseldorf","lat":51.180116,"lon":6.717121,"free":true,"facilities":[]}
@@ -456,7 +456,7 @@
 {"osm":"way/41400374","kind":"playground","name":"Wasserspielplatz Tannenhofweg","town":"Düsseldorf","lat":51.214001,"lon":6.856111,"free":true,"facilities":[]}
 {"osm":"way/51080665","kind":"playground","name":"Wildpark-Spielplatz - Standort-Nr. 9542","town":"Düsseldorf","lat":51.248459,"lon":6.841886,"free":true,"facilities":[]}
 {"osm":"way/144441579","kind":"playground","name":"Wingenderstraße","town":"Düsseldorf","lat":51.210753,"lon":6.682121,"free":true,"facilities":[]}
-{"osm":"node/1354630869","kind":"playground","name":"Wunderhaus","town":"Düsseldorf","lat":51.189969,"lon":6.817017,"hours":"Sa,Su 10:00-19:00; PH off","website":"http://wunder-haus.jimdo.com/","indoor":true,"free":false,"facilities":[]}
+{"osm":"node/1354630869","kind":"indoor","name":"Wunderhaus","town":"Düsseldorf","lat":51.189969,"lon":6.817017,"hours":"Sa,Su 10:00-19:00; PH off","website":"http://wunder-haus.jimdo.com/","indoor":true,"free":false,"facilities":[]}
 {"osm":"way/23388069","kind":"pool","name":"Allwetterbad Flingern","town":"Düsseldorf","street":"Flinger Broich 91a","postcode":"40235","lat":51.224881,"lon":6.833734,"website":"https://www.baeder-duesseldorf.de/baeder/freibaeder/freibad-allwetterbad-flingern/","facilities":[]}
 {"osm":"way/375287705","kind":"pool","name":"Freizeitbad Düsselstrand","town":"Düsseldorf","street":"Kettwiger Straße 50","postcode":"40233","lat":51.22433,"lon":6.810267,"hours":"Mo-Fr 06:30-22:00; Sa,Su 09:00-20:00","website":"https://www.baeder-duesseldorf.de/baeder-und-saunen/freizeitbad/duesselstrand/","facilities":[]}
 {"osm":"node/6284658975","kind":"pool","name":"Hallenbad Unterrath","town":"Düsseldorf","street":"Mettlacher Straße 55","postcode":"40468","lat":51.272218,"lon":6.772704,"website":"https://www.baeder-duesseldorf.de/baeder-und-saunen/hallenbaeder/gartenhallenbad-unterrath/","facilities":[]}
@@ -485,17 +485,17 @@
 {"osm":"way/88515517","kind":"playground","name":"Allbau-Spielplatz Messings Garten","town":"Essen","lat":51.440782,"lon":6.973453,"free":true,"facilities":[]}
 {"osm":"way/101336145","kind":"playground","name":"Am Ponyhof","town":"Essen","lat":51.409392,"lon":7.051564,"free":true,"facilities":[]}
 {"osm":"way/1224897676","kind":"playground","name":"Außengelände Kita Veronika","town":"Essen","lat":51.430555,"lon":7.012875,"free":true,"facilities":[]}
-{"osm":"node/14103828107","kind":"playground","name":"Baby Bee","town":"Essen","street":"Rüttenscheider Straße 116","postcode":"45131","lat":51.433275,"lon":7.004036,"website":"https://www.babybee-spielraum.de/essen","indoor":true,"free":true,"facilities":[]}
+{"osm":"node/14103828107","kind":"indoor","name":"Baby Bee","town":"Essen","street":"Rüttenscheider Straße 116","postcode":"45131","lat":51.433275,"lon":7.004036,"website":"https://www.babybee-spielraum.de/essen","indoor":true,"free":true,"facilities":[]}
 {"osm":"node/8661586917","kind":"playground","name":"Baumläufer","town":"Essen","lat":51.420296,"lon":7.017449,"free":true,"facilities":[]}
 {"osm":"way/28776061","kind":"playground","name":"Dornemannplatz","town":"Essen","lat":51.454466,"lon":7.037965,"free":true,"facilities":[]}
 {"osm":"way/1150531197","kind":"playground","name":"Drügeshofstraße","town":"Essen","lat":51.463324,"lon":6.967826,"free":true,"facilities":[]}
 {"osm":"way/113301541","kind":"playground","name":"Freisenbruch","town":"Essen","lat":51.448868,"lon":7.1066,"free":true,"facilities":[]}
-{"osm":"way/90470363","kind":"playground","name":"Funiversum","town":"Essen","street":"Schürmannstraße 19a","postcode":"45136","lat":51.432908,"lon":7.033162,"hours":"Mo,Tu,Th 14:00-19:00;We,Fr 10:00-19:00; PH,Sa,Su 10:00-19:00","website":"https://fun-iversum.de/","indoor":true,"free":false,"facilities":[]}
+{"osm":"way/90470363","kind":"indoor","name":"Funiversum","town":"Essen","street":"Schürmannstraße 19a","postcode":"45136","lat":51.432908,"lon":7.033162,"hours":"Mo,Tu,Th 14:00-19:00;We,Fr 10:00-19:00; PH,Sa,Su 10:00-19:00","website":"https://fun-iversum.de/","indoor":true,"free":false,"facilities":[]}
 {"osm":"way/889593162","kind":"playground","name":"Grieperstraße/Markscheide Spielplatz","town":"Essen","lat":51.463563,"lon":6.97473,"free":true,"facilities":[]}
 {"osm":"way/54938765","kind":"playground","name":"Holdenweg/Kötterstraße Spielplatz","town":"Essen","lat":51.463302,"lon":6.970929,"free":true,"facilities":[]}
 {"osm":"way/31535417","kind":"playground","name":"Isenbergplatz","town":"Essen","lat":51.44321,"lon":7.015976,"free":true,"facilities":[]}
 {"osm":"node/631845044","kind":"playground","name":"Jahnplatz Spielplatz","town":"Essen","lat":51.468206,"lon":6.977741,"free":true,"facilities":[]}
-{"osm":"node/3550477993","kind":"playground","name":"Jump House","town":"Essen","street":"Am Zehnthof 194","postcode":"45307","lat":51.457607,"lon":7.07186,"hours":"Mo off, Tu-Fr 15:00-20:00; Sa,Su 10:00-20:00","website":"https://www.jumphouse.de/essen","indoor":true,"free":false,"facilities":[]}
+{"osm":"node/3550477993","kind":"indoor","name":"Jump House","town":"Essen","street":"Am Zehnthof 194","postcode":"45307","lat":51.457607,"lon":7.07186,"hours":"Mo off, Tu-Fr 15:00-20:00; Sa,Su 10:00-20:00","website":"https://www.jumphouse.de/essen","indoor":true,"free":false,"facilities":[]}
 {"osm":"way/591741765","kind":"playground","name":"Katholische Kindertageseinrichtung St. Theresia","town":"Essen","lat":51.419108,"lon":7.027247,"free":true,"facilities":[]}
 {"osm":"node/5339383918","kind":"playground","name":"Kids Country - Indoorspielplatz","town":"Essen","street":"Am Zehnthof 194","postcode":"45307","lat":51.458123,"lon":7.072435,"hours":"Mo-Fr 14:00-19:00; Sa, Su 10:00-14:00, 15:00-19:00","website":"https://www.indoorspielplatz-im-ruhrgebiet.com/","free":false,"facilities":[]}
 {"osm":"node/5098145498","kind":"playground","name":"Kinderwelt","town":"Essen","lat":51.437254,"lon":6.955567,"free":true,"facilities":[]}
@@ -507,7 +507,7 @@
 {"osm":"way/1433962657","kind":"playground","name":"Realschule Essen-Überruhr","town":"Essen","lat":51.431929,"lon":7.07844,"free":true,"facilities":[]}
 {"osm":"way/623396562","kind":"playground","name":"Rotunde Amsterdam","town":"Essen","lat":51.458936,"lon":7.00646,"free":true,"facilities":[]}
 {"osm":"way/82433054","kind":"playground","name":"Saarplatz","town":"Essen","lat":51.436431,"lon":7.04199,"free":true,"facilities":[]}
-{"osm":"node/4826750367","kind":"playground","name":"Salznest Salzspielraum","town":"Essen","street":"Lindenallee 80","postcode":"45127","lat":51.45648,"lon":7.007669,"hours":"Mo-Fr 09:00-12:00,14:45-18:00; Sa 10:00-12:00, 14:45-18:00","website":"https://www.salznest-essen.de/","indoor":true,"free":true,"facilities":[]}
+{"osm":"node/4826750367","kind":"indoor","name":"Salznest Salzspielraum","town":"Essen","street":"Lindenallee 80","postcode":"45127","lat":51.45648,"lon":7.007669,"hours":"Mo-Fr 09:00-12:00,14:45-18:00; Sa 10:00-12:00, 14:45-18:00","website":"https://www.salznest-essen.de/","indoor":true,"free":true,"facilities":[]}
 {"osm":"way/30002022","kind":"playground","name":"Schnutenhausstraße","town":"Essen","lat":51.442807,"lon":7.02354,"free":true,"facilities":[]}
 {"osm":"way/392340380","kind":"playground","name":"Seilgarten","town":"Essen","lat":51.427033,"lon":6.988262,"free":true,"facilities":[]}
 {"osm":"way/333133970","kind":"playground","name":"Skateranlage Zeche Carl Funke","town":"Essen","lat":51.403132,"lon":7.050485,"free":true,"facilities":[]}
@@ -708,7 +708,7 @@
 {"osm":"way/1340987565","kind":"playground","name":"Stiehls Teich II","town":"Haan","lat":51.170729,"lon":7.006852,"free":true,"facilities":[]}
 {"osm":"node/9683117625","kind":"playground","name":"Sunken Sphere","town":"Haan","lat":51.171914,"lon":7.084524,"free":true,"facilities":[]}
 {"osm":"way/565005556","kind":"playground","name":"Tenger","town":"Haan","lat":51.179869,"lon":6.991757,"free":true,"facilities":[]}
-{"osm":"way/1087301372","kind":"playground","name":"Tiki- Kinderland","town":"Haan","lat":51.164351,"lon":7.073216,"indoor":true,"free":true,"facilities":[]}
+{"osm":"way/1087301372","kind":"indoor","name":"Tiki- Kinderland","town":"Haan","lat":51.164351,"lon":7.073216,"indoor":true,"free":true,"facilities":[]}
 {"osm":"way/1184959002","kind":"playground","name":"Walder Stadtpark","town":"Haan","lat":51.183505,"lon":7.047954,"free":true,"facilities":[]}
 {"osm":"way/741692547","kind":"playground","name":"Waldspielplatz","town":"Haan","lat":51.165993,"lon":6.929164,"free":true,"facilities":[]}
 {"osm":"way/1054427209","kind":"playground","name":"Wasserspielplatz Bärenloch","town":"Haan","lat":51.184655,"lon":7.085474,"free":true,"facilities":[]}
@@ -734,7 +734,7 @@
 {"osm":"way/929294015","kind":"playground","name":"Bleibergstraße","town":"Heiligenhaus","lat":51.327074,"lon":6.959235,"free":true,"facilities":[]}
 {"osm":"way/1195978628","kind":"playground","name":"Ferienwohnung Wolff","town":"Heiligenhaus","lat":51.337103,"lon":6.988669,"free":true,"facilities":[]}
 {"osm":"way/445235206","kind":"playground","name":"Fliederbusch","town":"Heiligenhaus","lat":51.324128,"lon":7.011383,"free":true,"facilities":[]}
-{"osm":"node/6535965211","kind":"playground","name":"Funky-Town Indoorspielplatz","town":"Heiligenhaus","lat":51.29881,"lon":6.931204,"hours":"Tu,We,Fr 14:00-19:00, Th,Sa 10:00-19:00","website":"https://funkytown-ratingen.de/","indoor":true,"free":true,"facilities":[]}
+{"osm":"node/6535965211","kind":"indoor","name":"Funky-Town Indoorspielplatz","town":"Heiligenhaus","lat":51.29881,"lon":6.931204,"hours":"Tu,We,Fr 14:00-19:00, Th,Sa 10:00-19:00","website":"https://funkytown-ratingen.de/","indoor":true,"free":true,"facilities":[]}
 {"osm":"way/32621066","kind":"playground","name":"Geibelstraße","town":"Heiligenhaus","lat":51.292919,"lon":6.931272,"free":true,"facilities":[]}
 {"osm":"way/32621065","kind":"playground","name":"Hermann-Stehr-Straße","town":"Heiligenhaus","lat":51.293723,"lon":6.929596,"free":true,"facilities":[]}
 {"osm":"way/151876890","kind":"playground","name":"Hexenberg-Spielplatz","town":"Heiligenhaus","lat":51.362243,"lon":6.939111,"free":true,"facilities":[]}
@@ -754,7 +754,7 @@
 {"osm":"node/7141833095","kind":"farm","name":"Poller Hofladen","town":"Köln","street":"Auf dem Sandberg 66","postcode":"51105","lat":50.914144,"lon":6.993464,"hours":"Fr 17:00-18:30, Sa 08:30-12:30; PH off","facilities":["animals","farm_shop"]}
 {"osm":"node/11165443002","kind":"farm","name":"Stadt Land Gemüse","town":"Köln","lat":50.952236,"lon":6.914744,"hours":"Tu 10:00-14:00; We,Fr 10:00-18:30; Sa 10:00-14:00","website":"https://www.stadtlandgemuese.de/der-laden","facilities":["animals","farm_shop"]}
 {"osm":"way/334606061","kind":"museum","name":"Schokoladenmuseum","town":"Köln","street":"Am Schokoladenmuseum 1a","postcode":"50678","lat":50.931975,"lon":6.964387,"hours":"Mo-Su 10:00-18:00; Jan-Mar Mo off; Nov Mo off","website":"https://www.schokoladenmuseum.de/","indoor":true,"free":false,"facilities":[]}
-{"osm":"way/24376212","kind":"park","name":"\"Odonien\" - Kunst-und Kulturpark","town":"Köln","street":"Hornstraße 85","postcode":"50823","lat":50.954743,"lon":6.938769,"website":"https://www.odonien.de/","facilities":[]}
+{"osm":"way/24376212","kind":"fun","name":"\"Odonien\" - Kunst-und Kulturpark","town":"Köln","street":"Hornstraße 85","postcode":"50823","lat":50.954743,"lon":6.938769,"website":"https://www.odonien.de/","facilities":[]}
 {"osm":"way/30417189","kind":"playground","name":"ALMIRA","town":"Köln","lat":50.96382,"lon":6.978048,"free":true,"facilities":[]}
 {"osm":"way/1354580289","kind":"playground","name":"ALMIRA","town":"Köln","lat":50.96331,"lon":6.977035,"free":true,"facilities":[]}
 {"osm":"way/151178226","kind":"playground","name":"Am Südpark","town":"Köln","lat":50.896811,"lon":6.97351,"free":true,"facilities":[]}
@@ -880,7 +880,7 @@
 {"osm":"way/676185664","kind":"playground","name":"Bauspielplatz Rheindorf","town":"Leverkusen","lat":51.061118,"lon":6.958628,"website":"http://www.bauspielplatz-leverkusen.de/","free":true,"facilities":[]}
 {"osm":"way/163979439","kind":"playground","name":"Bullenwiese","town":"Leverkusen","lat":51.022535,"lon":7.034988,"free":true,"facilities":[]}
 {"osm":"way/915495216","kind":"playground","name":"Ehrenhain","town":"Leverkusen","lat":51.031232,"lon":6.993708,"free":true,"facilities":[]}
-{"osm":"way/93461811","kind":"playground","name":"Family Paradise","town":"Leverkusen","street":"Quettinger Straße 283","postcode":"51381","lat":51.058531,"lon":7.017395,"hours":"Mo,Tu,Th,Fr 14:00-19:00; Sa,Su 10:00-19:00; PH, SH 11:00-19:00","website":"http://www.family-paradise.de/","indoor":true,"free":false,"facilities":[]}
+{"osm":"way/93461811","kind":"indoor","name":"Family Paradise","town":"Leverkusen","street":"Quettinger Straße 283","postcode":"51381","lat":51.058531,"lon":7.017395,"hours":"Mo,Tu,Th,Fr 14:00-19:00; Sa,Su 10:00-19:00; PH, SH 11:00-19:00","website":"http://www.family-paradise.de/","indoor":true,"free":false,"facilities":[]}
 {"osm":"way/1533580176","kind":"playground","name":"kitea Leverkusen X-Kids","town":"Leverkusen","lat":51.021056,"lon":6.998739,"website":"https://kitea-kids.de/kita-leverkusen-xkids/","free":true,"facilities":[]}
 {"osm":"way/775700104","kind":"playground","name":"Kletterdrachen","town":"Leverkusen","lat":51.030287,"lon":6.972245,"free":true,"facilities":[]}
 {"osm":"way/508764351","kind":"playground","name":"Löwenburg Kindergarten","town":"Leverkusen","lat":51.020726,"lon":6.999964,"free":true,"facilities":[]}
@@ -909,7 +909,7 @@
 {"osm":"way/1205358234","kind":"playground","name":"Am Sonnenhang","town":"Lohmar","lat":50.8079,"lon":7.245055,"free":true,"facilities":[]}
 {"osm":"node/364548125","kind":"playground","name":"Außenspiele","town":"Lohmar","lat":50.891535,"lon":7.177545,"free":true,"facilities":[]}
 {"osm":"node/386917409","kind":"playground","name":"AWO Waldkindergarten","town":"Lohmar","lat":50.900411,"lon":7.20947,"free":true,"facilities":[]}
-{"osm":"node/13634817560","kind":"playground","name":"Baby Bee","town":"Lohmar","street":"Hauptstraße 58","postcode":"53797","lat":50.840333,"lon":7.209592,"hours":"Mo-Su 09:30-18:45","website":"https://www.babybee-spielraum.de/rhein-sieg","indoor":true,"free":true,"facilities":[]}
+{"osm":"node/13634817560","kind":"indoor","name":"Baby Bee","town":"Lohmar","street":"Hauptstraße 58","postcode":"53797","lat":50.840333,"lon":7.209592,"hours":"Mo-Su 09:30-18:45","website":"https://www.babybee-spielraum.de/rhein-sieg","indoor":true,"free":true,"facilities":[]}
 {"osm":"way/25727014","kind":"playground","name":"Großer Spielplatz","town":"Lohmar","lat":50.892205,"lon":7.187634,"free":true,"facilities":[]}
 {"osm":"way/43719837","kind":"playground","name":"Hänsel und Gretel-Spielplatz","town":"Lohmar","lat":50.79676,"lon":7.209423,"free":true,"facilities":[]}
 {"osm":"way/361630003","kind":"playground","name":"Hüpfburg","town":"Lohmar","lat":50.872021,"lon":7.198265,"free":true,"facilities":[]}
@@ -999,9 +999,9 @@
 {"osm":"way/160125718","kind":"farm","name":"Sackerhof","town":"Ratingen","street":"Sohlstättenstraße 60","postcode":"40880","lat":51.305434,"lon":6.814569,"hours":"Apr-Dec,Jan-Mar Mo-Fr 09:00-18:30; Apr-Dec,Jan-Mar Sa 08:30-16:00; Apr-Dec Su 10:00-16:00","website":"http://sackerhof.de/","facilities":["animals","farm_shop"]}
 {"osm":"node/1718102874","kind":"farm","name":"Trotzhof - Fam. Roßkothen","town":"Ratingen","lat":51.246776,"lon":6.873067,"hours":"Mo-Sa 08:00-13:00; Mo, Tu, Th, Fr 15:00-18:00","website":"https://trotzhof.de/","facilities":["animals","farm_shop"]}
 {"osm":"node/9142748561","kind":"museum","name":"Spielzeugmuseum im Trinsenturm","town":"Ratingen","street":"Wehrgang 1","postcode":"40878","lat":51.298213,"lon":6.847428,"hours":"Sa-Su 11:00-17:00","website":"https://www.stadt-ratingen.de/kultur-und-tourismus/spielzeugmuseum-ratingen","indoor":true,"free":false,"facilities":[]}
-{"osm":"way/510812372","kind":"park","name":"Märchenzoo Blauer See","town":"Ratingen","street":"Zum Blauen See 22","postcode":"40882","lat":51.30765,"lon":6.862139,"facilities":[]}
+{"osm":"way/510812372","kind":"fun","name":"Märchenzoo Blauer See","town":"Ratingen","street":"Zum Blauen See 22","postcode":"40882","lat":51.30765,"lon":6.862139,"facilities":[]}
 {"osm":"way/39743575","kind":"playground","name":"Abenteuerspielplatz","town":"Ratingen","lat":51.290011,"lon":6.817686,"free":true,"facilities":[]}
-{"osm":"node/6126821818","kind":"playground","name":"Bobbolino Kinderwelt","town":"Ratingen","street":"Bochumer Straße 89","postcode":"40472","lat":51.26552,"lon":6.813471,"hours":"Mo-Fr 14:00-19:00; Sa,Su,PH 10:00-19:00","website":"https://www.bobolino-kinderwelt.de/","indoor":true,"free":false,"facilities":[]}
+{"osm":"node/6126821818","kind":"indoor","name":"Bobbolino Kinderwelt","town":"Ratingen","street":"Bochumer Straße 89","postcode":"40472","lat":51.26552,"lon":6.813471,"hours":"Mo-Fr 14:00-19:00; Sa,Su,PH 10:00-19:00","website":"https://www.bobolino-kinderwelt.de/","indoor":true,"free":false,"facilities":[]}
 {"osm":"node/408771624","kind":"playground","name":"Fontaneweg","town":"Ratingen","lat":51.298519,"lon":6.876184,"free":true,"facilities":[]}
 {"osm":"node/577244039","kind":"playground","name":"Rodelberg","town":"Ratingen","lat":51.296632,"lon":6.821349,"free":true,"facilities":[]}
 {"osm":"way/158552929","kind":"playground","name":"Sandsteinwiese","town":"Ratingen","lat":51.259481,"lon":6.830141,"free":true,"facilities":[]}

@@ -6,7 +6,8 @@ import { z } from "astro/zod";
 const ROOT = process.env.DEMO ? "./examples" : "./content";
 
 export const LANGS = ["de", "en", "zh"] as const;
-export const KINDS = ["farm", "cafe", "playground", "park", "museum", "pool", "zoo"] as const;
+// Kinds of place, in the order Discover shows them as chips: what families look for most first.
+export const KINDS = ["playground", "indoor", "park", "zoo", "farm", "pool", "museum", "cafe", "fun"] as const;
 export const FEATURES = [
   "playground", "changing_table", "highchairs", "kids_menu", "toys", "animals", "stroller_friendly",
   "nursing_room", "indoor_play", "toilets", "farm_shop", "parking",
@@ -16,7 +17,7 @@ export const GOOD_FOR = ["toddlers", "bigKids", "rainy", "longVisit", "quickHour
 export const TIP_TOPICS = ["bring", "bestTime", "parking", "ages", "other"] as const;
 // How much German an event needs: none, held in English, or mostly German (scripts/event-tags.mjs).
 export const LANGUAGE = ["none", "en", "de"] as const;
-export const TAGS = ["reading", "diy", "stage", "music", "sport", "animals", "tour", "fest", "market", "outside", "season", "parents"] as const;
+export const TAGS = ["reading", "diy", "stage", "music", "sport", "animals", "tour", "fest", "market", "outside", "season", "parents", "learn"] as const;
 // Same levels as cityklub's map review: recorded point, venue candidate, city overview, unmapped.
 export const PRECISION = ["exact", "venue", "area", "unknown"] as const;
 

@@ -1,6 +1,6 @@
 ---
 # Fictional demo data.
-kind: park
+kind: zoo
 name: Wildgehege Grünes Tal
 address:
   town: Mettmann
