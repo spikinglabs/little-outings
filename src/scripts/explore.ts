@@ -1,5 +1,6 @@
 // Filters on the Entdecken page. All cards are already in the HTML; this only hides and sorts them.
 import { distanceOf, getHome, renderKm, setHome } from "./app";
+import type {} from "../islands/OutingsMap";
 
 type Plural = { one?: string; other: string };
 const ui = JSON.parse(document.getElementById("explore-ui")!.textContent!) as {
@@ -94,6 +95,15 @@ function apply() {
   }
   $("[data-pl-count]").textContent = count(ui.nPlaces, places, state.radius);
   $("[data-pl-empty]").hidden = places > 0;
+
+  // Tell the map on this page what to draw: the events in range (the tip included) and the places shown.
+  const filtered = {
+    ids: [...visible, ...pls.filter(({ el }) => !el.hidden).map(({ el }) => el)].map((el) => el.dataset.id!),
+    home: getHome(),
+    radius: state.radius,
+  };
+  window.loFiltered = filtered;
+  document.dispatchEvent(new CustomEvent("lo:filtered", { detail: filtered }));
   $$<HTMLButtonElement>("[data-kind-chip]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.kindChip === state.kind)));
 }
 
@@ -108,6 +118,8 @@ document.addEventListener("click", (ev) => {
     f.setAttribute("aria-pressed", String(state[k]));
     apply();
   }
+  const m = t.closest<HTMLButtonElement>("[data-map-toggle]");
+  if (m) showMap(m.getAttribute("aria-pressed") !== "true");
   const k = t.closest<HTMLButtonElement>("[data-kind-chip]");
   if (k) { state.kind = k.dataset.kindChip!; apply(); }
 });
@@ -117,4 +129,12 @@ $<HTMLSelectElement>("#radius").addEventListener("change", (e) => { state.radius
 const home = $<HTMLSelectElement>("#home");
 home.value = getHome();
 home.addEventListener("change", () => { setHome(home.value); renderKm(); apply(); });
+
+// The map can be folded away; the choice is remembered on this device.
+function showMap(on: boolean) {
+  $("#explore-map").hidden = !on;
+  $("[data-map-toggle]").setAttribute("aria-pressed", String(on));
+  try { localStorage.setItem("lo-map", on ? "1" : "0"); } catch { /* storage blocked */ }
+}
+try { if (localStorage.getItem("lo-map") === "0") showMap(false); } catch { /* storage blocked */ }
 apply();

@@ -9,7 +9,7 @@ ask: "What shall we do with the kids <em>{when}</em>?"
 near: Around
 search: Search
 searchPh: Search farms, cafés, playgrounds or festivals
-filters: { farm: "🚜 Farm", rain: "☂ Rainy day", free: Free, animals: Animals, changing: Changing table, age: Age, ageAll: all, radius: Within }
+filters: { map: "🗺 Map", farm: "🚜 Farm", rain: "☂ Rainy day", free: Free, animals: Animals, changing: Changing table, age: Age, ageAll: all, radius: Within }
 tip: "Our pick {when}"
 only: "Only {when}"
 always: Always a good idea
@@ -63,7 +63,7 @@ mapCount: { one: "1 result", other: "{n} results" }
 mapListEmpty: "Nothing in this area in the next 2 weeks. Move the map or zoom out."
 mapShowMore: "Show {n} more"
 mapMore: "and {n} more"
-legend: { event: Event, place: "Place, any day", approx: "Dashed ring: approximate", area: "Circle with a number: town only" }
+legend: { event: Event, place: "Place, any day", approx: "Dashed ring: approximate", area: "Circle with a number: town only", radius: "Dotted circle: your search radius" }
 savedTitle: Saved
 savedSub: Stays on this device.
 savedEmpty: Nothing saved yet. Tap the bookmark on an event or place.

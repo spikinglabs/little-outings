@@ -9,7 +9,7 @@ ask: "Was machen wir <em>{when}</em> mit den Kindern?"
 near: Rund um
 search: Suche
 searchPh: Hof, Café, Spielplatz oder Fest suchen
-filters: { farm: "🚜 Bauernhof", rain: "☂ Bei Regen", free: Kostenlos, animals: Mit Tieren, changing: Wickeltisch, age: Alter, ageAll: alle, radius: Umkreis }
+filters: { map: "🗺 Karte", farm: "🚜 Bauernhof", rain: "☂ Bei Regen", free: Kostenlos, animals: Mit Tieren, changing: Wickeltisch, age: Alter, ageAll: alle, radius: Umkreis }
 tip: "Unser Tipp {when}"
 only: "Nur {when}"
 always: Geht immer
@@ -63,7 +63,7 @@ mapCount: { one: "1 Treffer", other: "{n} Treffer" }
 mapListEmpty: "In diesem Ausschnitt ist in den nächsten 2 Wochen nichts los. Verschiebt die Karte oder zoomt heraus."
 mapShowMore: "{n} weitere zeigen"
 mapMore: "und {n} weitere"
-legend: { event: Termin, place: "Ort, geht immer", approx: "Gestrichelter Ring: Ort ungefähr", area: "Kreis mit Zahl: nur Stadt bekannt" }
+legend: { event: Termin, place: "Ort, geht immer", approx: "Gestrichelter Ring: Ort ungefähr", area: "Kreis mit Zahl: nur Stadt bekannt", radius: "Gepunkteter Kreis: euer Umkreis" }
 savedTitle: Merkliste
 savedSub: Bleibt auf diesem Gerät.
 savedEmpty: Noch nichts gemerkt. Tippt bei einem Termin oder Ort auf das Lesezeichen.
