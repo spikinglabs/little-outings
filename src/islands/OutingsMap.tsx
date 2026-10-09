@@ -55,20 +55,12 @@ export default function OutingsMap({ pins, center, towns, locale, labels }: Prop
       if (t) home = [t[1], t[2]];
     } catch { /* storage blocked */ }
     const map = L.map(el.current!, { scrollWheelZoom: false }).setView(home, 11);
-    // A pale basemap without labels (CARTO Positron, OpenStreetMap data): the map only gives a rough idea,
-    // so roads and water stay faint and the only words on it are our own town names.
-    L.tileLayer("https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png", {
+    // OpenStreetMap tiles (free, no key), faded hard in CSS (.map .leaflet-tile-pane): the map only gives
+    // a rough idea, so streets and labels stay in the background and the pins and dots carry the page.
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
       maxZoom: 18,
-      subdomains: "abcd",
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     }).addTo(map);
-    map.createPane("towns").style.zIndex = "450"; // above tiles and rings, below pins
-    for (const [name, lat, lon] of towns) {
-      L.marker([lat, lon], {
-        pane: "towns", interactive: false, keyboard: false,
-        icon: L.divIcon({ className: "", html: `<span class="town-label">${esc(name)}</span>`, iconSize: [0, 0] }),
-      }).addTo(map);
-    }
     const plural = new Intl.PluralRules(locale);
     const fill = (s: string, n: number) => s.replace("{n}", String(n));
     const link = (p: Pin) => `<a href="${p.href}">${esc(p.title)}</a>`;
