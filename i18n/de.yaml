@@ -102,7 +102,11 @@ placeFeatures: "Was gibt es für Familien?"
 placeNote: "Was macht ihn gut für Kinder?"
 placeNotePh: "z. B. großer Sandkasten, Ziegen zum Füttern, Spielecke bei den Tischen"
 placeWebsite: "Website (optional)"
-placeThanks: "Danke! Wir prüfen den Ort kurz und nehmen ihn dann auf."
+placeThanks: "Gesendet. Wir prüfen jeden Ort, bevor er online geht; danach findet ihr ihn unter Entdecken."
+placeAnother: Weiteren Ort vorschlagen
+placeSentKind: Art
+placeSentWhere: Wo
+placeEditTitle: "Euren Ort ändern"
 tasksTitle: "Schon gehört, aber noch nicht alles bekannt"
 tasksSub: "Von diesen Ausflügen haben wir gehört, aber noch nicht alles erfahren, zum Beispiel den genauen Ort, die Uhrzeit oder den Preis. Schaut rein, vielleicht ist etwas Schönes dabei. Und wenn ihr mehr wisst, hilft eine Antwort allen Familien."
 tasksSearch: "Schon gehört, aber noch nicht alles bekannt"
@@ -133,6 +137,13 @@ pleaseCheck: Bitte prüfen
 field: { title: Titel, date: Datum, time: Uhrzeit, place: Ort oder Adresse, price: Preis, note: "Was gibt es für Kinder?" }
 parseSoon: Automatisches Auslesen ist noch nicht eingerichtet. Bitte füllt die Felder selbst aus.
 parseFail: Das konnten wir nicht automatisch auslesen. Bitte füllt die Felder selbst aus.
+sentEvent: "Gesendet. Wir prüfen jede Veranstaltung, bevor sie online geht; danach findet ihr sie unter Entdecken."
+sendAnother: Weitere Veranstaltung senden
+editTitle: "Eure Veranstaltung ändern"
+editNote: "Korrigiert, was nicht stimmt, und speichert. Wir prüfen Änderungen, bevor sie online gehen."
+saveEdit: "Änderungen speichern"
+cancelEdit: "Abbrechen"
+sentEdit: "Gespeichert. Wir prüfen die Änderung, bevor sie online geht."
 typeIt: Lieber selbst eintippen
 report:
   title: Stimmt etwas nicht?
@@ -196,6 +207,10 @@ profile:
   title: Euer Profil
   sub: "Ohne Anmeldung. Little Outings speichert euer Profil auf diesem Handy: was ihr gemerkt habt, wo ihr wart, eure Antworten und was ihr uns geschickt habt."
   have: "Auf diesem Handy"
+  sentTitle: "Was ihr gesendet habt"
+  sentSub: "Hat sich etwas geändert? Hier bearbeiten; wir prüfen Änderungen, bevor sie online gehen."
+  sentEdit: "Bearbeiten"
+  sentOld: "Gesendet, bevor Bearbeiten möglich war, daher hier nicht änderbar."
   count:
     saved: { one: "1 gemerkter Ausflug", other: "{n} gemerkte Ausflüge" }
     went: { one: "1 Ort, an dem ihr wart", other: "{n} Orte, an denen ihr wart" }

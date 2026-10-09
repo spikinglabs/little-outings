@@ -92,3 +92,38 @@ test("the admin can't act on taps, other actions, or items already decided", asy
     assert.equal(f.calls.filter((c) => c.method !== "GET").length, 0);
   } finally { f.restore(); }
 });
+
+test("approving a suggested event commits it as a content file and closes the issue", async () => {
+  const ev = issue(5, "new-event", ["kind: event", 'title: "Vortrag \\"Zwangsarbeit\\""', 'date: "2026-10-15"', 'time: "19:00"',
+    'place: "Rathaus, Valdersweg 1, 52399 Merzenich"', 'price: "kostenlos"', 'note: ""'], { labels: [{ name: "new-event" }, { name: "approved" }] });
+  const f = stubFetch({
+    "GET https://api.github.com/repos/o/inbox/issues/5": ev,
+    "PUT https://api.github.com/repos/spikinglabs/little-outings/contents/content/events/community/inbox-5.yaml": { commit: {} },
+    "POST https://api.github.com/repos/o/inbox/issues/5/labels": [],
+    "PATCH https://api.github.com/repos/o/inbox/issues/5": {},
+    "POST https://api.github.com/repos/o/inbox/issues/5/comments": {},
+  });
+  try {
+    // Approved before publishing existed: still open, so it can be approved (published) now.
+    assert.equal((await decide({ request: post({ number: 5, action: "approve" }), env: { ...env, GITHUB_TOKEN: "g" }, data: { user } })).status, 200);
+    const put = f.calls.find((c) => c.method === "PUT");
+    const text = new TextDecoder().decode(Uint8Array.from(atob(put.body.content), (c) => c.charCodeAt(0)));
+    assert.match(text, /^title: "Vortrag \\"Zwangsarbeit\\""$/m);
+    assert.match(text, /^venue: "Rathaus"$/m);
+    assert.match(text, /^town: "Merzenich"$/m);
+    assert.match(text, /^start: "2026-10-15"$/m);
+    assert.match(text, /^price: \{ free: true \}$/m);
+    assert.ok(f.calls.some((c) => c.method === "PATCH" && c.body.state === "closed" && c.body.state_reason === "completed"));
+  } finally { f.restore(); }
+});
+
+test("an approved place becomes a place file with only known features", async () => {
+  const { placeFile } = await import("../admin/lib/inbox.js");
+  const f = placeFile(9, { type: "farm", name: 'Hof "Sonne"', town: "Düren", street: "Weg 1", features: ["animals", "bogus"], website: "javascript:x", note: "" }, "l@x");
+  assert.equal(f.path, "content/places/community/inbox-9.yaml");
+  assert.match(f.text, /^kind: farm$/m);
+  assert.match(f.text, /^address: \{ street: "Weg 1", town: "Düren" \}$/m);
+  assert.match(f.text, /^  animals: \{ status: "yes", confirmed: 1 \}$/m);
+  assert.ok(!f.text.includes("bogus") && !f.text.includes("javascript"));
+  assert.ok(placeFile(9, { type: "castle", name: "x", town: "y" }).error);
+});

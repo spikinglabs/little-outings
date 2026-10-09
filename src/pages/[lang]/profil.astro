@@ -2,6 +2,7 @@
 // A family's profile: what this browser remembers, with download, load, move to another phone,
 // optional passkey sync and delete. No account. See src/lib/profile.ts and functions/api/profile.
 import Base from "../../layouts/Base.astro";
+import SentList from "../../islands/SentList";
 import { LANGS, useT, type Lang } from "../../lib/i18n";
 
 export const getStaticPaths = () => LANGS.map((lang) => ({ params: { lang } }));
@@ -24,6 +25,8 @@ const ui = { ...t.group("profile"), count: t.group("profile.count") };
     <h2>{p("have")}</h2>
     <ul class="profile-counts" data-counts></ul>
   </section>
+
+  <SentList client:only="preact" lang={lang} ui={{ sentTitle: p("sentTitle"), sentSub: p("sentSub"), sentEdit: p("sentEdit"), sentOld: p("sentOld") }} />
 
   <section class="section profile-box" data-passkey>
     <h2>{p("passkeyTitle")}</h2>
