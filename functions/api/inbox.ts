@@ -9,8 +9,8 @@
 //   TURNSTILE_SECRET  optional; when set, requests must carry a valid `turnstile` token
 // Until GITHUB_TOKEN and INBOX_REPO are set, it answers 503 and the site says "being set up".
 //
-// A new event may carry `key`, a random secret the sender's browser keeps. Only its SHA-256 goes into
-// the issue, and PUT /api/inbox with the same key changes that event later (see onRequestPut).
+// A new event or place may carry `key`, a random secret the sender's browser keeps. Only its SHA-256
+// goes into the issue, and PUT /api/inbox with the same key changes it later (see onRequestPut).
 
 interface Env { GITHUB_TOKEN?: string; INBOX_REPO?: string; TURNSTILE_SECRET?: string }
 type Ctx = { request: Request; env: Env };
@@ -40,6 +40,21 @@ function eventIssue(d: Record<string, unknown>, lang: unknown, edit?: string) {
       `lang: ${yamlStr(lang, 5)}`, edit ? `edit: ${JSON.stringify(edit)}` : ""].filter(Boolean).join("\n"),
   };
 }
+
+/** The issue for a suggested place, or an error. */
+function placeIssue(p: Record<string, unknown>, lang: unknown, edit?: string) {
+  if (!p.name || !p.kind || !p.town) return { error: "name, kind and town are required" };
+  const features = (Array.isArray(p.features) ? p.features : []).slice(0, 20).map((f: unknown) => clip(f, 40)).filter((f: string) => /^[a-z_]+$/.test(f));
+  return {
+    title: `place ${clip(p.kind, 20)} ${clip(p.name, 80)}`,
+    yaml: [`kind: place`, ...["type", "name", "town", "street", "website", "note"].map((k) =>
+      `${k}: ${yamlStr(k === "type" ? p.kind : p[k], k === "note" ? 2000 : 300)}`),
+      `features: [${features.map((f: string) => JSON.stringify(f)).join(", ")}]`, `lang: ${yamlStr(lang, 5)}`,
+      edit ? `edit: ${JSON.stringify(edit)}` : ""].filter(Boolean).join("\n"),
+  };
+}
+
+const keyHash = (key: unknown) => (typeof key === "string" && KEY.test(key) ? sha256(key) : Promise.resolve(undefined));
 
 const gh = (env: Env, path: string, init: RequestInit = {}) =>
   fetch(`https://api.github.com/repos/${env.INBOX_REPO}${path}`, {
@@ -77,17 +92,13 @@ export async function onRequestPost({ request, env }: Ctx) {
   } else if (body.kind === "event" && body.draft && typeof body.draft === "object") {
     const d = body.draft;
     if (!d.title || !d.date) return json(400, { error: "title and date are required" });
-    ({ title, yaml } = eventIssue(d, body.lang, typeof body.key === "string" && KEY.test(body.key) ? await sha256(body.key) : undefined));
+    ({ title, yaml } = eventIssue(d, body.lang, await keyHash(body.key)));
     label = "new-event";
   } else if (body.kind === "place" && body.place && typeof body.place === "object") {
-    const p = body.place;
-    if (!p.name || !p.kind || !p.town) return json(400, { error: "name, kind and town are required" });
-    const features = (Array.isArray(p.features) ? p.features : []).slice(0, 20).map((f: unknown) => clip(f, 40)).filter((f: string) => /^[a-z_]+$/.test(f));
-    title = `place ${clip(p.kind, 20)} ${clip(p.name, 80)}`;
+    const made = placeIssue(body.place, body.lang, await keyHash(body.key));
+    if ("error" in made) return json(400, { error: made.error });
+    ({ title, yaml } = made);
     label = "new-place";
-    yaml = [`kind: place`, ...["type", "name", "town", "street", "website", "note"].map((k) =>
-      `${k}: ${yamlStr(k === "type" ? p.kind : p[k], k === "note" ? 2000 : 300)}`),
-      `features: [${features.map((f: string) => JSON.stringify(f)).join(", ")}]`, `lang: ${yamlStr(body.lang, 5)}`].join("\n");
   } else if (body.kind === "visit" && typeof body.item === "string" && /^[a-z0-9-]+$/.test(body.item)
     && ["yes", "maybe", "no"].includes(body.again)) {
     const goodFor = (Array.isArray(body.good_for) ? body.good_for : []).filter((g: unknown) => GOOD_FOR.includes(g as string)).slice(0, 10);
@@ -121,9 +132,9 @@ export async function onRequestPost({ request, env }: Ctx) {
 }
 
 /**
- * PUT /api/inbox {number, key, draft, lang}: the sender changes an event they suggested.
+ * PUT /api/inbox {number, key, lang, draft | place}: the sender changes an event or place they suggested.
  * The change goes back to review: the issue reopens without its `approved` label, and approving
- * it again in the admin republishes the event with the new details.
+ * it again in the admin republishes it with the new details.
  */
 export async function onRequestPut({ request, env }: Ctx) {
   if (!env.GITHUB_TOKEN || !env.INBOX_REPO) return json(503, { error: "inbox not configured" });
@@ -132,19 +143,22 @@ export async function onRequestPut({ request, env }: Ctx) {
   try { body = await request.json(); } catch { return json(400, { error: "invalid json" }); }
   const number = Number(body.number);
   const d = body.draft;
+  const isPlace = !!body.place && typeof body.place === "object";
   if (!Number.isInteger(number) || number < 1 || typeof body.key !== "string" || !KEY.test(body.key)) return json(400, { error: "number and key are required" });
-  if (!d || typeof d !== "object" || !d.title || !d.date) return json(400, { error: "title and date are required" });
+  if (!isPlace && (!d || typeof d !== "object" || !d.title || !d.date)) return json(400, { error: "title and date are required" });
 
   const found = await gh(env, `/issues/${number}`);
   if (!found.ok) return json(found.status === 404 ? 404 : 502, { error: "not found" });
   const issue = (await found.json()) as { body?: string; state?: string; state_reason?: string; labels?: ({ name: string } | string)[] };
   const labels = (issue.labels ?? []).map((l) => (typeof l === "string" ? l : l.name));
   const edit = /^edit: "([0-9a-f]{64})"$/m.exec(issue.body ?? "")?.[1];
-  // Same answer for "no such event" and "wrong key", so issue numbers can't be probed.
-  if (!labels.includes("new-event") || !edit || edit !== (await sha256(body.key))) return json(404, { error: "not found" });
+  // Same answer for "no such item" and "wrong key", so issue numbers can't be probed.
+  if (!labels.includes(isPlace ? "new-place" : "new-event") || !edit || edit !== (await sha256(body.key))) return json(404, { error: "not found" });
   if (issue.state_reason === "not_planned") return json(409, { error: "rejected" });
 
-  const { title, yaml } = eventIssue(d, body.lang, edit);
+  const made = isPlace ? placeIssue(body.place, body.lang, edit) : eventIssue(d, body.lang, edit);
+  if ("error" in made) return json(400, { error: made.error });
+  const { title, yaml } = made;
   const res = await gh(env, `/issues/${number}`, {
     method: "PATCH",
     body: JSON.stringify({ title, body: "```yaml\n" + yaml + "\n```\n", state: "open" }),

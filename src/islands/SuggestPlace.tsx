@@ -1,7 +1,8 @@
 // "Know a great place?" A short form for places that are always worth a visit (farm, café,
 // playground ...). It goes to /api/inbox like event drafts; a moderator checks it before it goes live.
-import { useState } from "preact/hooks";
-import { rememberSent } from "../lib/profile";
+// ?edit=<inbox number> opens a place this browser suggested earlier, to change it (Profile links here).
+import { useEffect, useState } from "preact/hooks";
+import { readProfile, rememberSent, updateSent } from "../lib/profile";
 import { schedulePush } from "../scripts/sync";
 
 interface Props {
@@ -18,6 +19,20 @@ export default function SuggestPlace({ lang, kinds, features, towns, ui }: Props
   // What was sent, shown back in the confirmation.
   const [done, setDone] = useState<{ kind: string; name: string; town: string; street: string } | null>(null);
   const [busy, setBusy] = useState(false);
+  // The place being changed: its inbox number, the key only this browser knows, and what was sent.
+  const [editing, setEditing] = useState<{ number: number; key: string; place: Record<string, any> } | null>(null);
+
+  useEffect(() => {
+    const n = Number(new URLSearchParams(location.search).get("edit"));
+    if (!n) return;
+    try {
+      const mine = readProfile(localStorage).sent.find((s) => s.kind === "place" && s.data.number === n && typeof s.data.key === "string");
+      if (!mine) return;
+      setEditing({ number: n, key: mine.data.key as string, place: (mine.data.place ?? {}) as Record<string, any> });
+      setOpen(true);
+      setTimeout(() => document.getElementById("suggest-place")?.scrollIntoView(), 50);
+    } catch { /* storage blocked */ }
+  }, []);
 
   async function send(e: Event) {
     e.preventDefault();
@@ -29,20 +44,32 @@ export default function SuggestPlace({ lang, kinds, features, towns, ui }: Props
     setBusy(true);
     let ok = false;
     try {
-      const res = await fetch("/api/inbox", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ kind: "place", lang, place }) });
-      ok = res.ok;
-      if (ok) try { rememberSent(localStorage, { kind: "place", place }); schedulePush(); } catch { /* storage blocked */ }
+      if (editing) {
+        const res = await fetch("/api/inbox", { method: "PUT", headers: { "content-type": "application/json" },
+          body: JSON.stringify({ number: editing.number, key: editing.key, lang, place }) });
+        ok = res.ok;
+        if (ok) try { updateSent(localStorage, editing.number, { place }); schedulePush(); } catch { /* storage blocked */ }
+      } else {
+        // A random key, kept only here, lets this browser change the place later.
+        const key = crypto.randomUUID();
+        const res = await fetch("/api/inbox", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ kind: "place", lang, place, key }) });
+        ok = res.ok;
+        const number = ok ? ((await res.json().catch(() => ({}))) as { number?: number }).number : undefined;
+        if (ok) try { rememberSent(localStorage, { kind: "place", place, ...(number ? { number, key } : {}) }); schedulePush(); } catch { /* storage blocked */ }
+      }
     } catch { /* offline or not set up */ }
     setBusy(false);
     setDone(ok ? { kind: kinds.find(([k]) => k === place.kind)?.[1] ?? String(place.kind), name: String(place.name ?? ""),
       town: String(place.town ?? ""), street: String(place.street ?? "") } : null);
-    setSent(ok ? ui.placeThanks : ui.inboxSoon);
+    setSent(ok ? (editing ? ui.sentEdit : ui.placeThanks) : ui.inboxSoon);
   }
 
-  const another = () => { setSent(""); setDone(null); setOpen(true); };
+  const leaveEdit = () => { setEditing(null); if (location.search) history.replaceState(null, "", location.pathname); };
+  const another = () => { leaveEdit(); setSent(""); setDone(null); setOpen(true); };
+  const p = editing?.place ?? {};
 
   return (
-    <section class="poster" aria-live="polite">
+    <section class="poster" id="suggest-place" aria-live="polite">
       <h2>{ui.placeTitle}</h2>
       <p>{ui.placeSub}</p>
       {sent && done ? (
@@ -58,25 +85,27 @@ export default function SuggestPlace({ lang, kinds, features, towns, ui }: Props
       ) : sent ? <p class="thanks" role="status">{sent}</p> : !open ? (
         <button class="btn" type="button" style="margin-top:12px" onClick={() => setOpen(true)}>{ui.placeBtn}</button>
       ) : (
-        <form class="form" onSubmit={send}>
+        <form class="form" onSubmit={send} key={editing?.number ?? "new"}>
+          {editing && <><h3>{ui.placeEditTitle}</h3><p class="small">{ui.editNote}</p></>}
           <div class="row">
             <label>{ui.placeKind}
-              <select name="kind" required>{kinds.map(([k, label]) => <option value={k}>{label}</option>)}</select>
+              <select name="kind" required>{kinds.map(([k, label]) => <option value={k} selected={p.kind === k}>{label}</option>)}</select>
             </label>
             <label>{ui.placeTown}
-              <input name="town" required maxLength={100} list="place-towns" autocomplete="address-level2" placeholder={ui.placeTownPh} />
+              <input name="town" required maxLength={100} defaultValue={p.town ?? ""} list="place-towns" autocomplete="address-level2" placeholder={ui.placeTownPh} />
               <datalist id="place-towns">{towns.map(([k, label]) => <option value={k}>{label === k ? undefined : label}</option>)}</datalist>
             </label>
           </div>
-          <label>{ui.placeName}<input name="name" required maxLength={200} /></label>
-          <label>{ui.placeStreet}<input name="street" maxLength={200} /></label>
+          <label>{ui.placeName}<input name="name" required maxLength={200} defaultValue={p.name ?? ""} /></label>
+          <label>{ui.placeStreet}<input name="street" maxLength={200} defaultValue={p.street ?? ""} /></label>
           <fieldset class="feature-picks">
             <legend>{ui.placeFeatures}</legend>
-            {features.map(([k, label]) => <label class="pick"><input type="checkbox" name="features" value={k} /> {label}</label>)}
+            {features.map(([k, label]) => <label class="pick"><input type="checkbox" name="features" value={k} defaultChecked={(p.features ?? []).includes(k)} /> {label}</label>)}
           </fieldset>
-          <label>{ui.placeNote}<textarea name="note" rows={3} maxLength={2000} placeholder={ui.placeNotePh} /></label>
-          <label>{ui.placeWebsite}<input name="website" type="url" maxLength={300} placeholder="https://" /></label>
-          <button class="btn primary" type="submit" disabled={busy}>{ui.send}</button>
+          <label>{ui.placeNote}<textarea name="note" rows={3} maxLength={2000} placeholder={ui.placeNotePh} defaultValue={p.note ?? ""} /></label>
+          <label>{ui.placeWebsite}<input name="website" type="url" maxLength={300} placeholder="https://" defaultValue={p.website ?? ""} /></label>
+          <button class="btn primary" type="submit" disabled={busy}>{editing ? ui.saveEdit : ui.send}</button>
+          {editing && <button class="btn" type="button" onClick={() => { leaveEdit(); setOpen(false); }}>{ui.cancelEdit}</button>}
         </form>
       )}
     </section>

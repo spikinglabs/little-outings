@@ -106,6 +106,7 @@ placeThanks: "Gesendet. Wir prüfen jeden Ort, bevor er online geht; danach find
 placeAnother: Weiteren Ort vorschlagen
 placeSentKind: Art
 placeSentWhere: Wo
+placeEditTitle: "Euren Ort ändern"
 tasksTitle: "Schon gehört, aber noch nicht alles bekannt"
 tasksSub: "Von diesen Ausflügen haben wir gehört, aber noch nicht alles erfahren, zum Beispiel den genauen Ort, die Uhrzeit oder den Preis. Schaut rein, vielleicht ist etwas Schönes dabei. Und wenn ihr mehr wisst, hilft eine Antwort allen Familien."
 tasksSearch: "Schon gehört, aber noch nicht alles bekannt"
@@ -206,7 +207,7 @@ profile:
   title: Euer Profil
   sub: "Ohne Anmeldung. Little Outings speichert euer Profil auf diesem Handy: was ihr gemerkt habt, wo ihr wart, eure Antworten und was ihr uns geschickt habt."
   have: "Auf diesem Handy"
-  sentTitle: "Eure gesendeten Veranstaltungen"
+  sentTitle: "Was ihr gesendet habt"
   sentSub: "Hat sich etwas geändert? Hier bearbeiten; wir prüfen Änderungen, bevor sie online gehen."
   sentEdit: "Bearbeiten"
   sentOld: "Gesendet, bevor Bearbeiten möglich war, daher hier nicht änderbar."
