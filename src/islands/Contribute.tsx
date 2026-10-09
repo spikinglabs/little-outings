@@ -35,9 +35,11 @@ export default function Contribute({ lang, ui }: Props) {
 
   async function parse(body: Record<string, unknown>) {
     setStep("reading");
+    let status = 0;
     try {
       const res = await fetch("/api/parse", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ ...body, lang }) });
-      if (!res.ok) throw new Error(String(res.status));
+      status = res.status;
+      if (!res.ok) throw new Error(String(status));
       const data = (await res.json()) as { draft: Partial<Draft>; unsure?: Field[] };
       setDraft({ ...EMPTY, ...data.draft });
       setUnsure(data.unsure ?? []);
@@ -45,7 +47,8 @@ export default function Contribute({ lang, ui }: Props) {
     } catch {
       setDraft({ ...EMPTY, note: typeof body.text === "string" ? body.text : "" });
       setUnsure([]);
-      setNote(ui.parseSoon);
+      // 503 means no key is configured; anything else is this one poster or link failing.
+      setNote(status === 503 ? ui.parseSoon : ui.parseFail);
     }
     setStep("draft");
   }

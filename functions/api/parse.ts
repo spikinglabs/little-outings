@@ -47,8 +47,9 @@ export async function onRequestPost({ request, env }: Ctx) {
   const today = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Berlin" }).format(new Date());
   let text: string;
   try {
-    text = await complete(llm, env.PARSE_MODEL, { system: PROMPT.replace("{today}", today), text: input, image, maxTokens: 800, json: true });
-  } catch {
+    text = await complete(llm, env.PARSE_MODEL, { system: PROMPT.replace("{today}", today), text: input, image, maxTokens: 4000, json: true });
+  } catch (e) {
+    console.error("parse:", e);
     return json(502, { error: "parser unavailable" });
   }
   try {
@@ -57,6 +58,7 @@ export async function onRequestPost({ request, env }: Ctx) {
     const unsure = (parsed.unsure ?? []).filter((k: string) => FIELDS.includes(k));
     return json(200, { draft, unsure });
   } catch {
+    console.error("parse: unreadable answer", text.slice(0, 300));
     return json(502, { error: "could not read the answer" });
   }
 }

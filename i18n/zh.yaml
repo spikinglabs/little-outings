@@ -132,6 +132,7 @@ draftTitle: 请快速核对
 pleaseCheck: 请核对
 field: { title: 标题, date: 日期, time: 时间, place: 地点或地址, price: 价格, note: 有哪些适合孩子的活动？ }
 parseSoon: 自动识别尚未开通，请自行填写。
+parseFail: 这次没能自动识别，请自行填写。
 typeIt: 自己手动填写
 report:
   title: 信息有误？
