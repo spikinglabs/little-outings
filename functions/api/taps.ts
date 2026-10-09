@@ -34,7 +34,7 @@ const ID = /^[a-z0-9-]{1,100}$/;
 const VOTER = /^[a-zA-Z0-9-]{8,64}$/;
 
 const ready = new WeakSet<D1>(); // per isolate: create the table once
-async function schema(db: D1) {
+export async function schema(db: D1) {
   if (ready.has(db)) return;
   await db.batch([
     db.prepare(`CREATE TABLE IF NOT EXISTS taps (item TEXT NOT NULL, key TEXT NOT NULL, value TEXT NOT NULL,
@@ -152,4 +152,19 @@ export async function onRequestDelete({ request, env }: Ctx) {
   await schema(env.DB);
   await env.DB.prepare(`DELETE FROM taps WHERE voter = ?`).bind(voter).run();
   return json(200, { ok: true });
+}
+
+/**
+ * Moves one browser's taps to another voter id (a family signing in with a passkey on a phone that
+ * already tapped). Where both answered the same question, the newer answer stays.
+ */
+export async function moveTaps(db: D1, fromVoter: string, toVoter: string) {
+  if (!VOTER.test(fromVoter) || !VOTER.test(toVoter) || fromVoter === toVoter) return;
+  await schema(db);
+  const [from, to] = [await sha(fromVoter), await sha(toVoter)];
+  await db.batch([
+    db.prepare(`DELETE FROM taps WHERE voter = ? AND EXISTS (SELECT 1 FROM taps o WHERE o.voter = ? AND o.item = taps.item AND o.key = taps.key AND o.at > taps.at)`).bind(to, from),
+    db.prepare(`UPDATE OR IGNORE taps SET voter = ? WHERE voter = ?`).bind(to, from),
+    db.prepare(`DELETE FROM taps WHERE voter = ?`).bind(from),
+  ]);
 }

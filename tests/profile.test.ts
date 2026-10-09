@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { KEYS, MOVE_MAX, SYNC_KEY, clean, forget, merge, packForMove, readProfile, rememberSent, unpackMove, writeProfile } from "../src/lib/profile.ts";
 import { onRequest, webauthn, HOURLY_LIMIT } from "../functions/api/profile/[[path]].ts";
 import { fakeD1 } from "./fake-d1.ts";
+import { onRequestPost as tap } from "../functions/api/taps.ts";
 
 function memStore() {
   const m = new Map<string, string>();
@@ -137,4 +138,16 @@ test("one connection can start only so many passkey ceremonies an hour", async (
   const env = { DB: fakeD1() };
   for (let i = 0; i < HOURLY_LIMIT; i++) assert.equal((await call(env, "POST", "login-options", {})).status, 200);
   assert.equal((await call(env, "POST", "login-options", {})).status, 429);
+});
+
+test("signing in on a browser that already tapped moves its taps to the synced id", async () => {
+  const env = { DB: fakeD1() };
+  const start = await (await call(env, "POST", "register-options", {})).json();
+  await call(env, "POST", "register", { challenge: start.challenge, response: { id: "cred-1", ok: true }, profile: { voter: "synced-voter" } });
+  await tap({ env, request: new Request("https://x/api/taps", { method: "POST", body: JSON.stringify({ kind: "fac", item: "cafe-a", feature: "toys", answer: "yes", voter: "local-voter" }) }) });
+  const ls = await (await call(env, "POST", "login-options", {})).json();
+  assert.equal((await call(env, "POST", "login", { challenge: ls.challenge, response: { id: "cred-1", ok: true }, voter: "local-voter" })).status, 200);
+  const mine = async (voter: string) => (await tap({ env, request: new Request("https://x/api/taps?mine=1", { method: "POST", body: JSON.stringify({ voter }) }) })).json();
+  assert.equal((await mine("synced-voter")).length, 1);
+  assert.equal((await mine("local-voter")).length, 0);
 });

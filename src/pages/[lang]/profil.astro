@@ -141,7 +141,7 @@ const ui = { ...t.group("profile"), count: t.group("profile.count") };
         if (!start.ok) return note(ui.passkeyFailed);
         const { challenge, options } = await start.json();
         const response = await startAuthentication({ optionsJSON: options });
-        const res = await post("login", { challenge, response });
+        const res = await post("login", { challenge, response, voter: local().voter });
         if (res.status === 404) return note(ui.passkeyUnknown);
         if (!res.ok) return note(ui.passkeyFailed);
         const { token, profile, updated } = await res.json();

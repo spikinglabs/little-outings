@@ -8,7 +8,8 @@
 //   POST   /api/profile/register-options                → passkey creation options + challenge id
 //   POST   /api/profile/register  { challenge, response, profile }  → { token }
 //   POST   /api/profile/login-options                   → passkey request options + challenge id
-//   POST   /api/profile/login     { challenge, response }           → { token, profile }
+//   POST   /api/profile/login     { challenge, response, voter? }   → { token, profile }
+//          (voter: this browser's own id; its earlier taps move to the synced profile's id)
 //   GET    /api/profile/data      Authorization: Bearer <token>     → { profile, updated }
 //   PUT    /api/profile/data      Authorization: Bearer <token>  { profile }
 //   DELETE /api/profile/data      Authorization: Bearer <token>     removes the profile, its passkeys and sessions
@@ -20,7 +21,7 @@
 import {
   generateAuthenticationOptions, generateRegistrationOptions, verifyAuthenticationResponse, verifyRegistrationResponse,
 } from "@simplewebauthn/server";
-import type { D1 } from "../taps.ts";
+import { moveTaps, type D1 } from "../taps.ts";
 
 interface Env { DB?: D1; TAP_SALT?: string }
 type Ctx = { request: Request; env: Env; params: { path?: string[] } };
@@ -188,7 +189,10 @@ export async function onRequest({ request, env, params }: Ctx): Promise<Response
     if (!v.verified) return json(400, { error: "passkey not accepted" });
     await db.prepare(`UPDATE profile_keys SET counter = ? WHERE id = ?`).bind(v.authenticationInfo.newCounter, key.id).run();
     const row = await db.prepare(`SELECT data, updated FROM profiles WHERE user = ?`).bind(key.user).first<{ data: string; updated: number }>();
-    return json(200, { token: await newSession(db, key.user, now), profile: row ? JSON.parse(row.data) : null, updated: row?.updated ?? null });
+    const profile = row ? JSON.parse(row.data) : null;
+    // The browser will take on the synced voter id; bring the taps it made before signing in along.
+    if (typeof body.voter === "string" && typeof profile?.voter === "string") await moveTaps(db, body.voter, profile.voter);
+    return json(200, { token: await newSession(db, key.user, now), profile, updated: row?.updated ?? null });
   }
 
   const session = await sessionUser(db, request, now);

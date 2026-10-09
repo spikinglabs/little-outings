@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { HOURLY_LIMIT, onRequestDelete, onRequestGet, onRequestPost } from "../functions/api/taps.ts";
+import { HOURLY_LIMIT, moveTaps, onRequestDelete, onRequestGet, onRequestPost } from "../functions/api/taps.ts";
 import { fakeD1 } from "./fake-d1.ts";
 
 const post = (body: unknown, ip = "1.2.3.4") =>
@@ -68,5 +68,21 @@ test("a browser can download and delete its own taps, and only its own", async (
   const del = await onRequestDelete({ env, request: new Request("https://x/api/taps", { method: "DELETE", body: JSON.stringify({ voter: "browser-one" }) }) });
   assert.equal(del.status, 200);
   assert.deepEqual(await (await mine("browser-one")).json(), []);
+  assert.deepEqual(await (await onRequestGet({ env, request: get("item=cafe-a") })).json(), { fac: { toys: { yes: 1, no: 0 } } });
+});
+
+test("moving taps to another voter id keeps the newer answer where both answered", async () => {
+  const env = { DB: fakeD1() };
+  const vote = (voter: string, item: string, answer: string) => onRequestPost({ env, request: post({ kind: "fac", item, feature: "toys", answer, voter }) });
+  await vote("synced-voter", "cafe-a", "no");
+  await new Promise((r) => setTimeout(r, 5));
+  await vote("local-voter", "cafe-a", "yes"); // newer: wins
+  await vote("local-voter", "cafe-b", "yes");
+  await vote("synced-voter", "cafe-c", "yes");
+  await moveTaps(env.DB, "local-voter", "synced-voter");
+  const mine = async (voter: string) => (await (await onRequestPost({ env, request: new Request("https://x/api/taps?mine=1", { method: "POST", body: JSON.stringify({ voter }) }) })).json())
+    .map((r: any) => `${r.item}=${r.answer}`).sort();
+  assert.deepEqual(await mine("synced-voter"), ["cafe-a=yes", "cafe-b=yes", "cafe-c=yes"]);
+  assert.deepEqual(await mine("local-voter"), []);
   assert.deepEqual(await (await onRequestGet({ env, request: get("item=cafe-a") })).json(), { fac: { toys: { yes: 1, no: 0 } } });
 });
