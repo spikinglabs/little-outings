@@ -1,6 +1,6 @@
 # Deploys the site and the admin to Cloudflare Pages.
 #   push to main        → production (site and admin)
-#   pull request        → site preview URL (shown in the job summary)
+#   pull request        → site preview URL (job summary, and a comment on the PR)
 #   every night 02:15   → rebuild production, so "today" and "this weekend" move
 # Every build imports cityklub events first: data/outings.jsonl (published from the
 # admin) when present, otherwise the CITYKLUB_EXPORT variable.
@@ -18,6 +18,8 @@ on:
 permissions:
   contents: read
   deployments: write
+  pull-requests: write
+  issues: write
 concurrency:
   group: deploy-${{ github.ref }}
   cancel-in-progress: true
@@ -71,6 +73,21 @@ jobs:
       - name: Show the URL
         if: steps.cf.outputs.ok == 'true'
         run: echo "Deployed to ${{ steps.deploy.outputs.deployment-url }}" >> "$GITHUB_STEP_SUMMARY"
+      - name: Comment the preview URL on the pull request
+        if: steps.cf.outputs.ok == 'true' && github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+          # The branch alias stays the same for every push; the deployment URL is this exact build.
+          ALIAS: ${{ steps.deploy.outputs.deployment-alias-url }}
+          URL: ${{ steps.deploy.outputs.deployment-url }}
+        run: |
+          body="Preview: ${ALIAS:-$URL}"
+          [ -n "$ALIAS" ] && body="$body (follows this PR; this build: $URL)"
+          id=$(gh api "repos/$GITHUB_REPOSITORY/issues/$PR/comments" --paginate \
+            --jq '.[] | select(.user.login == "github-actions[bot]" and (.body | startswith("Preview:"))) | .id' | head -1)
+          if [ -n "$id" ]; then gh api -X PATCH "repos/$GITHUB_REPOSITORY/issues/comments/$id" -f body="$body" > /dev/null
+          else gh api "repos/$GITHUB_REPOSITORY/issues/$PR/comments" -f body="$body" > /dev/null; fi
 
   admin:
     # The admin only ships from main; previews would share its bucket binding.

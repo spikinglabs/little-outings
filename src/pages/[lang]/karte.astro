@@ -1,54 +1,19 @@
 ---
-import Base from "../../layouts/Base.astro";
-import OutingsMap, { type Pin } from "../../islands/OutingsMap";
-import Card from "../../components/Card.astro";
-import { LANGS, tr, useT, type Lang } from "../../lib/i18n";
-import { getData } from "../../lib/data";
-import { dateRange, pathFor, townName } from "../../lib/format";
+// The map lives on Discover now ("Show on map"). Old links to the map page land there with it open.
+import { LANGS, type Lang } from "../../lib/i18n";
 
 export const getStaticPaths = () => LANGS.map((lang) => ({ params: { lang } }));
 const lang = Astro.params.lang as Lang;
-const t = useT(lang);
-const { region, events, places } = await getData();
-const center = region.towns.find((x) => x.name === region.center) ?? region.towns[0] ?? { lat: 51.16, lon: 10.45 };
-const mappable = <T extends { geo: { precision: string; lat?: number; lon?: number } }>(x: T) =>
-  x.geo.precision !== "unknown" && x.geo.lat != null && x.geo.lon != null;
-const pins: Pin[] = [
-  ...places.map((p) => ({ item: p, title: p.name, sub: `${t(`kinds.${p.kind}`)} · ${townName(p.town, lang, region.towns)}` })),
-  ...events.map((e) => ({ item: e, title: tr(e.title, lang), sub: `${dateRange(t, e)}${e.time ? ` · ${e.time}` : ""}` })),
-]
-  .filter(({ item }) => mappable(item))
-  .map(({ item, title, sub }) => ({
-    id: item.id, type: item.type, title, sub, href: pathFor(lang, item),
-    lat: item.geo.lat!, lon: item.geo.lon!, precision: item.geo.precision as Pin["precision"],
-    ...(item.type === "event" ? { start: item.start, end: item.end ?? item.start } : {}),
-  }));
-const labels = {
-  ...(t.group("nEvents") as { one: string; other: string }),
-  more: t("mapMore"),
-  inView: t.group("mapCount") as { one: string; other: string },
-  showMore: t("mapShowMore"),
-};
-// Every mappable event and place, rendered hidden; the map shows the ones inside its current view.
-const listed = [...events.filter(mappable), ...places.filter(mappable)];
+const to = `/${lang}/#map`;
 ---
-<Base lang={lang} title={t("mapTitle")} tab="map">
-  <h1 class="page-title">{t("mapTitle")}</h1>
-  <p class="page-sub">{t("mapSub", { when: t("whenIn.soon"), home: townName(region.center, lang, region.towns) })}</p>
-  <div class="mapwrap">
-    <OutingsMap client:only="preact" pins={pins} center={[center.lat, center.lon]} towns={region.towns.map((x) => [x.name, x.lat, x.lon])} locale={t.locale} labels={labels} />
-    <noscript><p class="empty">{t("mapNoJs")}</p></noscript>
-    <div class="legend">
-      <span><i style="background:#ffcc00"></i>{t("legend.event")}</span>
-      <span><i style="background:#6f4a2a"></i>{t("legend.place")}</span>
-      <span><i style="border:2px dashed currentColor"></i>{t("legend.approx")}</span>
-      <span><i style="background:rgb(111 74 42 / .12);border:1px dashed #6f4a2a;border-radius:50%"></i>{t("legend.area")}</span>
-    </div>
-  </div>
-  <section class="section map-list" aria-labelledby="ml-h">
-    <div class="section-head"><h2 id="ml-h">{t("mapListTitle")}</h2><p data-map-count aria-live="polite"></p></div>
-    <div class="grid" id="map-list">{listed.map((x) => <Card item={x} t={t} hidden />)}</div>
-    <p class="empty" data-map-empty hidden>{t("mapListEmpty")}</p>
-    <button class="more-btn" type="button" data-map-more hidden></button>
-  </section>
-</Base>
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex" />
+    <meta http-equiv="refresh" content={`0; url=${to}`} />
+    <link rel="canonical" href={to} />
+    <script is:inline define:vars={{ to }}>location.replace(to);</script>
+  </head>
+  <body><a href={to}>{to}</a></body>
+</html>

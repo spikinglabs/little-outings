@@ -2,7 +2,7 @@ locale: de-DE
 langName: Deutsch
 siteName: Little Outings
 tagline: Ausflüge mit Kindern in eurer Nähe
-tabs: { explore: Entdecken, map: Karte, saved: Merkliste, add: Mitmachen }
+tabs: { explore: Entdecken, saved: Merkliste, add: Mitmachen }
 when: { today: Heute, tomorrow: Morgen, weekend: Wochenende, soon: Nächste 2 Wochen }
 whenIn: { today: heute, tomorrow: morgen, weekend: am Wochenende, soon: in den nächsten 2 Wochen }
 ask: "Was machen wir <em>{when}</em> mit den Kindern?"
@@ -16,6 +16,7 @@ always: Geht immer
 allKinds: Alle
 nEvents: { one: "1 Termin", other: "{n} Termine" }
 nPlaces: { one: "1 Ort bis {r} km", other: "{n} Orte bis {r} km" }
+nPlacesArea: { one: "1 Ort im Kartenausschnitt", other: "{n} Orte im Kartenausschnitt" }
 noEvents: Keine Termine mit diesen Filtern. Probiert einen größeren Umkreis oder einen anderen Tag.
 noPlaces: Keine Orte mit diesen Filtern in der Nähe.
 nothingMore: Mehr gibt's in diesem Zeitraum nicht.
@@ -56,14 +57,13 @@ dunno: Weiß nicht
 send: Senden
 answered: Danke! Sobald zwei Eltern übereinstimmen, übernehmen wir es.
 inboxSoon: Danke! Das Einsenden wird gerade eingerichtet. Bis dahin gern per GitHub melden.
-mapTitle: Karte
-mapSub: "Termine {when} und Orte rund um {home}."
-mapListTitle: "Im Kartenausschnitt"
-mapCount: { one: "1 Treffer", other: "{n} Treffer" }
-mapListEmpty: "In diesem Ausschnitt ist in den nächsten 2 Wochen nichts los. Verschiebt die Karte oder zoomt heraus."
 mapShowMore: "{n} weitere zeigen"
 mapMore: "und {n} weitere"
-legend: { event: Termin, place: "Ort, geht immer", approx: "Gestrichelter Ring: Ort ungefähr", area: "Kreis mit Zahl: nur Stadt bekannt" }
+mapShow: "Auf der Karte zeigen"
+mapHide: "Karte ausblenden"
+mapAreaOn: "Gezeigt wird, was im Kartenausschnitt liegt."
+mapAreaBack: "Zurück zu {r} km um {town}"
+legend: { event: Termin, place: "Ort, geht immer", approx: "Gestrichelter Ring: Ort ungefähr", area: "Kreis mit Zahl: nur Stadt bekannt", radius: "Gepunkteter Kreis: euer Umkreis" }
 savedTitle: Merkliste
 savedSub: Bleibt auf diesem Gerät.
 savedEmpty: Noch nichts gemerkt. Tippt bei einem Termin oder Ort auf das Lesezeichen.
@@ -91,8 +91,16 @@ placeNote: "Was macht ihn gut für Kinder?"
 placeNotePh: "z. B. großer Sandkasten, Ziegen zum Füttern, Spielecke bei den Tischen"
 placeWebsite: "Website (optional)"
 placeThanks: "Danke! Wir prüfen den Ort kurz und nehmen ihn dann auf."
-tasksTitle: Kleine Aufgaben in eurer Nähe
-tasksSub: Jede dauert eine Minute und macht die Seite für alle Familien besser.
+tasksTitle: "Schon gehört, aber noch nicht alles bekannt"
+tasksSub: "Von diesen Ausflügen haben wir gehört, aber noch nicht alles erfahren, zum Beispiel den genauen Ort, die Uhrzeit oder den Preis. Schaut rein, vielleicht ist etwas Schönes dabei. Und wenn ihr mehr wisst, hilft eine Antwort allen Familien."
+tasksSearch: "Schon gehört, aber noch nicht alles bekannt"
+tasksSearchPh: "Nach Titel, Ort oder Veranstaltungsort suchen"
+tasksFilter: "Filter"
+tasksTown: "Ort"
+tasksAllTowns: "Alle Orte"
+tasksLater: "Später"
+tasksCount: { one: "{n} Ausflug", other: "{n} Ausflüge" }
+tasksNone: "Nichts gefunden. Versucht ein anderes Wort oder zeigt alles an."
 kinds: { farm: Bauernhof, cafe: Café, playground: Spielplatz, park: "Park & Wald", museum: Museum, pool: Schwimmbad, zoo: "Zoo & Tierpark" }
 features: { playground: Spielplatz, changing_table: Wickeltisch, highchairs: Hochstühle, kids_menu: Kinderkarte, toys: "Spielzeug & Mitgebsel", animals: Tiere, stroller_friendly: Kinderwagen-tauglich, nursing_room: Stillecke, indoor_play: Spielecke drinnen, toilets: Toiletten, farm_shop: Hofladen, parking: Parkplatz }
 tags: { fest: Fest, animals: Tiere, market: Markt, diy: Mitmachen, season: Saison, reading: Vorlesen, music: Musik, outside: Draußen }
@@ -111,4 +119,3 @@ pleaseCheck: Bitte prüfen
 field: { title: Titel, date: Datum, time: Uhrzeit, place: Ort oder Adresse, price: Preis, note: "Was gibt es für Kinder?" }
 parseSoon: Automatisches Auslesen ist noch nicht eingerichtet. Bitte füllt die Felder selbst aus.
 typeIt: Lieber selbst eintippen
-mapNoJs: Die Karte braucht JavaScript. Alle Einträge findet ihr auch unter Entdecken.

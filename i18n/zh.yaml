@@ -2,7 +2,7 @@ locale: zh-CN
 langName: 中文
 siteName: 小出游
 tagline: 附近的亲子好去处
-tabs: { explore: 发现, map: 地图, saved: 收藏, add: 投稿 }
+tabs: { explore: 发现, saved: 收藏, add: 投稿 }
 when: { today: 今天, tomorrow: 明天, weekend: 周末, soon: 未来两周 }
 whenIn: { today: 今天, tomorrow: 明天, weekend: 这个周末, soon: 未来两周 }
 ask: "<em>{when}</em>带孩子去哪儿玩？"
@@ -16,6 +16,7 @@ always: 随时可去
 allKinds: 全部
 nEvents: { one: "1 个活动", other: "{n} 个活动" }
 nPlaces: { one: "{r} 公里内 1 个地点", other: "{r} 公里内 {n} 个地点" }
+nPlacesArea: { one: "地图范围内 1 个地点", other: "地图范围内 {n} 个地点" }
 noEvents: 没有符合条件的活动。试试扩大范围或换一天。
 noPlaces: 附近没有符合条件的地点。
 nothingMore: 这段时间内没有更多活动了。
@@ -56,14 +57,13 @@ dunno: 不确定
 send: 提交
 answered: 谢谢！两位家长的回答一致后，我们就会采用。
 inboxSoon: 谢谢！提交功能正在搭建中，目前请通过 GitHub 反馈。
-mapTitle: 地图
-mapSub: "{home}附近{when}的活动和地点。"
-mapListTitle: "地图范围内"
-mapCount: { one: "1 项", other: "{n} 项" }
-mapListEmpty: "这一区域未来两周没有活动。请移动或缩小地图。"
 mapShowMore: "再显示 {n} 项"
 mapMore: "还有 {n} 个"
-legend: { event: 活动, place: 地点，随时可去, approx: 虚线圈：大致位置, area: 带数字的圆圈：仅知城市 }
+mapShow: "在地图上显示"
+mapHide: "隐藏地图"
+mapAreaOn: "只显示地图范围内的内容。"
+mapAreaBack: "回到{town}周边 {r} 公里"
+legend: { event: 活动, place: 地点，随时可去, approx: 虚线圈：大致位置, area: 带数字的圆圈：仅知城市, radius: "点状圆圈：搜索范围" }
 savedTitle: 收藏
 savedSub: 保存在本设备上。
 savedEmpty: 还没有收藏。点击活动或地点上的书签即可收藏。
@@ -91,8 +91,16 @@ placeNote: "为什么适合孩子？"
 placeNotePh: "例如：大沙坑、可以喂山羊、桌边有游戏角"
 placeWebsite: "网站（可选）"
 placeThanks: "谢谢！我们简单核实后就会加上这个地点。"
-tasksTitle: 附近的小任务
-tasksSub: 每个只需一分钟，让网站对所有家庭更有用。
+tasksTitle: "听说过，但细节还不全"
+tasksSub: "这些活动我们听说过，但还不清楚全部信息，比如具体地点、时间或价格。看看吧，也许会发现有趣的活动。如果你知道更多，一个回答就能帮到所有家庭。"
+tasksSearch: "听说过，但细节还不全"
+tasksSearchPh: "按名称、城市或场地搜索"
+tasksFilter: "筛选"
+tasksTown: "城市"
+tasksAllTowns: "所有城市"
+tasksLater: "以后"
+tasksCount: { one: "{n} 个活动", other: "{n} 个活动" }
+tasksNone: "没有找到。换个词试试，或显示全部。"
 kinds: { farm: 农场, cafe: 咖啡馆, playground: 游乐场, park: 公园和森林, museum: 博物馆, pool: 游泳馆, zoo: 动物园 }
 features: { playground: 游乐场, changing_table: 尿布台, highchairs: 儿童餐椅, kids_menu: 儿童餐, toys: 玩具和小礼物, animals: 动物, stroller_friendly: 婴儿车方便, nursing_room: 哺乳角, indoor_play: 室内游戏区, toilets: 卫生间, farm_shop: 农场小店, parking: 停车场 }
 tags: { fest: 节庆, animals: 动物, market: 市集, diy: 动手体验, season: 季节活动, reading: 绘本故事, music: 音乐, outside: 户外 }
@@ -111,4 +119,3 @@ pleaseCheck: 请核对
 field: { title: 标题, date: 日期, time: 时间, place: 地点或地址, price: 价格, note: 有哪些适合孩子的活动？ }
 parseSoon: 自动识别尚未开通，请自行填写。
 typeIt: 自己手动填写
-mapNoJs: 地图需要 JavaScript。所有内容也可以在“发现”页找到。

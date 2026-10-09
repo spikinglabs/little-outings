@@ -2,7 +2,7 @@ locale: en-GB
 langName: English
 siteName: Little Outings
 tagline: Family outings near you
-tabs: { explore: Discover, map: Map, saved: Saved, add: Contribute }
+tabs: { explore: Discover, saved: Saved, add: Contribute }
 when: { today: Today, tomorrow: Tomorrow, weekend: Weekend, soon: Next 2 weeks }
 whenIn: { today: today, tomorrow: tomorrow, weekend: this weekend, soon: in the next 2 weeks }
 ask: "What shall we do with the kids <em>{when}</em>?"
@@ -16,6 +16,7 @@ always: Always a good idea
 allKinds: All
 nEvents: { one: "1 event", other: "{n} events" }
 nPlaces: { one: "1 place within {r} km", other: "{n} places within {r} km" }
+nPlacesArea: { one: "1 place in the map area", other: "{n} places in the map area" }
 noEvents: No events match these filters. Try a bigger radius or another day.
 noPlaces: No places nearby match these filters.
 nothingMore: That's everything in this period.
@@ -56,14 +57,13 @@ dunno: Not sure
 send: Send
 answered: Thanks! Once two parents agree, we add it.
 inboxSoon: Thanks! Sending is being set up. Until then, please report via GitHub.
-mapTitle: Map
-mapSub: "Events {when} and places around {home}."
-mapListTitle: "In this map area"
-mapCount: { one: "1 result", other: "{n} results" }
-mapListEmpty: "Nothing in this area in the next 2 weeks. Move the map or zoom out."
 mapShowMore: "Show {n} more"
 mapMore: "and {n} more"
-legend: { event: Event, place: "Place, any day", approx: "Dashed ring: approximate", area: "Circle with a number: town only" }
+mapShow: "Show on map"
+mapHide: "Hide map"
+mapAreaOn: "Showing what is in the map area."
+mapAreaBack: "Back to {r} km around {town}"
+legend: { event: Event, place: "Place, any day", approx: "Dashed ring: approximate", area: "Circle with a number: town only", radius: "Dotted circle: your search radius" }
 savedTitle: Saved
 savedSub: Stays on this device.
 savedEmpty: Nothing saved yet. Tap the bookmark on an event or place.
@@ -91,8 +91,16 @@ placeNote: "What makes it good for kids?"
 placeNotePh: "e.g. big sandpit, goats to feed, play corner by the tables"
 placeWebsite: "Website (optional)"
 placeThanks: "Thank you! We'll check the place briefly and then add it."
-tasksTitle: Quick tasks near you
-tasksSub: Each takes a minute and makes the site better for every family.
+tasksTitle: "Heard about, not all details yet"
+tasksSub: "We've heard about these outings but don't know everything yet, like the exact place, time or price. Have a look, you might find something fun. And if you know more, one answer helps every family."
+tasksSearch: "Heard about, not all details yet"
+tasksSearchPh: "Search by title, town or venue"
+tasksFilter: "Filter"
+tasksTown: "Town"
+tasksAllTowns: "All towns"
+tasksLater: "Later"
+tasksCount: { one: "{n} outing", other: "{n} outings" }
+tasksNone: "Nothing matches. Try another word or show everything."
 kinds: { farm: Farm, cafe: Café, playground: Playground, park: "Park & woods", museum: Museum, pool: Swimming pool, zoo: "Zoo & wildlife park" }
 features: { playground: Playground, changing_table: Changing table, highchairs: High chairs, kids_menu: "Kids' menu", toys: "Toys & little gifts", animals: Animals, stroller_friendly: Pram-friendly, nursing_room: Nursing corner, indoor_play: Indoor play area, toilets: Toilets, farm_shop: Farm shop, parking: Parking }
 tags: { fest: Festival, animals: Animals, market: Market, diy: Hands-on, season: Seasonal, reading: Story time, music: Music, outside: Outdoors }
@@ -111,4 +119,3 @@ pleaseCheck: Please check
 field: { title: Title, date: Date, time: Time, place: Place or address, price: Price, note: "What's on for kids?" }
 parseSoon: Automatic reading isn't set up yet. Please fill in the fields yourself.
 typeIt: Type it in yourself
-mapNoJs: The map needs JavaScript. Everything is also listed under Discover.
