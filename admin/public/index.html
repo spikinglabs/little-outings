@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="tokens.css">
   <link rel="stylesheet" href="admin.css">
   <script type="module" src="admin.js"></script>
+  <script type="module" src="inbox.js"></script>
 </head>
 <body>
   <div class="flag" aria-hidden="true"><i></i><i></i><i></i></div>
@@ -30,6 +31,15 @@
     <div class="banner" id="banner" hidden></div>
 
     <section class="stats" id="stats" aria-label="Summary"></section>
+
+    <section class="panel" id="inbox-panel">
+      <div class="panel-head">
+        <h2>Inbox <span class="badge out" id="inbox-count"></span></h2>
+        <p>Tips, reports and suggestions from parents. Approved tips show on the site after the next nightly rebuild; rejected items never count. Taps like “We went” are counted without review.</p>
+      </div>
+      <div class="banner" id="inbox-banner" hidden></div>
+      <ol class="inbox" id="inbox"></ol>
+    </section>
 
     <section class="panel">
       <div class="panel-head">

@@ -96,6 +96,12 @@ One-time setup:
 4. Pages → little-outings-admin → Settings → Variables and Secrets (encrypted):
    `ACCESS_TEAM_DOMAIN` (e.g. `spikinglabs.cloudflareaccess.com`), `ACCESS_AUD`, and
    `GITHUB_TOKEN` (fine-grained, *Contents: read and write* on this repo only).
+5. For the Inbox panel, also `INBOX_TOKEN` (fine-grained, *Issues: read and write* on
+   `spikinglabs/little-outings-inbox` only). The panel lists open tips, reports and
+   suggested events or places. Approve adds the `approved` label, Done closes a
+   report as completed, Reject closes as not planned; each leaves a comment saying
+   who decided. `INBOX_REPO` and `SITE_URL` (for place and event names) are in
+   `admin/wrangler.toml`.
 
 Every request is checked against the Access token as well, so the admin refuses
 everything until steps 2 and 4 are done. To try it locally, run
