@@ -26,6 +26,15 @@ export function kindOf(tags) {
   return null;
 }
 
+/** One bounding box around all towns (plus the radius); fromOsm drops what is not near a town. */
+export function bbox(towns) {
+  const pad = RADIUS / 111000;
+  const lats = towns.map((t) => t.lat), lons = towns.map((t) => t.lon);
+  const lonPad = pad / Math.cos((Math.max(...lats.map(Math.abs)) * Math.PI) / 180);
+  const r = (n) => Math.round(n * 1e4) / 1e4;
+  return [r(Math.min(...lats) - pad), r(Math.min(...lons) - lonPad), r(Math.max(...lats) + pad), r(Math.max(...lons) + lonPad)];
+}
+
 export function overpassQuery(towns) {
   const filters = [
     '["leisure"="playground"]["name"]', '["leisure"="indoor_play"]["name"]', '["tourism"="zoo"]["name"]',
@@ -33,8 +42,7 @@ export function overpassQuery(towns) {
     '["leisure"="water_park"]["name"]', '["amenity"="public_bath"]["name"]', '["leisure"="sports_centre"]["sport"~"swimming"]["name"]',
     '["tourism"="museum"]["name"]', '["tourism"="theme_park"]["name"]',
   ];
-  const parts = towns.flatMap((t) => filters.map((f) => `nwr${f}(around:${RADIUS},${t.lat},${t.lon});`));
-  return `[out:json][timeout:240];(${parts.join("")});out center tags;`;
+  return `[out:json][timeout:180][bbox:${bbox(towns).join(",")}];(${filters.map((f) => `nwr${f};`).join("")});out center tags;`;
 }
 
 const rad = (d) => (d * Math.PI) / 180;
@@ -91,7 +99,10 @@ async function main() {
     body: new URLSearchParams({ data: overpassQuery(towns) }),
   });
   if (!res.ok) throw new Error(`Overpass answered ${res.status}: ${(await res.text()).slice(0, 300)}`);
-  const { elements = [] } = await res.json();
+  const { elements = [], remark } = await res.json();
+  // Overpass answers 200 with a remark when the query timed out or ran out of memory.
+  if (remark) throw new Error(`Overpass: ${remark}`);
+  if (!elements.length) throw new Error("Overpass returned no places; keeping the previous list");
   const rows = new Map();
   for (const el of elements) {
     const row = fromOsm(el, towns);

@@ -4,7 +4,7 @@ import { mkdtempSync, mkdirSync, writeFileSync, readdirSync, readFileSync } from
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { execFileSync } from "node:child_process";
-import { kindOf, fromOsm, overpassQuery } from "../scripts/fetch-osm-places.mjs";
+import { kindOf, fromOsm, overpassQuery, bbox } from "../scripts/fetch-osm-places.mjs";
 import { placeFromOsm, farmsFromEvents } from "../scripts/import-places.mjs";
 
 const towns = [{ name: "Velbert", lat: 51.34, lon: 7.043 }, { name: "Wuppertal", lat: 51.256, lon: 7.15 }];
@@ -31,10 +31,10 @@ test("fromOsm picks the nearest town, facilities and a safe website", () => {
   assert.equal(fromOsm({ type: "way", id: 4, center: { lat: 51.257, lon: 7.151 }, tags: { leisure: "playground", name: "Spielplatz Hardt" } }, towns).free, true);
 });
 
-test("the Overpass query asks around every town", () => {
-  const q = overpassQuery(towns);
-  assert.match(q, /around:6000,51.34,7.043/);
-  assert.match(q, /around:6000,51.256,7.15/);
+test("the Overpass query covers every town plus the radius in one box", () => {
+  const [s, w, n, e] = bbox(towns);
+  assert.ok(s < 51.256 - 0.05 && n > 51.34 + 0.05 && w < 7.043 - 0.08 && e > 7.15 + 0.08);
+  assert.match(overpassQuery(towns), /\[bbox:[\d.,]+\];\(nwr\["leisure"="playground"\]\["name"\];/);
 });
 
 test("placeFromOsm matches the place schema shape", () => {
