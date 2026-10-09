@@ -23,12 +23,15 @@ jobs:
       - name: Fetch OpenStreetMap places
         id: fetch
         run: |
-          for i in 1 2 3; do
-            if out=$(npm run --silent fetch:osm 2>&1); then break; fi
-            echo "$out"; [ $i = 3 ] && exit 1; sleep $((i * 60))
+          # Public Overpass servers, tried in turn; the first one that answers wins.
+          for url in https://overpass-api.de/api/interpreter https://overpass.private.coffee/api/interpreter https://maps.mail.ru/osm/tools/overpass/api/interpreter; do
+            if out=$(OVERPASS_URL=$url npm run --silent fetch:osm 2>&1); then
+              echo "$out"; echo "::notice title=OpenStreetMap::$url: $out"; exit 0
+            fi
+            echo "::warning title=Overpass failed::$url: $(echo "$out" | grep -m1 -E 'Error|error' | cut -c1-300)"
+            sleep 30
           done
-          echo "$out"
-          echo "::notice title=OpenStreetMap::$out"
+          exit 1
       - name: Check the import
         run: npm run import:places
       - name: Commit the refreshed list
