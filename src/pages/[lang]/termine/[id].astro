@@ -47,7 +47,7 @@ const map = mapLink(e, place);
       <li><span>📅</span><span>{dateRange(t, e)}{e.time && ` · ${e.time}`}</span></li>
       <li><span>📍</span><span>
         {place ? <a href={pathFor(lang, place)}>{nameOf(place, lang)}</a> : e.venue}{(place || e.venue) && town && ", "}{town}<span data-km></span>
-        {prec !== "exact" && <><br /><small class="small">{t(`locNote.${prec}`, { town })}</small></>}
+        {prec !== "exact" && <><br /><small class="small">{t(`locNote.${prec === "area" && e.venue ? "venue" : prec}`, { town })}</small></>}
       </span></li>
       {e.price && <li><span>€</span><span>{e.price.free ? t("free") : tr(e.price.text, lang) || t("paid")}</span></li>}
       {e.ages && <li><span>👧</span><span>{ageText(t, e.ages)}</span></li>}
