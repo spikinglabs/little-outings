@@ -282,7 +282,7 @@ const standalone = matchMedia("(display-mode: standalone)").matches || (navigato
 const ios = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 const installBox = document.querySelector<HTMLElement>("[data-install]");
 const installBtn = document.querySelector<HTMLButtonElement>("[data-install-btn]");
-let installPrompt: (Event & { prompt(): Promise<void>; userChoice: Promise<{ outcome: string }> }) | null = null;
+let installPrompt: InstallEvent | null = null;
 
 // On phones, a quiet line under the header says the site works as an app. It waits until the
 // second page you open, and once dismissed (or installed) it stays away on this device.
@@ -301,6 +301,9 @@ if (hint && hintWanted && views >= 1) {
 }
 hint?.querySelector("[data-app-hint-x]")?.addEventListener("click", closeHint);
 
+type InstallEvent = Event & { prompt(): Promise<void>; userChoice: Promise<{ outcome: string }> };
+const win = window as unknown as { __loInstall?: InstallEvent | null };
+const takePrompt = () => { installPrompt = win.__loInstall ?? installPrompt; win.__loInstall = null; if (installPrompt && hintGo) hintGo.hidden = false; };
 async function install() {
   if (!installPrompt) return;
   const ev = installPrompt;
@@ -310,22 +313,34 @@ async function install() {
   if (hintGo) hintGo.hidden = true;
   if (choice?.outcome === "accepted") { closeHint(); if (installBox) installBox.hidden = true; }
 }
-// Chrome, Edge and Android offer an install prompt we can show from our own buttons.
-window.addEventListener("beforeinstallprompt", (ev) => {
-  ev.preventDefault();
-  installPrompt = ev as typeof installPrompt;
-  if (hintGo) hintGo.hidden = false;
-});
+// Chrome, Edge and Android offer an install dialog we can open from our own buttons. The early
+// listener in Base.astro keeps the offer, because Chrome may make it before this script runs.
+takePrompt();
+addEventListener("lo:installable", takePrompt);
 hintGo?.addEventListener("click", install);
 // The footer button is always there outside the installed app, even after the hint was dismissed.
-// Where the browser has no install prompt (Safari, Firefox, or a prompt already used), it says how instead.
+// Where the browser has no install dialog (Safari, Firefox), it says how instead.
 const installHow = document.querySelector<HTMLElement>("[data-install-how]");
+const say = (text: string) => { if (installHow) { installHow.textContent = text; installHow.hidden = false; } };
 if (!standalone && installBox) installBox.hidden = false;
-installBtn?.addEventListener("click", () => {
-  if (installPrompt) return void install();
-  if (installHow) {
-    installHow.textContent = ios ? ui.hintIos : ui.installMenu;
-    installHow.hidden = false;
-  }
+const waitForPrompt = (ms: number) => new Promise<void>((done) => {
+  if (installPrompt) return done();
+  const t = setTimeout(done, ms);
+  addEventListener("lo:installable", () => { clearTimeout(t); done(); }, { once: true });
 });
+installBtn?.addEventListener("click", async () => {
+  if (!installPrompt && !ios) await waitForPrompt(1500);
+  if (installPrompt) return void install();
+  say(ios ? ui.hintIos : ui.installMenu);
+});
+// Chrome makes no install offer while the app is already installed: say so, and where to open it.
+const related = (navigator as { getInstalledRelatedApps?: () => Promise<unknown[]> }).getInstalledRelatedApps;
+if (!standalone && related) {
+  related.call(navigator).then((apps) => {
+    if (!apps.length) return;
+    closeHint();
+    if (installBtn) installBtn.hidden = true;
+    say(ui.installed);
+  }).catch(() => {});
+}
 window.addEventListener("appinstalled", () => { if (installBox) installBox.hidden = true; closeHint(); });

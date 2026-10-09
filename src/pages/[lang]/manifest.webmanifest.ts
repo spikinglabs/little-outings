@@ -8,6 +8,7 @@ export const getStaticPaths = () => LANGS.map((lang) => ({ params: { lang } }));
 export const GET: APIRoute = ({ params }) => {
   const lang = params.lang as Lang;
   const t = useT(lang);
+  const site = (import.meta.env.SITE ?? "").replace(/\/$/, "");
   const manifest = {
     id: "/",
     name: t("siteName"),
@@ -28,6 +29,8 @@ export const GET: APIRoute = ({ params }) => {
       { src: "/icons/maskable-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
       { src: "/icons/icon.svg", sizes: "any", type: "image/svg+xml", purpose: "any" },
     ],
+    // Lets the page ask Chrome whether the app is already installed (navigator.getInstalledRelatedApps).
+    related_applications: LANGS.map((l) => ({ platform: "webapp", url: `${site}/${l}/manifest.webmanifest` })),
     shortcuts: [
       { name: t("tabs.saved"), url: `/${lang}/merkliste/`, icons: [{ src: "/icons/icon-192.png", sizes: "192x192" }] },
       { name: t("tabs.add"), url: `/${lang}/mitmachen/`, icons: [{ src: "/icons/icon-192.png", sizes: "192x192" }] },
