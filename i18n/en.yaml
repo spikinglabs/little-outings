@@ -78,8 +78,13 @@ orPaste: or paste a link or text
 pastePh: Website, Instagram post or WhatsApp message
 pasteBtn: Read it
 posterNote: The photo is never published, only the facts.
-tasksTitle: Quick tasks near you
-tasksSub: Each takes a minute and makes the site better for every family.
+tasksTitle: "Help other families plan their day"
+tasksSub: "These outings are still missing a detail, like the exact place or time. If you know it, one answer helps every family nearby, and you get better tips too."
+tasksSearch: "Search outings with missing details"
+tasksSearchPh: "Search by title, town or venue"
+tasksMissing: "What is missing"
+tasksCount: { one: "{n} outing needs a detail", other: "{n} outings need a detail" }
+tasksNone: "Nothing matches. Try another word or show everything."
 kinds: { farm: Farm, cafe: Café, playground: Playground, park: "Park & woods", museum: Museum, pool: Swimming pool }
 features: { playground: Playground, changing_table: Changing table, highchairs: High chairs, kids_menu: "Kids' menu", toys: "Toys & little gifts", animals: Animals, stroller_friendly: Pram-friendly, nursing_room: Nursing corner, indoor_play: Indoor play area, toilets: Toilets, farm_shop: Farm shop, parking: Parking }
 tags: { fest: Festival, animals: Animals, market: Market, diy: Hands-on, season: Seasonal, reading: Story time, music: Music, outside: Outdoors }
