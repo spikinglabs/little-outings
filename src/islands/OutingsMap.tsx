@@ -67,11 +67,10 @@ export default function OutingsMap({ pins, center, towns, locale, labels, mode =
       if (t) home = [t[1], t[2]];
     } catch { /* storage blocked */ }
     const map = L.map(el.current!, { scrollWheelZoom: false }).setView(home, 11);
-    // A muted basemap, so the gold and brown pins stand out.
-    L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
-      maxZoom: 19,
-      subdomains: "abcd",
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    // OpenStreetMap tiles, muted in CSS (.map .leaflet-tile-pane) so the gold and brown pins stand out.
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 18,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     }).addTo(map);
     const plural = new Intl.PluralRules(locale);
     const fill = (s: string, n: number) => s.replace("{n}", String(n));
