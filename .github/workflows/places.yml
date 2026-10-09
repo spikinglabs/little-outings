@@ -28,7 +28,7 @@ jobs:
             if out=$(OVERPASS_URL=$url npm run --silent fetch:osm 2>&1); then
               echo "$out"; echo "::notice title=OpenStreetMap::$url: $out"; exit 0
             fi
-            echo "::warning title=Overpass failed::$url: $(echo "$out" | grep -m1 -E 'Error|error' | cut -c1-300)"
+            echo "::warning title=Overpass failed::$url: $(echo "$out" | grep -m1 '^Error' | cut -c1-400)"
             sleep 30
           done
           exit 1
