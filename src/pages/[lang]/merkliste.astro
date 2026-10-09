@@ -1,42 +1,57 @@
 ---
-// The saved list lives in this browser only. Every card waits in a <template>; the script moves in the saved ones.
+// "Mine": the saved list, what this browser sent us, and a door to the profile (sync, move, download, delete).
+// Every saved-list card waits in a <template>; the script moves in the saved ones.
 import Base from "../../layouts/Base.astro";
 import Card from "../../components/Card.astro";
+import SentList from "../../islands/SentList";
 import { LANGS, useT, type Lang } from "../../lib/i18n";
 import { getData } from "../../lib/data";
 
 export const getStaticPaths = () => LANGS.map((lang) => ({ params: { lang } }));
 const lang = Astro.params.lang as Lang;
 const t = useT(lang);
+const m = (k: string) => t(`mine.${k}`);
 const { events, places } = await getData();
 ---
-<Base lang={lang} title={t("savedTitle")} tab="saved">
-  <h1 class="page-title">{t("savedTitle")}</h1>
-  <p class="page-sub">{t("savedSub")}</p>
-  <a class="profile-link" href={`/${lang}/profil/`}>{t("profile.link")} →</a>
+<Base lang={lang} title={m("title")} tab="saved">
+  <h1 class="page-title">{m("title")}</h1>
+  <p class="page-sub">{m("sub")}</p>
   <div class="shared" data-shared hidden>
     <p data-shared-text></p>
     <button class="btn primary" type="button" data-shared-add>{t("share.add")}</button>
   </div>
-  <div class="share-bar" data-share-bar hidden>
-    <button class="btn" type="button" data-share>{t("share.button")}</button>
-    <p class="small" data-share-done role="status" hidden></p>
-  </div>
-  <section class="section" data-saved-section>
-    <div class="section-head"><h2>{t("events")}</h2></div>
-    <div class="grid"></div>
-    <template>{events.map((e) => <Card item={e} t={t} hidden />)}</template>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>{m("saved")}</h2>
+      <button class="btn" type="button" data-share hidden>{t("share.button")}</button>
+    </div>
+    <p class="small share-done" data-share-done role="status" hidden></p>
+    <div class="saved-group" data-saved-section>
+      <h3>{t("events")}</h3>
+      <div class="grid"></div>
+      <template>{events.map((e) => <Card item={e} t={t} hidden />)}</template>
+    </div>
+    <div class="saved-group" data-saved-section>
+      <h3>{t("places")}</h3>
+      <div class="grid"></div>
+      <template>{places.map((p) => <Card item={p} t={t} hidden />)}</template>
+    </div>
+    <p class="empty" data-saved-empty>{t("savedEmpty")}</p>
   </section>
-  <section class="section" data-saved-section>
-    <div class="section-head"><h2>{t("places")}</h2></div>
-    <div class="grid"></div>
-    <template>{places.map((p) => <Card item={p} t={t} hidden />)}</template>
+
+  <SentList client:only="preact" lang={lang} ui={{ sentTitle: t("profile.sentTitle"), sentSub: t("profile.sentSub"), sentEdit: t("profile.sentEdit"), sentResend: t("profile.sentResend") }} />
+
+  <section class="section profile-box">
+    <h2>{m("profile")}</h2>
+    <p class="small" data-sync-line>{m("syncOff")}</p>
+    <div class="profile-actions"><a class="btn" href={`/${lang}/profil/`}>{m("syncLink")} →</a></div>
   </section>
-  <p class="empty section" data-saved-empty>{t("savedEmpty")}</p>
-  <script is:inline type="application/json" id="share-ui" set:html={JSON.stringify({ shared: t.group("share.shared"), copied: t("share.copied"), title: t("savedTitle") })} />
+
+  <script is:inline type="application/json" id="share-ui" set:html={JSON.stringify({ shared: t.group("share.shared"), copied: t("share.copied"), title: t("savedTitle"), syncOn: m("syncOn"), syncOff: m("syncOff") })} />
   <script>
     import { saved, markSaved, renderKm, renderSaved } from "../../scripts/app";
-    import { schedulePush } from "../../scripts/sync";
+    import { getSync, schedulePush } from "../../scripts/sync";
     // Thousands of cards in the live page made phones slow, so only the ones on the list are moved in.
     const pools = [...document.querySelectorAll<HTMLElement>("[data-saved-section]")].map((sec) => ({
       sec,
@@ -65,7 +80,10 @@ const { events, places } = await getData();
     // "Share my list": a link that carries the saved ids (?add=a,b,c). Opening it offers to add them,
     // which is also how a list moves to another phone. Nothing is stored anywhere else.
     type Plural = { one?: string; other: string };
-    const sui = JSON.parse(document.getElementById("share-ui")!.textContent!) as { shared: Plural; copied: string; title: string };
+    const sui = JSON.parse(document.getElementById("share-ui")!.textContent!) as { shared: Plural; copied: string; title: string; syncOn: string; syncOff: string };
+    const syncLine = () => { document.querySelector("[data-sync-line]")!.textContent = getSync() ? sui.syncOn : sui.syncOff; };
+    document.addEventListener("lo:sync", syncLine);
+    syncLine();
     const known = new Set(pools.flatMap((p) => p.cards.map((el) => el.dataset.id!)));
     const incoming = (new URLSearchParams(location.search).get("add") || "").split(",").filter((id) => known.has(id) && !saved.has(id));
     const box = document.querySelector<HTMLElement>("[data-shared]")!;
@@ -85,13 +103,13 @@ const { events, places } = await getData();
       history.replaceState(null, "", location.pathname);
       renderSaved();
     });
-    const bar = document.querySelector<HTMLElement>("[data-share-bar]")!;
-    const syncBar = () => { bar.hidden = saved.size === 0; };
+    const shareBtn = document.querySelector<HTMLElement>("[data-share]")!;
+    const syncBar = () => { shareBtn.hidden = saved.size === 0; };
     document.addEventListener("lo:saved", syncBar);
     syncBar();
-    bar.querySelector("[data-share]")!.addEventListener("click", async () => {
+    shareBtn.addEventListener("click", async () => {
       const url = `${location.origin}${location.pathname}?add=${[...saved].join(",")}`;
-      const done = bar.querySelector<HTMLElement>("[data-share-done]")!;
+      const done = document.querySelector<HTMLElement>("[data-share-done]")!;
       try {
         if (navigator.share) { await navigator.share({ title: sui.title, url }); return; }
         await navigator.clipboard.writeText(url);
