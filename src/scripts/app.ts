@@ -43,10 +43,6 @@ function fillRows(root: ParentNode) {
 }
 export function renderSaved() {
   markSaved();
-  document.querySelectorAll<HTMLElement>("[data-saved-count]").forEach((el) => {
-    el.textContent = String(saved.size);
-    el.hidden = saved.size === 0;
-  });
   document.dispatchEvent(new CustomEvent("lo:saved"));
 }
 document.addEventListener("click", (ev) => {
@@ -56,6 +52,13 @@ document.addEventListener("click", (ev) => {
   saved.has(id) ? saved.delete(id) : saved.add(id);
   write("lo-saved", JSON.stringify([...saved]));
   renderSaved();
+  // No count badge on the Mine tab; a short bounce shows where the saved outing went.
+  if (saved.has(id)) {
+    const tab = document.querySelector<HTMLElement>('.tabs [data-tab="saved"]');
+    tab?.classList.remove("bump");
+    void tab?.offsetWidth; // restart the animation on quick repeat taps
+    tab?.classList.add("bump");
+  }
 });
 renderSaved();
 // A synced copy (or a profile brought in from another phone) arrived: show it.

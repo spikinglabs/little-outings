@@ -80,7 +80,7 @@ const ui = {
           <span>{t("siteName")}</span>
         </a>
         <nav class="topnav" aria-label={t("siteName")}>
-          {tabs.map(([k, p]) => <a href={`/${lang}/${p}`} aria-current={tab === k ? "page" : undefined}>{t(`tabs.${k}`)}</a>)}
+          {tabs.map(([k, p]) => <a href={`/${lang}/${p}`} aria-current={tab === k ? "page" : undefined} data-tab={k}>{t(`tabs.${k}`)}</a>)}
         </nav>
         <div class="top-right">
           <nav class="lang" aria-label="Sprache · Language · 语言">
@@ -113,9 +113,9 @@ const ui = {
     </div>
     <nav class="tabs" aria-label={t("siteName")}>
       {tabs.map(([k, p]) => (
-        <a href={`/${lang}/${p}`} aria-current={tab === k ? "page" : undefined}>
+        <a href={`/${lang}/${p}`} aria-current={tab === k ? "page" : undefined} data-tab={k}>
           <Fragment set:html={svg(TAB_ICON[k])} />
-          <span>{t(`tabs.${k}`)}{k === "saved" && <span class="badge-n" data-saved-count hidden></span>}</span>
+          <span>{t(`tabs.${k}`)}</span>
         </a>
       ))}
     </nav>
