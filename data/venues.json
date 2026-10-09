@@ -39,14 +39,37 @@
   "venue": "Centre Charlemagne",
   "street": "Katschhof 1"
  },
+ "https://centre-charlemagne.eu/termin/johann-baptist-bastine-maler-in-aachen/": {
+  "venue": "Centre Charlemagne"
+ },
+ "https://couven-museum.de/event/biedermeierzeit-die-familie-als-lebensmittelpunkt-3/": {
+  "venue": null
+ },
  "https://couven-museum.de/event/gemiensam-morgens-ins-museum/": {
   "venue": "Couven Museum"
  },
  "https://couven-museum.de/event/herbst-blumenkraenze/": {
   "venue": "Couven Museum"
  },
+ "https://couven-museum.de/event/kreativitaet-zum-mitmachen-kreatives-schreiben/": {
+  "venue": null
+ },
  "https://couven-museum.de/event/kunst-am-mittag-apothekengeheimnisse/": {
   "venue": "Couven Museum"
+ },
+ "https://couven-museum.de/event/tinte-trifft-tusche-tintenfaesser-und-tuschezeichnungen-5/": {
+  "venue": null
+ },
+ "https://couven-museum.de/event/tintenfass-und-flohfalle-vom-zauber-der-dinge/": {
+  "venue": "Couven Museum"
+ },
+ "https://izm.de/event/erzaehlcafe-fuer-seniorinnen-essen/": {
+  "venue": "Internationales Zeitungsmuseum Aachen",
+  "street": "Pontstr. 13"
+ },
+ "https://koelnerkarneval.de/session/veranstaltungen/veranstaltung/40-kinderkostuemfest": {
+  "venue": "Aula Dechenstr. (Neu-Ehrenfeld)",
+  "street": "Dechenstr."
  },
  "https://koelnerkarneval.de/session/veranstaltungen/veranstaltung/familieklaaf-zum-20-jubilaeum": {
   "venue": "Dorint an der Messe",
@@ -72,6 +95,9 @@
   "venue": "Gymnasium Rodenkirchen",
   "street": "Sürther Straße 55"
  },
+ "https://koelnerkarneval.de/session/veranstaltungen/veranstaltung/kinderfastelovend-im-festzelt": {
+  "venue": "Festzelt am Heckweg"
+ },
  "https://koelnerkarneval.de/session/veranstaltungen/veranstaltung/kinderkarnevalsveranstaltung": {
   "venue": "Ventana-Eventlocation",
   "street": "Elisabeth-von-Mumm-Platz 1"
@@ -87,6 +113,10 @@
  "https://koelnerkarneval.de/session/veranstaltungen/veranstaltung/kinderkostuemfest-7": {
   "venue": "Mehrzweckhalle Ildefons-Herwegen-Schule",
   "street": "Kirchweg 138"
+ },
+ "https://koelnerkarneval.de/session/veranstaltungen/veranstaltung/kinderkostuemfest-8": {
+  "venue": "Aula Grundschule",
+  "street": "Buschfeldstrasse 46"
  },
  "https://koelnerkarneval.de/session/veranstaltungen/veranstaltung/kinderkostuemfest-9": {
   "venue": "Willy-Brandt-Gesamtschule",
@@ -180,11 +210,60 @@
   "venue": "Ludwig Forum Aachen",
   "street": "Jülicher Straße 97–109"
  },
+ "https://suermondt-ludwig-museum.de/event/an-die-farbe-fertig-los-3/": {
+  "venue": null
+ },
+ "https://suermondt-ludwig-museum.de/event/august-macke-portraet-von-sophie-gerhardt-1913/": {
+  "venue": null
+ },
  "https://suermondt-ludwig-museum.de/event/ein-wal-fuers-regal-eine-schnecke-fuer-die-decke/": {
   "venue": "Suermondt-Ludwig-Museum"
  },
+ "https://suermondt-ludwig-museum.de/event/familienangebot-fuer-grosse-und-kleine-kuenstlerinnen-3-2-2/": {
+  "venue": null
+ },
+ "https://suermondt-ludwig-museum.de/event/finderlohn-schmuck-skulptur-raum-2/": {
+  "venue": null
+ },
+ "https://suermondt-ludwig-museum.de/event/suermondt-museumsclub-12-2-2/2026-11-03/": {
+  "venue": null
+ },
+ "https://suermondt-ludwig-museum.de/event/suermondt-museumsclub-12-2-2/2026-11-10/": {
+  "venue": null
+ },
+ "https://suermondt-ludwig-museum.de/event/suermondt-museumsclub-12-2-2/2026-11-17/": {
+  "venue": null
+ },
+ "https://suermondt-ludwig-museum.de/event/suermondt-museumsclub-12-2-2/2026-11-24/": {
+  "venue": null
+ },
+ "https://suermondt-ludwig-museum.de/event/suermondt-museumsclub-12-2-2/2026-12-01/": {
+  "venue": null
+ },
+ "https://suermondt-ludwig-museum.de/event/suermondt-museumsclub-12-2-2/2026-12-08/": {
+  "venue": null
+ },
+ "https://suermondt-ludwig-museum.de/event/suermondt-museumsclub-12-2-2/2026-12-15/": {
+  "venue": null
+ },
+ "https://suermondt-ludwig-museum.de/event/suermondt-museumsclub-12-2/2026-10-13/": {
+  "venue": null
+ },
+ "https://suermondt-ludwig-museum.de/event/von-hexen-tieren-und-magischen-wesen-2/": {
+  "venue": "Suermondt-Ludwig-Museum"
+ },
+ "https://suermondt-ludwig-museum.de/event/vorweihnachtszeit-fuer-familien-2/": {
+  "venue": null
+ },
  "https://suermondt-ludwig-museum.de/event/yoga-im-museum-2-2/": {
   "venue": "Suermondt-Ludwig-Museum"
+ },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/into-the-paperverse-papier-und-computerspiel": {
+  "venue": null
+ },
+ "https://www.koeln.de/event/kinder-maedels-flohmarkt-koeln-ehrenfeld/": {
+  "venue": "Rösenhöfe",
+  "street": "Venloer Straße 193"
  },
  "https://www.koeln.de/event/kinderflohmarkt-in-raderthal/": {
   "venue": "Ev. Kita",
