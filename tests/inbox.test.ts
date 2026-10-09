@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { onRequestPost } from "../functions/api/inbox.ts";
+import { onRequestPost, onRequestPut } from "../functions/api/inbox.ts";
 
 const env = { GITHUB_TOKEN: "t", INBOX_REPO: "spikinglabs/inbox" };
 const post = (body: unknown) => new Request("https://x/api/inbox", { method: "POST", body: JSON.stringify(body) });
@@ -45,4 +45,35 @@ test("a visit and a tip become issues; unknown chips and topics are dropped or r
   assert.deepEqual(sent.labels, ["tip"]);
   res = await onRequestPost({ env, request: post({ kind: "tip", item: "osm-node-5", topic: "spam", text: "x" }) } as any);
   assert.equal(res.status, 400);
+});
+
+test("an event sent with a key can be edited with that key only, and goes back to review", async () => {
+  const calls: { url: string; method: string; body: any }[] = [];
+  let issueBody = "";
+  globalThis.fetch = (async (url: string, init: RequestInit = {}) => {
+    const method = init.method ?? "GET";
+    calls.push({ url, method, body: init.body ? JSON.parse(String(init.body)) : null });
+    if (method === "POST" && url.endsWith("/issues")) { issueBody = JSON.parse(String(init.body)).body; return Response.json({ number: 7 }, { status: 201 }); }
+    if (method === "GET") return Response.json({ number: 7, state: "closed", state_reason: "completed", body: issueBody, labels: [{ name: "new-event" }, { name: "approved" }] });
+    return Response.json({}, { status: 200 });
+  }) as any;
+  const key = "k".repeat(32);
+  const draft = { title: "Vortrag", date: "2026-10-15", time: "19:00", place: "Rathaus, 52399 Merzenich", price: "", note: "" };
+  const made = await onRequestPost({ env, request: post({ kind: "event", lang: "de", draft, key }) } as any);
+  assert.deepEqual(await made.json(), { ok: true, number: 7 });
+  assert.match(issueBody, /\nedit: "[0-9a-f]{64}"\n/);
+  assert.ok(!issueBody.includes(key));
+
+  const put = (body: unknown) => new Request("https://x/api/inbox", { method: "PUT", body: JSON.stringify(body) });
+  const wrong = await onRequestPut({ env, request: put({ number: 7, key: "x".repeat(32), draft }) } as any);
+  assert.equal(wrong.status, 404);
+
+  calls.length = 0;
+  const ok = await onRequestPut({ env, request: put({ number: 7, key, lang: "de", draft: { ...draft, time: "19:30" } }) } as any);
+  assert.equal(ok.status, 200);
+  const patch = calls.find((c) => c.method === "PATCH")!;
+  assert.equal(patch.body.state, "open");
+  assert.match(patch.body.body, /time: "19:30"/);
+  assert.equal(/edit: "([0-9a-f]{64})"/.exec(patch.body.body)?.[1], /edit: "([0-9a-f]{64})"/.exec(issueBody)?.[1]);
+  assert.ok(calls.some((c) => c.method === "DELETE" && c.url.endsWith("/issues/7/labels/approved")));
 });

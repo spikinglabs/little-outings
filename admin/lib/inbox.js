@@ -1,7 +1,8 @@
 // What parents wrote that needs a person to look at it: issues in INBOX_REPO, created by the
 // site's /api/inbox. Taps (visits, chip answers) are counted, never reviewed, so they don't show here.
-//   approve → adds the `approved` label (the nightly tally then shows a tip; the inbox repo's bot
-//             turns an approved event or place into a pull request)
+//   approve → adds the `approved` label (the nightly tally then shows a tip). An approved event is
+//             also committed to the site repo as content/events/community/inbox-<number>.yaml and
+//             the issue is closed, so it goes live with the deploy that commit starts.
 //   done    → closes a report as completed, once you've fixed what it was about
 //   reject  → closes as "not planned", so the tally ignores it for good
 
@@ -46,8 +47,71 @@ export function reviewItem(issue) {
   };
 }
 
-/** Still waiting for a decision: open and not approved yet. */
-export const waiting = (item) => item.open && !item.approved;
+/**
+ * Still waiting for a decision: open and not approved yet. A suggested event waits until it is
+ * published (closed), so one approved before publishing existed still shows up to be approved again.
+ */
+export const waiting = (item) => item.open && (item.kind === "new-event" || !item.approved);
+
+const q = (v) => JSON.stringify(String(v ?? "").trim());
+
+/** Town from a free-text place like "Rathaus, Valdersweg 1, 52399 Merzenich": the last part, without postcode. */
+export function townOf(place) {
+  const last = String(place ?? "").split(",").map((s) => s.trim()).filter(Boolean).pop() ?? "";
+  return last.replace(/^(D-)?\d{5}\s+/, "").trim();
+}
+
+/**
+ * The content file for an approved event suggestion, or an error message. Values are JSON-quoted,
+ * which is valid YAML, so nothing a parent typed can change the file's structure.
+ */
+export function eventFile(number, d, approvedBy) {
+  if (!d?.title) return { error: "This event has no title." };
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(String(d.date ?? ""))) return { error: `The date "${d.date ?? ""}" isn't YYYY-MM-DD; fix it before approving.` };
+  const place = String(d.place ?? "").trim();
+  const town = townOf(place) || place;
+  if (!town) return { error: "This event has no place; add one before approving." };
+  const venue = place.split(",")[0].trim();
+  const price = String(d.price ?? "").trim();
+  const free = /^(kostenlos|frei|eintritt frei|gratis|free|0 ?€?|免费)$/i.test(price);
+  const lines = [
+    `# Suggested by a parent (inbox #${number}), approved in the admin by ${String(approvedBy).replace(/\s+/g, " ")}.`,
+    `# Edit here to fix it. If the sender edits it, approving again replaces this file.`,
+    `title: ${q(d.title)}`,
+    venue && venue !== town ? `venue: ${q(venue)}` : "",
+    `town: ${q(town)}`,
+    `start: ${q(d.date)}`,
+    d.time ? `time: ${q(d.time)}` : "",
+    free ? "price: { free: true }" : price ? `price: { free: false, text: ${q(price)} }` : "",
+    d.note ? `note: ${q(d.note)}` : "",
+    "trust: { level: community }",
+  ];
+  return { path: `content/events/community/inbox-${number}.yaml`, text: lines.filter(Boolean).join("\n") + "\n" };
+}
+
+function base64(text) {
+  const bytes = new TextEncoder().encode(text);
+  let binary = "";
+  for (let i = 0; i < bytes.length; i += 0x8000) binary += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+  return btoa(binary);
+}
+
+/** Creates or replaces one file in the site repo (GITHUB_TOKEN: Contents read and write). */
+export async function putSiteFile(env, path, text, message) {
+  const repo = env.GITHUB_REPO || "spikinglabs/little-outings";
+  const branch = env.GITHUB_BRANCH || "main";
+  const api = `https://api.github.com/repos/${repo}/contents/${path}`;
+  const headers = { authorization: `Bearer ${env.GITHUB_TOKEN}`, accept: "application/vnd.github+json", "user-agent": "little-outings-admin" };
+  const existing = await fetch(`${api}?ref=${encodeURIComponent(branch)}`, { headers });
+  if (!existing.ok && existing.status !== 404) return { ok: false, status: existing.status };
+  const sha = existing.ok ? (await existing.json()).sha : undefined;
+  const put = await fetch(api, {
+    method: "PUT",
+    headers: { ...headers, "content-type": "application/json" },
+    body: JSON.stringify({ message, content: base64(text), branch, ...(sha ? { sha } : {}) }),
+  });
+  return { ok: put.ok, status: put.status };
+}
 
 export function github(env) {
   const repo = env.INBOX_REPO;

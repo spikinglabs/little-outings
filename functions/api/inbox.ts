@@ -8,6 +8,9 @@
 //   INBOX_REPO        e.g. spikinglabs/little-outings-inbox
 //   TURNSTILE_SECRET  optional; when set, requests must carry a valid `turnstile` token
 // Until GITHUB_TOKEN and INBOX_REPO are set, it answers 503 and the site says "being set up".
+//
+// A new event may carry `key`, a random secret the sender's browser keeps. Only its SHA-256 goes into
+// the issue, and PUT /api/inbox with the same key changes that event later (see onRequestPut).
 
 interface Env { GITHUB_TOKEN?: string; INBOX_REPO?: string; TURNSTILE_SECRET?: string }
 type Ctx = { request: Request; env: Env };
@@ -21,6 +24,33 @@ const clip = (v: unknown, n = 500) => String(v ?? "").slice(0, n).replace(/\r/g,
 const GOOD_FOR = ["toddlers", "bigKids", "rainy", "longVisit", "quickHour", "friends"];
 const TIP_TOPICS = ["bring", "bestTime", "parking", "ages", "other"];
 const yamlStr = (v: unknown, n?: number) => JSON.stringify(clip(v, n));
+const EVENT_FIELDS = ["title", "date", "time", "place", "price", "note"];
+const KEY = /^[A-Za-z0-9_-]{16,100}$/;
+
+async function sha256(text: string) {
+  const bytes = new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text)));
+  return [...bytes].map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+/** The issue for a suggested event; `edit` is the hash of the sender's key, kept across edits. */
+function eventIssue(d: Record<string, unknown>, lang: unknown, edit?: string) {
+  return {
+    title: `event ${clip(d.date, 10)} ${clip(d.title, 80)}`,
+    yaml: [`kind: event`, ...EVENT_FIELDS.map((k) => `${k}: ${yamlStr(d[k], k === "note" ? 2000 : 300)}`),
+      `lang: ${yamlStr(lang, 5)}`, edit ? `edit: ${JSON.stringify(edit)}` : ""].filter(Boolean).join("\n"),
+  };
+}
+
+const gh = (env: Env, path: string, init: RequestInit = {}) =>
+  fetch(`https://api.github.com/repos/${env.INBOX_REPO}${path}`, {
+    ...init,
+    headers: {
+      authorization: `Bearer ${env.GITHUB_TOKEN}`,
+      accept: "application/vnd.github+json",
+      "user-agent": "little-outings-inbox",
+      ...(init.body ? { "content-type": "application/json" } : {}),
+    },
+  });
 
 export async function onRequestPost({ request, env }: Ctx) {
   if (!env.GITHUB_TOKEN || !env.INBOX_REPO) return json(503, { error: "inbox not configured" });
@@ -47,10 +77,8 @@ export async function onRequestPost({ request, env }: Ctx) {
   } else if (body.kind === "event" && body.draft && typeof body.draft === "object") {
     const d = body.draft;
     if (!d.title || !d.date) return json(400, { error: "title and date are required" });
-    title = `event ${clip(d.date, 10)} ${clip(d.title, 80)}`;
+    ({ title, yaml } = eventIssue(d, body.lang, typeof body.key === "string" && KEY.test(body.key) ? await sha256(body.key) : undefined));
     label = "new-event";
-    yaml = [`kind: event`, ...["title", "date", "time", "place", "price", "note"].map((k) => `${k}: ${yamlStr(d[k], k === "note" ? 2000 : 300)}`),
-      `lang: ${yamlStr(body.lang, 5)}`].join("\n");
   } else if (body.kind === "place" && body.place && typeof body.place === "object") {
     const p = body.place;
     if (!p.name || !p.kind || !p.town) return json(400, { error: "name, kind and town are required" });
@@ -83,14 +111,46 @@ export async function onRequestPost({ request, env }: Ctx) {
     return json(400, { error: "unknown contribution" });
   }
 
-  const res = await fetch(`https://api.github.com/repos/${env.INBOX_REPO}/issues`, {
+  const res = await gh(env, "/issues", {
     method: "POST",
-    headers: {
-      authorization: `Bearer ${env.GITHUB_TOKEN}`,
-      accept: "application/vnd.github+json",
-      "user-agent": "little-outings-inbox",
-    },
     body: JSON.stringify({ title, labels: [label], body: "```yaml\n" + yaml + "\n```\n" }),
   });
-  return res.ok ? json(200, { ok: true }) : json(502, { error: "inbox unavailable" });
+  if (!res.ok) return json(502, { error: "inbox unavailable" });
+  const number = ((await res.json().catch(() => ({}))) as { number?: number }).number;
+  return json(200, { ok: true, ...(number ? { number } : {}) });
+}
+
+/**
+ * PUT /api/inbox {number, key, draft, lang}: the sender changes an event they suggested.
+ * The change goes back to review: the issue reopens without its `approved` label, and approving
+ * it again in the admin republishes the event with the new details.
+ */
+export async function onRequestPut({ request, env }: Ctx) {
+  if (!env.GITHUB_TOKEN || !env.INBOX_REPO) return json(503, { error: "inbox not configured" });
+  if (Number(request.headers.get("content-length") ?? 0) > 20000) return json(413, { error: "too large" });
+  let body: any;
+  try { body = await request.json(); } catch { return json(400, { error: "invalid json" }); }
+  const number = Number(body.number);
+  const d = body.draft;
+  if (!Number.isInteger(number) || number < 1 || typeof body.key !== "string" || !KEY.test(body.key)) return json(400, { error: "number and key are required" });
+  if (!d || typeof d !== "object" || !d.title || !d.date) return json(400, { error: "title and date are required" });
+
+  const found = await gh(env, `/issues/${number}`);
+  if (!found.ok) return json(found.status === 404 ? 404 : 502, { error: "not found" });
+  const issue = (await found.json()) as { body?: string; state?: string; state_reason?: string; labels?: ({ name: string } | string)[] };
+  const labels = (issue.labels ?? []).map((l) => (typeof l === "string" ? l : l.name));
+  const edit = /^edit: "([0-9a-f]{64})"$/m.exec(issue.body ?? "")?.[1];
+  // Same answer for "no such event" and "wrong key", so issue numbers can't be probed.
+  if (!labels.includes("new-event") || !edit || edit !== (await sha256(body.key))) return json(404, { error: "not found" });
+  if (issue.state_reason === "not_planned") return json(409, { error: "rejected" });
+
+  const { title, yaml } = eventIssue(d, body.lang, edit);
+  const res = await gh(env, `/issues/${number}`, {
+    method: "PATCH",
+    body: JSON.stringify({ title, body: "```yaml\n" + yaml + "\n```\n", state: "open" }),
+  });
+  if (!res.ok) return json(502, { error: "inbox unavailable" });
+  if (labels.includes("approved")) await gh(env, `/issues/${number}/labels/approved`, { method: "DELETE" }).catch(() => null);
+  await gh(env, `/issues/${number}/comments`, { method: "POST", body: JSON.stringify({ body: "Edited by the sender; needs another look." }) }).catch(() => null);
+  return json(200, { ok: true, number });
 }

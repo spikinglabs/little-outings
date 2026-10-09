@@ -176,6 +176,10 @@ h1, h2, h3 { font-family: var(--display); text-wrap: balance; letter-spacing: -0
 .sent dl { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; margin: 0; }
 .sent dt { color: var(--ink-soft); }
 .sent dd { margin: 0; font-weight: 600; }
+.sent-list { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 8px; }
+.sent-list li { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 8px; border-top: 1px solid var(--line); }
+.sent-list li > span:first-child { display: grid; min-width: 0; }
+.sent-list .btn { padding: 6px 12px; flex: none; }
 .thanks { background: var(--tint); border-radius: 14px; padding: 14px; margin-top: 12px; }
 .small { font-size: .85rem; color: var(--ink-soft); }
 

@@ -135,6 +135,11 @@ parseSoon: Automatic reading isn't set up yet. Please fill in the fields yoursel
 parseFail: We couldn't read this one automatically. Please fill in the fields yourself.
 sentEvent: "Sent. We check every event before it goes live; you'll find it on Discover once it's approved."
 sendAnother: Send another event
+editTitle: "Change your event"
+editNote: "Change what's wrong and save. We check changes before they show on the site."
+saveEdit: "Save changes"
+cancelEdit: "Cancel"
+sentEdit: "Saved. We'll check the change before it shows on the site."
 typeIt: Type it in yourself
 report:
   title: Something wrong?
@@ -198,6 +203,10 @@ profile:
   title: Your profile
   sub: "No sign-up. Little Outings keeps your profile on this phone: what you saved, where you went, your answers and what you sent us."
   have: "On this phone"
+  sentTitle: "Events you sent"
+  sentSub: "Something changed or wrong? Edit it here; we check changes before they show."
+  sentEdit: "Edit"
+  sentOld: "Sent before editing was possible, so it can't be changed here."
   count:
     saved: { one: "1 saved outing", other: "{n} saved outings" }
     went: { one: "1 place you went", other: "{n} places you went" }

@@ -135,6 +135,11 @@ parseSoon: Automatisches Auslesen ist noch nicht eingerichtet. Bitte füllt die 
 parseFail: Das konnten wir nicht automatisch auslesen. Bitte füllt die Felder selbst aus.
 sentEvent: "Gesendet. Wir prüfen jede Veranstaltung, bevor sie online geht; danach findet ihr sie unter Entdecken."
 sendAnother: Weitere Veranstaltung senden
+editTitle: "Eure Veranstaltung ändern"
+editNote: "Korrigiert, was nicht stimmt, und speichert. Wir prüfen Änderungen, bevor sie online gehen."
+saveEdit: "Änderungen speichern"
+cancelEdit: "Abbrechen"
+sentEdit: "Gespeichert. Wir prüfen die Änderung, bevor sie online geht."
 typeIt: Lieber selbst eintippen
 report:
   title: Stimmt etwas nicht?
@@ -198,6 +203,10 @@ profile:
   title: Euer Profil
   sub: "Ohne Anmeldung. Little Outings speichert euer Profil auf diesem Handy: was ihr gemerkt habt, wo ihr wart, eure Antworten und was ihr uns geschickt habt."
   have: "Auf diesem Handy"
+  sentTitle: "Eure gesendeten Veranstaltungen"
+  sentSub: "Hat sich etwas geändert? Hier bearbeiten; wir prüfen Änderungen, bevor sie online gehen."
+  sentEdit: "Bearbeiten"
+  sentOld: "Gesendet, bevor Bearbeiten möglich war, daher hier nicht änderbar."
   count:
     saved: { one: "1 gemerkter Ausflug", other: "{n} gemerkte Ausflüge" }
     went: { one: "1 Ort, an dem ihr wart", other: "{n} Orte, an denen ihr wart" }
