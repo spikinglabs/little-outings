@@ -3,7 +3,8 @@
 // Without a passkey nothing here runs and the profile stays on this device.
 import { SYNC_KEY, merge, readProfile, writeProfile, clean } from "../lib/profile";
 
-type Sync = { token: string; pulled?: number; pushed?: number };
+// dirty: a change that hasn't reached the server yet (offline, or the page closed first).
+type Sync = { token: string; pulled?: number; pushed?: number; dirty?: boolean };
 const PULL_EVERY = 3600_000;
 
 export function getSync(): Sync | null {
@@ -20,7 +21,9 @@ function dropIf401(res: Response) { if (res.status === 401) setSync(null); retur
 
 let timer: ReturnType<typeof setTimeout> | undefined;
 export function schedulePush() {
-  if (!getSync()) return;
+  const s = getSync();
+  if (!s) return;
+  if (!s.dirty) setSync({ ...s, dirty: true });
   clearTimeout(timer);
   timer = setTimeout(() => { timer = undefined; push(); }, 1500);
 }
@@ -29,9 +32,10 @@ export async function push(keepalive = false): Promise<boolean> {
   if (!s) return false;
   try {
     const res = await fetch("/api/profile/data", { method: "PUT", headers: auth(s), keepalive, body: JSON.stringify({ profile: readProfile(localStorage) }) });
-    if (dropIf401(res)) setSync({ ...s, pushed: Date.now() });
+    if (dropIf401(res)) setSync({ ...getSync()!, pushed: Date.now(), dirty: false });
+    else if (getSync()) setSync({ ...getSync()!, dirty: true });
     return res.ok;
-  } catch { return false; }
+  } catch { if (getSync()) setSync({ ...getSync()!, dirty: true }); return false; }
 }
 // Leaving the page before the timer fired: send it anyway.
 if (typeof window !== "undefined") addEventListener("pagehide", () => { if (timer) { clearTimeout(timer); timer = undefined; push(true); } });
@@ -62,7 +66,30 @@ export function adopt(other: unknown): boolean {
   return changed;
 }
 
+/** On every page: catch up with other phones now and then, and send any change that didn't get through. */
 export function pullNowAndThen() {
   const s = getSync();
-  if (s && Date.now() - (s.pulled ?? 0) > PULL_EVERY) pull();
+  if (!s) return;
+  if (Date.now() - (s.pulled ?? 0) > PULL_EVERY) pull().then(() => { if (getSync()?.dirty) schedulePush(); });
+  else if (s.dirty && !timer) schedulePush();
 }
+
+/** "Sync now": bring in the synced copy, then send this phone's merged profile. */
+export async function syncNow(): Promise<boolean> {
+  if (!getSync()) return false;
+  clearTimeout(timer);
+  timer = undefined;
+  const s = getSync()!;
+  try {
+    const res = await fetch("/api/profile/data", { headers: auth(s) });
+    if (!dropIf401(res)) return false;
+    adopt((await res.json() as { profile: unknown }).profile);
+    clearTimeout(timer); // adopt may have scheduled a push; this one goes now
+    timer = undefined;
+    setSync({ ...getSync()!, pulled: Date.now() });
+    return await push();
+  } catch { return false; }
+}
+
+/** When this phone and the synced copy last agreed. */
+export const lastSynced = (s: Sync | null) => Math.max(s?.pushed ?? 0, s?.pulled ?? 0) || null;

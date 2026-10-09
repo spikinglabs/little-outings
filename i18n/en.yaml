@@ -226,7 +226,11 @@ profile:
   passkeyOther: Sign in with another passkey
   passkeyOtherSub: "Made a second passkey by mistake? Sign in with the other one: its copy joins what's on this phone, and nothing here is lost."
   passkeySynced: "Synced with your passkey."
-  passkeyLast: "Last saved {when}."
+  passkeyLast: "Last synced {when}."
+  passkeyPending: "Changes waiting to sync."
+  passkeyNow: Sync now
+  passkeyNowBusy: "Syncing…"
+  passkeyNowFailed: "Couldn't reach us just now. Your changes are safe on this phone and will sync next time."
   passkeyOff: Stop syncing on this phone
   passkeyNone: "This browser can't use passkeys. Downloading your data still works."
   passkeySoon: "Passkey sync isn't switched on yet. Downloading your data works."

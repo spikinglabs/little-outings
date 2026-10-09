@@ -226,7 +226,11 @@ profile:
   passkeyOther: Mit einem anderen Passkey anmelden
   passkeyOtherSub: "Aus Versehen einen zweiten Passkey angelegt? Meldet euch mit dem anderen an: Seine Kopie kommt zu dem dazu, was auf diesem Handy ist, und hier geht nichts verloren."
   passkeySynced: "Mit eurem Passkey synchronisiert."
-  passkeyLast: "Zuletzt gesichert {when}."
+  passkeyLast: "Zuletzt synchronisiert {when}."
+  passkeyPending: "Änderungen warten auf die Synchronisierung."
+  passkeyNow: Jetzt synchronisieren
+  passkeyNowBusy: "Wird synchronisiert …"
+  passkeyNowFailed: "Gerade nicht erreichbar. Eure Änderungen sind auf diesem Handy sicher und werden beim nächsten Mal synchronisiert."
   passkeyOff: Auf diesem Handy nicht mehr synchronisieren
   passkeyNone: "Dieser Browser kann keine Passkeys. Daten herunterladen geht trotzdem."
   passkeySoon: "Passkey-Sync ist noch nicht eingeschaltet. Daten herunterladen geht schon."
