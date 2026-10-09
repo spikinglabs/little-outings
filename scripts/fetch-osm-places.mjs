@@ -17,7 +17,8 @@ const KID_MUSEUM_TYPE = new Set(["children", "nature", "science", "technology", 
 // Animal places besides a zoo: petting zoos, wildlife parks and the many small "Wildgehege".
 const ANIMALS = ["petting_zoo", "wildlife_park", "safari_park", "enclosure", "birds", "falconry"];
 // Cafés are only family cafés: a play corner tagged in OSM, or a name that says so.
-const FAMILY_CAFE = /kinder|spiel|familie|eltern|baby|mama|papa|kids/i;
+const FAMILY_CAFE = /kinder|spiele?caf|famil|eltern|baby|kids/i;
+const NOT_FAMILY = /casino|spielhalle|agentur/i;
 
 /** Which family place an OSM object is, or null. Order matters: the most specific tag wins. */
 export function kindOf(tags) {
@@ -30,7 +31,7 @@ export function kindOf(tags) {
     || (tags.leisure === "sports_centre" && /swimming/.test(tags.sport || ""))) return "pool";
   if (tags.tourism === "museum" && (KID_MUSEUM_TYPE.has(tags.museum) || KID_MUSEUM.test(tags.name || ""))) return "museum";
   if (tags.tourism === "theme_park" || tags.sport === "climbing_adventure" || tags.attraction === "summer_toboggan") return "fun";
-  if (tags.amenity === "cafe" && ((tags.kids_area && tags.kids_area !== "no") || FAMILY_CAFE.test(tags.name || ""))) return "cafe";
+  if (tags.amenity === "cafe" && ((tags.kids_area && tags.kids_area !== "no") || FAMILY_CAFE.test(tags.name || "")) && !NOT_FAMILY.test(tags.name || "")) return "cafe";
   // Parks well known enough to have a Wikidata entry, and botanical gardens: worth a trip, unlike every green corner.
   if ((tags.leisure === "park" && tags.wikidata && !/platz$/i.test(tags.name || "")) || (tags.leisure === "garden" && tags["garden:type"] === "botanical")) return "park";
   return null;

@@ -212,7 +212,6 @@
 {"osm":"way/1280074150","kind":"zoo","name":"Schwarzwild","town":"Bergisch Gladbach","lat":50.994123,"lon":7.051247,"facilities":["animals"]}
 {"osm":"way/551498052","kind":"zoo","name":"Wildpark Dünnwald","town":"Bergisch Gladbach","lat":50.994568,"lon":7.053911,"hours":"24/7","website":"https://www.wildpark-duennwald.de/","free":true,"facilities":["toilets","animals"]}
 {"osm":"way/1280074149","kind":"zoo","name":"Wisent","town":"Bergisch Gladbach","lat":50.995481,"lon":7.05611,"facilities":["animals"]}
-{"osm":"node/2289098058","kind":"cafe","name":"Bistro Nachspielzeit","town":"Bonn","street":"Südstraße 99","postcode":"53859","lat":50.791069,"lon":7.065079,"website":"http://nachspielzeit.biz/","facilities":[]}
 {"osm":"node/13883424651","kind":"cafe","name":"Spielecafé KEINE PANIK","town":"Bonn","street":"Rochusstraße 242","postcode":"53123","lat":50.71425,"lon":7.046592,"hours":"Tu-We 18:00-21:00, Sa-Su 15:00-19:00","website":"https://keine-panik-bonn.de/","facilities":[]}
 {"osm":"node/3859057718","kind":"farm","name":"Annahof","town":"Bonn","street":"Von-den-Driesch-Straße 4","postcode":"53117","lat":50.761255,"lon":7.050038,"hours":"Tu-Fr 09:45-12:30, Th,Fr 14:30-18:00, Sa 09:00-13:00","facilities":["animals","farm_shop"]}
 {"osm":"way/162248134","kind":"farm","name":"Der Leyenhof","town":"Bonn","street":"Im Bachele 1b","postcode":"53175","lat":50.695481,"lon":7.121847,"hours":"Mo-Fr 09:00-19:00; Sa 09:00-15:00","website":"https://www.derleyenhof.de/","facilities":["animals","farm_shop"]}
@@ -360,7 +359,6 @@
 {"osm":"way/1077390327","kind":"pool","name":"Rurbad Düren","town":"Düren","street":"Nippesstraße 6","lat":50.794105,"lon":6.486519,"website":"http://dn-sb.de/badesee_hallenbad.htm","facilities":[]}
 {"osm":"node/3791229528","kind":"cafe","name":"DB Kids Café","town":"Düsseldorf","lat":51.21813,"lon":6.782344,"facilities":[]}
 {"osm":"node/4745471607","kind":"cafe","name":"Familiencafe am EVK","town":"Düsseldorf","street":"Kirchfeldstraße 48","postcode":"40217","lat":51.212501,"lon":6.774638,"hours":"Mo-We 09:30-11:30; Th 15:00-17:00","facilities":[]}
-{"osm":"node/10911062899","kind":"cafe","name":"Happy Kids Agentur","town":"Düsseldorf","lat":51.236827,"lon":6.799236,"facilities":["changing_table","toilets"]}
 {"osm":"node/11215425447","kind":"cafe","name":"Kilians Kindercafé","town":"Düsseldorf","street":"Dorfstraße 23","lat":51.252706,"lon":6.694378,"facilities":[]}
 {"osm":"node/3265886928","kind":"farm","name":"Der Hofladen am Blääk","town":"Düsseldorf","street":"Hammer Dorfstraße 116b","postcode":"40221","lat":51.208464,"lon":6.740957,"hours":"Tu, Fr 08:00-18:00; Sa 08:00-13:00","website":"http://www.hofladen-weitz.de/","facilities":["animals","farm_shop"]}
 {"osm":"node/12488808315","kind":"farm","name":"Hof am Deich","town":"Düsseldorf","lat":51.254206,"lon":6.715086,"facilities":["animals","farm_shop"]}
@@ -1074,8 +1072,6 @@
 {"osm":"way/103055623","kind":"pool","name":"Hallenbad Bergisch-Neukirchen","town":"Leverkusen","street":"Wuppertalstraße 10","postcode":"51381","lat":51.080634,"lon":7.033043,"hours":"08:00-18:00","facilities":[]}
 {"osm":"way/33301490","kind":"zoo","name":"Wildpark Reuschenberg","town":"Leverkusen","lat":51.05565,"lon":6.982022,"hours":"Mar-Oct 09:00-18:00; Nov-Feb 09:00-16:30","website":"https://www.wildpark-lev.de/","free":true,"facilities":["animals"]}
 {"osm":"node/11497281005","kind":"cafe","name":"Babybeach","town":"Lohmar","lat":50.813928,"lon":7.159874,"hours":"Tu-Fr 10:00-17:00, Sa-Su 10:00-16:00, Mo off","website":"https://www.babybeach.de/babybeach-standorte/troisdorf/","facilities":[]}
-{"osm":"node/9705578811","kind":"cafe","name":"Mama's","town":"Lohmar","street":"Heidegraben 2a","lat":50.857834,"lon":7.196479,"website":"https://www.mamascafe-troisdorf.de/","facilities":[]}
-{"osm":"node/364765032","kind":"cafe","name":"RheinBerg Spielcasino","town":"Lohmar","lat":50.885249,"lon":7.187509,"facilities":[]}
 {"osm":"node/7622449481","kind":"farm","name":"Bauernlädchen Schiefelbusch","town":"Lohmar","street":"Schiefelbusch 3","postcode":"53797","lat":50.899382,"lon":7.22832,"hours":"Th-Fr 08:30-18:30, Sa 08:30-17:00, Su 13:00-18:00; PH 13:00-18:00","website":"https://www.bauerngut-schiefelbusch.de/bauernladchen/","facilities":["animals","farm_shop"]}
 {"osm":"way/552212634","kind":"farm","name":"Bauernlädchen Schiefelbusch","town":"Lohmar","street":"Sülzaue 1","postcode":"53797","lat":50.874162,"lon":7.196764,"hours":"Tu-Fr 08:30-19:00, Sa 08:30-14:00; PH off","website":"http://www.bauerngut-schiefelbusch.de/","facilities":["animals","farm_shop"]}
 {"osm":"node/418415661","kind":"farm","name":"Biohof Stöcker","town":"Lohmar","street":"Fußheide","postcode":"51503","lat":50.897511,"lon":7.213389,"facilities":["animals","farm_shop"]}

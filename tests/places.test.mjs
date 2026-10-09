@@ -20,6 +20,8 @@ test("kindOf keeps family places and drops the rest", () => {
   assert.equal(kindOf({ amenity: "cafe" }), null);
   assert.equal(kindOf({ amenity: "cafe", kids_area: "indoor" }), "cafe");
   assert.equal(kindOf({ amenity: "cafe", name: "Spielcafé Wirbelwind" }), "cafe");
+  assert.equal(kindOf({ amenity: "cafe", name: "RheinBerg Spielcasino" }), null);
+  assert.equal(kindOf({ amenity: "cafe", name: "Bistro Nachspielzeit" }), null);
   assert.equal(kindOf({ leisure: "indoor_play" }), "indoor");
   assert.equal(kindOf({ leisure: "trampoline_park" }), "indoor");
   assert.equal(kindOf({ zoo: "enclosure", name: "Wildgehege" }), "zoo");
