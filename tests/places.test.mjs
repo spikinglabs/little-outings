@@ -46,7 +46,7 @@ test("placeFromOsm matches the place schema shape", () => {
   assert.deepEqual(p.data.geo, { lat: 51.341, lon: 7.045, precision: "exact" });
   assert.deepEqual(p.data.facilities, { animals: { status: "yes", confirmed: 0 } });
   assert.deepEqual(p.data.trust, { level: "community", source: "OpenStreetMap" });
-  assert.equal(p.data.website, "https://www.openstreetmap.org/node/5");
+  assert.equal(p.data.website, undefined, "no OpenStreetMap link stands in for a website");
   assert.equal(p.data.address.street, undefined);
 });
 

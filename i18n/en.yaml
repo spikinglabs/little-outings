@@ -126,3 +126,14 @@ pleaseCheck: Please check
 field: { title: Title, date: Date, time: Time, place: Place or address, price: Price, note: "What's on for kids?" }
 parseSoon: Automatic reading isn't set up yet. Please fill in the fields yourself.
 typeIt: Type it in yourself
+report:
+  title: Something wrong?
+  closed: It's closed or gone
+  cancelled: It's cancelled
+  where: It's in a different place
+  notKids: It's not for children
+  outdated: Something here is out of date
+  other: Something else
+  note: What should we know? (optional)
+  notePh: e.g. the playground was rebuilt, now with a water area
+  thanks: Thank you! We'll check it.

@@ -126,3 +126,14 @@ pleaseCheck: Bitte prüfen
 field: { title: Titel, date: Datum, time: Uhrzeit, place: Ort oder Adresse, price: Preis, note: "Was gibt es für Kinder?" }
 parseSoon: Automatisches Auslesen ist noch nicht eingerichtet. Bitte füllt die Felder selbst aus.
 typeIt: Lieber selbst eintippen
+report:
+  title: Stimmt etwas nicht?
+  closed: Gibt es nicht mehr oder ist geschlossen
+  cancelled: Fällt aus
+  where: Ist woanders
+  notKids: Ist nichts für Kinder
+  outdated: Etwas hier ist veraltet
+  other: Etwas anderes
+  note: Was sollten wir wissen? (optional)
+  notePh: z. B. Der Spielplatz wurde umgebaut, jetzt mit Wasserbereich
+  thanks: Danke! Wir schauen es uns an.

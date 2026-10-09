@@ -21,3 +21,14 @@ test("a place without a name is refused", async () => {
   const res = await onRequestPost({ env, request: post({ kind: "place", place: { kind: "cafe", town: "Haan" } }) } as any);
   assert.equal(res.status, 400);
 });
+
+test("a report becomes a report issue; unknown reasons are refused", async () => {
+  let sent: any;
+  globalThis.fetch = (async (_url: string, init: RequestInit) => { sent = JSON.parse(String(init.body)); return new Response("{}", { status: 201 }); }) as any;
+  const res = await onRequestPost({ env, request: post({ kind: "report", item: "osm-node-5", reason: "closed", note: null, lang: "en" }) } as any);
+  assert.equal(res.status, 200);
+  assert.deepEqual(sent.labels, ["report"]);
+  assert.match(sent.body, /reason: "closed"/);
+  const bad = await onRequestPost({ env, request: post({ kind: "report", item: "osm-node-5", reason: "spam" }) } as any);
+  assert.equal(bad.status, 400);
+});

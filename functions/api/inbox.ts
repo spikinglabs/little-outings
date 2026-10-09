@@ -57,6 +57,12 @@ export async function onRequestPost({ request, env }: Ctx) {
     yaml = [`kind: place`, ...["type", "name", "town", "street", "website", "note"].map((k) =>
       `${k}: ${yamlStr(k === "type" ? p.kind : p[k], k === "note" ? 2000 : 300)}`),
       `features: [${features.map((f: string) => JSON.stringify(f)).join(", ")}]`, `lang: ${yamlStr(body.lang, 5)}`].join("\n");
+  } else if (body.kind === "report" && typeof body.item === "string" && /^[a-z0-9-]+$/.test(body.item)
+    && ["closed", "cancelled", "where", "notKids", "outdated", "other"].includes(body.reason)) {
+    title = `report ${body.reason} ${clip(body.item, 80)}`;
+    label = "report";
+    yaml = [`kind: report`, `item: ${yamlStr(body.item, 80)}`, `reason: ${yamlStr(body.reason, 20)}`,
+      `note: ${yamlStr(body.note, 1000)}`, `lang: ${yamlStr(body.lang, 5)}`].join("\n");
   } else {
     return json(400, { error: "unknown contribution" });
   }

@@ -126,3 +126,14 @@ pleaseCheck: 请核对
 field: { title: 标题, date: 日期, time: 时间, place: 地点或地址, price: 价格, note: 有哪些适合孩子的活动？ }
 parseSoon: 自动识别尚未开通，请自行填写。
 typeIt: 自己手动填写
+report:
+  title: 信息有误？
+  closed: 已关闭或不存在
+  cancelled: 活动已取消
+  where: 地点不对
+  notKids: 不适合儿童
+  outdated: 这里有信息过时了
+  other: 其他问题
+  note: 想告诉我们什么？（可选）
+  notePh: 例如：游乐场已翻新，现在有戏水区
+  thanks: 谢谢！我们会核实。
