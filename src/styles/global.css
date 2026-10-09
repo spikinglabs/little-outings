@@ -261,3 +261,15 @@ footer.foot { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--l
 .cal-opts a { padding: 12px 14px; color: var(--ink); text-decoration: none; font-weight: 600; }
 .cal-opts a + a { border-top: 1px solid var(--line); }
 .cal-opts a:hover { background: var(--card); }
+
+/* profile: what this phone remembers, passkey sync, move, download, delete */
+.profile-link { display: inline-block; margin-top: 8px; color: var(--blau); font-weight: 700; }
+.profile-box { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 14px; }
+.profile-box h2 { margin: 0; font-size: 1.1rem; }
+.profile-box > .small { margin: 4px 0 0; max-width: 60ch; }
+.profile-counts { margin: 6px 0 0; padding-left: 1.1em; }
+.profile-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.profile-qr { display: grid; gap: 8px; justify-items: start; margin-top: 12px; }
+.profile-qr .qr svg { display: block; width: min(240px, 70vw); height: auto; border-radius: 8px; }
+.profile-qr .small { overflow-wrap: anywhere; }
+.btn.danger { border-color: var(--rot); color: var(--rot); }

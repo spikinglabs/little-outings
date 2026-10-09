@@ -1,4 +1,7 @@
 // Runs on every page: the saved list, the "near" town and distances, and gap answers.
+import { KEYS, rememberSent } from "../lib/profile";
+import { pullNowAndThen, schedulePush } from "./sync";
+
 const body = document.body;
 const ui = JSON.parse(body.dataset.ui || "{}") as Record<string, string>;
 const towns = new Map<string, [number, number]>(
@@ -6,7 +9,8 @@ const towns = new Map<string, [number, number]>(
 );
 
 const read = (k: string) => { try { return localStorage.getItem(k); } catch { return null; } };
-const write = (k: string, v: string) => { try { localStorage.setItem(k, v); } catch { /* private mode */ } };
+// Every change to the profile also goes to passkey sync, when the family turned it on.
+const write = (k: string, v: string) => { try { localStorage.setItem(k, v); schedulePush(); } catch { /* private mode */ } };
 
 /* ---------- saved list (stays on this device) ---------- */
 export const saved = new Set<string>(JSON.parse(read("lo-saved") || "[]"));
@@ -31,6 +35,14 @@ document.addEventListener("click", (ev) => {
   renderSaved();
 });
 renderSaved();
+// A synced copy (or a profile brought in from another phone) arrived: show it.
+document.addEventListener("lo:profile", () => {
+  saved.clear();
+  (JSON.parse(read(KEYS.saved) || "[]") as string[]).forEach((id) => saved.add(id));
+  renderSaved();
+  renderKm();
+});
+pullNowAndThen();
 
 /* ---------- home town and distances ---------- */
 export const getHome = () => {
@@ -116,7 +128,7 @@ document.addEventListener("submit", async (ev) => {
 });
 // This browser remembers where it already said "We went", so a family taps once per place.
 function went(): string[] { try { return JSON.parse(localStorage.getItem("lo-went") || "[]"); } catch { return []; } }
-function wentHere(id: string) { try { localStorage.setItem("lo-went", JSON.stringify([...new Set([...went(), id])].slice(-500))); } catch { /* storage blocked */ } }
+function wentHere(id: string) { write("lo-went", JSON.stringify([...new Set([...went(), id])].slice(-500))); }
 document.querySelectorAll<HTMLFormElement>("form[data-visit]").forEach((form) => {
   if (!went().includes(form.dataset.visit!)) return;
   const done = document.createElement("p");
@@ -204,8 +216,14 @@ export async function sendToInbox(payload: Record<string, unknown>): Promise<boo
       headers: { "content-type": "application/json" },
       body: JSON.stringify(payload),
     });
+    if (res.ok) remember(payload);
     return res.ok;
   } catch {
     return false;
   }
+}
+
+/** What this browser sent stays in the family's own profile, so "Download my data" includes it. */
+export function remember(payload: Record<string, unknown>) {
+  try { rememberSent(localStorage, payload); schedulePush(); } catch { /* storage blocked */ }
 }
