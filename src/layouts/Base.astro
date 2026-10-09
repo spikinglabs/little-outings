@@ -50,7 +50,7 @@ const ui = {
       // worker, drop every saved copy, fetch the style files afresh and load the page once more.
       addEventListener("load", function () {
         if (getComputedStyle(document.documentElement).getPropertyValue("--ink")) return;
-        try { if (sessionStorage.getItem("lo-restyle")) return; sessionStorage.setItem("lo-restyle", "1"); } catch (e) { return; }
+        try { if (sessionStorage.getItem("lo-restyle-v5")) return; sessionStorage.setItem("lo-restyle-v5", "1"); } catch (e) { return; }
         var sheets = [].map.call(document.querySelectorAll('link[rel="stylesheet"]'), function (l) { return l.href; });
         var sw = navigator.serviceWorker;
         Promise.all([
