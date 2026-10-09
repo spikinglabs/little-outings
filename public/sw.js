@@ -2,9 +2,11 @@
 //   pages        → a copy saved in the last 12 hours opens at once and is refreshed in the background;
 //                  otherwise network first, falling back after 3 s to the older copy
 //                  (the fresh one still lands in the cache for next time)
-//   /_astro/, icons, fonts → cache first (file names change when the content does)
+//                  A saved page is only reused while the styles and scripts it names are saved too.
+//   /_astro/, icons, fonts → cache first (file names change when the content does). Only real
+//                  CSS/JS/images are kept: the host answers a missing old file with a 200 HTML page.
 //   /api/, /admin/ and anything not GET → straight to the network, never cached
-const VERSION = "v3";
+const VERSION = "v4";
 const FRESH_MS = 12 * 60 * 60 * 1000;
 const PAGES = `pages-${VERSION}`;
 const STATIC = `static-${VERSION}`;
@@ -40,8 +42,29 @@ async function cacheFirst(req) {
   const hit = await cache.match(req);
   if (hit) return hit;
   const res = await fetch(req);
-  if (res.ok || res.type === "opaque") cache.put(req, res.clone());
+  if (res.type === "opaque" || (res.ok && !isHtml(res))) cache.put(req, res.clone());
   return res;
+}
+
+const isHtml = (res) => (res.headers.get("content-type") || "").includes("text/html");
+// The /_astro/ files a page links to; their names change with every build that changes them.
+const assetsOf = (html) => [...new Set(html.match(/\/_astro\/[^"'\s)]+\.(?:css|js)/g) || [])];
+
+/** True when every style and script the saved page names is saved too, so it can render on its own. */
+async function complete(page) {
+  const statics = await caches.open(STATIC);
+  for (const a of assetsOf(await page.clone().text())) if (!(await statics.match(a))) return false;
+  return true;
+}
+
+/** Saves the styles and scripts a freshly fetched page names, so its saved copy works later. */
+async function saveAssets(page) {
+  const statics = await caches.open(STATIC);
+  for (const a of assetsOf(await page.text())) {
+    if (await statics.match(a)) continue;
+    const res = await fetch(a).catch(() => null);
+    if (res && res.ok && !isHtml(res)) await statics.put(a, res);
+  }
 }
 
 async function networkFirst(req, url, event) {
@@ -49,13 +72,16 @@ async function networkFirst(req, url, event) {
   const fresh = fetch(req).then(async (res) => {
     if (res.ok && res.type === "basic") {
       await cache.put(req, res.clone());
+      if (isHtml(res)) event.waitUntil(saveAssets(res.clone()).catch(() => {}));
       trim(cache);
     }
     return res;
   });
   try {
     // Opening the app on a weak connection shouldn't wait on the network when a copy is at hand.
-    const cached = await cache.match(req, { ignoreSearch: true });
+    let cached = await cache.match(req, { ignoreSearch: true });
+    // A copy from an older build whose styles are gone would show up unstyled: wait for the network.
+    if (cached && isHtml(cached) && !(await complete(cached))) cached = undefined;
     if (!cached) return await fresh;
     // Data changes at most a few times a day, so a recent copy is good enough to show right away.
     const age = Date.now() - Date.parse(cached.headers.get("date") || "");
