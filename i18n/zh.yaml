@@ -141,6 +141,7 @@ sentEvent: "已提交。每个活动上线前我们都会审核，通过后就�
 sendAnother: 再提交一个活动
 editTitle: "修改你提交的活动"
 editNote: "改正有误的地方后保存。修改在上线前会经过审核。"
+resendNote: "这条提交时还不支持修改。改好后重新发送即可；新的一份以后可以修改，旧的我们会删掉。"
 saveEdit: "保存修改"
 cancelEdit: "取消"
 sentEdit: "已保存。修改审核通过后会显示在网站上。"
@@ -210,7 +211,7 @@ profile:
   sentTitle: "你提交的内容"
   sentSub: "信息有变或有误？可以在这里修改，修改上线前会经过审核。"
   sentEdit: "修改"
-  sentOld: "提交时还不支持修改，所以无法在这里更改。"
+  sentResend: "重新发送"
   count:
     saved: { other: "收藏了 {n} 个去处" }
     went: { other: "去过 {n} 个地方" }

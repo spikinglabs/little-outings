@@ -141,6 +141,7 @@ sentEvent: "Gesendet. Wir prüfen jede Veranstaltung, bevor sie online geht; dan
 sendAnother: Weitere Veranstaltung senden
 editTitle: "Eure Veranstaltung ändern"
 editNote: "Korrigiert, was nicht stimmt, und speichert. Wir prüfen Änderungen, bevor sie online gehen."
+resendNote: "Das wurde gesendet, bevor Bearbeiten möglich war. Ändert, was ihr möchtet, und sendet es neu; die neue Fassung lässt sich später bearbeiten, die alte nehmen wir raus."
 saveEdit: "Änderungen speichern"
 cancelEdit: "Abbrechen"
 sentEdit: "Gespeichert. Wir prüfen die Änderung, bevor sie online geht."
@@ -210,7 +211,7 @@ profile:
   sentTitle: "Was ihr gesendet habt"
   sentSub: "Hat sich etwas geändert? Hier bearbeiten; wir prüfen Änderungen, bevor sie online gehen."
   sentEdit: "Bearbeiten"
-  sentOld: "Gesendet, bevor Bearbeiten möglich war, daher hier nicht änderbar."
+  sentResend: "Neu senden"
   count:
     saved: { one: "1 gemerkter Ausflug", other: "{n} gemerkte Ausflüge" }
     went: { one: "1 Ort, an dem ihr wart", other: "{n} Orte, an denen ihr wart" }

@@ -26,7 +26,7 @@ const ui = { ...t.group("profile"), count: t.group("profile.count") };
     <ul class="profile-counts" data-counts></ul>
   </section>
 
-  <SentList client:only="preact" lang={lang} ui={{ sentTitle: p("sentTitle"), sentSub: p("sentSub"), sentEdit: p("sentEdit"), sentOld: p("sentOld") }} />
+  <SentList client:only="preact" lang={lang} ui={{ sentTitle: p("sentTitle"), sentSub: p("sentSub"), sentEdit: p("sentEdit"), sentResend: p("sentResend") }} />
 
   <section class="section profile-box" data-passkey>
     <h2>{p("passkeyTitle")}</h2>

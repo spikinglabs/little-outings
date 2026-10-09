@@ -1,12 +1,13 @@
 // Profile: the events and places this browser suggested, each with a link to change it on the Contribute page.
-// Only ones sent with an edit key (from Oct 2026 on) can be changed; older ones are listed as sent.
+// Only ones sent with an edit key (from Oct 2026 on) can be changed; older ones can be sent again with
+// changes, which makes a new, editable copy and hides the old entry here.
 import { useEffect, useState } from "preact/hooks";
 import { readProfile, type Sent } from "../lib/profile";
 
 interface Props { lang: string; ui: Record<string, string> }
 
 const eventsOf = (): Sent[] => {
-  try { return readProfile(localStorage).sent.filter((s) => s.kind === "event" || s.kind === "place").reverse(); } catch { return []; }
+  try { return readProfile(localStorage).sent.filter((s) => (s.kind === "event" || s.kind === "place") && !s.data.replaced).reverse(); } catch { return []; }
 };
 
 export default function SentList({ lang, ui }: Props) {
@@ -35,7 +36,7 @@ export default function SentList({ lang, ui }: Props) {
               </span>
               {editable
                 ? <a class="btn" href={`/${lang}/mitmachen/?edit=${s.data.number}`}>{ui.sentEdit}</a>
-                : <span class="small">{ui.sentOld}</span>}
+                : <a class="btn" href={`/${lang}/mitmachen/?resend=${encodeURIComponent(s.at)}`}>{ui.sentResend}</a>}
             </li>
           );
         })}

@@ -2,7 +2,7 @@
 // playground ...). It goes to /api/inbox like event drafts; a moderator checks it before it goes live.
 // ?edit=<inbox number> opens a place this browser suggested earlier, to change it (Profile links here).
 import { useEffect, useState } from "preact/hooks";
-import { readProfile, rememberSent, updateSent } from "../lib/profile";
+import { markReplaced, readProfile, rememberSent, updateSent } from "../lib/profile";
 import { schedulePush } from "../scripts/sync";
 
 interface Props {
@@ -21,11 +21,23 @@ export default function SuggestPlace({ lang, kinds, features, towns, ui }: Props
   const [busy, setBusy] = useState(false);
   // The place being changed: its inbox number, the key only this browser knows, and what was sent.
   const [editing, setEditing] = useState<{ number: number; key: string; place: Record<string, any> } | null>(null);
+  // ?resend=<sent at>: a place sent before edit keys existed, sent again as a new, editable copy.
+  const [resend, setResend] = useState<{ at: string; place: Record<string, any> } | null>(null);
 
   useEffect(() => {
-    const n = Number(new URLSearchParams(location.search).get("edit"));
-    if (!n) return;
+    const q = new URLSearchParams(location.search);
+    const n = Number(q.get("edit"));
+    const at = q.get("resend");
     try {
+      if (at) {
+        const old = readProfile(localStorage).sent.find((s) => s.kind === "place" && s.at === at && !s.data.replaced);
+        if (!old) return;
+        setResend({ at, place: (old.data.place ?? {}) as Record<string, any> });
+        setOpen(true);
+        setTimeout(() => document.getElementById("suggest-place")?.scrollIntoView(), 50);
+        return;
+      }
+      if (!n) return;
       const mine = readProfile(localStorage).sent.find((s) => s.kind === "place" && s.data.number === n && typeof s.data.key === "string");
       if (!mine) return;
       setEditing({ number: n, key: mine.data.key as string, place: (mine.data.place ?? {}) as Record<string, any> });
@@ -55,7 +67,11 @@ export default function SuggestPlace({ lang, kinds, features, towns, ui }: Props
         const res = await fetch("/api/inbox", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ kind: "place", lang, place, key }) });
         ok = res.ok;
         const number = ok ? ((await res.json().catch(() => ({}))) as { number?: number }).number : undefined;
-        if (ok) try { rememberSent(localStorage, { kind: "place", place, ...(number ? { number, key } : {}) }); schedulePush(); } catch { /* storage blocked */ }
+        if (ok) try {
+          rememberSent(localStorage, { kind: "place", place, ...(number ? { number, key } : {}) });
+          if (resend) markReplaced(localStorage, resend.at);
+          schedulePush();
+        } catch { /* storage blocked */ }
       }
     } catch { /* offline or not set up */ }
     setBusy(false);
@@ -64,9 +80,9 @@ export default function SuggestPlace({ lang, kinds, features, towns, ui }: Props
     setSent(ok ? (editing ? ui.sentEdit : ui.placeThanks) : ui.inboxSoon);
   }
 
-  const leaveEdit = () => { setEditing(null); if (location.search) history.replaceState(null, "", location.pathname); };
+  const leaveEdit = () => { setEditing(null); setResend(null); if (location.search) history.replaceState(null, "", location.pathname); };
   const another = () => { leaveEdit(); setSent(""); setDone(null); setOpen(true); };
-  const p = editing?.place ?? {};
+  const p = editing?.place ?? resend?.place ?? {};
 
   return (
     <section class="poster" id="suggest-place" aria-live="polite">
@@ -85,8 +101,9 @@ export default function SuggestPlace({ lang, kinds, features, towns, ui }: Props
       ) : sent ? <p class="thanks" role="status">{sent}</p> : !open ? (
         <button class="btn" type="button" style="margin-top:12px" onClick={() => setOpen(true)}>{ui.placeBtn}</button>
       ) : (
-        <form class="form" onSubmit={send} key={editing?.number ?? "new"}>
+        <form class="form" onSubmit={send} key={editing?.number ?? resend?.at ?? "new"}>
           {editing && <><h3>{ui.placeEditTitle}</h3><p class="small">{ui.editNote}</p></>}
+          {resend && <><h3>{ui.placeEditTitle}</h3><p class="small">{ui.resendNote}</p></>}
           <div class="row">
             <label>{ui.placeKind}
               <select name="kind" required>{kinds.map(([k, label]) => <option value={k} selected={p.kind === k}>{label}</option>)}</select>
@@ -105,7 +122,7 @@ export default function SuggestPlace({ lang, kinds, features, towns, ui }: Props
           <label>{ui.placeNote}<textarea name="note" rows={3} maxLength={2000} placeholder={ui.placeNotePh} defaultValue={p.note ?? ""} /></label>
           <label>{ui.placeWebsite}<input name="website" type="url" maxLength={300} placeholder="https://" defaultValue={p.website ?? ""} /></label>
           <button class="btn primary" type="submit" disabled={busy}>{editing ? ui.saveEdit : ui.send}</button>
-          {editing && <button class="btn" type="button" onClick={() => { leaveEdit(); setOpen(false); }}>{ui.cancelEdit}</button>}
+          {(editing || resend) && <button class="btn" type="button" onClick={() => { leaveEdit(); setOpen(false); }}>{ui.cancelEdit}</button>}
         </form>
       )}
     </section>

@@ -58,7 +58,9 @@ export function clean(input: unknown): Profile {
  */
 export function merge(mine: Profile, other: Profile): Profile {
   const sentKey = (s: Sent) => `${s.at}|${s.kind}|${s.item ?? ""}`;
-  const sent = new Map([...other.sent, ...mine.sent].map((s) => [sentKey(s), s]));
+  const sent = new Map(other.sent.map((s) => [sentKey(s), s]));
+  // This phone's copy wins, except that an entry sent again with changes stays marked as replaced.
+  for (const s of mine.sent) { const o = sent.get(sentKey(s)); sent.set(sentKey(s), o?.data.replaced && !s.data.replaced ? o : s); }
   return clean({
     ...empty(),
     saved: [...new Set([...other.saved, ...mine.saved])],
@@ -110,6 +112,13 @@ export function rememberSent(store: Store, payload: Record<string, unknown>, now
 export function updateSent(store: Store, number: number, fields: Record<string, unknown>) {
   const all = clean({ sent: parse(store.getItem(KEYS.sent), []) }).sent;
   for (const s of all) if (s.data.number === number) s.data = { ...s.data, ...fields };
+  store.setItem(KEYS.sent, JSON.stringify(all));
+}
+
+/** Marks an entry sent before edit keys existed as replaced by a new copy sent again (matched by when it was sent). */
+export function markReplaced(store: Store, at: string) {
+  const all = clean({ sent: parse(store.getItem(KEYS.sent), []) }).sent;
+  for (const s of all) if (s.at === at) s.data = { ...s.data, replaced: true };
   store.setItem(KEYS.sent, JSON.stringify(all));
 }
 
