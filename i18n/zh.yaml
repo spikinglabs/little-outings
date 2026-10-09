@@ -135,6 +135,11 @@ parseSoon: 自动识别尚未开通，请自行填写。
 parseFail: 这次没能自动识别，请自行填写。
 sentEvent: "已提交。每个活动上线前我们都会审核，通过后就能在“发现”里看到。"
 sendAnother: 再提交一个活动
+editTitle: "修改你提交的活动"
+editNote: "改正有误的地方后保存。修改在上线前会经过审核。"
+saveEdit: "保存修改"
+cancelEdit: "取消"
+sentEdit: "已保存。修改审核通过后会显示在网站上。"
 typeIt: 自己手动填写
 report:
   title: 信息有误？
@@ -198,6 +203,10 @@ profile:
   title: 我的资料
   sub: "无需注册。小出游把你的资料保存在这部手机上：收藏、去过的地方、你的回答，以及你发给我们的内容。"
   have: "这部手机上"
+  sentTitle: "你提交的活动"
+  sentSub: "信息有变或有误？可以在这里修改，修改上线前会经过审核。"
+  sentEdit: "修改"
+  sentOld: "提交时还不支持修改，所以无法在这里更改。"
   count:
     saved: { other: "收藏了 {n} 个去处" }
     went: { other: "去过 {n} 个地方" }

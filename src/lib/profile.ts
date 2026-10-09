@@ -106,6 +106,13 @@ export function rememberSent(store: Store, payload: Record<string, unknown>, now
   store.setItem(KEYS.sent, JSON.stringify(all.slice(-LIMITS.sent)));
 }
 
+/** Saves the new details of an event this browser sent and later edited (matched by its inbox number). */
+export function updateSentEvent(store: Store, number: number, draft: Record<string, unknown>) {
+  const all = clean({ sent: parse(store.getItem(KEYS.sent), []) }).sent;
+  for (const s of all) if (s.kind === "event" && s.data.number === number) s.data = { ...s.data, draft };
+  store.setItem(KEYS.sent, JSON.stringify(all));
+}
+
 /* ---------- moving to another phone: the profile in a link's #fragment, which never reaches a server ---------- */
 
 const b64url = (bytes: Uint8Array) => btoa(String.fromCharCode(...bytes)).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
