@@ -46,13 +46,18 @@ const ui = {
     <script is:inline>
       // Catch Chrome's install offer as early as possible; the page script may load after it fires.
       addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); window.__loInstall = e; dispatchEvent(new Event("lo:installable")); });
-      // Safety net: if the page arrived without its styles (an outdated saved copy), drop the saved
-      // copies and load it once more from the network.
+      // Safety net: if the page arrived without its styles (an outdated saved copy), stop the service
+      // worker, drop every saved copy, fetch the style files afresh and load the page once more.
       addEventListener("load", function () {
-        if (getComputedStyle(document.documentElement).getPropertyValue("--ink") || !window.caches) return;
+        if (getComputedStyle(document.documentElement).getPropertyValue("--ink")) return;
         try { if (sessionStorage.getItem("lo-restyle")) return; sessionStorage.setItem("lo-restyle", "1"); } catch (e) { return; }
-        caches.keys().then(function (ks) { return Promise.all(ks.map(function (k) { return caches.delete(k); })); })
-          .then(function () { location.reload(); });
+        var sheets = [].map.call(document.querySelectorAll('link[rel="stylesheet"]'), function (l) { return l.href; });
+        var sw = navigator.serviceWorker;
+        Promise.all([
+          sw ? sw.getRegistrations().then(function (rs) { return Promise.all(rs.map(function (r) { return r.unregister(); })); }) : 0,
+          window.caches ? caches.keys().then(function (ks) { return Promise.all(ks.map(function (k) { return caches.delete(k); })); }) : 0,
+        ].concat(sheets.map(function (h) { return fetch(h, { cache: "reload" }).catch(function () {}); })))
+          .catch(function () {}).then(function () { location.reload(); });
       });
     </script>
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
