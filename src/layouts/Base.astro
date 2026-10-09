@@ -41,6 +41,10 @@ const ui = {
     <meta name="theme-color" content="#ffcc00" />
     {LANGS.map((l) => <link rel="alternate" hreflang={l} href={`${site}/${l}/${rest}`} />)}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href={`/${lang}/manifest.webmanifest`} />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content={t("siteName")} />
+    <meta name="mobile-web-app-capable" content="yes" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Barlow+Semi+Condensed:wght@600;700&family=Bricolage+Grotesque:opsz,wght@12..96,600..800&display=swap" />
@@ -73,6 +77,10 @@ const ui = {
       </main>
       <footer class="foot">
         <p>{t("footer")} <a href={`/${lang}/daten`}>{t("about.link")}</a></p>
+        <p class="install" data-install hidden>
+          <button type="button" class="btn install-btn" data-install-btn hidden>{t("install.button")}</button>
+          <span data-install-ios hidden>{t("install.ios")}</span>
+        </p>
         <slot name="footer" />
       </footer>
     </div>

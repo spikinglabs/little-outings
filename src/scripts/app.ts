@@ -272,3 +272,31 @@ export async function sendToInbox(payload: Record<string, unknown>): Promise<boo
 export function remember(payload: Record<string, unknown>) {
   try { rememberSent(localStorage, payload); schedulePush(); } catch { /* storage blocked */ }
 }
+
+/* ---------- install as an app ---------- */
+// The service worker makes the site installable and keeps opened pages readable offline.
+if ("serviceWorker" in navigator && !import.meta.env.DEV) {
+  window.addEventListener("load", () => navigator.serviceWorker.register("/sw.js").catch(() => {}));
+}
+const standalone = matchMedia("(display-mode: standalone)").matches || (navigator as { standalone?: boolean }).standalone === true;
+const installBox = document.querySelector<HTMLElement>("[data-install]");
+const installBtn = document.querySelector<HTMLButtonElement>("[data-install-btn]");
+let installPrompt: (Event & { prompt(): Promise<void> }) | null = null;
+// Chrome, Edge and Android offer an install prompt we can show from our own button.
+window.addEventListener("beforeinstallprompt", (ev) => {
+  ev.preventDefault();
+  installPrompt = ev as typeof installPrompt;
+  if (installBox && installBtn) installBox.hidden = installBtn.hidden = false;
+});
+installBtn?.addEventListener("click", async () => {
+  if (!installPrompt) return;
+  await installPrompt.prompt();
+  installPrompt = null;
+  if (installBox) installBox.hidden = true;
+});
+window.addEventListener("appinstalled", () => { if (installBox) installBox.hidden = true; });
+// iPhone and iPad Safari have no prompt: say where the button is.
+if (!standalone && /iPhone|iPad|iPod/.test(navigator.userAgent) && installBox) {
+  installBox.hidden = false;
+  installBox.querySelector<HTMLElement>("[data-install-ios]")!.hidden = false;
+}
