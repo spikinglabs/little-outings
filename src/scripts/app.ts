@@ -279,24 +279,48 @@ if ("serviceWorker" in navigator && !import.meta.env.DEV) {
   window.addEventListener("load", () => navigator.serviceWorker.register("/sw.js").catch(() => {}));
 }
 const standalone = matchMedia("(display-mode: standalone)").matches || (navigator as { standalone?: boolean }).standalone === true;
+const ios = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 const installBox = document.querySelector<HTMLElement>("[data-install]");
 const installBtn = document.querySelector<HTMLButtonElement>("[data-install-btn]");
-let installPrompt: (Event & { prompt(): Promise<void> }) | null = null;
-// Chrome, Edge and Android offer an install prompt we can show from our own button.
+let installPrompt: (Event & { prompt(): Promise<{ outcome: string } | void> }) | null = null;
+
+// On phones, a quiet line under the header says the site works as an app. It waits until the
+// second page you open, and once dismissed (or installed) it stays away on this device.
+const HINT_KEY = "lo-app-hint";
+const hint = document.querySelector<HTMLElement>("[data-app-hint]");
+const hintGo = document.querySelector<HTMLButtonElement>("[data-app-hint-go]");
+const local = (k: string, v?: string) => { try { return v === undefined ? localStorage.getItem(k) : (localStorage.setItem(k, v), v); } catch { return null; } };
+const phone = matchMedia("(pointer: coarse) and (max-width: 899px)").matches;
+const views = Number(local(HINT_KEY) || 0);
+const hintWanted = phone && !standalone && local(HINT_KEY) !== "off" && !Number.isNaN(views);
+if (hintWanted) local(HINT_KEY, String(views + 1));
+const closeHint = () => { if (hint) hint.hidden = true; local(HINT_KEY, "off"); };
+if (hint && hintWanted && views >= 1) {
+  if (ios) hint.querySelector<HTMLElement>("[data-app-hint-text]")!.textContent = ui.hintIos;
+  hint.hidden = false;
+}
+hint?.querySelector("[data-app-hint-x]")?.addEventListener("click", closeHint);
+
+async function install() {
+  if (!installPrompt) return;
+  const choice = await installPrompt.prompt();
+  installPrompt = null;
+  if (installBox) installBox.hidden = true;
+  if (hintGo) hintGo.hidden = true;
+  if (choice && choice.outcome === "accepted") closeHint();
+}
+// Chrome, Edge and Android offer an install prompt we can show from our own buttons.
 window.addEventListener("beforeinstallprompt", (ev) => {
   ev.preventDefault();
   installPrompt = ev as typeof installPrompt;
   if (installBox && installBtn) installBox.hidden = installBtn.hidden = false;
+  if (hintGo) hintGo.hidden = false;
 });
-installBtn?.addEventListener("click", async () => {
-  if (!installPrompt) return;
-  await installPrompt.prompt();
-  installPrompt = null;
-  if (installBox) installBox.hidden = true;
-});
-window.addEventListener("appinstalled", () => { if (installBox) installBox.hidden = true; });
+installBtn?.addEventListener("click", install);
+hintGo?.addEventListener("click", install);
+window.addEventListener("appinstalled", () => { if (installBox) installBox.hidden = true; closeHint(); });
 // iPhone and iPad Safari have no prompt: say where the button is.
-if (!standalone && /iPhone|iPad|iPod/.test(navigator.userAgent) && installBox) {
+if (!standalone && ios && installBox) {
   installBox.hidden = false;
   installBox.querySelector<HTMLElement>("[data-install-ios]")!.hidden = false;
 }

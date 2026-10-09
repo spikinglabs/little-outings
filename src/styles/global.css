@@ -197,6 +197,12 @@ h1, h2, h3 { font-family: var(--display); text-wrap: balance; letter-spacing: -0
 footer.foot { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--ink-soft); font-size: .82rem; }
 .install { margin-top: 12px; }
 .install-btn { background: var(--gold); color: var(--gold-ink); border-color: var(--gold-ink); }
+/* phones only: a quiet, dismissible "add to home screen" line */
+.app-hint { display: flex; align-items: center; gap: 8px; margin: 2px 0 10px; padding: 6px 6px 6px 10px; border-radius: 10px; background: var(--tint); color: var(--ink-soft); font-size: .8rem; line-height: 1.35; }
+.app-hint[hidden] { display: none; }
+.app-hint-text { flex: 1; }
+.app-hint-go { border: 1px solid var(--line); background: var(--card); color: var(--ink); border-radius: 8px; padding: 4px 10px; font-weight: 700; font-size: .78rem; cursor: pointer; }
+.app-hint-x { border: 0; background: none; color: var(--ink-soft); font-size: 1.15rem; line-height: 1; padding: 4px 8px; cursor: pointer; border-radius: 8px; }
 
 /* bottom tabs */
 .tabs { position: fixed; left: 0; right: 0; bottom: 0; z-index: 1000; background: var(--card); border-top: 1px solid var(--line); display: grid; grid-template-columns: repeat(3, 1fr); padding: 6px 6px calc(6px + env(safe-area-inset-bottom, 0px)); }
