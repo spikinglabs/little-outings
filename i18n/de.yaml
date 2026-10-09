@@ -167,7 +167,7 @@ chipAsk:
   votes: "{y} ja · {n} nein"
   parents: "{n} Eltern sagen ja"
   next: "Danke! Noch eine?"
-  thanks: "Danke! Die Zahlen werden über Nacht aktualisiert."
+  thanks: "Danke! Das hilft der nächsten Familie."
   you: "Eure Antwort: {a}"
   close: Schließen
   q:

@@ -45,3 +45,10 @@ test("inbox visits add to the moderator's tally", () => {
   const p = applyTally({ ...place(), visits: { count: 2, again: 1, good_for: { rainy: 1 } } }, { visits: { count: 1, again: 1, good_for: { rainy: 1, friends: 1 } } });
   assert.deepEqual(p.visits, { count: 3, again: 2, good_for: { rainy: 2, friends: 1 } });
 });
+
+test("live tap counts add onto inbox tallies", async () => {
+  const { addCounts } = await import("../scripts/tally-inbox.mjs");
+  const all = addCounts({ a: { fac: { toys: { yes: 1, no: 0 } } } },
+    { a: { fac: { toys: { yes: 2, no: 1 } }, visits: { count: 1, again: 1, good_for: { rainy: 1 } } }, b: { fac: { parking: { yes: 1, no: 0 } } } });
+  assert.deepEqual(all, { a: { fac: { toys: { yes: 3, no: 1 } }, visits: { count: 1, again: 1, good_for: { rainy: 1 } } }, b: { fac: { parking: { yes: 1, no: 0 } } } });
+});

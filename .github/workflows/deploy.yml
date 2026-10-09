@@ -6,7 +6,8 @@
 # admin) when present, otherwise the CITYKLUB_EXPORT variable.
 # Needs the repository secret CLOUDFLARE_API_TOKEN (Pages: Edit) and CLOUDFLARE_ACCOUNT_ID
 # as a secret or a variable (the account ID is not sensitive).
-# Optional: variable INBOX_REPO + secret INBOX_READ_TOKEN (Issues: read) to show parents' votes and visits.
+# Optional: variable INBOX_REPO + secret INBOX_READ_TOKEN (Issues: read) to count tips and older answers;
+# chip votes and "We went" come from the live site's /api/taps (Cloudflare D1, binding DB).
 # Without them the deploy steps are skipped and the run stays green.
 name: Deploy
 on:
@@ -46,6 +47,7 @@ jobs:
         env:
           INBOX_REPO: ${{ vars.INBOX_REPO }}
           INBOX_READ_TOKEN: ${{ secrets.INBOX_READ_TOKEN }}
+          SITE_URL: ${{ vars.SITE_URL }}
         run: npm run tally:inbox
       - run: npm run build
         env:

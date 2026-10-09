@@ -104,7 +104,9 @@ document.addEventListener("submit", async (ev) => {
   const payload = form.dataset.visit
     ? { kind: "visit", item: form.dataset.visit, again: data.get("again"), good_for: data.getAll("good_for") }
     : { kind: "tip", item: form.dataset.tipFor, topic: data.get("topic"), text: data.get("text") };
-  const ok = await sendToInbox({ ...payload, lang: body.dataset.lang });
+  const ok = payload.kind === "visit"
+    ? await sendTap({ kind: "visit", item: payload.item, again: payload.again, good_for: payload.good_for }, { ...payload, lang: body.dataset.lang })
+    : await sendToInbox({ ...payload, lang: body.dataset.lang });
   if (ok && form.dataset.visit) wentHere(form.dataset.visit);
   const done = document.createElement("p");
   done.className = "done";
@@ -151,13 +153,24 @@ if (sheet) {
     buttons.hidden = false;
   };
   chips.forEach((b) => b.addEventListener("click", () => { ask(b); sheet.showModal(); }));
+  // Live counts (the page itself carries last night's).
+  const item = chips[0]?.dataset.ask!.split(":")[0];
+  if (item) fetch(`/api/taps?item=${item}`).then((r) => (r.ok ? r.json() : {})).then((c: { fac?: Record<string, { yes: number; no: number }> }) => {
+    chips.forEach((b) => {
+      const v = c.fac?.[b.dataset.ask!.split(":")[2]];
+      if (!v || v.yes + v.no === 0 || b.classList.contains("said")) return;
+      b.querySelector("[data-ask-sub]")!.textContent = ui.askVotes.replace("{y}", String(v.yes)).replace("{n}", String(v.no));
+    });
+  }).catch(() => { /* counts are a nicety */ });
   sheet.querySelector("[data-ask-close]")!.addEventListener("click", () => sheet.close());
   sheet.addEventListener("click", (ev) => { if (ev.target === sheet) sheet.close(); }); // tap outside
   sheet.querySelector("form")!.addEventListener("submit", async (ev) => {
     ev.preventDefault();
     const a = ((ev as SubmitEvent).submitter as HTMLButtonElement | null)?.value;
     if (!a || !current) return;
-    const ok = await sendToInbox({ kind: "answer", gap: current.dataset.ask, answer: a, lang: body.dataset.lang });
+    const [item, , feature] = current.dataset.ask!.split(":");
+    const ok = await sendTap({ kind: "fac", item, feature, answer: a },
+      { kind: "answer", gap: current.dataset.ask, answer: a, lang: body.dataset.lang });
     if (!ok) { buttons.hidden = true; q.textContent = ""; done.textContent = ui.inboxSoon; done.hidden = false; return; }
     markAsked(current.dataset.ask!, a);
     showSaid(current, a);
@@ -166,6 +179,21 @@ if (sheet) {
     if (next) ask(next, ui.askNext);
     else { buttons.hidden = true; q.textContent = ""; done.textContent = ui.askThanks; done.hidden = false; }
   });
+}
+
+/** A random id for this browser, so a family's repeat taps replace each other instead of adding up. */
+function voter() {
+  let v = read("lo-voter");
+  if (!v) { v = crypto.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(36).slice(2)}`; write("lo-voter", v); }
+  return v;
+}
+/** One-tap feedback goes to the counting store (D1); while that isn't set up, to the inbox as before. */
+export async function sendTap(tap: Record<string, unknown>, inboxPayload: Record<string, unknown>): Promise<boolean> {
+  try {
+    const res = await fetch("/api/taps", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ ...tap, voter: voter() }) });
+    if (res.status !== 503 && res.status !== 404 && res.status !== 405) return res.ok;
+  } catch { /* fall through */ }
+  return sendToInbox(inboxPayload);
 }
 
 /** Posts to the Cloudflare inbox function. Returns false while the inbox isn't set up. */

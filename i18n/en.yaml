@@ -167,7 +167,7 @@ chipAsk:
   votes: "{y} yes · {n} no"
   parents: "{n} parents say yes"
   next: "Thanks! One more?"
-  thanks: "Thanks! The counts update overnight."
+  thanks: "Thanks! That helps the next family."
   you: "You said: {a}"
   close: Close
   q:

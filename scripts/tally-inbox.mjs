@@ -1,15 +1,17 @@
-// Counts what parents sent through the inbox, so place pages can show it without anyone copying numbers by hand.
-// Reads every issue in INBOX_REPO and writes data/inbox-tallies.json (not committed):
+// Counts what parents sent, so place pages can show it without anyone copying numbers by hand.
+// Taps (chip votes, "We went") live in Cloudflare D1 behind /api/taps; older ones and all tips are
+// issues in INBOX_REPO. Both are summed into data/inbox-tallies.json (not committed):
 //   { "<item id>": { fac: { changing_table: { yes, no } }, visits: { count, again, good_for }, tips: [{ topic, text }] } }
 // - "answer" issues about a facility count as yes/no votes ("not sure" is ignored).
 // - "visit" issues count as "We went" taps.
 // - "tip" issues show only once a moderator adds the `approved` label, so nothing goes public unreviewed.
 // - Issues closed as "not planned" (spam, nonsense) never count.
-// Needs INBOX_REPO and INBOX_READ_TOKEN (fine-grained, Issues: read on that repo). Without them it writes {}.
+// Taps need SITE_URL (the live site). Issues need INBOX_REPO and INBOX_READ_TOKEN (fine-grained,
+// Issues: read on that repo). Whatever is missing or unreachable is skipped, never fatal.
 import { mkdirSync, writeFileSync } from "node:fs";
 
 const OUT = new URL("../data/inbox-tallies.json", import.meta.url);
-const { INBOX_REPO: repo, INBOX_READ_TOKEN: token } = process.env;
+const { INBOX_REPO: repo, INBOX_READ_TOKEN: token, SITE_URL: site } = process.env;
 
 /** The YAML block the inbox function writes: one `key: value` per line, values JSON-quoted except `kind`. */
 export function parseBody(body) {
@@ -49,6 +51,23 @@ export function tally(issues) {
   return all;
 }
 
+/** Adds the live tap counts (same shape, minus tips) onto the inbox tally. */
+export function addCounts(all, counts) {
+  for (const [id, c] of Object.entries(counts ?? {})) {
+    const t = (all[id] ??= {});
+    for (const [f, v] of Object.entries(c.fac ?? {})) {
+      const x = ((t.fac ??= {})[f] ??= { yes: 0, no: 0 });
+      x.yes += v.yes; x.no += v.no;
+    }
+    if (c.visits) {
+      const x = (t.visits ??= { count: 0, again: 0, good_for: {} });
+      x.count += c.visits.count; x.again += c.visits.again;
+      for (const [g, n] of Object.entries(c.visits.good_for)) x.good_for[g] = (x.good_for[g] ?? 0) + n;
+    }
+  }
+  return all;
+}
+
 async function issues() {
   const rows = [];
   for (let page = 1; page < 100; page++) {
@@ -65,13 +84,20 @@ async function issues() {
 
 if (import.meta.url === `file://${process.argv[1]}`) {
   mkdirSync(new URL("../data/", import.meta.url), { recursive: true });
-  if (!repo || !token) {
-    console.log("INBOX_REPO or INBOX_READ_TOKEN not set; no inbox tallies.");
-    writeFileSync(OUT, "{}\n");
-  } else {
-    const rows = await issues();
-    const t = tally(rows);
-    writeFileSync(OUT, JSON.stringify(t) + "\n");
-    console.log(`Tallied ${rows.length} inbox issues for ${Object.keys(t).length} places and events.`);
+  let all = {};
+  if (repo && token) {
+    try {
+      const rows = await issues();
+      all = tally(rows);
+      console.log(`Tallied ${rows.length} inbox issues.`);
+    } catch (e) { console.log(`::warning::Inbox not counted: ${e.message}`); }
+  } else console.log("INBOX_REPO or INBOX_READ_TOKEN not set; inbox issues not counted.");
+  if (site) {
+    try {
+      const res = await fetch(`${site.replace(/\/$/, "")}/api/taps?all=1`);
+      if (res.ok) { addCounts(all, await res.json()); console.log("Added live tap counts."); }
+      else console.log(`Tap counts not available (${res.status}).`);
+    } catch (e) { console.log(`::warning::Tap counts not fetched: ${e.message}`); }
   }
+  writeFileSync(OUT, JSON.stringify(all) + "\n");
 }

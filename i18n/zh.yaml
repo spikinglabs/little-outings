@@ -167,7 +167,7 @@ chipAsk:
   votes: "{y} 人说有 · {n} 人说没有"
   parents: "{n} 位家长说有"
   next: "谢谢！再答一个？"
-  thanks: "谢谢！数字每晚更新。"
+  thanks: "谢谢！这能帮到下一个家庭。"
   you: "你的回答：{a}"
   close: 关闭
   q:
