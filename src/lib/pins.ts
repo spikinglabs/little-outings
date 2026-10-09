@@ -1,4 +1,4 @@
-// Map pins for events and places, shared by the map page and the map on Discover.
+// Map pins for events and places, for the map on Discover.
 import type { Pin } from "../islands/OutingsMap";
 import { tr, type Lang, type T } from "./i18n";
 import { dateRange, pathFor, townName } from "./format";
