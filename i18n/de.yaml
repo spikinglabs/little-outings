@@ -166,7 +166,6 @@ cal: { add: In den Kalender, google: Google Kalender, ics: "Apple, Outlook & and
 chipAsk:
   still: "Stimmt das noch: {f}?"
   votes: "{y} ja · {n} nein"
-  parents: "{n} Eltern sagen ja"
   next: "Danke! Noch eine?"
   thanks: "Danke! Das hilft der nächsten Familie."
   you: "Eure Antwort: {a}"
