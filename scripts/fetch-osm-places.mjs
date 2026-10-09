@@ -35,14 +35,15 @@ export function bbox(towns) {
   return [r(Math.min(...lats) - pad), r(Math.min(...lons) - lonPad), r(Math.max(...lats) + pad), r(Math.max(...lons) + lonPad)];
 }
 
-export function overpassQuery(towns) {
+/** One small query per kind of tag: the public servers answer 504 to one big union. */
+export function overpassQueries(towns) {
   const filters = [
     '["leisure"="playground"]["name"]', '["leisure"="indoor_play"]["name"]', '["tourism"="zoo"]["name"]',
     '["zoo"~"petting_zoo|wildlife_park|safari_park"]["name"]', '["shop"="farm"]["name"]', '["tourism"="farm"]["name"]',
     '["leisure"="water_park"]["name"]', '["amenity"="public_bath"]["name"]', '["leisure"="sports_centre"]["sport"~"swimming"]["name"]',
     '["tourism"="museum"]["name"]', '["tourism"="theme_park"]["name"]',
   ];
-  return `[out:json][timeout:180][bbox:${bbox(towns).join(",")}];(${filters.map((f) => `nwr${f};`).join("")});out center tags;`;
+  return filters.map((f) => `[out:json][timeout:90][bbox:${bbox(towns).join(",")}];nwr${f};out center tags;`);
 }
 
 const rad = (d) => (d * Math.PI) / 180;
@@ -90,18 +91,45 @@ function loadTowns(dir) {
   return readdirSync(dir).filter((f) => f.endsWith(".yaml")).flatMap((f) => load(readFileSync(join(dir, f), "utf8")).towns || []);
 }
 
+const SERVERS = process.env.OVERPASS_URL ? [process.env.OVERPASS_URL] : [
+  "https://overpass-api.de/api/interpreter",
+  "https://overpass.private.coffee/api/interpreter",
+  "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+];
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+/** Runs one query, trying each server up to twice; returns its elements. */
+async function overpass(query) {
+  const errors = [];
+  for (let round = 0; round < 2; round++) {
+    for (const endpoint of SERVERS) {
+      try {
+        const res = await fetch(endpoint, {
+          method: "POST",
+          headers: { "content-type": "application/x-www-form-urlencoded", "user-agent": "little-outings (spikinglabs) weekly places import" },
+          body: new URLSearchParams({ data: query }),
+        });
+        if (!res.ok) throw new Error(`answered ${res.status}`);
+        const { elements = [], remark } = await res.json();
+        // Overpass answers 200 with a remark when the query timed out or ran out of memory.
+        if (remark) throw new Error(remark);
+        return elements;
+      } catch (e) {
+        errors.push(`${new URL(endpoint).host}: ${e.message}`.slice(0, 200));
+        await sleep(15000 * (round + 1));
+      }
+    }
+  }
+  throw new Error(`Overpass failed for ${query.slice(query.indexOf("nwr"))} (${errors.join("; ")})`);
+}
+
 async function main() {
   const towns = loadTowns(join(process.env.CONTENT_DIR || "content", "regions"));
-  const endpoint = process.env.OVERPASS_URL || "https://overpass-api.de/api/interpreter";
-  const res = await fetch(endpoint, {
-    method: "POST",
-    headers: { "content-type": "application/x-www-form-urlencoded", "user-agent": "little-outings (spikinglabs) weekly places import" },
-    body: new URLSearchParams({ data: overpassQuery(towns) }),
-  });
-  if (!res.ok) throw new Error(`Overpass answered ${res.status}: ${(await res.text()).slice(0, 300)}`);
-  const { elements = [], remark } = await res.json();
-  // Overpass answers 200 with a remark when the query timed out or ran out of memory.
-  if (remark) throw new Error(`Overpass: ${remark}`);
+  const elements = [];
+  for (const q of overpassQueries(towns)) {
+    elements.push(...(await overpass(q)));
+    await sleep(2000);
+  }
   if (!elements.length) throw new Error("Overpass returned no places; keeping the previous list");
   const rows = new Map();
   for (const el of elements) {
