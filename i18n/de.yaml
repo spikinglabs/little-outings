@@ -162,6 +162,7 @@ share:
   copied: Link kopiert. Öffnet ihn auf einem anderen Handy oder schickt ihn an jemanden, mit dem ihr plant.
   shared: { one: "1 Ausflug wurde mit euch geteilt.", other: "{n} Ausflüge wurden mit euch geteilt." }
   add: Zu meiner Liste hinzufügen
+cal: { add: In den Kalender, google: Google Kalender, ics: "Apple, Outlook & andere (.ics)" }
 chipAsk:
   still: "Stimmt das noch: {f}?"
   votes: "{y} ja · {n} nein"

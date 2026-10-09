@@ -162,6 +162,7 @@ share:
   copied: Link copied. Open it on another phone, or send it to someone you're planning with.
   shared: { one: "1 outing was shared with you.", other: "{n} outings were shared with you." }
   add: Add to my list
+cal: { add: Add to calendar, google: Google Calendar, ics: "Apple, Outlook & others (.ics)" }
 chipAsk:
   still: "Is this still right: {f}?"
   votes: "{y} yes · {n} no"

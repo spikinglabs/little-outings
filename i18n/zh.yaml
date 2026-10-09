@@ -162,6 +162,7 @@ share:
   copied: 链接已复制。可以在另一部手机上打开，或发给一起计划的人。
   shared: { one: "有人和你分享了 1 个去处。", other: "有人和你分享了 {n} 个去处。" }
   add: 加入我的清单
+cal: { add: 加入日历, google: Google 日历, ics: "Apple、Outlook 等 (.ics)" }
 chipAsk:
   still: "{f}：现在还是这样吗？"
   votes: "{y} 人说有 · {n} 人说没有"
