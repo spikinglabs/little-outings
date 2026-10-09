@@ -157,3 +157,8 @@ visit:
   parentsSay: "家长说：适合{list}"
 goodFor: { toddlers: 幼儿, bigKids: 大孩子, rainy: 雨天, longVisit: 玩一下午, quickHour: 玩一小时, friends: 和朋友见面 }
 tipTopic: { bring: 要带…, bestTime: 最佳时间…, parking: 停车…, ages: 最适合年龄…, other: 其他 }
+share:
+  button: 分享我的清单
+  copied: 链接已复制。可以在另一部手机上打开，或发给一起计划的人。
+  shared: { one: "有人和你分享了 1 个去处。", other: "有人和你分享了 {n} 个去处。" }
+  add: 加入我的清单

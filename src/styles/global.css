@@ -238,3 +238,4 @@ footer.foot { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--l
 .visit .btn { justify-self: start; }
 .went { margin-top: 12px; }
 @media (max-width: 420px) { .visit .tip-row { grid-template-columns: 1fr; } }
+.shared { background: var(--gold); color: var(--gold-ink); border-radius: 14px; padding: 12px 14px; margin-top: 12px; display: grid; gap: 8px; } .shared p { margin: 0; font-weight: 700; } .share-bar { margin-top: 12px; display: grid; gap: 6px; justify-items: start; } .share-bar .small { overflow-wrap: anywhere; }
