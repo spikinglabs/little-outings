@@ -98,21 +98,22 @@ export function shiftDays(d: string, days: number): string {
   return ymd(t);
 }
 
-/** Votes that settle an unknown facility: this many parents say yes and nobody says no. */
-export const VOTES_TO_SETTLE = 3;
+/** What parents' votes say about a facility: more yes → yes, more no → no, a tie (or nothing) → unknown. */
+export function voteStatus(v: { yes: number; no: number }): "yes" | "no" | "unknown" {
+  return v.yes > v.no ? "yes" : v.no > v.yes ? "no" : "unknown";
+}
 
 /**
- * Adds what parents sent through the inbox (counted at build time) to a place.
- * Facility votes always show; they turn an unknown "?" into a yes once VOTES_TO_SETTLE agree
- * and nobody disagrees. Facts from a source or a moderator are never overruled, only annotated.
+ * Adds what parents sent through the inbox and taps (counted at build time) to a place.
+ * Votes decide a facility nobody else has filled in (see voteStatus). Facts from a source or a
+ * moderator are never overruled, only annotated with the votes.
  */
 export function applyTally(p: Place, t: Tally | undefined): Place {
   if (!t) return p;
   const facilities = { ...p.facilities };
   for (const [f, v] of Object.entries(t.fac ?? {})) {
     const cur = facilities[f] ?? { status: "unknown" as const, confirmed: 0 };
-    const settles = cur.status === "unknown" && v.yes >= VOTES_TO_SETTLE && v.no === 0;
-    facilities[f] = settles ? { status: "yes", confirmed: v.yes, votes: v } : { ...cur, votes: v };
+    facilities[f] = cur.status === "unknown" ? { status: voteStatus(v), confirmed: 0, votes: v, byVotes: true } : { ...cur, votes: v };
   }
   let visits = p.visits;
   if (t.visits) {

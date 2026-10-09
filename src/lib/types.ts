@@ -4,7 +4,13 @@ import type { Text } from "./i18n";
 
 export type Precision = "exact" | "venue" | "area" | "unknown";
 export type Trust = { level: "verified" | "official" | "community"; source?: Text };
-export type Facility = { status: "yes" | "no" | "unknown"; confirmed: number; votes?: { yes: number; no: number } };
+export type Facility = {
+  status: "yes" | "no" | "unknown";
+  confirmed: number;
+  votes?: { yes: number; no: number };
+  /** True when parents' votes decided the status (nobody else had filled it in). */
+  byVotes?: boolean;
+};
 /** What parents sent through the inbox for one item, counted at build time (scripts/tally-inbox.mjs). */
 export type Tally = {
   fac?: Record<string, { yes: number; no: number }>;

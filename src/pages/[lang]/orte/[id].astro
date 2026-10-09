@@ -56,17 +56,17 @@ const facs = FEATURES.map((f) => ({ f, ...(p.facilities[f] ?? { status: "unknown
 
     <h2>{t("forFamilies")}</h2>
     <ul class="checks">
-      {facs.map(({ f, status, confirmed, votes }) => {
-        // Tapping a chip asks one quick question: "Is there …?" for "?", "Still right?" for known ones.
-        const fromVotes = status === "yes" && votes && confirmed === votes.yes && votes.no === 0;
-        const sub = fromVotes ? t("chipAsk.parents", { n: votes!.yes })
-          : votes && votes.yes + votes.no > 0 ? t("chipAsk.votes", { y: votes.yes, n: votes.no })
+      {facs.map(({ f, status, confirmed, votes, byVotes }) => {
+        // Tapping a chip asks one quick question: "Is there …?" while parents decide, "Still right?" for sourced facts.
+        const open = status === "unknown" || byVotes; // votes may still move it (live in app.ts)
+        const sub = votes && votes.yes + votes.no > 0 ? t("chipAsk.votes", { y: votes.yes, n: votes.no })
           : status === "yes" && confirmed > 0 ? t("confirmedBy", { n: confirmed }) : "";
         const name = t(`features.${f}`);
         return (
           <li class={status}>
             <button type="button" data-ask={`${p.id}:fac:${f}`} data-unknown={status === "unknown" ? "" : undefined}
-              data-q={status === "unknown" ? t(`chipAsk.q.${f}`) : t("chipAsk.still", { f: name })}>
+              data-open={open ? "" : undefined} data-icon={open ? svg(FEATURE_ICON[f]) : undefined}
+              data-q={open ? t(`chipAsk.q.${f}`) : t("chipAsk.still", { f: name })}>
               <span class="dot" set:html={status === "unknown" ? "?" : svg(FEATURE_ICON[f])} />
               <span>{name}<small data-ask-sub>{sub}</small></span>
             </button>

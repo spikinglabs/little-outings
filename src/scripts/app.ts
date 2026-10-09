@@ -153,15 +153,25 @@ if (sheet) {
     buttons.hidden = false;
   };
   chips.forEach((b) => b.addEventListener("click", () => { ask(b); sheet.showModal(); }));
-  // Live counts (the page itself carries last night's).
+  // Live counts (the page itself carries last night's). Chips parents decide flip with the votes:
+  // more yes → ✓, more no → ✗, a tie stays "?". Facts from a source never flip.
+  type Votes = { yes: number; no: number };
   const item = chips[0]?.dataset.ask!.split(":")[0];
-  if (item) fetch(`/api/taps?item=${item}`).then((r) => (r.ok ? r.json() : {})).then((c: { fac?: Record<string, { yes: number; no: number }> }) => {
-    chips.forEach((b) => {
-      const v = c.fac?.[b.dataset.ask!.split(":")[2]];
-      if (!v || v.yes + v.no === 0 || b.classList.contains("said")) return;
-      b.querySelector("[data-ask-sub]")!.textContent = ui.askVotes.replace("{y}", String(v.yes)).replace("{n}", String(v.no));
-    });
-  }).catch(() => { /* counts are a nicety */ });
+  const showVotes = (b: HTMLButtonElement, v: Votes) => {
+    if (v.yes + v.no === 0) return;
+    if (!b.classList.contains("said")) b.querySelector("[data-ask-sub]")!.textContent = ui.askVotes.replace("{y}", String(v.yes)).replace("{n}", String(v.no));
+    if (b.dataset.open == null) return;
+    const status = v.yes > v.no ? "yes" : v.no > v.yes ? "no" : "unknown";
+    b.closest("li")!.className = status;
+    b.querySelector(".dot")!.innerHTML = status === "unknown" ? "?" : b.dataset.icon!;
+  };
+  const refreshCounts = () => {
+    if (!item) return;
+    fetch(`/api/taps?item=${item}`, { cache: "no-store" }).then((r) => (r.ok ? r.json() : {})).then((c: { fac?: Record<string, Votes> }) => {
+      chips.forEach((b) => { const v = c.fac?.[b.dataset.ask!.split(":")[2]]; if (v) showVotes(b, v); });
+    }).catch(() => { /* counts are a nicety */ });
+  };
+  refreshCounts();
   sheet.querySelector("[data-ask-close]")!.addEventListener("click", () => sheet.close());
   sheet.addEventListener("click", (ev) => { if (ev.target === sheet) sheet.close(); }); // tap outside
   sheet.querySelector("form")!.addEventListener("submit", async (ev) => {
@@ -174,6 +184,7 @@ if (sheet) {
     if (!ok) { buttons.hidden = true; q.textContent = ""; done.textContent = ui.inboxSoon; done.hidden = false; return; }
     markAsked(current.dataset.ask!, a);
     showSaid(current, a);
+    refreshCounts();
     const seen = asked();
     const next = chips.find((b) => b.dataset.unknown != null && !seen[b.dataset.ask!]);
     if (next) ask(next, ui.askNext);

@@ -30,10 +30,11 @@ test("tally counts facility votes, visits and only approved tips", () => {
 
 const place = (facilities = {}) => ({ type: "place", id: "p", kind: "cafe", name: "P", town: "T", geo: { precision: "unknown" }, facilities, quotes: [], trust: { level: "community" } });
 
-test("three yes votes and no no settle an unknown facility", () => {
-  const p = applyTally(place(), { fac: { highchairs: { yes: 3, no: 0 }, toys: { yes: 3, no: 1 } } });
-  assert.deepEqual(p.facilities.highchairs, { status: "yes", confirmed: 3, votes: { yes: 3, no: 0 } });
-  assert.equal(p.facilities.toys.status, "unknown");
+test("votes decide an unknown facility: more yes, more no, or a tie", () => {
+  const p = applyTally(place(), { fac: { highchairs: { yes: 1, no: 0 }, toys: { yes: 1, no: 2 }, parking: { yes: 1, no: 1 } } });
+  assert.deepEqual(p.facilities.highchairs, { status: "yes", confirmed: 0, votes: { yes: 1, no: 0 }, byVotes: true });
+  assert.equal(p.facilities.toys.status, "no");
+  assert.equal(p.facilities.parking.status, "unknown");
 });
 
 test("votes never overrule a known fact, they only annotate it", () => {
