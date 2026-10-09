@@ -133,6 +133,8 @@ pleaseCheck: Please check
 field: { title: Title, date: Date, time: Time, place: Place or address, price: Price, note: "What's on for kids?" }
 parseSoon: Automatic reading isn't set up yet. Please fill in the fields yourself.
 parseFail: We couldn't read this one automatically. Please fill in the fields yourself.
+sentEvent: "Sent. We check every event before it goes live; you'll find it on Discover once it's approved."
+sendAnother: Send another event
 typeIt: Type it in yourself
 report:
   title: Something wrong?
