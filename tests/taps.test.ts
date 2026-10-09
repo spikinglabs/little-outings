@@ -86,3 +86,13 @@ test("moving taps to another voter id keeps the newer answer where both answered
   assert.deepEqual(await mine("local-voter"), []);
   assert.deepEqual(await (await onRequestGet({ env, request: get("item=cafe-a") })).json(), { fac: { toys: { yes: 1, no: 0 } } });
 });
+
+test("'Do you need German?' counts one answer per browser", async () => {
+  const env = { DB: fakeD1() };
+  const say = (voter: string, answer: string) => onRequestPost({ env, request: post({ kind: "lang", item: "ck-evt-1", answer, voter }) });
+  await say("browser-one", "de");
+  await say("browser-one", "none");
+  await say("browser-two", "none");
+  assert.equal((await say("browser-3xx", "fr")).status, 400);
+  assert.deepEqual(await (await onRequestGet({ env, request: get("item=ck-evt-1") })).json(), { lang: { none: 2 } });
+});

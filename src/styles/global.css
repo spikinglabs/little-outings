@@ -88,6 +88,9 @@ h1, h2, h3 { font-family: var(--display); text-wrap: balance; letter-spacing: -0
 .pill.rain { background: var(--blau-bg); color: var(--blau); font-weight: 700; }
 .pill.free { background: var(--ink); color: var(--paper); font-weight: 700; }
 .pill.loc { background: transparent; border: 1px dashed var(--ink-soft); color: var(--ink-soft); }
+.item .de-name { font-size: .78rem; color: var(--ink-soft); margin-top: 1px; }
+.pill.speech { background: transparent; border: 1px solid var(--blau); color: var(--blau); font-weight: 700; }
+.pill.speech.de { border: 1px dashed var(--ink-soft); color: var(--ink-soft); font-weight: 400; }
 .trust { font-size: .78rem; color: var(--ink-soft); margin-top: 6px; }
 .trust b { color: var(--ink); font-weight: 700; }
 .save { position: relative; z-index: 1; flex: none; border: 0; background: none; cursor: pointer; padding: 4px; color: var(--ink-soft); border-radius: 8px; }
@@ -273,3 +276,16 @@ footer.foot { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--l
 .profile-qr .qr svg { display: block; width: min(240px, 70vw); height: auto; border-radius: 8px; }
 .profile-qr .small { overflow-wrap: anywhere; }
 .btn.danger { border-color: var(--rot); color: var(--rot); }
+
+/* "Do you need German?" chips on an event page */
+.speech-ask h2 { margin-bottom: 8px; }
+.speech-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+/* The site's answer (dashed while it's only a guess); filled once this browser answered. */
+.speech-chips .chip.current { border-color: var(--blau); color: var(--blau); font-weight: 700; }
+.speech-chips .chip.current.guess { border-style: dashed; }
+.speech-chips .chip[aria-pressed="true"] { background: var(--blau); border-color: var(--blau); color: var(--paper); }
+.speech-chips small { font-weight: 400; }
+.speech-ask [data-lang-note] { margin-top: 8px; }
+.about section { margin-top: 18px; }
+.about h2 { font-size: 1.05rem; margin-bottom: 4px; }
+.about p { line-height: 1.6; }

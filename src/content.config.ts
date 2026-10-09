@@ -14,6 +14,8 @@ export const FEATURES = [
 // "Good for ..." chips parents tap after a visit, and the topics of a "Good to know" tip.
 export const GOOD_FOR = ["toddlers", "bigKids", "rainy", "longVisit", "quickHour", "friends"] as const;
 export const TIP_TOPICS = ["bring", "bestTime", "parking", "ages", "other"] as const;
+// How much German an event needs: none, held in English, or mostly German (scripts/event-tags.mjs).
+export const LANGUAGE = ["none", "en", "de"] as const;
 export const TAGS = ["reading", "diy", "stage", "music", "sport", "animals", "tour", "fest", "market", "outside", "season", "parents"] as const;
 // Same levels as cityklub's map review: recorded point, venue candidate, city overview, unmapped.
 export const PRECISION = ["exact", "venue", "area", "unknown"] as const;
@@ -76,6 +78,7 @@ const eventFields = {
   ages: ages.optional(),
   indoor: z.boolean().optional(),
   tags: z.array(z.enum(TAGS)).default([]),
+  language: z.enum(LANGUAGE).optional(),
   note: text.optional(),
   trust: trust.default({ level: "community" }),
   website: z.url().optional(),

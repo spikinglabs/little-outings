@@ -16,7 +16,10 @@ export type Tally = {
   fac?: Record<string, { yes: number; no: number }>;
   visits?: { count: number; again: number; good_for: Record<string, number> };
   tips?: { topic: string; text: string }[];
+  /** Events: parents' answers to "How much German do you need?". */
+  lang?: Partial<Record<Language, number>>;
 };
+export type Language = "none" | "en" | "de";
 
 export interface Geo {
   lat?: number;
@@ -29,6 +32,8 @@ export interface Place {
   id: string;
   kind: string;
   name: string;
+  /** Machine translations of the name (data/translations/), shown with the German name beneath. */
+  names?: { zh?: string };
   town: string;
   street?: string;
   postcode?: string;
@@ -63,6 +68,13 @@ export interface Event {
   ages?: [number, number];
   indoor?: boolean;
   tags: string[];
+  /** How much German it needs: "none", "en" (held in English) or "de" (mostly German). */
+  language?: Language;
+  /** Where `language` comes from: a guess from the title, parents' votes, or an editor. */
+  languageFrom?: "guess" | "parents" | "editor";
+  languageVotes?: Partial<Record<Language, number>>;
+  /** Languages of `title` that are machine translations (data/translations/). */
+  machine?: ("en" | "zh")[];
   note?: Text;
   trust: Trust;
   website?: string;

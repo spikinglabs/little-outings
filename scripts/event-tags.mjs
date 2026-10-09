@@ -23,3 +23,23 @@ export function tagsOf(title, venue) {
   const t = String(title || "").toLowerCase(), v = String(venue || "").toLowerCase();
   return Object.entries(RULES).filter(([k, re]) => re.test(t) || (FROM_VENUE.has(k) && re.test(v))).map(([k]) => k);
 }
+
+// How much German an event needs, for parents who don't speak it: "en" (held in English or
+// bilingual), "de" (mostly listening or talking: readings, theatre, guided tours, talks),
+// "none" (you can join in without it: animals, markets, fests, crafts, sport, music).
+// Undefined when the title gives no clue.
+const ENGLISH = /\benglish\b|englisch|bilingual|zweisprachig|deutsch[- ]englisch/;
+// Held in another language (Vorlesezeit auf Türkisch): German doesn't help or hurt, so no label.
+const OTHER = /auf (t(ü|ue)rkisch|arabisch|ukrainisch|russisch|polnisch|spanisch|franz(ö|oe)sisch|italienisch|griechisch|persisch|chinesisch)|mehrsprachig/;
+const TALK = /h(ö|oe)rspiel|f(ü|ue)hrung|rundgang|vortrag|lesung|vorles|erz(ä|ae)hl|gespr(ä|ae)ch|diskussion|seminar|kurs\b|sprachkurs|schreib|quiz|dialog/;
+const TALK_TAGS = ["reading", "stage", "parents"];
+const HANDS_TAGS = ["animals", "market", "fest", "diy", "sport", "music", "outside"];
+
+export function languageOf(title, tags = []) {
+  const t = String(title || "").toLowerCase();
+  if (ENGLISH.test(t)) return "en";
+  if (OTHER.test(t)) return undefined;
+  if (TALK.test(t) || tags.some((g) => TALK_TAGS.includes(g))) return "de";
+  if (tags.some((g) => HANDS_TAGS.includes(g))) return "none";
+  return undefined;
+}

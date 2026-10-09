@@ -6,9 +6,10 @@ import ReportBox from "../../../components/ReportBox.astro";
 import VisitBox from "../../../components/VisitBox.astro";
 import { LANGS, isFallback, tr, useT, type Lang } from "../../../lib/i18n";
 import { getData } from "../../../lib/data";
-import { ageText, dateRange, pathFor, routeUrl, townName } from "../../../lib/format";
+import { ageText, dateRange, germanName, nameOf, pathFor, routeUrl, townName } from "../../../lib/format";
 import { FEATURE_ICON, UI_ICON, svg } from "../../../lib/icons";
 import type { Event } from "../../../lib/types";
+import { LANGUAGE } from "../../../content.config";
 import { calInput } from "../../../lib/event-cal";
 import { googleUrl } from "../../../lib/calendar";
 
@@ -21,7 +22,8 @@ const lang = Astro.params.lang as Lang;
 const t = useT(lang);
 const { region, placeById } = await getData();
 const place = e.place ? placeById.get(e.place) : undefined;
-const title = tr(e.title, lang);
+const title = nameOf(e, lang);
+const german = germanName(e, lang);
 const town = townName(e.town, lang, region.towns);
 const prec = e.geo.precision;
 const yes = Object.entries(place?.facilities ?? {}).filter(([, v]) => v.status === "yes").map(([k]) => k);
@@ -36,12 +38,13 @@ const translated = isFallback(e.title, lang) || isFallback(e.note, lang);
       <div>
         <h1>{title}</h1>
         {isFallback(e.title, lang) && <p class="orig">{t("translated")}</p>}
+        {german && <p class="orig"><span lang="de">{german}</span> · {t("machine")}</p>}
       </div>
     </div>
     <ul class="facts">
       <li><span>📅</span><span>{dateRange(t, e)}{e.time && ` · ${e.time}`}</span></li>
       <li><span>📍</span><span>
-        {place ? <a href={pathFor(lang, place)}>{place.name}</a> : e.venue}{(place || e.venue) && town && ", "}{town}<span data-km></span>
+        {place ? <a href={pathFor(lang, place)}>{nameOf(place, lang)}</a> : e.venue}{(place || e.venue) && town && ", "}{town}<span data-km></span>
         {prec !== "exact" && <><br /><small class="small">{t(`locNote.${prec}`, { town })}</small></>}
       </span></li>
       {e.price && <li><span>€</span><span>{e.price.free ? t("free") : tr(e.price.text, lang) || t("paid")}</span></li>}
@@ -51,6 +54,23 @@ const translated = isFallback(e.title, lang) || isFallback(e.note, lang);
         {e.trust.level === "community" ? t("trust.community") : <>{t(`trust.${e.trust.level}`)}{e.trust.source && ` · ${tr(e.trust.source, lang)}`}</>}
       </span></li>
     </ul>
+
+    {/* How much German it needs: a guess from the title until parents tap one of the chips. */}
+    <section class="speech-ask" data-lang-ask={e.id} data-votes={JSON.stringify(e.languageVotes ?? {})}>
+      <h2>💬 {t("speechAsk.title")}</h2>
+      <div class="speech-chips">
+        {LANGUAGE.map((k) => (
+          <button type="button" class:list={["chip", k, { current: e.language === k, guess: e.languageFrom === "guess" }]} data-lang-answer={k} aria-pressed="false">
+            {t(`speech.${k}`)}<small data-n>{e.languageVotes?.[k] ? ` · ${e.languageVotes[k]}` : ""}</small>
+          </button>
+        ))}
+      </div>
+      <p class="small" data-lang-note>{
+        e.languageFrom === "parents" ? t("speechAsk.parents", { n: Object.values(e.languageVotes ?? {}).reduce((a, b) => a + (b ?? 0), 0) })
+        : e.languageFrom === "guess" ? t("speechAsk.guess")
+        : !e.language ? t("speechAsk.unknown") : ""
+      }</p>
+    </section>
     {e.note && <p class="note">{tr(e.note, lang)}</p>}
     {translated && lang !== "de" && !isFallback(e.title, lang) && <p class="orig">{t("translated")}</p>}
 

@@ -9,7 +9,7 @@ ask: "Was machen wir <em>{when}</em> mit den Kindern?"
 near: Rund um
 search: Suche
 searchPh: Hof, Café, Spielplatz oder Fest suchen
-filters: { farm: "🚜 Bauernhof", rain: "☂ Bei Regen", free: Kostenlos, animals: Mit Tieren, changing: Wickeltisch, age: Alter, ageAll: alle, radius: Umkreis }
+filters: { farm: "🚜 Bauernhof", rain: "☂ Bei Regen", free: Kostenlos, animals: Mit Tieren, changing: Wickeltisch, nogerman: Ohne Deutsch, age: Alter, ageAll: alle, radius: Umkreis }
 tip: "Unser Tipp {when}"
 only: "Nur {when}"
 always: Geht immer
@@ -35,7 +35,7 @@ indoor: Drinnen, auch bei Regen
 outdoor: Draußen
 free: Kostenlos
 paid: Kostenpflichtig
-trust: { verified: "✓ Geprüft", official: Offizielle Quelle, community: "Von Eltern gemeldet, noch nicht geprüft", from: "Aus {source}, noch nicht geprüft" }
+trust: { parents: { one: "1 Antwort von Eltern", other: "{n} Antworten von Eltern" }, base: "Grunddaten: {source}", verified: "✓ Geprüft", official: Offizielle Quelle, community: "Von Eltern gemeldet, noch nicht geprüft", from: "Aus {source}, noch nicht geprüft" }
 save: Merken
 saved: Gemerkt
 route: Route planen
@@ -52,6 +52,10 @@ confirmedBy: "{n}× bestätigt"
 upcomingHere: Hier demnächst
 parentsSay: "Eltern sagen · ★ {r} aus {n} Bewertungen"
 onPoster: Auf dem Plakat
+speech: { none: Ohne Deutsch, en: Auf Englisch, de: Viel Deutsch }
+speechGuess: "{s}?"
+speechAsk: { title: "Braucht man Deutsch?", guess: "Aus dem Titel geschätzt. Wart ihr dort? Tippt an, was stimmt.", parents: "So sagen {n} Eltern. Wart ihr dort? Tippt an, was stimmt.", unknown: "Noch unbekannt. Wart ihr dort? Tippt an, was stimmt.", thanks: "Danke! Andere Eltern sehen das." }
+machine: maschinell übersetzt
 translated: ""
 gapsTitle: Fehlt noch
 gapsSub: Wisst ihr etwas davon? Eine Antwort reicht.
@@ -227,3 +231,15 @@ profile:
   delete: Alles löschen
   deleteConfirm: "Merkliste, Antworten und Stimmen löschen? Das lässt sich nicht rückgängig machen."
   deleted: Gelöscht. Dieses Handy fängt neu an.
+about:
+  link: Daten und Datenschutz
+  title: Daten und Datenschutz
+  intro: Woher Little Outings seine Angaben hat und wo deine Antworten und dein Profil liegen.
+  events: { h: Termine, p: "Termine stammen aus den öffentlichen Kalendern von Städten, Büchereien, Museen und Höfen. Wir nutzen nur Fakten wie Titel, Datum, Uhrzeit und Ort, mit Link zur Originalseite. Zeiten und Preise bitte dort prüfen." }
+  places: { h: Orte, p: "Spielplätze, Bäder, Museen, Höfe und andere Orte stammen aus OpenStreetMap (© OpenStreetMap-Mitwirkende, ODbL) und werden wöchentlich aktualisiert. Sobald Eltern etwas ergänzt haben, zeigt der Ort, wie viele Antworten es gibt." }
+  translate: { h: Übersetzungen und Hinweise, p: "Chinesische Namen sind maschinell übersetzt; der deutsche Name steht darunter. „Braucht man Deutsch?“ ist zuerst aus dem Titel geschätzt und mit „?“ markiert. Sobald Eltern antippen, gilt die häufigste Antwort." }
+  taps: { h: Deine Klicks, p: "Antworten zu Ausstattung, „Wir waren da“ und „Braucht man Deutsch?“ werden anonym bei Cloudflare gezählt. Jeder Browser hat eine Zufalls-ID: Eine Frage zählt einmal, eine neue Antwort ersetzt die alte. IP-Adressen werden nur als Hash gespeichert, gegen Massenklicks." }
+  writing: { h: Was du schreibst, p: "Tipps, Fehlermeldungen und vorgeschlagene Orte prüfen wir zuerst; sie erscheinen erst nach Freigabe. Bitte keine Namen, Telefonnummern oder andere persönliche Angaben." }
+  profile: { h: Dein Profil, p: "Merkliste, besuchte Orte und deine Antworten bleiben im Browser dieses Handys. Kein Konto, keine E-Mail. Unter „Euer Profil“ kannst du es herunterladen, auf ein anderes Handy umziehen oder löschen. Mit Passkey-Sync liegt eine Kopie auf dem Server, die mit dem Profil gelöscht wird." }
+  none: { h: Was wir nicht tun, p: "Keine Werbung, kein Tracking, keine Statistik-Tools, kein Datenverkauf, keine Namen oder E-Mails." }
+  wrong: { h: Etwas falsch?, p: "Unten auf jeder Termin- und Ortsseite steht „Stimmt etwas nicht?“. Tipp drauf und sag es uns." }

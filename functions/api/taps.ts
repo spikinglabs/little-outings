@@ -6,6 +6,7 @@
 //
 //   POST /api/taps   { kind: "fac", item, feature, answer: yes|no|unsure, voter }
 //                    { kind: "visit", item, again: yes|maybe|no, good_for: [...], voter }
+//                    { kind: "lang", item, answer: none|en|de, voter }   how much German an event needs
 //   GET  /api/taps?item=<id>   live counts for one place
 //   GET  /api/taps?all=1       counts for every place (read by the nightly build)
 //   POST /api/taps?mine=1  { voter }   this browser's own taps, for "Download my data"
@@ -24,6 +25,7 @@ type Ctx = { request: Request; env: Env };
 // Same lists as src/content.config.ts (functions can't import Astro's zod config).
 const FEATURES = ["playground", "changing_table", "highchairs", "kids_menu", "toys", "animals", "stroller_friendly",
   "nursing_room", "indoor_play", "toilets", "farm_shop", "parking"];
+const LANGUAGE = ["none", "en", "de"];
 const GOOD_FOR = ["toddlers", "bigKids", "rainy", "longVisit", "quickHour", "friends"];
 /** Taps one connection may send per hour; a family answering every chip on a few places stays far below. */
 export const HOURLY_LIMIT = 120;
@@ -55,6 +57,9 @@ export function rowsOf(body: any): { item: string; rows: [string, string][]; cle
   if (body.kind === "fac" && FEATURES.includes(body.feature) && ["yes", "no", "unsure"].includes(body.answer)) {
     return { item: body.item, rows: [[`fac:${body.feature}`, body.answer]] };
   }
+  if (body.kind === "lang" && LANGUAGE.includes(body.answer)) {
+    return { item: body.item, rows: [["lang", body.answer]] };
+  }
   if (body.kind === "visit" && ["yes", "maybe", "no"].includes(body.again)) {
     const good = [...new Set((Array.isArray(body.good_for) ? body.good_for : []).filter((g: unknown) => GOOD_FOR.includes(g as string)))] as string[];
     // A repeat "We went" from the same browser replaces its earlier chips.
@@ -67,6 +72,7 @@ type Count = { item: string; key: string; value: string; n: number };
 export type Counts = Record<string, {
   fac?: Record<string, { yes: number; no: number }>;
   visits?: { count: number; again: number; good_for: Record<string, number> };
+  lang?: Record<string, number>;
 }>;
 /** Grouped rows → the same shape the build uses for inbox tallies. */
 export function countsFrom(rows: Count[]): Counts {
@@ -76,6 +82,8 @@ export function countsFrom(rows: Count[]): Counts {
     if (key.startsWith("fac:") && (value === "yes" || value === "no")) {
       const v = ((c.fac ??= {})[key.slice(4)] ??= { yes: 0, no: 0 });
       v[value] += n;
+    } else if (key === "lang") {
+      (c.lang ??= {})[value] = (c.lang[value] ?? 0) + n;
     } else if (key === "visit") {
       const v = (c.visits ??= { count: 0, again: 0, good_for: {} });
       v.count += n;

@@ -1,7 +1,8 @@
 // Counts what parents sent, so place pages can show it without anyone copying numbers by hand.
 // Taps (chip votes, "We went") live in Cloudflare D1 behind /api/taps; older ones and all tips are
 // issues in INBOX_REPO. Both are summed into data/inbox-tallies.json (not committed):
-//   { "<item id>": { fac: { changing_table: { yes, no } }, visits: { count, again, good_for }, tips: [{ topic, text }] } }
+//   { "<item id>": { fac: { changing_table: { yes, no } }, visits: { count, again, good_for }, tips: [{ topic, text }],
+//                    lang: { none, en, de } } }
 // - "answer" issues about a facility count as yes/no votes ("not sure" is ignored).
 // - "visit" issues count as "We went" taps.
 // - "tip" issues show only once a moderator adds the `approved` label, so nothing goes public unreviewed.
@@ -39,6 +40,9 @@ export function tally(issues) {
       const fac = (of(d.item).fac ??= {});
       const v = (fac[d.feature] ??= { yes: 0, no: 0 });
       v[d.answer]++;
+    } else if (d.kind === "answer" && d.gap === "lang" && ["none", "en", "de"].includes(d.answer)) {
+      const v = (of(d.item).lang ??= {});
+      v[d.answer] = (v[d.answer] ?? 0) + 1;
     } else if (d.kind === "visit") {
       const v = (of(d.item).visits ??= { count: 0, again: 0, good_for: {} });
       v.count++;
@@ -59,6 +63,7 @@ export function addCounts(all, counts) {
       const x = ((t.fac ??= {})[f] ??= { yes: 0, no: 0 });
       x.yes += v.yes; x.no += v.no;
     }
+    for (const [k, n] of Object.entries(c.lang ?? {})) (t.lang ??= {})[k] = (t.lang[k] ?? 0) + n;
     if (c.visits) {
       const x = (t.visits ??= { count: 0, again: 0, good_for: {} });
       x.count += c.visits.count; x.again += c.visits.again;

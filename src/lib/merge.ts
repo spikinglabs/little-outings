@@ -1,7 +1,7 @@
 // Turns the raw collections into normalized places and events.
 // Merge order for an event: imported < answers < overrides (human fixes always win).
 // Pure functions without Astro imports, so `node --test` can run them directly.
-import type { Event, Geo, Place, Tally } from "./types.ts";
+import type { Event, Geo, Language, Place, Tally } from "./types.ts";
 
 type Raw = Record<string, any>;
 export type Town = { name: string; lat: number; lon: number };
@@ -84,11 +84,39 @@ export function normalizeEvent(
     ages: raw.ages ?? place?.ages,
     indoor: raw.indoor ?? place?.indoor,
     tags: raw.tags ?? [],
+    language: raw.language,
+    // The importer guesses from the title; a hand-written event or an override is an editor's word.
+    languageFrom: raw.language ? (layers.override?.language || base.origin !== "cityklub" ? "editor" : "guess") : undefined,
     note: raw.note,
     trust: raw.trust ?? { level: "community" },
     website: raw.website ?? raw.source_url ?? place?.website,
     origin: raw.origin === "cityklub" ? { name: raw.attribution ?? "cityklub", url: raw.source_url } : undefined,
   };
+}
+
+/**
+ * Adds cached machine translations (data/translations/zh.json): a Chinese title for events whose
+ * title is still plain German, a Chinese name for places. A translation written by hand wins.
+ */
+export function applyTranslations<T extends Event | Place>(item: T, zh: Record<string, string>): T {
+  if (item.type === "place") return zh[item.name] ? { ...item, names: { ...item.names, zh: zh[item.name] } } : item;
+  const ev = item as Event;
+  if (typeof ev.title !== "string" || !zh[ev.title]) return item;
+  return { ...ev, title: { de: ev.title, zh: zh[ev.title] }, machine: ["zh"] } as T;
+}
+
+/**
+ * Parents' answers to "How much German do you need?" replace the title guess once one answer leads.
+ * A tie keeps the guess; an editor's answer is never overruled, only shown with the votes.
+ */
+export function applyEventTally(e: Event, t: Tally | undefined): Event {
+  const votes = t?.lang;
+  if (!votes || !Object.values(votes).some((n) => n! > 0)) return e;
+  const out = { ...e, languageVotes: votes };
+  if (e.languageFrom === "editor") return out;
+  const [top, second] = (Object.entries(votes) as [Language, number][]).sort((a, b) => b[1] - a[1]);
+  if (!second || top[1] > second[1]) Object.assign(out, { language: top[0], languageFrom: "parents" });
+  return out;
 }
 
 /** Shift every date by `days`. Used only by the demo so its fictional events stay in the future. */
