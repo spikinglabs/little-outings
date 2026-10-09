@@ -14,12 +14,16 @@ const write = (k: string, v: string) => { try { localStorage.setItem(k, v); sche
 
 /* ---------- saved list (stays on this device) ---------- */
 export const saved = new Set<string>(JSON.parse(read("lo-saved") || "[]"));
-export function renderSaved() {
-  document.querySelectorAll<HTMLButtonElement>("[data-save]").forEach((b) => {
+/** Sets the save buttons under root to this device's list (cards moved into the page need it too). */
+export function markSaved(root: ParentNode = document) {
+  root.querySelectorAll<HTMLButtonElement>("[data-save]").forEach((b) => {
     const on = saved.has(b.dataset.save!);
     b.setAttribute("aria-pressed", String(on));
     b.setAttribute("aria-label", on ? ui.saved : ui.save);
   });
+}
+export function renderSaved() {
+  markSaved();
   document.querySelectorAll<HTMLElement>("[data-saved-count]").forEach((el) => {
     el.textContent = String(saved.size);
     el.hidden = saved.size === 0;

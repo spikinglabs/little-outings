@@ -1,5 +1,5 @@
 ---
-// The saved list lives in this browser only. Every card is rendered hidden; the script shows the saved ones.
+// The saved list lives in this browser only. Every card waits in a <template>; the script moves in the saved ones.
 import Base from "../../layouts/Base.astro";
 import Card from "../../components/Card.astro";
 import { LANGS, useT, type Lang } from "../../lib/i18n";
@@ -24,29 +24,40 @@ const { events, places } = await getData();
   </div>
   <section class="section" data-saved-section>
     <div class="section-head"><h2>{t("events")}</h2></div>
-    <div class="grid">{events.map((e) => <Card item={e} t={t} hidden />)}</div>
+    <div class="grid"></div>
+    <template>{events.map((e) => <Card item={e} t={t} hidden />)}</template>
   </section>
   <section class="section" data-saved-section>
     <div class="section-head"><h2>{t("places")}</h2></div>
-    <div class="grid">{places.map((p) => <Card item={p} t={t} hidden />)}</div>
+    <div class="grid"></div>
+    <template>{places.map((p) => <Card item={p} t={t} hidden />)}</template>
   </section>
   <p class="empty section" data-saved-empty>{t("savedEmpty")}</p>
   <script is:inline type="application/json" id="share-ui" set:html={JSON.stringify({ shared: t.group("share.shared"), copied: t("share.copied"), title: t("savedTitle") })} />
   <script>
-    import { saved, renderSaved } from "../../scripts/app";
+    import { saved, markSaved, renderKm, renderSaved } from "../../scripts/app";
     import { schedulePush } from "../../scripts/sync";
-    function show() {
+    // Thousands of cards in the live page made phones slow, so only the ones on the list are moved in.
+    const pools = [...document.querySelectorAll<HTMLElement>("[data-saved-section]")].map((sec) => ({
+      sec,
+      grid: sec.querySelector<HTMLElement>(".grid")!,
+      cards: [...sec.querySelector("template")!.content.querySelectorAll<HTMLElement>(".item")],
+    }));
+    function place(ids: Set<string>) {
       let total = 0;
-      document.querySelectorAll<HTMLElement>("[data-saved-section]").forEach((sec) => {
-        let n = 0;
-        sec.querySelectorAll<HTMLElement>(".item").forEach((el) => {
-          el.hidden = !saved.has(el.dataset.id!);
-          if (!el.hidden) n++;
-        });
-        sec.hidden = n === 0;
-        total += n;
-      });
-      document.querySelector<HTMLElement>("[data-saved-empty]")!.hidden = total > 0;
+      for (const { sec, grid, cards } of pools) {
+        const on = cards.filter((el) => ids.has(el.dataset.id!));
+        on.forEach((el) => (el.hidden = false));
+        grid.replaceChildren(...on);
+        sec.hidden = on.length === 0;
+        total += on.length;
+      }
+      pools.forEach((p) => markSaved(p.grid));
+      renderKm();
+      return total;
+    }
+    function show() {
+      document.querySelector<HTMLElement>("[data-saved-empty]")!.hidden = place(saved) > 0;
     }
     document.addEventListener("lo:saved", show);
     show();
@@ -55,7 +66,7 @@ const { events, places } = await getData();
     // which is also how a list moves to another phone. Nothing is stored anywhere else.
     type Plural = { one?: string; other: string };
     const sui = JSON.parse(document.getElementById("share-ui")!.textContent!) as { shared: Plural; copied: string; title: string };
-    const known = new Set([...document.querySelectorAll<HTMLElement>(".item")].map((el) => el.dataset.id!));
+    const known = new Set(pools.flatMap((p) => p.cards.map((el) => el.dataset.id!)));
     const incoming = (new URLSearchParams(location.search).get("add") || "").split(",").filter((id) => known.has(id) && !saved.has(id));
     const box = document.querySelector<HTMLElement>("[data-shared]")!;
     if (incoming.length) {
@@ -64,10 +75,7 @@ const { events, places } = await getData();
       box.querySelector("[data-shared-text]")!.textContent = p.replace("{n}", String(n));
       box.hidden = false;
       // Preview what was shared until the reader decides.
-      document.querySelectorAll<HTMLElement>("[data-saved-section]").forEach((sec) => {
-        sec.querySelectorAll<HTMLElement>(".item").forEach((el) => { if (incoming.includes(el.dataset.id!)) el.hidden = false; });
-        if ([...sec.querySelectorAll<HTMLElement>(".item")].some((el) => !el.hidden)) sec.hidden = false;
-      });
+      place(new Set([...saved, ...incoming]));
       document.querySelector<HTMLElement>("[data-saved-empty]")!.hidden = true;
     }
     box.querySelector("[data-shared-add]")!.addEventListener("click", () => {
