@@ -1,0 +1,4 @@
+# Imported places that must not appear on the site, by id (the file name in
+# content/places/imported/ without .yaml), e.g. a closed playground:
+#   - osm-way-123456
+[]

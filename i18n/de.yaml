@@ -28,7 +28,7 @@ indoor: Drinnen, auch bei Regen
 outdoor: Draußen
 free: Kostenlos
 paid: Kostenpflichtig
-trust: { verified: "✓ Geprüft", official: Offizielle Quelle, community: "Von Eltern gemeldet, noch nicht geprüft" }
+trust: { verified: "✓ Geprüft", official: Offizielle Quelle, community: "Von Eltern gemeldet, noch nicht geprüft", from: "Aus {source}, noch nicht geprüft" }
 save: Merken
 saved: Gemerkt
 route: Route planen
@@ -78,6 +78,19 @@ orPaste: oder Link bzw. Text einfügen
 pastePh: Website, Instagram-Post oder WhatsApp-Nachricht
 pasteBtn: Auslesen
 posterNote: Das Foto wird nicht veröffentlicht, nur die Fakten.
+placeTitle: "Kennt ihr einen Ort, der sich immer lohnt?"
+placeSub: "Ein Hof mit Tieren, ein Café, in dem Kinder willkommen sind, ein schöner Spielplatz: Sagt uns Bescheid, wir nehmen ihn nach kurzer Prüfung auf."
+placeBtn: "Ort vorschlagen"
+placeKind: "Was für ein Ort?"
+placeTown: "Stadt"
+placeTownPh: "z. B. Velbert"
+placeName: "Name"
+placeStreet: "Straße und Hausnummer (falls bekannt)"
+placeFeatures: "Was gibt es für Familien?"
+placeNote: "Was macht ihn gut für Kinder?"
+placeNotePh: "z. B. großer Sandkasten, Ziegen zum Füttern, Spielecke bei den Tischen"
+placeWebsite: "Website (optional)"
+placeThanks: "Danke! Wir prüfen den Ort kurz und nehmen ihn dann auf."
 tasksTitle: "Schon gehört, aber noch nicht alles bekannt"
 tasksSub: "Von diesen Ausflügen haben wir gehört, aber noch nicht alles erfahren, zum Beispiel den genauen Ort, die Uhrzeit oder den Preis. Schaut rein, vielleicht ist etwas Schönes dabei. Und wenn ihr mehr wisst, hilft eine Antwort allen Familien."
 tasksSearch: "Schon gehört, aber noch nicht alles bekannt"
@@ -88,7 +101,7 @@ tasksAllTowns: "Alle Orte"
 tasksLater: "Später"
 tasksCount: { one: "{n} Ausflug", other: "{n} Ausflüge" }
 tasksNone: "Nichts gefunden. Versucht ein anderes Wort oder zeigt alles an."
-kinds: { farm: Bauernhof, cafe: Café, playground: Spielplatz, park: "Park & Wald", museum: Museum, pool: Schwimmbad }
+kinds: { farm: Bauernhof, cafe: Café, playground: Spielplatz, park: "Park & Wald", museum: Museum, pool: Schwimmbad, zoo: "Zoo & Tierpark" }
 features: { playground: Spielplatz, changing_table: Wickeltisch, highchairs: Hochstühle, kids_menu: Kinderkarte, toys: "Spielzeug & Mitgebsel", animals: Tiere, stroller_friendly: Kinderwagen-tauglich, nursing_room: Stillecke, indoor_play: Spielecke drinnen, toilets: Toiletten, farm_shop: Hofladen, parking: Parkplatz }
 tags: { fest: Fest, animals: Tiere, market: Markt, diy: Mitmachen, season: Saison, reading: Vorlesen, music: Musik, outside: Draußen }
 empty: Hier ist noch nichts eingetragen. Kennt ihr etwas? Unter „Mitmachen“ könnt ihr es melden.

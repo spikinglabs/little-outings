@@ -3,7 +3,7 @@
 import Stamp from "./Stamp.astro";
 import { tr, type T } from "../lib/i18n";
 import { ageText, dateRange, isFarm, isFree, pathFor, townName } from "../lib/format";
-import { FEATURE_ICON, ROW, svg, UI_ICON } from "../lib/icons";
+import { icon, ROW } from "../lib/icons";
 import { getData } from "../lib/data";
 import type { Item } from "../lib/types";
 
@@ -56,7 +56,7 @@ const search = [
         {ROW.map((f) => {
           const on = facilities[f]?.status === "yes";
           const label = `${t(`features.${f}`)}${on ? "" : ": ?"}`;
-          return <span class:list={["fi", { on }]} title={label} aria-label={label} set:html={svg(FEATURE_ICON[f])} />;
+          return <span class:list={["fi", { on }]} title={label} aria-label={label} set:html={icon("f", f)} />;
         })}
       </div>
     )}
@@ -71,8 +71,9 @@ const search = [
       {soon > 0 ? <b>{t("soonAt", { n: soon })}</b>
         : item.trust.level === "verified" ? <><b>{t("trust.verified")}</b>{item.trust.source && ` · ${tr(item.trust.source, lang)}`}</>
         : item.trust.level === "official" ? <>{t("trust.official")}{item.trust.source && ` · ${tr(item.trust.source, lang)}`}</>
+        : item.trust.source ? t("trust.from", { source: tr(item.trust.source, lang) })
         : t("trust.community")}
     </div>
   </div>
-  <button class="save" type="button" data-save={item.id} aria-pressed="false" aria-label={t("save")} set:html={svg(UI_ICON.saved, 'stroke-width="2"')} />
+  <button class="save" type="button" data-save={item.id} aria-pressed="false" aria-label={t("save")} set:html={icon("u", "saved")} />
 </article>

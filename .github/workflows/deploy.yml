@@ -39,6 +39,8 @@ jobs:
         env:
           CITYKLUB_EXPORT: ${{ vars.CITYKLUB_EXPORT }}
         run: npm run import:cityklub
+      - name: Import places (OpenStreetMap, farms)
+        run: npm run import:places
       - run: npm run build
         env:
           SITE_URL: ${{ vars.SITE_URL }}

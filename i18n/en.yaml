@@ -28,7 +28,7 @@ indoor: Indoors, fine when it rains
 outdoor: Outdoors
 free: Free
 paid: Paid entry
-trust: { verified: "✓ Checked", official: Official source, community: "Reported by parents, not checked yet" }
+trust: { verified: "✓ Checked", official: Official source, community: "Reported by parents, not checked yet", from: "From {source}, not checked yet" }
 save: Save
 saved: Saved
 route: Get directions
@@ -78,6 +78,19 @@ orPaste: or paste a link or text
 pastePh: Website, Instagram post or WhatsApp message
 pasteBtn: Read it
 posterNote: The photo is never published, only the facts.
+placeTitle: "Know a place that's always worth a visit?"
+placeSub: "A farm with animals, a café where kids are welcome, a good playground: tell us, and we'll add it after a quick check."
+placeBtn: "Suggest a place"
+placeKind: "What kind of place?"
+placeTown: "Town"
+placeTownPh: "e.g. Velbert"
+placeName: "Name"
+placeStreet: "Street and number (if you know it)"
+placeFeatures: "What's there for families?"
+placeNote: "What makes it good for kids?"
+placeNotePh: "e.g. big sandpit, goats to feed, play corner by the tables"
+placeWebsite: "Website (optional)"
+placeThanks: "Thank you! We'll check the place briefly and then add it."
 tasksTitle: "Heard about, not all details yet"
 tasksSub: "We've heard about these outings but don't know everything yet, like the exact place, time or price. Have a look, you might find something fun. And if you know more, one answer helps every family."
 tasksSearch: "Heard about, not all details yet"
@@ -88,7 +101,7 @@ tasksAllTowns: "All towns"
 tasksLater: "Later"
 tasksCount: { one: "{n} outing", other: "{n} outings" }
 tasksNone: "Nothing matches. Try another word or show everything."
-kinds: { farm: Farm, cafe: Café, playground: Playground, park: "Park & woods", museum: Museum, pool: Swimming pool }
+kinds: { farm: Farm, cafe: Café, playground: Playground, park: "Park & woods", museum: Museum, pool: Swimming pool, zoo: "Zoo & wildlife park" }
 features: { playground: Playground, changing_table: Changing table, highchairs: High chairs, kids_menu: "Kids' menu", toys: "Toys & little gifts", animals: Animals, stroller_friendly: Pram-friendly, nursing_room: Nursing corner, indoor_play: Indoor play area, toilets: Toilets, farm_shop: Farm shop, parking: Parking }
 tags: { fest: Festival, animals: Animals, market: Market, diy: Hands-on, season: Seasonal, reading: Story time, music: Music, outside: Outdoors }
 empty: Nothing listed here yet. Know something? Add it under Contribute.

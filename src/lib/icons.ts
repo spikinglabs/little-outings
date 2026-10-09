@@ -6,6 +6,7 @@ export const KIND_ICON: Record<string, string> = {
   museum: '<path d="M3 9 12 4l9 5"/><path d="M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20h18"/>',
   pool: '<path d="M3 17c2 0 2-1.5 4.5-1.5S10 17 12 17s2.5-1.5 4.5-1.5S19 17 21 17"/><path d="M3 21c2 0 2-1.5 4.5-1.5S10 21 12 21s2.5-1.5 4.5-1.5S19 21 21 21"/><path d="M8 14V5a2 2 0 0 1 4 0M16 14V5"/>',
   park: '<path d="M12 3 6 13h4l-3 5h10l-3-5h4z"/><path d="M12 18v3"/>',
+  zoo: '<path d="M7 20V9a5 5 0 0 1 10 0v11"/><path d="M4 20h16"/><path d="M10 9v11M14 9v11"/>',
 };
 
 export const FEATURE_ICON: Record<string, string> = {
@@ -38,3 +39,14 @@ export const UI_ICON: Record<string, string> = {
 
 export const svg = (body: string, extra = "") =>
   `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ${extra}>${body}</svg>`;
+
+// Cards repeat the same icons thousands of times, so they reference one hidden sprite
+// (rendered once by Base.astro) instead of inlining every path.
+const SETS: Record<string, Record<string, string>> = { k: KIND_ICON, f: FEATURE_ICON, u: UI_ICON };
+export const sprite = () =>
+  `<svg width="0" height="0" style="position:absolute" aria-hidden="true">${Object.entries(SETS)
+    .flatMap(([p, set]) => Object.entries(set).map(([k, body]) => `<symbol id="${p}-${k}">${body}</symbol>`))
+    .join("")}</svg>`;
+/** An icon from the sprite: set "k" (kinds), "f" (features) or "u" (UI). */
+/** Styled by the .ic rule in global.css, so each copy stays short. */
+export const icon = (set: "k" | "f" | "u", key: string) => `<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#${set}-${key}"/></svg>`;

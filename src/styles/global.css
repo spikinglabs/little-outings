@@ -92,7 +92,7 @@ h1, h2, h3 { font-family: var(--display); text-wrap: balance; letter-spacing: -0
 .trust b { color: var(--ink); font-weight: 700; }
 .save { position: relative; z-index: 1; flex: none; border: 0; background: none; cursor: pointer; padding: 4px; color: var(--ink-soft); border-radius: 8px; }
 .save[aria-pressed="true"] { color: var(--rot); }
-.save[aria-pressed="true"] path { fill: currentColor; }
+.save[aria-pressed="true"] svg { fill: currentColor; }
 .save svg { width: 22px; height: 22px; display: block; }
 .frow { display: flex; flex-wrap: wrap; gap: 3px; margin-top: 8px; }
 .fi { width: 26px; height: 26px; border-radius: 7px; display: grid; place-items: center; color: var(--line); border: 1px dashed var(--line); }
@@ -207,5 +207,12 @@ footer.foot { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--l
   .explore-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; }
 }
 .chip svg { width: 16px; height: 16px; }
+.feature-picks { border: 0; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.feature-picks legend { font-weight: 700; font-size: .92rem; margin-bottom: 6px; }
+.form .feature-picks label.pick { display: inline-flex; gap: 6px; align-items: center; font-weight: 400; border: 1px solid var(--line); border-radius: 999px; padding: 4px 10px; cursor: pointer; }
+.form .feature-picks input { width: auto; }
+.form select { border: 1px solid var(--line); background: var(--paper); border-radius: 10px; padding: 10px 12px; font-weight: 400; min-width: 0; width: 100%; }
 .task-tools { display: grid; gap: 10px; margin-top: 12px; }
 .task-tools .filters { margin: 0; }
+.ic { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.save .ic { stroke-width: 2; }

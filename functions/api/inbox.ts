@@ -1,5 +1,5 @@
 // Cloudflare Pages Function: POST /api/inbox
-// The only write path of the site. Each contribution (a new event draft or a gap answer)
+// The only write path of the site. Each contribution (a new event draft, a suggested place or a gap answer)
 // becomes an issue in a private GitHub repo. A GitHub Action there groups answers and opens
 // a pull request on the site repo once two parents agree or a moderator adds `approved`.
 //
@@ -48,6 +48,15 @@ export async function onRequestPost({ request, env }: Ctx) {
     label = "new-event";
     yaml = [`kind: event`, ...["title", "date", "time", "place", "price", "note"].map((k) => `${k}: ${yamlStr(d[k], k === "note" ? 2000 : 300)}`),
       `lang: ${yamlStr(body.lang, 5)}`].join("\n");
+  } else if (body.kind === "place" && body.place && typeof body.place === "object") {
+    const p = body.place;
+    if (!p.name || !p.kind || !p.town) return json(400, { error: "name, kind and town are required" });
+    const features = (Array.isArray(p.features) ? p.features : []).slice(0, 20).map((f: unknown) => clip(f, 40)).filter((f: string) => /^[a-z_]+$/.test(f));
+    title = `place ${clip(p.kind, 20)} ${clip(p.name, 80)}`;
+    label = "new-place";
+    yaml = [`kind: place`, ...["type", "name", "town", "street", "website", "note"].map((k) =>
+      `${k}: ${yamlStr(k === "type" ? p.kind : p[k], k === "note" ? 2000 : 300)}`),
+      `features: [${features.map((f: string) => JSON.stringify(f)).join(", ")}]`, `lang: ${yamlStr(body.lang, 5)}`].join("\n");
   } else {
     return json(400, { error: "unknown contribution" });
   }

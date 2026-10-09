@@ -10,6 +10,8 @@
     "demo": "DEMO=1 astro dev",
     "build:demo": "DEMO=1 astro build",
     "import:cityklub": "node scripts/import-cityklub.mjs",
+    "import:places": "node scripts/import-places.mjs",
+    "fetch:osm": "node scripts/fetch-osm-places.mjs",
     "test": "node --test tests/*.test.mjs tests/*.test.ts"
   },
   "author": "",
