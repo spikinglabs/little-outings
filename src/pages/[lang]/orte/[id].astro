@@ -8,8 +8,9 @@ import VisitBox from "../../../components/VisitBox.astro";
 import AskSheet from "../../../components/AskSheet.astro";
 import { LANGS, isFallback, tr, useT, type Lang } from "../../../lib/i18n";
 import { eventsAt, getData } from "../../../lib/data";
-import { ageText, germanName, nameOf, parentInput, routeUrl, townName } from "../../../lib/format";
+import { ageText, germanName, nameOf, parentInput, townName } from "../../../lib/format";
 import { FEATURES } from "../../../content.config";
+import { mapLink } from "../../../lib/maps";
 import { FEATURE_ICON, UI_ICON, svg } from "../../../lib/icons";
 import type { Place } from "../../../lib/types";
 
@@ -32,6 +33,7 @@ const goodFor = Object.entries(p.visits?.good_for ?? {}).filter(([, n]) => (n ??
 const facs = FEATURES.map((f) => ({ f, ...(p.facilities[f] ?? { status: "unknown" as const, confirmed: 0 }) }))
   .filter((x) => x.status !== "unknown" || ["playground", "changing_table", "highchairs", "kids_menu", "toys", "animals", "stroller_friendly"].includes(x.f))
   .sort((a, b) => order[a.status] - order[b.status]);
+const map = mapLink(p);
 ---
 <Base lang={lang} title={nameOf(p, lang)} description={[t(`kinds.${p.kind}`), town].join(" · ")}>
   <article class="detail" data-lat={p.geo.lat} data-lon={p.geo.lon} data-precision={p.geo.precision}>
@@ -99,9 +101,7 @@ const facs = FEATURES.map((f) => ({ f, ...(p.facilities[f] ?? { status: "unknown
     )}
 
     <div class="actions">
-      {p.geo.lat != null && p.geo.lon != null && (
-        <a class="btn primary" href={routeUrl(p.geo.lat, p.geo.lon)} target="_blank" rel="noopener">{p.geo.precision === "area" ? t("routeTown") : t("route")}</a>
-      )}
+      {map && <a class="btn primary" href={map.href} target="_blank" rel="noopener">{map.search ? t("mapSearch") : t("route")}</a>}
       <button class="btn" type="button" data-save={p.id} aria-pressed="false"><Fragment set:html={svg(UI_ICON.saved, 'stroke-width="2" width="18" height="18"')} />{t("save")}</button>
       {p.website && !p.website.startsWith("https://www.openstreetmap.org/") && <a class="btn" href={p.website} target="_blank" rel="noopener">{t("website")} ↗</a>}
     </div>

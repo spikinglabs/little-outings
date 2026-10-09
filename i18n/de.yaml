@@ -39,7 +39,7 @@ trust: { parents: { one: "1 Antwort von Eltern", other: "{n} Antworten von Elter
 save: Merken
 saved: Gemerkt
 route: Route planen
-routeTown: Route ins Ortszentrum
+mapSearch: Auf der Karte suchen
 until: bis
 locPill: { venue: Ort ungefähr, area: Nur Stadt bekannt }
 locNote: { venue: "Der Ort ist nur ungefähr auf der Karte.", area: "Wir wissen nur: irgendwo in {town}.", unknown: "Der Ort fehlt noch." }
