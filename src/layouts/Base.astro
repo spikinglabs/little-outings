@@ -25,7 +25,7 @@ const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
 // Strings the browser scripts need, in this language.
 const ui = {
   km: t("km"), approxKm: t("approxKm"), nearby: t("nearby"), save: t("save"), saved: t("saved"),
-  answered: t("answered"), hintIos: t("install.hintIos"), installMenu: t("install.menu"), inboxSoon: t("inboxSoon"), reported: t("report.thanks"), visited: t("visit.thanks"), tipThanks: t("visit.tipThanks"), wentBefore: t("visit.before"),
+  answered: t("answered"), hintIos: t("install.hintIos"), installMenu: t("install.menu"), installed: t("install.installed"), inboxSoon: t("inboxSoon"), reported: t("report.thanks"), visited: t("visit.thanks"), tipThanks: t("visit.tipThanks"), wentBefore: t("visit.before"),
   askNext: t("chipAsk.next"), askThanks: t("chipAsk.thanks"), askYou: t("chipAsk.you"), askVotes: t("chipAsk.votes"), langThanks: t("speechAsk.thanks"), yes: t("yes"), no: t("no"), unsure: t("dunno"),
 };
 ---
@@ -42,6 +42,10 @@ const ui = {
     {LANGS.map((l) => <link rel="alternate" hreflang={l} href={`${site}/${l}/${rest}`} />)}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="manifest" href={`/${lang}/manifest.webmanifest`} />
+    <script is:inline>
+      // Catch Chrome's install offer as early as possible; the page script may load after it fires.
+      addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); window.__loInstall = e; dispatchEvent(new Event("lo:installable")); });
+    </script>
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content={t("siteName")} />
     <meta name="mobile-web-app-capable" content="yes" />
