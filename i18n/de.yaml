@@ -9,7 +9,7 @@ ask: "Was machen wir <em>{when}</em> mit den Kindern?"
 near: Rund um
 search: Suche
 searchPh: Hof, Café, Spielplatz oder Fest suchen
-filters: { farm: "🚜 Bauernhof", rain: "☂ Bei Regen", free: Kostenlos, animals: Mit Tieren, changing: Wickeltisch, age: Alter, ageAll: alle, radius: Umkreis }
+filters: { farm: "🚜 Bauernhof", rain: "☂ Bei Regen", free: Kostenlos, animals: Mit Tieren, changing: Wickeltisch, nogerman: Ohne Deutsch, age: Alter, ageAll: alle, radius: Umkreis }
 tip: "Unser Tipp {when}"
 only: "Nur {when}"
 always: Geht immer
@@ -52,6 +52,9 @@ confirmedBy: "{n}× bestätigt"
 upcomingHere: Hier demnächst
 parentsSay: "Eltern sagen · ★ {r} aus {n} Bewertungen"
 onPoster: Auf dem Plakat
+speech: { none: Ohne Deutsch, en: Auf Englisch, de: Viel Deutsch }
+speechLong: { none: "Auch ohne Deutsch: Man macht vor allem mit.", en: Auf Englisch oder zweisprachig., de: "Vor allem auf Deutsch: Zuhören oder Sprechen gehört dazu." }
+machine: maschinell übersetzt
 translated: ""
 gapsTitle: Fehlt noch
 gapsSub: Wisst ihr etwas davon? Eine Antwort reicht.

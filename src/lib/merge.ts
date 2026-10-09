@@ -84,11 +84,23 @@ export function normalizeEvent(
     ages: raw.ages ?? place?.ages,
     indoor: raw.indoor ?? place?.indoor,
     tags: raw.tags ?? [],
+    language: raw.language,
     note: raw.note,
     trust: raw.trust ?? { level: "community" },
     website: raw.website ?? raw.source_url ?? place?.website,
     origin: raw.origin === "cityklub" ? { name: raw.attribution ?? "cityklub", url: raw.source_url } : undefined,
   };
+}
+
+/**
+ * Adds cached machine translations (data/translations/zh.json): a Chinese title for events whose
+ * title is still plain German, a Chinese name for places. A translation written by hand wins.
+ */
+export function applyTranslations<T extends Event | Place>(item: T, zh: Record<string, string>): T {
+  if (item.type === "place") return zh[item.name] ? { ...item, names: { ...item.names, zh: zh[item.name] } } : item;
+  const ev = item as Event;
+  if (typeof ev.title !== "string" || !zh[ev.title]) return item;
+  return { ...ev, title: { de: ev.title, zh: zh[ev.title] }, machine: ["zh"] } as T;
 }
 
 /** Shift every date by `days`. Used only by the demo so its fictional events stay in the future. */

@@ -16,7 +16,7 @@ const count = (p: Plural, n: number, r?: number) =>
 
 // area: the map's bounds [south, west, north, east] once the reader moves the map; it replaces the radius.
 const PAGE = 24; // cards shown at once; OpenStreetMap brings in more than a thousand places
-const state = { limit: PAGE, area: null as number[] | null, view: 0, when: "weekend", q: "", rain: false, farm: false, free: false, animals: false, changing: false, age: "", radius: 30, kind: "", tag: "" };
+const state = { limit: PAGE, area: null as number[] | null, view: 0, when: "weekend", q: "", rain: false, farm: false, free: false, animals: false, changing: false, nogerman: false, age: "", radius: 30, kind: "", tag: "" };
 const $ = <T extends Element = HTMLElement>(s: string) => document.querySelector<T>(s)!;
 const $$ = <T extends Element = HTMLElement>(s: string) => [...document.querySelectorAll<T>(s)];
 const home = $<HTMLSelectElement>("#home");
@@ -83,6 +83,8 @@ function passes({ d, feat }: Row) {
   if (state.free && !d.free) return false;
   if (state.animals && !feat.includes("animals")) return false;
   if (state.changing && !feat.includes("changing_table")) return false;
+  // Places need no German; events only pass when they're held in English or need little talk.
+  if (state.nogerman && d.type === "event" && !feat.includes("nogerman")) return false;
   if (state.age && d.ages) {
     const [lo, hi] = state.age.split("-").map(Number);
     const [a, b] = d.ages.split("-").map(Number);
@@ -170,7 +172,7 @@ document.addEventListener("click", (ev) => {
   if (w) { state.when = w.dataset.when!; apply(); }
   const f = t.closest<HTMLButtonElement>("[data-flag]");
   if (f) {
-    const k = f.dataset.flag as "rain" | "farm" | "free" | "animals" | "changing";
+    const k = f.dataset.flag as "rain" | "farm" | "free" | "animals" | "changing" | "nogerman";
     state[k] = !state[k];
     f.setAttribute("aria-pressed", String(state[k]));
     apply();

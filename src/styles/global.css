@@ -88,6 +88,9 @@ h1, h2, h3 { font-family: var(--display); text-wrap: balance; letter-spacing: -0
 .pill.rain { background: var(--blau-bg); color: var(--blau); font-weight: 700; }
 .pill.free { background: var(--ink); color: var(--paper); font-weight: 700; }
 .pill.loc { background: transparent; border: 1px dashed var(--ink-soft); color: var(--ink-soft); }
+.item .de-name { font-size: .78rem; color: var(--ink-soft); margin-top: 1px; }
+.pill.speech { background: transparent; border: 1px solid var(--blau); color: var(--blau); font-weight: 700; }
+.pill.speech.de { border: 1px dashed var(--ink-soft); color: var(--ink-soft); font-weight: 400; }
 .trust { font-size: .78rem; color: var(--ink-soft); margin-top: 6px; }
 .trust b { color: var(--ink); font-weight: 700; }
 .save { position: relative; z-index: 1; flex: none; border: 0; background: none; cursor: pointer; padding: 4px; color: var(--ink-soft); border-radius: 8px; }

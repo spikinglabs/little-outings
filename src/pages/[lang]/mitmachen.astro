@@ -7,9 +7,9 @@ import Contribute from "../../islands/Contribute";
 import SuggestPlace from "../../islands/SuggestPlace";
 import { FEATURES, KINDS } from "../../content.config";
 import { KIND_ICON, UI_ICON, svg } from "../../lib/icons";
-import { LANGS, tr, useT, type Lang } from "../../lib/i18n";
+import { LANGS, useT, type Lang } from "../../lib/i18n";
 import { getData, getTasks } from "../../lib/data";
-import { pathFor, shortDate, townName } from "../../lib/format";
+import { nameOf, pathFor, shortDate, townName } from "../../lib/format";
 import { fold } from "../../lib/fold";
 
 export const getStaticPaths = () => LANGS.map((lang) => ({ params: { lang } }));
@@ -69,7 +69,7 @@ const placeUi = Object.fromEntries(placeKeys.map((k) => [k, t(k)]));
     <div class="grid" id="tasks" style="margin-top:12px">
       {tasks.map((task) => {
         const item = itemOf(task);
-        const title = item.type === "event" ? tr(item.title, lang) : item.name;
+        const title = nameOf(item, lang);
         const s = item.type === "event" ? shortDate(t, item.start) : null;
         return (
           <div class="task" hidden data-lat={item.geo.lat} data-lon={item.geo.lon} data-precision={item.geo.precision}

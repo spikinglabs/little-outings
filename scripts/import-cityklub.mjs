@@ -11,7 +11,7 @@
 import { readFileSync, readdirSync, writeFileSync, mkdirSync, unlinkSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import { dump, load } from "js-yaml";
-import { tagsOf } from "./event-tags.mjs";
+import { languageOf, tagsOf } from "./event-tags.mjs";
 
 const SOURCE_NAMES = { "cologne-city-events": "Stadt Köln" };
 const FAMILY = new Set(["children_mentioned", "family_mentioned"]);
@@ -60,6 +60,7 @@ export function fromExport(row, { towns, today }) {
     trust: { level: "official", source: attribution },
     tags: tagsOf(row.title, row.venue),
   };
+  out.language = languageOf(row.title, out.tags);
   if (!out.tags.length) delete out.tags;
   for (const k of Object.keys(out)) if (out[k] === undefined) delete out[k];
   return { id: `ck-${slug(row.event_id)}`, data: out };

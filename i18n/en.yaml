@@ -9,7 +9,7 @@ ask: "What shall we do with the kids <em>{when}</em>?"
 near: Around
 search: Search
 searchPh: Search farms, cafés, playgrounds or festivals
-filters: { farm: "🚜 Farm", rain: "☂ Rainy day", free: Free, animals: Animals, changing: Changing table, age: Age, ageAll: all, radius: Within }
+filters: { farm: "🚜 Farm", rain: "☂ Rainy day", free: Free, animals: Animals, changing: Changing table, nogerman: "💬 No German needed", age: Age, ageAll: all, radius: Within }
 tip: "Our pick {when}"
 only: "Only {when}"
 always: Always a good idea
@@ -52,6 +52,9 @@ confirmedBy: "confirmed {n}×"
 upcomingHere: Coming up here
 parentsSay: "Parents say · ★ {r} from {n} reviews"
 onPoster: On the poster
+speech: { none: No German needed, en: In English, de: Mostly German }
+speechLong: { none: "No German needed: it's mostly doing, not talking.", en: In English or bilingual., de: "Mostly in German: listening or talking is a big part." }
+machine: machine-translated
 translated: Translated from German.
 gapsTitle: Still missing
 gapsSub: Know any of this? One answer is enough.

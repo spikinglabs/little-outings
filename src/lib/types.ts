@@ -23,6 +23,8 @@ export interface Place {
   id: string;
   kind: string;
   name: string;
+  /** Machine translations of the name (data/translations/), shown with the German name beneath. */
+  names?: { zh?: string };
   town: string;
   street?: string;
   postcode?: string;
@@ -57,6 +59,10 @@ export interface Event {
   ages?: [number, number];
   indoor?: boolean;
   tags: string[];
+  /** How much German it needs: "none", "en" (held in English) or "de" (mostly German). */
+  language?: "none" | "en" | "de";
+  /** Languages of `title` that are machine translations (data/translations/). */
+  machine?: ("en" | "zh")[];
   note?: Text;
   trust: Trust;
   website?: string;

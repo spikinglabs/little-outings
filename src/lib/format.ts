@@ -1,4 +1,4 @@
-import type { Lang, T } from "./i18n";
+import type { Lang, T, Text } from "./i18n";
 import type { Event, Item } from "./types";
 
 type TownRec = { name: string; zh?: string; en?: string };
@@ -9,6 +9,19 @@ export const townName = (name: string | undefined, lang: Lang, towns: TownRec[])
   const t = towns.find((x) => x.name === name);
   return (lang !== "de" && t?.[lang]) || name;
 };
+
+// Same as tr() in i18n.ts, which can't be imported here: it loads the UI strings through Vite.
+const text = (v: Text, lang: Lang) => (typeof v === "string" ? v : v[lang] || v.de);
+
+/** An event's title or a place's name in the reader's language, machine translations included. */
+export const nameOf = (x: Item, lang: Lang) =>
+  x.type === "event" ? text(x.title, lang) : (lang === "zh" && x.names?.zh) || x.name;
+
+/** The German original when nameOf shows a machine translation, so parents can match signs and posters. */
+export function germanName(x: Item, lang: Lang): string | undefined {
+  if (x.type === "event") return x.machine?.includes(lang as "zh") ? text(x.title, "de") : undefined;
+  return lang === "zh" && x.names?.zh ? x.name : undefined;
+}
 
 const date = (d: string) => new Date(`${d}T12:00:00Z`);
 const fmt = (t: T, d: string, opts: Intl.DateTimeFormatOptions) =>
