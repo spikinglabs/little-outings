@@ -3,6 +3,9 @@ import { load as parseYaml } from "js-yaml";
 export const LANGS = ["de", "en", "zh"] as const;
 export type Lang = (typeof LANGS)[number];
 
+// Little Outings is a Spiking Labs product; footer and data page link to its catalog entry.
+export const MAKER_URL = "https://spikinglabs.com/products/little-outings";
+
 // UI strings live in i18n/<lang>.yaml so translators never touch code.
 const files = import.meta.glob("/i18n/*.yaml", { query: "?raw", import: "default", eager: true }) as Record<string, string>;
 const dicts = Object.fromEntries(

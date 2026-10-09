@@ -1,6 +1,6 @@
 ---
 import "../styles/global.css";
-import { LANGS, useT, type Lang } from "../lib/i18n";
+import { LANGS, MAKER_URL, useT, type Lang } from "../lib/i18n";
 import { UI_ICON, sprite, svg } from "../lib/icons";
 import { getData } from "../lib/data";
 
@@ -77,6 +77,7 @@ const ui = {
       </main>
       <footer class="foot">
         <p>{t("footer")} <a href={`/${lang}/daten`}>{t("about.link")}</a></p>
+        <p class="maker" set:html={t("byLine", { maker: `<a href="${MAKER_URL}" target="_blank" rel="noopener">Spiking Labs</a>` })} />
         <p class="install" data-install hidden>
           <button type="button" class="btn install-btn" data-install-btn hidden>{t("install.button")}</button>
           <span data-install-ios hidden>{t("install.ios")}</span>
