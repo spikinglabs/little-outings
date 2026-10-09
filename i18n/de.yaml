@@ -27,7 +27,7 @@ indoor: Drinnen, auch bei Regen
 outdoor: Draußen
 free: Kostenlos
 paid: Kostenpflichtig
-trust: { verified: "✓ Geprüft", official: Offizielle Quelle, community: "Von Eltern gemeldet, noch nicht geprüft" }
+trust: { verified: "✓ Geprüft", official: Offizielle Quelle, community: "Von Eltern gemeldet, noch nicht geprüft", from: "Aus {source}, noch nicht geprüft" }
 save: Merken
 saved: Gemerkt
 route: Route planen
@@ -93,7 +93,7 @@ placeWebsite: "Website (optional)"
 placeThanks: "Danke! Wir prüfen den Ort kurz und nehmen ihn dann auf."
 tasksTitle: Kleine Aufgaben in eurer Nähe
 tasksSub: Jede dauert eine Minute und macht die Seite für alle Familien besser.
-kinds: { farm: Bauernhof, cafe: Café, playground: Spielplatz, park: "Park & Wald", museum: Museum, pool: Schwimmbad }
+kinds: { farm: Bauernhof, cafe: Café, playground: Spielplatz, park: "Park & Wald", museum: Museum, pool: Schwimmbad, zoo: "Zoo & Tierpark" }
 features: { playground: Spielplatz, changing_table: Wickeltisch, highchairs: Hochstühle, kids_menu: Kinderkarte, toys: "Spielzeug & Mitgebsel", animals: Tiere, stroller_friendly: Kinderwagen-tauglich, nursing_room: Stillecke, indoor_play: Spielecke drinnen, toilets: Toiletten, farm_shop: Hofladen, parking: Parkplatz }
 tags: { fest: Fest, animals: Tiere, market: Markt, diy: Mitmachen, season: Saison, reading: Vorlesen, music: Musik, outside: Draußen }
 empty: Hier ist noch nichts eingetragen. Kennt ihr etwas? Unter „Mitmachen“ könnt ihr es melden.

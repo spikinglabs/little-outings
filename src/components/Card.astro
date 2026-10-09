@@ -71,6 +71,7 @@ const search = [
       {soon > 0 ? <b>{t("soonAt", { n: soon })}</b>
         : item.trust.level === "verified" ? <><b>{t("trust.verified")}</b>{item.trust.source && ` · ${tr(item.trust.source, lang)}`}</>
         : item.trust.level === "official" ? <>{t("trust.official")}{item.trust.source && ` · ${tr(item.trust.source, lang)}`}</>
+        : item.trust.source ? t("trust.from", { source: tr(item.trust.source, lang) })
         : t("trust.community")}
     </div>
   </div>

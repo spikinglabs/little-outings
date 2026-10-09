@@ -3,3 +3,4 @@ dist/
 .astro/
 .env
 admin/public/tokens.css
+content/places/imported/

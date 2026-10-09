@@ -6,7 +6,7 @@ import { z } from "astro/zod";
 const ROOT = process.env.DEMO ? "./examples" : "./content";
 
 export const LANGS = ["de", "en", "zh"] as const;
-export const KINDS = ["farm", "cafe", "playground", "park", "museum", "pool"] as const;
+export const KINDS = ["farm", "cafe", "playground", "park", "museum", "pool", "zoo"] as const;
 export const FEATURES = [
   "playground", "changing_table", "highchairs", "kids_menu", "toys", "animals", "stroller_friendly",
   "nursing_room", "indoor_play", "toilets", "farm_shop", "parking",
