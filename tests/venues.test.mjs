@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { needsVenue, pageText, parseAnswer, update } from "../scripts/find-venues.mjs";
+import { excerpt, needsVenue, pageText, parseAnswer, update } from "../scripts/find-venues.mjs";
 import { fromExport } from "../scripts/import-cityklub.mjs";
 
 const URL1 = "https://www.dueren.de/veranstaltung/into-the-paperverse";
@@ -49,4 +49,11 @@ test("the import fills an empty venue from the cache", () => {
   assert.equal(fromExport(row, { ...ctx, venues }).data.venue, "Papiermuseum Düren, Wallstraße 2-8");
   assert.equal(fromExport({ ...row, venue: "Leopold-Hoesch-Museum" }, { ...ctx, venues }).data.venue, "Leopold-Hoesch-Museum");
   assert.equal(fromExport(row, ctx).data.venue, undefined);
+});
+
+test("a venue far down a long page still reaches the model", () => {
+  const page = "Menü ".repeat(6000) + "Veranstaltungsort\nPapiermuseum Düren\nWallstraße 2-8" + " Fuß".repeat(3000);
+  const x = excerpt(page);
+  assert.ok(x.length < 25000);
+  assert.match(x, /Veranstaltungsort\nPapiermuseum Düren/);
 });

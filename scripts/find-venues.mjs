@@ -16,13 +16,15 @@ import { complete, pickLlm } from "../src/lib/llm.ts";
 export const CACHE = "data/venues.json";
 const PUBLISHED = process.env.OUTINGS_FILE || "data/outings.jsonl";
 const PER_RUN = 150; // pages read per night at most; the rest wait for the next run
-const MAX_TEXT = 12000;
+const MAX_TEXT = 20000; // page text sent to the model; long menus can push the venue past this…
+const PLACE_WORDS = /Veranstaltungsort|Veranstaltungsadresse|Treffpunkt|\bOrt:|Adresse/i; // …so text around these is added
 
 export const PROMPT = `You read the text of one event page from a German city or venue website and find where the event takes place.
 Return only JSON: {"venue": "...", "street": "..."}.
 - venue: the name of the place as written on the page (e.g. "Papiermuseum Düren", "Stadtbibliothek Aachen", "Heumarkt"). Usually under "Veranstaltungsort", "Ort" or "Adresse".
 - street: street and house number if the page gives them (e.g. "Wallstraße 2-8"), otherwise "".
-- Copy the words from the page. Never guess, and never use the organiser's or the website owner's address unless the page says the event happens there.
+- Copy the words from the page. Never guess. The address of a city hall, tourist office or organiser's office is not the venue unless the page says the event happens there.
+- On a venue's own website (a museum, theatre or zoo), an event without another place given takes place at that venue.
 - If the page names no place for this event, return {"venue": null, "street": ""}.`;
 
 /** Events worth a lookup: still upcoming, with a source page, but no venue, street or point. */
@@ -32,7 +34,7 @@ export function needsVenue(row, today) {
     && (row.end_date || row.start_date || "") >= today && (!row.status || row.status === "scheduled");
 }
 
-/** Readable page text without markup, scripts or navigation noise, cut to MAX_TEXT. */
+/** Readable page text without markup, scripts or navigation noise. */
 export function pageText(html) {
   const ent = { amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", nbsp: " " };
   return html
@@ -42,10 +44,18 @@ export function pageText(html) {
     .replace(/&(#x?[0-9a-f]+|\w+);/gi, (m, e) => e[0] === "#"
       ? String.fromCodePoint(parseInt(e[1] === "x" || e[1] === "X" ? e.slice(2) : e.slice(1), e[1] === "x" || e[1] === "X" ? 16 : 10))
       : ent[e.toLowerCase()] ?? m)
-    .replace(/[ \t]+/g, " ").replace(/\s*\n\s*/g, "\n").trim().slice(0, MAX_TEXT);
+    .replace(/[ \t]+/g, " ").replace(/\s*\n\s*/g, "\n").trim();
 }
 
 const squash = (s) => s.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, "");
+
+/** What the model reads: the start of the page, plus the passage naming the place when it comes later. */
+export function excerpt(page) {
+  if (page.length <= MAX_TEXT) return page;
+  const rest = page.slice(MAX_TEXT);
+  const i = rest.search(PLACE_WORDS);
+  return page.slice(0, MAX_TEXT) + (i < 0 ? "" : `\n…\n${rest.slice(Math.max(0, i - 500), i + 2500)}`);
+}
 
 /** The model's answer, kept only when the venue really appears in the page text. */
 export function parseAnswer(text, page) {
@@ -61,8 +71,9 @@ export async function lookup(row, { llm, model, fetch = globalThis.fetch }) {
   const res = await fetch(row.source_url, { headers: { "user-agent": "little-outings venue lookup (+https://outings.allo.land)" }, redirect: "follow" });
   if (!res.ok) throw new Error(`find-venues: HTTP ${res.status} for ${row.source_url}`);
   const page = pageText(await res.text());
-  const ask = `Event: ${row.title}\nTown: ${row.location?.city ?? ""}\n\nPage text:\n${page}`;
-  return parseAnswer(await complete(llm, model, { system: PROMPT, text: ask, maxTokens: 300, json: true }, fetch), page);
+  const ask = `Event: ${row.title}\nTown: ${row.location?.city ?? ""}\n\nPage text:\n${excerpt(page)}`;
+  // Generous limit: Gemini's thinking models count their thinking against it, and a cut-off answer is invalid JSON.
+  return parseAnswer(await complete(llm, model, { system: PROMPT, text: ask, maxTokens: 4000, json: true }, fetch), page);
 }
 
 /** Fill the cache for the rows that need a venue and drop pages no event uses any more. */
