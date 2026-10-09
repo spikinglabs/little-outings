@@ -195,7 +195,8 @@ h1, h2, h3 { font-family: var(--display); text-wrap: balance; letter-spacing: -0
 .pin.approx { outline: 2px dashed #17191b; outline-offset: 3px; }
 
 footer.foot { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--ink-soft); font-size: .82rem; }
-.install { margin-top: 12px; }
+.install { margin-top: 12px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+.install[hidden] { display: none; }
 .install-btn { background: var(--gold); color: var(--gold-ink); border-color: var(--gold-ink); }
 /* phones only: a quiet, dismissible "add to home screen" line */
 .app-hint { display: flex; align-items: center; gap: 8px; margin: 2px 0 10px; padding: 6px 6px 6px 10px; border-radius: 10px; background: var(--tint); color: var(--ink-soft); font-size: .8rem; line-height: 1.35; }

@@ -282,7 +282,7 @@ const standalone = matchMedia("(display-mode: standalone)").matches || (navigato
 const ios = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 const installBox = document.querySelector<HTMLElement>("[data-install]");
 const installBtn = document.querySelector<HTMLButtonElement>("[data-install-btn]");
-let installPrompt: (Event & { prompt(): Promise<{ outcome: string } | void> }) | null = null;
+let installPrompt: (Event & { prompt(): Promise<void>; userChoice: Promise<{ outcome: string }> }) | null = null;
 
 // On phones, a quiet line under the header says the site works as an app. It waits until the
 // second page you open, and once dismissed (or installed) it stays away on this device.
@@ -303,24 +303,29 @@ hint?.querySelector("[data-app-hint-x]")?.addEventListener("click", closeHint);
 
 async function install() {
   if (!installPrompt) return;
-  const choice = await installPrompt.prompt();
+  const ev = installPrompt;
   installPrompt = null;
-  if (installBox) installBox.hidden = true;
+  await ev.prompt();
+  const choice = await ev.userChoice.catch(() => null);
   if (hintGo) hintGo.hidden = true;
-  if (choice && choice.outcome === "accepted") closeHint();
+  if (choice?.outcome === "accepted") { closeHint(); if (installBox) installBox.hidden = true; }
 }
 // Chrome, Edge and Android offer an install prompt we can show from our own buttons.
 window.addEventListener("beforeinstallprompt", (ev) => {
   ev.preventDefault();
   installPrompt = ev as typeof installPrompt;
-  if (installBox && installBtn) installBox.hidden = installBtn.hidden = false;
   if (hintGo) hintGo.hidden = false;
 });
-installBtn?.addEventListener("click", install);
 hintGo?.addEventListener("click", install);
+// The footer button is always there outside the installed app, even after the hint was dismissed.
+// Where the browser has no install prompt (Safari, Firefox, or a prompt already used), it says how instead.
+const installHow = document.querySelector<HTMLElement>("[data-install-how]");
+if (!standalone && installBox) installBox.hidden = false;
+installBtn?.addEventListener("click", () => {
+  if (installPrompt) return void install();
+  if (installHow) {
+    installHow.textContent = ios ? ui.hintIos : ui.installMenu;
+    installHow.hidden = false;
+  }
+});
 window.addEventListener("appinstalled", () => { if (installBox) installBox.hidden = true; closeHint(); });
-// iPhone and iPad Safari have no prompt: say where the button is.
-if (!standalone && ios && installBox) {
-  installBox.hidden = false;
-  installBox.querySelector<HTMLElement>("[data-install-ios]")!.hidden = false;
-}
