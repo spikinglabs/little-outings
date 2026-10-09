@@ -219,10 +219,18 @@ profile:
     home: "所在城市：{town}"
   passkeyTitle: 用通行密钥保存
   passkeySub: "开启通行密钥后，我们会保存一份你的资料副本。换手机也不会丢，在你的其他设备上也能看到。不需要邮箱和密码：手机用面容、指纹或锁屏密码解锁。"
-  passkeyOn: 开启通行密钥同步
-  passkeyLogin: 我已经有通行密钥
+  passkeyOn: 用通行密钥同步
+  passkeyAsk: "你以前在这部或另一部手机上创建过小出游的通行密钥吗？"
+  passkeyAskYes: "有，用它登录"
+  passkeyAskNo: "没有，新建一个"
+  passkeyOther: 用另一个通行密钥登录
+  passkeyOtherSub: "不小心建了第二个通行密钥？用另一个登录即可：它的副本会与这部手机上的内容合并，这里的内容不会丢失。"
   passkeySynced: "已通过通行密钥同步。"
-  passkeyLast: "上次保存：{when}。"
+  passkeyLast: "上次同步：{when}。"
+  passkeyPending: "有更改等待同步。"
+  passkeyNow: 立即同步
+  passkeyNowBusy: "正在同步…"
+  passkeyNowFailed: "暂时无法连接。你的更改安全地保存在这部手机上，下次会自动同步。"
   passkeyOff: 在这部手机上停止同步
   passkeyNone: "这个浏览器不支持通行密钥。下载数据仍然可以用。"
   passkeySoon: "通行密钥同步尚未开启。下载数据已经可以用。"

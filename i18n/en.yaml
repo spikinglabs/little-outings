@@ -219,10 +219,18 @@ profile:
     home: "Home town: {town}"
   passkeyTitle: Keep it safe with a passkey
   passkeySub: "A passkey keeps a copy of your profile with us, so it survives a new phone and shows up on your other devices. No email, no password: your phone unlocks it with your face, fingerprint or screen lock."
-  passkeyOn: Turn on passkey sync
-  passkeyLogin: I already have a passkey
+  passkeyOn: Sync with a passkey
+  passkeyAsk: "Have you made a Little Outings passkey before, on this or another phone?"
+  passkeyAskYes: "Yes, sign in with it"
+  passkeyAskNo: "No, make a new one"
+  passkeyOther: Sign in with another passkey
+  passkeyOtherSub: "Made a second passkey by mistake? Sign in with the other one: its copy joins what's on this phone, and nothing here is lost."
   passkeySynced: "Synced with your passkey."
-  passkeyLast: "Last saved {when}."
+  passkeyLast: "Last synced {when}."
+  passkeyPending: "Changes waiting to sync."
+  passkeyNow: Sync now
+  passkeyNowBusy: "Syncing…"
+  passkeyNowFailed: "Couldn't reach us just now. Your changes are safe on this phone and will sync next time."
   passkeyOff: Stop syncing on this phone
   passkeyNone: "This browser can't use passkeys. Downloading your data still works."
   passkeySoon: "Passkey sync isn't switched on yet. Downloading your data works."

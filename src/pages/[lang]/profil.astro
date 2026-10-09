@@ -32,12 +32,24 @@ const ui = { ...t.group("profile"), count: t.group("profile.count") };
     <h2>{p("passkeyTitle")}</h2>
     <p class="small">{p("passkeySub")}</p>
     <div class="profile-actions" data-passkey-off>
-      <button class="btn primary" type="button" data-passkey-on>{p("passkeyOn")}</button>
-      <button class="btn" type="button" data-passkey-login>{p("passkeyLogin")}</button>
+      <button class="btn primary" type="button" data-passkey-start>{p("passkeyOn")}</button>
+    </div>
+    <!-- Asked first, so a parent who already has a passkey signs in instead of making a second, empty one. -->
+    <div class="profile-ask" data-passkey-ask hidden>
+      <p class="done">{p("passkeyAsk")}</p>
+      <div class="profile-actions">
+        <button class="btn primary" type="button" data-passkey-login>{p("passkeyAskYes")}</button>
+        <button class="btn" type="button" data-passkey-on>{p("passkeyAskNo")}</button>
+      </div>
     </div>
     <div data-passkey-synced hidden>
       <p class="done">{p("passkeySynced")} <span class="small" data-passkey-last></span></p>
-      <button class="btn" type="button" data-passkey-signout>{p("passkeyOff")}</button>
+      <div class="profile-actions">
+        <button class="btn primary" type="button" data-passkey-now>{p("passkeyNow")}</button>
+        <button class="btn" type="button" data-passkey-login>{p("passkeyOther")}</button>
+        <button class="btn" type="button" data-passkey-signout>{p("passkeyOff")}</button>
+      </div>
+      <p class="small">{p("passkeyOtherSub")}</p>
     </div>
     <p class="small" role="status" data-passkey-note hidden></p>
   </section>
@@ -74,7 +86,7 @@ const ui = { ...t.group("profile"), count: t.group("profile.count") };
     import { startAuthentication, startRegistration, browserSupportsWebAuthn } from "@simplewebauthn/browser";
     import { renderSVG } from "uqr";
     import { clean, forget, packForMove, readProfile, unpackMove, type Profile } from "../../lib/profile";
-    import { adopt, getSync, push, setSync } from "../../scripts/sync";
+    import { adopt, getSync, lastSynced, push, setSync, syncNow } from "../../scripts/sync";
 
     type Plural = Record<string, string>;
     const ui = JSON.parse(document.getElementById("profile-ui")!.textContent!) as Record<string, string> & { count: Record<string, Plural | string> };
@@ -107,17 +119,38 @@ const ui = { ...t.group("profile"), count: t.group("profile.count") };
     function renderSync() {
       const s = getSync();
       $("[data-passkey-off]").hidden = !!s;
+      $("[data-passkey-ask]").hidden = true;
       $("[data-passkey-synced]").hidden = !s;
-      const when = s?.pushed ?? s?.pulled;
-      $("[data-passkey-last]").textContent = when
+      const when = lastSynced(s);
+      $("[data-passkey-last]").textContent = s?.dirty ? ui.passkeyPending : when
         ? ui.passkeyLast.replace("{when}", new Intl.DateTimeFormat(lang, { dateStyle: "medium", timeStyle: "short" }).format(when)) : "";
     }
     document.addEventListener("lo:sync", renderSync);
     renderSync();
+
+    // Opening this page syncs right away; the button does it again on demand.
+    const now = $<HTMLButtonElement>("[data-passkey-now]");
+    async function runSync(byHand: boolean) {
+      if (!getSync() || now.disabled) return;
+      now.disabled = true;
+      now.textContent = ui.passkeyNowBusy;
+      const ok = await syncNow();
+      now.disabled = false;
+      now.textContent = ui.passkeyNow;
+      if (byHand || !ok) note(ok ? "" : getSync() ? ui.passkeyNowFailed : "");
+    }
+    now.addEventListener("click", () => runSync(true));
+    runSync(false);
     if (!browserSupportsWebAuthn()) { $("[data-passkey-off]").hidden = true; note(ui.passkeyNone); }
 
     const post = (path: string, body: unknown = {}) =>
       fetch(`/api/profile/${path}`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
+
+    $("[data-passkey-start]").addEventListener("click", () => {
+      note("");
+      $("[data-passkey-off]").hidden = true;
+      $("[data-passkey-ask]").hidden = false;
+    });
 
     $("[data-passkey-on]").addEventListener("click", async () => {
       note("");
@@ -136,7 +169,9 @@ const ui = { ...t.group("profile"), count: t.group("profile.count") };
       }
     });
 
-    $("[data-passkey-login]").addEventListener("click", async () => {
+    // Signing in merges the passkey's copy into this phone's profile, so it also works while synced
+    // with another passkey: nothing on this phone is dropped.
+    document.querySelectorAll("[data-passkey-login]").forEach((b) => b.addEventListener("click", async () => {
       note("");
       try {
         const start = await post("login-options");
@@ -154,7 +189,7 @@ const ui = { ...t.group("profile"), count: t.group("profile.count") };
       } catch (e) {
         if ((e as Error).name !== "NotAllowedError") note(ui.passkeyFailed);
       }
-    });
+    }));
 
     $("[data-passkey-signout]").addEventListener("click", async () => {
       const s = getSync();

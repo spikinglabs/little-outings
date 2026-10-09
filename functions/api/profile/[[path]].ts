@@ -46,6 +46,9 @@ async function schema(db: D1) {
     db.prepare(`CREATE TABLE IF NOT EXISTS profiles (user TEXT PRIMARY KEY, data TEXT NOT NULL, updated INTEGER NOT NULL)`),
     db.prepare(`CREATE TABLE IF NOT EXISTS profile_keys (id TEXT PRIMARY KEY, user TEXT NOT NULL, public_key TEXT NOT NULL,
       counter INTEGER NOT NULL, transports TEXT, at INTEGER NOT NULL)`),
+    // Earlier copies of each profile, so one overwritten by mistake can be put back.
+    db.prepare(`CREATE TABLE IF NOT EXISTS profile_versions (user TEXT NOT NULL, data TEXT NOT NULL, updated INTEGER NOT NULL)`),
+    db.prepare(`CREATE INDEX IF NOT EXISTS profile_versions_user ON profile_versions (user, updated)`),
     db.prepare(`CREATE TABLE IF NOT EXISTS profile_sessions (token TEXT PRIMARY KEY, user TEXT NOT NULL, at INTEGER NOT NULL)`),
     db.prepare(`CREATE TABLE IF NOT EXISTS profile_challenges (id TEXT PRIMARY KEY, challenge TEXT NOT NULL, kind TEXT NOT NULL,
       user TEXT, ip TEXT NOT NULL, at INTEGER NOT NULL)`),
@@ -73,6 +76,26 @@ function profileText(p: unknown): string | null {
   if (!p || typeof p !== "object" || Array.isArray(p)) return null;
   const s = JSON.stringify(p);
   return s.length <= MAX_PROFILE ? s : null;
+}
+
+/**
+ * Copies of a profile kept per family. One is kept per hour of changes, so a burst of edits doesn't
+ * push the old ones out, and always one before the profile shrinks (something removed or wiped).
+ */
+export const VERSIONS = 20;
+const size = (data: string) => {
+  try { const p = JSON.parse(data); return [p.saved, p.went, p.sent].reduce((n, l) => n + (Array.isArray(l) ? l.length : 0), 0) + Object.keys(p.asked ?? {}).length; } catch { return 0; }
+};
+async function keepVersion(db: D1, user: string, next: string) {
+  const cur = await db.prepare(`SELECT data, updated FROM profiles WHERE user = ?`).bind(user).first<{ data: string; updated: number }>();
+  if (!cur || cur.data === next) return;
+  const last = await db.prepare(`SELECT MAX(updated) AS at FROM profile_versions WHERE user = ?`).bind(user).first<{ at: number | null }>();
+  if (size(next) >= size(cur.data) && last?.at != null && cur.updated - last.at < 3600_000) return;
+  await db.batch([
+    db.prepare(`INSERT INTO profile_versions (user, data, updated) VALUES (?, ?, ?)`).bind(user, cur.data, cur.updated),
+    db.prepare(`DELETE FROM profile_versions WHERE user = ? AND updated NOT IN
+      (SELECT updated FROM profile_versions WHERE user = ? ORDER BY updated DESC LIMIT ?)`).bind(user, user, VERSIONS),
+  ]);
 }
 
 async function newSession(db: D1, user: string, now: number) {
@@ -133,8 +156,8 @@ export async function onRequest({ request, env, params }: Ctx): Promise<Response
     const user = random(16);
     const options = await webauthn.generateRegistrationOptions({
       rpName: "Little Outings", rpID, userID: new TextEncoder().encode(user),
-      // Shown in the phone's passkey list. Deliberately not a person's name.
-      userName: "Little Outings", userDisplayName: "Little Outings",
+      // Shown in the phone's passkey list. Deliberately not a person's name; the date tells two apart.
+      userName: `Little Outings ${new Date(now).toISOString().slice(0, 10)}`, userDisplayName: `Little Outings ${new Date(now).toISOString().slice(0, 10)}`,
       attestationType: "none",
       authenticatorSelection: { residentKey: "required", userVerification: "preferred" },
     });
@@ -205,6 +228,7 @@ export async function onRequest({ request, env, params }: Ctx): Promise<Response
   if (route === "data" && method === "PUT") {
     const data = profileText(body.profile);
     if (!data) return json(400, { error: "invalid profile" });
+    await keepVersion(db, session.user, data);
     await db.prepare(`INSERT INTO profiles (user, data, updated) VALUES (?, ?, ?)
       ON CONFLICT (user) DO UPDATE SET data = excluded.data, updated = excluded.updated`).bind(session.user, data, now).run();
     return json(200, { ok: true, updated: now });
@@ -212,6 +236,7 @@ export async function onRequest({ request, env, params }: Ctx): Promise<Response
   if (route === "data" && method === "DELETE") {
     await db.batch([
       db.prepare(`DELETE FROM profiles WHERE user = ?`).bind(session.user),
+      db.prepare(`DELETE FROM profile_versions WHERE user = ?`).bind(session.user),
       db.prepare(`DELETE FROM profile_keys WHERE user = ?`).bind(session.user),
       db.prepare(`DELETE FROM profile_sessions WHERE user = ?`).bind(session.user),
     ]);

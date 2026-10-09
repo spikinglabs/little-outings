@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { KEYS, MOVE_MAX, SYNC_KEY, clean, forget, merge, packForMove, readProfile, rememberSent, unpackMove, writeProfile } from "../src/lib/profile.ts";
-import { onRequest, webauthn, HOURLY_LIMIT } from "../functions/api/profile/[[path]].ts";
+import { onRequest, webauthn, HOURLY_LIMIT, VERSIONS } from "../functions/api/profile/[[path]].ts";
 import { fakeD1 } from "./fake-d1.ts";
 import { onRequestPost as tap } from "../functions/api/taps.ts";
 
@@ -94,7 +94,7 @@ test("passkey sync: create, save, sign in on another phone, delete", async () =>
   const env = { DB: fakeD1() };
   const start = await (await call(env, "POST", "register-options", {})).json();
   assert.equal(start.options.rp.id, "outings.example");
-  assert.equal(start.options.user.name, "Little Outings");
+  assert.match(start.options.user.name, /^Little Outings \d{4}-\d{2}-\d{2}$/);
   const reg = await call(env, "POST", "register", { challenge: start.challenge, response: { id: "cred-1", ok: true }, profile: { saved: ["a"] } });
   assert.equal(reg.status, 200);
   const { token } = await reg.json();
@@ -150,4 +150,18 @@ test("signing in on a browser that already tapped moves its taps to the synced i
   const mine = async (voter: string) => (await tap({ env, request: new Request("https://x/api/taps?mine=1", { method: "POST", body: JSON.stringify({ voter }) }) })).json();
   assert.equal((await mine("synced-voter")).length, 1);
   assert.equal((await mine("local-voter")).length, 0);
+});
+
+test("an earlier copy is kept whenever the synced profile shrinks, and goes with Delete", async () => {
+  const env = { DB: fakeD1() };
+  const start = await (await call(env, "POST", "register-options", {})).json();
+  const { token } = await (await call(env, "POST", "register", { challenge: start.challenge, response: { id: "cred-1", ok: true }, profile: { saved: ["a", "b"] } })).json();
+  const versions = () => env.DB.prepare(`SELECT data FROM profile_versions ORDER BY updated`).all<{ data: string }>().then((r) => r.results.map((x) => JSON.parse(x.data).saved));
+  await call(env, "PUT", "data", { profile: { saved: ["a", "b", "c"] } }, token); // first change: kept
+  await call(env, "PUT", "data", { profile: { saved: ["a", "b", "c", "d"] } }, token); // growing within the hour: not kept
+  await call(env, "PUT", "data", { profile: { saved: [] } }, token); // wiped: the full copy is kept
+  assert.deepEqual(await versions(), [["a", "b"], ["a", "b", "c", "d"]]);
+  assert.ok(VERSIONS >= 10);
+  await call(env, "DELETE", "data", undefined, token);
+  assert.deepEqual(await versions(), []);
 });
