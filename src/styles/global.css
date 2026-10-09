@@ -288,7 +288,11 @@ footer.foot { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--l
 .cal-opts a:hover { background: var(--card); }
 
 /* profile: what this phone remembers, passkey sync, move, download, delete */
-.profile-link { display: inline-block; margin-top: 8px; color: var(--blau); font-weight: 700; }
+.back-link { display: inline-block; margin: 14px 0 0; color: var(--blau); font-weight: 700; }
+.saved-group + .saved-group { margin-top: 18px; }
+.saved-group h3 { margin: 0 0 8px; font-size: 1rem; color: var(--ink-soft); font-weight: 700; }
+.section-head .btn { padding: 6px 14px; flex: none; }
+.share-done { margin: 0 0 10px; overflow-wrap: anywhere; }
 .profile-box { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 14px; }
 .profile-box h2 { margin: 0; font-size: 1.1rem; }
 .profile-box > .small { margin: 4px 0 0; max-width: 60ch; }

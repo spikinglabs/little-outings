@@ -13,6 +13,8 @@ interface Props {
 const { lang, title, description, tab } = Astro.props;
 const t = useT(lang);
 const { region } = await getData();
+// The "saved" tab is labelled "Mine": it holds the saved list, what was sent and the profile.
+const TAB_ICON: Record<string, string> = { explore: UI_ICON.explore, saved: UI_ICON.mine, add: UI_ICON.add };
 // Path without the language prefix, so the switcher keeps the reader on the same page.
 const rest = Astro.url.pathname.replace(/^\/(de|en|zh)\//, "");
 const tabs = [
@@ -112,7 +114,7 @@ const ui = {
     <nav class="tabs" aria-label={t("siteName")}>
       {tabs.map(([k, p]) => (
         <a href={`/${lang}/${p}`} aria-current={tab === k ? "page" : undefined}>
-          <Fragment set:html={svg(UI_ICON[k])} />
+          <Fragment set:html={svg(TAB_ICON[k])} />
           <span>{t(`tabs.${k}`)}{k === "saved" && <span class="badge-n" data-saved-count hidden></span>}</span>
         </a>
       ))}
