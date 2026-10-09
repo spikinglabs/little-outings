@@ -1,4 +1,5 @@
-# Translates new event titles and place names into Chinese every night, before the deploy
+# Finds venues for events that came without one (scripts/find-venues.mjs, data/venues.json) and
+# translates new event titles and place names into Chinese every night, before the deploy
 # (02:15) builds the site, and commits data/translations/zh.json. Each text is translated once.
 # Needs a repository secret GEMINI_API_KEY (Gemini) or ANTHROPIC_API_KEY (Claude); with both, Gemini
 # is used unless the variable LLM_PROVIDER says "anthropic". The variable TRANSLATE_MODEL picks the
@@ -20,6 +21,15 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 22, cache: npm }
       - run: npm ci
+      - name: Find venues on event pages
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          LLM_PROVIDER: ${{ vars.LLM_PROVIDER }}
+          VENUE_MODEL: ${{ vars.VENUE_MODEL }}
+        run: |
+          out=$(npm run --silent find:venues 2>&1) || { echo "$out"; exit 1; }
+          echo "$out"; echo "::notice title=Venues::$(echo "$out" | tail -1)"
       - name: Import events and places
         env:
           CITYKLUB_EXPORT: ${{ vars.CITYKLUB_EXPORT }}
@@ -33,11 +43,11 @@ jobs:
         run: |
           out=$(npm run --silent translate 2>&1) || { echo "$out"; exit 1; }
           echo "$out"; echo "::notice title=Translate::$(echo "$out" | tail -1)"
-      - name: Commit the translations
+      - name: Commit the venues and translations
         run: |
-          git add data/translations/zh.json
+          git add data/translations/zh.json data/venues.json
           if git diff --cached --quiet; then echo "No changes."; exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "Translate new titles into Chinese"
+          git commit -m "Add venues from event pages and Chinese titles"
           git push
