@@ -36,7 +36,8 @@ test("the Overpass query covers every town plus the radius in one box", () => {
   assert.ok(s < 51.256 - 0.05 && n > 51.34 + 0.05 && w < 7.043 - 0.08 && e > 7.15 + 0.08);
   const qs = overpassQueries(towns);
   assert.equal(qs.length, 11);
-  assert.match(qs[0], /^\[out:json\]\[timeout:90\]\[bbox:[\d.,]+\];nwr\["leisure"="playground"\]\["name"\];out center tags;$/);
+  assert.equal(qs[0].kind, "playground");
+  assert.match(qs[0].query, /^\[out:json\]\[timeout:90\]\[bbox:[\d.,]+\];nwr\["leisure"="playground"\]\["name"\];out center tags;$/);
 });
 
 test("placeFromOsm matches the place schema shape", () => {

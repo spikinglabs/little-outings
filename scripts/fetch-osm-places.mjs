@@ -35,15 +35,18 @@ export function bbox(towns) {
   return [r(Math.min(...lats) - pad), r(Math.min(...lons) - lonPad), r(Math.max(...lats) + pad), r(Math.max(...lons) + lonPad)];
 }
 
-/** One small query per kind of tag: the public servers answer 504 to one big union. */
+/** One small query per tag, with the kind it yields: the public servers answer 504 to one big union. */
 export function overpassQueries(towns) {
   const filters = [
-    '["leisure"="playground"]["name"]', '["leisure"="indoor_play"]["name"]', '["tourism"="zoo"]["name"]',
-    '["zoo"~"petting_zoo|wildlife_park|safari_park"]["name"]', '["shop"="farm"]["name"]', '["tourism"="farm"]["name"]',
-    '["leisure"="water_park"]["name"]', '["amenity"="public_bath"]["name"]', '["leisure"="sports_centre"]["sport"~"swimming"]["name"]',
-    '["tourism"="museum"]["name"]', '["tourism"="theme_park"]["name"]',
+    ["playground", '["leisure"="playground"]["name"]'], ["playground", '["leisure"="indoor_play"]["name"]'],
+    ["zoo", '["tourism"="zoo"]["name"]'], ["zoo", '["zoo"~"^(petting_zoo|wildlife_park|safari_park)$"]["name"]'],
+    ["farm", '["shop"="farm"]["name"]'], ["farm", '["tourism"="farm"]["name"]'],
+    ["pool", '["leisure"="water_park"]["name"]'], ["pool", '["amenity"="public_bath"]["name"]'],
+    ["pool", '["leisure"="sports_centre"]["sport"="swimming"]["name"]'],
+    ["museum", '["tourism"="museum"]["name"]'], ["park", '["tourism"="theme_park"]["name"]'],
   ];
-  return filters.map((f) => `[out:json][timeout:90][bbox:${bbox(towns).join(",")}];nwr${f};out center tags;`);
+  const box = bbox(towns).join(",");
+  return filters.map(([kind, f]) => ({ kind, query: `[out:json][timeout:90][bbox:${box}];nwr${f};out center tags;` }));
 }
 
 const rad = (d) => (d * Math.PI) / 180;
@@ -126,21 +129,26 @@ async function overpass(query) {
 async function main() {
   const towns = loadTowns(join(process.env.CONTENT_DIR || "content", "regions"));
   const elements = [];
-  for (const q of overpassQueries(towns)) {
-    elements.push(...(await overpass(q)));
+  const failed = new Set();
+  for (const { kind, query } of overpassQueries(towns)) {
+    try { elements.push(...(await overpass(query))); } catch (e) { failed.add(kind); console.error(e.message); }
     await sleep(2000);
   }
   if (!elements.length) throw new Error("Overpass returned no places; keeping the previous list");
   const rows = new Map();
+  // A kind whose query failed keeps last week's rows, so its place pages don't disappear.
+  const previous = existsSync(OUT) ? readFileSync(OUT, "utf8").split("\n").filter(Boolean).map((l) => JSON.parse(l)) : [];
+  for (const row of previous) if (failed.has(row.kind)) rows.set(row.osm, row);
   for (const el of elements) {
     const row = fromOsm(el, towns);
-    if (row && !rows.has(row.osm)) rows.set(row.osm, row);
+    if (row && !failed.has(row.kind) && !rows.has(row.osm)) rows.set(row.osm, row);
   }
   const sorted = [...rows.values()].sort((a, b) => a.town.localeCompare(b.town) || a.kind.localeCompare(b.kind) || a.name.localeCompare(b.name));
   mkdirSync(OUT.replace(/\/[^/]+$/, ""), { recursive: true });
   writeFileSync(OUT, sorted.map((r) => JSON.stringify(r)).join("\n") + (sorted.length ? "\n" : ""));
   const byKind = Object.entries(Object.groupBy(sorted, (r) => r.kind)).map(([k, v]) => `${k} ${v.length}`).join(", ");
-  console.log(`osm: ${elements.length} elements, ${sorted.length} places (${byKind}) -> ${OUT}`);
+  const kept = failed.size ? `; kept last week's ${[...failed].join(", ")} (query failed)` : "";
+  console.log(`osm: ${elements.length} elements, ${sorted.length} places (${byKind})${kept} -> ${OUT}`);
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) await main();
