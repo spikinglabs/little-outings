@@ -1,9 +1,9 @@
-import { KINDS, eventFile, github, putSiteFile, reviewItem, sitePages, waiting } from "../../lib/inbox.js";
+import { KINDS, PUBLISHED, eventFile, github, placeFile, putSiteFile, reviewItem, sitePages, waiting } from "../../lib/inbox.js";
 import { json } from "../../lib/store.js";
 
 // Lists the tips, reports and suggestions waiting for review, and approves or rejects one.
 // Needs INBOX_REPO and INBOX_TOKEN (fine-grained, Issues: read and write on that repo only).
-// Approving an event also needs GITHUB_TOKEN (Contents: write on the site repo), as Publish does.
+// Approving an event or place also needs GITHUB_TOKEN (Contents: write on the site repo), as Publish does.
 // SITE_URL names the place or event a tip or report is about, from the site's public JSON.
 
 const configured = (env) => env.INBOX_REPO && env.INBOX_TOKEN;
@@ -58,13 +58,16 @@ export async function onRequestPost({ request, env, data }) {
   if (!KINDS[item.kind].actions.includes(body.action)) return json({ error: `Can't ${body.action} a ${item.kind}.` }, 400);
   if (!waiting(item)) return json({ error: "Someone already decided on this one." }, 409);
 
-  // An approved event becomes a content file; the commit starts the site's deploy.
-  if (body.action === "approve" && item.kind === "new-event") {
+  // An approved event or place becomes a content file; the commit starts the site's deploy.
+  const publish = body.action === "approve" && PUBLISHED.includes(item.kind);
+  if (publish) {
     if (!env.GITHUB_TOKEN) return json({ error: "GITHUB_TOKEN is not set for the admin site." }, 500);
-    const file = eventFile(number, item.data, data.user.email);
+    const isEvent = item.kind === "new-event";
+    const file = (isEvent ? eventFile : placeFile)(number, item.data, data.user.email);
     if (file.error) return json({ error: file.error }, 400);
-    const put = await putSiteFile(env, file.path, file.text, `Add a parent's event: ${String(item.data.title).slice(0, 60)}\n\nInbox #${number}, approved by ${data.user.email}.`);
-    if (!put.ok) return json({ error: `GitHub refused to publish the event (${put.status}).` }, 502);
+    const what = isEvent ? `event: ${String(item.data.title).slice(0, 60)}` : `place: ${String(item.data.name).slice(0, 60)}`;
+    const put = await putSiteFile(env, file.path, file.text, `Add a parent's ${what}\n\nInbox #${number}, approved by ${data.user.email}.`);
+    if (!put.ok) return json({ error: `GitHub refused to publish it (${put.status}).` }, 502);
   }
 
   const res = body.action === "approve"
@@ -74,7 +77,7 @@ export async function onRequestPost({ request, env, data }) {
       body: JSON.stringify({ state: "closed", state_reason: body.action === "done" ? "completed" : "not_planned" }),
     });
   if (!res.ok) return json({ error: `GitHub refused the change (${res.status}).` }, 502);
-  if (body.action === "approve" && item.kind === "new-event") {
+  if (publish) {
     await call(`/issues/${number}`, { method: "PATCH", body: JSON.stringify({ state: "closed", state_reason: "completed" }) }).catch(() => {});
   }
 

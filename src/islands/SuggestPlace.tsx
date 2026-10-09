@@ -15,6 +15,8 @@ interface Props {
 export default function SuggestPlace({ lang, kinds, features, towns, ui }: Props) {
   const [open, setOpen] = useState(false);
   const [sent, setSent] = useState("");
+  // What was sent, shown back in the confirmation.
+  const [done, setDone] = useState<{ kind: string; name: string; town: string; street: string } | null>(null);
   const [busy, setBusy] = useState(false);
 
   async function send(e: Event) {
@@ -32,14 +34,28 @@ export default function SuggestPlace({ lang, kinds, features, towns, ui }: Props
       if (ok) try { rememberSent(localStorage, { kind: "place", place }); schedulePush(); } catch { /* storage blocked */ }
     } catch { /* offline or not set up */ }
     setBusy(false);
+    setDone(ok ? { kind: kinds.find(([k]) => k === place.kind)?.[1] ?? String(place.kind), name: String(place.name ?? ""),
+      town: String(place.town ?? ""), street: String(place.street ?? "") } : null);
     setSent(ok ? ui.placeThanks : ui.inboxSoon);
   }
+
+  const another = () => { setSent(""); setDone(null); setOpen(true); };
 
   return (
     <section class="poster" aria-live="polite">
       <h2>{ui.placeTitle}</h2>
       <p>{ui.placeSub}</p>
-      {sent ? <p class="thanks" role="status">{sent}</p> : !open ? (
+      {sent && done ? (
+        <div class="sent" role="status">
+          <p class="sent-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>{sent}</p>
+          <dl>
+            <dt>{ui.placeName}</dt><dd>{done.name}</dd>
+            <dt>{ui.placeSentKind}</dt><dd>{done.kind}</dd>
+            <dt>{ui.placeSentWhere}</dt><dd>{[done.street, done.town].filter(Boolean).join(", ")}</dd>
+          </dl>
+          <button class="btn" type="button" onClick={another}>{ui.placeAnother}</button>
+        </div>
+      ) : sent ? <p class="thanks" role="status">{sent}</p> : !open ? (
         <button class="btn" type="button" style="margin-top:12px" onClick={() => setOpen(true)}>{ui.placeBtn}</button>
       ) : (
         <form class="form" onSubmit={send}>

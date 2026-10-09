@@ -102,7 +102,10 @@ placeFeatures: "有哪些适合家庭的设施？"
 placeNote: "为什么适合孩子？"
 placeNotePh: "例如：大沙坑、可以喂山羊、桌边有游戏角"
 placeWebsite: "网站（可选）"
-placeThanks: "谢谢！我们简单核实后就会加上这个地点。"
+placeThanks: "已提交。每个地点上线前我们都会审核，通过后就能在“发现”里看到。"
+placeAnother: 再推荐一个地点
+placeSentKind: 类型
+placeSentWhere: 地点
 tasksTitle: "听说过，但细节还不全"
 tasksSub: "这些活动我们听说过，但还不清楚全部信息，比如具体地点、时间或价格。看看吧，也许会发现有趣的活动。如果你知道更多，一个回答就能帮到所有家庭。"
 tasksSearch: "听说过，但细节还不全"
