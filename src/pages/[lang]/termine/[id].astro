@@ -6,7 +6,8 @@ import ReportBox from "../../../components/ReportBox.astro";
 import VisitBox from "../../../components/VisitBox.astro";
 import { LANGS, isFallback, tr, useT, type Lang } from "../../../lib/i18n";
 import { getData } from "../../../lib/data";
-import { ageText, dateRange, germanName, nameOf, pathFor, routeUrl, townName } from "../../../lib/format";
+import { ageText, dateRange, germanName, nameOf, pathFor, townName } from "../../../lib/format";
+import { mapLink } from "../../../lib/maps";
 import { FEATURE_ICON, UI_ICON, svg } from "../../../lib/icons";
 import type { Event } from "../../../lib/types";
 import { LANGUAGE } from "../../../content.config";
@@ -29,6 +30,7 @@ const prec = e.geo.precision;
 const yes = Object.entries(place?.facilities ?? {}).filter(([, v]) => v.status === "yes").map(([k]) => k);
 const cal = await calInput(e, lang, Astro.site);
 const translated = isFallback(e.title, lang) || isFallback(e.note, lang);
+const map = mapLink(e, place);
 ---
 <Base lang={lang} title={title} description={[dateRange(t, e), town].join(" · ")}>
   <article class="detail" data-lat={e.geo.lat} data-lon={e.geo.lon} data-precision={prec}>
@@ -84,9 +86,7 @@ const translated = isFallback(e.title, lang) || isFallback(e.note, lang);
     )}
 
     <div class="actions">
-      {e.geo.lat != null && e.geo.lon != null && (
-        <a class="btn primary" href={routeUrl(e.geo.lat, e.geo.lon)} target="_blank" rel="noopener">{prec === "area" ? t("routeTown") : t("route")}</a>
-      )}
+      {map && <a class="btn primary" href={map.href} target="_blank" rel="noopener">{map.search ? t("mapSearch") : t("route")}</a>}
       <button class="btn" type="button" data-save={e.id} aria-pressed="false"><Fragment set:html={svg(UI_ICON.saved, 'stroke-width="2" width="18" height="18"')} />{t("save")}</button>
       <details class="cal-menu">
         <summary class="btn"><Fragment set:html={svg(UI_ICON.calendar, 'stroke-width="2" width="18" height="18"')} />{t("cal.add")}</summary>

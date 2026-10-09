@@ -60,9 +60,6 @@ export function ageText(t: T, ages?: [number, number]) {
 export const pathFor = (lang: Lang, item: Pick<Item, "type" | "id">) =>
   `/${lang}/${item.type === "place" ? "orte" : "termine"}/${item.id}/`;
 
-export const routeUrl = (lat: number, lon: number) =>
-  `https://www.google.com/maps/dir/?api=1&destination=${lat.toFixed(5)},${lon.toFixed(5)}`;
-
 export const isFree = (x: Item) => (x.type === "place" ? !!x.free : !!x.price?.free);
 
 // Farm words in German and English. "Gut" only counts as an estate name ("Gut Hixholz"), not the adjective.

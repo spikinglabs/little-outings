@@ -39,7 +39,7 @@ trust: { parents: { other: "{n} 条家长反馈" }, base: "基础信息来自 {s
 save: 收藏
 saved: 已收藏
 route: 规划路线
-routeTown: 导航到市中心
+mapSearch: 在地图上搜索
 until: 至
 locPill: { venue: 大致位置, area: 仅知城市 }
 locNote: { venue: 地图上的位置只是大概。, area: "目前只知道在{town}的某处。", unknown: 地点暂缺。 }
