@@ -4,7 +4,13 @@ import type { Text } from "./i18n";
 
 export type Precision = "exact" | "venue" | "area" | "unknown";
 export type Trust = { level: "verified" | "official" | "community"; source?: Text };
-export type Facility = { status: "yes" | "no" | "unknown"; confirmed: number };
+export type Facility = { status: "yes" | "no" | "unknown"; confirmed: number; votes?: { yes: number; no: number } };
+/** What parents sent through the inbox for one item, counted at build time (scripts/tally-inbox.mjs). */
+export type Tally = {
+  fac?: Record<string, { yes: number; no: number }>;
+  visits?: { count: number; again: number; good_for: Record<string, number> };
+  tips?: { topic: string; text: string }[];
+};
 
 export interface Geo {
   lat?: number;
@@ -28,6 +34,8 @@ export interface Place {
   facilities: Record<string, Facility>;
   rating?: { stars: number; reviews: number };
   quotes: { text: Text; who: Text }[];
+  /** Approved "Good to know" tips from the inbox. */
+  tips?: { topic: string; text: string }[];
   visits?: { count: number; again: number; good_for: Partial<Record<string, number>> };
   note?: Text;
   trust: Trust;

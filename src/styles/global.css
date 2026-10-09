@@ -239,3 +239,17 @@ footer.foot { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--l
 .went { margin-top: 12px; }
 @media (max-width: 420px) { .visit .tip-row { grid-template-columns: 1fr; } }
 .shared { background: var(--gold); color: var(--gold-ink); border-radius: 14px; padding: 12px 14px; margin-top: 12px; display: grid; gap: 8px; } .shared p { margin: 0; font-weight: 700; } .share-bar { margin-top: 12px; display: grid; gap: 6px; justify-items: start; } .share-bar .small { overflow-wrap: anywhere; }
+.checks li { padding: 0; }
+.checks li > button { all: unset; box-sizing: border-box; display: flex; align-items: center; gap: 8px; width: 100%; padding: 7px 10px; cursor: pointer; border-radius: inherit; }
+.checks li > button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.checks li.no > button > span:last-child { text-decoration: line-through; }
+.checks li.no { text-decoration: none; }
+.checks li.unknown:has(.said) { border-style: solid; border-color: var(--ink-soft); }
+.sheet { border: 0; border-radius: 18px; padding: 18px; width: min(420px, calc(100% - 32px)); background: var(--paper); color: var(--ink); }
+.sheet::backdrop { background: rgb(0 0 0 / .35); }
+.sheet form { display: grid; gap: 12px; }
+.sheet h3 { margin: 0; font-size: 1.2rem; }
+.sheet p { margin: 0; }
+.sheet .row { display: flex; flex-wrap: wrap; gap: 8px; }
+.sheet .row .chip { font-size: 1rem; padding: 10px 16px; }
+.sheet [data-ask-close] { justify-self: end; }

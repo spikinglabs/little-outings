@@ -47,7 +47,7 @@ approxKm: "about {d} km"
 nearby: nearby
 thePlace: The place
 forFamilies: For families
-unknownNote: "? means we don't know yet. Been there? Tell us."
+unknownNote: "? means we don't know yet. Been there? Tap it."
 confirmedBy: "confirmed {n}×"
 upcomingHere: Coming up here
 parentsSay: "Parents say · ★ {r} from {n} reviews"
@@ -162,3 +162,24 @@ share:
   copied: Link copied. Open it on another phone, or send it to someone you're planning with.
   shared: { one: "1 outing was shared with you.", other: "{n} outings were shared with you." }
   add: Add to my list
+chipAsk:
+  still: "Is this still right: {f}?"
+  votes: "{y} yes · {n} no"
+  parents: "{n} parents say yes"
+  next: "Thanks! One more?"
+  thanks: "Thanks! The counts update overnight."
+  you: "You said: {a}"
+  close: Close
+  q:
+    playground: "Is there a playground?"
+    changing_table: "Is there a changing table?"
+    highchairs: "Are there high chairs?"
+    kids_menu: "Is there a kids' menu?"
+    toys: "Are there toys or little gifts for kids?"
+    animals: "Are there animals?"
+    stroller_friendly: "Is it easy with a pram?"
+    nursing_room: "Is there a quiet corner for nursing?"
+    indoor_play: "Is there an indoor play area?"
+    toilets: "Are there toilets?"
+    farm_shop: "Is there a farm shop?"
+    parking: "Is there parking?"

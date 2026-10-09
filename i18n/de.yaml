@@ -47,7 +47,7 @@ approxKm: "ca. {d} km"
 nearby: ganz in der Nähe
 thePlace: Der Ort
 forFamilies: Für Familien
-unknownNote: "? heißt: wissen wir noch nicht. Wart ihr da? Sagt es uns."
+unknownNote: "? heißt: wissen wir noch nicht. Wart ihr da? Tippt drauf."
 confirmedBy: "{n}× bestätigt"
 upcomingHere: Hier demnächst
 parentsSay: "Eltern sagen · ★ {r} aus {n} Bewertungen"
@@ -162,3 +162,24 @@ share:
   copied: Link kopiert. Öffnet ihn auf einem anderen Handy oder schickt ihn an jemanden, mit dem ihr plant.
   shared: { one: "1 Ausflug wurde mit euch geteilt.", other: "{n} Ausflüge wurden mit euch geteilt." }
   add: Zu meiner Liste hinzufügen
+chipAsk:
+  still: "Stimmt das noch: {f}?"
+  votes: "{y} ja · {n} nein"
+  parents: "{n} Eltern sagen ja"
+  next: "Danke! Noch eine?"
+  thanks: "Danke! Die Zahlen werden über Nacht aktualisiert."
+  you: "Eure Antwort: {a}"
+  close: Schließen
+  q:
+    playground: "Gibt es einen Spielplatz?"
+    changing_table: "Gibt es einen Wickeltisch?"
+    highchairs: "Gibt es Hochstühle?"
+    kids_menu: "Gibt es eine Kinderkarte?"
+    toys: "Gibt es Spielzeug oder ein Mitgebsel?"
+    animals: "Gibt es Tiere?"
+    stroller_friendly: "Kommt man gut mit dem Kinderwagen durch?"
+    nursing_room: "Gibt es eine ruhige Stillecke?"
+    indoor_play: "Gibt es drinnen eine Spielecke?"
+    toilets: "Gibt es Toiletten?"
+    farm_shop: "Gibt es einen Hofladen?"
+    parking: "Gibt es Parkplätze?"

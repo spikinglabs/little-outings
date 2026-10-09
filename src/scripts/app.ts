@@ -123,6 +123,51 @@ document.querySelectorAll<HTMLFormElement>("form[data-visit]").forEach((form) =>
   form.replaceWith(done);
 });
 
+/* ---------- facility chips: one quick question, then the next "?" ---------- */
+const sheet = document.querySelector<HTMLDialogElement>("dialog[data-ask-sheet]");
+// This browser remembers its answers, so the quick-fire skips them and the chip says what you said.
+const asked = (): Record<string, string> => { try { return JSON.parse(localStorage.getItem("lo-asked") || "{}"); } catch { return {}; } };
+const markAsked = (key: string, a: string) => {
+  const all = asked(); all[key] = a;
+  write("lo-asked", JSON.stringify(Object.fromEntries(Object.entries(all).slice(-1000))));
+};
+const showSaid = (b: HTMLElement, a: string) => {
+  b.classList.add("said");
+  b.querySelector("[data-ask-sub]")!.textContent = ui.askYou.replace("{a}", ui[a] ?? a);
+};
+if (sheet) {
+  const chips = [...document.querySelectorAll<HTMLButtonElement>("button[data-ask]")];
+  const mine = asked();
+  chips.forEach((b) => { if (mine[b.dataset.ask!]) showSaid(b, mine[b.dataset.ask!]); });
+  const q = sheet.querySelector<HTMLElement>("[data-ask-q]")!;
+  const buttons = sheet.querySelector<HTMLElement>("[data-ask-buttons]")!;
+  const done = sheet.querySelector<HTMLElement>("[data-ask-done]")!;
+  let current: HTMLButtonElement | null = null;
+  const ask = (b: HTMLButtonElement, lead = "") => {
+    current = b;
+    q.textContent = b.dataset.q!;
+    done.textContent = lead;
+    done.hidden = !lead;
+    buttons.hidden = false;
+  };
+  chips.forEach((b) => b.addEventListener("click", () => { ask(b); sheet.showModal(); }));
+  sheet.querySelector("[data-ask-close]")!.addEventListener("click", () => sheet.close());
+  sheet.addEventListener("click", (ev) => { if (ev.target === sheet) sheet.close(); }); // tap outside
+  sheet.querySelector("form")!.addEventListener("submit", async (ev) => {
+    ev.preventDefault();
+    const a = ((ev as SubmitEvent).submitter as HTMLButtonElement | null)?.value;
+    if (!a || !current) return;
+    const ok = await sendToInbox({ kind: "answer", gap: current.dataset.ask, answer: a, lang: body.dataset.lang });
+    if (!ok) { buttons.hidden = true; q.textContent = ""; done.textContent = ui.inboxSoon; done.hidden = false; return; }
+    markAsked(current.dataset.ask!, a);
+    showSaid(current, a);
+    const seen = asked();
+    const next = chips.find((b) => b.dataset.unknown != null && !seen[b.dataset.ask!]);
+    if (next) ask(next, ui.askNext);
+    else { buttons.hidden = true; q.textContent = ""; done.textContent = ui.askThanks; done.hidden = false; }
+  });
+}
+
 /** Posts to the Cloudflare inbox function. Returns false while the inbox isn't set up. */
 export async function sendToInbox(payload: Record<string, unknown>): Promise<boolean> {
   try {

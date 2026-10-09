@@ -6,6 +6,7 @@
 # admin) when present, otherwise the CITYKLUB_EXPORT variable.
 # Needs the repository secret CLOUDFLARE_API_TOKEN (Pages: Edit) and CLOUDFLARE_ACCOUNT_ID
 # as a secret or a variable (the account ID is not sensitive).
+# Optional: variable INBOX_REPO + secret INBOX_READ_TOKEN (Issues: read) to show parents' votes and visits.
 # Without them the deploy steps are skipped and the run stays green.
 name: Deploy
 on:
@@ -41,6 +42,11 @@ jobs:
         run: npm run import:cityklub
       - name: Import places (OpenStreetMap, farms)
         run: npm run import:places
+      - name: Count parents' answers from the inbox
+        env:
+          INBOX_REPO: ${{ vars.INBOX_REPO }}
+          INBOX_READ_TOKEN: ${{ secrets.INBOX_READ_TOKEN }}
+        run: npm run tally:inbox
       - run: npm run build
         env:
           SITE_URL: ${{ vars.SITE_URL }}

@@ -47,7 +47,7 @@ approxKm: "约 {d} 公里"
 nearby: 就在附近
 thePlace: 活动地点
 forFamilies: 亲子设施
-unknownNote: "“?” 表示暂不确定。去过的话，欢迎告诉我们。"
+unknownNote: "“?” 表示暂不确定。去过的话，点一下告诉我们。"
 confirmedBy: "{n} 位家长确认"
 upcomingHere: 近期活动
 parentsSay: "家长评价 · ★ {r}（{n} 条评价）"
@@ -162,3 +162,24 @@ share:
   copied: 链接已复制。可以在另一部手机上打开，或发给一起计划的人。
   shared: { one: "有人和你分享了 1 个去处。", other: "有人和你分享了 {n} 个去处。" }
   add: 加入我的清单
+chipAsk:
+  still: "{f}：现在还是这样吗？"
+  votes: "{y} 人说有 · {n} 人说没有"
+  parents: "{n} 位家长说有"
+  next: "谢谢！再答一个？"
+  thanks: "谢谢！数字每晚更新。"
+  you: "你的回答：{a}"
+  close: 关闭
+  q:
+    playground: "那里有游乐场吗？"
+    changing_table: "那里有尿布台吗？"
+    highchairs: "那里有儿童餐椅吗？"
+    kids_menu: "那里有儿童餐吗？"
+    toys: "那里有给孩子的玩具或小礼物吗？"
+    animals: "那里有动物吗？"
+    stroller_friendly: "推婴儿车方便吗？"
+    nursing_room: "那里有安静的哺乳角吗？"
+    indoor_play: "那里有室内游戏区吗？"
+    toilets: "那里有卫生间吗？"
+    farm_shop: "那里有农场小店吗？"
+    parking: "那里有停车场吗？"

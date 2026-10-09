@@ -5,6 +5,7 @@ import Stamp from "../../../components/Stamp.astro";
 import GapBox from "../../../components/GapBox.astro";
 import ReportBox from "../../../components/ReportBox.astro";
 import VisitBox from "../../../components/VisitBox.astro";
+import AskSheet from "../../../components/AskSheet.astro";
 import { LANGS, isFallback, tr, useT, type Lang } from "../../../lib/i18n";
 import { eventsAt, getData } from "../../../lib/data";
 import { ageText, routeUrl, townName } from "../../../lib/format";
@@ -55,12 +56,23 @@ const facs = FEATURES.map((f) => ({ f, ...(p.facilities[f] ?? { status: "unknown
 
     <h2>{t("forFamilies")}</h2>
     <ul class="checks">
-      {facs.map(({ f, status, confirmed }) => (
-        <li class={status}>
-          <span class="dot" set:html={status === "unknown" ? "?" : svg(FEATURE_ICON[f])} />
-          <span>{t(`features.${f}`)}{status === "yes" && confirmed > 0 && <small>{t("confirmedBy", { n: confirmed })}</small>}</span>
-        </li>
-      ))}
+      {facs.map(({ f, status, confirmed, votes }) => {
+        // Tapping a chip asks one quick question: "Is there …?" for "?", "Still right?" for known ones.
+        const fromVotes = status === "yes" && votes && confirmed === votes.yes && votes.no === 0;
+        const sub = fromVotes ? t("chipAsk.parents", { n: votes!.yes })
+          : votes && votes.yes + votes.no > 0 ? t("chipAsk.votes", { y: votes.yes, n: votes.no })
+          : status === "yes" && confirmed > 0 ? t("confirmedBy", { n: confirmed }) : "";
+        const name = t(`features.${f}`);
+        return (
+          <li class={status}>
+            <button type="button" data-ask={`${p.id}:fac:${f}`} data-unknown={status === "unknown" ? "" : undefined}
+              data-q={status === "unknown" ? t(`chipAsk.q.${f}`) : t("chipAsk.still", { f: name })}>
+              <span class="dot" set:html={status === "unknown" ? "?" : svg(FEATURE_ICON[f])} />
+              <span>{name}<small data-ask-sub>{sub}</small></span>
+            </button>
+          </li>
+        );
+      })}
     </ul>
     <p class="small">{t("unknownNote")}</p>
 
@@ -77,10 +89,11 @@ const facs = FEATURES.map((f) => ({ f, ...(p.facilities[f] ?? { status: "unknown
         {p.quotes.map((q) => <blockquote class="quote">{tr(q.text, lang)}<small>{tr(q.who, lang)}</small></blockquote>)}
       </>
     )}
-    {!p.rating && p.quotes.length > 0 && (
+    {((!p.rating && p.quotes.length > 0) || (p.tips?.length ?? 0) > 0) && (
       <>
         <h2>{t("visit.tipTitle")}</h2>
-        {p.quotes.map((q) => <blockquote class="quote">{tr(q.text, lang)}<small>{tr(q.who, lang)}</small></blockquote>)}
+        {!p.rating && p.quotes.map((q) => <blockquote class="quote">{tr(q.text, lang)}<small>{tr(q.who, lang)}</small></blockquote>)}
+        {p.tips?.map((x) => <blockquote class="quote">{x.text}<small>{t(`tipTopic.${x.topic}`).replace(/…$/, "")}</small></blockquote>)}
       </>
     )}
 
@@ -99,7 +112,8 @@ const facs = FEATURES.map((f) => ({ f, ...(p.facilities[f] ?? { status: "unknown
       </section>
     )}
 
-    <GapBox item={p} t={t} />
+    <GapBox item={p} t={t} skipFacilities />
+    <AskSheet name={p.name} t={t} />
     <VisitBox item={p} t={t} />
     <ReportBox item={p} t={t} />
   </article>

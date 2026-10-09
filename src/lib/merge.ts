@@ -1,7 +1,7 @@
 // Turns the raw collections into normalized places and events.
 // Merge order for an event: imported < answers < overrides (human fixes always win).
 // Pure functions without Astro imports, so `node --test` can run them directly.
-import type { Event, Geo, Place } from "./types.ts";
+import type { Event, Geo, Place, Tally } from "./types.ts";
 
 type Raw = Record<string, any>;
 export type Town = { name: string; lat: number; lon: number };
@@ -96,4 +96,29 @@ export function shiftDays(d: string, days: number): string {
   const t = new Date(`${d}T12:00:00Z`);
   t.setUTCDate(t.getUTCDate() + days);
   return ymd(t);
+}
+
+/** Votes that settle an unknown facility: this many parents say yes and nobody says no. */
+export const VOTES_TO_SETTLE = 3;
+
+/**
+ * Adds what parents sent through the inbox (counted at build time) to a place.
+ * Facility votes always show; they turn an unknown "?" into a yes once VOTES_TO_SETTLE agree
+ * and nobody disagrees. Facts from a source or a moderator are never overruled, only annotated.
+ */
+export function applyTally(p: Place, t: Tally | undefined): Place {
+  if (!t) return p;
+  const facilities = { ...p.facilities };
+  for (const [f, v] of Object.entries(t.fac ?? {})) {
+    const cur = facilities[f] ?? { status: "unknown" as const, confirmed: 0 };
+    const settles = cur.status === "unknown" && v.yes >= VOTES_TO_SETTLE && v.no === 0;
+    facilities[f] = settles ? { status: "yes", confirmed: v.yes, votes: v } : { ...cur, votes: v };
+  }
+  let visits = p.visits;
+  if (t.visits) {
+    const good_for: Record<string, number> = { ...(visits?.good_for ?? {}) } as Record<string, number>;
+    for (const [g, n] of Object.entries(t.visits.good_for)) good_for[g] = (good_for[g] ?? 0) + n;
+    visits = { count: (visits?.count ?? 0) + t.visits.count, again: (visits?.again ?? 0) + t.visits.again, good_for };
+  }
+  return { ...p, facilities, visits, tips: [...(p.tips ?? []), ...(t.tips ?? [])] };
 }
