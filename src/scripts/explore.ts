@@ -4,7 +4,7 @@ import type {} from "../islands/OutingsMap";
 
 type Plural = { one?: string; other: string };
 const ui = JSON.parse(document.getElementById("explore-ui")!.textContent!) as {
-  nEvents: Plural; nPlaces: Plural; tip: string; only: string; whenIn: Record<string, string>;
+  nEvents: Plural; nPlaces: Plural; tip: string; only: string; whenIn: Record<string, string>; mapShow: string; mapHide: string;
 };
 const lang = document.body.dataset.lang!;
 const pr = new Intl.PluralRules(lang);
@@ -119,7 +119,7 @@ document.addEventListener("click", (ev) => {
     apply();
   }
   const m = t.closest<HTMLButtonElement>("[data-map-toggle]");
-  if (m) showMap(m.getAttribute("aria-pressed") !== "true");
+  if (m) showMap(m.getAttribute("aria-expanded") !== "true");
   const k = t.closest<HTMLButtonElement>("[data-kind-chip]");
   if (k) { state.kind = k.dataset.kindChip!; apply(); }
 });
@@ -130,10 +130,11 @@ const home = $<HTMLSelectElement>("#home");
 home.value = getHome();
 home.addEventListener("change", () => { setHome(home.value); renderKm(); apply(); });
 
-// The map starts folded; the Map chip opens it, and the choice is remembered on this device.
+// The map starts folded; the "Show on map" button opens it, and the choice is remembered on this device.
 function showMap(on: boolean, remember = true) {
   $("#explore-map").hidden = !on;
-  $("[data-map-toggle]").setAttribute("aria-pressed", String(on));
+  $("[data-map-toggle]").setAttribute("aria-expanded", String(on));
+  $("[data-map-label]").textContent = on ? ui.mapHide : ui.mapShow;
   if (on) document.dispatchEvent(new Event("lo:map-shown"));
   if (remember) try { localStorage.setItem("lo-map", on ? "1" : "0"); } catch { /* storage blocked */ }
 }

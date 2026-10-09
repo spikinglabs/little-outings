@@ -26,7 +26,7 @@ const tips = listed
 const presentKinds = KINDS.filter((k) => places.some((p) => p.kind === k));
 const whenKeys = ["today", "tomorrow", "weekend", "soon"];
 const whenIn = t.group("whenIn");
-const pluralUi = { nEvents: t.group("nEvents"), nPlaces: t.group("nPlaces"), tip: t("tip"), only: t("only"), whenIn };
+const pluralUi = { nEvents: t.group("nEvents"), nPlaces: t.group("nPlaces"), tip: t("tip"), only: t("only"), whenIn, mapShow: t("mapShow"), mapHide: t("mapHide") };
 const homes = region.towns;
 // The map shows whatever the filters show (explore.ts tells it which ids).
 const pins = buildPins(data, lang, t);
@@ -49,7 +49,6 @@ const mapLabels = { ...(t.group("nEvents") as { one: string; other: string }), m
           {homes.map((h) => <option value={h.name} selected={h.name === region.center}>{townName(h.name, lang, homes)}</option>)}
         </select>
       </label>
-      <button class="chip" type="button" data-map-toggle aria-pressed="false" aria-controls="explore-map">{t("filters.map")}</button>
       <button class="chip rain" type="button" data-flag="rain" aria-pressed="false">{t("filters.rain")}</button>
       <button class="chip" type="button" data-flag="farm" aria-pressed="false">{t("filters.farm")}</button>
       <button class="chip" type="button" data-flag="free" aria-pressed="false">{t("filters.free")}</button>
@@ -69,6 +68,11 @@ const mapLabels = { ...(t.group("nEvents") as { one: string; other: string }), m
     </div>
   </section>
 
+  <div class="map-bar">
+    <button class="map-btn" type="button" data-map-toggle aria-expanded="false" aria-controls="explore-map">
+      <Fragment set:html={svg(UI_ICON.map, 'stroke-width="2"')} /><span data-map-label>{t("mapShow")}</span>
+    </button>
+  </div>
   <div class="mapwrap explore-map" id="explore-map" hidden>
     <OutingsMap client:only="preact" mode="explore" pins={pins} center={mapCenter(data)} towns={homes.map((x) => [x.name, x.lat, x.lon])} locale={t.locale} labels={mapLabels} />
     <div class="legend">

@@ -9,7 +9,7 @@ ask: "<em>{when}</em>带孩子去哪儿玩？"
 near: 附近：
 search: 搜索
 searchPh: 搜索农场、咖啡馆、游乐场或活动
-filters: { map: "🗺 地图", farm: "🚜 农场", rain: "☂ 下雨也能去", free: 免费, animals: 有动物, changing: 尿布台, age: 年龄, ageAll: 全部, radius: 范围 }
+filters: { farm: "🚜 农场", rain: "☂ 下雨也能去", free: 免费, animals: 有动物, changing: 尿布台, age: 年龄, ageAll: 全部, radius: 范围 }
 tip: "{when}推荐"
 only: "仅限{when}"
 always: 随时可去
@@ -63,6 +63,8 @@ mapCount: { one: "1 项", other: "{n} 项" }
 mapListEmpty: "这一区域未来两周没有活动。请移动或缩小地图。"
 mapShowMore: "再显示 {n} 项"
 mapMore: "还有 {n} 个"
+mapShow: "在地图上显示"
+mapHide: "隐藏地图"
 legend: { event: 活动, place: 地点，随时可去, approx: 虚线圈：大致位置, area: 带数字的圆圈：仅知城市, radius: "点状圆圈：搜索范围" }
 savedTitle: 收藏
 savedSub: 保存在本设备上。
