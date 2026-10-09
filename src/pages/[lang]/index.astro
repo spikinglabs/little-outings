@@ -8,7 +8,7 @@ import Stamp from "../../components/Stamp.astro";
 import { LANGS, tr, useT, type Lang } from "../../lib/i18n";
 import { getData } from "../../lib/data";
 import { pathFor, townName } from "../../lib/format";
-import { KINDS } from "../../content.config";
+import { KINDS, TAGS } from "../../content.config";
 import { KIND_ICON, UI_ICON, svg } from "../../lib/icons";
 import OutingsMap from "../../islands/OutingsMap";
 import { buildPins, mapCenter } from "../../lib/pins";
@@ -25,6 +25,9 @@ const tips = listed
   .filter((e) => e.trust.level === "verified" && e.geo.precision === "exact")
   .sort((a, b) => Number(placeById.get(b.place ?? "")?.kind === "farm") - Number(placeById.get(a.place ?? "")?.kind === "farm"));
 const presentKinds = KINDS.filter((k) => places.some((p) => p.kind === k));
+// Event types that at least one listed event has, most common first.
+const presentTags = TAGS.map((g) => [g, listed.filter((e) => e.tags.includes(g)).length] as const)
+  .filter(([, n]) => n > 0).sort((a, b) => b[1] - a[1]).map(([g]) => g);
 const whenKeys = ["today", "tomorrow", "weekend", "soon"];
 const whenIn = t.group("whenIn");
 const pluralUi = { nEvents: t.group("nEvents"), nPlaces: t.group("nPlacesAny"), tip: t("tip"), whenIn, mapShow: t("mapShow"), mapHide: t("mapHide"), areaBack: t("mapAreaBack"), showMore: t("mapShowMore") };
@@ -106,6 +109,10 @@ const mapLabels = { ...(t.group("nEvents") as { one: string; other: string }), m
       {presentKinds.map((k) => (
         <button class="chip" type="button" data-kind-chip={k} aria-pressed="false"><Fragment set:html={svg(KIND_ICON[k])} /> {t(`kinds.${k}`)}</button>
       ))}
+    </div>
+    <div class="filters types" role="group" aria-label={t("eventTypes")} data-types hidden>
+      <button class="chip" type="button" data-tag-chip="" aria-pressed="true">{t("allTypes")}</button>
+      {presentTags.map((g) => <button class="chip" type="button" data-tag-chip={g} aria-pressed="false">{t(`tags.${g}`)}</button>)}
     </div>
     <div class="grid ideas" id="ideas">
       {listed.map((e) => <Card item={e} t={t} hidden />)}

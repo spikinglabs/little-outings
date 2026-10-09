@@ -16,6 +16,8 @@ always: Geht immer
 ideas: Ideen in der Nähe
 ideasKinds: Was für ein Ausflug
 kindEvents: Veranstaltungen
+eventTypes: Art der Veranstaltung
+allTypes: Alle Arten
 noIdeas: Dazu passt nichts. Versucht einen größeren Umkreis, einen anderen Tag oder weniger Filter.
 nPlacesAny: { one: "1 Ort für jederzeit", other: "{n} Orte für jederzeit" }
 allKinds: Alle
@@ -108,7 +110,7 @@ tasksCount: { one: "{n} Ausflug", other: "{n} Ausflüge" }
 tasksNone: "Nichts gefunden. Versucht ein anderes Wort oder zeigt alles an."
 kinds: { farm: Bauernhof, cafe: Café, playground: Spielplatz, park: "Park & Wald", museum: Museum, pool: Schwimmbad, zoo: "Zoo & Tierpark" }
 features: { playground: Spielplatz, changing_table: Wickeltisch, highchairs: Hochstühle, kids_menu: Kinderkarte, toys: "Spielzeug & Mitgebsel", animals: Tiere, stroller_friendly: Kinderwagen-tauglich, nursing_room: Stillecke, indoor_play: Spielecke drinnen, toilets: Toiletten, farm_shop: Hofladen, parking: Parkplatz }
-tags: { fest: Fest, animals: Tiere, market: Markt, diy: Mitmachen, season: Saison, reading: Vorlesen, music: Musik, outside: Draußen }
+tags: { fest: Fest, animals: Tiere, market: Markt, diy: Mitmachen, season: Saison, reading: Vorlesen, music: Musik, outside: Draußen, stage: "Theater & Kino", sport: "Sport & Bewegung", tour: "Museum & Führung", parents: "Für Eltern" }
 empty: Hier ist noch nichts eingetragen. Kennt ihr etwas? Unter „Mitmachen“ könnt ihr es melden.
 footer: "Alle Angaben ohne Gewähr. Bitte vor dem Besuch beim Veranstalter prüfen."
 dataFrom: "Daten u. a. von {sources}."

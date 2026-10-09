@@ -11,7 +11,7 @@ export const FEATURES = [
   "playground", "changing_table", "highchairs", "kids_menu", "toys", "animals", "stroller_friendly",
   "nursing_room", "indoor_play", "toilets", "farm_shop", "parking",
 ] as const;
-export const TAGS = ["fest", "animals", "market", "diy", "season", "reading", "music", "outside"] as const;
+export const TAGS = ["reading", "diy", "stage", "music", "sport", "animals", "tour", "fest", "market", "outside", "season", "parents"] as const;
 // Same levels as cityklub's map review: recorded point, venue candidate, city overview, unmapped.
 export const PRECISION = ["exact", "venue", "area", "unknown"] as const;
 

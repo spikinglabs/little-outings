@@ -16,7 +16,7 @@ const count = (p: Plural, n: number, r?: number) =>
 
 // area: the map's bounds [south, west, north, east] once the reader moves the map; it replaces the radius.
 const PAGE = 24; // cards shown at once; OpenStreetMap brings in more than a thousand places
-const state = { limit: PAGE, area: null as number[] | null, view: 0, when: "weekend", q: "", rain: false, farm: false, free: false, animals: false, changing: false, age: "", radius: 30, kind: "" };
+const state = { limit: PAGE, area: null as number[] | null, view: 0, when: "weekend", q: "", rain: false, farm: false, free: false, animals: false, changing: false, age: "", radius: 30, kind: "", tag: "" };
 const $ = <T extends Element = HTMLElement>(s: string) => document.querySelector<T>(s)!;
 const $$ = <T extends Element = HTMLElement>(s: string) => [...document.querySelectorAll<T>(s)];
 const home = $<HTMLSelectElement>("#home");
@@ -100,8 +100,10 @@ function apply() {
   measure();
   // Events count when they fall on the chosen day; places always do. Chips: "event", or a kind of
   // place (which also matches events held at such a place, and farm events for "farm").
+  // Under "event", a type chip narrows events to one type (story time, sport ...).
   const kindOk = (r: Row) => !state.kind
-    || (state.kind === "event" ? r.d.type === "event" : r.d.kind === state.kind || (state.kind === "farm" && !!r.d.farm));
+    || (state.kind === "event" ? r.d.type === "event" && (!state.tag || r.feat.includes(state.tag))
+      : r.d.kind === state.kind || (state.kind === "farm" && !!r.d.farm));
   const matched: Row[] = [];
   const onMap: Row[] = [];
   let nEv = 0, nPl = 0;
@@ -156,6 +158,8 @@ function apply() {
   window.loFiltered = filtered;
   document.dispatchEvent(new CustomEvent("lo:filtered", { detail: filtered }));
   $$<HTMLButtonElement>("[data-kind-chip]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.kindChip === state.kind)));
+  $("[data-types]").hidden = state.kind !== "event";
+  $$<HTMLButtonElement>("[data-tag-chip]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.tagChip === state.tag)));
 }
 
 document.addEventListener("click", (ev) => {
@@ -175,7 +179,9 @@ document.addEventListener("click", (ev) => {
   const m = t.closest<HTMLButtonElement>("[data-map-toggle]");
   if (m) showMap(m.getAttribute("aria-expanded") !== "true");
   const k = t.closest<HTMLButtonElement>("[data-kind-chip]");
-  if (k) { state.kind = k.dataset.kindChip!; apply(); }
+  if (k) { state.kind = k.dataset.kindChip!; state.tag = ""; apply(); }
+  const g = t.closest<HTMLButtonElement>("[data-tag-chip]");
+  if (g) { state.tag = g.dataset.tagChip!; state.limit = PAGE; apply(); }
 });
 $<HTMLInputElement>("#q").addEventListener("input", (e) => { state.limit = PAGE; state.q = (e.target as HTMLInputElement).value.trim(); apply(); });
 $<HTMLSelectElement>("#age").addEventListener("change", (e) => { state.age = (e.target as HTMLSelectElement).value; apply(); });
