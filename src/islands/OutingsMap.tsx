@@ -1,7 +1,7 @@
 // The map on Discover: it draws whatever the filters show, and once the reader drags or
 // zooms it, its area becomes the "where" filter for the lists ("lo:area"). explore.ts publishes the visible
 // ids, the home town and the radius as a "lo:filtered" event (also kept on window.loFiltered).
-// Events are gold pins, places brown; approximate spots get a dashed ring, and town-only
+// Events are gold pins, places small brown dots; approximate spots get a dashed ring, and town-only
 // events share one circle per town, labelled with how many there are.
 import { useEffect, useRef } from "preact/hooks";
 import L from "leaflet";
@@ -55,15 +55,25 @@ export default function OutingsMap({ pins, center, towns, locale, labels }: Prop
       if (t) home = [t[1], t[2]];
     } catch { /* storage blocked */ }
     const map = L.map(el.current!, { scrollWheelZoom: false }).setView(home, 11);
-    // OpenStreetMap tiles, muted in CSS (.map .leaflet-tile-pane) so the gold and brown pins stand out.
-    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    // A pale basemap without labels (CARTO Positron, OpenStreetMap data): the map only gives a rough idea,
+    // so roads and water stay faint and the only words on it are our own town names.
+    L.tileLayer("https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png", {
       maxZoom: 18,
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      subdomains: "abcd",
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
     }).addTo(map);
+    map.createPane("towns").style.zIndex = "450"; // above tiles and rings, below pins
+    for (const [name, lat, lon] of towns) {
+      L.marker([lat, lon], {
+        pane: "towns", interactive: false, keyboard: false,
+        icon: L.divIcon({ className: "", html: `<span class="town-label">${esc(name)}</span>`, iconSize: [0, 0] }),
+      }).addTo(map);
+    }
     const plural = new Intl.PluralRules(locale);
     const fill = (s: string, n: number) => s.replace("{n}", String(n));
     const link = (p: Pin) => `<a href="${p.href}">${esc(p.title)}</a>`;
     const layer = L.layerGroup().addTo(map);
+    const dots = L.canvas({ padding: 0.5 });
     const draw = (list: Pin[]) => {
       layer.clearLayers();
       const areas = new Map<string, Pin[]>();
@@ -71,6 +81,10 @@ export default function OutingsMap({ pins, center, towns, locale, labels }: Prop
         if (p.precision === "area") {
           const key = `${p.lat.toFixed(3)},${p.lon.toFixed(3)}`;
           areas.set(key, [...(areas.get(key) ?? []), p]);
+        } else if (p.type === "place") {
+          // Places are many and always there: small quiet dots, so the dated events (pins) stand out.
+          L.circleMarker([p.lat, p.lon], { renderer: dots, radius: 4, weight: 1, color: "#fff", fillColor: "#6f4a2a", fillOpacity: 0.75 })
+            .bindPopup(`<b>${link(p)}</b><br>${esc(p.sub)}`).addTo(layer);
         } else {
           L.marker([p.lat, p.lon], { icon: icon(p), title: p.title })
             .bindPopup(`<b>${link(p)}</b><br>${esc(p.sub)}`).addTo(layer);
