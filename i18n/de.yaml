@@ -16,6 +16,7 @@ always: Geht immer
 allKinds: Alle
 nEvents: { one: "1 Termin", other: "{n} Termine" }
 nPlaces: { one: "1 Ort bis {r} km", other: "{n} Orte bis {r} km" }
+nPlacesArea: { one: "1 Ort im Kartenausschnitt", other: "{n} Orte im Kartenausschnitt" }
 noEvents: Keine Termine mit diesen Filtern. Probiert einen größeren Umkreis oder einen anderen Tag.
 noPlaces: Keine Orte mit diesen Filtern in der Nähe.
 nothingMore: Mehr gibt's in diesem Zeitraum nicht.
@@ -60,6 +61,8 @@ mapShowMore: "{n} weitere zeigen"
 mapMore: "und {n} weitere"
 mapShow: "Auf der Karte zeigen"
 mapHide: "Karte ausblenden"
+mapAreaOn: "Gezeigt wird, was im Kartenausschnitt liegt."
+mapAreaBack: "Zurück zu {r} km um {town}"
 legend: { event: Termin, place: "Ort, geht immer", approx: "Gestrichelter Ring: Ort ungefähr", area: "Kreis mit Zahl: nur Stadt bekannt", radius: "Gepunkteter Kreis: euer Umkreis" }
 savedTitle: Merkliste
 savedSub: Bleibt auf diesem Gerät.

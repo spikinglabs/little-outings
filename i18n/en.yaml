@@ -16,6 +16,7 @@ always: Always a good idea
 allKinds: All
 nEvents: { one: "1 event", other: "{n} events" }
 nPlaces: { one: "1 place within {r} km", other: "{n} places within {r} km" }
+nPlacesArea: { one: "1 place in the map area", other: "{n} places in the map area" }
 noEvents: No events match these filters. Try a bigger radius or another day.
 noPlaces: No places nearby match these filters.
 nothingMore: That's everything in this period.
@@ -60,6 +61,8 @@ mapShowMore: "Show {n} more"
 mapMore: "and {n} more"
 mapShow: "Show on map"
 mapHide: "Hide map"
+mapAreaOn: "Showing what is in the map area."
+mapAreaBack: "Back to {r} km around {town}"
 legend: { event: Event, place: "Place, any day", approx: "Dashed ring: approximate", area: "Circle with a number: town only", radius: "Dotted circle: your search radius" }
 savedTitle: Saved
 savedSub: Stays on this device.

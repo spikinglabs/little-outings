@@ -1,4 +1,5 @@
-// The map on Discover: it draws whatever the filters show. explore.ts publishes the visible
+// The map on Discover: it draws whatever the filters show, and once the reader drags or
+// zooms it, its area becomes the "where" filter for the lists ("lo:area"). explore.ts publishes the visible
 // ids, the home town and the radius as a "lo:filtered" event (also kept on window.loFiltered).
 // Events are gold pins, places brown; approximate spots get a dashed ring, and town-only
 // events share one circle per town, labelled with how many there are.
@@ -28,7 +29,7 @@ interface Props {
 }
 
 /** What the Discover filters currently show; also kept on window for a map that mounts later. */
-export interface Filtered { ids: string[]; home: string; radius: number }
+export interface Filtered { ids: string[]; home: string; radius: number; view: number }
 declare global { interface Window { loFiltered?: Filtered } }
 
 const icon = (p: Pin) =>
@@ -95,14 +96,20 @@ export default function OutingsMap({ pins, center, towns, locale, labels }: Prop
     // Draw what the filters show, with the search radius around the home town.
     const ring = L.circle(home, { radius: 1, color: "#17191b", weight: 1, dashArray: "2 6", fill: false, interactive: false }).addTo(map);
     let last = "";
+    // Moves the page makes (fitting the radius) don't count as the reader choosing an area.
+    let fitting = false;
     const update = (f: Filtered) => {
       const ids = new Set(f.ids);
       draw(pins.filter((p) => ids.has(p.id)));
       const town = towns.find(([n]) => n === f.home);
       const at = town ? L.latLng(town[1], town[2]) : L.latLng(home);
       ring.setLatLng(at).setRadius(f.radius * 1000);
-      const key = `${f.home}|${f.radius}`;
-      if (key !== last) map.fitBounds(at.toBounds(f.radius * 2000), { padding: [8, 8] });
+      const key = `${f.home}|${f.radius}|${f.view}`;
+      if (key !== last) {
+        fitting = true;
+        map.fitBounds(at.toBounds(f.radius * 2000), { padding: [8, 8], animate: false });
+        fitting = false;
+      }
       last = key;
     };
     const onFiltered = (e: Event) => update((e as CustomEvent<Filtered>).detail);
@@ -112,6 +119,12 @@ export default function OutingsMap({ pins, center, towns, locale, labels }: Prop
       last = "";
       if (window.loFiltered) update(window.loFiltered);
     };
+    const onMoved = () => {
+      if (fitting) return;
+      const b = map.getBounds();
+      document.dispatchEvent(new CustomEvent("lo:area", { detail: [b.getSouth(), b.getWest(), b.getNorth(), b.getEast()] }));
+    };
+    map.on("dragend zoomend", onMoved);
     document.addEventListener("lo:filtered", onFiltered);
     document.addEventListener("lo:map-shown", onShown);
     if (window.loFiltered) update(window.loFiltered);

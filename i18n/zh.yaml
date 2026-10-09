@@ -16,6 +16,7 @@ always: 随时可去
 allKinds: 全部
 nEvents: { one: "1 个活动", other: "{n} 个活动" }
 nPlaces: { one: "{r} 公里内 1 个地点", other: "{r} 公里内 {n} 个地点" }
+nPlacesArea: { one: "地图范围内 1 个地点", other: "地图范围内 {n} 个地点" }
 noEvents: 没有符合条件的活动。试试扩大范围或换一天。
 noPlaces: 附近没有符合条件的地点。
 nothingMore: 这段时间内没有更多活动了。
@@ -60,6 +61,8 @@ mapShowMore: "再显示 {n} 项"
 mapMore: "还有 {n} 个"
 mapShow: "在地图上显示"
 mapHide: "隐藏地图"
+mapAreaOn: "只显示地图范围内的内容。"
+mapAreaBack: "回到{town}周边 {r} 公里"
 legend: { event: 活动, place: 地点，随时可去, approx: 虚线圈：大致位置, area: 带数字的圆圈：仅知城市, radius: "点状圆圈：搜索范围" }
 savedTitle: 收藏
 savedSub: 保存在本设备上。

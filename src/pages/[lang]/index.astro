@@ -26,7 +26,7 @@ const tips = listed
 const presentKinds = KINDS.filter((k) => places.some((p) => p.kind === k));
 const whenKeys = ["today", "tomorrow", "weekend", "soon"];
 const whenIn = t.group("whenIn");
-const pluralUi = { nEvents: t.group("nEvents"), nPlaces: t.group("nPlaces"), tip: t("tip"), only: t("only"), whenIn, mapShow: t("mapShow"), mapHide: t("mapHide") };
+const pluralUi = { nEvents: t.group("nEvents"), nPlaces: t.group("nPlaces"), tip: t("tip"), only: t("only"), whenIn, mapShow: t("mapShow"), mapHide: t("mapHide"), nPlacesArea: t.group("nPlacesArea"), areaBack: t("mapAreaBack") };
 const homes = region.towns;
 // The map shows whatever the filters show (explore.ts tells it which ids).
 const pins = buildPins(data, lang, t);
@@ -83,6 +83,8 @@ const mapLabels = { ...(t.group("nEvents") as { one: string; other: string }), m
       <span><i style="border:1px dotted currentColor"></i>{t("legend.radius")}</span>
     </div>
   </div>
+
+  <p class="area-note" data-area-note hidden>{t("mapAreaOn")} <button type="button" class="link-btn" data-area-reset></button></p>
 
   {tips.map((e) => (
     <a class="tip" href={pathFor(lang, e)} data-tip={e.id} hidden>
