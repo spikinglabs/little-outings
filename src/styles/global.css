@@ -301,3 +301,5 @@ footer.foot { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--l
 .about section { margin-top: 18px; }
 .about h2 { font-size: 1.05rem; margin-bottom: 4px; }
 .about p { line-height: 1.6; }
+.profile-ask { margin-top: 12px; }
+.profile-ask p { margin: 0; }

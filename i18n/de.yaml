@@ -204,8 +204,12 @@ profile:
     home: "Heimatort: {town}"
   passkeyTitle: Mit einem Passkey sichern
   passkeySub: "Mit einem Passkey liegt eine Kopie eures Profils bei uns. So übersteht es ein neues Handy und erscheint auf euren anderen Geräten. Keine E-Mail, kein Passwort: Das Handy entsperrt ihn mit Gesicht, Fingerabdruck oder Bildschirmsperre."
-  passkeyOn: Passkey-Sync einschalten
-  passkeyLogin: Ich habe schon einen Passkey
+  passkeyOn: Mit einem Passkey synchronisieren
+  passkeyAsk: "Habt ihr schon einmal einen Passkey für Little Outings angelegt, auf diesem oder einem anderen Handy?"
+  passkeyAskYes: "Ja, damit anmelden"
+  passkeyAskNo: "Nein, neuen anlegen"
+  passkeyOther: Mit einem anderen Passkey anmelden
+  passkeyOtherSub: "Aus Versehen einen zweiten Passkey angelegt? Meldet euch mit dem anderen an: Seine Kopie kommt zu dem dazu, was auf diesem Handy ist, und hier geht nichts verloren."
   passkeySynced: "Mit eurem Passkey synchronisiert."
   passkeyLast: "Zuletzt gesichert {when}."
   passkeyOff: Auf diesem Handy nicht mehr synchronisieren
