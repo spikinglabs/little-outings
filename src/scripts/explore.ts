@@ -1,18 +1,21 @@
 // Filters on the Entdecken page. All cards are already in the HTML; this only hides and sorts them.
 import { distanceOf, getHome, renderKm, setHome } from "./app";
+import type {} from "../islands/OutingsMap";
 
 type Plural = { one?: string; other: string };
 const ui = JSON.parse(document.getElementById("explore-ui")!.textContent!) as {
-  nEvents: Plural; nPlaces: Plural; tip: string; only: string; whenIn: Record<string, string>;
+  nEvents: Plural; nPlaces: Plural; nPlacesArea: Plural; areaBack: string; tip: string; only: string; whenIn: Record<string, string>; mapShow: string; mapHide: string;
 };
 const lang = document.body.dataset.lang!;
 const pr = new Intl.PluralRules(lang);
 const count = (p: Plural, n: number, r?: number) =>
   ((pr.select(n) === "one" && p.one) || p.other).replace("{n}", String(n)).replace("{r}", String(r ?? ""));
 
-const state = { when: "weekend", q: "", rain: false, farm: false, free: false, animals: false, changing: false, age: "", radius: 30, kind: "" };
+// area: the map's bounds [south, west, north, east] once the reader moves the map; it replaces the radius.
+const state = { area: null as number[] | null, view: 0, when: "weekend", q: "", rain: false, farm: false, free: false, animals: false, changing: false, age: "", radius: 30, kind: "" };
 const $ = <T extends Element = HTMLElement>(s: string) => document.querySelector<T>(s)!;
 const $$ = <T extends Element = HTMLElement>(s: string) => [...document.querySelectorAll<T>(s)];
+const home = $<HTMLSelectElement>("#home");
 
 // Dates in Germany, as YYYY-MM-DD strings, so they compare with the data-start/data-end attributes.
 const ymd = (d: Date) => new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Berlin" }).format(d);
@@ -29,10 +32,18 @@ function range(): [string, string] {
   return [today, addDays(today, 13)];
 }
 
-function passes(el: HTMLElement, dist: number | null) {
+/** Whether a card is where the reader is looking: inside the map area once they moved the map, else within the radius. */
+function near(el: HTMLElement, dist: number | null) {
+  if (!state.area) return dist == null || dist <= state.radius;
+  const lat = parseFloat(el.dataset.lat || ""), lon = parseFloat(el.dataset.lon || "");
+  const [s, w, n, e] = state.area;
+  return lat >= s && lat <= n && lon >= w && lon <= e;
+}
+
+/** Every filter except where: the map draws these, so moving it reveals more. */
+function passes(el: HTMLElement) {
   const d = el.dataset;
   if (state.q && !state.q.toLowerCase().split(/\s+/).every((w) => d.q!.includes(w))) return false;
-  if (dist != null && dist > state.radius) return false;
   if (state.rain && !d.indoor) return false;
   if (state.farm && !d.farm) return false;
   if (state.free && !d.free) return false;
@@ -54,9 +65,12 @@ function apply() {
   $$<HTMLButtonElement>("[data-when]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.when === state.when)));
 
   const visible: HTMLElement[] = [];
+  const onMap: HTMLElement[] = [];
   const evs = $$("#events > .item");
   for (const el of evs) {
-    const ok = el.dataset.end! >= from && el.dataset.start! <= to && passes(el, distanceOf(el));
+    const match = el.dataset.end! >= from && el.dataset.start! <= to && passes(el);
+    if (match) onMap.push(el);
+    const ok = match && near(el, distanceOf(el));
     el.hidden = !ok;
     if (ok) visible.push(el);
   }
@@ -88,12 +102,23 @@ function apply() {
   const pls = $$("#places > .item").map((el) => ({ el, d: distanceOf(el) }));
   pls.sort((a, b) => (a.d ?? 1e9) - (b.d ?? 1e9)).forEach(({ el }) => pgrid.insertBefore(el, $("[data-pl-empty]")));
   for (const { el, d } of pls) {
-    const ok = passes(el, d) && (!state.kind || el.dataset.kind === state.kind);
+    const match = passes(el) && (!state.kind || el.dataset.kind === state.kind);
+    if (match) onMap.push(el);
+    const ok = match && near(el, d);
     el.hidden = !ok;
     if (ok) places++;
   }
-  $("[data-pl-count]").textContent = count(ui.nPlaces, places, state.radius);
+  $("[data-pl-count]").textContent = count(state.area ? ui.nPlacesArea : ui.nPlaces, places, state.radius);
+  const note = $("[data-area-note]");
+  note.hidden = !state.area;
+  $("[data-area-reset]").textContent = ui.areaBack.replace("{r}", String(state.radius))
+    .replace("{town}", home.selectedOptions[0]?.textContent?.trim() ?? "");
   $("[data-pl-empty]").hidden = places > 0;
+
+  // Tell the map on this page what to draw: everything the other filters let through, wherever it is.
+  const filtered = { ids: onMap.map((el) => el.dataset.id!), home: getHome(), radius: state.radius, view: state.view };
+  window.loFiltered = filtered;
+  document.dispatchEvent(new CustomEvent("lo:filtered", { detail: filtered }));
   $$<HTMLButtonElement>("[data-kind-chip]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.kindChip === state.kind)));
 }
 
@@ -108,13 +133,30 @@ document.addEventListener("click", (ev) => {
     f.setAttribute("aria-pressed", String(state[k]));
     apply();
   }
+  if (t.closest("[data-area-reset]")) { state.area = null; state.view++; apply(); }
+  const m = t.closest<HTMLButtonElement>("[data-map-toggle]");
+  if (m) showMap(m.getAttribute("aria-expanded") !== "true");
   const k = t.closest<HTMLButtonElement>("[data-kind-chip]");
   if (k) { state.kind = k.dataset.kindChip!; apply(); }
 });
 $<HTMLInputElement>("#q").addEventListener("input", (e) => { state.q = (e.target as HTMLInputElement).value.trim(); apply(); });
 $<HTMLSelectElement>("#age").addEventListener("change", (e) => { state.age = (e.target as HTMLSelectElement).value; apply(); });
-$<HTMLSelectElement>("#radius").addEventListener("change", (e) => { state.radius = +(e.target as HTMLSelectElement).value; apply(); });
-const home = $<HTMLSelectElement>("#home");
+$<HTMLSelectElement>("#radius").addEventListener("change", (e) => { state.radius = +(e.target as HTMLSelectElement).value; state.area = null; apply(); });
 home.value = getHome();
-home.addEventListener("change", () => { setHome(home.value); renderKm(); apply(); });
+home.addEventListener("change", () => { setHome(home.value); state.area = null; renderKm(); apply(); });
+// Moving the map makes its area the filter.
+document.addEventListener("lo:area", (e) => { state.area = (e as CustomEvent<number[]>).detail; apply(); });
+
+// The map starts folded; the "Show on map" button opens it, and the choice is remembered on this device.
+function showMap(on: boolean, remember = true) {
+  $("#explore-map").hidden = !on;
+  if (!on && state.area) { state.area = null; apply(); }
+  $("[data-map-toggle]").setAttribute("aria-expanded", String(on));
+  $("[data-map-label]").textContent = on ? ui.mapHide : ui.mapShow;
+  if (on) document.dispatchEvent(new Event("lo:map-shown"));
+  if (remember) try { localStorage.setItem("lo-map", on ? "1" : "0"); } catch { /* storage blocked */ }
+}
+// Old links to the map page arrive as #map.
+if (location.hash === "#map") showMap(true, false);
+else try { if (localStorage.getItem("lo-map") === "1") showMap(true, false); } catch { /* storage blocked */ }
 apply();

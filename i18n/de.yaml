@@ -2,7 +2,7 @@ locale: de-DE
 langName: Deutsch
 siteName: Little Outings
 tagline: Ausflüge mit Kindern in eurer Nähe
-tabs: { explore: Entdecken, map: Karte, saved: Merkliste, add: Mitmachen }
+tabs: { explore: Entdecken, saved: Merkliste, add: Mitmachen }
 when: { today: Heute, tomorrow: Morgen, weekend: Wochenende, soon: Nächste 2 Wochen }
 whenIn: { today: heute, tomorrow: morgen, weekend: am Wochenende, soon: in den nächsten 2 Wochen }
 ask: "Was machen wir <em>{when}</em> mit den Kindern?"
@@ -16,6 +16,7 @@ always: Geht immer
 allKinds: Alle
 nEvents: { one: "1 Termin", other: "{n} Termine" }
 nPlaces: { one: "1 Ort bis {r} km", other: "{n} Orte bis {r} km" }
+nPlacesArea: { one: "1 Ort im Kartenausschnitt", other: "{n} Orte im Kartenausschnitt" }
 noEvents: Keine Termine mit diesen Filtern. Probiert einen größeren Umkreis oder einen anderen Tag.
 noPlaces: Keine Orte mit diesen Filtern in der Nähe.
 nothingMore: Mehr gibt's in diesem Zeitraum nicht.
@@ -56,14 +57,13 @@ dunno: Weiß nicht
 send: Senden
 answered: Danke! Sobald zwei Eltern übereinstimmen, übernehmen wir es.
 inboxSoon: Danke! Das Einsenden wird gerade eingerichtet. Bis dahin gern per GitHub melden.
-mapTitle: Karte
-mapSub: "Termine {when} und Orte rund um {home}."
-mapListTitle: "Im Kartenausschnitt"
-mapCount: { one: "1 Treffer", other: "{n} Treffer" }
-mapListEmpty: "In diesem Ausschnitt ist in den nächsten 2 Wochen nichts los. Verschiebt die Karte oder zoomt heraus."
 mapShowMore: "{n} weitere zeigen"
 mapMore: "und {n} weitere"
-legend: { event: Termin, place: "Ort, geht immer", approx: "Gestrichelter Ring: Ort ungefähr", area: "Kreis mit Zahl: nur Stadt bekannt" }
+mapShow: "Auf der Karte zeigen"
+mapHide: "Karte ausblenden"
+mapAreaOn: "Gezeigt wird, was im Kartenausschnitt liegt."
+mapAreaBack: "Zurück zu {r} km um {town}"
+legend: { event: Termin, place: "Ort, geht immer", approx: "Gestrichelter Ring: Ort ungefähr", area: "Kreis mit Zahl: nur Stadt bekannt", radius: "Gepunkteter Kreis: euer Umkreis" }
 savedTitle: Merkliste
 savedSub: Bleibt auf diesem Gerät.
 savedEmpty: Noch nichts gemerkt. Tippt bei einem Termin oder Ort auf das Lesezeichen.
@@ -98,4 +98,3 @@ pleaseCheck: Bitte prüfen
 field: { title: Titel, date: Datum, time: Uhrzeit, place: Ort oder Adresse, price: Preis, note: "Was gibt es für Kinder?" }
 parseSoon: Automatisches Auslesen ist noch nicht eingerichtet. Bitte füllt die Felder selbst aus.
 typeIt: Lieber selbst eintippen
-mapNoJs: Die Karte braucht JavaScript. Alle Einträge findet ihr auch unter Entdecken.
