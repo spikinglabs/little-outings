@@ -1,11 +1,12 @@
-// Filters on the Entdecken page. All cards are already in the HTML; this only hides and sorts them.
-// Distances are measured once per home town, and places show a page at a time.
+// Filters on the Entdecken page: one list of ideas, events on the chosen day mixed with places
+// that are good any time. All cards are already in the HTML; this only hides and sorts them.
+// Distances are measured once per home town, and the list shows a page at a time.
 import { distanceOf, getHome, renderKm, setHome } from "./app";
 import type {} from "../islands/OutingsMap";
 
 type Plural = { one?: string; other: string };
 const ui = JSON.parse(document.getElementById("explore-ui")!.textContent!) as {
-  nEvents: Plural; nPlaces: Plural; nPlacesArea: Plural; areaBack: string; tip: string; only: string; whenIn: Record<string, string>; mapShow: string; mapHide: string;
+  nEvents: Plural; nPlaces: Plural; areaBack: string; tip: string; whenIn: Record<string, string>; mapShow: string; mapHide: string;
   showMore: string;
 };
 const lang = document.body.dataset.lang!;
@@ -14,7 +15,7 @@ const count = (p: Plural, n: number, r?: number) =>
   ((pr.select(n) === "one" && p.one) || p.other).replace("{n}", String(n)).replace("{r}", String(r ?? ""));
 
 // area: the map's bounds [south, west, north, east] once the reader moves the map; it replaces the radius.
-const PAGE = 24; // place cards shown at once; OpenStreetMap brings in more than a thousand
+const PAGE = 24; // cards shown at once; OpenStreetMap brings in more than a thousand places
 const state = { limit: PAGE, area: null as number[] | null, view: 0, when: "weekend", q: "", rain: false, farm: false, free: false, animals: false, changing: false, age: "", radius: 30, kind: "" };
 const $ = <T extends Element = HTMLElement>(s: string) => document.querySelector<T>(s)!;
 const $$ = <T extends Element = HTMLElement>(s: string) => [...document.querySelectorAll<T>(s)];
@@ -40,18 +41,30 @@ type Row = { el: HTMLElement; d: DOMStringMap; lat: number; lon: number; feat: s
 const rows = (sel: string): Row[] => $$(sel).map((el) => ({
   el, d: el.dataset, lat: parseFloat(el.dataset.lat || ""), lon: parseFloat(el.dataset.lon || ""), feat: (el.dataset.feat || "").split(" "), dist: null,
 }));
-const evRows = rows("#events > .item");
-let plRows = rows("#places > .item");
+const all = rows("#ideas > .item");
 let measuredFor = "";
-/** Distances from home, recomputed only when home changes; places are kept sorted by them. */
+/** Distances from home, recomputed only when home changes. */
 function measure() {
   if (measuredFor === getHome()) return;
   measuredFor = getHome();
-  for (const r of [...evRows, ...plRows]) r.dist = distanceOf(r.el);
-  plRows = plRows.sort((a, b) => (a.dist ?? 1e9) - (b.dist ?? 1e9));
-  const frag = document.createDocumentFragment();
-  plRows.forEach((r) => frag.append(r.el));
-  $("#places").insertBefore(frag, $("[data-pl-empty]"));
+  for (const r of all) r.dist = distanceOf(r.el);
+}
+/** Nearest first, but a kind that just appeared counts as 3 km further for each of the last 4 cards it fills. */
+function mixKinds(sorted: Row[]): Row[] {
+  const queues = new Map<string, Row[]>();
+  for (const r of sorted) (queues.get(r.d.kind ?? "") ?? queues.set(r.d.kind ?? "", []).get(r.d.kind ?? "")!).push(r);
+  const out: Row[] = [];
+  while (out.length < sorted.length) {
+    const recent = out.slice(-4).map((r) => r.d.kind);
+    let best: [string, number] | null = null;
+    for (const [k, q] of queues) {
+      if (!q.length) continue;
+      const score = (q[0].dist ?? 1e9) + 3 * recent.filter((x) => x === k).length;
+      if (!best || score < best[1]) best = [k, score];
+    }
+    out.push(queues.get(best![0])!.shift()!);
+  }
+  return out;
 }
 const show = (el: HTMLElement, on: boolean) => { if (el.hidden === on) el.hidden = !on; };
 
@@ -85,56 +98,58 @@ function apply() {
   $$<HTMLButtonElement>("[data-when]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.when === state.when)));
 
   measure();
-  const visible: Row[] = [];
+  // Events count when they fall on the chosen day; places always do. Chips: "event", or a kind of
+  // place (which also matches events held at such a place, and farm events for "farm").
+  const kindOk = (r: Row) => !state.kind
+    || (state.kind === "event" ? r.d.type === "event" : r.d.kind === state.kind || (state.kind === "farm" && !!r.d.farm));
+  const matched: Row[] = [];
   const onMap: Row[] = [];
-  for (const r of evRows) {
-    const match = r.d.end! >= from && r.d.start! <= to && passes(r);
+  let nEv = 0, nPl = 0;
+  for (const r of all) {
+    const inTime = r.d.type !== "event" || (r.d.end! >= from && r.d.start! <= to);
+    const match = inTime && passes(r) && kindOk(r);
     if (match) onMap.push(r);
-    const ok = match && near(r);
-    show(r.el, ok);
-    if (ok) visible.push(r);
+    if (match && near(r)) {
+      matched.push(r);
+      if (r.d.type === "event") nEv++; else nPl++;
+    }
   }
-  // Sort visible events by date, then distance.
-  const start = (r: Row) => (r.d.start! < from ? from : r.d.start!);
-  const frag = document.createDocumentFragment();
-  visible.sort((a, b) => start(a).localeCompare(start(b)) || (a.dist ?? 0) - (b.dist ?? 0)).forEach((r) => frag.append(r.el));
-  $("#events").insertBefore(frag, $("[data-ev-empty]"));
+  // Events soonest then nearest, places nearest first but with the kinds mixed, and the two
+  // alternated, so the list always has something happening and something good any time.
+  const evs = matched.filter((r) => r.d.type === "event")
+    .sort((a, b) => (a.d.start! < from ? from : a.d.start!).localeCompare(b.d.start! < from ? from : b.d.start!) || (a.dist ?? 0) - (b.dist ?? 0));
+  const pls = mixKinds(matched.filter((r) => r.d.type !== "event").sort((a, b) => (a.dist ?? 1e9) - (b.dist ?? 1e9)));
+  matched.length = 0;
+  for (let i = 0; i < Math.max(evs.length, pls.length); i++) {
+    if (evs[i]) matched.push(evs[i]);
+    if (pls[i]) matched.push(pls[i]);
+  }
 
-  // The tip: first checked event in range. It is not repeated in the list.
-  let tipShown = false;
+  // The tip: first checked event in range, shown big above the list and not repeated in it.
+  let tip = "";
   $$<HTMLAnchorElement>("[data-tip]").forEach((a) => {
-    const card = visible.find((r) => r.d.id === a.dataset.tip);
-    a.hidden = tipShown || !card;
-    if (!a.hidden) {
-      tipShown = true;
-      card!.el.hidden = true;
+    const ok = !tip && matched.some((r) => r.d.id === a.dataset.tip);
+    a.hidden = !ok;
+    if (ok) {
+      tip = a.dataset.tip!;
       a.querySelector("[data-tip-kicker]")!.textContent = ui.tip.replace("{when}", word);
     }
   });
-  const shown = visible.filter((r) => !r.el.hidden).length;
-  $("[data-only]").textContent = ui.only.replace("{when}", word);
-  $("[data-ev-count]").textContent = count(ui.nEvents, visible.length);
-  $("[data-ev-empty]").hidden = visible.length > 0;
-  $("[data-ev-more]").hidden = !(visible.length > 0 && shown === 0);
+  const list = matched.filter((r) => r.d.id !== tip);
+  const shownIds = new Set(list.slice(0, state.limit).map((r) => r.d.id));
+  const frag = document.createDocumentFragment();
+  list.slice(0, state.limit).forEach((r) => frag.append(r.el));
+  $("#ideas").insertBefore(frag, $("#ideas").firstChild);
+  for (const r of all) show(r.el, shownIds.has(r.d.id));
 
-  // Places, nearest first, a page at a time.
-  let places = 0;
-  for (const r of plRows) {
-    const match = passes(r) && (!state.kind || r.d.kind === state.kind);
-    if (match) onMap.push(r);
-    const ok = match && near(r);
-    if (ok) places++;
-    show(r.el, ok && places <= state.limit);
-  }
-  const more = $<HTMLButtonElement>("[data-pl-more]");
-  more.hidden = places <= state.limit;
-  more.textContent = ui.showMore.replace("{n}", String(Math.min(PAGE, places - state.limit)));
-  $("[data-pl-count]").textContent = count(state.area ? ui.nPlacesArea : ui.nPlaces, places, state.radius);
-  const note = $("[data-area-note]");
-  note.hidden = !state.area;
+  $("[data-count]").textContent = [nEv ? count(ui.nEvents, nEv) : "", nPl ? count(ui.nPlaces, nPl) : ""].filter(Boolean).join(" · ");
+  $("[data-empty]").hidden = matched.length > 0;
+  $("[data-area-note]").hidden = !state.area;
   $("[data-area-reset]").textContent = ui.areaBack.replace("{r}", String(state.radius))
     .replace("{town}", home.selectedOptions[0]?.textContent?.trim() ?? "");
-  $("[data-pl-empty]").hidden = places > 0;
+  const more = $<HTMLButtonElement>("[data-more]");
+  more.hidden = list.length <= state.limit;
+  more.textContent = ui.showMore.replace("{n}", String(Math.min(PAGE, list.length - state.limit)));
 
   // Tell the map on this page what to draw: everything the other filters let through, wherever it is.
   const filtered = { ids: onMap.map((r) => r.d.id!), home: getHome(), radius: state.radius, view: state.view };
@@ -145,7 +160,7 @@ function apply() {
 
 document.addEventListener("click", (ev) => {
   const t = ev.target as Element;
-  if (t.closest("[data-pl-more]")) { state.limit += PAGE; apply(); return; }
+  if (t.closest("[data-more]")) { state.limit += PAGE; apply(); return; }
   if (t.closest("[data-when],[data-flag],[data-kind-chip],[data-area-reset]")) state.limit = PAGE;
   const w = t.closest<HTMLButtonElement>("[data-when]");
   if (w) { state.when = w.dataset.when!; apply(); }

@@ -13,6 +13,11 @@ filters: { farm: "🚜 Farm", rain: "☂ Rainy day", free: Free, animals: Animal
 tip: "Our pick {when}"
 only: "Only {when}"
 always: Always a good idea
+ideas: Ideas nearby
+ideasKinds: What kind of outing
+kindEvents: Events
+noIdeas: Nothing matches these filters. Try a bigger radius, another day or fewer filters.
+nPlacesAny: { one: "1 place for any time", other: "{n} places for any time" }
 allKinds: All
 nEvents: { one: "1 event", other: "{n} events" }
 nPlaces: { one: "1 place within {r} km", other: "{n} places within {r} km" }
