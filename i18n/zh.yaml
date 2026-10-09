@@ -84,7 +84,8 @@ addTitle: 投稿
 addSub: 在农场小店看到海报，或者知道一个很棒的游乐场？告诉我们吧，中文、英文、德文都可以。每条信息发布前都会经过核实。
 posterTitle: 看到海报了？拍下来就行。
 posterSub: 也可以粘贴链接或消息。我们会自动识别名称、日期、时间和地点，你只需快速确认。
-posterBtn: 拍摄或上传海报照片
+posterBtn: 拍摄海报照片
+posterPick: 从相册选择照片
 orPaste: 或粘贴链接、文字
 pastePh: 网页、Instagram 帖子或 WhatsApp 消息
 pasteBtn: 识别

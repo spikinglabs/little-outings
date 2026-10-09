@@ -34,7 +34,7 @@ const towns = [...new Set(tasks.map((task) => itemOf(task).town).filter(Boolean)
   .sort((a, b) => townName(a, lang, region.towns).localeCompare(townName(b, lang, region.towns), lang));
 const whenChips = [["", t("allKinds")], ["soon", t("when.soon")], ["later", t("tasksLater")],
   ...(tasks.some((task) => task.type === "place") ? [["place", t("places")]] : [])];
-const keys = ["posterTitle", "posterSub", "posterBtn", "orPaste", "pastePh", "pasteBtn", "posterNote", "reading",
+const keys = ["posterTitle", "posterSub", "posterBtn", "posterPick", "orPaste", "pastePh", "pasteBtn", "posterNote", "reading",
   "draftTitle", "pleaseCheck", "send", "answered", "inboxSoon", "parseSoon", "typeIt"];
 const ui = { ...Object.fromEntries(keys.map((k) => [k, t(k)])), field: t.group("field") } as any;
 const placeKeys = ["placeTitle", "placeSub", "placeBtn", "placeKind", "placeTown", "placeTownPh", "placeName", "placeStreet",
