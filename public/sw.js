@@ -1,9 +1,11 @@
 // Little Outings service worker: makes the site installable and keeps pages you opened readable offline.
-//   pages        → network first, but after 3 s on a slow connection the copy from your last visit
+//   pages        → a copy saved in the last 12 hours opens at once and is refreshed in the background;
+//                  otherwise network first, falling back after 3 s to the older copy
 //                  (the fresh one still lands in the cache for next time)
 //   /_astro/, icons, fonts → cache first (file names change when the content does)
 //   /api/, /admin/ and anything not GET → straight to the network, never cached
-const VERSION = "v2";
+const VERSION = "v3";
+const FRESH_MS = 12 * 60 * 60 * 1000;
 const PAGES = `pages-${VERSION}`;
 const STATIC = `static-${VERSION}`;
 const MAX_PAGES = 80;
@@ -55,6 +57,12 @@ async function networkFirst(req, url, event) {
     // Opening the app on a weak connection shouldn't wait on the network when a copy is at hand.
     const cached = await cache.match(req, { ignoreSearch: true });
     if (!cached) return await fresh;
+    // Data changes at most a few times a day, so a recent copy is good enough to show right away.
+    const age = Date.now() - Date.parse(cached.headers.get("date") || "");
+    if (age < FRESH_MS) {
+      event.waitUntil(fresh.catch(() => {}));
+      return cached;
+    }
     const slow = new Promise((ok) => setTimeout(ok, 3000, cached));
     // Let the fresh copy finish downloading into the cache even if the cached one answered first.
     event.waitUntil(fresh.catch(() => {}));

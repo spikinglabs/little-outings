@@ -60,13 +60,9 @@ const search = [
     {german && <div class="de-name" lang="de">{german}</div>}
     <div class="meta">{meta}<span data-km></span>{item.type === "place" && item.rating && ` · ★ ${item.rating.stars.toLocaleString(t.locale)}`}</div>
     {item.type === "place" && (
-      <div class="frow">
-        {ROW.map((f) => {
-          const on = facilities[f]?.status === "yes";
-          const label = `${t(`features.${f}`)}${on ? "" : ": ?"}`;
-          return <span class:list={["fi", { on }]} title={label} aria-label={label} set:html={icon("f", f)} />;
-        })}
-      </div>
+      // One digit per facility in ROW (1 = yes); app.ts draws the icons once the card is on screen.
+      // Thousands of cards each carrying seven labelled icons made every list page heavy.
+      <div class="frow" data-fac={ROW.map((f) => (facilities[f]?.status === "yes" ? "1" : "0")).join("")} />
     )}
     <div class="pills">
       {speech && <span class:list={["pill", "speech", speech]}>{guessed ? t("speechGuess", { s: t(`speech.${speech}`) }) : t(`speech.${speech}`)}</span>}

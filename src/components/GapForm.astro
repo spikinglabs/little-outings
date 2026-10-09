@@ -1,0 +1,29 @@
+---
+// One "still missing" question. GapBox lists them for an outing; Mitmachen clones one per kind in the browser.
+import type { T } from "../lib/i18n";
+
+interface Props { t: T; gapKey: string; type: string; feature?: string }
+const { t, gapKey: key, type, feature } = Astro.props;
+const withInput = new Set(["where", "time", "price", "hours"]);
+const q = type === "fac" ? t("q.fac", { f: t(`features.${feature}`) }) : t(`q.${type}`);
+const inputId = `g-${key.replace(/:/g, "-")}`;
+---
+<form class="gap" data-gap={key} novalidate>
+  <span class="gap-tag">{t(`gapLabel.${type}`)}</span>
+  {withInput.has(type) ? <label for={inputId}><b>{q}</b></label> : <b>{q}</b>}
+  <div class="gap-form">
+    {withInput.has(type) ? (
+      <>
+        {type === "price" && <button class="chip" type="submit" name="answer" value="free">{t("free")}</button>}
+        <input id={inputId} name="text" placeholder={t(`ph.${type}`)} autocomplete="off" />
+        <button class="btn" type="submit">{t("send")}</button>
+      </>
+    ) : (
+      <>
+        <button class="chip" type="submit" name="answer" value="yes">{t("yes")}</button>
+        <button class="chip" type="submit" name="answer" value="no">{t("no")}</button>
+        <button class="chip" type="submit" name="answer" value="unsure">{t("dunno")}</button>
+      </>
+    )}
+  </div>
+</form>
