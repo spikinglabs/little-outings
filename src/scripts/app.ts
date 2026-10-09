@@ -193,6 +193,40 @@ if (sheet) {
   });
 }
 
+/* ---------- "Do you need German?": three chips on an event page, one tap to answer ---------- */
+const langAsk = document.querySelector<HTMLElement>("[data-lang-ask]");
+if (langAsk) {
+  const item = langAsk.dataset.langAsk!;
+  const key = `${item}:lang`;
+  const chips = [...langAsk.querySelectorAll<HTMLButtonElement>("[data-lang-answer]")];
+  const note = langAsk.querySelector<HTMLElement>("[data-lang-note]")!;
+  const press = (a: string) => chips.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.langAnswer === a)));
+  const show = (counts: Record<string, number>) => chips.forEach((b) => {
+    const n = counts[b.dataset.langAnswer!];
+    b.querySelector("[data-n]")!.textContent = n ? ` · ${n}` : "";
+  });
+  const mine = asked()[key];
+  if (mine) press(mine);
+  // Live counts (the page itself carries last night's).
+  let counts: Record<string, number> = JSON.parse(langAsk.dataset.votes || "{}");
+  fetch(`/api/taps?item=${item}`).then((r) => (r.ok ? r.json() : {})).then((c: { lang?: Record<string, number> }) => {
+    if (c.lang) show((counts = c.lang));
+  }).catch(() => { /* counts are a nicety */ });
+  chips.forEach((b) => b.addEventListener("click", async () => {
+    const a = b.dataset.langAnswer!;
+    const before = asked()[key];
+    if (before === a) return;
+    const ok = await sendTap({ kind: "lang", item, answer: a }, { kind: "answer", gap: key, answer: a, lang: body.dataset.lang });
+    if (!ok) { note.textContent = ui.inboxSoon; return; }
+    markAsked(key, a);
+    press(a);
+    // This browser's earlier answer is replaced, not added (one row per browser on the server).
+    counts = { ...counts, [a]: (counts[a] ?? 0) + 1, ...(before ? { [before]: Math.max(0, (counts[before] ?? 1) - 1) } : {}) };
+    show(counts);
+    note.textContent = ui.langThanks;
+  }));
+}
+
 /** A random id for this browser, so a family's repeat taps replace each other instead of adding up. */
 function voter() {
   let v = read("lo-voter");

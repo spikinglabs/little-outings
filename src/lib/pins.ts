@@ -1,6 +1,6 @@
 // Map pins for events and places, for the map on Discover.
 import type { Pin } from "../islands/OutingsMap";
-import { tr, type Lang, type T } from "./i18n";
+import type { Lang, T } from "./i18n";
 import { dateRange, nameOf, pathFor, townName } from "./format";
 import type { getData } from "./data";
 

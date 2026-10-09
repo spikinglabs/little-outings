@@ -8,7 +8,7 @@ import VisitBox from "../../../components/VisitBox.astro";
 import AskSheet from "../../../components/AskSheet.astro";
 import { LANGS, isFallback, tr, useT, type Lang } from "../../../lib/i18n";
 import { eventsAt, getData } from "../../../lib/data";
-import { ageText, germanName, nameOf, routeUrl, townName } from "../../../lib/format";
+import { ageText, germanName, nameOf, parentInput, routeUrl, townName } from "../../../lib/format";
 import { FEATURES } from "../../../content.config";
 import { FEATURE_ICON, UI_ICON, svg } from "../../../lib/icons";
 import type { Place } from "../../../lib/types";
@@ -105,6 +105,12 @@ const facs = FEATURES.map((f) => ({ f, ...(p.facilities[f] ?? { status: "unknown
       <button class="btn" type="button" data-save={p.id} aria-pressed="false"><Fragment set:html={svg(UI_ICON.saved, 'stroke-width="2" width="18" height="18"')} />{t("save")}</button>
       {p.website && !p.website.startsWith("https://www.openstreetmap.org/") && <a class="btn" href={p.website} target="_blank" rel="noopener">{t("website")} ↗</a>}
     </div>
+    {p.trust.source && (
+      <p class="small">
+        {t("trust.base", { source: tr(p.trust.source, lang) })}{parentInput(p) > 0 && ` · ${t("trust.parents", { n: parentInput(p) })}`}
+        {" · "}<a href={`/${lang}/daten`}>{t("about.link")}</a>
+      </p>
+    )}
 
     {upcoming.length > 0 && (
       <section class="section">

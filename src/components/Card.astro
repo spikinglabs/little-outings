@@ -2,7 +2,7 @@
 // One card for an event or a place. The data-* attributes drive the filters in the browser.
 import Stamp from "./Stamp.astro";
 import { tr, type T } from "../lib/i18n";
-import { ageText, dateRange, germanName, isFarm, isFree, nameOf, pathFor, townName } from "../lib/format";
+import { ageText, dateRange, germanName, isFarm, isFree, nameOf, parentInput, pathFor, townName } from "../lib/format";
 import { icon, ROW } from "../lib/icons";
 import { getData } from "../lib/data";
 import type { Item } from "../lib/types";
@@ -19,11 +19,14 @@ const name = nameOf(item, lang);
 const german = germanName(item, lang);
 // "Do I need German?" only matters to readers who don't read German.
 const speech = lang !== "de" && item.type === "event" ? item.language : undefined;
+const guessed = item.type === "event" && item.languageFrom === "guess";
 const town = townName(item.town, lang, region.towns);
 const where = item.type === "event" ? [item.venue, town].filter(Boolean).join(", ") : [t(`kinds.${item.kind}`), town].join(" · ");
 const meta = item.type === "event"
   ? [item.end !== item.start ? dateRange(t, item) : "", item.time, where].filter(Boolean).join(" · ")
   : where;
+// Once parents have added to a place, say so instead of "not checked yet" (the source is on its page).
+const answers = parentInput(item);
 const soon = item.type === "place" ? events.filter((e) => e.place === item.id).length : 0;
 const prec = item.geo.precision;
 const search = [
@@ -66,7 +69,7 @@ const search = [
       </div>
     )}
     <div class="pills">
-      {speech && <span class:list={["pill", "speech", speech]}>{t(`speech.${speech}`)}</span>}
+      {speech && <span class:list={["pill", "speech", speech]}>{guessed ? t("speechGuess", { s: t(`speech.${speech}`) }) : t(`speech.${speech}`)}</span>}
       {(prec === "venue" || prec === "area") && <span class="pill loc">📍 {t(`locPill.${prec}`)}</span>}
       {item.indoor && <span class="pill rain">{t("indoorPill")}</span>}
       {isFree(item) && <span class="pill free">{t("free")}</span>}
@@ -75,6 +78,7 @@ const search = [
     </div>
     <div class="trust">
       {soon > 0 ? <b>{t("soonAt", { n: soon })}</b>
+        : answers > 0 && item.trust.level === "community" ? <b>{t("trust.parents", { n: answers })}</b>
         : item.trust.level === "verified" ? <><b>{t("trust.verified")}</b>{item.trust.source && ` · ${tr(item.trust.source, lang)}`}</>
         : item.trust.level === "official" ? <>{t("trust.official")}{item.trust.source && ` · ${tr(item.trust.source, lang)}`}</>
         : item.trust.source ? t("trust.from", { source: tr(item.trust.source, lang) })

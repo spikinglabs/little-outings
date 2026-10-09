@@ -9,6 +9,7 @@ import { getData } from "../../../lib/data";
 import { ageText, dateRange, germanName, nameOf, pathFor, routeUrl, townName } from "../../../lib/format";
 import { FEATURE_ICON, UI_ICON, svg } from "../../../lib/icons";
 import type { Event } from "../../../lib/types";
+import { LANGUAGE } from "../../../content.config";
 import { calInput } from "../../../lib/event-cal";
 import { googleUrl } from "../../../lib/calendar";
 
@@ -47,13 +48,29 @@ const translated = isFallback(e.title, lang) || isFallback(e.note, lang);
         {prec !== "exact" && <><br /><small class="small">{t(`locNote.${prec}`, { town })}</small></>}
       </span></li>
       {e.price && <li><span>€</span><span>{e.price.free ? t("free") : tr(e.price.text, lang) || t("paid")}</span></li>}
-      {lang !== "de" && e.language && <li><span>💬</span><span>{t(`speechLong.${e.language}`)}</span></li>}
       {e.ages && <li><span>👧</span><span>{ageText(t, e.ages)}</span></li>}
       {e.indoor != null && <li><span>{e.indoor ? "☂" : "☀"}</span><span>{e.indoor ? t("indoor") : t("outdoor")}</span></li>}
       <li><span>✓</span><span class="small">
         {e.trust.level === "community" ? t("trust.community") : <>{t(`trust.${e.trust.level}`)}{e.trust.source && ` · ${tr(e.trust.source, lang)}`}</>}
       </span></li>
     </ul>
+
+    {/* How much German it needs: a guess from the title until parents tap one of the chips. */}
+    <section class="speech-ask" data-lang-ask={e.id} data-votes={JSON.stringify(e.languageVotes ?? {})}>
+      <h2>💬 {t("speechAsk.title")}</h2>
+      <div class="speech-chips">
+        {LANGUAGE.map((k) => (
+          <button type="button" class:list={["chip", k, { current: e.language === k, guess: e.languageFrom === "guess" }]} data-lang-answer={k} aria-pressed="false">
+            {t(`speech.${k}`)}<small data-n>{e.languageVotes?.[k] ? ` · ${e.languageVotes[k]}` : ""}</small>
+          </button>
+        ))}
+      </div>
+      <p class="small" data-lang-note>{
+        e.languageFrom === "parents" ? t("speechAsk.parents", { n: Object.values(e.languageVotes ?? {}).reduce((a, b) => a + (b ?? 0), 0) })
+        : e.languageFrom === "guess" ? t("speechAsk.guess")
+        : !e.language ? t("speechAsk.unknown") : ""
+      }</p>
+    </section>
     {e.note && <p class="note">{tr(e.note, lang)}</p>}
     {translated && lang !== "de" && !isFallback(e.title, lang) && <p class="orig">{t("translated")}</p>}
 

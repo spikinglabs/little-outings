@@ -1,7 +1,7 @@
 // Build-time data access for pages. Everything here runs once per build, never in the browser.
 import { getCollection } from "astro:content";
 import { readFileSync } from "node:fs";
-import { applyTally, applyTranslations, normalizeEvent, normalizePlace, shiftDays, type Town } from "./merge.ts";
+import { applyEventTally, applyTally, applyTranslations, normalizeEvent, normalizePlace, shiftDays, type Town } from "./merge.ts";
 import { tasksOf } from "./gaps.ts";
 import type { Event, Place, Tally } from "./types.ts";
 
@@ -49,7 +49,7 @@ async function load(): Promise<Data> {
     const ev = normalizeEvent(id, e.data, { answer: answer.get(id), override: override.get(id) }, placeById, towns);
     if (!ev) continue;
     if (demoShift) Object.assign(ev, { start: shiftDays(ev.start, demoShift), end: shiftDays(ev.end, demoShift) });
-    if (ev.end >= TODAY) events.push(applyTranslations(ev, zh));
+    if (ev.end >= TODAY) events.push(applyEventTally(applyTranslations(ev, zh), tallies[id]));
   }
   events.sort((a, b) => a.start.localeCompare(b.start) || a.id.localeCompare(b.id));
   return { region, places, events, placeById, eventById: new Map(events.map((e) => [e.id, e])) };

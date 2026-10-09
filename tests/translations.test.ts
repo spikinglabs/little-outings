@@ -28,3 +28,16 @@ test("places get a Chinese name only on the Chinese site", () => {
   assert.equal(germanName(place, "zh"), "Schanzenweg");
   assert.equal(nameOf(place, "en"), "Schanzenweg");
 });
+
+test("parents' answers replace the title guess; a tie keeps it; an editor's answer stays", async () => {
+  const { applyEventTally } = await import("../src/lib/merge.ts");
+  const guessed = normalizeEvent("g", { title: "Lesung", town: "Velbert", start: "2026-10-11", language: "de", origin: "cityklub" }, {}, new Map(), towns)!;
+  assert.equal(guessed.languageFrom, "guess");
+  assert.equal(applyEventTally(guessed, { lang: { none: 2, de: 1 } }).language, "none");
+  assert.equal(applyEventTally(guessed, { lang: { none: 2, de: 1 } }).languageFrom, "parents");
+  assert.equal(applyEventTally(guessed, { lang: { none: 1, de: 1 } }).languageFrom, "guess");
+  const edited = normalizeEvent("h", { title: "Lesung", town: "Velbert", start: "2026-10-11", language: "de", origin: "cityklub" },
+    { override: { language: "en" } }, new Map(), towns)!;
+  const out = applyEventTally(edited, { lang: { none: 5 } });
+  assert.deepEqual([out.language, out.languageFrom, out.languageVotes], ["en", "editor", { none: 5 }]);
+});

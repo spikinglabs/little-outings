@@ -23,6 +23,13 @@ export function germanName(x: Item, lang: Lang): string | undefined {
   return lang === "zh" && x.names?.zh ? x.name : undefined;
 }
 
+/** How many answers parents gave about a place: facility votes, "We went" and approved tips. */
+export function parentInput(x: Item): number {
+  if (x.type !== "place") return 0;
+  const votes = Object.values(x.facilities).reduce((n, f) => n + (f.votes ? f.votes.yes + f.votes.no : 0), 0);
+  return votes + (x.visits?.count ?? 0) + (x.tips?.length ?? 0);
+}
+
 const date = (d: string) => new Date(`${d}T12:00:00Z`);
 const fmt = (t: T, d: string, opts: Intl.DateTimeFormatOptions) =>
   new Intl.DateTimeFormat(t.locale, { timeZone: "UTC", ...opts }).format(date(d));

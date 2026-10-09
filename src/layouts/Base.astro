@@ -26,7 +26,7 @@ const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
 const ui = {
   km: t("km"), approxKm: t("approxKm"), nearby: t("nearby"), save: t("save"), saved: t("saved"),
   answered: t("answered"), inboxSoon: t("inboxSoon"), reported: t("report.thanks"), visited: t("visit.thanks"), tipThanks: t("visit.tipThanks"), wentBefore: t("visit.before"),
-  askNext: t("chipAsk.next"), askThanks: t("chipAsk.thanks"), askYou: t("chipAsk.you"), askVotes: t("chipAsk.votes"), yes: t("yes"), no: t("no"), unsure: t("dunno"),
+  askNext: t("chipAsk.next"), askThanks: t("chipAsk.thanks"), askYou: t("chipAsk.you"), askVotes: t("chipAsk.votes"), langThanks: t("speechAsk.thanks"), yes: t("yes"), no: t("no"), unsure: t("dunno"),
 };
 ---
 <!doctype html>
@@ -72,7 +72,7 @@ const ui = {
         <slot />
       </main>
       <footer class="foot">
-        <p>{t("footer")}</p>
+        <p>{t("footer")} <a href={`/${lang}/daten`}>{t("about.link")}</a></p>
         <slot name="footer" />
       </footer>
     </div>

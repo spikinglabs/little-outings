@@ -52,3 +52,10 @@ test("live tap counts add onto inbox tallies", async () => {
     { a: { fac: { toys: { yes: 2, no: 1 } }, visits: { count: 1, again: 1, good_for: { rainy: 1 } } }, b: { fac: { parking: { yes: 1, no: 0 } } } });
   assert.deepEqual(all, { a: { fac: { toys: { yes: 3, no: 1 } }, visits: { count: 1, again: 1, good_for: { rainy: 1 } } }, b: { fac: { parking: { yes: 1, no: 0 } } } });
 });
+
+test("language answers from the inbox and from taps add up", async () => {
+  const { addCounts } = await import("../scripts/tally-inbox.mjs");
+  const body = "```yaml\nkind: answer\nitem: \"ck-evt-1\"\ngap: \"lang\"\nanswer: \"none\"\n```";
+  const all = tally([{ body, labels: [] }]);
+  assert.deepEqual(addCounts(all, { "ck-evt-1": { lang: { none: 1, de: 2 } } })["ck-evt-1"].lang, { none: 2, de: 2 });
+});
