@@ -46,6 +46,14 @@ const ui = {
     <script is:inline>
       // Catch Chrome's install offer as early as possible; the page script may load after it fires.
       addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); window.__loInstall = e; dispatchEvent(new Event("lo:installable")); });
+      // Safety net: if the page arrived without its styles (an outdated saved copy), drop the saved
+      // copies and load it once more from the network.
+      addEventListener("load", function () {
+        if (getComputedStyle(document.documentElement).getPropertyValue("--ink") || !window.caches) return;
+        try { if (sessionStorage.getItem("lo-restyle")) return; sessionStorage.setItem("lo-restyle", "1"); } catch (e) { return; }
+        caches.keys().then(function (ks) { return Promise.all(ks.map(function (k) { return caches.delete(k); })); })
+          .then(function () { location.reload(); });
+      });
     </script>
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content={t("siteName")} />
