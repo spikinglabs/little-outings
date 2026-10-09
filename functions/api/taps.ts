@@ -8,6 +8,8 @@
 //                    { kind: "visit", item, again: yes|maybe|no, good_for: [...], voter }
 //   GET  /api/taps?item=<id>   live counts for one place
 //   GET  /api/taps?all=1       counts for every place (read by the nightly build)
+//   POST /api/taps?mine=1  { voter }   this browser's own taps, for "Download my data"
+//   DELETE /api/taps  { voter }      removes this browser's taps ("Delete my data")
 //
 // Environment (Cloudflare Pages → Settings → Bindings / Variables):
 //   DB        D1 database binding (the table is created on first use)
@@ -32,7 +34,7 @@ const ID = /^[a-z0-9-]{1,100}$/;
 const VOTER = /^[a-zA-Z0-9-]{8,64}$/;
 
 const ready = new WeakSet<D1>(); // per isolate: create the table once
-async function schema(db: D1) {
+export async function schema(db: D1) {
   if (ready.has(db)) return;
   await db.batch([
     db.prepare(`CREATE TABLE IF NOT EXISTS taps (item TEXT NOT NULL, key TEXT NOT NULL, value TEXT NOT NULL,
@@ -88,6 +90,7 @@ export function countsFrom(rows: Count[]): Counts {
 
 export async function onRequestPost({ request, env }: Ctx) {
   if (!env.DB) return json(503, { error: "taps not configured" });
+  if (new URL(request.url).searchParams.get("mine") === "1") return mine(request, env.DB);
   if (Number(request.headers.get("content-length") ?? 0) > 4000) return json(413, { error: "too large" });
   let body: any;
   try { body = await request.json(); } catch { return json(400, { error: "invalid json" }); }
@@ -124,4 +127,44 @@ export async function onRequestGet({ request, env }: Ctx) {
   const { results } = await (all ? stmt : stmt.bind(item)).all<Count>();
   const counts = countsFrom(results);
   return json(200, all ? counts : counts[item!] ?? {}, "public, max-age=60");
+}
+
+async function voterOf(request: Request) {
+  let body: any;
+  try { body = await request.json(); } catch { return null; }
+  return body && typeof body.voter === "string" && VOTER.test(body.voter) ? sha(body.voter) : null;
+}
+
+/** A family's own taps. The voter id stays in the browser, so only that browser can ask. */
+async function mine(request: Request, db: D1) {
+  const voter = await voterOf(request);
+  if (!voter) return json(400, { error: "voter" });
+  await schema(db);
+  const { results } = await db.prepare(`SELECT item, key, value, at FROM taps WHERE voter = ? ORDER BY at`).bind(voter)
+    .all<{ item: string; key: string; value: string; at: number }>();
+  return json(200, results.map((r) => ({ item: r.item, question: r.key, answer: r.value, at: new Date(r.at).toISOString() })));
+}
+
+export async function onRequestDelete({ request, env }: Ctx) {
+  if (!env.DB) return json(503, { error: "taps not configured" });
+  const voter = await voterOf(request);
+  if (!voter) return json(400, { error: "voter" });
+  await schema(env.DB);
+  await env.DB.prepare(`DELETE FROM taps WHERE voter = ?`).bind(voter).run();
+  return json(200, { ok: true });
+}
+
+/**
+ * Moves one browser's taps to another voter id (a family signing in with a passkey on a phone that
+ * already tapped). Where both answered the same question, the newer answer stays.
+ */
+export async function moveTaps(db: D1, fromVoter: string, toVoter: string) {
+  if (!VOTER.test(fromVoter) || !VOTER.test(toVoter) || fromVoter === toVoter) return;
+  await schema(db);
+  const [from, to] = [await sha(fromVoter), await sha(toVoter)];
+  await db.batch([
+    db.prepare(`DELETE FROM taps WHERE voter = ? AND EXISTS (SELECT 1 FROM taps o WHERE o.voter = ? AND o.item = taps.item AND o.key = taps.key AND o.at > taps.at)`).bind(to, from),
+    db.prepare(`UPDATE OR IGNORE taps SET voter = ? WHERE voter = ?`).bind(to, from),
+    db.prepare(`DELETE FROM taps WHERE voter = ?`).bind(from),
+  ]);
 }

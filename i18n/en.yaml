@@ -187,3 +187,47 @@ chipAsk:
     toilets: "Are there toilets?"
     farm_shop: "Is there a farm shop?"
     parking: "Is there parking?"
+profile:
+  link: "Your profile and data"
+  title: Your profile
+  sub: "No sign-up. Little Outings keeps your profile on this phone: what you saved, where you went, your answers and what you sent us."
+  have: "On this phone"
+  count:
+    saved: { one: "1 saved outing", other: "{n} saved outings" }
+    went: { one: "1 place you went", other: "{n} places you went" }
+    asked: { one: "1 answer to a quick question", other: "{n} answers to quick questions" }
+    sent: { one: "1 tip, report or suggestion sent", other: "{n} tips, reports and suggestions sent" }
+    home: "Home town: {town}"
+  passkeyTitle: Keep it safe with a passkey
+  passkeySub: "A passkey keeps a copy of your profile with us, so it survives a new phone and shows up on your other devices. No email, no password: your phone unlocks it with your face, fingerprint or screen lock."
+  passkeyOn: Turn on passkey sync
+  passkeyLogin: I already have a passkey
+  passkeySynced: "Synced with your passkey."
+  passkeyLast: "Last saved {when}."
+  passkeyOff: Stop syncing on this phone
+  passkeyNone: "This browser can't use passkeys. Downloading your data still works."
+  passkeySoon: "Passkey sync isn't switched on yet. Downloading your data works."
+  passkeyFailed: "That didn't work. Nothing was changed."
+  passkeyUnknown: "That passkey has no profile any more. Turn on passkey sync to start a new one."
+  passkeyWelcome: "Welcome back. Your profile is on this phone now."
+  moveTitle: Move to another phone
+  moveSub: "Scan this on the other phone, or send yourself the link. The profile travels in the link itself and doesn't pass through our server."
+  moveButton: Show the code
+  moveCopy: Copy link
+  moveCopied: Link copied.
+  movePartial: "Messages you sent stay on this phone; download the file to move everything."
+  incoming: { one: "A profile from another phone, with 1 saved outing.", other: "A profile from another phone, with {n} saved outings." }
+  incomingAdd: Bring it onto this phone
+  incomingDone: "Done. It's joined with what was already here."
+  incomingBad: "This link doesn't hold a profile we can read."
+  fileTitle: Your data
+  fileSub: "Everything we keep about you, in one file: your profile and the quick votes counted under it. Load it on any phone to carry on."
+  download: Download my data
+  load: Load from a file
+  loaded: "Loaded. It's joined with what was already here."
+  loadBad: "That file isn't a Little Outings profile."
+  deleteTitle: Delete my data
+  deleteSub: "Removes your profile from this phone, your quick votes, and the passkey copy if you have one. Tips and reports you sent are already with our moderators; tell us if you want one taken down."
+  delete: Delete everything
+  deleteConfirm: "Delete your saved list, answers and votes? This can't be undone."
+  deleted: Deleted. This phone starts fresh.

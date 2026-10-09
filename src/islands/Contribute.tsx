@@ -2,6 +2,8 @@
 // The parent checks the draft (uncertain fields are flagged) and sends it to /api/inbox.
 // Until parsing is switched on, the same form opens empty so people can type it in.
 import { useState } from "preact/hooks";
+import { rememberSent } from "../lib/profile";
+import { schedulePush } from "../scripts/sync";
 
 type Draft = { title: string; date: string; time: string; place: string; price: string; note: string };
 type Field = keyof Draft;
@@ -61,6 +63,7 @@ export default function Contribute({ lang, ui }: Props) {
     try {
       const res = await fetch("/api/inbox", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ kind: "event", lang, draft }) });
       ok = res.ok;
+      if (ok) try { rememberSent(localStorage, { kind: "event", draft }); schedulePush(); } catch { /* storage blocked */ }
     } catch { /* offline or not set up */ }
     setNote(ok ? ui.answered : ui.inboxSoon);
     setStep("sent");

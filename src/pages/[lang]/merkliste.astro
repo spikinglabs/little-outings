@@ -13,6 +13,7 @@ const { events, places } = await getData();
 <Base lang={lang} title={t("savedTitle")} tab="saved">
   <h1 class="page-title">{t("savedTitle")}</h1>
   <p class="page-sub">{t("savedSub")}</p>
+  <a class="profile-link" href={`/${lang}/profil/`}>{t("profile.link")} →</a>
   <div class="shared" data-shared hidden>
     <p data-shared-text></p>
     <button class="btn primary" type="button" data-shared-add>{t("share.add")}</button>
@@ -33,6 +34,7 @@ const { events, places } = await getData();
   <script is:inline type="application/json" id="share-ui" set:html={JSON.stringify({ shared: t.group("share.shared"), copied: t("share.copied"), title: t("savedTitle") })} />
   <script>
     import { saved, renderSaved } from "../../scripts/app";
+    import { schedulePush } from "../../scripts/sync";
     function show() {
       let total = 0;
       document.querySelectorAll<HTMLElement>("[data-saved-section]").forEach((sec) => {
@@ -70,7 +72,7 @@ const { events, places } = await getData();
     }
     box.querySelector("[data-shared-add]")!.addEventListener("click", () => {
       incoming.forEach((id) => saved.add(id));
-      try { localStorage.setItem("lo-saved", JSON.stringify([...saved])); } catch { /* storage blocked */ }
+      try { localStorage.setItem("lo-saved", JSON.stringify([...saved])); schedulePush(); } catch { /* storage blocked */ }
       box.hidden = true;
       history.replaceState(null, "", location.pathname);
       renderSaved();

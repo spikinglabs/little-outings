@@ -1,6 +1,8 @@
 // "Know a great place?" A short form for places that are always worth a visit (farm, café,
 // playground ...). It goes to /api/inbox like event drafts; a moderator checks it before it goes live.
 import { useState } from "preact/hooks";
+import { rememberSent } from "../lib/profile";
+import { schedulePush } from "../scripts/sync";
 
 interface Props {
   lang: string;
@@ -27,6 +29,7 @@ export default function SuggestPlace({ lang, kinds, features, towns, ui }: Props
     try {
       const res = await fetch("/api/inbox", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ kind: "place", lang, place }) });
       ok = res.ok;
+      if (ok) try { rememberSent(localStorage, { kind: "place", place }); schedulePush(); } catch { /* storage blocked */ }
     } catch { /* offline or not set up */ }
     setBusy(false);
     setSent(ok ? ui.placeThanks : ui.inboxSoon);
