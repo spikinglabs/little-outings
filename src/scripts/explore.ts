@@ -1,7 +1,7 @@
 // Filters on the Entdecken page: one list of ideas, events on the chosen day mixed with places
 // that are good any time. All cards are already in the HTML; this only hides and sorts them.
 // Distances are measured once per home town, and the list shows a page at a time.
-import { distanceOf, getHome, renderKm, setHome } from "./app";
+import { distanceOf, getHome, markSaved, renderKm, setHome } from "./app";
 import type {} from "../islands/OutingsMap";
 
 type Plural = { one?: string; other: string };
@@ -38,10 +38,11 @@ function range(): [string, string] {
 
 // Each card's data, read once: with a few thousand cards, reading the DOM on every keystroke is too slow.
 type Row = { el: HTMLElement; d: DOMStringMap; lat: number; lon: number; feat: string[]; dist: number | null };
-const rows = (sel: string): Row[] => $$(sel).map((el) => ({
-  el, d: el.dataset, lat: parseFloat(el.dataset.lat || ""), lon: parseFloat(el.dataset.lon || ""), feat: (el.dataset.feat || "").split(" "), dist: null,
-}));
-const all = rows("#ideas > .item");
+// The cards wait in a <template>, outside the live page, and only the ones on screen are moved in.
+const all: Row[] = [...$<HTMLTemplateElement>("#ideas-pool").content.children].filter((el) => el.classList.contains("item"))
+  .map((el) => el as HTMLElement).map((el) => ({
+    el, d: el.dataset, lat: parseFloat(el.dataset.lat || ""), lon: parseFloat(el.dataset.lon || ""), feat: (el.dataset.feat || "").split(" "), dist: null,
+  }));
 let measuredFor = "";
 /** Distances from home, recomputed only when home changes. */
 function measure() {
@@ -144,7 +145,13 @@ function apply() {
   const frag = document.createDocumentFragment();
   list.slice(0, state.limit).forEach((r) => frag.append(r.el));
   $("#ideas").insertBefore(frag, $("#ideas").firstChild);
-  for (const r of all) show(r.el, shownIds.has(r.d.id));
+  for (const r of all) {
+    if (shownIds.has(r.d.id)) show(r.el, true);
+    else if (r.el.isConnected) r.el.remove();
+  }
+  // Cards that just came in need this device's saved marks and distances.
+  markSaved($("#ideas"));
+  renderKm();
 
   $("[data-count]").textContent = [nEv ? count(ui.nEvents, nEv) : "", nPl ? count(ui.nPlaces, nPl) : ""].filter(Boolean).join(" · ");
   $("[data-empty]").hidden = matched.length > 0;

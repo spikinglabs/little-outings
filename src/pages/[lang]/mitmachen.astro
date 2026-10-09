@@ -67,6 +67,10 @@ const placeUi = Object.fromEntries(placeKeys.map((k) => [k, t(k)]));
       </div>
     </div>
     <div class="grid" id="tasks" style="margin-top:12px">
+      {tasks.length === 0 && <p class="empty">{t("empty")}</p>}
+    </div>
+    <!-- The tasks wait here, outside the live page, and the script moves in one page at a time. -->
+    <template id="tasks-pool">
       {tasks.map((task) => {
         const item = itemOf(task);
         const title = nameOf(item, lang);
@@ -84,8 +88,7 @@ const placeUi = Object.fromEntries(placeKeys.map((k) => [k, t(k)]));
           </div>
         );
       })}
-      {tasks.length === 0 && <p class="empty">{t("empty")}</p>}
-    </div>
+    </template>
     <p class="empty" data-task-empty hidden>{t("tasksNone")}</p>
     <button class="more-btn" type="button" data-task-more hidden></button>
     <script is:inline type="application/json" id="tasks-ui" set:html={JSON.stringify({ count: t.group("tasksCount"), more: t("mapShowMore") })} />

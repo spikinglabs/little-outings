@@ -1,8 +1,9 @@
 // Little Outings service worker: makes the site installable and keeps pages you opened readable offline.
-//   pages        → network first, fall back to the copy from your last visit
+//   pages        → network first, but after 3 s on a slow connection the copy from your last visit
+//                  (the fresh one still lands in the cache for next time)
 //   /_astro/, icons, fonts → cache first (file names change when the content does)
 //   /api/, /admin/ and anything not GET → straight to the network, never cached
-const VERSION = "v1";
+const VERSION = "v2";
 const PAGES = `pages-${VERSION}`;
 const STATIC = `static-${VERSION}`;
 const MAX_PAGES = 80;
@@ -28,7 +29,7 @@ self.addEventListener("fetch", (event) => {
   if (fonts || url.pathname.startsWith("/_astro/") || url.pathname.startsWith("/icons/")) {
     event.respondWith(cacheFirst(req));
   } else {
-    event.respondWith(networkFirst(req, url));
+    event.respondWith(networkFirst(req, url, event));
   }
 });
 
@@ -41,15 +42,23 @@ async function cacheFirst(req) {
   return res;
 }
 
-async function networkFirst(req, url) {
+async function networkFirst(req, url, event) {
   const cache = await caches.open(PAGES);
-  try {
-    const res = await fetch(req);
+  const fresh = fetch(req).then(async (res) => {
     if (res.ok && res.type === "basic") {
       await cache.put(req, res.clone());
       trim(cache);
     }
     return res;
+  });
+  try {
+    // Opening the app on a weak connection shouldn't wait on the network when a copy is at hand.
+    const cached = await cache.match(req, { ignoreSearch: true });
+    if (!cached) return await fresh;
+    const slow = new Promise((ok) => setTimeout(ok, 3000, cached));
+    // Let the fresh copy finish downloading into the cache even if the cached one answered first.
+    event.waitUntil(fresh.catch(() => {}));
+    return await Promise.race([fresh, slow]);
   } catch (err) {
     const hit = await cache.match(req, { ignoreSearch: true });
     if (hit) return hit;

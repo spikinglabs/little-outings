@@ -21,7 +21,8 @@ export interface Pin {
 }
 
 interface Props {
-  pins: Pin[];
+  /** The pins come as a separate file, fetched the first time the map is shown, to keep the page light. */
+  pinsUrl: string;
   center: [number, number];
   towns: [string, number, number][];
   locale: string;
@@ -45,16 +46,32 @@ const MAX_LISTED = 8;
 
 const esc = (s: string) => s.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
 
-export default function OutingsMap({ pins, center, towns, locale, labels }: Props) {
+export default function OutingsMap({ pinsUrl, center, towns, locale, labels }: Props) {
   const el = useRef<HTMLDivElement>(null);
   useEffect(() => {
+    let stop = () => {};
+    let started = false;
+    const start = async () => {
+      if (started || el.current!.offsetParent === null) return;
+      started = true;
+      document.removeEventListener("lo:map-shown", start);
+      const pins = (await fetch(pinsUrl).then((r) => r.json()).catch(() => [])) as Pin[];
+      if (el.current) stop = mount(el.current, pins);
+    };
+    document.addEventListener("lo:map-shown", start);
+    start();
+    return () => { document.removeEventListener("lo:map-shown", start); stop(); };
+  }, []);
+  return <div ref={el} class="map" />;
+
+  function mount(box: HTMLDivElement, pins: Pin[]) {
     let home = center;
     try {
       const h = localStorage.getItem("lo-home");
       const t = towns.find(([n]) => n === h);
       if (t) home = [t[1], t[2]];
     } catch { /* storage blocked */ }
-    const map = L.map(el.current!, { scrollWheelZoom: false }).setView(home, 11);
+    const map = L.map(box, { scrollWheelZoom: false }).setView(home, 11);
     // OpenStreetMap tiles (free, no key), faded hard in CSS (.map .leaflet-tile-pane): the map only gives
     // a rough idea, so streets and labels stay in the background and the pins and dots carry the page.
     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -118,7 +135,10 @@ export default function OutingsMap({ pins, center, towns, locale, labels }: Prop
       }
       last = key;
     };
-    const onFiltered = (e: Event) => update((e as CustomEvent<Filtered>).detail);
+    // While the map is folded away, skip drawing: hundreds of markers on every filter change made
+    // the page sluggish. Showing the map draws the latest filters (onShown).
+    const folded = () => box.offsetParent === null;
+    const onFiltered = (e: Event) => { if (!folded()) update((e as CustomEvent<Filtered>).detail); };
     // The map may mount while folded (zero size); once shown, measure again and refit.
     const onShown = () => {
       map.invalidateSize();
@@ -133,12 +153,11 @@ export default function OutingsMap({ pins, center, towns, locale, labels }: Prop
     map.on("dragend zoomend", onMoved);
     document.addEventListener("lo:filtered", onFiltered);
     document.addEventListener("lo:map-shown", onShown);
-    if (window.loFiltered) update(window.loFiltered);
+    if (window.loFiltered && !folded()) update(window.loFiltered);
     return () => {
       document.removeEventListener("lo:filtered", onFiltered);
       document.removeEventListener("lo:map-shown", onShown);
       map.remove();
     };
-  }, []);
-  return <div ref={el} class="map" />;
+  }
 }

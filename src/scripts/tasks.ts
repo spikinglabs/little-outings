@@ -1,5 +1,6 @@
 // Search and filters (by what is known: words, town, dates) for outings that still need a detail, 30 at a time.
 import { fold } from "../lib/fold";
+import { renderKm } from "./app";
 
 type Plural = { one?: string; other: string };
 const ui = JSON.parse(document.getElementById("tasks-ui")!.textContent!) as { count: Plural; more: string };
@@ -15,7 +16,9 @@ function whenOk(d: DOMStringMap) {
   if (d.type !== "event") return false;
   return state.when === "soon" ? d.start! <= in2w && d.end! >= today : d.start! > in2w;
 }
-const cards = [...document.querySelectorAll<HTMLElement>("#tasks > .task")];
+// Hundreds of tasks in the live page made phones slow, so they wait in a <template> until shown.
+const cards = [...document.querySelector<HTMLTemplateElement>("#tasks-pool")!.content.querySelectorAll<HTMLElement>(".task")];
+const grid = document.getElementById("tasks")!;
 const countEl = document.querySelector<HTMLElement>("[data-task-count]")!;
 const emptyEl = document.querySelector<HTMLElement>("[data-task-empty]")!;
 const moreEl = document.querySelector<HTMLButtonElement>("[data-task-more]")!;
@@ -23,12 +26,16 @@ const moreEl = document.querySelector<HTMLButtonElement>("[data-task-more]")!;
 function apply() {
   const words = fold(state.q).split(/\s+/).filter(Boolean);
   let n = 0;
+  const shown: HTMLElement[] = [];
   for (const card of cards) {
     const d = card.dataset;
     const ok = whenOk(d) && (!state.town || d.town === state.town) && words.every((w) => d.q!.includes(w));
     if (ok) n++;
     card.hidden = !ok || n > state.limit;
+    if (!card.hidden) shown.push(card);
   }
+  if (cards.length) grid.replaceChildren(...shown);
+  renderKm();
   countEl.textContent = ((pr.select(n) === "one" && ui.count.one) || ui.count.other).replace("{n}", String(n));
   emptyEl.hidden = n > 0 || !cards.length;
   moreEl.hidden = n <= state.limit;
