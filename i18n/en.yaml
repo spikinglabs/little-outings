@@ -141,6 +141,7 @@ sentEvent: "Sent. We check every event before it goes live; you'll find it on Di
 sendAnother: Send another event
 editTitle: "Change your event"
 editNote: "Change what's wrong and save. We check changes before they show on the site."
+resendNote: "This was sent before editing was possible. Change what you like and send it again; the new copy can be edited later, and we drop the old one."
 saveEdit: "Save changes"
 cancelEdit: "Cancel"
 sentEdit: "Saved. We'll check the change before it shows on the site."
@@ -210,7 +211,7 @@ profile:
   sentTitle: "What you sent"
   sentSub: "Something changed or wrong? Edit it here; we check changes before they show."
   sentEdit: "Edit"
-  sentOld: "Sent before editing was possible, so it can't be changed here."
+  sentResend: "Send again"
   count:
     saved: { one: "1 saved outing", other: "{n} saved outings" }
     went: { one: "1 place you went", other: "{n} places you went" }

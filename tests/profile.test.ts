@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { KEYS, MOVE_MAX, SYNC_KEY, clean, forget, merge, packForMove, readProfile, rememberSent, unpackMove, writeProfile } from "../src/lib/profile.ts";
+import { KEYS, MOVE_MAX, SYNC_KEY, clean, forget, markReplaced, merge, packForMove, readProfile, rememberSent, unpackMove, writeProfile } from "../src/lib/profile.ts";
 import { onRequest, webauthn, HOURLY_LIMIT, VERSIONS } from "../functions/api/profile/[[path]].ts";
 import { fakeD1 } from "./fake-d1.ts";
 import { onRequestPost as tap } from "../functions/api/taps.ts";
@@ -27,6 +27,19 @@ test("merge joins lists, keeps this phone's answers and home, adopts the other v
   assert.equal(m.home, "Haan");
   assert.equal(m.voter, "synced-voter-1");
   assert.deepEqual(merge(m, m), m);
+});
+
+test("an entry sent again stays hidden after merging with an older synced copy", () => {
+  const store = new Map<string, string>();
+  const st = { getItem: (k: string) => store.get(k) ?? null, setItem: (k: string, v: string) => void store.set(k, v), removeItem: (k: string) => void store.delete(k) };
+  rememberSent(st, { kind: "place", place: { name: "Little Bunny" } }, new Date("2026-10-09T20:00:00Z"));
+  const before = readProfile(st);
+  markReplaced(st, "2026-10-09T20:00:00.000Z");
+  const after = readProfile(st);
+  assert.equal(after.sent[0].data.replaced, true);
+  // Either way round: this phone not yet marked, or the synced copy not yet marked.
+  assert.equal(merge(before, after).sent[0].data.replaced, true);
+  assert.equal(merge(after, before).sent[0].data.replaced, true);
 });
 
 test("the profile reads from and writes to the browser's storage; forget removes it all", () => {

@@ -3,7 +3,7 @@
 // Until parsing is switched on, the same form opens empty so people can type it in.
 // ?edit=<inbox number> opens an event this browser sent earlier, to change it (Profile links here).
 import { useEffect, useState } from "preact/hooks";
-import { readProfile, rememberSent, updateSent } from "../lib/profile";
+import { markReplaced, readProfile, rememberSent, updateSent } from "../lib/profile";
 import { schedulePush } from "../scripts/sync";
 
 type Draft = { title: string; date: string; time: string; place: string; price: string; note: string };
@@ -35,11 +35,25 @@ export default function Contribute({ lang, ui }: Props) {
   const [paste, setPaste] = useState("");
   // The event being changed: its inbox number and the key only this browser knows.
   const [editing, setEditing] = useState<{ number: number; key: string } | null>(null);
+  // ?resend=<sent at>: an event sent before edit keys existed, sent again as a new, editable copy.
+  const [resend, setResend] = useState("");
 
   useEffect(() => {
-    const n = Number(new URLSearchParams(location.search).get("edit"));
-    if (!n) return;
+    const q = new URLSearchParams(location.search);
+    const n = Number(q.get("edit"));
+    const at = q.get("resend");
     try {
+      if (at) {
+        const old = readProfile(localStorage).sent.find((s) => s.kind === "event" && s.at === at && !s.data.replaced);
+        if (!old) return;
+        setDraft({ ...EMPTY, ...(old.data.draft as Partial<Draft>) });
+        setResend(at);
+        setNote(ui.resendNote);
+        setStep("draft");
+        document.querySelector(".poster")?.scrollIntoView();
+        return;
+      }
+      if (!n) return;
       const mine = readProfile(localStorage).sent.find((s) => s.kind === "event" && s.data.number === n && typeof s.data.key === "string");
       if (!mine) return;
       setDraft({ ...EMPTY, ...(mine.data.draft as Partial<Draft>) });
@@ -51,7 +65,7 @@ export default function Contribute({ lang, ui }: Props) {
   }, []);
 
   function reset() {
-    setDraft(EMPTY); setUnsure([]); setPhoto(""); setPaste(""); setNote(""); setEditing(null); setStep("start");
+    setDraft(EMPTY); setUnsure([]); setPhoto(""); setPaste(""); setNote(""); setEditing(null); setResend(""); setStep("start");
     if (location.search) history.replaceState(null, "", location.pathname);
   }
 
@@ -96,7 +110,11 @@ export default function Contribute({ lang, ui }: Props) {
         const res = await fetch("/api/inbox", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ kind: "event", lang, draft, key }) });
         ok = res.ok;
         const number = ok ? ((await res.json().catch(() => ({}))) as { number?: number }).number : undefined;
-        if (ok) try { rememberSent(localStorage, { kind: "event", draft, ...(number ? { number, key } : {}) }); schedulePush(); } catch { /* storage blocked */ }
+        if (ok) try {
+          rememberSent(localStorage, { kind: "event", draft, ...(number ? { number, key } : {}) });
+          if (resend) markReplaced(localStorage, resend);
+          schedulePush();
+        } catch { /* storage blocked */ }
       }
     } catch { /* offline or not set up */ }
     setNote(ok ? (editing ? ui.sentEdit : ui.sentEvent) : ui.inboxSoon);
@@ -144,7 +162,7 @@ export default function Contribute({ lang, ui }: Props) {
       {step === "reading" && <p class="reading"><span class="spinner" aria-hidden="true" />{ui.reading}</p>}
       {step === "draft" && (
         <form class="form" onSubmit={send}>
-          <h3>{editing ? ui.editTitle : ui.draftTitle}</h3>
+          <h3>{editing || resend ? ui.editTitle : ui.draftTitle}</h3>
           {note && <p class="small">{note}</p>}
           {photo && <img src={photo} alt="" style="width:120px;border-radius:10px;border:1px solid var(--line)" />}
           {input("title")}
@@ -153,7 +171,7 @@ export default function Contribute({ lang, ui }: Props) {
           {input("price")}
           {input("note")}
           <button class="btn primary" type="submit">{editing ? ui.saveEdit : ui.send}</button>
-          {editing && <button class="btn" type="button" onClick={reset}>{ui.cancelEdit}</button>}
+          {(editing || resend) && <button class="btn" type="button" onClick={reset}>{ui.cancelEdit}</button>}
         </form>
       )}
       {step === "sent" && (

@@ -3,14 +3,18 @@
 //                  otherwise network first, falling back after 3 s to the older copy
 //                  (the fresh one still lands in the cache for next time)
 //                  A saved page is only reused while the styles and scripts it names are saved too.
+//                  Contribute and Profile always ask the network first: an old copy there would
+//                  send with an older build's form (before PR 40, places were sent without an edit key).
 //   /_astro/, icons, fonts → cache first (file names change when the content does). Only real
 //                  CSS/JS/images are kept: the host answers a missing old file with a 200 HTML page.
 //   /api/, /admin/ and anything not GET → straight to the network, never cached
-const VERSION = "v5";
+const VERSION = "v6";
 const FRESH_MS = 12 * 60 * 60 * 1000;
 const PAGES = `pages-${VERSION}`;
 const STATIC = `static-${VERSION}`;
 const MAX_PAGES = 80;
+// Pages whose forms send or change what a family contributed.
+const LIVE = /^\/(de|en|zh)\/(mitmachen|profil)\/?$/;
 
 self.addEventListener("install", () => self.skipWaiting());
 
@@ -85,7 +89,7 @@ async function networkFirst(req, url, event) {
     if (!cached) return await fresh;
     // Data changes at most a few times a day, so a recent copy is good enough to show right away.
     const age = Date.now() - Date.parse(cached.headers.get("date") || "");
-    if (age < FRESH_MS) {
+    if (age < FRESH_MS && !LIVE.test(url.pathname)) {
       event.waitUntil(fresh.catch(() => {}));
       return cached;
     }
