@@ -2,7 +2,7 @@ locale: zh-CN
 langName: 中文
 siteName: 小出游
 tagline: 附近的亲子好去处
-tabs: { explore: 发现, map: 地图, saved: 收藏, add: 投稿 }
+tabs: { explore: 发现, saved: 收藏, add: 投稿 }
 when: { today: 今天, tomorrow: 明天, weekend: 周末, soon: 未来两周 }
 whenIn: { today: 今天, tomorrow: 明天, weekend: 这个周末, soon: 未来两周 }
 ask: "<em>{when}</em>带孩子去哪儿玩？"
@@ -56,11 +56,6 @@ dunno: 不确定
 send: 提交
 answered: 谢谢！两位家长的回答一致后，我们就会采用。
 inboxSoon: 谢谢！提交功能正在搭建中，目前请通过 GitHub 反馈。
-mapTitle: 地图
-mapSub: "{home}附近{when}的活动和地点。"
-mapListTitle: "地图范围内"
-mapCount: { one: "1 项", other: "{n} 项" }
-mapListEmpty: "这一区域未来两周没有活动。请移动或缩小地图。"
 mapShowMore: "再显示 {n} 项"
 mapMore: "还有 {n} 个"
 mapShow: "在地图上显示"
@@ -100,4 +95,3 @@ pleaseCheck: 请核对
 field: { title: 标题, date: 日期, time: 时间, place: 地点或地址, price: 价格, note: 有哪些适合孩子的活动？ }
 parseSoon: 自动识别尚未开通，请自行填写。
 typeIt: 自己手动填写
-mapNoJs: 地图需要 JavaScript。所有内容也可以在“发现”页找到。

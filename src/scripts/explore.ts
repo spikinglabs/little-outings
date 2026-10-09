@@ -138,5 +138,7 @@ function showMap(on: boolean, remember = true) {
   if (on) document.dispatchEvent(new Event("lo:map-shown"));
   if (remember) try { localStorage.setItem("lo-map", on ? "1" : "0"); } catch { /* storage blocked */ }
 }
-try { if (localStorage.getItem("lo-map") === "1") showMap(true, false); } catch { /* storage blocked */ }
+// Old links to the map page arrive as #map.
+if (location.hash === "#map") showMap(true, false);
+else try { if (localStorage.getItem("lo-map") === "1") showMap(true, false); } catch { /* storage blocked */ }
 apply();

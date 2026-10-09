@@ -74,10 +74,11 @@ const mapLabels = { ...(t.group("nEvents") as { one: string; other: string }), m
     </button>
   </div>
   <div class="mapwrap explore-map" id="explore-map" hidden>
-    <OutingsMap client:only="preact" mode="explore" pins={pins} center={mapCenter(data)} towns={homes.map((x) => [x.name, x.lat, x.lon])} locale={t.locale} labels={mapLabels} />
+    <OutingsMap client:only="preact" pins={pins} center={mapCenter(data)} towns={homes.map((x) => [x.name, x.lat, x.lon])} locale={t.locale} labels={mapLabels} />
     <div class="legend">
       <span><i style="background:#ffcc00"></i>{t("legend.event")}</span>
       <span><i style="background:#6f4a2a"></i>{t("legend.place")}</span>
+      <span><i style="border:2px dashed currentColor"></i>{t("legend.approx")}</span>
       <span><i style="background:rgb(111 74 42 / .12);border:1px dashed #6f4a2a;border-radius:50%"></i>{t("legend.area")}</span>
       <span><i style="border:1px dotted currentColor"></i>{t("legend.radius")}</span>
     </div>

@@ -2,7 +2,7 @@ locale: en-GB
 langName: English
 siteName: Little Outings
 tagline: Family outings near you
-tabs: { explore: Discover, map: Map, saved: Saved, add: Contribute }
+tabs: { explore: Discover, saved: Saved, add: Contribute }
 when: { today: Today, tomorrow: Tomorrow, weekend: Weekend, soon: Next 2 weeks }
 whenIn: { today: today, tomorrow: tomorrow, weekend: this weekend, soon: in the next 2 weeks }
 ask: "What shall we do with the kids <em>{when}</em>?"
@@ -56,11 +56,6 @@ dunno: Not sure
 send: Send
 answered: Thanks! Once two parents agree, we add it.
 inboxSoon: Thanks! Sending is being set up. Until then, please report via GitHub.
-mapTitle: Map
-mapSub: "Events {when} and places around {home}."
-mapListTitle: "In this map area"
-mapCount: { one: "1 result", other: "{n} results" }
-mapListEmpty: "Nothing in this area in the next 2 weeks. Move the map or zoom out."
 mapShowMore: "Show {n} more"
 mapMore: "and {n} more"
 mapShow: "Show on map"
@@ -100,4 +95,3 @@ pleaseCheck: Please check
 field: { title: Title, date: Date, time: Time, place: Place or address, price: Price, note: "What's on for kids?" }
 parseSoon: Automatic reading isn't set up yet. Please fill in the fields yourself.
 typeIt: Type it in yourself
-mapNoJs: The map needs JavaScript. Everything is also listed under Discover.

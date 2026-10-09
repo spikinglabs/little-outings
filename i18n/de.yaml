@@ -2,7 +2,7 @@ locale: de-DE
 langName: Deutsch
 siteName: Little Outings
 tagline: Ausflüge mit Kindern in eurer Nähe
-tabs: { explore: Entdecken, map: Karte, saved: Merkliste, add: Mitmachen }
+tabs: { explore: Entdecken, saved: Merkliste, add: Mitmachen }
 when: { today: Heute, tomorrow: Morgen, weekend: Wochenende, soon: Nächste 2 Wochen }
 whenIn: { today: heute, tomorrow: morgen, weekend: am Wochenende, soon: in den nächsten 2 Wochen }
 ask: "Was machen wir <em>{when}</em> mit den Kindern?"
@@ -56,11 +56,6 @@ dunno: Weiß nicht
 send: Senden
 answered: Danke! Sobald zwei Eltern übereinstimmen, übernehmen wir es.
 inboxSoon: Danke! Das Einsenden wird gerade eingerichtet. Bis dahin gern per GitHub melden.
-mapTitle: Karte
-mapSub: "Termine {when} und Orte rund um {home}."
-mapListTitle: "Im Kartenausschnitt"
-mapCount: { one: "1 Treffer", other: "{n} Treffer" }
-mapListEmpty: "In diesem Ausschnitt ist in den nächsten 2 Wochen nichts los. Verschiebt die Karte oder zoomt heraus."
 mapShowMore: "{n} weitere zeigen"
 mapMore: "und {n} weitere"
 mapShow: "Auf der Karte zeigen"
@@ -100,4 +95,3 @@ pleaseCheck: Bitte prüfen
 field: { title: Titel, date: Datum, time: Uhrzeit, place: Ort oder Adresse, price: Preis, note: "Was gibt es für Kinder?" }
 parseSoon: Automatisches Auslesen ist noch nicht eingerichtet. Bitte füllt die Felder selbst aus.
 typeIt: Lieber selbst eintippen
-mapNoJs: Die Karte braucht JavaScript. Alle Einträge findet ihr auch unter Entdecken.
