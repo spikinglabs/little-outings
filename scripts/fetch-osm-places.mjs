@@ -32,7 +32,7 @@ export function kindOf(tags) {
   if (tags.tourism === "theme_park" || tags.sport === "climbing_adventure" || tags.attraction === "summer_toboggan") return "fun";
   if (tags.amenity === "cafe" && ((tags.kids_area && tags.kids_area !== "no") || FAMILY_CAFE.test(tags.name || ""))) return "cafe";
   // Parks well known enough to have a Wikidata entry, and botanical gardens: worth a trip, unlike every green corner.
-  if ((tags.leisure === "park" && tags.wikidata) || (tags.leisure === "garden" && tags["garden:type"] === "botanical")) return "park";
+  if ((tags.leisure === "park" && tags.wikidata && !/platz$/i.test(tags.name || "")) || (tags.leisure === "garden" && tags["garden:type"] === "botanical")) return "park";
   return null;
 }
 
@@ -58,7 +58,8 @@ export function overpassQueries(towns) {
     ["pool", '["leisure"="water_park"]["name"]'], ["pool", '["amenity"="public_bath"]["name"]'],
     ["pool", '["leisure"="sports_centre"]["sport"="swimming"]["name"]'], ["pool", '["leisure"="swimming_area"]["name"]'],
     ["museum", '["tourism"="museum"]["name"]'],
-    ["cafe", '["amenity"="cafe"]["kids_area"]["name"]'], ["cafe", '["amenity"="cafe"]["name"~"kinder|spiel|famil|eltern|baby|kids",i]'],
+    // Every named café (kindOf keeps the family ones): a regex on the name timed out on Overpass.
+    ["cafe", '["amenity"="cafe"]["name"]'],
     ["fun", '["tourism"="theme_park"]["name"]'], ["fun", '["sport"="climbing_adventure"]["name"]'], ["fun", '["attraction"="summer_toboggan"]["name"]'],
   ];
   const box = bbox(towns).join(",");

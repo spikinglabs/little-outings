@@ -21,10 +21,8 @@
 {"osm":"way/25991349","kind":"park","name":"Kennedypark","town":"Aachen","lat":50.773723,"lon":6.118725,"facilities":[]}
 {"osm":"way/26575287","kind":"park","name":"Kurpark Burtscheid","town":"Aachen","postcode":"52066","lat":50.76464,"lon":6.095235,"website":"https://www.aachen-tourismus.de/entdecken/sehenswuerdigkeiten/details/kurpark/","facilities":[]}
 {"osm":"way/766257464","kind":"park","name":"Müschpark","town":"Aachen","lat":50.790007,"lon":6.08144,"facilities":[]}
-{"osm":"way/8089641","kind":"park","name":"Republikplatz","town":"Aachen","lat":50.781118,"lon":6.071931,"facilities":[]}
 {"osm":"way/5039061","kind":"park","name":"Sandkaulpark","town":"Aachen","lat":50.779993,"lon":6.088534,"facilities":[]}
 {"osm":"relation/12868198","kind":"park","name":"Stadtgarten","town":"Aachen","lat":50.783225,"lon":6.093673,"website":"https://www.aachen-tourismus.de/entdecken/sehenswuerdigkeiten/details/aachener-stadtpark/","facilities":[]}
-{"osm":"way/5038801","kind":"park","name":"Veltmanplatz","town":"Aachen","street":"Veltmanplatz","postcode":"52062","lat":50.781575,"lon":6.082307,"facilities":[]}
 {"osm":"way/27883316","kind":"park","name":"Von-Halfern-Park","town":"Aachen","lat":50.752109,"lon":6.056181,"facilities":[]}
 {"osm":"way/488098659","kind":"park","name":"Westpark","town":"Aachen","postcode":"52074","lat":50.771745,"lon":6.067651,"website":"https://www.aachen-tourismus.de/entdecken/sehenswuerdigkeiten/details/westpark/","facilities":[]}
 {"osm":"way/242102798","kind":"playground","name":"Abenteuerspielplatz Kirschbäumchen","town":"Aachen","street":"Siedlung Daheim 11","postcode":"52070","lat":50.79309,"lon":6.112685,"free":true,"facilities":[]}
@@ -228,10 +226,8 @@
 {"osm":"way/4958803","kind":"park","name":"Baumschulwäldchen","town":"Bonn","lat":50.73167,"lon":7.088449,"facilities":[]}
 {"osm":"way/142937225","kind":"park","name":"Botanischer Garten","town":"Bonn","lat":50.72458,"lon":7.092799,"hours":"Apr-Nov: Su-We,Fr,PH,Sa 10:00-18:00; Apr-Sep: Th 10:00-20:00; Nov-Mar: Mo-Fr 10:00-16:00; Nov-Mar: Sa off; Jan 01,Dec 25,26 off","website":"https://www.botgart.uni-bonn.de/","free":true,"facilities":[]}
 {"osm":"way/25906756","kind":"park","name":"Botanischer Garten Melbgarten","town":"Bonn","street":"Nachtigallenweg 66","postcode":"53115","lat":50.712916,"lon":7.090819,"facilities":[]}
-{"osm":"way/30820943","kind":"park","name":"Chlodwigplatz","town":"Bonn","lat":50.743385,"lon":7.089198,"facilities":[]}
 {"osm":"way/4818020","kind":"park","name":"Freizeitpark Rheinaue","town":"Bonn","lat":50.710451,"lon":7.14765,"website":"https://www.bonn.de/bonn-erleben/aktiv-und-unterwegs/parks-und-gaerten/freizeitpark-rheinaue.php","facilities":[]}
 {"osm":"way/102199952","kind":"park","name":"Hofgarten","town":"Bonn","lat":50.732605,"lon":7.104495,"facilities":[]}
-{"osm":"way/30472782","kind":"park","name":"Hohenzollernplatz","town":"Bonn","lat":50.69076,"lon":7.155767,"facilities":[]}
 {"osm":"way/574420508","kind":"park","name":"Nutzpflanzengarten","town":"Bonn","lat":50.725059,"lon":7.088988,"website":"https://www.botgart.uni-bonn.de/de/die-gaerten/nutzpflanzengarten","facilities":[]}
 {"osm":"way/574826762","kind":"park","name":"Nutzpflanzengarten","town":"Bonn","lat":50.725178,"lon":7.087294,"hours":"Mar-Oct: Mo-Su 10:00-18:00, Nov-Feb: Mo-Fr 10:00-16:00","website":"https://www.botgart.uni-bonn.de/de/die-gaerten/nutzpflanzengarten","facilities":[]}
 {"osm":"way/102199953","kind":"park","name":"Stadtgarten","town":"Bonn","lat":50.734279,"lon":7.107204,"facilities":[]}
@@ -319,7 +315,6 @@
 {"osm":"node/6128049246","kind":"farm","name":"Vitaminkiste","town":"Düren","street":"Gerichtsweg 4","postcode":"52355","lat":50.763406,"lon":6.472642,"facilities":["animals","farm_shop"]}
 {"osm":"way/59225135","kind":"fun","name":"Bubenheimer Spieleland","town":"Düren","street":"Burg Bubenheim 1","postcode":"52388","lat":50.76935,"lon":6.553052,"hours":"Mar 20-Nov 01 Mo-Su,PH 09:00-19:00; Nov 01-Mar 19 Sa,Su 10:00-18:00; Dec 27-Jan 06 10:00-18:00; Dec 24-26,Dec 31 off; Jan 01 off","website":"https://www.bubenheimer-spieleland.de/","free":false,"facilities":[]}
 {"osm":"node/4649837116","kind":"fun","name":"Play Arena","town":"Düren","street":"Veldener Straße 107","postcode":"52349","lat":50.814201,"lon":6.470068,"hours":"Mo-Th 14:00-20:00; Fr,Sa,PH,SH 10:00-20:00","website":"https://playarenagmbh.de/","free":false,"facilities":[]}
-{"osm":"way/27363920","kind":"park","name":"Chlodwigplatz","town":"Düren","lat":50.797876,"lon":6.492479,"facilities":[]}
 {"osm":"way/202338961","kind":"park","name":"Konrad-Adenauer Park","town":"Düren","lat":50.803765,"lon":6.49211,"facilities":[]}
 {"osm":"relation/1673136","kind":"park","name":"Schillingspark","town":"Düren","lat":50.782685,"lon":6.432958,"facilities":[]}
 {"osm":"way/1112649686","kind":"playground","name":"Abenteuerspielplatz","town":"Düren","lat":50.81228,"lon":6.50282,"free":true,"facilities":[]}
@@ -371,9 +366,7 @@
 {"osm":"relation/2668584","kind":"park","name":"Botanischer Garten","town":"Düsseldorf","lat":51.186931,"lon":6.802652,"hours":"Apr-Sep Mo-Fr 08:00-19:00; Mar,Oct Mo-Fr 08:00-18:00; Apr-Sep Sa 13:00-19:00; Apr-Sep Su 10:00-19:00; Nov-Feb Mo-Fr 08:00-16:00; Nov-Feb Sa,Su off; Mar,Oct Sa 13:00-18:00; Mar,Oct Su 10:00-18:00","website":"https://www.botanischergarten.hhu.de/","free":true,"facilities":[]}
 {"osm":"way/24005153","kind":"park","name":"Botanischer Garten der Stadt Neuss","town":"Düsseldorf","lat":51.189727,"lon":6.692438,"hours":"Apr-Oct 08:00-20:00; Nov-Mar 08:00-17:00","facilities":[]}
 {"osm":"way/143370488","kind":"park","name":"Florapark","town":"Düsseldorf","lat":51.209804,"lon":6.772547,"website":"https://www.duesseldorf.de/stadtgruen/park/florapark.shtml","facilities":[]}
-{"osm":"way/25931653","kind":"park","name":"Graf-Adolf-Platz","town":"Düsseldorf","lat":51.219432,"lon":6.778082,"facilities":[]}
 {"osm":"relation/570928","kind":"park","name":"Hofgarten","town":"Düsseldorf","lat":51.230273,"lon":6.781596,"facilities":[]}
-{"osm":"way/144315612","kind":"park","name":"Kolpingplatz","town":"Düsseldorf","lat":51.240732,"lon":6.778996,"facilities":[]}
 {"osm":"way/5200063","kind":"park","name":"Lantz'scher Park","town":"Düsseldorf","lat":51.271932,"lon":6.731671,"facilities":[]}
 {"osm":"way/237146236","kind":"park","name":"Neuer Stadtgarten","town":"Düsseldorf","lat":51.192259,"lon":6.695815,"facilities":[]}
 {"osm":"way/38155856","kind":"park","name":"Nordpark","town":"Düsseldorf","lat":51.256606,"lon":6.749047,"facilities":[]}
@@ -543,7 +536,6 @@
 {"osm":"way/486659253","kind":"park","name":"Am Hallo Park","town":"Essen","lat":51.476719,"lon":7.049718,"facilities":[]}
 {"osm":"node/2001880595","kind":"park","name":"Botanischer Garten","town":"Essen","lat":51.429037,"lon":6.985272,"facilities":[]}
 {"osm":"way/392690678","kind":"park","name":"Botanischer Garten der Universität Duisburg-Essen","town":"Essen","lat":51.430478,"lon":6.985274,"website":"http://www.grugapark.de/botanischer_garten_der_uni.html","facilities":[]}
-{"osm":"way/28504691","kind":"park","name":"Diether-Krebs-Platz","town":"Essen","lat":51.451654,"lon":7.030399,"facilities":[]}
 {"osm":"way/25382754","kind":"park","name":"Gervinuspark","town":"Essen","lat":51.451006,"lon":6.969845,"facilities":[]}
 {"osm":"relation/4760873","kind":"park","name":"Grugapark","town":"Essen","lat":51.427388,"lon":6.989186,"website":"https://www.grugapark.de/","free":false,"facilities":[]}
 {"osm":"way/1302726801","kind":"park","name":"Hildegard von Bingen","town":"Essen","lat":51.500296,"lon":7.063307,"facilities":[]}
@@ -839,25 +831,17 @@
 {"osm":"node/11165443002","kind":"farm","name":"Stadt Land Gemüse","town":"Köln","lat":50.952236,"lon":6.914744,"hours":"Tu 10:00-14:00; We,Fr 10:00-18:30; Sa 10:00-14:00","website":"https://www.stadtlandgemuese.de/der-laden","facilities":["animals","farm_shop"]}
 {"osm":"way/24376212","kind":"fun","name":"\"Odonien\" - Kunst-und Kulturpark","town":"Köln","street":"Hornstraße 85","postcode":"50823","lat":50.954743,"lon":6.938769,"website":"https://www.odonien.de/","facilities":[]}
 {"osm":"way/334606061","kind":"museum","name":"Schokoladenmuseum","town":"Köln","street":"Am Schokoladenmuseum 1a","postcode":"50678","lat":50.931975,"lon":6.964387,"hours":"Mo-Su 10:00-18:00; Jan-Mar Mo off; Nov Mo off","website":"https://www.schokoladenmuseum.de/","indoor":true,"free":false,"facilities":[]}
-{"osm":"way/31129023","kind":"park","name":"Asbergplatz","town":"Köln","lat":50.910243,"lon":6.919438,"facilities":[]}
 {"osm":"relation/1140573","kind":"park","name":"Beethovenpark","town":"Köln","lat":50.911235,"lon":6.9115,"facilities":[]}
 {"osm":"way/26207240","kind":"park","name":"Blücherpark","town":"Köln","lat":50.963409,"lon":6.926542,"facilities":[]}
 {"osm":"way/56452270","kind":"park","name":"Carola-Williams-Park","town":"Köln","lat":50.939155,"lon":6.928028,"facilities":[]}
-{"osm":"way/156166965","kind":"park","name":"De-Noel-Platz","town":"Köln","lat":50.922827,"lon":6.927507,"facilities":[]}
 {"osm":"way/1382858399","kind":"park","name":"Forstbotanischer Garten","town":"Köln","lat":50.885899,"lon":6.982979,"hours":"Nov-Feb: Mo-Su 09:00-16:00; Mar,Sep-Oct: Mo-Su 09:00-18:00; Apr-Aug: Mo-Su 09:00-20:00","website":"https://www.stadt-koeln.de/leben-in-koeln/freizeit-natur-sport/parks/forstbotanischer-garten","free":true,"facilities":[]}
 {"osm":"way/26556167","kind":"park","name":"Friedenspark","town":"Köln","lat":50.917174,"lon":6.967821,"facilities":[]}
 {"osm":"relation/3096872","kind":"park","name":"Fritz-Encke-Volkspark","town":"Köln","lat":50.895121,"lon":6.957868,"facilities":[]}
-{"osm":"way/38698578","kind":"park","name":"Hansaplatz","town":"Köln","lat":50.946515,"lon":6.947726,"facilities":[]}
-{"osm":"way/327137117","kind":"park","name":"Helmholtzplatz","town":"Köln","lat":50.95399,"lon":6.904082,"facilities":[]}
 {"osm":"way/130165210","kind":"park","name":"Hiroshima-Nagasaki-Park","town":"Köln","lat":50.933763,"lon":6.928345,"facilities":[]}
 {"osm":"way/60441765","kind":"park","name":"Humboldtpark","town":"Köln","lat":50.932162,"lon":6.992645,"facilities":[]}
-{"osm":"way/392792497","kind":"park","name":"Karl-Schwering-Platz","town":"Köln","lat":50.933181,"lon":6.917331,"facilities":[]}
 {"osm":"way/24464148","kind":"park","name":"Klettenbergpark","town":"Köln","lat":50.908546,"lon":6.922391,"facilities":[]}
 {"osm":"way/44443729","kind":"park","name":"Klingelpützpark","town":"Köln","lat":50.946209,"lon":6.950346,"facilities":[]}
-{"osm":"way/28865730","kind":"park","name":"Lortzingplatz","town":"Köln","lat":50.931104,"lon":6.911952,"facilities":[]}
-{"osm":"way/323641302","kind":"park","name":"Luftschiff-Platz","town":"Köln","lat":50.965767,"lon":6.960921,"facilities":[]}
 {"osm":"way/57674762","kind":"park","name":"Merheimer Heide","town":"Köln","lat":50.945964,"lon":7.034294,"facilities":[]}
-{"osm":"relation/8704013","kind":"park","name":"Rathenauplatz","town":"Köln","lat":50.9314,"lon":6.936217,"facilities":[]}
 {"osm":"way/4532046","kind":"park","name":"Rheingarten","town":"Köln","lat":50.938801,"lon":6.962563,"facilities":[]}
 {"osm":"way/4532738","kind":"park","name":"Rheinpark","town":"Köln","lat":50.949611,"lon":6.975994,"facilities":[]}
 {"osm":"way/26731834","kind":"park","name":"Römerpark","town":"Köln","lat":50.919456,"lon":6.966134,"facilities":[]}
@@ -1256,7 +1240,6 @@
 {"osm":"node/1614609532","kind":"fun","name":"Natur-Hochseilgarten-Wuppertal","town":"Wuppertal","lat":51.254621,"lon":7.121315,"website":"https://www.wuppertal.de/natur-hochseilgarten-wuppertal","facilities":[]}
 {"osm":"node/9747489884","kind":"museum","name":"Stromhistorische Arbeitsgemeinschaft der WSW","town":"Wuppertal","street":"Wichlinghauser Straße 32","postcode":"42277","lat":51.277412,"lon":7.218217,"indoor":true,"facilities":[]}
 {"osm":"relation/1561081","kind":"park","name":"Barmer Anlagen","town":"Wuppertal","lat":51.265442,"lon":7.20508,"hours":"24/7","website":"https://www.barmer-anlagen.de/","facilities":[]}
-{"osm":"way/132910637","kind":"park","name":"Bayer-Platz","town":"Wuppertal","lat":51.272369,"lon":7.22321,"facilities":[]}
 {"osm":"way/24658427","kind":"park","name":"Botanischer Garten","town":"Wuppertal","lat":51.260246,"lon":7.160024,"free":true,"facilities":[]}
 {"osm":"way/24531662","kind":"park","name":"Deweerth’scher Garten","town":"Wuppertal","lat":51.254316,"lon":7.133659,"facilities":[]}
 {"osm":"way/37895933","kind":"park","name":"Engelsgarten","town":"Wuppertal","lat":51.26678,"lon":7.191496,"facilities":[]}

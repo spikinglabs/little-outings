@@ -30,6 +30,7 @@ test("kindOf keeps family places and drops the rest", () => {
   assert.equal(kindOf({ sport: "climbing_adventure" }), "fun");
   assert.equal(kindOf({ leisure: "park", wikidata: "Q1" }), "park");
   assert.equal(kindOf({ leisure: "park" }), null, "not every green corner");
+  assert.equal(kindOf({ leisure: "park", wikidata: "Q2", name: "Chlodwigplatz" }), null, "a square is not an outing");
 });
 
 test("fromOsm picks the nearest town, facilities and a safe website", () => {
@@ -47,7 +48,7 @@ test("the Overpass query covers every town plus the radius in one box", () => {
   const [s, w, n, e] = bbox(towns);
   assert.ok(s < 51.256 - 0.05 && n > 51.34 + 0.05 && w < 7.043 - 0.08 && e > 7.15 + 0.08);
   const qs = overpassQueries(towns);
-  assert.equal(qs.length, 25);
+  assert.equal(qs.length, 24);
   assert.ok(qs.every((q) => !/"zoo"~/.test(q.query)), "no regex on the zoo key: Overpass answers 504");
   assert.equal(qs[0].kind, "playground");
   assert.match(qs[0].query, /^\[out:json\]\[timeout:90\]\[bbox:[\d.,]+\];nwr\["leisure"="playground"\]\["name"\];out center tags;$/);
