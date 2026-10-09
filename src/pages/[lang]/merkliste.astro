@@ -13,6 +13,14 @@ const { events, places } = await getData();
 <Base lang={lang} title={t("savedTitle")} tab="saved">
   <h1 class="page-title">{t("savedTitle")}</h1>
   <p class="page-sub">{t("savedSub")}</p>
+  <div class="shared" data-shared hidden>
+    <p data-shared-text></p>
+    <button class="btn primary" type="button" data-shared-add>{t("share.add")}</button>
+  </div>
+  <div class="share-bar" data-share-bar hidden>
+    <button class="btn" type="button" data-share>{t("share.button")}</button>
+    <p class="small" data-share-done role="status" hidden></p>
+  </div>
   <section class="section" data-saved-section>
     <div class="section-head"><h2>{t("events")}</h2></div>
     <div class="grid">{events.map((e) => <Card item={e} t={t} hidden />)}</div>
@@ -22,8 +30,9 @@ const { events, places } = await getData();
     <div class="grid">{places.map((p) => <Card item={p} t={t} hidden />)}</div>
   </section>
   <p class="empty section" data-saved-empty>{t("savedEmpty")}</p>
+  <script is:inline type="application/json" id="share-ui" set:html={JSON.stringify({ shared: t.group("share.shared"), copied: t("share.copied"), title: t("savedTitle") })} />
   <script>
-    import { saved } from "../../scripts/app";
+    import { saved, renderSaved } from "../../scripts/app";
     function show() {
       let total = 0;
       document.querySelectorAll<HTMLElement>("[data-saved-section]").forEach((sec) => {
@@ -39,5 +48,49 @@ const { events, places } = await getData();
     }
     document.addEventListener("lo:saved", show);
     show();
+
+    // "Share my list": a link that carries the saved ids (?add=a,b,c). Opening it offers to add them,
+    // which is also how a list moves to another phone. Nothing is stored anywhere else.
+    type Plural = { one?: string; other: string };
+    const sui = JSON.parse(document.getElementById("share-ui")!.textContent!) as { shared: Plural; copied: string; title: string };
+    const known = new Set([...document.querySelectorAll<HTMLElement>(".item")].map((el) => el.dataset.id!));
+    const incoming = (new URLSearchParams(location.search).get("add") || "").split(",").filter((id) => known.has(id) && !saved.has(id));
+    const box = document.querySelector<HTMLElement>("[data-shared]")!;
+    if (incoming.length) {
+      const n = incoming.length;
+      const p = new Intl.PluralRules(document.body.dataset.lang).select(n) === "one" && sui.shared.one ? sui.shared.one : sui.shared.other;
+      box.querySelector("[data-shared-text]")!.textContent = p.replace("{n}", String(n));
+      box.hidden = false;
+      // Preview what was shared until the reader decides.
+      document.querySelectorAll<HTMLElement>("[data-saved-section]").forEach((sec) => {
+        sec.querySelectorAll<HTMLElement>(".item").forEach((el) => { if (incoming.includes(el.dataset.id!)) el.hidden = false; });
+        if ([...sec.querySelectorAll<HTMLElement>(".item")].some((el) => !el.hidden)) sec.hidden = false;
+      });
+      document.querySelector<HTMLElement>("[data-saved-empty]")!.hidden = true;
+    }
+    box.querySelector("[data-shared-add]")!.addEventListener("click", () => {
+      incoming.forEach((id) => saved.add(id));
+      try { localStorage.setItem("lo-saved", JSON.stringify([...saved])); } catch { /* storage blocked */ }
+      box.hidden = true;
+      history.replaceState(null, "", location.pathname);
+      renderSaved();
+    });
+    const bar = document.querySelector<HTMLElement>("[data-share-bar]")!;
+    const syncBar = () => { bar.hidden = saved.size === 0; };
+    document.addEventListener("lo:saved", syncBar);
+    syncBar();
+    bar.querySelector("[data-share]")!.addEventListener("click", async () => {
+      const url = `${location.origin}${location.pathname}?add=${[...saved].join(",")}`;
+      const done = bar.querySelector<HTMLElement>("[data-share-done]")!;
+      try {
+        if (navigator.share) { await navigator.share({ title: sui.title, url }); return; }
+        await navigator.clipboard.writeText(url);
+        done.textContent = sui.copied;
+      } catch (e) {
+        if ((e as Error).name === "AbortError") return; // closed the share sheet
+        done.textContent = url;
+      }
+      done.hidden = false;
+    });
   </script>
 </Base>

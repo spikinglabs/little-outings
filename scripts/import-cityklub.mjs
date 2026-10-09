@@ -55,7 +55,7 @@ export function fromExport(row, { towns, today }) {
     geo: hasPoint ? { lat: loc.latitude, lon: loc.longitude, precision: "exact" } : { precision: "area" },
     start: row.start_date,
     end: row.end_date && row.end_date !== row.start_date ? row.end_date : undefined,
-    time: row.time_text || undefined,
+    time: row.time_text?.replace(/\s*Europe\/Berlin$/, "") || undefined, // the site is Berlin-only
     price: row.price_text ? { free: /kostenlos|kostenfrei|frei\b|gratis|free/i.test(row.price_text), text: row.price_text } : undefined,
     trust: { level: "official", source: attribution },
     tags: tagsOf(row.title, row.venue),

@@ -1,0 +1,20 @@
+---
+// The quick question behind each facility chip on a place page. One tap answers; then it offers the next "?".
+// app.ts fills in the question, sends the answer to the inbox and remembers it in this browser.
+import type { T } from "../lib/i18n";
+interface Props { name: string; t: T }
+const { name, t } = Astro.props;
+---
+<dialog class="sheet" data-ask-sheet aria-labelledby="ask-q">
+  <form data-ask-form>
+    <p class="small">{name}</p>
+    <p class="done" data-ask-done role="status" hidden></p>
+    <h3 id="ask-q" data-ask-q></h3>
+    <div class="row" data-ask-buttons>
+      <button class="chip" type="submit" value="yes">{t("yes")}</button>
+      <button class="chip" type="submit" value="no">{t("no")}</button>
+      <button class="chip" type="submit" value="unsure">{t("dunno")}</button>
+    </div>
+    <button class="btn" type="button" data-ask-close>{t("chipAsk.close")}</button>
+  </form>
+</dialog>

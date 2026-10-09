@@ -95,6 +95,107 @@ document.addEventListener("submit", async (ev) => {
   form.replaceWith(done);
 });
 
+/* ---------- "been here?": we went, good to know ---------- */
+document.addEventListener("submit", async (ev) => {
+  const form = (ev.target as Element).closest<HTMLFormElement>("form[data-visit], form[data-tip-for]");
+  if (!form) return;
+  ev.preventDefault();
+  const data = new FormData(form);
+  const payload = form.dataset.visit
+    ? { kind: "visit", item: form.dataset.visit, again: data.get("again"), good_for: data.getAll("good_for") }
+    : { kind: "tip", item: form.dataset.tipFor, topic: data.get("topic"), text: data.get("text") };
+  const ok = payload.kind === "visit"
+    ? await sendTap({ kind: "visit", item: payload.item, again: payload.again, good_for: payload.good_for }, { ...payload, lang: body.dataset.lang })
+    : await sendToInbox({ ...payload, lang: body.dataset.lang });
+  if (ok && form.dataset.visit) wentHere(form.dataset.visit);
+  const done = document.createElement("p");
+  done.className = "done";
+  done.setAttribute("role", "status");
+  done.textContent = ok ? (form.dataset.visit ? ui.visited : ui.tipThanks) : ui.inboxSoon;
+  form.replaceWith(done);
+});
+// This browser remembers where it already said "We went", so a family taps once per place.
+function went(): string[] { try { return JSON.parse(localStorage.getItem("lo-went") || "[]"); } catch { return []; } }
+function wentHere(id: string) { try { localStorage.setItem("lo-went", JSON.stringify([...new Set([...went(), id])].slice(-500))); } catch { /* storage blocked */ } }
+document.querySelectorAll<HTMLFormElement>("form[data-visit]").forEach((form) => {
+  if (!went().includes(form.dataset.visit!)) return;
+  const done = document.createElement("p");
+  done.className = "done";
+  done.textContent = ui.wentBefore;
+  form.replaceWith(done);
+});
+
+/* ---------- facility chips: one quick question, then the next "?" ---------- */
+const sheet = document.querySelector<HTMLDialogElement>("dialog[data-ask-sheet]");
+// This browser remembers its answers, so the quick-fire skips them and the chip says what you said.
+const asked = (): Record<string, string> => { try { return JSON.parse(localStorage.getItem("lo-asked") || "{}"); } catch { return {}; } };
+const markAsked = (key: string, a: string) => {
+  const all = asked(); all[key] = a;
+  write("lo-asked", JSON.stringify(Object.fromEntries(Object.entries(all).slice(-1000))));
+};
+const showSaid = (b: HTMLElement, a: string) => {
+  b.classList.add("said");
+  b.querySelector("[data-ask-sub]")!.textContent = ui.askYou.replace("{a}", ui[a] ?? a);
+};
+if (sheet) {
+  const chips = [...document.querySelectorAll<HTMLButtonElement>("button[data-ask]")];
+  const mine = asked();
+  chips.forEach((b) => { if (mine[b.dataset.ask!]) showSaid(b, mine[b.dataset.ask!]); });
+  const q = sheet.querySelector<HTMLElement>("[data-ask-q]")!;
+  const buttons = sheet.querySelector<HTMLElement>("[data-ask-buttons]")!;
+  const done = sheet.querySelector<HTMLElement>("[data-ask-done]")!;
+  let current: HTMLButtonElement | null = null;
+  const ask = (b: HTMLButtonElement, lead = "") => {
+    current = b;
+    q.textContent = b.dataset.q!;
+    done.textContent = lead;
+    done.hidden = !lead;
+    buttons.hidden = false;
+  };
+  chips.forEach((b) => b.addEventListener("click", () => { ask(b); sheet.showModal(); }));
+  // Live counts (the page itself carries last night's).
+  const item = chips[0]?.dataset.ask!.split(":")[0];
+  if (item) fetch(`/api/taps?item=${item}`).then((r) => (r.ok ? r.json() : {})).then((c: { fac?: Record<string, { yes: number; no: number }> }) => {
+    chips.forEach((b) => {
+      const v = c.fac?.[b.dataset.ask!.split(":")[2]];
+      if (!v || v.yes + v.no === 0 || b.classList.contains("said")) return;
+      b.querySelector("[data-ask-sub]")!.textContent = ui.askVotes.replace("{y}", String(v.yes)).replace("{n}", String(v.no));
+    });
+  }).catch(() => { /* counts are a nicety */ });
+  sheet.querySelector("[data-ask-close]")!.addEventListener("click", () => sheet.close());
+  sheet.addEventListener("click", (ev) => { if (ev.target === sheet) sheet.close(); }); // tap outside
+  sheet.querySelector("form")!.addEventListener("submit", async (ev) => {
+    ev.preventDefault();
+    const a = ((ev as SubmitEvent).submitter as HTMLButtonElement | null)?.value;
+    if (!a || !current) return;
+    const [item, , feature] = current.dataset.ask!.split(":");
+    const ok = await sendTap({ kind: "fac", item, feature, answer: a },
+      { kind: "answer", gap: current.dataset.ask, answer: a, lang: body.dataset.lang });
+    if (!ok) { buttons.hidden = true; q.textContent = ""; done.textContent = ui.inboxSoon; done.hidden = false; return; }
+    markAsked(current.dataset.ask!, a);
+    showSaid(current, a);
+    const seen = asked();
+    const next = chips.find((b) => b.dataset.unknown != null && !seen[b.dataset.ask!]);
+    if (next) ask(next, ui.askNext);
+    else { buttons.hidden = true; q.textContent = ""; done.textContent = ui.askThanks; done.hidden = false; }
+  });
+}
+
+/** A random id for this browser, so a family's repeat taps replace each other instead of adding up. */
+function voter() {
+  let v = read("lo-voter");
+  if (!v) { v = crypto.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(36).slice(2)}`; write("lo-voter", v); }
+  return v;
+}
+/** One-tap feedback goes to the counting store (D1); while that isn't set up, to the inbox as before. */
+export async function sendTap(tap: Record<string, unknown>, inboxPayload: Record<string, unknown>): Promise<boolean> {
+  try {
+    const res = await fetch("/api/taps", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ ...tap, voter: voter() }) });
+    if (res.status !== 503 && res.status !== 404 && res.status !== 405) return res.ok;
+  } catch { /* fall through */ }
+  return sendToInbox(inboxPayload);
+}
+
 /** Posts to the Cloudflare inbox function. Returns false while the inbox isn't set up. */
 export async function sendToInbox(payload: Record<string, unknown>): Promise<boolean> {
   try {

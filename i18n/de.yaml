@@ -47,7 +47,7 @@ approxKm: "ca. {d} km"
 nearby: ganz in der Nähe
 thePlace: Der Ort
 forFamilies: Für Familien
-unknownNote: "? heißt: wissen wir noch nicht. Wart ihr da? Sagt es uns."
+unknownNote: "? heißt: wissen wir noch nicht. Wart ihr da? Tippt drauf."
 confirmedBy: "{n}× bestätigt"
 upcomingHere: Hier demnächst
 parentsSay: "Eltern sagen · ★ {r} aus {n} Bewertungen"
@@ -137,3 +137,50 @@ report:
   note: Was sollten wir wissen? (optional)
   notePh: z. B. Der Spielplatz wurde umgebaut, jetzt mit Wasserbereich
   thanks: Danke! Wir schauen es uns an.
+visit:
+  title: Wart ihr schon da?
+  again: Würdet ihr wieder hingehen?
+  yes: Ja
+  maybe: Vielleicht
+  no: Nein
+  goodFor: Gut für
+  optional: (optional)
+  went: Wir waren da
+  thanks: Danke! Das hilft anderen Familien bei der Entscheidung.
+  tipTitle: Gut zu wissen
+  tipTopic: Worum geht es?
+  tipPh: z. B. Wechselkleidung mitnehmen, der Wasserbereich ist toll
+  tipThanks: Danke für den Tipp! Wir nehmen ihn nach kurzer Prüfung auf.
+  before: Ihr habt uns schon gesagt, dass ihr hier wart. Danke!
+  count: { one: "1 Familie war da", other: "{n} Familien waren da" }
+  againCount: { one: "1 würde wieder hingehen", other: "{n} würden wieder hingehen" }
+  parentsSay: "Eltern sagen: gut für {list}"
+goodFor: { toddlers: Kleinkinder, bigKids: Größere Kinder, rainy: Regentage, longVisit: Einen ganzen Nachmittag, quickHour: Eine kurze Stunde, friends: Treffen mit Freunden }
+tipTopic: { bring: Mitbringen…, bestTime: Beste Zeit…, parking: Parken…, ages: Am besten für…, other: Sonstiges }
+share:
+  button: Liste teilen
+  copied: Link kopiert. Öffnet ihn auf einem anderen Handy oder schickt ihn an jemanden, mit dem ihr plant.
+  shared: { one: "1 Ausflug wurde mit euch geteilt.", other: "{n} Ausflüge wurden mit euch geteilt." }
+  add: Zu meiner Liste hinzufügen
+cal: { add: In den Kalender, google: Google Kalender, ics: "Apple, Outlook & andere (.ics)" }
+chipAsk:
+  still: "Stimmt das noch: {f}?"
+  votes: "{y} ja · {n} nein"
+  parents: "{n} Eltern sagen ja"
+  next: "Danke! Noch eine?"
+  thanks: "Danke! Das hilft der nächsten Familie."
+  you: "Eure Antwort: {a}"
+  close: Schließen
+  q:
+    playground: "Gibt es einen Spielplatz?"
+    changing_table: "Gibt es einen Wickeltisch?"
+    highchairs: "Gibt es Hochstühle?"
+    kids_menu: "Gibt es eine Kinderkarte?"
+    toys: "Gibt es Spielzeug oder ein Mitgebsel?"
+    animals: "Gibt es Tiere?"
+    stroller_friendly: "Kommt man gut mit dem Kinderwagen durch?"
+    nursing_room: "Gibt es eine ruhige Stillecke?"
+    indoor_play: "Gibt es drinnen eine Spielecke?"
+    toilets: "Gibt es Toiletten?"
+    farm_shop: "Gibt es einen Hofladen?"
+    parking: "Gibt es Parkplätze?"

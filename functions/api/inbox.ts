@@ -17,6 +17,9 @@ const json = (status: number, body: unknown) =>
 
 const clip = (v: unknown, n = 500) => String(v ?? "").slice(0, n).replace(/\r/g, "");
 // Quote everything so a contribution can never break the YAML the bot reads.
+// Same lists as src/content.config.ts (functions can't import Astro's zod config).
+const GOOD_FOR = ["toddlers", "bigKids", "rainy", "longVisit", "quickHour", "friends"];
+const TIP_TOPICS = ["bring", "bestTime", "parking", "ages", "other"];
 const yamlStr = (v: unknown, n?: number) => JSON.stringify(clip(v, n));
 
 export async function onRequestPost({ request, env }: Ctx) {
@@ -57,6 +60,19 @@ export async function onRequestPost({ request, env }: Ctx) {
     yaml = [`kind: place`, ...["type", "name", "town", "street", "website", "note"].map((k) =>
       `${k}: ${yamlStr(k === "type" ? p.kind : p[k], k === "note" ? 2000 : 300)}`),
       `features: [${features.map((f: string) => JSON.stringify(f)).join(", ")}]`, `lang: ${yamlStr(body.lang, 5)}`].join("\n");
+  } else if (body.kind === "visit" && typeof body.item === "string" && /^[a-z0-9-]+$/.test(body.item)
+    && ["yes", "maybe", "no"].includes(body.again)) {
+    const goodFor = (Array.isArray(body.good_for) ? body.good_for : []).filter((g: unknown) => GOOD_FOR.includes(g as string)).slice(0, 10);
+    title = `visit ${body.again} ${clip(body.item, 80)}`;
+    label = "visit";
+    yaml = [`kind: visit`, `item: ${yamlStr(body.item, 80)}`, `again: ${yamlStr(body.again, 5)}`,
+      `good_for: [${goodFor.map((g: string) => JSON.stringify(g)).join(", ")}]`, `lang: ${yamlStr(body.lang, 5)}`].join("\n");
+  } else if (body.kind === "tip" && typeof body.item === "string" && /^[a-z0-9-]+$/.test(body.item)
+    && TIP_TOPICS.includes(body.topic) && typeof body.text === "string" && body.text.trim()) {
+    title = `tip ${body.topic} ${clip(body.item, 80)}`;
+    label = "tip";
+    yaml = [`kind: tip`, `item: ${yamlStr(body.item, 80)}`, `topic: ${yamlStr(body.topic, 20)}`,
+      `text: ${yamlStr(body.text.trim(), 140)}`, `lang: ${yamlStr(body.lang, 5)}`].join("\n");
   } else if (body.kind === "report" && typeof body.item === "string" && /^[a-z0-9-]+$/.test(body.item)
     && ["closed", "cancelled", "where", "notKids", "outdated", "other"].includes(body.reason)) {
     title = `report ${body.reason} ${clip(body.item, 80)}`;

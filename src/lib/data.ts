@@ -1,8 +1,9 @@
 // Build-time data access for pages. Everything here runs once per build, never in the browser.
 import { getCollection } from "astro:content";
-import { normalizeEvent, normalizePlace, shiftDays, type Town } from "./merge.ts";
+import { readFileSync } from "node:fs";
+import { applyTally, normalizeEvent, normalizePlace, shiftDays, type Town } from "./merge.ts";
 import { tasksOf } from "./gaps.ts";
-import type { Event, Place } from "./types.ts";
+import type { Event, Place, Tally } from "./types.ts";
 
 /** The build date in Germany. The site is rebuilt every night, so "upcoming" stays true. */
 export const TODAY = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Berlin" }).format(new Date());
@@ -34,7 +35,8 @@ async function load(): Promise<Data> {
   const answer = new Map(answers.map((a) => [slug(a.id), a.data]));
   const override = new Map(overrides.map((o) => [slug(o.id), o.data]));
 
-  const places = rawPlaces.map((p) => normalizePlace(slug(p.id), p.data, answer.get(slug(p.id)), towns));
+  const tallies = inboxTallies();
+  const places = rawPlaces.map((p) => applyTally(normalizePlace(slug(p.id), p.data, answer.get(slug(p.id)), towns), tallies[slug(p.id)]));
   const placeById = new Map(places.map((p) => [p.id, p]));
 
   const seen = new Set<string>();
@@ -50,6 +52,11 @@ async function load(): Promise<Data> {
   }
   events.sort((a, b) => a.start.localeCompare(b.start) || a.id.localeCompare(b.id));
   return { region, places, events, placeById, eventById: new Map(events.map((e) => [e.id, e])) };
+}
+
+/** Parents' votes, visits and approved tips, counted by scripts/tally-inbox.mjs before the build. */
+function inboxTallies(): Record<string, Tally> {
+  try { return JSON.parse(readFileSync("data/inbox-tallies.json", "utf8")); } catch { return {}; }
 }
 
 export async function getTasks() {

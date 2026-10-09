@@ -47,7 +47,7 @@ approxKm: "about {d} km"
 nearby: nearby
 thePlace: The place
 forFamilies: For families
-unknownNote: "? means we don't know yet. Been there? Tell us."
+unknownNote: "? means we don't know yet. Been there? Tap it."
 confirmedBy: "confirmed {n}×"
 upcomingHere: Coming up here
 parentsSay: "Parents say · ★ {r} from {n} reviews"
@@ -137,3 +137,50 @@ report:
   note: What should we know? (optional)
   notePh: e.g. the playground was rebuilt, now with a water area
   thanks: Thank you! We'll check it.
+visit:
+  title: Been here?
+  again: Would you go again?
+  yes: "Yes"
+  maybe: Maybe
+  no: "No"
+  goodFor: Good for
+  optional: (optional)
+  went: We went
+  thanks: Thank you! That helps other families decide.
+  tipTitle: Good to know
+  tipTopic: What is the tip about?
+  tipPh: e.g. bring spare clothes, the water area is fun
+  tipThanks: Thanks for the tip! We'll add it after a quick check.
+  before: You told us you went here. Thank you!
+  count: { one: "1 family went", other: "{n} families went" }
+  againCount: { one: "1 would go again", other: "{n} would go again" }
+  parentsSay: "Parents say: good for {list}"
+goodFor: { toddlers: Toddlers, bigKids: Big kids, rainy: Rainy days, longVisit: A whole afternoon, quickHour: A quick hour, friends: Meeting friends }
+tipTopic: { bring: Bring…, bestTime: Best time…, parking: Parking…, ages: Best for ages…, other: Other }
+share:
+  button: Share my list
+  copied: Link copied. Open it on another phone, or send it to someone you're planning with.
+  shared: { one: "1 outing was shared with you.", other: "{n} outings were shared with you." }
+  add: Add to my list
+cal: { add: Add to calendar, google: Google Calendar, ics: "Apple, Outlook & others (.ics)" }
+chipAsk:
+  still: "Is this still right: {f}?"
+  votes: "{y} yes · {n} no"
+  parents: "{n} parents say yes"
+  next: "Thanks! One more?"
+  thanks: "Thanks! That helps the next family."
+  you: "You said: {a}"
+  close: Close
+  q:
+    playground: "Is there a playground?"
+    changing_table: "Is there a changing table?"
+    highchairs: "Are there high chairs?"
+    kids_menu: "Is there a kids' menu?"
+    toys: "Are there toys or little gifts for kids?"
+    animals: "Are there animals?"
+    stroller_friendly: "Is it easy with a pram?"
+    nursing_room: "Is there a quiet corner for nursing?"
+    indoor_play: "Is there an indoor play area?"
+    toilets: "Are there toilets?"
+    farm_shop: "Is there a farm shop?"
+    parking: "Is there parking?"

@@ -47,7 +47,7 @@ approxKm: "约 {d} 公里"
 nearby: 就在附近
 thePlace: 活动地点
 forFamilies: 亲子设施
-unknownNote: "“?” 表示暂不确定。去过的话，欢迎告诉我们。"
+unknownNote: "“?” 表示暂不确定。去过的话，点一下告诉我们。"
 confirmedBy: "{n} 位家长确认"
 upcomingHere: 近期活动
 parentsSay: "家长评价 · ★ {r}（{n} 条评价）"
@@ -137,3 +137,50 @@ report:
   note: 想告诉我们什么？（可选）
   notePh: 例如：游乐场已翻新，现在有戏水区
   thanks: 谢谢！我们会核实。
+visit:
+  title: 去过这里吗？
+  again: 还会再去吗？
+  yes: 会
+  maybe: 也许
+  no: 不会
+  goodFor: 适合
+  optional: （可选）
+  went: 我们去过
+  thanks: 谢谢！这能帮助其他家庭做决定。
+  tipTitle: 小贴士
+  tipTopic: 关于什么的提示？
+  tipPh: 例如：带一套备用衣服，戏水区很好玩
+  tipThanks: 谢谢你的提示！简单核实后我们会加上。
+  before: 你已告诉我们去过这里，谢谢！
+  count: { one: "1 个家庭去过", other: "{n} 个家庭去过" }
+  againCount: { one: "1 个会再去", other: "{n} 个会再去" }
+  parentsSay: "家长说：适合{list}"
+goodFor: { toddlers: 幼儿, bigKids: 大孩子, rainy: 雨天, longVisit: 玩一下午, quickHour: 玩一小时, friends: 和朋友见面 }
+tipTopic: { bring: 要带…, bestTime: 最佳时间…, parking: 停车…, ages: 最适合年龄…, other: 其他 }
+share:
+  button: 分享我的清单
+  copied: 链接已复制。可以在另一部手机上打开，或发给一起计划的人。
+  shared: { one: "有人和你分享了 1 个去处。", other: "有人和你分享了 {n} 个去处。" }
+  add: 加入我的清单
+cal: { add: 加入日历, google: Google 日历, ics: "Apple、Outlook 等 (.ics)" }
+chipAsk:
+  still: "{f}：现在还是这样吗？"
+  votes: "{y} 人说有 · {n} 人说没有"
+  parents: "{n} 位家长说有"
+  next: "谢谢！再答一个？"
+  thanks: "谢谢！这能帮到下一个家庭。"
+  you: "你的回答：{a}"
+  close: 关闭
+  q:
+    playground: "那里有游乐场吗？"
+    changing_table: "那里有尿布台吗？"
+    highchairs: "那里有儿童餐椅吗？"
+    kids_menu: "那里有儿童餐吗？"
+    toys: "那里有给孩子的玩具或小礼物吗？"
+    animals: "那里有动物吗？"
+    stroller_friendly: "推婴儿车方便吗？"
+    nursing_room: "那里有安静的哺乳角吗？"
+    indoor_play: "那里有室内游戏区吗？"
+    toilets: "那里有卫生间吗？"
+    farm_shop: "那里有农场小店吗？"
+    parking: "那里有停车场吗？"
