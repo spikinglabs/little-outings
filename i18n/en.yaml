@@ -116,7 +116,7 @@ kinds: { farm: Farm, cafe: Café, playground: Playground, park: "Park & woods", 
 features: { playground: Playground, changing_table: Changing table, highchairs: High chairs, kids_menu: "Kids' menu", toys: "Toys & little gifts", animals: Animals, stroller_friendly: Pram-friendly, nursing_room: Nursing corner, indoor_play: Indoor play area, toilets: Toilets, farm_shop: Farm shop, parking: Parking }
 tags: { fest: Festival, animals: Animals, market: Market, diy: Hands-on, season: Seasonal, reading: Story time, music: Music, outside: Outdoors, stage: "Theatre & film", sport: "Sport & movement", tour: "Museums & tours", parents: "For parents" }
 empty: Nothing listed here yet. Know something? Add it under Contribute.
-install: { button: "Install the app", ios: "To install: tap Share, then “Add to Home Screen”.", hint: "Add Little Outings to your home screen, it works like an app.", hintIos: "Tap Share, then “Add to Home Screen”, to use Little Outings like an app.", short: Install, dismiss: Dismiss }
+install: { button: "Install the app", hint: "Add Little Outings to your home screen, it works like an app.", hintIos: "Tap Share, then “Add to Home Screen”, to use Little Outings like an app.", short: Install, dismiss: Dismiss, menu: "In your browser menu, choose “Install app” or “Add to Home screen”." }
 footer: "No guarantee for any listing. Please check with the organiser before you go."
 byLine: "Little Outings is a product by {maker}."
 dataFrom: "Data includes {sources}."
