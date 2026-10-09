@@ -199,3 +199,8 @@ footer.foot { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--l
   .explore-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; }
 }
 .chip svg { width: 16px; height: 16px; }
+.feature-picks { border: 0; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.feature-picks legend { font-weight: 700; font-size: .92rem; margin-bottom: 6px; }
+.form .feature-picks label.pick { display: inline-flex; gap: 6px; align-items: center; font-weight: 400; border: 1px solid var(--line); border-radius: 999px; padding: 4px 10px; cursor: pointer; }
+.form .feature-picks input { width: auto; }
+.form select { border: 1px solid var(--line); background: var(--paper); border-radius: 10px; padding: 10px 12px; font-weight: 400; min-width: 0; width: 100%; }

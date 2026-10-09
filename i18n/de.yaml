@@ -78,6 +78,19 @@ orPaste: oder Link bzw. Text einfügen
 pastePh: Website, Instagram-Post oder WhatsApp-Nachricht
 pasteBtn: Auslesen
 posterNote: Das Foto wird nicht veröffentlicht, nur die Fakten.
+placeTitle: "Kennt ihr einen Ort, der sich immer lohnt?"
+placeSub: "Ein Hof mit Tieren, ein Café, in dem Kinder willkommen sind, ein schöner Spielplatz: Sagt uns Bescheid, wir nehmen ihn nach kurzer Prüfung auf."
+placeBtn: "Ort vorschlagen"
+placeKind: "Was für ein Ort?"
+placeTown: "Stadt"
+placeOtherTown: "Andere Stadt"
+placeName: "Name"
+placeStreet: "Straße und Hausnummer (falls bekannt)"
+placeFeatures: "Was gibt es für Familien?"
+placeNote: "Was macht ihn gut für Kinder?"
+placeNotePh: "z. B. großer Sandkasten, Ziegen zum Füttern, Spielecke bei den Tischen"
+placeWebsite: "Website (optional)"
+placeThanks: "Danke! Wir prüfen den Ort kurz und nehmen ihn dann auf."
 tasksTitle: Kleine Aufgaben in eurer Nähe
 tasksSub: Jede dauert eine Minute und macht die Seite für alle Familien besser.
 kinds: { farm: Bauernhof, cafe: Café, playground: Spielplatz, park: "Park & Wald", museum: Museum, pool: Schwimmbad }

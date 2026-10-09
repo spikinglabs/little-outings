@@ -78,6 +78,19 @@ orPaste: 或粘贴链接、文字
 pastePh: 网页、Instagram 帖子或 WhatsApp 消息
 pasteBtn: 识别
 posterNote: 照片不会公开，只发布活动信息。
+placeTitle: "知道一个随时都值得去的地方吗？"
+placeSub: "有动物的农场、欢迎孩子的咖啡馆、好玩的游乐场：告诉我们，简单核实后就会加上。"
+placeBtn: "推荐地点"
+placeKind: "什么类型的地点？"
+placeTown: "城市"
+placeOtherTown: "其他城市"
+placeName: "名称"
+placeStreet: "街道和门牌号（如果知道）"
+placeFeatures: "有哪些适合家庭的设施？"
+placeNote: "为什么适合孩子？"
+placeNotePh: "例如：大沙坑、可以喂山羊、桌边有游戏角"
+placeWebsite: "网站（可选）"
+placeThanks: "谢谢！我们简单核实后就会加上这个地点。"
 tasksTitle: 附近的小任务
 tasksSub: 每个只需一分钟，让网站对所有家庭更有用。
 kinds: { farm: 农场, cafe: 咖啡馆, playground: 游乐场, park: 公园和森林, museum: 博物馆, pool: 游泳馆 }
