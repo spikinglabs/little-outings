@@ -118,6 +118,7 @@ tags: { fest: Fest, animals: Tiere, market: Markt, diy: Mitmachen, season: Saiso
 empty: Hier ist noch nichts eingetragen. Kennt ihr etwas? Unter „Mitmachen“ könnt ihr es melden.
 install: { button: "App installieren", ios: "So installierst du die App: Teilen antippen, dann „Zum Home-Bildschirm“." }
 footer: "Alle Angaben ohne Gewähr. Bitte vor dem Besuch beim Veranstalter prüfen."
+byLine: "Little Outings ist ein Produkt von {maker}."
 dataFrom: "Daten u. a. von {sources}."
 back: Zurück
 km: "{d} km"
@@ -244,3 +245,4 @@ about:
   profile: { h: Dein Profil, p: "Merkliste, besuchte Orte und deine Antworten bleiben im Browser dieses Handys. Kein Konto, keine E-Mail. Unter „Euer Profil“ kannst du es herunterladen, auf ein anderes Handy umziehen oder löschen. Mit Passkey-Sync liegt eine Kopie auf dem Server, die mit dem Profil gelöscht wird." }
   none: { h: Was wir nicht tun, p: "Keine Werbung, kein Tracking, keine Statistik-Tools, kein Datenverkauf, keine Namen oder E-Mails." }
   wrong: { h: Etwas falsch?, p: "Unten auf jeder Termin- und Ortsseite steht „Stimmt etwas nicht?“. Tipp drauf und sag es uns." }
+  who: { h: Wer steckt dahinter, p: "Little Outings ist ein Produkt von Spiking Labs. Spiking Labs macht auch andere Apps für den Alltag, alle zu sehen auf der Website von Spiking Labs." }

@@ -118,6 +118,7 @@ tags: { fest: Festival, animals: Animals, market: Market, diy: Hands-on, season:
 empty: Nothing listed here yet. Know something? Add it under Contribute.
 install: { button: "Install the app", ios: "To install: tap Share, then “Add to Home Screen”." }
 footer: "No guarantee for any listing. Please check with the organiser before you go."
+byLine: "Little Outings is a product by {maker}."
 dataFrom: "Data includes {sources}."
 back: Back
 km: "{d} km"
@@ -244,3 +245,4 @@ about:
   profile: { h: Your profile, p: "Your saved list, the places you went and your answers stay in this phone's browser. There is no account and no email. Under “Your profile” you can download it, move it to another phone or delete it. If you choose passkey sync, the server keeps one copy, which is deleted with your profile." }
   none: { h: What we don't do, p: "No ads, no tracking or analytics, no selling data, no names or emails." }
   wrong: { h: Something wrong?, p: "Every event and place page has “Something wrong?” at the bottom. Tap it and tell us." }
+  who: { h: Who makes this, p: "Little Outings is a product by Spiking Labs, which also makes other apps for everyday life. You can see them all on the Spiking Labs website." }
