@@ -130,11 +130,12 @@ const home = $<HTMLSelectElement>("#home");
 home.value = getHome();
 home.addEventListener("change", () => { setHome(home.value); renderKm(); apply(); });
 
-// The map can be folded away; the choice is remembered on this device.
-function showMap(on: boolean) {
+// The map starts folded; the Map chip opens it, and the choice is remembered on this device.
+function showMap(on: boolean, remember = true) {
   $("#explore-map").hidden = !on;
   $("[data-map-toggle]").setAttribute("aria-pressed", String(on));
-  try { localStorage.setItem("lo-map", on ? "1" : "0"); } catch { /* storage blocked */ }
+  if (on) document.dispatchEvent(new Event("lo:map-shown"));
+  if (remember) try { localStorage.setItem("lo-map", on ? "1" : "0"); } catch { /* storage blocked */ }
 }
-try { if (localStorage.getItem("lo-map") === "0") showMap(false); } catch { /* storage blocked */ }
+try { if (localStorage.getItem("lo-map") === "1") showMap(true, false); } catch { /* storage blocked */ }
 apply();

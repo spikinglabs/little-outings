@@ -49,7 +49,7 @@ const mapLabels = { ...(t.group("nEvents") as { one: string; other: string }), m
           {homes.map((h) => <option value={h.name} selected={h.name === region.center}>{townName(h.name, lang, homes)}</option>)}
         </select>
       </label>
-      <button class="chip" type="button" data-map-toggle aria-pressed="true" aria-controls="explore-map">{t("filters.map")}</button>
+      <button class="chip" type="button" data-map-toggle aria-pressed="false" aria-controls="explore-map">{t("filters.map")}</button>
       <button class="chip rain" type="button" data-flag="rain" aria-pressed="false">{t("filters.rain")}</button>
       <button class="chip" type="button" data-flag="farm" aria-pressed="false">{t("filters.farm")}</button>
       <button class="chip" type="button" data-flag="free" aria-pressed="false">{t("filters.free")}</button>
@@ -69,7 +69,7 @@ const mapLabels = { ...(t.group("nEvents") as { one: string; other: string }), m
     </div>
   </section>
 
-  <div class="mapwrap explore-map" id="explore-map">
+  <div class="mapwrap explore-map" id="explore-map" hidden>
     <OutingsMap client:only="preact" mode="explore" pins={pins} center={mapCenter(data)} towns={homes.map((x) => [x.name, x.lat, x.lon])} locale={t.locale} labels={mapLabels} />
     <div class="legend">
       <span><i style="background:#ffcc00"></i>{t("legend.event")}</span>

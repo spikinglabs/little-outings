@@ -120,9 +120,20 @@ export default function OutingsMap({ pins, center, towns, locale, labels, mode =
         last = key;
       };
       const onFiltered = (e: Event) => update((e as CustomEvent<Filtered>).detail);
+      // The map may mount while folded (zero size); once shown, measure again and refit.
+      const onShown = () => {
+        map.invalidateSize();
+        last = "";
+        if (window.loFiltered) update(window.loFiltered);
+      };
       document.addEventListener("lo:filtered", onFiltered);
+      document.addEventListener("lo:map-shown", onShown);
       if (window.loFiltered) update(window.loFiltered);
-      return () => { document.removeEventListener("lo:filtered", onFiltered); map.remove(); };
+      return () => {
+        document.removeEventListener("lo:filtered", onFiltered);
+        document.removeEventListener("lo:map-shown", onShown);
+        map.remove();
+      };
     }
 
     const [from, to] = window2w();
