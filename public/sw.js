@@ -6,7 +6,7 @@
 //   /_astro/, icons, fonts → cache first (file names change when the content does). Only real
 //                  CSS/JS/images are kept: the host answers a missing old file with a 200 HTML page.
 //   /api/, /admin/ and anything not GET → straight to the network, never cached
-const VERSION = "v4";
+const VERSION = "v5";
 const FRESH_MS = 12 * 60 * 60 * 1000;
 const PAGES = `pages-${VERSION}`;
 const STATIC = `static-${VERSION}`;
