@@ -137,3 +137,23 @@ report:
   note: Was sollten wir wissen? (optional)
   notePh: z. B. Der Spielplatz wurde umgebaut, jetzt mit Wasserbereich
   thanks: Danke! Wir schauen es uns an.
+visit:
+  title: Wart ihr schon da?
+  again: Würdet ihr wieder hingehen?
+  yes: Ja
+  maybe: Vielleicht
+  no: Nein
+  goodFor: Gut für
+  optional: (optional)
+  went: Wir waren da
+  thanks: Danke! Das hilft anderen Familien bei der Entscheidung.
+  tipTitle: Gut zu wissen
+  tipTopic: Worum geht es?
+  tipPh: z. B. Wechselkleidung mitnehmen, der Wasserbereich ist toll
+  tipThanks: Danke für den Tipp! Wir nehmen ihn nach kurzer Prüfung auf.
+  before: Ihr habt uns schon gesagt, dass ihr hier wart. Danke!
+  count: { one: "1 Familie war da", other: "{n} Familien waren da" }
+  againCount: { one: "1 würde wieder hingehen", other: "{n} würden wieder hingehen" }
+  parentsSay: "Eltern sagen: gut für {list}"
+goodFor: { toddlers: Kleinkinder, bigKids: Größere Kinder, rainy: Regentage, longVisit: Einen ganzen Nachmittag, quickHour: Eine kurze Stunde, friends: Treffen mit Freunden }
+tipTopic: { bring: Mitbringen…, bestTime: Beste Zeit…, parking: Parken…, ages: Am besten für…, other: Sonstiges }

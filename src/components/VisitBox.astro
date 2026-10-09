@@ -1,0 +1,40 @@
+---
+// "Been here?": a one-tap "We went" (would you go again, good for ...) and a one-line "Good to know"
+// tip. Both go to the inbox; a moderator adds the tallies and tips to the page.
+import { GOOD_FOR, TIP_TOPICS } from "../content.config";
+import type { T } from "../lib/i18n";
+import type { Item } from "../lib/types";
+
+interface Props { item: Item; t: T }
+const { item, t } = Astro.props;
+---
+<section class="visit" aria-labelledby={`v-${item.id}`}>
+  <h2 id={`v-${item.id}`}>{t("visit.title")}</h2>
+  {item.type === "place" && (
+    <form data-visit={item.id}>
+      <fieldset>
+        <legend>{t("visit.again")}</legend>
+        <div class="picks">
+          {["yes", "maybe", "no"].map((v, i) => <label class="pick"><input type="radio" name="again" value={v} required={i === 0} /> {t(`visit.${v}`)}</label>)}
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>{t("visit.goodFor")} <small>{t("visit.optional")}</small></legend>
+        <div class="picks">
+          {GOOD_FOR.map((g) => <label class="pick"><input type="checkbox" name="good_for" value={g} /> {t(`goodFor.${g}`)}</label>)}
+        </div>
+      </fieldset>
+      <button class="btn primary" type="submit">{t("visit.went")}</button>
+    </form>
+  )}
+  <form data-tip-for={item.id}>
+    <label for={`tip-${item.id}`}><b>{t("visit.tipTitle")}</b></label>
+    <div class="tip-row">
+      <select name="topic" aria-label={t("visit.tipTopic")}>
+        {TIP_TOPICS.map((k) => <option value={k}>{t(`tipTopic.${k}`)}</option>)}
+      </select>
+      <input id={`tip-${item.id}`} name="text" maxlength="140" required placeholder={t("visit.tipPh")} autocomplete="off" />
+    </div>
+    <button class="btn" type="submit">{t("send")}</button>
+  </form>
+</section>

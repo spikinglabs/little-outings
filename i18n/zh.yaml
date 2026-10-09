@@ -137,3 +137,23 @@ report:
   note: 想告诉我们什么？（可选）
   notePh: 例如：游乐场已翻新，现在有戏水区
   thanks: 谢谢！我们会核实。
+visit:
+  title: 去过这里吗？
+  again: 还会再去吗？
+  yes: 会
+  maybe: 也许
+  no: 不会
+  goodFor: 适合
+  optional: （可选）
+  went: 我们去过
+  thanks: 谢谢！这能帮助其他家庭做决定。
+  tipTitle: 小贴士
+  tipTopic: 关于什么的提示？
+  tipPh: 例如：带一套备用衣服，戏水区很好玩
+  tipThanks: 谢谢你的提示！简单核实后我们会加上。
+  before: 你已告诉我们去过这里，谢谢！
+  count: { one: "1 个家庭去过", other: "{n} 个家庭去过" }
+  againCount: { one: "1 个会再去", other: "{n} 个会再去" }
+  parentsSay: "家长说：适合{list}"
+goodFor: { toddlers: 幼儿, bigKids: 大孩子, rainy: 雨天, longVisit: 玩一下午, quickHour: 玩一小时, friends: 和朋友见面 }
+tipTopic: { bring: 要带…, bestTime: 最佳时间…, parking: 停车…, ages: 最适合年龄…, other: 其他 }

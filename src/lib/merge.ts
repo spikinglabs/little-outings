@@ -48,6 +48,7 @@ export function normalizePlace(id: string, raw: Raw, answer: Raw | undefined, to
     facilities,
     rating: raw.rating,
     quotes: raw.quotes ?? [],
+    visits: raw.visits,
     note: raw.note,
     trust: raw.trust ?? { level: "community" },
     website: raw.website,

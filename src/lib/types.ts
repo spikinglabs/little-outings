@@ -28,6 +28,7 @@ export interface Place {
   facilities: Record<string, Facility>;
   rating?: { stars: number; reviews: number };
   quotes: { text: Text; who: Text }[];
+  visits?: { count: number; again: number; good_for: Partial<Record<string, number>> };
   note?: Text;
   trust: Trust;
   website?: string;

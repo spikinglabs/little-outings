@@ -32,3 +32,17 @@ test("a report becomes a report issue; unknown reasons are refused", async () =>
   const bad = await onRequestPost({ env, request: post({ kind: "report", item: "osm-node-5", reason: "spam" }) } as any);
   assert.equal(bad.status, 400);
 });
+
+test("a visit and a tip become issues; unknown chips and topics are dropped or refused", async () => {
+  let sent: any;
+  globalThis.fetch = (async (_url: string, init: RequestInit) => { sent = JSON.parse(String(init.body)); return new Response("{}", { status: 201 }); }) as any;
+  let res = await onRequestPost({ env, request: post({ kind: "visit", item: "osm-node-5", again: "yes", good_for: ["toddlers", "<script>"] }) } as any);
+  assert.equal(res.status, 200);
+  assert.deepEqual(sent.labels, ["visit"]);
+  assert.match(sent.body, /good_for: \["toddlers"\]/);
+  res = await onRequestPost({ env, request: post({ kind: "tip", item: "osm-node-5", topic: "bring", text: "Wechselkleidung!" }) } as any);
+  assert.equal(res.status, 200);
+  assert.deepEqual(sent.labels, ["tip"]);
+  res = await onRequestPost({ env, request: post({ kind: "tip", item: "osm-node-5", topic: "spam", text: "x" }) } as any);
+  assert.equal(res.status, 400);
+});

@@ -11,6 +11,9 @@ export const FEATURES = [
   "playground", "changing_table", "highchairs", "kids_menu", "toys", "animals", "stroller_friendly",
   "nursing_room", "indoor_play", "toilets", "farm_shop", "parking",
 ] as const;
+// "Good for ..." chips parents tap after a visit, and the topics of a "Good to know" tip.
+export const GOOD_FOR = ["toddlers", "bigKids", "rainy", "longVisit", "quickHour", "friends"] as const;
+export const TIP_TOPICS = ["bring", "bestTime", "parking", "ages", "other"] as const;
 export const TAGS = ["reading", "diy", "stage", "music", "sport", "animals", "tour", "fest", "market", "outside", "season", "parents"] as const;
 // Same levels as cityklub's map review: recorded point, venue candidate, city overview, unmapped.
 export const PRECISION = ["exact", "venue", "area", "unknown"] as const;
@@ -49,6 +52,12 @@ export const placeSchema = z.object({
   facilities: facilities.default({}),
   rating: z.object({ stars: z.number().min(1).max(5), reviews: z.number().int().min(0) }).optional(),
   quotes: z.array(z.object({ text, who: text })).default([]),
+  // Tallies from "We went" taps, added by a moderator from the inbox.
+  visits: z.object({
+    count: z.number().int().min(0),
+    again: z.number().int().min(0).default(0),
+    good_for: z.partialRecord(z.enum(GOOD_FOR), z.number().int().min(0)).default({}),
+  }).optional(),
   note: text.optional(),
   trust: trust.default({ level: "community" }),
   website: z.url().optional(),

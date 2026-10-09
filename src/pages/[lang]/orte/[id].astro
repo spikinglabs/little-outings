@@ -4,6 +4,7 @@ import Card from "../../../components/Card.astro";
 import Stamp from "../../../components/Stamp.astro";
 import GapBox from "../../../components/GapBox.astro";
 import ReportBox from "../../../components/ReportBox.astro";
+import VisitBox from "../../../components/VisitBox.astro";
 import { LANGS, isFallback, tr, useT, type Lang } from "../../../lib/i18n";
 import { eventsAt, getData } from "../../../lib/data";
 import { ageText, routeUrl, townName } from "../../../lib/format";
@@ -23,6 +24,10 @@ const town = townName(p.town, lang, region.towns);
 const upcoming = eventsAt(events, p.id);
 // Known facilities first (yes, then no), unknown last: "?" means nobody has told us yet.
 const order = { yes: 0, no: 1, unknown: 2 } as const;
+// "Parents say": what families who went tapped most (at least twice), top three.
+const goodFor = Object.entries(p.visits?.good_for ?? {}).filter(([, n]) => (n ?? 0) >= 2)
+  .sort((a, b) => (b[1] ?? 0) - (a[1] ?? 0)).slice(0, 3)
+  .map(([g]) => (lang === "en" ? t(`goodFor.${g}`).toLowerCase() : t(`goodFor.${g}`)));
 const facs = FEATURES.map((f) => ({ f, ...(p.facilities[f] ?? { status: "unknown" as const, confirmed: 0 }) }))
   .filter((x) => x.status !== "unknown" || ["playground", "changing_table", "highchairs", "kids_menu", "toys", "animals", "stroller_friendly"].includes(x.f))
   .sort((a, b) => order[a.status] - order[b.status]);
@@ -59,9 +64,22 @@ const facs = FEATURES.map((f) => ({ f, ...(p.facilities[f] ?? { status: "unknown
     </ul>
     <p class="small">{t("unknownNote")}</p>
 
+    {p.visits && p.visits.count > 0 && (
+      <p class="went">
+        <b>{t("visit.count", { n: p.visits.count })}</b>{p.visits.again > 0 && <> · {t("visit.againCount", { n: p.visits.again })}</>}
+        {goodFor.length > 0 && <><br />{t("visit.parentsSay", { list: goodFor.join(", ") })}</>}
+      </p>
+    )}
+
     {p.rating && (
       <>
         <h2>{t("parentsSay", { r: p.rating.stars.toLocaleString(t.locale), n: p.rating.reviews })}</h2>
+        {p.quotes.map((q) => <blockquote class="quote">{tr(q.text, lang)}<small>{tr(q.who, lang)}</small></blockquote>)}
+      </>
+    )}
+    {!p.rating && p.quotes.length > 0 && (
+      <>
+        <h2>{t("visit.tipTitle")}</h2>
         {p.quotes.map((q) => <blockquote class="quote">{tr(q.text, lang)}<small>{tr(q.who, lang)}</small></blockquote>)}
       </>
     )}
@@ -82,6 +100,7 @@ const facs = FEATURES.map((f) => ({ f, ...(p.facilities[f] ?? { status: "unknown
     )}
 
     <GapBox item={p} t={t} />
+    <VisitBox item={p} t={t} />
     <ReportBox item={p} t={t} />
   </article>
 </Base>

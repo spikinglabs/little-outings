@@ -137,3 +137,23 @@ report:
   note: What should we know? (optional)
   notePh: e.g. the playground was rebuilt, now with a water area
   thanks: Thank you! We'll check it.
+visit:
+  title: Been here?
+  again: Would you go again?
+  yes: "Yes"
+  maybe: Maybe
+  no: "No"
+  goodFor: Good for
+  optional: (optional)
+  went: We went
+  thanks: Thank you! That helps other families decide.
+  tipTitle: Good to know
+  tipTopic: What is the tip about?
+  tipPh: e.g. bring spare clothes, the water area is fun
+  tipThanks: Thanks for the tip! We'll add it after a quick check.
+  before: You told us you went here. Thank you!
+  count: { one: "1 family went", other: "{n} families went" }
+  againCount: { one: "1 would go again", other: "{n} would go again" }
+  parentsSay: "Parents say: good for {list}"
+goodFor: { toddlers: Toddlers, bigKids: Big kids, rainy: Rainy days, longVisit: A whole afternoon, quickHour: A quick hour, friends: Meeting friends }
+tipTopic: { bring: Bring…, bestTime: Best time…, parking: Parking…, ages: Best for ages…, other: Other }

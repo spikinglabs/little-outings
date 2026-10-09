@@ -225,3 +225,16 @@ footer.foot { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--l
 .report label.pick { display: flex; gap: 8px; align-items: center; font-weight: 400; }
 .report textarea { border: 1px solid var(--line); background: var(--paper); border-radius: 10px; padding: 10px 12px; font: inherit; width: 100%; }
 .report .btn { justify-self: start; }
+.visit { margin-top: 22px; display: grid; gap: 14px; }
+.visit form { display: grid; gap: 10px; }
+.visit fieldset { border: 0; padding: 0; margin: 0; }
+.visit legend { font-weight: 700; margin-bottom: 6px; }
+.visit legend small { font-weight: 400; color: var(--ink-soft); }
+.visit .picks { display: flex; flex-wrap: wrap; gap: 8px; }
+.visit label.pick { display: inline-flex; gap: 6px; align-items: center; border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; cursor: pointer; }
+.visit label.pick:has(input:checked) { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.visit .tip-row { display: grid; grid-template-columns: auto 1fr; gap: 8px; }
+.visit select, .visit input[name=text] { border: 1px solid var(--line); background: var(--paper); border-radius: 10px; padding: 10px 12px; font: inherit; min-width: 0; }
+.visit .btn { justify-self: start; }
+.went { margin-top: 12px; }
+@media (max-width: 420px) { .visit .tip-row { grid-template-columns: 1fr; } }

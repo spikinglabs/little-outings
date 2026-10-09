@@ -95,6 +95,34 @@ document.addEventListener("submit", async (ev) => {
   form.replaceWith(done);
 });
 
+/* ---------- "been here?": we went, good to know ---------- */
+document.addEventListener("submit", async (ev) => {
+  const form = (ev.target as Element).closest<HTMLFormElement>("form[data-visit], form[data-tip-for]");
+  if (!form) return;
+  ev.preventDefault();
+  const data = new FormData(form);
+  const payload = form.dataset.visit
+    ? { kind: "visit", item: form.dataset.visit, again: data.get("again"), good_for: data.getAll("good_for") }
+    : { kind: "tip", item: form.dataset.tipFor, topic: data.get("topic"), text: data.get("text") };
+  const ok = await sendToInbox({ ...payload, lang: body.dataset.lang });
+  if (ok && form.dataset.visit) wentHere(form.dataset.visit);
+  const done = document.createElement("p");
+  done.className = "done";
+  done.setAttribute("role", "status");
+  done.textContent = ok ? (form.dataset.visit ? ui.visited : ui.tipThanks) : ui.inboxSoon;
+  form.replaceWith(done);
+});
+// This browser remembers where it already said "We went", so a family taps once per place.
+function went(): string[] { try { return JSON.parse(localStorage.getItem("lo-went") || "[]"); } catch { return []; } }
+function wentHere(id: string) { try { localStorage.setItem("lo-went", JSON.stringify([...new Set([...went(), id])].slice(-500))); } catch { /* storage blocked */ } }
+document.querySelectorAll<HTMLFormElement>("form[data-visit]").forEach((form) => {
+  if (!went().includes(form.dataset.visit!)) return;
+  const done = document.createElement("p");
+  done.className = "done";
+  done.textContent = ui.wentBefore;
+  form.replaceWith(done);
+});
+
 /** Posts to the Cloudflare inbox function. Returns false while the inbox isn't set up. */
 export async function sendToInbox(payload: Record<string, unknown>): Promise<boolean> {
   try {
