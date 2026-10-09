@@ -106,6 +106,7 @@ placeThanks: "已提交。每个地点上线前我们都会审核，通过后就
 placeAnother: 再推荐一个地点
 placeSentKind: 类型
 placeSentWhere: 地点
+placeEditTitle: "修改你推荐的地点"
 tasksTitle: "听说过，但细节还不全"
 tasksSub: "这些活动我们听说过，但还不清楚全部信息，比如具体地点、时间或价格。看看吧，也许会发现有趣的活动。如果你知道更多，一个回答就能帮到所有家庭。"
 tasksSearch: "听说过，但细节还不全"
@@ -206,7 +207,7 @@ profile:
   title: 我的资料
   sub: "无需注册。小出游把你的资料保存在这部手机上：收藏、去过的地方、你的回答，以及你发给我们的内容。"
   have: "这部手机上"
-  sentTitle: "你提交的活动"
+  sentTitle: "你提交的内容"
   sentSub: "信息有变或有误？可以在这里修改，修改上线前会经过审核。"
   sentEdit: "修改"
   sentOld: "提交时还不支持修改，所以无法在这里更改。"

@@ -106,6 +106,7 @@ placeThanks: "Sent. We check every place before it goes live; you'll find it on 
 placeAnother: Suggest another place
 placeSentKind: Kind
 placeSentWhere: Where
+placeEditTitle: "Change your place"
 tasksTitle: "Heard about, not all details yet"
 tasksSub: "We've heard about these outings but don't know everything yet, like the exact place, time or price. Have a look, you might find something fun. And if you know more, one answer helps every family."
 tasksSearch: "Heard about, not all details yet"
@@ -206,7 +207,7 @@ profile:
   title: Your profile
   sub: "No sign-up. Little Outings keeps your profile on this phone: what you saved, where you went, your answers and what you sent us."
   have: "On this phone"
-  sentTitle: "Events you sent"
+  sentTitle: "What you sent"
   sentSub: "Something changed or wrong? Edit it here; we check changes before they show."
   sentEdit: "Edit"
   sentOld: "Sent before editing was possible, so it can't be changed here."

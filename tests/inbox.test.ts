@@ -77,3 +77,27 @@ test("an event sent with a key can be edited with that key only, and goes back t
   assert.equal(/edit: "([0-9a-f]{64})"/.exec(patch.body.body)?.[1], /edit: "([0-9a-f]{64})"/.exec(issueBody)?.[1]);
   assert.ok(calls.some((c) => c.method === "DELETE" && c.url.endsWith("/issues/7/labels/approved")));
 });
+
+test("a place sent with a key can be edited too, and only as a place", async () => {
+  let issueBody = "";
+  const calls: { method: string; body: any }[] = [];
+  globalThis.fetch = (async (url: string, init: RequestInit = {}) => {
+    const method = init.method ?? "GET";
+    calls.push({ method, body: init.body ? JSON.parse(String(init.body)) : null });
+    if (method === "POST" && url.endsWith("/issues")) { issueBody = JSON.parse(String(init.body)).body; return Response.json({ number: 8 }, { status: 201 }); }
+    if (method === "GET") return Response.json({ number: 8, state: "open", body: issueBody, labels: [{ name: "new-place" }] });
+    return Response.json({});
+  }) as any;
+  const key = "p".repeat(32);
+  const place = { kind: "farm", name: "Hof", town: "Düren", features: ["animals"] };
+  const made = await onRequestPost({ env, request: post({ kind: "place", lang: "de", place, key }) } as any);
+  assert.deepEqual(await made.json(), { ok: true, number: 8 });
+  assert.match(issueBody, /\nedit: "[0-9a-f]{64}"\n/);
+  const put = (body: unknown) => new Request("https://x/api/inbox", { method: "PUT", body: JSON.stringify(body) });
+  // The same key can't turn it into an event.
+  const asEvent = await onRequestPut({ env, request: put({ number: 8, key, draft: { title: "x", date: "2026-10-10" } }) } as any);
+  assert.equal(asEvent.status, 404);
+  const ok = await onRequestPut({ env, request: put({ number: 8, key, place: { ...place, name: "Hof Sonne" } }) } as any);
+  assert.equal(ok.status, 200);
+  assert.match(calls.find((c) => c.method === "PATCH")!.body.body, /name: "Hof Sonne"/);
+});

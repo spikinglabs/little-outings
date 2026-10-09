@@ -106,10 +106,10 @@ export function rememberSent(store: Store, payload: Record<string, unknown>, now
   store.setItem(KEYS.sent, JSON.stringify(all.slice(-LIMITS.sent)));
 }
 
-/** Saves the new details of an event this browser sent and later edited (matched by its inbox number). */
-export function updateSentEvent(store: Store, number: number, draft: Record<string, unknown>) {
+/** Saves the new details of an event or place this browser sent and later edited (matched by its inbox number). */
+export function updateSent(store: Store, number: number, fields: Record<string, unknown>) {
   const all = clean({ sent: parse(store.getItem(KEYS.sent), []) }).sent;
-  for (const s of all) if (s.kind === "event" && s.data.number === number) s.data = { ...s.data, draft };
+  for (const s of all) if (s.data.number === number) s.data = { ...s.data, ...fields };
   store.setItem(KEYS.sent, JSON.stringify(all));
 }
 

@@ -3,7 +3,7 @@
 // Until parsing is switched on, the same form opens empty so people can type it in.
 // ?edit=<inbox number> opens an event this browser sent earlier, to change it (Profile links here).
 import { useEffect, useState } from "preact/hooks";
-import { readProfile, rememberSent, updateSentEvent } from "../lib/profile";
+import { readProfile, rememberSent, updateSent } from "../lib/profile";
 import { schedulePush } from "../scripts/sync";
 
 type Draft = { title: string; date: string; time: string; place: string; price: string; note: string };
@@ -89,7 +89,7 @@ export default function Contribute({ lang, ui }: Props) {
       if (editing) {
         const res = await fetch("/api/inbox", { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ ...editing, lang, draft }) });
         ok = res.ok;
-        if (ok) try { updateSentEvent(localStorage, editing.number, draft); schedulePush(); } catch { /* storage blocked */ }
+        if (ok) try { updateSent(localStorage, editing.number, { draft }); schedulePush(); } catch { /* storage blocked */ }
       } else {
         // A random key, kept only here, lets this browser change the event later.
         const key = crypto.randomUUID();
