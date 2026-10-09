@@ -78,12 +78,15 @@ orPaste: or paste a link or text
 pastePh: Website, Instagram post or WhatsApp message
 pasteBtn: Read it
 posterNote: The photo is never published, only the facts.
-tasksTitle: "Help other families plan their day"
-tasksSub: "These outings are still missing a detail, like the exact place or time. If you know it, one answer helps every family nearby."
-tasksSearch: "Search outings with missing details"
+tasksTitle: "Heard about, not all details yet"
+tasksSub: "We've heard about these outings but don't know everything yet, like the exact place, time or price. Have a look, you might find something fun. And if you know more, one answer helps every family."
+tasksSearch: "Heard about, not all details yet"
 tasksSearchPh: "Search by title, town or venue"
-tasksMissing: "What is missing"
-tasksCount: { one: "{n} outing needs a detail", other: "{n} outings need a detail" }
+tasksFilter: "Filter"
+tasksTown: "Town"
+tasksAllTowns: "All towns"
+tasksLater: "Later"
+tasksCount: { one: "{n} outing", other: "{n} outings" }
 tasksNone: "Nothing matches. Try another word or show everything."
 kinds: { farm: Farm, cafe: Café, playground: Playground, park: "Park & woods", museum: Museum, pool: Swimming pool }
 features: { playground: Playground, changing_table: Changing table, highchairs: High chairs, kids_menu: "Kids' menu", toys: "Toys & little gifts", animals: Animals, stroller_friendly: Pram-friendly, nursing_room: Nursing corner, indoor_play: Indoor play area, toilets: Toilets, farm_shop: Farm shop, parking: Parking }

@@ -15,7 +15,12 @@ const lang = Astro.params.lang as Lang;
 const t = useT(lang);
 const { region, eventById, placeById } = await getData();
 const tasks = await getTasks();
-const gapTypes = [...new Set(tasks.flatMap((task) => task.gaps.map((g) => g.type)))];
+const itemOf = (task: (typeof tasks)[number]) => (task.type === "event" ? eventById.get(task.id)! : placeById.get(task.id)!);
+// Filters use what is known about each outing: its town and its dates.
+const towns = [...new Set(tasks.map((task) => itemOf(task).town).filter(Boolean))]
+  .sort((a, b) => townName(a, lang, region.towns).localeCompare(townName(b, lang, region.towns), lang));
+const whenChips = [["", t("allKinds")], ["soon", t("when.soon")], ["later", t("tasksLater")],
+  ...(tasks.some((task) => task.type === "place") ? [["place", t("places")]] : [])];
 const keys = ["posterTitle", "posterSub", "posterBtn", "orPaste", "pastePh", "pasteBtn", "posterNote", "reading",
   "draftTitle", "pleaseCheck", "send", "answered", "inboxSoon", "parseSoon", "typeIt"];
 const ui = { ...Object.fromEntries(keys.map((k) => [k, t(k)])), field: t.group("field") } as any;
@@ -34,19 +39,27 @@ const ui = { ...Object.fromEntries(keys.map((k) => [k, t(k)])), field: t.group("
         <Fragment set:html={svg(UI_ICON.search, 'stroke-width="2"')} />
         <input id="task-q" type="search" placeholder={t("tasksSearchPh")} autocomplete="off" />
       </label>
-      <div class="filters" role="group" aria-label={t("tasksMissing")}>
-        <button class="chip" type="button" data-gap-chip="" aria-pressed="true">{t("allKinds")}</button>
-        {gapTypes.map((g) => <button class="chip" type="button" data-gap-chip={g} aria-pressed="false">{t(`gapLabel.${g}`)}</button>)}
+      <div class="filters" role="group" aria-label={t("tasksFilter")}>
+        {whenChips.map(([k, label]) => <button class="chip" type="button" data-when-chip={k} aria-pressed={k === "" ? "true" : "false"}>{label}</button>)}
+      </div>
+      <div class="filters">
+        <label class="chip">📍
+          <select id="task-town" aria-label={t("tasksTown")}>
+            <option value="">{t("tasksAllTowns")}</option>
+            {towns.map((town) => <option value={town}>{townName(town, lang, region.towns)}</option>)}
+          </select>
+        </label>
       </div>
     </div>
     <div class="grid" id="tasks" style="margin-top:12px">
       {tasks.map((task) => {
-        const item = task.type === "event" ? eventById.get(task.id)! : placeById.get(task.id)!;
+        const item = itemOf(task);
         const title = item.type === "event" ? tr(item.title, lang) : item.name;
         const s = item.type === "event" ? shortDate(t, item.start) : null;
         return (
           <div class="task" hidden data-lat={item.geo.lat} data-lon={item.geo.lon} data-precision={item.geo.precision}
-            data-gaps={task.gaps.map((g) => g.type).join(" ")}
+            data-type={item.type} data-town={item.town}
+            data-start={item.type === "event" ? item.start : undefined} data-end={item.type === "event" ? item.end ?? item.start : undefined}
             data-q={fold([title, (item as { venue?: string }).venue, item.town, townName(item.town, lang, region.towns), s].filter(Boolean).join(" "))}>
             <a class="task-item" href={pathFor(lang, item)}>
               {s ? <span class="mini-stamp">{s}</span> : <span class="mini-stamp place" set:html={svg(KIND_ICON[(item as any).kind])} />}

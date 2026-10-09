@@ -78,12 +78,15 @@ orPaste: 或粘贴链接、文字
 pastePh: 网页、Instagram 帖子或 WhatsApp 消息
 pasteBtn: 识别
 posterNote: 照片不会公开，只发布活动信息。
-tasksTitle: "帮其他家庭安排出行"
-tasksSub: "这些活动还缺少一项信息，比如具体地点或时间。如果你知道，一个回答就能帮到附近所有家庭。"
-tasksSearch: "搜索缺少信息的活动"
+tasksTitle: "听说过，但细节还不全"
+tasksSub: "这些活动我们听说过，但还不清楚全部信息，比如具体地点、时间或价格。看看吧，也许会发现有趣的活动。如果你知道更多，一个回答就能帮到所有家庭。"
+tasksSearch: "听说过，但细节还不全"
 tasksSearchPh: "按名称、城市或场地搜索"
-tasksMissing: "缺少什么"
-tasksCount: { one: "{n} 个活动需要补充信息", other: "{n} 个活动需要补充信息" }
+tasksFilter: "筛选"
+tasksTown: "城市"
+tasksAllTowns: "所有城市"
+tasksLater: "以后"
+tasksCount: { one: "{n} 个活动", other: "{n} 个活动" }
 tasksNone: "没有找到。换个词试试，或显示全部。"
 kinds: { farm: 农场, cafe: 咖啡馆, playground: 游乐场, park: 公园和森林, museum: 博物馆, pool: 游泳馆 }
 features: { playground: 游乐场, changing_table: 尿布台, highchairs: 儿童餐椅, kids_menu: 儿童餐, toys: 玩具和小礼物, animals: 动物, stroller_friendly: 婴儿车方便, nursing_room: 哺乳角, indoor_play: 室内游戏区, toilets: 卫生间, farm_shop: 农场小店, parking: 停车场 }
