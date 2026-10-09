@@ -13,6 +13,13 @@ filters: { farm: "🚜 Bauernhof", rain: "☂ Bei Regen", free: Kostenlos, anima
 tip: "Unser Tipp {when}"
 only: "Nur {when}"
 always: Geht immer
+ideas: Ideen in der Nähe
+ideasKinds: Was für ein Ausflug
+kindEvents: Veranstaltungen
+eventTypes: Art der Veranstaltung
+allTypes: Alle Arten
+noIdeas: Dazu passt nichts. Versucht einen größeren Umkreis, einen anderen Tag oder weniger Filter.
+nPlacesAny: { one: "1 Ort für jederzeit", other: "{n} Orte für jederzeit" }
 allKinds: Alle
 nEvents: { one: "1 Termin", other: "{n} Termine" }
 nPlaces: { one: "1 Ort bis {r} km", other: "{n} Orte bis {r} km" }
@@ -103,7 +110,7 @@ tasksCount: { one: "{n} Ausflug", other: "{n} Ausflüge" }
 tasksNone: "Nichts gefunden. Versucht ein anderes Wort oder zeigt alles an."
 kinds: { farm: Bauernhof, cafe: Café, playground: Spielplatz, park: "Park & Wald", museum: Museum, pool: Schwimmbad, zoo: "Zoo & Tierpark" }
 features: { playground: Spielplatz, changing_table: Wickeltisch, highchairs: Hochstühle, kids_menu: Kinderkarte, toys: "Spielzeug & Mitgebsel", animals: Tiere, stroller_friendly: Kinderwagen-tauglich, nursing_room: Stillecke, indoor_play: Spielecke drinnen, toilets: Toiletten, farm_shop: Hofladen, parking: Parkplatz }
-tags: { fest: Fest, animals: Tiere, market: Markt, diy: Mitmachen, season: Saison, reading: Vorlesen, music: Musik, outside: Draußen }
+tags: { fest: Fest, animals: Tiere, market: Markt, diy: Mitmachen, season: Saison, reading: Vorlesen, music: Musik, outside: Draußen, stage: "Theater & Kino", sport: "Sport & Bewegung", tour: "Museum & Führung", parents: "Für Eltern" }
 empty: Hier ist noch nichts eingetragen. Kennt ihr etwas? Unter „Mitmachen“ könnt ihr es melden.
 footer: "Alle Angaben ohne Gewähr. Bitte vor dem Besuch beim Veranstalter prüfen."
 dataFrom: "Daten u. a. von {sources}."
@@ -119,3 +126,14 @@ pleaseCheck: Bitte prüfen
 field: { title: Titel, date: Datum, time: Uhrzeit, place: Ort oder Adresse, price: Preis, note: "Was gibt es für Kinder?" }
 parseSoon: Automatisches Auslesen ist noch nicht eingerichtet. Bitte füllt die Felder selbst aus.
 typeIt: Lieber selbst eintippen
+report:
+  title: Stimmt etwas nicht?
+  closed: Gibt es nicht mehr oder ist geschlossen
+  cancelled: Fällt aus
+  where: Ist woanders
+  notKids: Ist nichts für Kinder
+  outdated: Etwas hier ist veraltet
+  other: Etwas anderes
+  note: Was sollten wir wissen? (optional)
+  notePh: z. B. Der Spielplatz wurde umgebaut, jetzt mit Wasserbereich
+  thanks: Danke! Wir schauen es uns an.

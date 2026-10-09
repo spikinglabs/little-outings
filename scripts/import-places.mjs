@@ -28,7 +28,7 @@ export function placeFromOsm(row) {
     free: row.free,
     facilities: Object.fromEntries((row.facilities || []).map((f) => [f, { status: "yes", confirmed: 0 }])),
     trust: OSM,
-    website: row.website ?? `https://www.openstreetmap.org/${row.osm}`,
+    website: row.website,
   };
   return { id: `osm-${row.osm.replace("/", "-")}`, data: clean(data) };
 }

@@ -81,6 +81,20 @@ document.addEventListener("submit", async (ev) => {
   form.querySelector(".gap-form")!.replaceWith(done);
 });
 
+/* ---------- "something wrong?" reports ---------- */
+document.addEventListener("submit", async (ev) => {
+  const form = (ev.target as Element).closest<HTMLFormElement>("form[data-report]");
+  if (!form) return;
+  ev.preventDefault();
+  const data = new FormData(form);
+  const ok = await sendToInbox({ kind: "report", item: form.dataset.report, reason: data.get("reason"), note: data.get("note"), lang: body.dataset.lang });
+  const done = document.createElement("p");
+  done.className = "done";
+  done.setAttribute("role", "status");
+  done.textContent = ok ? ui.reported : ui.inboxSoon;
+  form.replaceWith(done);
+});
+
 /** Posts to the Cloudflare inbox function. Returns false while the inbox isn't set up. */
 export async function sendToInbox(payload: Record<string, unknown>): Promise<boolean> {
   try {

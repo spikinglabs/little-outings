@@ -1,13 +1,14 @@
 ---
-// Entdecken: "What shall we do with the kids today?" Every upcoming event and place is rendered;
-// the filter script shows the ones that match the chosen day, distance and filters.
+// Entdecken: "What shall we do with the kids today?" One list of ideas: events on the chosen day
+// and places that are good any time, mixed and nearest first. Every card is rendered; the filter
+// script shows the ones that match the chosen day, distance and filters, a page at a time.
 import Base from "../../layouts/Base.astro";
 import Card from "../../components/Card.astro";
 import Stamp from "../../components/Stamp.astro";
 import { LANGS, tr, useT, type Lang } from "../../lib/i18n";
 import { getData } from "../../lib/data";
 import { pathFor, townName } from "../../lib/format";
-import { KINDS } from "../../content.config";
+import { KINDS, TAGS } from "../../content.config";
 import { KIND_ICON, UI_ICON, svg } from "../../lib/icons";
 import OutingsMap from "../../islands/OutingsMap";
 import { buildPins, mapCenter } from "../../lib/pins";
@@ -24,9 +25,12 @@ const tips = listed
   .filter((e) => e.trust.level === "verified" && e.geo.precision === "exact")
   .sort((a, b) => Number(placeById.get(b.place ?? "")?.kind === "farm") - Number(placeById.get(a.place ?? "")?.kind === "farm"));
 const presentKinds = KINDS.filter((k) => places.some((p) => p.kind === k));
+// Event types that at least one listed event has, most common first.
+const presentTags = TAGS.map((g) => [g, listed.filter((e) => e.tags.includes(g)).length] as const)
+  .filter(([, n]) => n > 0).sort((a, b) => b[1] - a[1]).map(([g]) => g);
 const whenKeys = ["today", "tomorrow", "weekend", "soon"];
 const whenIn = t.group("whenIn");
-const pluralUi = { nEvents: t.group("nEvents"), nPlaces: t.group("nPlaces"), tip: t("tip"), only: t("only"), whenIn, mapShow: t("mapShow"), mapHide: t("mapHide"), nPlacesArea: t.group("nPlacesArea"), areaBack: t("mapAreaBack"), showMore: t("mapShowMore") };
+const pluralUi = { nEvents: t.group("nEvents"), nPlaces: t.group("nPlacesAny"), tip: t("tip"), whenIn, mapShow: t("mapShow"), mapHide: t("mapHide"), areaBack: t("mapAreaBack"), showMore: t("mapShowMore") };
 const homes = region.towns;
 // The map shows whatever the filters show (explore.ts tells it which ids).
 const pins = buildPins(data, lang, t);
@@ -97,30 +101,26 @@ const mapLabels = { ...(t.group("nEvents") as { one: string; other: string }), m
     </a>
   ))}
 
-  <div class="explore-cols">
-    <section class="section" aria-labelledby="ev-h">
-      <div class="section-head"><h2 id="ev-h" data-only></h2><p data-ev-count></p></div>
-      <div class="grid" id="events">
-        {listed.map((e) => <Card item={e} t={t} />)}
-        <div class="empty" data-ev-empty hidden>{t("noEvents")}</div>
-        <div class="empty" data-ev-more hidden>{t("nothingMore")}</div>
-      </div>
-    </section>
-    <section class="section" aria-labelledby="pl-h">
-      <div class="section-head"><h2 id="pl-h">{t("always")}</h2><p data-pl-count></p></div>
-      <div class="filters kinds" role="group">
-        <button class="chip" type="button" data-kind-chip="" aria-pressed="true">{t("allKinds")}</button>
-        {presentKinds.map((k) => (
-          <button class="chip" type="button" data-kind-chip={k} aria-pressed="false"><Fragment set:html={svg(KIND_ICON[k])} /> {t(`kinds.${k}`)}</button>
-        ))}
-      </div>
-      <div class="grid" id="places">
-        {places.map((p, i) => <Card item={p} t={t} hidden={i >= 24} />)}
-        <div class="empty" data-pl-empty hidden>{t("noPlaces")}</div>
-      </div>
-      <button class="more-btn" type="button" data-pl-more hidden></button>
-    </section>
-  </div>
+  <section class="section" aria-labelledby="ideas-h">
+    <div class="section-head"><h2 id="ideas-h">{t("ideas")}</h2><p data-count aria-live="polite"></p></div>
+    <div class="filters kinds" role="group" aria-label={t("ideasKinds")}>
+      <button class="chip" type="button" data-kind-chip="" aria-pressed="true">{t("allKinds")}</button>
+      <button class="chip" type="button" data-kind-chip="event" aria-pressed="false"><span class="dot-ev" aria-hidden="true"></span> {t("kindEvents")}</button>
+      {presentKinds.map((k) => (
+        <button class="chip" type="button" data-kind-chip={k} aria-pressed="false"><Fragment set:html={svg(KIND_ICON[k])} /> {t(`kinds.${k}`)}</button>
+      ))}
+    </div>
+    <div class="filters types" role="group" aria-label={t("eventTypes")} data-types hidden>
+      <button class="chip" type="button" data-tag-chip="" aria-pressed="true">{t("allTypes")}</button>
+      {presentTags.map((g) => <button class="chip" type="button" data-tag-chip={g} aria-pressed="false">{t(`tags.${g}`)}</button>)}
+    </div>
+    <div class="grid ideas" id="ideas">
+      {listed.map((e) => <Card item={e} t={t} hidden />)}
+      {places.map((p) => <Card item={p} t={t} hidden />)}
+      <div class="empty" data-empty hidden>{t("noIdeas")}</div>
+    </div>
+    <button class="more-btn" type="button" data-more hidden></button>
+  </section>
   {events.length + places.length === 0 && <p class="empty">{t("empty")}</p>}
   <script is:inline type="application/json" id="explore-ui" set:html={JSON.stringify(pluralUi)} />
   <script>

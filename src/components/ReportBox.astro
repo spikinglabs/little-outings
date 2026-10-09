@@ -1,0 +1,20 @@
+---
+// "Something wrong?": closed, in the wrong spot, not for children ... Goes to the inbox like gap answers.
+import type { T } from "../lib/i18n";
+import type { Item } from "../lib/types";
+
+interface Props { item: Item; t: T }
+const { item, t } = Astro.props;
+const reasons = item.type === "place" ? ["closed", "where", "notKids", "outdated", "other"] : ["cancelled", "where", "notKids", "outdated", "other"];
+---
+<details class="report">
+  <summary>{t("report.title")}</summary>
+  <form data-report={item.id}>
+    <fieldset>
+      <legend class="sr-only">{t("report.title")}</legend>
+      {reasons.map((r, i) => <label class="pick"><input type="radio" name="reason" value={r} required={i === 0} /> {t(`report.${r}`)}</label>)}
+    </fieldset>
+    <label>{t("report.note")}<textarea name="note" rows="2" maxlength="1000" placeholder={t("report.notePh")}></textarea></label>
+    <button class="btn" type="submit">{t("send")}</button>
+  </form>
+</details>

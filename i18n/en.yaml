@@ -13,6 +13,13 @@ filters: { farm: "🚜 Farm", rain: "☂ Rainy day", free: Free, animals: Animal
 tip: "Our pick {when}"
 only: "Only {when}"
 always: Always a good idea
+ideas: Ideas nearby
+ideasKinds: What kind of outing
+kindEvents: Events
+eventTypes: Type of event
+allTypes: All types
+noIdeas: Nothing matches these filters. Try a bigger radius, another day or fewer filters.
+nPlacesAny: { one: "1 place for any time", other: "{n} places for any time" }
 allKinds: All
 nEvents: { one: "1 event", other: "{n} events" }
 nPlaces: { one: "1 place within {r} km", other: "{n} places within {r} km" }
@@ -103,7 +110,7 @@ tasksCount: { one: "{n} outing", other: "{n} outings" }
 tasksNone: "Nothing matches. Try another word or show everything."
 kinds: { farm: Farm, cafe: Café, playground: Playground, park: "Park & woods", museum: Museum, pool: Swimming pool, zoo: "Zoo & wildlife park" }
 features: { playground: Playground, changing_table: Changing table, highchairs: High chairs, kids_menu: "Kids' menu", toys: "Toys & little gifts", animals: Animals, stroller_friendly: Pram-friendly, nursing_room: Nursing corner, indoor_play: Indoor play area, toilets: Toilets, farm_shop: Farm shop, parking: Parking }
-tags: { fest: Festival, animals: Animals, market: Market, diy: Hands-on, season: Seasonal, reading: Story time, music: Music, outside: Outdoors }
+tags: { fest: Festival, animals: Animals, market: Market, diy: Hands-on, season: Seasonal, reading: Story time, music: Music, outside: Outdoors, stage: "Theatre & film", sport: "Sport & movement", tour: "Museums & tours", parents: "For parents" }
 empty: Nothing listed here yet. Know something? Add it under Contribute.
 footer: "No guarantee for any listing. Please check with the organiser before you go."
 dataFrom: "Data includes {sources}."
@@ -119,3 +126,14 @@ pleaseCheck: Please check
 field: { title: Title, date: Date, time: Time, place: Place or address, price: Price, note: "What's on for kids?" }
 parseSoon: Automatic reading isn't set up yet. Please fill in the fields yourself.
 typeIt: Type it in yourself
+report:
+  title: Something wrong?
+  closed: It's closed or gone
+  cancelled: It's cancelled
+  where: It's in a different place
+  notKids: It's not for children
+  outdated: Something here is out of date
+  other: Something else
+  note: What should we know? (optional)
+  notePh: e.g. the playground was rebuilt, now with a water area
+  thanks: Thank you! We'll check it.
