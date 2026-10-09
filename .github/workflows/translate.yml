@@ -1,7 +1,8 @@
 # Translates new event titles and place names into Chinese every night, before the deploy
 # (02:15) builds the site, and commits data/translations/zh.json. Each text is translated once.
-# Needs the repository secret ANTHROPIC_API_KEY; the variable TRANSLATE_MODEL picks the model
-# (default in scripts/translate.mjs). Without the key it only reports what is missing.
+# Needs a repository secret GEMINI_API_KEY (Gemini) or ANTHROPIC_API_KEY (Claude); with both, Gemini
+# is used unless the variable LLM_PROVIDER says "anthropic". The variable TRANSLATE_MODEL picks the
+# model (defaults in src/lib/llm.ts). Without a key it only reports what is missing.
 name: Translate
 on:
   schedule:
@@ -25,7 +26,9 @@ jobs:
         run: npm run import:cityklub && npm run import:places
       - name: Translate what is new
         env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          LLM_PROVIDER: ${{ vars.LLM_PROVIDER }}
           TRANSLATE_MODEL: ${{ vars.TRANSLATE_MODEL }}
         run: |
           out=$(npm run --silent translate 2>&1) || { echo "$out"; exit 1; }

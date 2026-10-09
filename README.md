@@ -66,14 +66,17 @@ One-time setup, in GitHub → Settings → Secrets and variables → Actions:
   `CLOUDFLARE_ACCOUNT_ID`. The first deploy creates the `little-outings` Pages project.
 - Variables `CITYKLUB_EXPORT` (URL of the public `events.jsonl`) and, once you
   have a domain, `SITE_URL`.
+- Chinese translations (`translate.yml`, nightly): secret `GEMINI_API_KEY` or
+  `ANTHROPIC_API_KEY`; optional variables `LLM_PROVIDER` and `TRANSLATE_MODEL`.
 
 Without the Cloudflare secrets the deploy step is skipped and runs stay green.
 
 Optional, in Cloudflare → Pages → little-outings → Settings → Variables:
 - Inbox: `GITHUB_TOKEN` (Issues: write on the inbox repo only), `INBOX_REPO`,
   optional `TURNSTILE_SECRET`.
-- Poster/link parsing: `ANTHROPIC_API_KEY`, `PARSE_MODEL`. Photos are sent to the
-  model for that one request and never stored.
+- Poster/link parsing: `GEMINI_API_KEY` or `ANTHROPIC_API_KEY` (with both, Gemini unless
+  `LLM_PROVIDER=anthropic`), optional `PARSE_MODEL`. Photos are sent to the model for that
+  one request and never stored.
 - Without these the site works; contributions say "being set up".
 
 ## Admin (admin.outings.allo.land)

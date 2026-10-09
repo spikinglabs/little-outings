@@ -5,11 +5,13 @@
 // uses any more. The cache is committed, so each text is translated once. The build reads it in
 // src/lib/data.ts; a title someone translated by hand ({ de, zh } in a content file) always wins.
 //
-//   ANTHROPIC_API_KEY=… TRANSLATE_MODEL=… npm run translate
-// Without ANTHROPIC_API_KEY it only reports how many texts are missing.
+//   GEMINI_API_KEY=… npm run translate        (or ANTHROPIC_API_KEY; see src/lib/llm.ts for the switch)
+//   TRANSLATE_MODEL=…                         optional; the provider's default otherwise
+// Without a key it only reports how many texts are missing.
 import { readFileSync, readdirSync, writeFileSync, mkdirSync, existsSync, statSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { load } from "js-yaml";
+import { complete, pickLlm } from "../src/lib/llm.ts";
 
 export const CACHE = "data/translations/zh.json";
 const BATCH = 60;
@@ -45,15 +47,8 @@ export function textsIn(root) {
 }
 
 /** One request for up to BATCH { text, kind } items. Returns the translations, or throws when the answer doesn't line up. */
-export async function translateBatch(texts, { key, model, fetch = globalThis.fetch }) {
-  const res = await fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: { "x-api-key": key, "anthropic-version": "2023-06-01", "content-type": "application/json" },
-    body: JSON.stringify({ model, max_tokens: 8000, system: PROMPT, messages: [{ role: "user", content: JSON.stringify(texts) }] }),
-  });
-  if (!res.ok) throw new Error(`translate: HTTP ${res.status} ${(await res.text()).slice(0, 300)}`);
-  const out = await res.json();
-  const text = out.content?.find((c) => c.type === "text")?.text ?? "";
+export async function translateBatch(texts, { llm, model, fetch = globalThis.fetch }) {
+  const text = await complete(llm, model, { system: PROMPT, text: JSON.stringify(texts), maxTokens: 8000, json: true }, fetch);
   const list = JSON.parse(text.slice(text.indexOf("["), text.lastIndexOf("]") + 1));
   if (!Array.isArray(list) || list.length !== texts.length || list.some((s) => typeof s !== "string" || !s.trim()))
     throw new Error("translate: the answer does not match the batch");
@@ -64,7 +59,7 @@ export async function translateBatch(texts, { key, model, fetch = globalThis.fet
 export async function update(items, cache, opts) {
   const missing = items.filter((x) => !cache[x.text]);
   let done = 0;
-  if (opts.key) {
+  if (opts.llm) {
     for (let i = 0; i < missing.length; i += BATCH) {
       const part = missing.slice(i, i + BATCH);
       try {
@@ -85,14 +80,13 @@ async function main() {
   const texts = textsIn(root);
   if (!texts.length) return console.log("translate: no content found; run the imports first"); // never wipe the cache
   const cache = existsSync(CACHE) ? JSON.parse(readFileSync(CACHE, "utf8")) : {};
-  const key = process.env.ANTHROPIC_API_KEY;
-  const model = process.env.TRANSLATE_MODEL || "claude-haiku-5-5";
-  const r = await update(texts, cache, { key, model });
+  const llm = pickLlm(process.env);
+  const r = await update(texts, cache, { llm, model: process.env.TRANSLATE_MODEL });
   mkdirSync(dirname(CACHE), { recursive: true });
   writeFileSync(CACHE, JSON.stringify(r.cache, null, 1) + "\n");
-  console.log(key
-    ? `translate: ${texts.length} texts, ${r.missing} new, ${r.done} translated`
-    : `translate: ${texts.length} texts, ${r.missing} without Chinese (set ANTHROPIC_API_KEY to translate them)`);
+  console.log(llm
+    ? `translate (${llm.provider}): ${texts.length} texts, ${r.missing} new, ${r.done} translated`
+    : `translate: ${texts.length} texts, ${r.missing} without Chinese (set GEMINI_API_KEY or ANTHROPIC_API_KEY to translate them)`);
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) await main();
