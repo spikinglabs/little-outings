@@ -9,6 +9,8 @@ ask: "What shall we do with the kids <em>{when}</em>?"
 near: Around
 locate: "Use my location"
 locNone: "Couldn’t use your location here. Pick a town instead."
+townPh: "Type a town"
+townNone: "No town by that name here"
 search: Search
 searchPh: Search farms, cafés, playgrounds or festivals
 filters: { farm: "🚜 Farm", rain: "☂ Rainy day", free: Free, animals: Animals, changing: Changing table, nogerman: "💬 No German needed", age: Age, ageAll: all, radius: Within }

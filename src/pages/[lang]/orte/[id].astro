@@ -92,6 +92,13 @@ const map = mapLink(p);
         {p.quotes.map((q) => <blockquote class="quote">{tr(q.text, lang)}<small>{tr(q.who, lang)}</small></blockquote>)}
       </>
     )}
+
+    <div class="actions">
+      {map && <a class="btn primary" href={map.google} data-apple-maps={map.apple} target="_blank" rel="noopener">{t("openMaps")}</a>}
+      <button class="btn" type="button" data-save={p.id} aria-pressed="false"><Fragment set:html={svg(UI_ICON.saved, 'stroke-width="2" width="18" height="18"')} />{t("save")}</button>
+      {p.website && !p.website.startsWith("https://www.openstreetmap.org/") && <a class="btn" href={p.website} target="_blank" rel="noopener">{t("website")} ↗</a>}
+    </div>
+
     {((!p.rating && p.quotes.length > 0) || (p.tips?.length ?? 0) > 0) && (
       <>
         <h2>{t("visit.tipTitle")}</h2>
@@ -100,11 +107,6 @@ const map = mapLink(p);
       </>
     )}
 
-    <div class="actions">
-      {map && <a class="btn primary" href={map.google} data-apple-maps={map.apple} target="_blank" rel="noopener">{t("openMaps")}</a>}
-      <button class="btn" type="button" data-save={p.id} aria-pressed="false"><Fragment set:html={svg(UI_ICON.saved, 'stroke-width="2" width="18" height="18"')} />{t("save")}</button>
-      {p.website && !p.website.startsWith("https://www.openstreetmap.org/") && <a class="btn" href={p.website} target="_blank" rel="noopener">{t("website")} ↗</a>}
-    </div>
     {p.trust.source && (
       <p class="small">
         {t("trust.base", { source: tr(p.trust.source, lang) })}{parentInput(p) > 0 && ` · ${t("trust.parents", { n: parentInput(p) })}`}

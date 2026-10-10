@@ -9,6 +9,8 @@ ask: "<em>{when}</em>带孩子去哪儿玩？"
 near: 附近：
 locate: "使用我的位置"
 locNone: "这里用不了你的位置，请手动选择城镇。"
+townPh: "输入城镇名"
+townNone: "没有找到这个城镇"
 search: 搜索
 searchPh: 搜索农场、咖啡馆、游乐场或活动
 filters: { farm: "🚜 农场", rain: "☂ 下雨也能去", free: 免费, animals: 有动物, changing: 尿布台, nogerman: "💬 不懂德语也能玩", age: 年龄, ageAll: 全部, radius: 范围 }
