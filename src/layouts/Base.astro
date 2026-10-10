@@ -29,7 +29,7 @@ const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
 const ui = {
   fac: FEATURES.map((f) => [f, t(`features.${f}`)]),
   km: t("km"), approxKm: t("approxKm"), nearby: t("nearby"), save: t("save"), saved: t("saved"),
-  answered: t("answered"), hintIos: t("install.hintIos"), installMenu: t("install.menu"), installed: t("install.installed"), inboxSoon: t("inboxSoon"), reported: t("report.thanks"), visited: t("visit.thanks"), tipThanks: t("visit.tipThanks"), wentBefore: t("visit.before"),
+  answered: t("answered"), answeredCheck: t("answeredCheck"), answeredVote: t("answeredVote"), hintIos: t("install.hintIos"), installMenu: t("install.menu"), installed: t("install.installed"), inboxSoon: t("inboxSoon"), reported: t("report.thanks"), visited: t("visit.thanks"), tipThanks: t("visit.tipThanks"), wentBefore: t("visit.before"),
   askNext: t("chipAsk.next"), askThanks: t("chipAsk.thanks"), askYou: t("chipAsk.you"), askVotes: t("chipAsk.votes"), langThanks: t("speechAsk.thanks"), yes: t("yes"), no: t("no"), unsure: t("dunno"),
 };
 ---

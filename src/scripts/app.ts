@@ -112,11 +112,14 @@ document.addEventListener("submit", async (ev) => {
   const text = (form.querySelector<HTMLInputElement>("input[name=text]")?.value || "").trim();
   const answer = submitter?.value || text;
   if (!answer) { form.querySelector("input")?.focus(); return; }
-  const ok = await sendToInbox({ kind: "answer", gap: form.dataset.gap, answer, lang: body.dataset.lang });
+  const ok = await sendToInbox({ kind: "answer", gap: form.dataset.gap, answer, lang: body.dataset.lang, voter: voter() });
   const done = document.createElement("p");
   done.className = "done";
   done.setAttribute("role", "status");
-  done.textContent = ok ? ui.answered : ui.inboxSoon;
+  // Hours, time and price go live once two parents agree; a place or "still on?" an editor checks; chips are counted.
+  const type = form.dataset.gap!.split(":")[1];
+  const thanks = type === "fac" ? ui.answeredVote : type === "where" || type === "still" ? ui.answeredCheck : ui.answered;
+  done.textContent = ok ? thanks : ui.inboxSoon;
   form.querySelector(".gap-form")!.replaceWith(done);
 });
 
@@ -318,6 +321,8 @@ if ("serviceWorker" in navigator && !import.meta.env.DEV) {
 }
 const standalone = matchMedia("(display-mode: standalone)").matches || (navigator as { standalone?: boolean }).standalone === true;
 const ios = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+// iPhones open the place in Apple Maps; everyone else gets Google's universal link.
+if (ios) for (const a of document.querySelectorAll<HTMLAnchorElement>("a[data-apple-maps]")) a.href = a.dataset.appleMaps!;
 const installBox = document.querySelector<HTMLElement>("[data-install]");
 const installBtn = document.querySelector<HTMLButtonElement>("[data-install-btn]");
 let installPrompt: InstallEvent | null = null;

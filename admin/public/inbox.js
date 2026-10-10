@@ -4,8 +4,8 @@ const esc = (value) =>
   String(value ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 const dateFmt = new Intl.DateTimeFormat("de-DE", { dateStyle: "medium", timeStyle: "short", timeZone: "Europe/Berlin" });
 
-const KIND = { tip: "Tip", report: "Report", "new-event": "New event", "new-place": "New place" };
-const ACTIONS = { tip: ["approve", "reject"], report: ["done", "reject"], "new-event": ["approve", "reject"], "new-place": ["approve", "reject"] };
+const KIND = { tip: "Tip", report: "Report", "new-event": "New event", "new-place": "New place", answer: "Answer" };
+const GAP = { hours: "Opening hours", time: "Time", price: "Price", where: "Where exactly", still: "Still on?" };
 const BUTTON = { approve: "Approve", done: "Done, fixed", reject: "Reject" };
 const TOPIC = { bring: "Bring", bestTime: "Best time", parking: "Parking", ages: "Best for ages", other: "Other" };
 const REASON = {
@@ -40,6 +40,7 @@ const field = (label, value) => (value ? `<div><dt>${esc(label)}</dt><dd>${esc(v
 function details(item) {
   const d = item.data;
   if (item.kind === "tip") return `<p class="said">“${esc(d.text)}”</p><dl>${field("About", TOPIC[d.topic] || d.topic)}</dl>`;
+  if (item.kind === "answer") return `<p class="said">“${esc(d.answer)}”</p><dl>${field("Question", GAP[d.gap] || d.gap)}</dl>${agreeNote(item)}`;
   if (item.kind === "report") return `<p class="said">${esc(REASON[d.reason] || d.reason)}</p>${d.note ? `<p>“${esc(d.note)}”</p>` : ""}`;
   if (item.kind === "new-event") {
     return `<p class="said">${esc(d.title)}</p><dl>${field("Date", d.date)}${field("Time", d.time)}${field("Place", d.place)}${
@@ -47,6 +48,15 @@ function details(item) {
   }
   return `<p class="said">${esc(d.name)}</p><dl>${field("Type", d.type)}${field("Town", d.town)}${field("Street", d.street)}${
     field("Website", d.website)}${field("Has", (d.features || []).join(", "))}${field("Note", d.note)}</dl>`;
+}
+
+/** Why an answer waits: nobody else answered yet, or parents said different things. */
+function agreeNote(item) {
+  const a = item.agreement;
+  if (!a) return item.actions.includes("approve") ? "" : '<p class="sub">Fix it on the site by hand, then mark it done.</p>';
+  if (a.status === "single") return '<p class="sub">Only answer so far. It goes live when a second parent says the same, or when you approve it.</p>';
+  const all = a.options.map((o) => `“${esc(o.value)}” (${o.count})`).join(", ");
+  return `<p class="sub">Parents disagree: ${all}. Approving one puts it on the page.</p>`;
 }
 
 function itemHtml(item) {
@@ -66,7 +76,7 @@ function itemHtml(item) {
       ${details(item)}
     </div>
     <div class="event-actions">
-      ${ACTIONS[item.kind].map((a) =>
+      ${item.actions.map((a) =>
         `<button type="button" class="${a === "reject" ? "ghost" : "primary"}" data-inbox="${a}" data-number="${item.number}">${BUTTON[a]}</button>`).join("")}
     </div>
   </li>`;
@@ -75,7 +85,7 @@ function itemHtml(item) {
 function render() {
   $("inbox-count").textContent = items.length ? `${items.length} waiting` : "";
   $("inbox").innerHTML = items.map(itemHtml).join("")
-    || ($("inbox-banner").hidden ? '<li class="sub">Nothing waiting. New tips, reports and suggestions show up here.</li>' : "");
+    || ($("inbox-banner").hidden ? '<li class="sub">Nothing waiting. New tips, reports, suggestions and answers show up here.</li>' : "");
 }
 
 async function decide(button) {

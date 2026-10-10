@@ -18,6 +18,8 @@ export type Tally = {
   tips?: { topic: string; text: string }[];
   /** Events: parents' answers to "How much German do you need?". */
   lang?: Partial<Record<Language, number>>;
+  /** Answers to "Still missing" that two parents agreed on, or a moderator approved (admin/lib/answers.js). */
+  answers?: { hours?: string; time?: string; price?: string };
 };
 export type Language = "none" | "en" | "de";
 

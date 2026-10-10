@@ -106,7 +106,7 @@ const map = mapLink(p);
     )}
 
     <div class="actions">
-      {map && <a class="btn primary" href={map.href} target="_blank" rel="noopener">{map.search ? t("mapSearch") : t("route")}</a>}
+      {map && <a class="btn primary" href={map.google} data-apple-maps={map.apple} target="_blank" rel="noopener">{t("openMaps")}</a>}
       <button class="btn" type="button" data-save={p.id} aria-pressed="false"><Fragment set:html={svg(UI_ICON.saved, 'stroke-width="2" width="18" height="18"')} />{t("save")}</button>
       {p.website && !p.website.startsWith("https://www.openstreetmap.org/") && <a class="btn" href={p.website} target="_blank" rel="noopener">{t("website")} ↗</a>}
     </div>

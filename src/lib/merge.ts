@@ -112,12 +112,23 @@ export function applyTranslations<T extends Event | Place>(item: T, zh: Record<s
  * A tie keeps the guess; an editor's answer is never overruled, only shown with the votes.
  */
 export function applyEventTally(e: Event, t: Tally | undefined): Event {
+  e = fillAnswers(e, t);
   const votes = t?.lang;
   if (!votes || !Object.values(votes).some((n) => n! > 0)) return e;
   const out = { ...e, languageVotes: votes };
   if (e.languageFrom === "editor") return out;
   const [top, second] = (Object.entries(votes) as [Language, number][]).sort((a, b) => b[1] - a[1]);
   if (!second || top[1] > second[1]) Object.assign(out, { language: top[0], languageFrom: "parents" });
+  return out;
+}
+
+/** Fills a missing time or price with what parents agreed on. Anything already known stays. */
+function fillAnswers(e: Event, t: Tally | undefined): Event {
+  const a = t?.answers;
+  if (!a) return e;
+  const out = { ...e };
+  if (!out.time && a.time) out.time = a.time;
+  if (!out.price && a.price) out.price = a.price === "free" || /^(free|frei|kostenlos|gratis|免费)$/i.test(a.price) ? { free: true } : { free: false, text: a.price };
   return out;
 }
 
@@ -151,5 +162,7 @@ export function applyTally(p: Place, t: Tally | undefined): Place {
     for (const [g, n] of Object.entries(t.visits.good_for)) good_for[g] = (good_for[g] ?? 0) + n;
     visits = { count: (visits?.count ?? 0) + t.visits.count, again: (visits?.again ?? 0) + t.visits.again, good_for };
   }
-  return { ...p, facilities, visits, tips: [...(p.tips ?? []), ...(t.tips ?? [])] };
+  // Opening hours parents agreed on fill the gap; hours from a source are never replaced.
+  const hours = p.hours ?? t.answers?.hours;
+  return { ...p, facilities, visits, ...(hours ? { hours } : {}), tips: [...(p.tips ?? []), ...(t.tips ?? [])] };
 }
