@@ -2,14 +2,17 @@
 // Taps (chip votes, "We went") live in Cloudflare D1 behind /api/taps; older ones and all tips are
 // issues in INBOX_REPO. Both are summed into data/inbox-tallies.json (not committed):
 //   { "<item id>": { fac: { changing_table: { yes, no } }, visits: { count, again, good_for }, tips: [{ topic, text }],
-//                    lang: { none, en, de } } }
+//                    lang: { none, en, de }, answers: { hours: "Mo-Fr 9-17" } } }
 // - "answer" issues about a facility count as yes/no votes ("not sure" is ignored).
+// - "answer" issues about opening hours, time or price go live once two browsers agree, or once a
+//   moderator approves one in the admin (rules in admin/lib/answers.js). The rest wait in the admin Inbox.
 // - "visit" issues count as "We went" taps.
 // - "tip" issues show only once a moderator adds the `approved` label, so nothing goes public unreviewed.
 // - Issues closed as "not planned" (spam, nonsense) never count.
 // Taps need SITE_URL (the live site). Issues need INBOX_REPO and INBOX_READ_TOKEN (fine-grained,
 // Issues: read on that repo). Whatever is missing or unreachable is skipped, never fatal.
 import { mkdirSync, writeFileSync } from "node:fs";
+import { AUTO_GAPS, agreement } from "../admin/lib/answers.js";
 
 const OUT = new URL("../data/inbox-tallies.json", import.meta.url);
 const { INBOX_REPO: repo, INBOX_READ_TOKEN: token, SITE_URL: site } = process.env;
@@ -31,7 +34,8 @@ export function parseBody(body) {
 export function tally(issues) {
   const all = {};
   const of = (id) => (all[id] ??= {});
-  for (const is of issues) {
+  const asked = new Map(); // "item gap" → answers, oldest first
+  for (const is of [...issues].sort((a, b) => (a.number ?? 0) - (b.number ?? 0))) {
     if (is.pull_request || is.state_reason === "not_planned") continue;
     const d = parseBody(is.body);
     if (!d || typeof d.item !== "string") continue;
@@ -43,6 +47,10 @@ export function tally(issues) {
     } else if (d.kind === "answer" && d.gap === "lang" && ["none", "en", "de"].includes(d.answer)) {
       const v = (of(d.item).lang ??= {});
       v[d.answer] = (v[d.answer] ?? 0) + 1;
+    } else if (d.kind === "answer" && AUTO_GAPS.includes(d.gap)) {
+      const k = `${d.item} ${d.gap}`;
+      if (!asked.has(k)) asked.set(k, []);
+      asked.get(k).push({ number: is.number, value: d.answer, from: d.from, approved: labels.includes("approved") });
     } else if (d.kind === "visit") {
       const v = (of(d.item).visits ??= { count: 0, again: 0, good_for: {} });
       v.count++;
@@ -51,6 +59,11 @@ export function tally(issues) {
     } else if (d.kind === "tip" && labels.includes("approved") && d.text) {
       (of(d.item).tips ??= []).push({ topic: d.topic, text: d.text });
     }
+  }
+  for (const [k, answers] of asked) {
+    const [item, gap] = k.split(" ");
+    const a = agreement(gap, answers);
+    if (a.status === "agreed" || a.status === "approved") (of(item).answers ??= {})[gap] = a.value;
   }
   return all;
 }
