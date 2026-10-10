@@ -8,8 +8,8 @@ import VisitBox from "../../../components/VisitBox.astro";
 import AskSheet from "../../../components/AskSheet.astro";
 import { LANGS, isFallback, tr, useT, type Lang } from "../../../lib/i18n";
 import { eventsAt, getData } from "../../../lib/data";
-import { ageText, germanName, nameOf, parentInput, townName } from "../../../lib/format";
-import { FEATURES } from "../../../content.config";
+import { ageText, areaName, germanName, nameOf, parentInput, townName } from "../../../lib/format";
+import { FEATURES, KIND_FEATURES } from "../../../content.config";
 import { mapLink } from "../../../lib/maps";
 import { FEATURE_ICON, UI_ICON, svg } from "../../../lib/icons";
 import type { Place } from "../../../lib/types";
@@ -23,6 +23,11 @@ const lang = Astro.params.lang as Lang;
 const t = useT(lang);
 const { region, events } = await getData();
 const town = townName(p.town, lang, region.towns);
+const area = areaName(p, lang, region.towns);
+// Street address when there is one; otherwise the nearest road ("near …") and the district.
+const address = p.street
+  ? [p.street, [p.postcode, town].filter(Boolean).join(" ")].join(", ")
+  : [p.near && t("nearStreet", { street: p.near }), p.district, [p.postcode, town].filter(Boolean).join(" ")].filter(Boolean).join(", ");
 const upcoming = eventsAt(events, p.id);
 // Known facilities first (yes, then no), unknown last: "?" means nobody has told us yet.
 const order = { yes: 0, no: 1, unknown: 2 } as const;
@@ -31,11 +36,11 @@ const goodFor = Object.entries(p.visits?.good_for ?? {}).filter(([, n]) => (n ??
   .sort((a, b) => (b[1] ?? 0) - (a[1] ?? 0)).slice(0, 3)
   .map(([g]) => (lang === "en" ? t(`goodFor.${g}`).toLowerCase() : t(`goodFor.${g}`)));
 const facs = FEATURES.map((f) => ({ f, ...(p.facilities[f] ?? { status: "unknown" as const, confirmed: 0 }) }))
-  .filter((x) => x.status !== "unknown" || ["playground", "changing_table", "highchairs", "kids_menu", "toys", "animals", "stroller_friendly"].includes(x.f))
+  .filter((x) => x.status !== "unknown" || (KIND_FEATURES[p.kind as keyof typeof KIND_FEATURES] ?? []).includes(x.f))
   .sort((a, b) => order[a.status] - order[b.status]);
 const map = mapLink(p);
 ---
-<Base lang={lang} title={nameOf(p, lang)} description={[t(`kinds.${p.kind}`), town].join(" · ")}>
+<Base lang={lang} title={nameOf(p, lang)} description={[t(`kinds.${p.kind}`), area].join(" · ")}>
   <article class="detail" data-lat={p.geo.lat} data-lon={p.geo.lon} data-precision={p.geo.precision}>
     <a class="back" href={`/${lang}/`}>← {t("back")}</a>
     <div class="lead">
@@ -43,11 +48,11 @@ const map = mapLink(p);
       <div>
         <h1>{nameOf(p, lang)}</h1>
         {germanName(p, lang) && <p class="orig"><span lang="de">{p.name}</span> · {t("machine")}</p>}
-        <p class="orig">{t(`kinds.${p.kind}`)} · {town}<span data-km></span>{p.rating && ` · ★ ${p.rating.stars.toLocaleString(t.locale)}`}</p>
+        <p class="orig">{t(`kinds.${p.kind}`)} · {area}<span data-km></span>{p.rating && ` · ★ ${p.rating.stars.toLocaleString(t.locale)}`}</p>
       </div>
     </div>
     <ul class="facts">
-      <li><span>📍</span><span>{[p.street, [p.postcode, town].filter(Boolean).join(" ")].filter(Boolean).join(", ")}
+      <li><span>📍</span><span>{address}
         {p.geo.precision !== "exact" && <><br /><small class="small">{t(`locNote.${p.geo.precision}`, { town })}</small></>}</span></li>
       {p.hours && <li><span>🕘</span><span>{tr(p.hours, lang)}</span></li>}
       {p.ages && <li><span>👧</span><span>{ageText(t, p.ages)}</span></li>}

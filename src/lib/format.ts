@@ -9,6 +9,9 @@ export const townName = (name: string | undefined, lang: Lang, towns: TownRec[])
   const t = towns.find((x) => x.name === name);
   return (lang !== "de" && t?.[lang]) || name;
 };
+/** "Neustadt-Süd, Cologne" when the district is known, else the town. Districts stay German, like street names. */
+export const areaName = (p: { district?: string; town?: string }, lang: Lang, towns: TownRec[]) =>
+  [p.district, townName(p.town, lang, towns)].filter(Boolean).join(", ");
 
 // Same as tr() in i18n.ts, which can't be imported here: it loads the UI strings through Vite.
 const text = (v: Text, lang: Lang) => (typeof v === "string" ? v : v[lang] || v.de);

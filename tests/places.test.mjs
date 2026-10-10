@@ -6,6 +6,7 @@ import { join } from "node:path";
 import { execFileSync } from "node:child_process";
 import { kindOf, fromOsm, overpassQueries, bbox } from "../scripts/fetch-osm-places.mjs";
 import { placeFromOsm, farmsFromEvents } from "../scripts/import-places.mjs";
+import { fromNominatim, keyOf } from "../scripts/geocode-places.mjs";
 
 const towns = [{ name: "Velbert", lat: 51.34, lon: 7.043 }, { name: "Wuppertal", lat: 51.256, lon: 7.15 }];
 const osm = (id, tags, lat = 51.341, lon = 7.045) => ({ type: "node", id, lat, lon, tags });
@@ -98,4 +99,16 @@ test("the importer writes, hides and prunes place files", () => {
   const files = readdirSync(join(content, "places", "imported")).sort();
   assert.deepEqual(files, ["farm-velbert-gut-hixholz.yaml", "osm-node-7.yaml"]);
   assert.match(readFileSync(join(content, "places", "imported", "osm-node-7.yaml"), "utf8"), /^# Generated/);
+});
+
+test("a place without an address gets the nearest road and its district", () => {
+  const geo = fromNominatim({ address: { road: "Volksgartenstraße", suburb: "Neustadt-Süd", city: "Köln", postcode: "50677" } });
+  assert.deepEqual(geo, { road: "Volksgartenstraße", district: "Neustadt-Süd", postcode: "50677" });
+  const row = fromOsm(osm(7, { leisure: "playground", name: "Wasserspielplatz" }), towns);
+  assert.equal(keyOf(row), "node/7@51.3410,7.0450");
+  const p = placeFromOsm(row, geo);
+  assert.deepEqual(p.data.address, { near: "Volksgartenstraße", district: "Neustadt-Süd", postcode: "50677", town: "Velbert" });
+  const tagged = placeFromOsm(fromOsm(osm(8, { leisure: "playground", name: "Spielplatz", "addr:street": "Weg", "addr:housenumber": "1" }), towns), geo);
+  assert.equal(tagged.data.address.street, "Weg 1");
+  assert.equal(tagged.data.address.near, undefined, "a real street address wins");
 });

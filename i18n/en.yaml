@@ -124,6 +124,7 @@ install: { button: "Install the app", hint: "Add Little Outings to your home scr
 footer: "No guarantee for any listing. Please check with the organiser before you go."
 byLine: "Little Outings is a product by {maker}."
 dataFrom: "Data includes {sources}."
+nearStreet: "near {street}"
 back: Back
 km: "{d} km"
 untilShort: until

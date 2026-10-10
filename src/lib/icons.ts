@@ -26,9 +26,6 @@ export const FEATURE_ICON: Record<string, string> = {
   parking: '<rect x="4" y="4" width="16" height="16" rx="3"/><path d="M10 16V8h3a2.5 2.5 0 0 1 0 5h-3"/>',
 };
 
-/** The fixed facility row on every place card, always in this order (the Laptop Friendly idea). */
-export const ROW = ["playground", "changing_table", "highchairs", "kids_menu", "toys", "animals", "stroller_friendly"];
-
 export const UI_ICON: Record<string, string> = {
   explore: '<circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/>',
   map: '<path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/>',

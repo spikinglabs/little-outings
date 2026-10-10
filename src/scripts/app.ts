@@ -23,14 +23,15 @@ export function markSaved(root: ParentNode = document) {
     b.setAttribute("aria-label", on ? ui.saved : ui.save);
   });
 }
-/** Draws the facility icons of place cards from their data-fac digits (one per facility, 1 = yes). */
+/** Draws the facility icons of place cards from their data-fac pairs ("toilets:1 parking:0", 1 = yes). */
 function fillRows(root: ParentNode) {
-  const fac = ui.fac || [];
+  const names = new Map(ui.fac || []);
   root.querySelectorAll<HTMLElement>(".frow[data-fac]").forEach((row) => {
-    const bits = row.dataset.fac!;
+    const pairs = row.dataset.fac!.split(" ").filter(Boolean).map((p) => p.split(":"));
     row.removeAttribute("data-fac");
-    row.replaceChildren(...fac.map(([key, name], i) => {
-      const on = bits[i] === "1";
+    row.replaceChildren(...pairs.map(([key, bit]) => {
+      const on = bit === "1";
+      const name = names.get(key) ?? key;
       const s = document.createElement("span");
       s.className = on ? "fi on" : "fi";
       const label = on ? name : `${name}: ?`;

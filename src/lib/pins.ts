@@ -1,7 +1,7 @@
 // Map pins for events and places, for the map on Discover.
 import type { Pin } from "../islands/OutingsMap";
 import type { Lang, T } from "./i18n";
-import { dateRange, nameOf, pathFor, townName } from "./format";
+import { areaName, dateRange, nameOf, pathFor } from "./format";
 import type { getData } from "./data";
 
 type Data = Awaited<ReturnType<typeof getData>>;
@@ -11,7 +11,7 @@ export const mappable = <X extends { geo: { precision: string; lat?: number; lon
 
 export function buildPins({ region, events, places }: Data, lang: Lang, t: T): Pin[] {
   return [
-    ...places.map((p) => ({ item: p, title: nameOf(p, lang), sub: `${t(`kinds.${p.kind}`)} · ${townName(p.town, lang, region.towns)}` })),
+    ...places.map((p) => ({ item: p, title: nameOf(p, lang), sub: `${t(`kinds.${p.kind}`)} · ${areaName(p, lang, region.towns)}` })),
     ...events.map((e) => ({ item: e, title: nameOf(e, lang), sub: `${dateRange(t, e)}${e.time ? ` · ${e.time}` : ""}` })),
   ]
     .filter(({ item }) => mappable(item))

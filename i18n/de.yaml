@@ -124,6 +124,7 @@ install: { button: "App installieren", hint: "Little Outings lässt sich wie ein
 footer: "Alle Angaben ohne Gewähr. Bitte vor dem Besuch beim Veranstalter prüfen."
 byLine: "Little Outings ist ein Produkt von {maker}."
 dataFrom: "Daten u. a. von {sources}."
+nearStreet: "nahe {street}"
 back: Zurück
 km: "{d} km"
 untilShort: bis

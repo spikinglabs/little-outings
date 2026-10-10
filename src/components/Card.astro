@@ -2,8 +2,9 @@
 // One card for an event or a place. The data-* attributes drive the filters in the browser.
 import Stamp from "./Stamp.astro";
 import { tr, type T } from "../lib/i18n";
-import { ageText, dateRange, germanName, isFarm, isFree, nameOf, parentInput, pathFor, townName } from "../lib/format";
-import { icon, ROW } from "../lib/icons";
+import { ageText, areaName, dateRange, germanName, isFarm, isFree, nameOf, parentInput, pathFor, townName } from "../lib/format";
+import { icon } from "../lib/icons";
+import { KIND_FEATURES } from "../content.config";
 import { getData } from "../lib/data";
 import type { Item } from "../lib/types";
 
@@ -21,7 +22,7 @@ const german = germanName(item, lang);
 const speech = lang !== "de" && item.type === "event" ? item.language : undefined;
 const guessed = item.type === "event" && item.languageFrom === "guess";
 const town = townName(item.town, lang, region.towns);
-const where = item.type === "event" ? [item.venue, town].filter(Boolean).join(", ") : [t(`kinds.${item.kind}`), town].join(" · ");
+const where = item.type === "event" ? [item.venue, town].filter(Boolean).join(", ") : [t(`kinds.${item.kind}`), areaName(item, lang, region.towns)].join(" · ");
 const meta = item.type === "event"
   ? [item.end !== item.start ? dateRange(t, item) : "", item.time, where].filter(Boolean).join(" · ")
   : where;
@@ -32,7 +33,7 @@ const prec = item.geo.precision;
 const search = [
   item.type === "event" ? (typeof item.title === "string" ? item.title : Object.values(item.title).join(" ")) : item.name,
   item.type === "place" ? item.names?.zh : undefined,
-  item.type === "event" ? item.venue : t(`kinds.${item.kind}`), item.town, town, ...tags.map((g) => t(`tags.${g}`)),
+  item.type === "event" ? item.venue : t(`kinds.${item.kind}`), item.town, town, item.type === "place" ? item.district : undefined, ...tags.map((g) => t(`tags.${g}`)),
 ].filter(Boolean).join(" ").toLowerCase();
 ---
 <article
@@ -60,9 +61,9 @@ const search = [
     {german && <div class="de-name" lang="de">{german}</div>}
     <div class="meta">{meta}<span data-km></span>{item.type === "place" && item.rating && ` · ★ ${item.rating.stars.toLocaleString(t.locale)}`}</div>
     {item.type === "place" && (
-      // One digit per facility in ROW (1 = yes); app.ts draws the icons once the card is on screen.
+      // The kind's facilities as key:digit (1 = yes); app.ts draws the icons once the card is on screen.
       // Thousands of cards each carrying seven labelled icons made every list page heavy.
-      <div class="frow" data-fac={ROW.map((f) => (facilities[f]?.status === "yes" ? "1" : "0")).join("")} />
+      <div class="frow" data-fac={(KIND_FEATURES[place!.kind as keyof typeof KIND_FEATURES] ?? []).map((f) => `${f}:${facilities[f]?.status === "yes" ? 1 : 0}`).join(" ")} />
     )}
     <div class="pills">
       {speech && <span class:list={["pill", "speech", speech]}>{guessed ? t("speechGuess", { s: t(`speech.${speech}`) }) : t(`speech.${speech}`)}</span>}
