@@ -79,7 +79,11 @@ mapShow: "Show on map"
 mapHide: "Hide map"
 mapAreaOn: "Showing what is in the map area."
 mapAreaBack: "Back to {r} km around {town}"
-legend: { event: Event, place: "Place, any day", approx: "Dashed ring: approximate", area: "Circle with a number: town only", radius: "Dotted circle: your search radius", here: "You are here" }
+mapTouch: "Use two fingers to move the map"
+mapZoom: "Hold Ctrl and scroll to zoom the map"
+mapZoomMac: "Hold ⌘ and scroll to zoom the map"
+mapClose: Close
+legend: { event: Event, place: "Place, any day", approx: "Dashed ring: approximate", area: "Circle with a number: town only", radius: "Dotted circle: your search radius", here: "You are here", cluster: "Brown number: places close together", more: "What the marks mean" }
 savedTitle: Saved
 savedEmpty: Nothing saved yet. Tap the bookmark on an event or place.
 events: Events

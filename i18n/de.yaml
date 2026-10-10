@@ -79,7 +79,11 @@ mapShow: "Auf der Karte zeigen"
 mapHide: "Karte ausblenden"
 mapAreaOn: "Gezeigt wird, was im Kartenausschnitt liegt."
 mapAreaBack: "Zurück zu {r} km um {town}"
-legend: { event: Termin, place: "Ort, geht immer", approx: "Gestrichelter Ring: Ort ungefähr", area: "Kreis mit Zahl: nur Stadt bekannt", radius: "Gepunkteter Kreis: euer Umkreis", here: "Du bist hier" }
+mapTouch: "Karte mit zwei Fingern verschieben"
+mapZoom: "Strg gedrückt halten und scrollen, um die Karte zu zoomen"
+mapZoomMac: "⌘ gedrückt halten und scrollen, um die Karte zu zoomen"
+mapClose: Schließen
+legend: { event: Termin, place: "Ort, geht immer", approx: "Gestrichelter Ring: Ort ungefähr", area: "Kreis mit Zahl: nur Stadt bekannt", radius: "Gepunkteter Kreis: euer Umkreis", here: "Du bist hier", cluster: "Braune Zahl: mehrere Orte nah beieinander", more: "Was die Zeichen bedeuten" }
 savedTitle: Merkliste
 savedEmpty: Noch nichts gemerkt. Tippt bei einem Termin oder Ort auf das Lesezeichen.
 events: Termine
