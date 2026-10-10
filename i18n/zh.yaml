@@ -216,6 +216,11 @@ profile:
   title: 资料与同步
   sub: "无需注册。你的资料保存在这部手机上：收藏、去过的地方、你的回答，以及你发给我们的内容。开启通行密钥同步后，会另存一份副本，并能在你的其他设备上使用。"
   have: "这部手机上"
+  themeTitle: 浅色或深色
+  themeSub: "自动：跟随手机的设置。"
+  themeAuto: 自动
+  themeLight: 浅色
+  themeDark: 深色
   sentTitle: "你提交的内容"
   sentSub: "信息有变或有误？可以在这里修改，修改上线前会经过审核。"
   sentEdit: "修改"
