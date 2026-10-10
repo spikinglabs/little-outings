@@ -6,7 +6,7 @@ const dateFmt = new Intl.DateTimeFormat("de-DE", { dateStyle: "medium", timeStyl
 
 const KIND = { tip: "Tip", report: "Report", "new-event": "New event", "new-place": "New place", answer: "Answer" };
 const GAP = { hours: "Opening hours", time: "Time", price: "Price", where: "Where exactly", still: "Still on?" };
-const BUTTON = { approve: "Approve", done: "Done, fixed", reject: "Reject" };
+const BUTTON = { approve: "Approve", done: "Done, fixed", reject: "Reject", remove: "Remove invite" };
 const TOPIC = { bring: "Bring", bestTime: "Best time", parking: "Parking", ages: "Best for ages", other: "Other" };
 const REASON = {
   closed: "It's closed or gone", cancelled: "It's cancelled", where: "It's in a different place",
@@ -41,6 +41,9 @@ function details(item) {
   const d = item.data;
   if (item.kind === "tip") return `<p class="said">“${esc(d.text)}”</p><dl>${field("About", TOPIC[d.topic] || d.topic)}</dl>`;
   if (item.kind === "answer") return `<p class="said">“${esc(d.answer)}”</p><dl>${field("Question", GAP[d.gap] || d.gap)}</dl>${agreeNote(item)}`;
+  if (item.kind === "report" && item.actions.includes("remove")) {
+    return `<p class="said">Reported invite</p><p class="sub">Open it to check. Removing deletes it for everyone; Reject keeps it.</p>`;
+  }
   if (item.kind === "report") return `<p class="said">${esc(REASON[d.reason] || d.reason)}</p>${d.note ? `<p>“${esc(d.note)}”</p>` : ""}`;
   if (item.kind === "new-event") {
     return `<p class="said">${esc(d.title)}</p><dl>${field("Date", d.date)}${field("Time", d.time)}${field("Place", d.place)}${

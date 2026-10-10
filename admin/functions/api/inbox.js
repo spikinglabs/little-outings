@@ -1,11 +1,12 @@
 import { AUTO_GAPS, agreement } from "../../lib/answers.js";
-import { PUBLISHED, actionsOf, eventFile, github, placeFile, putSiteFile, reviewItem, sitePages, waiting } from "../../lib/inbox.js";
+import { PUBLISHED, actionsOf, eventFile, github, meetupOf, placeFile, putSiteFile, reviewItem, sitePages, waiting } from "../../lib/inbox.js";
 import { json } from "../../lib/store.js";
 
 // Lists the tips, reports, suggestions and unsettled gap answers waiting for review, and approves or rejects one.
 // Needs INBOX_REPO and INBOX_TOKEN (fine-grained, Issues: read and write on that repo only).
 // Approving an event or place also needs GITHUB_TOKEN (Contents: write on the site repo), as Publish does.
 // SITE_URL names the place or event a tip or report is about, from the site's public JSON.
+// Removing a reported invite also needs MEETUP_ADMIN_KEY, the same secret as on the site.
 
 const configured = (env) => env.INBOX_REPO && env.INBOX_TOKEN;
 const MISSING = "INBOX_TOKEN is not set for the admin site.";
@@ -29,7 +30,12 @@ export async function onRequestGet({ env }) {
   items = answers.items;
   items.sort((a, b) => String(a.created_at).localeCompare(String(b.created_at)));
   const pages = await livePages(env.SITE_URL);
-  for (const item of items) if (item.data.item) item.page = pages.get(item.data.item) || null;
+  const site = String(env.SITE_URL || "").replace(/\/+$/, "");
+  for (const item of items) {
+    const invite = meetupOf(item);
+    if (invite) item.page = { name: "A family's invite", url: `${site}/m/${invite}` };
+    else if (item.data.item) item.page = pages.get(item.data.item) || null;
+  }
   return json({ items });
 }
 
@@ -106,12 +112,21 @@ export async function onRequestPost({ request, env, data }) {
     if (!put.ok) return json({ error: `GitHub refused to publish it (${put.status}).` }, 502);
   }
 
+  // A reported invite is deleted on the site first; one already gone (404) is fine.
+  if (body.action === "remove") {
+    if (!env.MEETUP_ADMIN_KEY || !env.SITE_URL) return json({ error: "MEETUP_ADMIN_KEY is not set for the admin site." }, 500);
+    const gone = await fetch(`${String(env.SITE_URL).replace(/\/+$/, "")}/api/meetups/${meetupOf(item)}`, {
+      method: "DELETE", headers: { "x-admin-key": env.MEETUP_ADMIN_KEY },
+    }).catch(() => null);
+    if (!gone || (!gone.ok && gone.status !== 404)) return json({ error: `The site refused to remove the invite (${gone?.status ?? "offline"}).` }, 502);
+  }
+
   const res = body.action === "approve"
     // `published` stays when the sender edits it later, so their Profile can say the change is waiting.
     ? await call(`/issues/${number}/labels`, { method: "POST", body: JSON.stringify({ labels: publish ? ["approved", "published"] : ["approved"] }) })
     : await call(`/issues/${number}`, {
       method: "PATCH",
-      body: JSON.stringify({ state: "closed", state_reason: body.action === "done" ? "completed" : "not_planned" }),
+      body: JSON.stringify({ state: "closed", state_reason: body.action === "reject" ? "not_planned" : "completed" }),
     });
   if (!res.ok) return json({ error: `GitHub refused the change (${res.status}).` }, 502);
   // An approved answer is done here: the next deploy's tally puts it on the page.
@@ -120,7 +135,7 @@ export async function onRequestPost({ request, env, data }) {
   }
 
   // Who decided, for the record (the token is shared, so GitHub alone can't tell).
-  const verb = { approve: "Approved", done: "Marked done", reject: "Rejected" }[body.action];
+  const verb = { approve: "Approved", done: "Marked done", reject: "Rejected", remove: "Invite removed" }[body.action];
   await call(`/issues/${number}/comments`, {
     method: "POST",
     body: JSON.stringify({ body: `${verb} in the admin by ${data.user.email}.` }),

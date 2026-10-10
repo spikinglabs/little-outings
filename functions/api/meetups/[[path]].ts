@@ -9,15 +9,17 @@
 //   GET    /api/meetups/<id>         one meetup, its counts, and (signed in) this family's answer
 //   PUT    /api/meetups/<id>         organiser: change it, or { cancelled: true|false }
 //   DELETE /api/meetups/<id>         organiser: remove it with all answers
+//                                    (or the admin, after a report: header x-admin-key: <MEETUP_ADMIN_KEY>)
 //   PUT    /api/meetups/<id>/answer  { answer: going|maybe|no|null }
 //
 // Every call that changes something needs Authorization: Bearer <profile session token>.
 // Environment: DB, the same D1 binding as /api/profile (tables are created on first use). Without DB it answers 503.
+// MEETUP_ADMIN_KEY: a long random secret shared with the admin site, which removes reported invites with it.
 
 import type { D1 } from "../taps.ts";
 import { sessionUser } from "../profile/[[path]].ts";
 
-interface Env { DB?: D1 }
+interface Env { DB?: D1; MEETUP_ADMIN_KEY?: string }
 type Ctx = { request: Request; env: Env; params: { path?: string[] } };
 
 /** Meetups one family may start per day. */
@@ -33,6 +35,15 @@ const ALPHABET = "abcdefghijkmnpqrstuvwxyz23456789";
 export function newId() {
   const b = crypto.getRandomValues(new Uint8Array(10));
   return [...b].map((x) => ALPHABET[x % ALPHABET.length]).join("");
+}
+
+const digest = async (s: string) => new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s)));
+/** The admin's key, compared as hashes so the time taken says nothing about how much matched. */
+export async function isAdmin(request: Request, env: Env) {
+  const given = request.headers.get("x-admin-key");
+  if (!env.MEETUP_ADMIN_KEY || env.MEETUP_ADMIN_KEY.length < 32 || !given) return false;
+  const [a, b] = await Promise.all([digest(given), digest(env.MEETUP_ADMIN_KEY)]);
+  return a.reduce((diff, x, i) => diff | (x ^ b[i]), 0) === 0;
 }
 
 const json = (status: number, body: unknown) =>
@@ -161,6 +172,15 @@ export async function onRequest({ request, env, params }: Ctx): Promise<Response
 
   const row = await getMeetup(db, first);
   if (!row) return json(404, { error: "not found" });
+
+  // The admin removes a reported invite: gone for everyone, with its answers.
+  if (!second && method === "DELETE" && await isAdmin(request, env)) {
+    await db.batch([
+      db.prepare(`DELETE FROM meetup_answers WHERE meetup = ?`).bind(row.id),
+      db.prepare(`DELETE FROM meetups WHERE id = ?`).bind(row.id),
+    ]);
+    return json(200, { ok: true });
+  }
 
   if (!second && method === "GET") {
     const mine = user ? await db.prepare(`SELECT answer FROM meetup_answers WHERE meetup = ? AND user = ?`).bind(row.id, user).first<{ answer: string }>() : null;

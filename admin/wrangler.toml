@@ -21,3 +21,5 @@ SITE_URL = "https://little-outings.pages.dev"
 #   ACCESS_AUD          the Application Audience (AUD) tag of the Access application
 #   GITHUB_TOKEN        fine-grained token, Contents: read and write on spikinglabs/little-outings only
 #   INBOX_TOKEN         fine-grained token, Issues: read and write on spikinglabs/little-outings-inbox only
+#   MEETUP_ADMIN_KEY    a long random secret (32+ characters), set to the same value on the site's Pages
+#                       project; lets the Inbox remove a reported family invite
