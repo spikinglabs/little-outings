@@ -1,0 +1,7 @@
+# Suggested by a parent (inbox #5), approved in the admin by leima137@gmail.com.
+# Edit here to fix it.
+kind: cafe
+name: "Café Halli Galli"
+address: { street: "Mozartstraße 39, 50674 Köln", town: "Cologne" }
+website: "http://cafe-halligalli.de/"
+trust: { level: community }

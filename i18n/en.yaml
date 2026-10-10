@@ -2,14 +2,18 @@ locale: en-GB
 langName: English
 siteName: Little Outings
 tagline: Family outings near you
-tabs: { explore: Discover, saved: Mine, add: Contribute }
+tabs: { explore: Discover, saved: Mine, add: Add }
 when: { today: Today, tomorrow: Tomorrow, weekend: Weekend, soon: Next 2 weeks }
 whenIn: { today: today, tomorrow: tomorrow, weekend: this weekend, soon: in the next 2 weeks }
 ask: "What shall we do with the kids <em>{when}</em>?"
 near: Around
+locate: "Use my location"
+locNone: "Couldn’t use your location here. Pick a town instead."
+townPh: "Type a town"
+townNone: "No town by that name here"
 search: Search
 searchPh: Search farms, cafés, playgrounds or festivals
-filters: { farm: "🚜 Farm", rain: "☂ Rainy day", free: Free, animals: Animals, changing: Changing table, nogerman: "💬 No German needed", age: Age, ageAll: all, radius: Within }
+filters: { farm: "🚜 Farm", rain: "☂ Rainy day", free: Free, animals: Animals, changing: Changing table, nogerman: "💬 No German needed", radius: Within }
 tip: "Our pick {when}"
 only: "Only {when}"
 always: Always a good idea
@@ -53,7 +57,7 @@ parentsSay: "Parents say · ★ {r} from {n} reviews"
 onPoster: On the poster
 speech: { none: No German needed, en: In English, de: Mostly German }
 speechGuess: "{s}?"
-speechAsk: { title: "Do you need German?", guess: "Guessed from the title. Been there? Tap what's right.", parents: "What {n} parents say. Been there? Tap what's right.", unknown: "Not known yet. Been there? Tap what's right.", thanks: "Thanks! Other parents will see this." }
+speechAsk: { title: "Do you need German?", guess: "Guessed from the title. Been there? Tap what's right.", parents: "What {n} parents say. Been there? Tap what's right.", unknown: "Not known yet. Been there? Tap what's right.", thanks: "Thanks! Other parents will see this. Tap it again to take it back.", undone: "Answer taken back." }
 machine: machine-translated
 translated: Translated from German.
 gapsTitle: Still missing
@@ -75,13 +79,17 @@ mapShow: "Show on map"
 mapHide: "Hide map"
 mapAreaOn: "Showing what is in the map area."
 mapAreaBack: "Back to {r} km around {town}"
-legend: { event: Event, place: "Place, any day", approx: "Dashed ring: approximate", area: "Circle with a number: town only", radius: "Dotted circle: your search radius" }
+mapTouch: "Use two fingers to move the map"
+mapZoom: "Hold Ctrl and scroll to zoom the map"
+mapZoomMac: "Hold ⌘ and scroll to zoom the map"
+mapClose: Close
+legend: { event: Event, place: "Place, any day", approx: "Dashed ring: approximate", area: "Circle with a number: town only", radius: "Dotted circle: your search radius", here: "You are here", cluster: "Brown number: places close together", more: "What the marks mean" }
 savedTitle: Saved
 savedEmpty: Nothing saved yet. Tap the bookmark on an event or place.
 events: Events
 places: Places
-addTitle: Contribute
-addSub: Saw a poster at a farm shop or know a great playground? Tell us, in English, German or Chinese. We check every tip before it goes live.
+addTitle: Add
+addSub: "Tell other families about something good, or plan an outing with friends. English, German or Chinese all work."
 posterTitle: Saw a poster? Just snap it.
 posterSub: Or paste a link or a message. We read the name, date, time and place automatically; you just give it a quick check.
 posterBtn: Take a photo of the poster
@@ -118,7 +126,7 @@ tasksLater: "Later"
 tasksCount: { one: "{n} outing", other: "{n} outings" }
 tasksNone: "Nothing matches. Try another word or show everything."
 kinds: { playground: Playground, indoor: Indoor play, park: "Parks & gardens", zoo: "Zoos & animals", farm: Farm, pool: "Pools & lakes", museum: Museum, cafe: Family café, fun: "Theme & adventure parks" }
-features: { playground: Playground, changing_table: Changing table, highchairs: High chairs, kids_menu: "Kids' menu", toys: "Toys & little gifts", animals: Animals, stroller_friendly: Pram-friendly, nursing_room: Nursing corner, indoor_play: Indoor play area, toilets: Toilets, farm_shop: Farm shop, parking: Parking }
+features: { playground: Playground, changing_table: Changing table, highchairs: High chairs, kids_menu: "Kids' menu", toys: "Toys & little gifts", animals: Animals, stroller_friendly: Pram-friendly, nursing_room: Nursing corner, indoor_play: Indoor play area, toilets: Toilets, farm_shop: Farm shop, parking: Parking, sandpit: Sandpit, water_play: Water play, swings: Swings, slides: Slides, climbing: Climbing, toddler_area: Toddler area, shade: Shade, benches: Benches, fenced: Fenced in }
 tags: { fest: Festival, animals: Animals, market: Market, diy: Hands-on, season: Seasonal, reading: Story time, music: Music, outside: Outdoors, stage: "Theatre & film", sport: "Sport & movement", tour: "Museums & tours", parents: "For parents", learn: "Courses & languages", other: Other }
 empty: Nothing listed here yet. Know something? Add it under Contribute.
 install: { button: "Install the app", hint: "Add Little Outings to your home screen, it works like an app.", hintIos: "Tap Share, then “Add to Home Screen”, to use Little Outings like an app.", short: Install, dismiss: Dismiss, menu: "In your browser menu, choose “Install app” or “Add to Home screen”.", installed: "Little Outings is already installed on this device. Open it from your home screen or app list." }
@@ -190,6 +198,8 @@ chipAsk:
   next: "Thanks! One more?"
   thanks: "Thanks! That helps the next family."
   you: "You said: {a}"
+  again: "You said: {a} · tap it again to take it back"
+  undone: "Answer taken back."
   close: Close
   q:
     playground: "Is there a playground?"
@@ -204,7 +214,17 @@ chipAsk:
     toilets: "Are there toilets?"
     farm_shop: "Is there a farm shop?"
     parking: "Is there parking?"
+    sandpit: "Is there a sandpit?"
+    water_play: "Is there water to play with?"
+    swings: "Are there swings?"
+    slides: "Is there a slide?"
+    climbing: "Is there something to climb?"
+    toddler_area: "Is there an area for toddlers?"
+    shade: "Is there shade?"
+    benches: "Are there benches?"
+    fenced: "Is it fenced in?"
 mine:
+  sentAdded: What you added
   title: Mine
   sub: "Your saved outings, what you sent us, and your profile. No sign-up needed."
   saved: Saved
@@ -289,6 +309,87 @@ about:
   taps: { h: Your taps, p: "Taps on facilities, “We went” and “Do you need German?” are counted anonymously on Cloudflare. Each browser has a random id, so one question counts once and changing your answer replaces the old one. IP addresses are kept only as a hash, to stop vote flooding." }
   writing: { h: What you write, p: "Tips, reports and suggested places go to us for review first and only appear once approved. An answer to “Still missing” (opening hours, time, price) goes live once two parents give the same answer, or once we've checked it. Please don't include names, phone numbers or other personal details." }
   profile: { h: Your profile, p: "Your saved list, the places you went and your answers stay in this phone's browser. There is no account and no email. Under “Mine”, then “Profile and sync”, you can download it, move it to another phone or delete it. If you choose passkey sync, the server keeps one copy, which is deleted with your profile." }
+  location: { h: Your location, p: "Next to “Around” there is a small location button. Only if you tap it does your phone ask to share its rough location, to pick the nearest town. The location stays on your phone and is never sent to us; the town is kept like a town you pick yourself. The map then shows a blue dot where you are, until you close the tab or pick a town yourself. Without it, “Around” starts at Cologne." }
   none: { h: What we don't do, p: "No ads, no tracking or analytics, no selling data, no names or emails." }
   wrong: { h: Something wrong?, p: "Every event and place page has “Something wrong?” at the bottom. Tap it and tell us." }
   who: { h: Who makes this, p: "Little Outings is a product by Spiking Labs, which also makes other apps for everyday life. You can see them all on the Spiking Labs website." }
+flow:
+  pickEvent: Something happening
+  pickEventSub: "An event you saw on a poster or online, or an outing you're organising yourself."
+  pickPlace: A place worth a visit
+  pickPlaceSub: "A playground, farm or café that's good any day."
+  other: "← Add something else"
+  faster: "Fill it in faster from:"
+  wayPoster: Poster
+  wayLink: Link or text
+  wayType: "I'll type"
+  what: "What?"
+  day: Day
+  time: Time
+  where: "Where?"
+  wherePh: "A park, playground, café or address"
+  asTyped: "Use “{q}” as typed"
+  noteLabel: "Anything to know?"
+  optional: "(optional)"
+  audience: "Who is it for?"
+  everyone: Everyone
+  everyoneSub: "A public event. We check it, then it shows on Discover."
+  invite: People I invite
+  inviteSub: "You get a link to share and see who's going. It isn't listed anywhere."
+  safety: "Only meet in public places where other people are around, like a park or playground in the daytime."
+  evening: "Evening meetups are less safe. If you can, pick a daytime start."
+  inviteBtn: Make my invite link
+  saveInvite: Save changes
+  editInvite: Change your invite
+  needPasskey: "Invites need your passkey, so you can always change or call off yours. No email, no name."
+  passHave: Sign in with my passkey
+  passNew: Make a passkey
+  passSoon: "Invites aren't switched on here yet."
+  passFail: "That didn't work. Nothing was changed."
+  passUnknown: "That passkey has no profile any more. Make a new one."
+  passNone: "This browser can't use passkeys, so invites don't work here. Try your phone's main browser."
+  tooMany: "That's a lot of invites for one day. Try again tomorrow."
+  kind: "What kind?"
+  name: Name
+  facilities: "What's there?"
+meet:
+  title: Invite
+  kicker: Only people with the link can see this
+  by: "A family's own meetup"
+  safety: "Little Outings doesn't know who made this. Only join if it's in a public place and you feel safe. Avoid evening meetups."
+  evening: "This one starts in the evening. Take extra care, and only go if you know who's organising it."
+  going: "We're going"
+  maybe: Maybe
+  no: "Can't go"
+  countGoing: { one: "1 family going", other: "{n} families going" }
+  countMaybe: "{n} maybe"
+  yours: "Your answer: {a}. Tap another to change it."
+  signIn: "To answer, sign in with your passkey. You can change your answer later from any phone. No email, no name."
+  invitePeople: Invite people
+  whatsapp: WhatsApp
+  share: "Share…"
+  copy: Copy link
+  copied: Link copied.
+  shareText: "Who's coming? {title}, {when}, {place}"
+  cancelled: Called off by the organiser.
+  missing: "This invite doesn't exist any more, or the link is incomplete."
+  soon: "Invites aren't switched on here yet, so this is a sample."
+  failed: "Couldn't load this invite. Check your connection and try again."
+  loading: "Loading…"
+  ready: "Your invite is ready. Send the link to friends or post it in your group."
+  yourInvite: This is your invite
+  edit: Edit
+  callOff: Call it off
+  callOffSure: "Call off this meetup? Everyone who opens the link will see it's off."
+  onAgain: "It's on again"
+  delete: Delete invite
+  deleteSure: "Delete this invite with all answers? The link stops working."
+  deleted: Invite deleted.
+  report: Report this invite
+  reported: "Thanks, we'll look at it."
+  sample: { title: Picnic and kite flying, place: "Rheinpark, Köln-Deutz", note: "Near the chairlift. Bring a blanket, we bring snacks." }
+  open: Open
+  mineTitle: Invites
+  mineSub: "Ones you made and ones you answered."
+  mineYours: Yours
+  mineSignIn: "Sign in with your passkey to see your invites."

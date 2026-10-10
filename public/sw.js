@@ -3,8 +3,9 @@
 //                  otherwise network first, falling back after 3 s to the older copy
 //                  (the fresh one still lands in the cache for next time)
 //                  A saved page is only reused while the styles and scripts it names are saved too.
-//                  Contribute and Profile always ask the network first: an old copy there would
-//                  send with an older build's form (before PR 40, places were sent without an edit key).
+//                  Add, Profile and invites (/m/<id>) always ask the network first: an old copy there would
+//                  send with an older build's form (before PR 40, places were sent without an edit key),
+//                  or show an invite as it was hours ago.
 //   /_astro/, icons, fonts → cache first (file names change when the content does). Only real
 //                  CSS/JS/images are kept: the host answers a missing old file with a 200 HTML page.
 //   /api/, /admin/ and anything not GET → straight to the network, never cached
@@ -13,8 +14,8 @@ const FRESH_MS = 12 * 60 * 60 * 1000;
 const PAGES = `pages-${VERSION}`;
 const STATIC = `static-${VERSION}`;
 const MAX_PAGES = 80;
-// Pages whose forms send or change what a family contributed.
-const LIVE = /^\/(de|en|zh)\/(mitmachen|profil)\/?$/;
+// Pages whose forms send or change what a family contributed, and invites.
+const LIVE = /^\/((de|en|zh)\/(mitmachen|profil|treffen)\/?|m\/[a-z2-9]{10}\/?)$/;
 
 self.addEventListener("install", () => self.skipWaiting());
 

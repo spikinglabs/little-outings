@@ -1,13 +1,13 @@
 // Filters on the Entdecken page: one list of ideas, events on the chosen day mixed with places
 // that are good any time. All cards are already in the HTML; this only hides and sorts them.
 // Distances are measured once per home town, and the list shows a page at a time.
-import { distanceOf, getHome, markSaved, renderKm, setHome } from "./app";
+import { distanceOf, getHome, markSaved, nearestTown, renderKm, setHere, setHome } from "./app";
 import type {} from "../islands/OutingsMap";
 
 type Plural = { one?: string; other: string };
 const ui = JSON.parse(document.getElementById("explore-ui")!.textContent!) as {
   nEvents: Plural; nPlaces: Plural; areaBack: string; tip: string; whenIn: Record<string, string>; mapShow: string; mapHide: string;
-  showMore: string;
+  showMore: string; locNone: string;
 };
 const lang = document.body.dataset.lang!;
 const pr = new Intl.PluralRules(lang);
@@ -16,10 +16,34 @@ const count = (p: Plural, n: number, r?: number) =>
 
 // area: the map's bounds [south, west, north, east] once the reader moves the map; it replaces the radius.
 const PAGE = 24; // cards shown at once; OpenStreetMap brings in more than a thousand places
-const state = { limit: PAGE, area: null as number[] | null, view: 0, when: "weekend", q: "", rain: false, farm: false, free: false, animals: false, changing: false, nogerman: false, age: "", radius: 30, kind: "", tag: "" };
+const state = { limit: PAGE, area: null as number[] | null, view: 0, when: "weekend", q: "", rain: false, farm: false, free: false, animals: false, changing: false, nogerman: false, radius: 30, kind: "", tag: "" };
 const $ = <T extends Element = HTMLElement>(s: string) => document.querySelector<T>(s)!;
 const $$ = <T extends Element = HTMLElement>(s: string) => [...document.querySelectorAll<T>(s)];
-const home = $<HTMLSelectElement>("#home");
+const home = $<HTMLButtonElement>("#home");
+
+// The chosen day, distance and chips last for this tab's session, so a refresh or a trip to
+// a card and back keeps them. The town is kept elsewhere (as home); no location is ever stored here.
+const KEPT = ["when", "rain", "farm", "free", "animals", "changing", "nogerman", "radius", "kind", "tag"] as const;
+const FLAGS = ["rain", "farm", "free", "animals", "changing", "nogerman"] as const;
+function restore() {
+  let saved: Record<string, unknown> = {};
+  try { saved = JSON.parse(sessionStorage.getItem("lo-filters") || "{}"); } catch { return; }
+  const has = (sel: string) => !!document.querySelector(sel);
+  if (typeof saved.when === "string" && has(`[data-when="${CSS.escape(saved.when)}"]`)) state.when = saved.when;
+  for (const k of FLAGS) {
+    const b = document.querySelector(`[data-flag="${k}"]`);
+    if (b && saved[k] === true) { state[k] = true; b.setAttribute("aria-pressed", "true"); }
+  }
+  const radius = $<HTMLSelectElement>("#radius");
+  if ([...radius.options].some((o) => o.value === String(saved.radius))) { radius.value = String(saved.radius); state.radius = +radius.value; }
+  if (typeof saved.kind === "string" && has(`[data-kind-chip="${CSS.escape(saved.kind)}"]`)) {
+    state.kind = saved.kind;
+    if (saved.kind === "event" && typeof saved.tag === "string" && has(`[data-tag-chip="${CSS.escape(saved.tag)}"]`)) state.tag = saved.tag;
+  }
+}
+function keep() {
+  try { sessionStorage.setItem("lo-filters", JSON.stringify(Object.fromEntries(KEPT.map((k) => [k, state[k]])))); } catch { /* storage blocked */ }
+}
 
 // Dates in Germany, as YYYY-MM-DD strings, so they compare with the data-start/data-end attributes.
 const ymd = (d: Date) => new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Berlin" }).format(d);
@@ -86,15 +110,11 @@ function passes({ d, feat }: Row) {
   if (state.changing && !feat.includes("changing_table")) return false;
   // Places need no German; events only pass when they're held in English or need little talk.
   if (state.nogerman && d.type === "event" && !feat.includes("nogerman")) return false;
-  if (state.age && d.ages) {
-    const [lo, hi] = state.age.split("-").map(Number);
-    const [a, b] = d.ages.split("-").map(Number);
-    if (b < lo || a > hi) return false;
-  }
   return true;
 }
 
 function apply() {
+  keep();
   const [from, to] = range();
   const word = ui.whenIn[state.when];
   $$("[data-when-word]").forEach((el) => (el.textContent = word));
@@ -166,7 +186,7 @@ function apply() {
   $("[data-empty]").hidden = matched.length > 0;
   $("[data-area-note]").hidden = !state.area;
   $("[data-area-reset]").textContent = ui.areaBack.replace("{r}", String(state.radius))
-    .replace("{town}", home.selectedOptions[0]?.textContent?.trim() ?? "");
+    .replace("{town}", $("[data-home-name]").textContent ?? "");
   const more = $<HTMLButtonElement>("[data-more]");
   more.hidden = list.length <= state.limit;
   more.textContent = ui.showMore.replace("{n}", String(Math.min(PAGE, list.length - state.limit)));
@@ -209,10 +229,72 @@ document.addEventListener("click", (ev) => {
   if (g) { state.tag = g.dataset.tagChip!; state.limit = PAGE; apply(); }
 });
 $<HTMLInputElement>("#q").addEventListener("input", (e) => { state.limit = PAGE; state.q = (e.target as HTMLInputElement).value.trim(); apply(); });
-$<HTMLSelectElement>("#age").addEventListener("change", (e) => { state.age = (e.target as HTMLSelectElement).value; apply(); });
 $<HTMLSelectElement>("#radius").addEventListener("change", (e) => { state.radius = +(e.target as HTMLSelectElement).value; state.area = null; apply(); });
-home.value = getHome();
-home.addEventListener("change", () => { setHome(home.value); state.area = null; renderKm(); apply(); });
+// "Around" opens the town picker. Typing narrows the list; Enter takes the first town left.
+const sheet = $<HTMLDialogElement>("[data-town-sheet]");
+const townQ = $<HTMLInputElement>("[data-town-q]");
+const townList = $("[data-town-list]");
+const townRows = $$<HTMLButtonElement>("[data-town]");
+const fold = (s: string) => s.normalize("NFD").replace(/\p{M}/gu, "").replace(/ß/g, "ss").toLowerCase().trim();
+function showHome(town: string) {
+  const b = townRows.find((r) => r.value === town);
+  if (!b) return;
+  home.value = town;
+  $("[data-home-name]").textContent = b.textContent;
+}
+function filterTowns() {
+  const q = fold(townQ.value);
+  let shown = 0;
+  for (const b of townRows) {
+    const hit = !q || b.dataset.keys!.split("|").some((k) => k.includes(q));
+    b.parentElement!.hidden = !hit;
+    if (hit) shown++;
+  }
+  $("[data-town-none]").hidden = shown > 0;
+}
+function pickTown(town: string) {
+  setHere(null); // a town picked by hand replaces the phone's location, and its dot goes away
+  showHome(town);
+  setHome(town); state.area = null; renderKm(); apply();
+}
+showHome(getHome());
+home.addEventListener("click", () => {
+  townQ.value = "";
+  // A–Z, with the current town lifted to the top and marked.
+  townRows.forEach((b) => { townList.append(b.parentElement!); b.setAttribute("aria-current", String(b.value === home.value)); });
+  const cur = townRows.find((b) => b.value === home.value);
+  if (cur) townList.prepend(cur.parentElement!);
+  filterTowns();
+  sheet.showModal();
+  townList.scrollTop = 0;
+  // With a keyboard, type straight away; on phones the list shows first and a tap on the box brings up the keyboard.
+  if (matchMedia("(pointer: fine)").matches) townQ.focus();
+});
+townQ.addEventListener("input", filterTowns);
+townQ.addEventListener("keydown", (e) => {
+  if (e.key !== "Enter") return;
+  e.preventDefault();
+  const first = townRows.find((b) => !b.parentElement!.hidden);
+  if (first) { sheet.close(); pickTown(first.value); }
+});
+sheet.addEventListener("close", () => {
+  if (sheet.returnValue && sheet.returnValue !== home.value) pickTown(sheet.returnValue);
+  sheet.returnValue = "";
+});
+// A tap on the dimmed page around the sheet closes it.
+sheet.addEventListener("click", (e) => { if (e.target === sheet) sheet.close(); });
+// The small location button next to "Around": the browser asks for permission only after this tap.
+const locMsg = $("[data-loc-msg]");
+$<HTMLButtonElement>("[data-locate]").addEventListener("click", async (e) => {
+  const b = e.currentTarget as HTMLButtonElement;
+  b.disabled = true;
+  const town = await nearestTown();
+  b.disabled = false;
+  locMsg.hidden = !!town;
+  if (!town) { locMsg.textContent = ui.locNone; return; }
+  showHome(town);
+  setHome(town); state.area = null; apply();
+});
 // Moving the map makes its area the filter.
 document.addEventListener("lo:area", (e) => { state.limit = PAGE; state.area = (e as CustomEvent<number[]>).detail; apply(); });
 
@@ -226,6 +308,7 @@ function showMap(on: boolean, remember = true) {
   if (remember) try { localStorage.setItem("lo-map", on ? "1" : "0"); } catch { /* storage blocked */ }
 }
 // Old links to the map page arrive as #map.
+restore();
 if (location.hash === "#map") showMap(true, false);
 else try { if (localStorage.getItem("lo-map") === "1") showMap(true, false); } catch { /* storage blocked */ }
 apply();

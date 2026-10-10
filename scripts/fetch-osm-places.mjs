@@ -77,6 +77,25 @@ const url = (v) => {
   try { const u = new URL(String(v)); return /^https?:$/.test(u.protocol) ? u.toString() : undefined; } catch { return undefined; }
 };
 
+// OSM tags a playground's equipment on the playground itself as playground:<equipment>=yes (or a count).
+const EQUIPMENT = {
+  sandpit: ["sandpit"],
+  water_play: ["water", "splash_pad", "pump", "water_stream", "water_channel"],
+  swings: ["swing", "basketswing", "baby_swing"],
+  slides: ["slide"],
+  climbing: ["climbingframe", "climbingwall", "climbing_net", "structure"],
+};
+const yes = (v) => v != null && v !== "no" && v !== "0";
+/** Playground facilities from the playground's own tags (the equipment drawn as separate points isn't fetched). */
+export function playFeatures(tags) {
+  const out = Object.entries(EQUIPMENT).filter(([, keys]) => keys.some((k) => yes(tags[`playground:${k}`]))).map(([f]) => f);
+  if (Number(tags.max_age) > 0 && Number(tags.max_age) <= 4) out.push("toddler_area");
+  if (yes(tags.bench)) out.push("benches");
+  if (tags.fenced === "yes" || tags.fence === "yes" || tags.barrier === "fence") out.push("fenced");
+  if (tags.shade === "yes" || tags.covered === "yes") out.push("shade");
+  return out;
+}
+
 /** One Overpass element → one compact place row, or null. The town is the nearest region town. */
 export function fromOsm(el, towns) {
   const tags = el.tags || {};
@@ -91,6 +110,7 @@ export function fromOsm(el, towns) {
   if (kind === "zoo" || kind === "farm") facilities.push("animals");
   if (tags.shop === "farm") facilities.push("farm_shop");
   if (kind === "zoo" && tags.playground === "yes") facilities.push("playground");
+  if (kind === "playground") facilities.push(...playFeatures(tags));
   if (kind === "cafe" && tags.kids_area && tags.kids_area !== "no") facilities.push(tags.kids_area === "outdoor" ? "playground" : "indoor_play");
   return {
     osm: `${el.type}/${el.id}`,

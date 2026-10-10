@@ -4,7 +4,7 @@ import Stamp from "./Stamp.astro";
 import { tr, type T } from "../lib/i18n";
 import { ageText, areaName, dateRange, germanName, isFarm, isFree, nameOf, parentInput, pathFor, townName } from "../lib/format";
 import { icon } from "../lib/icons";
-import { KIND_FEATURES } from "../content.config";
+import { rowFor } from "../lib/features";
 import { getData } from "../lib/data";
 import type { Item } from "../lib/types";
 
@@ -50,7 +50,6 @@ const search = [
   data-indoor={item.indoor ? "1" : undefined}
   data-free={isFree(item) ? "1" : undefined}
   data-farm={isFarm(item, place) ? "1" : undefined}
-  data-ages={item.ages?.join("-")}
   data-feat={[...yes, ...tags, ...(item.type === "event" && !tags.length ? ["other"] : []), ...(item.type === "event" && item.language && item.language !== "de" ? ["nogerman"] : [])].join(" ")}
   data-verified={item.trust.level === "verified" ? "1" : undefined}
   data-q={search}
@@ -63,7 +62,7 @@ const search = [
     {item.type === "place" && (
       // The kind's facilities as key:digit (1 = yes); app.ts draws the icons once the card is on screen.
       // Thousands of cards each carrying seven labelled icons made every list page heavy.
-      <div class="frow" data-fac={(KIND_FEATURES[place!.kind as keyof typeof KIND_FEATURES] ?? []).map((f) => `${f}:${facilities[f]?.status === "yes" ? 1 : 0}`).join(" ")} />
+      <div class="frow" data-fac={rowFor(place!.kind).map((f) => `${f}:${facilities[f]?.status === "yes" ? 1 : 0}`).join(" ")} />
     )}
     <div class="pills">
       {speech && <span class:list={["pill", "speech", speech]}>{guessed ? t("speechGuess", { s: t(`speech.${speech}`) }) : t(`speech.${speech}`)}</span>}

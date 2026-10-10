@@ -1,60 +1,102 @@
-// Street and district for OpenStreetMap places → data/places-geocode.json.
-// Most playgrounds, parks and pools have no address tags, so their pages only knew the town.
-// Nominatim's reverse lookup gives the nearest road and the district for each point. Run after
-// fetch-osm-places.mjs by .github/workflows/places.yml; answers are kept, so each place is looked up
-// once (and again only when it moves). Nominatim's policy: at most one request a second, a real
-// user agent, results cached. Data © OpenStreetMap contributors, ODbL.
-//
-//   npm run geocode:places                  # up to GEOCODE_MAX new places (default 2000)
-import { readFileSync, writeFileSync, existsSync } from "node:fs";
+// Pins what parents suggested: content/places/community/*.yaml with an address and
+// content/events/community/*.yaml with a venue or town, but no point, get one from OpenStreetMap's Nominatim, run before every build (the files change only in
+// that build's checkout; add `geo:` to a file by hand to fix a pin for good).
+// Without a point a place falls back to its town centre, or isn't on the map at all when the
+// town isn't one of the site's towns. A failed lookup only logs; the next build tries again.
+import { readFileSync, readdirSync, writeFileSync, existsSync } from "node:fs";
+import { join } from "node:path";
+import { load } from "js-yaml";
 
-const PLACES = process.env.OSM_FILE || "data/places-osm.jsonl";
-const OUT = process.env.GEOCODE_FILE || "data/places-geocode.json";
-const MAX = Number(process.env.GEOCODE_MAX || 2000);
-const URL_BASE = process.env.NOMINATIM_URL || "https://nominatim.openstreetmap.org/reverse";
-const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const PLACES = "content/places/community";
+const EVENTS = "content/events/community";
+const NOMINATIM = "https://nominatim.openstreetmap.org/search";
+// Germany and its neighbours: families near the border go to GaiaZOO in Kerkrade (NL) too.
+const COUNTRIES = "de,nl,be,lu,fr,ch,at,cz,pl,dk";
 
-/** One Nominatim answer → { road, district, postcode }, without empty fields. */
-export function fromNominatim(json) {
-  const a = json?.address || {};
-  const row = {
-    road: a.road || a.pedestrian || a.footway || a.path || undefined,
-    // The part of town parents know: Stadtteil first, then smaller or larger units.
-    district: a.suburb || a.city_district || a.quarter || a.neighbourhood || a.village || a.hamlet || undefined,
-    postcode: a.postcode || undefined,
-  };
-  return Object.fromEntries(Object.entries(row).filter(([, v]) => v));
+/** What to ask Nominatim for a place's address, or null when there is no street to find. */
+export function queryOf(address) {
+  const street = String(address?.street ?? "").trim();
+  if (!street) return null;
+  const town = String(address?.town ?? "").trim();
+  const postcode = String(address?.postcode ?? "").trim();
+  // "Steinpfahl 4a, 52399 Merzenich" already names its town.
+  const named = town && street.toLowerCase().includes(town.toLowerCase());
+  return [street, named ? "" : [postcode, town].filter(Boolean).join(" ")].filter(Boolean).join(", ");
 }
 
-/** Cache key: the OSM id plus the rounded point, so a moved place is looked up again. */
-export const keyOf = (row) => `${row.osm}@${row.lat.toFixed(4)},${row.lon.toFixed(4)}`;
+/**
+ * What to ask for an event, best first: its venue in its town ("Bürgerhalle Koslar, Jülich-Koslar"),
+ * then the town alone, which only says "somewhere in" it.
+ */
+export function eventQueries(event) {
+  const venue = String(event?.venue ?? "").trim(), town = String(event?.town ?? "").trim();
+  if (!town) return [];
+  return [...(venue ? [{ q: `${venue}, ${town}`, precision: "venue" }] : []), { q: town, precision: "area" }];
+}
+
+/**
+ * The `geo:` line for a Nominatim hit: a house number is the place itself, a street only nearby.
+ * `precision` overrides that, for an event's venue or town.
+ */
+export function geoLine(hit, precisionOf) {
+  const lat = Number(hit?.lat), lon = Number(hit?.lon);
+  if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
+  const precision = precisionOf ?? (hit.address?.house_number ? "exact" : "venue");
+  return `geo: { lat: ${lat.toFixed(6)}, lon: ${lon.toFixed(6)}, precision: ${precision} }`;
+}
+
+/** Adds the geo line to a place file's text, after its address. */
+export function withGeo(text, line) {
+  const lines = text.split("\n");
+  const at = lines.findIndex((l) => l.startsWith("address:"));
+  lines.splice(at < 0 ? lines.length - 1 : at + 1, 0, line);
+  return lines.join("\n");
+}
+
+async function lookup(q) {
+  const url = `${NOMINATIM}?${new URLSearchParams({ q, format: "jsonv2", limit: "1", countrycodes: COUNTRIES, addressdetails: "1" })}`;
+  const res = await fetch(url, { headers: { "user-agent": "little-outings place pins (+https://outings.allo.land)" } });
+  if (!res.ok) throw new Error(`Nominatim ${res.status}`);
+  return (await res.json())[0] ?? null;
+}
+
+const files = (dir) => (existsSync(dir) ? readdirSync(dir).filter((f) => f.endsWith(".yaml")).sort().map((f) => join(dir, f)) : []);
+let asked = 0;
+
+/** The first query that finds something, as a geo line, or null. */
+async function pin(queries) {
+  for (const { q, precision } of queries) {
+    if (asked++) await new Promise((r) => setTimeout(r, 1100)); // Nominatim: one request a second
+    const line = geoLine(await lookup(q), precision);
+    if (line) return line;
+  }
+  return null;
+}
 
 async function main() {
-  const rows = readFileSync(PLACES, "utf8").split("\n").filter(Boolean).map((l) => JSON.parse(l));
-  const cache = existsSync(OUT) ? JSON.parse(readFileSync(OUT, "utf8")) : {};
-  const wanted = new Set(rows.map(keyOf));
-  // Drop answers for places that are gone or moved.
-  for (const k of Object.keys(cache)) if (!wanted.has(k)) delete cache[k];
-  const todo = rows.filter((r) => !cache[keyOf(r)]).slice(0, MAX);
-  let failed = 0;
-  for (const r of todo) {
-    const url = `${URL_BASE}?format=jsonv2&zoom=17&addressdetails=1&accept-language=de&lat=${r.lat}&lon=${r.lon}`;
+  let pinned = 0, missed = 0;
+  const todo = [
+    ...files(PLACES).map((path) => [path, (d) => { const q = queryOf(d.address); return q ? [{ q }] : []; }]),
+    ...files(EVENTS).map((path) => [path, eventQueries]),
+  ];
+  for (const [path, queriesOf] of todo) {
+    const text = readFileSync(path, "utf8");
+    const data = load(text) ?? {};
+    if (data.geo?.lat != null || data.place) continue;
+    const queries = queriesOf(data);
+    if (!queries.length) continue;
     try {
-      const res = await fetch(url, { headers: { "user-agent": "little-outings (spikinglabs) weekly place addresses; https://outings.allo.land" } });
-      if (!res.ok) throw new Error(`answered ${res.status}`);
-      cache[keyOf(r)] = fromNominatim(await res.json());
-    } catch (e) {
-      failed++;
-      if (failed === 1) console.error(`nominatim: ${e.message}`);
-      if (failed >= 20) break; // blocked or down: keep what we have, try again next week
+      const line = await pin(queries);
+      if (!line) { missed++; console.log(`${path}: nothing found for "${queries[0].q}"`); continue; }
+      writeFileSync(path, withGeo(text, line));
+      pinned++;
+      console.log(`${path}: ${line}`);
+    } catch (err) {
+      missed++;
+      console.log(`${path}: ${err.message}`);
     }
-    await sleep(1100);
   }
-  // One place per line, so the weekly diff shows only what changed.
-  const lines = Object.entries(cache).sort(([a], [b]) => a.localeCompare(b)).map(([k, v]) => `${JSON.stringify(k)}:${JSON.stringify(v)}`);
-  writeFileSync(OUT, `{\n${lines.join(",\n")}\n}\n`);
-  const left = rows.filter((r) => !cache[keyOf(r)]).length;
-  console.log(`geocode: ${todo.length - failed} looked up, ${failed} failed, ${left} still without -> ${OUT}`);
+  console.log(`Pinned ${pinned} parent-suggested places and events${missed ? `, ${missed} still without a pin` : ""}.`);
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) await main();

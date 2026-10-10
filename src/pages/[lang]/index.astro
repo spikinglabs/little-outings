@@ -32,10 +32,20 @@ const presentTags = TAGS.map((g) => [g, listed.filter((e) => e.tags.includes(g))
   .concat(listed.some((e) => !e.tags.length) ? ["other"] : []);
 const whenKeys = ["today", "tomorrow", "weekend", "soon"];
 const whenIn = t.group("whenIn");
-const pluralUi = { nEvents: t.group("nEvents"), nPlaces: t.group("nPlacesAny"), tip: t("tip"), whenIn, mapShow: t("mapShow"), mapHide: t("mapHide"), areaBack: t("mapAreaBack"), showMore: t("mapShowMore") };
+const pluralUi = { nEvents: t.group("nEvents"), nPlaces: t.group("nPlacesAny"), tip: t("tip"), whenIn, mapShow: t("mapShow"), mapHide: t("mapHide"), areaBack: t("mapAreaBack"), showMore: t("mapShowMore"), locNone: t("locNone") };
 const homes = region.towns;
+// Town picker rows, A–Z in the reader's language (Düsseldorf next to Dortmund, 杜塞尔多夫 by pinyin).
+// keys: every name a parent might type, lowercased and without accents (koln finds Köln, 科隆 finds it too).
+const fold = (s: string) => s.normalize("NFD").replace(/\p{M}/gu, "").replace(/ß/g, "ss").toLowerCase();
+const collator = new Intl.Collator(t.locale);
+const towns = homes.map((h) => ({ name: h.name, label: townName(h.name, lang, homes), keys: [h.name, h.en, h.zh].filter(Boolean).map((x) => fold(x!)).join("|") }))
+  .sort((a, b) => collator.compare(a.label, b.label));
 // The map shows whatever the filters show (explore.ts tells it which ids).
-const mapLabels = { ...(t.group("nEvents") as { one: string; other: string }), more: t("mapMore") };
+const mapLabels = {
+  ...(t.group("nEvents") as { one: string; other: string }), more: t("mapMore"), here: t("legend.here"),
+  places: t.group("nPlacesAny") as { one?: string; other: string }, touch: t("mapTouch"), zoom: t("mapZoom"), zoomMac: t("mapZoomMac"),
+  locate: t("locate"), close: t("mapClose"), save: t("save"),
+};
 ---
 <Base lang={lang} tab="explore">
   <section class="ask">
@@ -49,30 +59,39 @@ const mapLabels = { ...(t.group("nEvents") as { one: string; other: string }), m
       {whenKeys.map((k) => <button type="button" data-when={k} aria-pressed={k === "weekend" ? "true" : "false"}>{t(`when.${k}`)}</button>)}
     </div>
     <div class="filters" role="group">
-      <label class="chip">📍 {t("near")}
-        <select id="home" aria-label={t("near")}>
-          {homes.map((h) => <option value={h.name} selected={h.name === region.center}>{townName(h.name, lang, homes)}</option>)}
-        </select>
-      </label>
+      <button class="chip town-btn" type="button" id="home" value={region.center} aria-haspopup="dialog">📍 {t("near")} <b data-home-name>{townName(region.center, lang, homes)}</b><span class="caret" aria-hidden="true">▾</span></button>
+      <button class="chip loc" type="button" data-locate aria-label={t("locate")} title={t("locate")}><Fragment set:html={svg(UI_ICON.locate, 'stroke-width="2"')} /></button>
       <button class="chip rain" type="button" data-flag="rain" aria-pressed="false">{t("filters.rain")}</button>
       <button class="chip" type="button" data-flag="farm" aria-pressed="false">{t("filters.farm")}</button>
       <button class="chip" type="button" data-flag="free" aria-pressed="false">{t("filters.free")}</button>
       <button class="chip" type="button" data-flag="animals" aria-pressed="false">{t("filters.animals")}</button>
       <button class="chip" type="button" data-flag="changing" aria-pressed="false">{t("filters.changing")}</button>
       {lang !== "de" && <button class="chip" type="button" data-flag="nogerman" aria-pressed="false">{t("filters.nogerman")}</button>}
-      <label class="chip">{t("filters.age")}
-        <select id="age" aria-label={t("filters.age")}>
-          <option value="">{t("filters.ageAll")}</option>
-          <option value="0-2">0–2</option><option value="3-5">3–5</option><option value="6-9">6–9</option><option value="10-18">10+</option>
-        </select>
-      </label>
       <label class="chip">{t("filters.radius")}
         <select id="radius" aria-label={t("filters.radius")}>
           <option value="10">10 km</option><option value="30" selected>30 km</option><option value="60">60 km</option><option value="100">100 km</option>
         </select>
       </label>
     </div>
+    <p class="loc-msg small" role="status" data-loc-msg hidden></p>
   </section>
+  <!-- The town picker: a sheet with a search box, towns A–Z in the reader's language, the current one first.
+       A plain <select> can't be searched, and on phones it showed the region file's order. -->
+  <dialog class="sheet town-sheet" data-town-sheet aria-label={t("near")} autofocus>
+    <form method="dialog">
+      <label class="search">
+        <span class="sr-only">{t("townPh")}</span>
+        <Fragment set:html={svg(UI_ICON.search, 'stroke-width="2"')} />
+        <input type="search" data-town-q placeholder={t("townPh")} autocomplete="off" enterkeyhint="go" />
+      </label>
+      <ul class="town-list" data-town-list>
+        {towns.map((h) => (
+          <li><button type="submit" value={h.name} data-town={h.name} data-keys={h.keys}>{h.label}</button></li>
+        ))}
+      </ul>
+      <p class="small" data-town-none hidden>{t("townNone")}</p>
+    </form>
+  </dialog>
 
   <div class="map-bar">
     <button class="map-btn" type="button" data-map-toggle aria-expanded="false" aria-controls="explore-map">
@@ -81,12 +100,20 @@ const mapLabels = { ...(t.group("nEvents") as { one: string; other: string }), m
   </div>
   <div class="mapwrap explore-map" id="explore-map" hidden>
     <OutingsMap client:only="preact" pinsUrl={`/${lang}/pins.json`} center={mapCenter(data)} towns={homes.map((x) => [x.name, x.lat, x.lon])} locale={t.locale} labels={mapLabels} />
+    <!-- The two marks everyone needs stay in view; the rest fold away behind "More". -->
     <div class="legend">
       <span><i style="background:#ffcc00"></i>{t("legend.event")}</span>
       <span><i style="background:#6f4a2a"></i>{t("legend.place")}</span>
-      <span><i style="border:2px dashed currentColor"></i>{t("legend.approx")}</span>
-      <span><i style="background:rgb(111 74 42 / .12);border:1px dashed #6f4a2a;border-radius:50%"></i>{t("legend.area")}</span>
-      <span><i style="border:1px dotted currentColor"></i>{t("legend.radius")}</span>
+      <span data-here-legend hidden><i class="here-key"></i>{t("legend.here")}</span>
+      <details class="legend-more">
+        <summary>{t("legend.more")}</summary>
+        <div>
+          <span><i class="cluster-key">9</i>{t("legend.cluster")}</span>
+          <span><i style="border:2px dashed currentColor"></i>{t("legend.approx")}</span>
+          <span><i class="area-key"></i>{t("legend.area")}</span>
+          <span><i style="border:1px dotted currentColor"></i>{t("legend.radius")}</span>
+        </div>
+      </details>
     </div>
   </div>
 

@@ -2,14 +2,18 @@ locale: zh-CN
 langName: 中文
 siteName: 小出游
 tagline: 附近的亲子好去处
-tabs: { explore: 发现, saved: 我的, add: 投稿 }
+tabs: { explore: 发现, saved: 我的, add: 添加 }
 when: { today: 今天, tomorrow: 明天, weekend: 周末, soon: 未来两周 }
 whenIn: { today: 今天, tomorrow: 明天, weekend: 这个周末, soon: 未来两周 }
 ask: "<em>{when}</em>带孩子去哪儿玩？"
 near: 附近：
+locate: "使用我的位置"
+locNone: "这里用不了你的位置，请手动选择城镇。"
+townPh: "输入城镇名"
+townNone: "没有找到这个城镇"
 search: 搜索
 searchPh: 搜索农场、咖啡馆、游乐场或活动
-filters: { farm: "🚜 农场", rain: "☂ 下雨也能去", free: 免费, animals: 有动物, changing: 尿布台, nogerman: "💬 不懂德语也能玩", age: 年龄, ageAll: 全部, radius: 范围 }
+filters: { farm: "🚜 农场", rain: "☂ 下雨也能去", free: 免费, animals: 有动物, changing: 尿布台, nogerman: "💬 不懂德语也能玩", radius: 范围 }
 tip: "{when}推荐"
 only: "仅限{when}"
 always: 随时可去
@@ -53,7 +57,7 @@ parentsSay: "家长评价 · ★ {r}（{n} 条评价）"
 onPoster: 海报上的德文名称
 speech: { none: 无需德语, en: 有英语, de: 主要说德语 }
 speechGuess: "{s}？"
-speechAsk: { title: 需要会德语吗？, guess: 这是根据活动标题猜的。去过的话，点一下正确的选项。, parents: "{n} 位家长这样说。去过的话，点一下正确的选项。", unknown: 还不清楚。去过的话，点一下正确的选项。, thanks: 谢谢！其他家长会看到。 }
+speechAsk: { title: 需要会德语吗？, guess: 这是根据活动标题猜的。去过的话，点一下正确的选项。, parents: "{n} 位家长这样说。去过的话，点一下正确的选项。", unknown: 还不清楚。去过的话，点一下正确的选项。, thanks: "谢谢！其他家长会看到。再点一次可以撤回。", undone: "已撤回你的回答。" }
 machine: 机器翻译
 translated: 译自德文。
 gapsTitle: 尚缺信息
@@ -75,13 +79,17 @@ mapShow: "在地图上显示"
 mapHide: "隐藏地图"
 mapAreaOn: "只显示地图范围内的内容。"
 mapAreaBack: "回到{town}周边 {r} 公里"
-legend: { event: 活动, place: 地点，随时可去, approx: 虚线圈：大致位置, area: 带数字的圆圈：仅知城市, radius: "点状圆圈：搜索范围" }
+mapTouch: "用两根手指移动地图"
+mapZoom: "按住 Ctrl 并滚动来缩放地图"
+mapZoomMac: "按住 ⌘ 并滚动来缩放地图"
+mapClose: 关闭
+legend: { event: 活动, place: 地点，随时可去, approx: 虚线圈：大致位置, area: 带数字的圆圈：仅知城市, radius: "点状圆圈：搜索范围", here: "你在这里", cluster: "棕色数字：附近有好几个地点", more: "图标说明" }
 savedTitle: 收藏
 savedEmpty: 还没有收藏。点击活动或地点上的书签即可收藏。
 events: 活动
 places: 地点
-addTitle: 投稿
-addSub: 在农场小店看到海报，或者知道一个很棒的游乐场？告诉我们吧，中文、英文、德文都可以。每条信息发布前都会经过核实。
+addTitle: 添加
+addSub: "告诉其他家庭好去处，或和朋友约一次出游。中文、德语、英语都可以。"
 posterTitle: 看到海报了？拍下来就行。
 posterSub: 也可以粘贴链接或消息。我们会自动识别名称、日期、时间和地点，你只需快速确认。
 posterBtn: 拍摄海报照片
@@ -118,7 +126,7 @@ tasksLater: "以后"
 tasksCount: { one: "{n} 个活动", other: "{n} 个活动" }
 tasksNone: "没有找到。换个词试试，或显示全部。"
 kinds: { playground: 游乐场, indoor: 室内游乐场, park: 公园和花园, zoo: 动物园和动物, farm: 农场, pool: 泳池和湖泊, museum: 博物馆, cafe: 亲子咖啡馆, fun: 游乐园和攀爬园 }
-features: { playground: 游乐场, changing_table: 尿布台, highchairs: 儿童餐椅, kids_menu: 儿童餐, toys: 玩具和小礼物, animals: 动物, stroller_friendly: 婴儿车方便, nursing_room: 哺乳角, indoor_play: 室内游戏区, toilets: 卫生间, farm_shop: 农场小店, parking: 停车场 }
+features: { playground: 游乐场, changing_table: 尿布台, highchairs: 儿童餐椅, kids_menu: 儿童餐, toys: 玩具和小礼物, animals: 动物, stroller_friendly: 婴儿车方便, nursing_room: 哺乳角, indoor_play: 室内游戏区, toilets: 卫生间, farm_shop: 农场小店, parking: 停车场, sandpit: 沙坑, water_play: 玩水区, swings: 秋千, slides: 滑梯, climbing: 攀爬, toddler_area: 幼儿区, shade: 遮阴, benches: 长椅, fenced: 有围栏 }
 tags: { fest: 节庆, animals: 动物, market: 市集, diy: 动手体验, season: 季节活动, reading: 绘本故事, music: 音乐, outside: 户外, stage: 戏剧和电影, sport: 运动, tour: 博物馆和导览, parents: 家长专场, learn: 课程和语言, other: 其他 }
 empty: 这里还没有内容。你知道什么好去处吗？可以在“投稿”中告诉我们。
 install: { button: "安装应用", hint: "可以把小出游添加到主屏幕，像应用一样使用。", hintIos: "点“分享”，再选“添加到主屏幕”，就能像应用一样使用小出游。", short: 安装, dismiss: 关闭, menu: "在浏览器菜单中选择“安装应用”或“添加到主屏幕”。", installed: "小出游已经安装在这台设备上，请从主屏幕或应用列表打开。" }
@@ -190,6 +198,8 @@ chipAsk:
   next: "谢谢！再答一个？"
   thanks: "谢谢！这能帮到下一个家庭。"
   you: "你的回答：{a}"
+  again: "你的回答：{a}（再点一次可以撤回）"
+  undone: "已撤回你的回答。"
   close: 关闭
   q:
     playground: "那里有游乐场吗？"
@@ -204,7 +214,17 @@ chipAsk:
     toilets: "那里有卫生间吗？"
     farm_shop: "那里有农场小店吗？"
     parking: "那里有停车场吗？"
+    sandpit: "那里有沙坑吗？"
+    water_play: "那里有玩水的地方吗？"
+    swings: "那里有秋千吗？"
+    slides: "那里有滑梯吗？"
+    climbing: "那里有可以攀爬的设施吗？"
+    toddler_area: "那里有幼儿区吗？"
+    shade: "那里有遮阴的地方吗？"
+    benches: "那里有长椅吗？"
+    fenced: "那里有围栏吗？"
 mine:
+  sentAdded: 你添加的
   title: 我的
   sub: "你的收藏、你提交的内容和你的资料。无需注册。"
   saved: 收藏
@@ -289,6 +309,87 @@ about:
   taps: { h: 你的点选, p: "设施、“去过”和“需要会德语吗？”这些点选会匿名计数，存在 Cloudflare 上。每个浏览器有一个随机编号，同一个问题只算一票，改选会覆盖之前的回答。IP 地址只保存加密后的哈希，用来防止刷票。" }
   writing: { h: 你写的内容, p: "小贴士、报错和推荐的新地点会先交给我们审核，审核通过后才会公开。“尚缺信息”的回答（开放时间、时间、价格）在两位家长回答一致或经我们核实后上线。请不要写姓名、电话等个人信息。" }
   profile: { h: 你的资料, p: "收藏、去过的地方和你的回答都保存在这部手机的浏览器里。没有账号，也不需要邮箱。你可以在“我的”下的“资料与同步”里下载、转移到另一部手机或删除。如果你选择用通行密钥同步，服务器上会存一份同样的资料，删除资料时会一起删掉。" }
+  location: { h: 你的位置, p: "“附近”旁边有一个小小的定位按钮。只有你点了它，手机才会询问是否分享大致位置，用来选出最近的城镇。位置只留在你的手机上，绝不会发给我们；选出的城镇和你自己选的城镇一样保存。之后地图会用蓝点显示你的位置，直到你关闭页面或自己选择城镇。不用定位时，“附近”默认从科隆开始。" }
   none: { h: 我们不做的事, p: "没有广告，没有统计追踪，不卖数据，不收集姓名和邮箱。" }
   wrong: { h: 信息不对？, p: "每个活动和地点页面下面都有“信息有误？”，点一下告诉我们。" }
   who: { h: 谁在做, p: "小出游是 Spiking Labs 的产品。Spiking Labs 还做其他日常生活用的应用，都可以在 Spiking Labs 网站上看到。" }
+flow:
+  pickEvent: 有活动
+  pickEventSub: "在海报或网上看到的活动，或你自己组织的出游。"
+  pickPlace: 值得去的地方
+  pickPlaceSub: "游乐场、农场或咖啡馆，哪天去都合适。"
+  other: "← 添加别的"
+  faster: "更快填写："
+  wayPoster: 海报
+  wayLink: 链接或文字
+  wayType: 自己填
+  what: "做什么？"
+  day: 日期
+  time: 时间
+  where: "在哪里？"
+  wherePh: "公园、游乐场、咖啡馆或地址"
+  asTyped: "就用“{q}”"
+  noteLabel: "有什么要知道的？"
+  optional: "（可选）"
+  audience: "给谁看？"
+  everyone: 所有人
+  everyoneSub: "公开活动。我们核实后会显示在“发现”里。"
+  invite: 我邀请的人
+  inviteSub: "你会得到一个分享链接，并能看到谁会来。不会在任何地方列出。"
+  safety: "只在有其他人在场的公共场所见面，比如白天的公园或游乐场。"
+  evening: "晚上的聚会不太安全。如果可以，请选白天的时间。"
+  inviteBtn: 生成邀请链接
+  saveInvite: 保存修改
+  editInvite: 修改邀请
+  needPasskey: "邀请需要用你的通行密钥，这样你随时可以修改或取消。不需要邮箱，也不需要名字。"
+  passHave: 用我的通行密钥登录
+  passNew: 创建通行密钥
+  passSoon: "这里还没有开通邀请功能。"
+  passFail: "没有成功，什么都没改。"
+  passUnknown: "这个通行密钥已经没有对应的资料了，请新建一个。"
+  passNone: "这个浏览器不支持通行密钥，所以这里不能用邀请。请换用手机自带的浏览器。"
+  tooMany: "今天的邀请有点多了，明天再试吧。"
+  kind: "什么地方？"
+  name: 名称
+  facilities: "那里有什么？"
+meet:
+  title: 邀请
+  kicker: 只有拿到链接的人能看到
+  by: 家长自己组织的聚会
+  safety: "小出游不知道这是谁发起的。只有在公共场所、你觉得安全时才参加。避免晚上的聚会。"
+  evening: "这次聚会在晚上开始。请格外小心，只有认识组织者时才去。"
+  going: 我们去
+  maybe: 也许
+  no: 去不了
+  countGoing: { other: "{n} 个家庭会去" }
+  countMaybe: "{n} 个也许"
+  yours: "你的回复：{a}。点别的可以改。"
+  signIn: "回复前请用通行密钥登录，之后在任何手机上都能修改回复。不需要邮箱，也不需要名字。"
+  invitePeople: 邀请别人
+  whatsapp: WhatsApp
+  share: "分享…"
+  copy: 复制链接
+  copied: 链接已复制。
+  shareText: "谁一起来？{title}，{when}，{place}"
+  cancelled: 组织者已取消。
+  missing: "这个邀请已经不存在，或者链接不完整。"
+  soon: "这里还没有开通邀请功能，这是一个示例。"
+  failed: "邀请加载失败。请检查网络后再试。"
+  loading: "加载中…"
+  ready: "邀请做好了。把链接发给朋友，或发到你的群里。"
+  yourInvite: 这是你的邀请
+  edit: 修改
+  callOff: 取消聚会
+  callOffSure: "取消这次聚会？打开链接的人会看到已取消。"
+  onAgain: 照常进行
+  delete: 删除邀请
+  deleteSure: "删除这个邀请和所有回复？链接将失效。"
+  deleted: 邀请已删除。
+  report: 举报这个邀请
+  reported: "谢谢，我们会看一下。"
+  sample: { title: 野餐和放风筝, place: "Rheinpark, Köln-Deutz", note: "在缆车附近。带上毯子，我们带零食。" }
+  open: 打开
+  mineTitle: 邀请
+  mineSub: "你发起的和你回复过的。"
+  mineYours: 我的
+  mineSignIn: "用通行密钥登录后可以看到你的邀请。"

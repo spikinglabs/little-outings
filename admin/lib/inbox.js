@@ -107,7 +107,8 @@ export function eventFile(number, d, approvedBy) {
 // Same lists as src/content.config.ts (the admin can't import the site's Astro config).
 const PLACE_KINDS = ["playground", "indoor", "park", "zoo", "farm", "pool", "museum", "cafe", "fun"];
 const FEATURES = ["playground", "changing_table", "highchairs", "kids_menu", "toys", "animals", "stroller_friendly",
-  "nursing_room", "indoor_play", "toilets", "farm_shop", "parking"];
+  "nursing_room", "indoor_play", "toilets", "farm_shop", "parking",
+  "sandpit", "water_play", "swings", "slides", "climbing", "toddler_area", "shade", "benches", "fenced"];
 
 /** The content file for an approved place suggestion, or an error message. */
 export function placeFile(number, d, approvedBy) {

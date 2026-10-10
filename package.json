@@ -11,8 +11,9 @@
     "build:demo": "DEMO=1 astro build",
     "import:cityklub": "node scripts/import-cityklub.mjs",
     "import:places": "node scripts/import-places.mjs",
-    "fetch:osm": "node scripts/fetch-osm-places.mjs",
     "geocode:places": "node scripts/geocode-places.mjs",
+    "fetch:osm": "node scripts/fetch-osm-places.mjs",
+    "streets:places": "node scripts/osm-streets.mjs",
     "tally:inbox": "node scripts/tally-inbox.mjs",
     "translate": "node scripts/translate.mjs",
     "find:venues": "node scripts/find-venues.mjs",
@@ -27,6 +28,8 @@
     "astro": "^7.3.7",
     "js-yaml": "^5.4.3",
     "leaflet": "^1.9.4",
+    "leaflet-gesture-handling": "^1.2.2",
+    "leaflet.markercluster": "^1.5.3",
     "preact": "^10.29.8",
     "uqr": "^0.1.3"
   },
@@ -34,6 +37,7 @@
     "@astrojs/check": "^0.9.10",
     "@types/js-yaml": "^4.0.9",
     "@types/leaflet": "^1.9.22",
+    "@types/leaflet.markercluster": "^1.5.5",
     "@types/node": "^26.6.4",
     "typescript": "^6.0.3"
   },

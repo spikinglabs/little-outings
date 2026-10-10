@@ -12,7 +12,7 @@
 //          (voter: this browser's own id; its earlier taps move to the synced profile's id)
 //   GET    /api/profile/data      Authorization: Bearer <token>     → { profile, updated }
 //   PUT    /api/profile/data      Authorization: Bearer <token>  { profile }
-//   DELETE /api/profile/data      Authorization: Bearer <token>     removes the profile, its passkeys and sessions
+//   DELETE /api/profile/data      Authorization: Bearer <token>     removes the profile, its passkeys, sessions and meetups
 //   POST   /api/profile/logout    Authorization: Bearer <token>     ends this device's session
 //
 // Environment: DB, the same D1 binding as /api/taps (tables are created on first use);
@@ -22,6 +22,7 @@ import {
   generateAuthenticationOptions, generateRegistrationOptions, verifyAuthenticationResponse, verifyRegistrationResponse,
 } from "@simplewebauthn/server";
 import { moveTaps, type D1 } from "../taps.ts";
+import { forgetMeetups } from "../meetups/[[path]].ts";
 
 interface Env { DB?: D1; TAP_SALT?: string }
 type Ctx = { request: Request; env: Env; params: { path?: string[] } };
@@ -104,7 +105,7 @@ async function newSession(db: D1, user: string, now: number) {
   return token;
 }
 
-async function sessionUser(db: D1, request: Request, now: number): Promise<{ user: string; token: string } | null> {
+export async function sessionUser(db: D1, request: Request, now: number): Promise<{ user: string; token: string } | null> {
   const m = /^Bearer ([0-9a-f]{64})$/.exec(request.headers.get("authorization") ?? "");
   if (!m) return null;
   const token = await sha(m[1]);
@@ -240,6 +241,7 @@ export async function onRequest({ request, env, params }: Ctx): Promise<Response
       db.prepare(`DELETE FROM profile_keys WHERE user = ?`).bind(session.user),
       db.prepare(`DELETE FROM profile_sessions WHERE user = ?`).bind(session.user),
     ]);
+    await forgetMeetups(db, session.user);
     return json(200, { ok: true });
   }
   if (route === "logout" && method === "POST") {

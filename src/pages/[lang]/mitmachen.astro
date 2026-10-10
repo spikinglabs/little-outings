@@ -1,11 +1,11 @@
 ---
-// Mitmachen: send a poster, link or text, and fill in what's still missing about an outing.
+// Add (URL /mitmachen/): an event, a family's own invite or a place, and fill in what's still missing about an outing.
 // Every outing with a gap is rendered; the script below searches them and shows 30 at a time.
 import Base from "../../layouts/Base.astro";
 import GapForm from "../../components/GapForm.astro";
-import Contribute from "../../islands/Contribute";
-import SuggestPlace from "../../islands/SuggestPlace";
-import { FEATURES, KINDS } from "../../content.config";
+import AddFlow from "../../islands/AddFlow";
+import { KINDS } from "../../content.config";
+import { featuresFor } from "../../lib/features";
 import { KIND_ICON, UI_ICON, svg } from "../../lib/icons";
 import { LANGS, useT, type Lang } from "../../lib/i18n";
 import { getData, getTasks } from "../../lib/data";
@@ -36,7 +36,7 @@ const whenChips = [["", t("allKinds")], ["soon", t("when.soon")], ["later", t("t
   ...(tasks.some((task) => task.type === "place") ? [["place", t("places")]] : [])];
 const keys = ["posterTitle", "posterSub", "posterBtn", "posterPick", "orPaste", "pastePh", "pasteBtn", "posterNote", "reading",
   "draftTitle", "pleaseCheck", "send", "answered", "answeredCheck", "answeredVote", "inboxSoon", "parseSoon", "parseFail", "sentEvent", "sendAnother", "editTitle", "editNote", "saveEdit", "cancelEdit", "sentEdit", "resendNote", "typeIt"];
-const ui = { ...Object.fromEntries(keys.map((k) => [k, t(k)])), field: t.group("field") } as any;
+const ui = { ...Object.fromEntries(keys.map((k) => [k, t(k)])), field: t.group("field"), flow: t.group("flow") } as any;
 const placeKeys = ["placeTitle", "placeSub", "placeBtn", "placeKind", "placeTown", "placeTownPh", "placeName", "placeStreet",
   "placeFeatures", "placeNote", "placeNotePh", "placeWebsite", "placeThanks", "placeAnother", "placeSentKind", "placeSentWhere", "placeEditTitle", "editNote", "saveEdit", "cancelEdit", "sentEdit", "resendNote", "send", "inboxSoon"];
 const placeUi = Object.fromEntries(placeKeys.map((k) => [k, t(k)]));
@@ -44,11 +44,10 @@ const placeUi = Object.fromEntries(placeKeys.map((k) => [k, t(k)]));
 <Base lang={lang} title={t("addTitle")} tab="add">
   <h1 class="page-title">{t("addTitle")}</h1>
   <p class="page-sub">{t("addSub")}</p>
-  <Contribute client:visible lang={lang} ui={ui} />
-  <SuggestPlace client:visible lang={lang} ui={placeUi}
-    kinds={KINDS.map((k) => [k, t(`kinds.${k}`)])}
-    features={FEATURES.map((f) => [f, t(`features.${f}`)])}
-    towns={suggestTowns as [string, string][]} />
+  <AddFlow client:load lang={lang} ui={ui} place={{ ui: placeUi,
+    kinds: KINDS.map((k) => [k, t(`kinds.${k}`)]) as [string, string][],
+    features: Object.fromEntries(KINDS.map((k) => [k, featuresFor(k).map((f) => [f, t(`features.${f}`)] as [string, string])])),
+    towns: suggestTowns as [string, string][] }} />
 
   <section class="section">
     <div class="section-head"><h2>{t("tasksTitle")}</h2><p data-task-count aria-live="polite"></p></div>

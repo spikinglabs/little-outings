@@ -7,7 +7,7 @@
 import { readFileSync, readdirSync, writeFileSync, mkdirSync, unlinkSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import { dump, load } from "js-yaml";
-import { keyOf } from "./geocode-places.mjs";
+import { keyOf } from "./osm-streets.mjs";
 
 const FARM_SOURCES = new Set(["landservice-nrw-farm-events", "gut-hixholz-farm-events"]);
 const OSM = { level: "community", source: "OpenStreetMap" };

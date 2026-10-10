@@ -11,21 +11,9 @@ export const KINDS = ["playground", "indoor", "park", "zoo", "farm", "pool", "mu
 export const FEATURES = [
   "playground", "changing_table", "highchairs", "kids_menu", "toys", "animals", "stroller_friendly",
   "nursing_room", "indoor_play", "toilets", "farm_shop", "parking",
+  // Playgrounds (src/lib/features.ts says which kinds offer which).
+  "sandpit", "water_play", "swings", "slides", "climbing", "toddler_area", "shade", "benches", "fenced",
 ] as const;
-type Feature = (typeof FEATURES)[number];
-// The facilities that matter for each kind of place, most telling first: the "For families"
-// questions on its page and the icon row on its card. A playground has no high chairs.
-export const KIND_FEATURES: Record<(typeof KINDS)[number], Feature[]> = {
-  playground: ["toilets", "changing_table", "stroller_friendly", "parking"],
-  indoor: ["changing_table", "highchairs", "kids_menu", "toilets", "nursing_room", "parking"],
-  park: ["playground", "toilets", "changing_table", "stroller_friendly", "animals", "parking"],
-  zoo: ["playground", "changing_table", "highchairs", "kids_menu", "stroller_friendly", "toilets", "parking"],
-  farm: ["animals", "farm_shop", "playground", "changing_table", "kids_menu", "toilets", "parking"],
-  pool: ["changing_table", "toilets", "kids_menu", "nursing_room", "parking"],
-  museum: ["changing_table", "stroller_friendly", "toilets", "nursing_room", "indoor_play", "parking"],
-  cafe: ["playground", "changing_table", "highchairs", "kids_menu", "toys", "stroller_friendly", "indoor_play"],
-  fun: ["playground", "changing_table", "kids_menu", "toilets", "stroller_friendly", "parking"],
-};
 // "Good for ..." chips parents tap after a visit, and the topics of a "Good to know" tip.
 export const GOOD_FOR = ["toddlers", "bigKids", "rainy", "longVisit", "quickHour", "friends"] as const;
 export const TIP_TOPICS = ["bring", "bestTime", "parking", "ages", "other"] as const;

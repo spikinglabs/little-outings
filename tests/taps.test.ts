@@ -96,3 +96,19 @@ test("'Do you need German?' counts one answer per browser", async () => {
   assert.equal((await say("browser-3xx", "fr")).status, 400);
   assert.deepEqual(await (await onRequestGet({ env, request: get("item=ck-evt-1") })).json(), { lang: { none: 2 } });
 });
+
+test("tapping the same answer again takes it back, for facility chips and German chips alike", async () => {
+  const env = { DB: fakeD1() };
+  const tap = (body: object) => onRequestPost({ env, request: post({ item: "cafe-a", ...body }) });
+  await tap({ kind: "fac", feature: "highchairs", answer: "yes", voter: "browser-one" });
+  await tap({ kind: "fac", feature: "highchairs", answer: "yes", voter: "browser-two" });
+  await tap({ kind: "fac", feature: "toys", answer: "no", voter: "browser-one" });
+  await tap({ kind: "lang", answer: "de", voter: "browser-one" });
+  await tap({ kind: "lang", answer: "de", voter: "browser-two" });
+  assert.equal((await tap({ kind: "fac", feature: "highchairs", undo: true, voter: "browser-one" })).status, 200);
+  assert.equal((await tap({ kind: "lang", undo: true, voter: "browser-one" })).status, 200);
+  // Only browser-one's answer to those two questions goes; its other answer and browser-two's stay.
+  assert.deepEqual(await (await onRequestGet({ env, request: get("item=cafe-a") })).json(),
+    { fac: { highchairs: { yes: 1, no: 0 }, toys: { yes: 0, no: 1 } }, lang: { de: 1 } });
+  assert.equal((await tap({ kind: "fac", feature: "pool", undo: true, voter: "browser-one" })).status, 400);
+});

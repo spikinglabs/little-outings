@@ -10,8 +10,11 @@ interface Props {
   title?: string;
   description?: string;
   tab?: "explore" | "saved" | "add";
+  /** A preview picture for link cards in chats; also adds og:url (functions/m/[id].ts rewrites both). */
+  image?: string;
+  noindex?: boolean;
 }
-const { lang, title, description, tab } = Astro.props;
+const { lang, title, description, tab, image, noindex } = Astro.props;
 const t = useT(lang);
 const { region } = await getData();
 // The "saved" tab is labelled "Mine": it holds the saved list, what was sent and the profile.
@@ -30,7 +33,7 @@ const ui = {
   fac: FEATURES.map((f) => [f, t(`features.${f}`)]),
   km: t("km"), approxKm: t("approxKm"), nearby: t("nearby"), save: t("save"), saved: t("saved"),
   answered: t("answered"), answeredCheck: t("answeredCheck"), answeredVote: t("answeredVote"), hintIos: t("install.hintIos"), installMenu: t("install.menu"), installed: t("install.installed"), inboxSoon: t("inboxSoon"), reported: t("report.thanks"), visited: t("visit.thanks"), tipThanks: t("visit.tipThanks"), wentBefore: t("visit.before"),
-  askNext: t("chipAsk.next"), askThanks: t("chipAsk.thanks"), askYou: t("chipAsk.you"), askVotes: t("chipAsk.votes"), langThanks: t("speechAsk.thanks"), yes: t("yes"), no: t("no"), unsure: t("dunno"),
+  askNext: t("chipAsk.next"), askThanks: t("chipAsk.thanks"), askYou: t("chipAsk.you"), askAgain: t("chipAsk.again"), askUndone: t("chipAsk.undone"), langUndone: t("speechAsk.undone"), askVotes: t("chipAsk.votes"), langThanks: t("speechAsk.thanks"), yes: t("yes"), no: t("no"), unsure: t("dunno"),
 };
 ---
 <!doctype html>
@@ -42,6 +45,13 @@ const ui = {
     <meta name="description" content={description ?? t("tagline")} />
     <meta property="og:title" content={title ?? t("siteName")} />
     <meta property="og:description" content={description ?? t("tagline")} />
+    {image && <>
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content={`${site}${Astro.url.pathname}`} />
+      <meta property="og:image" content={`${site}${image}`} />
+      <meta name="twitter:card" content="summary_large_image" />
+    </>}
+    {noindex && <meta name="robots" content="noindex" />}
     <meta name="theme-color" content="#ffcc00" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#121314" media="(prefers-color-scheme: dark)" />
     <script is:inline>

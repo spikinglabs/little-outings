@@ -18,7 +18,7 @@ export function buildPins({ region, events, places }: Data, lang: Lang, t: T): P
     .map(({ item, title, sub }) => ({
       id: item.id, type: item.type, title, sub, href: pathFor(lang, item),
       lat: item.geo.lat!, lon: item.geo.lon!, precision: item.geo.precision as Pin["precision"],
-      ...(item.type === "event" ? { start: item.start, end: item.end ?? item.start } : {}),
+      ...(item.type === "event" ? { start: item.start, end: item.end ?? item.start } : { kind: item.kind }),
     }));
 }
 

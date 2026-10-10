@@ -1,0 +1,86 @@
+---
+// A family's own invite. The shared link is /m/<id> (functions/m/[id].ts), which serves this page with the
+// invite's title in the head for chat previews; the script loads the invite and its answers from /api/meetups.
+// Where the database isn't bound (PR previews), it shows a sample invite instead.
+import Base from "../../layouts/Base.astro";
+import { LANGS, useT, type Lang } from "../../lib/i18n";
+
+export const getStaticPaths = () => LANGS.map((lang) => ({ params: { lang } }));
+const lang = Astro.params.lang as Lang;
+const t = useT(lang);
+const m = (k: string) => t(`meet.${k}`);
+const ui = { ...t.group("meet"), countGoing: t.group("meet.countGoing"), locale: t.locale, passSoon: t("flow.passSoon"), passFail: t("flow.passFail"),
+  passUnknown: t("flow.passUnknown"), passNone: t("flow.passNone") };
+---
+<Base lang={lang} title={m("title")} description={m("by")} image="/images/meetup-card.png" noindex>
+  <article class="invite detail" data-invite>
+    <p class="small" data-state role="status">{m("loading")}</p>
+    <div data-body hidden>
+      <span class="invite-kicker">🔗 {m("kicker")}</span>
+      <p class="invite-ready" data-ready hidden>{m("ready")}</p>
+      <p class="demo" data-sample hidden>{m("soon")}</p>
+      <p class="invite-off" data-off hidden>{m("cancelled")}</p>
+      <div class="lead">
+        <div class="stamp" aria-hidden="true"><div class="dow" data-dow></div><div class="d" data-d></div><div class="m" data-m></div></div>
+        <div><h1 data-title></h1><p class="orig">{m("by")}</p></div>
+      </div>
+      <ul class="facts">
+        <li>🕑 <span data-when></span></li>
+        <li>📍 <span data-where></span></li>
+      </ul>
+      <p class="quote" data-note hidden></p>
+      <p class="safety" role="note">⚠️ {m("safety")}<b data-evening hidden><br />{m("evening")}</b></p>
+
+      <div data-answer-box>
+        <div class="answers" role="group" aria-label={m("title")}>
+          <button class="btn go" type="button" data-a="going" aria-pressed="false">🙋 {m("going")}</button>
+          <button class="btn" type="button" data-a="maybe" aria-pressed="false">{m("maybe")}</button>
+          <button class="btn" type="button" data-a="no" aria-pressed="false">{m("no")}</button>
+        </div>
+        <p class="invite-count" data-count aria-live="polite"></p>
+        <p class="small" data-yours hidden></p>
+        <div class="invite-box" data-signin hidden>
+          <p class="small" style="margin:0">{m("signIn")}</p>
+          <div class="profile-actions">
+            <button class="btn primary" type="button" data-login>{t("flow.passHave")}</button>
+            <button class="btn" type="button" data-register>{t("flow.passNew")}</button>
+          </div>
+          <p class="small" data-sign-note role="status" hidden></p>
+        </div>
+      </div>
+
+      <section class="invite-box">
+        <h2>{m("invitePeople")}</h2>
+        <div class="share-row">
+          <a class="btn wa" data-wa target="_blank" rel="noopener">{m("whatsapp")}</a>
+          <button class="btn" type="button" data-share>⤴ {m("share")}</button>
+          <button class="btn" type="button" data-copy>🔗 {m("copy")}</button>
+        </div>
+        <p class="small" data-copied role="status" hidden>{m("copied")}</p>
+        <div class="profile-actions">
+          <button class="btn" type="button" data-ics>📅 {t("cal.add")}</button>
+          <a class="btn" data-google target="_blank" rel="noopener">{t("cal.google")}</a>
+        </div>
+      </section>
+
+      <section class="invite-box" data-owner hidden>
+        <h2>{m("yourInvite")}</h2>
+        <div class="profile-actions">
+          <a class="btn" data-edit>{m("edit")}</a>
+          <button class="btn" type="button" data-calloff>{m("callOff")}</button>
+          <button class="btn danger" type="button" data-delete>{m("delete")}</button>
+        </div>
+      </section>
+
+      <p class="small" style="margin-top:18px">
+        <button class="link-btn" type="button" data-report>{m("report")}</button>
+        <span data-reported hidden>{m("reported")}</span>
+      </p>
+    </div>
+  </article>
+  <script is:inline type="application/json" id="meet-ui" set:html={JSON.stringify(ui)} />
+  <script>
+    import { startInvite } from "../../scripts/meetup";
+    startInvite();
+  </script>
+</Base>

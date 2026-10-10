@@ -7,7 +7,7 @@ on:
     - cron: "30 1 * * 1"
   workflow_dispatch:
   pull_request:
-    paths: [scripts/fetch-osm-places.mjs, scripts/geocode-places.mjs, .github/workflows/places.yml]
+    paths: [scripts/fetch-osm-places.mjs, scripts/osm-streets.mjs, .github/workflows/places.yml]
 permissions:
   contents: write
 concurrency:
@@ -27,7 +27,7 @@ jobs:
           echo "$out"; echo "::notice title=OpenStreetMap::$out"
       - name: Find streets and districts (Nominatim)
         # On a pull request only a few, to check the script; the weekly run looks up every new place.
-        run: npm run --silent geocode:places
+        run: npm run --silent streets:places
         env:
           GEOCODE_MAX: ${{ github.event_name == 'pull_request' && '10' || '2000' }}
       - name: Check the import

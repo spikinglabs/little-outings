@@ -6,7 +6,7 @@ import { join } from "node:path";
 import { execFileSync } from "node:child_process";
 import { kindOf, fromOsm, overpassQueries, bbox } from "../scripts/fetch-osm-places.mjs";
 import { placeFromOsm, farmsFromEvents } from "../scripts/import-places.mjs";
-import { fromNominatim, keyOf } from "../scripts/geocode-places.mjs";
+import { fromNominatim, keyOf } from "../scripts/osm-streets.mjs";
 
 const towns = [{ name: "Velbert", lat: 51.34, lon: 7.043 }, { name: "Wuppertal", lat: 51.256, lon: 7.15 }];
 const osm = (id, tags, lat = 51.341, lon = 7.045) => ({ type: "node", id, lat, lon, tags });
@@ -111,4 +111,11 @@ test("a place without an address gets the nearest road and its district", () => 
   const tagged = placeFromOsm(fromOsm(osm(8, { leisure: "playground", name: "Spielplatz", "addr:street": "Weg", "addr:housenumber": "1" }), towns), geo);
   assert.equal(tagged.data.address.street, "Weg 1");
   assert.equal(tagged.data.address.near, undefined, "a real street address wins");
+});
+
+test("a playground's own equipment tags become playground facilities", async () => {
+  const { playFeatures } = await import("../scripts/fetch-osm-places.mjs");
+  assert.deepEqual(playFeatures({ "playground:sandpit": "yes", "playground:swing": "2", "playground:slide": "no", bench: "yes", fenced: "yes" }),
+    ["sandpit", "swings", "benches", "fenced"]);
+  assert.deepEqual(playFeatures({ leisure: "playground" }), []);
 });

@@ -29,7 +29,45 @@ export function resolveGeo(geo: Raw | undefined, town: string | undefined, towns
   return { precision: "unknown" };
 }
 
+/** The site's name for a town a parent typed: "Cologne" or "köln" is "Köln". Unknown names stay as typed. */
+export function canonicalTown<T extends Town & { en?: string; zh?: string }>(name: string, towns: T[]): string {
+  const key = name.trim().toLowerCase();
+  return towns.find((t) => [t.name, t.en, t.zh].some((n) => n?.toLowerCase() === key))?.name ?? name;
+}
+
+/**
+ * Towns of places parents suggested that the region doesn't list yet (Merzenich), so they show up in
+ * the "Around" picker. Anchored at the first such place's pin; a place without a pin adds nothing.
+ */
+export function townsFromPlaces(places: Place[], towns: Town[]): Town[] {
+  const out: Town[] = [];
+  for (const p of places) {
+    if (!p.town || p.geo.lat == null || p.geo.lon == null || p.geo.precision === "area" || p.geo.precision === "unknown") continue;
+    if ([...towns, ...out].some((t) => t.name === p.town)) continue;
+    out.push({ name: p.town, lat: p.geo.lat, lon: p.geo.lon });
+  }
+  return out;
+}
+
+// A country typed after the town ("…, Netherlands"); the page shows the town on its own.
+const COUNTRY = /^(germany|deutschland|netherlands|the netherlands|niederlande|nederland|belgium|belgien|belgië|belgique|luxembourg|luxemburg|france|frankreich|austria|österreich|switzerland|schweiz|de|nl|be|lu)$/i;
+
+/**
+ * Parents often type the whole address as the street ("Steinpfahl 4a, 52399 Merzenich"), and the
+ * town has its own field, so the page read "…Merzenich, Merzenich". Moves a trailing postcode and
+ * town out of the street: German "52399 Merzenich", Dutch "6468 PH Kerkrade", Belgian "4700 Eupen",
+ * with or without a country after it.
+ */
+export function splitStreet(street: string | undefined, postcode?: string): { street?: string; postcode?: string } {
+  const parts = String(street ?? "").split(",").map((s) => s.trim()).filter(Boolean);
+  if (parts.length > 2 && COUNTRY.test(parts[parts.length - 1])) parts.pop();
+  const m = parts.length > 1 ? /^(?:[A-Z]{1,2}-)?(\d{4,5}(?: ?[A-Z]{2})?)\s+\S/.exec(parts[parts.length - 1]) : null;
+  if (!m) return { street, postcode };
+  return { street: parts.slice(0, -1).join(", "), postcode: postcode ?? m[1] };
+}
+
 export function normalizePlace(id: string, raw: Raw, answer: Raw | undefined, towns: Town[]): Place {
+  const { street, postcode } = splitStreet(raw.address.street, raw.address.postcode);
   const facilities = { ...(raw.facilities ?? {}) };
   for (const [f, v] of Object.entries((answer?.facilities ?? {}) as Raw)) facilities[f] = v;
   return {
@@ -38,10 +76,10 @@ export function normalizePlace(id: string, raw: Raw, answer: Raw | undefined, to
     kind: raw.kind,
     name: raw.name,
     town: raw.address.town,
-    street: raw.address.street,
+    street,
     near: raw.address.near,
     district: raw.address.district,
-    postcode: raw.address.postcode,
+    postcode,
     geo: resolveGeo(answer?.geo ?? raw.geo, raw.address.town, towns),
     hours: answer?.hours ?? raw.hours,
     ages: raw.ages,
