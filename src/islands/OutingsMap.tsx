@@ -2,7 +2,8 @@
 // zooms it, its area becomes the "where" filter for the lists ("lo:area"). explore.ts publishes the visible
 // ids, the home town and the radius as a "lo:filtered" event (also kept on window.loFiltered).
 // Events are gold pins, places small brown dots; approximate spots get a dashed ring, and town-only
-// events share one circle per town, labelled with how many there are.
+// events share one circle per town, labelled with how many there are. After the reader taps the
+// location button (and only then), a blue dot with an accuracy halo shows where the phone is ("lo:here").
 import { useEffect, useRef } from "preact/hooks";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -26,7 +27,7 @@ interface Props {
   center: [number, number];
   towns: [string, number, number][];
   locale: string;
-  labels: { one: string; other: string; more: string };
+  labels: { one: string; other: string; more: string; here: string };
 }
 
 /** What the Discover filters currently show; also kept on window for a map that mounts later. */
@@ -150,13 +151,31 @@ export default function OutingsMap({ pinsUrl, center, towns, locale, labels }: P
       const b = map.getBounds();
       document.dispatchEvent(new CustomEvent("lo:area", { detail: [b.getSouth(), b.getWest(), b.getNorth(), b.getEast()] }));
     };
+    // "You are here": set by the location button (app.ts setHere), kept in this tab only, cleared by picking a town.
+    type Here = { lat: number; lon: number; acc: number };
+    const halo = L.circle(center, { radius: 1, color: "#1a73e8", weight: 1, fillColor: "#1a73e8", fillOpacity: 0.15, interactive: false });
+    const dot = L.marker(center, {
+      icon: L.divIcon({ className: "", html: `<div class="here-dot" role="img" aria-label="${esc(labels.here)}"></div>`, iconSize: [18, 18], iconAnchor: [9, 9] }),
+      title: labels.here, keyboard: false, interactive: false, zIndexOffset: 2000,
+    });
+    const legend = document.querySelector<HTMLElement>("[data-here-legend]");
+    const showHere = (h: Here | null) => {
+      if (legend) legend.hidden = !h;
+      if (!h) { halo.remove(); dot.remove(); return; }
+      halo.setLatLng([h.lat, h.lon]).setRadius(Math.max(h.acc || 0, 30)).addTo(map);
+      dot.setLatLng([h.lat, h.lon]).addTo(map);
+    };
+    const onHere = (e: Event) => showHere((e as CustomEvent<Here | null>).detail);
+    try { showHere(JSON.parse(sessionStorage.getItem("lo-here") || "null")); } catch { /* storage blocked */ }
     map.on("dragend zoomend", onMoved);
+    document.addEventListener("lo:here", onHere);
     document.addEventListener("lo:filtered", onFiltered);
     document.addEventListener("lo:map-shown", onShown);
     if (window.loFiltered && !folded()) update(window.loFiltered);
     return () => {
       document.removeEventListener("lo:filtered", onFiltered);
       document.removeEventListener("lo:map-shown", onShown);
+      document.removeEventListener("lo:here", onHere);
       map.remove();
     };
   }

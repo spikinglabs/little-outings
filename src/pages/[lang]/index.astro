@@ -41,7 +41,7 @@ const collator = new Intl.Collator(t.locale);
 const towns = homes.map((h) => ({ name: h.name, label: townName(h.name, lang, homes), keys: [h.name, h.en, h.zh].filter(Boolean).map((x) => fold(x!)).join("|") }))
   .sort((a, b) => collator.compare(a.label, b.label));
 // The map shows whatever the filters show (explore.ts tells it which ids).
-const mapLabels = { ...(t.group("nEvents") as { one: string; other: string }), more: t("mapMore") };
+const mapLabels = { ...(t.group("nEvents") as { one: string; other: string }), more: t("mapMore"), here: t("legend.here") };
 ---
 <Base lang={lang} tab="explore">
   <section class="ask">
@@ -108,6 +108,7 @@ const mapLabels = { ...(t.group("nEvents") as { one: string; other: string }), m
       <span><i style="border:2px dashed currentColor"></i>{t("legend.approx")}</span>
       <span><i style="background:rgb(111 74 42 / .12);border:1px dashed #6f4a2a;border-radius:50%"></i>{t("legend.area")}</span>
       <span><i style="border:1px dotted currentColor"></i>{t("legend.radius")}</span>
+      <span data-here-legend hidden><i class="here-key"></i>{t("legend.here")}</span>
     </div>
   </div>
 

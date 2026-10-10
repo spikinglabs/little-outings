@@ -1,7 +1,7 @@
 // Filters on the Entdecken page: one list of ideas, events on the chosen day mixed with places
 // that are good any time. All cards are already in the HTML; this only hides and sorts them.
 // Distances are measured once per home town, and the list shows a page at a time.
-import { distanceOf, getHome, markSaved, nearestTown, renderKm, setHome } from "./app";
+import { distanceOf, getHome, markSaved, nearestTown, renderKm, setHere, setHome } from "./app";
 import type {} from "../islands/OutingsMap";
 
 type Plural = { one?: string; other: string };
@@ -234,6 +234,7 @@ function filterTowns() {
   $("[data-town-none]").hidden = shown > 0;
 }
 function pickTown(town: string) {
+  setHere(null); // a town picked by hand replaces the phone's location, and its dot goes away
   showHome(town);
   setHome(town); state.area = null; renderKm(); apply();
 }

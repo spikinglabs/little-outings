@@ -90,9 +90,25 @@ export function nearestTown(): Promise<string | null> {
       const here: [number, number] = [pos.coords.latitude, pos.coords.longitude];
       let best: string | null = null, bestKm = Infinity;
       for (const [name, at] of towns) { const d = km(here, at); if (d < bestKm) { best = name; bestKm = d; } }
-      done(bestKm <= NEAR_MAX_KM ? best : null);
-    }, () => done(null), { enableHighAccuracy: false, maximumAge: 600_000, timeout: 15_000 });
+      const ok = bestKm <= NEAR_MAX_KM;
+      setHere(ok ? { lat: here[0], lon: here[1], acc: pos.coords.accuracy } : null);
+      done(ok ? best : null);
+    }, () => { setHere(null); done(null); }, { enableHighAccuracy: false, maximumAge: 600_000, timeout: 15_000 });
   });
+}
+
+/**
+ * Where the phone said it is, for the "you are here" dot on the map. Kept only in this tab
+ * (sessionStorage, never synced or sent anywhere) and dropped when the reader picks a town by hand.
+ */
+export type Here = { lat: number; lon: number; acc: number };
+const HERE_KEY = "lo-here";
+export function getHere(): Here | null {
+  try { return JSON.parse(sessionStorage.getItem(HERE_KEY) || "null"); } catch { return null; }
+}
+export function setHere(h: Here | null) {
+  try { if (h) sessionStorage.setItem(HERE_KEY, JSON.stringify(h)); else sessionStorage.removeItem(HERE_KEY); } catch { /* storage blocked */ }
+  document.dispatchEvent(new CustomEvent("lo:here", { detail: h }));
 }
 export function km(a: [number, number], b: [number, number]) {
   const R = 6371, r = Math.PI / 180, dLa = (b[0] - a[0]) * r, dLo = (b[1] - a[1]) * r;
