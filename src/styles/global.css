@@ -132,6 +132,8 @@ h1, h2, h3 { font-family: var(--display); text-wrap: balance; letter-spacing: -0
 .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border-radius: 12px; padding: 11px 16px; font-weight: 700; cursor: pointer; border: 1.5px solid var(--ink); background: transparent; text-decoration: none; color: var(--ink); }
 .btn.primary { background: var(--ink); color: var(--paper); }
+.btn[data-save][aria-pressed="true"] { background: var(--rot); border-color: var(--rot); color: var(--rot-ink); }
+.btn[data-save][aria-pressed="true"] svg { fill: currentColor; }
 
 /* gaps: "Still missing" */
 .help { margin-top: 22px; background: var(--gold-bg); border-radius: 14px; padding: 14px; }

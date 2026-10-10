@@ -20,7 +20,10 @@ export function markSaved(root: ParentNode = document) {
   root.querySelectorAll<HTMLButtonElement>("[data-save]").forEach((b) => {
     const on = saved.has(b.dataset.save!);
     b.setAttribute("aria-pressed", String(on));
-    b.setAttribute("aria-label", on ? ui.saved : ui.save);
+    // Buttons with a visible word say Saved; icon-only card buttons carry it in aria-label.
+    const label = b.querySelector("[data-save-label]");
+    if (label) label.textContent = on ? ui.saved : ui.save;
+    else b.setAttribute("aria-label", on ? ui.saved : ui.save);
   });
 }
 /** Draws the facility icons of place cards from their data-fac digits (one per facility, 1 = yes). */
