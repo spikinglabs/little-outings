@@ -33,6 +33,7 @@ jobs:
       - name: Import events and places
         env:
           CITYKLUB_EXPORT: ${{ vars.CITYKLUB_EXPORT }}
+          PLACES_EXPORT: ${{ vars.PLACES_EXPORT }}
         run: npm run import:cityklub && npm run import:places
       - name: Translate what is new
         env:

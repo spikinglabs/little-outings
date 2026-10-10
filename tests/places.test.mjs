@@ -4,61 +4,13 @@ import { mkdtempSync, mkdirSync, writeFileSync, readdirSync, readFileSync } from
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { execFileSync } from "node:child_process";
-import { kindOf, fromOsm, overpassQueries, bbox } from "../scripts/fetch-osm-places.mjs";
 import { placeFromOsm, farmsFromEvents } from "../scripts/import-places.mjs";
-import { fromNominatim, keyOf } from "../scripts/osm-streets.mjs";
 
-const towns = [{ name: "Velbert", lat: 51.34, lon: 7.043 }, { name: "Wuppertal", lat: 51.256, lon: 7.15 }];
-const osm = (id, tags, lat = 51.341, lon = 7.045) => ({ type: "node", id, lat, lon, tags });
-
-test("kindOf keeps family places and drops the rest", () => {
-  assert.equal(kindOf({ tourism: "zoo" }), "zoo");
-  assert.equal(kindOf({ shop: "farm" }), "farm");
-  assert.equal(kindOf({ leisure: "playground" }), "playground");
-  assert.equal(kindOf({ leisure: "sports_centre", sport: "swimming;fitness" }), "pool");
-  assert.equal(kindOf({ tourism: "museum", name: "Kindermuseum" }), "museum");
-  assert.equal(kindOf({ tourism: "museum", name: "Von der Heydt-Museum" }), null);
-  assert.equal(kindOf({ amenity: "cafe" }), null);
-  assert.equal(kindOf({ amenity: "cafe", kids_area: "indoor" }), "cafe");
-  assert.equal(kindOf({ amenity: "cafe", name: "Spielcafé Wirbelwind" }), "cafe");
-  assert.equal(kindOf({ amenity: "cafe", name: "RheinBerg Spielcasino" }), null);
-  assert.equal(kindOf({ amenity: "cafe", name: "Bistro Nachspielzeit" }), null);
-  assert.equal(kindOf({ leisure: "indoor_play" }), "indoor");
-  assert.equal(kindOf({ leisure: "trampoline_park" }), "indoor");
-  assert.equal(kindOf({ zoo: "enclosure", name: "Wildgehege" }), "zoo");
-  assert.equal(kindOf({ tourism: "aquarium" }), "zoo");
-  assert.equal(kindOf({ leisure: "swimming_area" }), "pool");
-  assert.equal(kindOf({ tourism: "museum", museum: "technology", name: "LVR-Industriemuseum" }), "museum");
-  assert.equal(kindOf({ tourism: "theme_park" }), "fun");
-  assert.equal(kindOf({ sport: "climbing_adventure" }), "fun");
-  assert.equal(kindOf({ leisure: "park", wikidata: "Q1" }), "park");
-  assert.equal(kindOf({ leisure: "park" }), null, "not every green corner");
-  assert.equal(kindOf({ leisure: "park", wikidata: "Q2", name: "Chlodwigplatz" }), null, "a square is not an outing");
-});
-
-test("fromOsm picks the nearest town, facilities and a safe website", () => {
-  const row = fromOsm(osm(1, { shop: "farm", name: "Hofladen Sonne", changing_table: "yes", website: "javascript:alert(1)", "addr:street": "Weg", "addr:housenumber": "3" }), towns);
-  assert.equal(row.town, "Velbert");
-  assert.equal(row.street, "Weg 3");
-  assert.deepEqual(row.facilities, ["changing_table", "animals", "farm_shop"]);
-  assert.equal(row.website, undefined);
-  assert.equal(fromOsm(osm(2, { leisure: "playground" }), towns), null, "no name");
-  assert.equal(fromOsm(osm(3, { leisure: "playground", name: "Far" }, 52.5, 13.4), towns), null, "outside the region");
-  assert.equal(fromOsm({ type: "way", id: 4, center: { lat: 51.257, lon: 7.151 }, tags: { leisure: "playground", name: "Spielplatz Hardt" } }, towns).free, true);
-});
-
-test("the Overpass query covers every town plus the radius in one box", () => {
-  const [s, w, n, e] = bbox(towns);
-  assert.ok(s < 51.256 - 0.05 && n > 51.34 + 0.05 && w < 7.043 - 0.08 && e > 7.15 + 0.08);
-  const qs = overpassQueries(towns);
-  assert.equal(qs.length, 24);
-  assert.ok(qs.every((q) => !/"zoo"~/.test(q.query)), "no regex on the zoo key: Overpass answers 504");
-  assert.equal(qs[0].kind, "playground");
-  assert.match(qs[0].query, /^\[out:json\]\[timeout:90\]\[bbox:[\d.,]+\];nwr\["leisure"="playground"\]\["name"\];out center tags;$/);
-});
+// Rows as spikinglabs/cityklub-event-data writes them to the places bucket (cityklub places).
+const row = (id, extra = {}) => ({ osm: `node/${id}`, kind: "playground", name: `Spielplatz ${id}`, town: "Velbert", lat: 51.341, lon: 7.045, free: true, facilities: [], ...extra });
 
 test("placeFromOsm matches the place schema shape", () => {
-  const p = placeFromOsm(fromOsm(osm(5, { tourism: "zoo", name: "Grüner Zoo", opening_hours: "Mo-Su 09:00-18:00" }), towns));
+  const p = placeFromOsm(row(5, { kind: "zoo", name: "Grüner Zoo", hours: "Mo-Su 09:00-18:00", free: undefined, facilities: ["animals"] }));
   assert.equal(p.id, "osm-node-5");
   assert.deepEqual(p.data.geo, { lat: 51.341, lon: 7.045, precision: "exact" });
   assert.deepEqual(p.data.facilities, { animals: { status: "yes", confirmed: 0 } });
@@ -82,7 +34,7 @@ test("event farms become one place per farm, under the shortest name", () => {
 });
 
 test("event farms already in OpenStreetMap are not doubled", () => {
-  const known = [placeFromOsm(fromOsm(osm(6, { shop: "farm", name: "Hofladen Gut Hixholz" }), towns))];
+  const known = [placeFromOsm(row(6, { kind: "farm", name: "Hofladen Gut Hixholz" }))];
   assert.equal(farmsFromEvents([ev("Gut Hixholz")], known).length, 0);
 });
 
@@ -92,30 +44,28 @@ test("the importer writes, hides and prunes place files", () => {
   mkdirSync(join(content, "places", "imported"), { recursive: true });
   writeFileSync(join(content, "places", "imported", "osm-node-999.yaml"), "kind: farm\n");
   writeFileSync(join(content, "hidden-places.yaml"), "- osm-node-8\n");
-  const rows = [fromOsm(osm(7, { leisure: "playground", name: "Spielplatz Nord" }), towns), fromOsm(osm(8, { leisure: "playground", name: "Closed" }), towns)];
+  const rows = [row(7), row(8)];
   writeFileSync(join(dir, "osm.jsonl"), rows.map((r) => JSON.stringify(r)).join("\n"));
   writeFileSync(join(dir, "outings.jsonl"), JSON.stringify(ev("Gut Hixholz")) + "\n");
-  execFileSync("node", ["scripts/import-places.mjs"], { env: { ...process.env, CONTENT_DIR: content, OSM_FILE: join(dir, "osm.jsonl"), OUTINGS_FILE: join(dir, "outings.jsonl") } });
+  const run = (env) => execFileSync("node", ["scripts/import-places.mjs"], { env: { ...process.env, CONTENT_DIR: content, OSM_FILE: join(dir, "osm.jsonl"), OUTINGS_FILE: join(dir, "outings.jsonl"), PLACES_EXPORT: "", ...env } }).toString();
+  assert.match(run(), /\(the snapshot\)/);
   const files = readdirSync(join(content, "places", "imported")).sort();
   assert.deepEqual(files, ["farm-velbert-gut-hixholz.yaml", "osm-node-7.yaml"]);
   assert.match(readFileSync(join(content, "places", "imported", "osm-node-7.yaml"), "utf8"), /^# Generated/);
+
+  // The weekly file from the places bucket wins over the snapshot; a broken one falls back to it.
+  writeFileSync(join(dir, "export.jsonl"), JSON.stringify(row(9)) + "\n");
+  assert.match(run({ PLACES_EXPORT: join(dir, "export.jsonl") }), /\(the places bucket\)/);
+  assert.ok(readdirSync(join(content, "places", "imported")).includes("osm-node-9.yaml"));
+  assert.match(run({ PLACES_EXPORT: join(dir, "missing.jsonl") }), /::warning title=Places::[\s\S]*\(the snapshot\)/);
 });
 
 test("a place without an address gets the nearest road and its district", () => {
-  const geo = fromNominatim({ address: { road: "Volksgartenstraße", suburb: "Neustadt-Süd", city: "Köln", postcode: "50677" } });
-  assert.deepEqual(geo, { road: "Volksgartenstraße", district: "Neustadt-Süd", postcode: "50677" });
-  const row = fromOsm(osm(7, { leisure: "playground", name: "Wasserspielplatz" }), towns);
-  assert.equal(keyOf(row), "node/7@51.3410,7.0450");
-  const p = placeFromOsm(row, geo);
+  const nearby = { road: "Volksgartenstraße", district: "Neustadt-Süd", postcode: "50677" };
+  const p = placeFromOsm(row(7, { nearby }));
   assert.deepEqual(p.data.address, { near: "Volksgartenstraße", district: "Neustadt-Süd", postcode: "50677", town: "Velbert" });
-  const tagged = placeFromOsm(fromOsm(osm(8, { leisure: "playground", name: "Spielplatz", "addr:street": "Weg", "addr:housenumber": "1" }), towns), geo);
+  const tagged = placeFromOsm(row(8, { street: "Weg 1", nearby }));
   assert.equal(tagged.data.address.street, "Weg 1");
   assert.equal(tagged.data.address.near, undefined, "a real street address wins");
 });
 
-test("a playground's own equipment tags become playground facilities", async () => {
-  const { playFeatures } = await import("../scripts/fetch-osm-places.mjs");
-  assert.deepEqual(playFeatures({ "playground:sandpit": "yes", "playground:swing": "2", "playground:slide": "no", bench: "yes", fenced: "yes" }),
-    ["sandpit", "swings", "benches", "fenced"]);
-  assert.deepEqual(playFeatures({ leisure: "playground" }), []);
-});

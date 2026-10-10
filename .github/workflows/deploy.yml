@@ -3,7 +3,9 @@
 #   pull request        → site preview URL (job summary, and a comment on the PR)
 #   every night 02:15   → rebuild production, so "today" and "this weekend" move
 # Every build imports cityklub events first: data/outings.jsonl (published from the
-# admin) when present, otherwise the CITYKLUB_EXPORT variable.
+# admin) when present, otherwise the CITYKLUB_EXPORT variable. Places come from the
+# PLACES_EXPORT variable (public places bucket, filled weekly by spikinglabs/cityklub-event-data),
+# with data/places-osm.jsonl as the fallback; no build waits on OpenStreetMap's Overpass.
 # Needs the repository secret CLOUDFLARE_API_TOKEN (Pages: Edit) and CLOUDFLARE_ACCOUNT_ID
 # as a secret or a variable (the account ID is not sensitive).
 # Optional: variable INBOX_REPO + secret INBOX_READ_TOKEN (Issues: read) to count tips and older answers;
@@ -42,9 +44,20 @@ jobs:
           CITYKLUB_EXPORT: ${{ vars.CITYKLUB_EXPORT }}
         run: npm run import:cityklub
       - name: Import places (OpenStreetMap, farms)
+        env:
+          PLACES_EXPORT: ${{ vars.PLACES_EXPORT }}
         run: npm run import:places
+      # Nominatim answers are kept between builds, so only new addresses wait a second each.
+      - uses: actions/cache@v4
+        with:
+          path: .cache/pins.json
+          key: pins-${{ github.run_id }}
+          restore-keys: pins-
       - name: Pin parents' places (Nominatim)
+        env:
+          PINS_CACHE: .cache/pins.json
         run: |
+          mkdir -p .cache
           out=$(npm run --silent geocode:places 2>&1); echo "$out"
           echo "::notice title=Place pins::$(echo "$out" | tail -1)"
       - name: Count parents' answers from the inbox
@@ -67,8 +80,9 @@ jobs:
           [ -n "$ACCOUNT" ] || missing="$missing CLOUDFLARE_ACCOUNT_ID"
           if [ -z "$missing" ]; then echo "ok=true" >> "$GITHUB_OUTPUT"
           else echo "::notice::Missing (token must be under Secrets, not Variables):$missing; skipping deploy."; fi
+      # Only on a manual run: the project exists, and this step alone took about 13 seconds.
       - name: Create the Pages project if it doesn't exist
-        if: steps.cf.outputs.ok == 'true'
+        if: steps.cf.outputs.ok == 'true' && github.event_name == 'workflow_dispatch'
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID || vars.CLOUDFLARE_ACCOUNT_ID }}
@@ -119,7 +133,7 @@ jobs:
           if [ -n "$TOKEN" ] && [ -n "$ACCOUNT" ]; then echo "ok=true" >> "$GITHUB_OUTPUT"
           else echo "::notice::Cloudflare credentials missing; skipping the admin deploy."; fi
       - name: Create the admin Pages project if it doesn't exist
-        if: steps.cf.outputs.ok == 'true'
+        if: steps.cf.outputs.ok == 'true' && github.event_name == 'workflow_dispatch'
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID || vars.CLOUDFLARE_ACCOUNT_ID }}

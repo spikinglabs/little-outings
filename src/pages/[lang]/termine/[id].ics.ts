@@ -13,6 +13,7 @@ export async function getStaticPaths() {
 
 export const GET: APIRoute = async ({ params, props, site }) => {
   const input = await calInput(props.event as Event, params.lang as Lang, site);
-  const stamp = new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d+/, "");
+  // The build day, not the second: unchanged events give the same file, so a deploy skips uploading it.
+  const stamp = `${new Date().toISOString().slice(0, 10).replace(/-/g, "")}T000000Z`;
   return new Response(ics(input, stamp), { headers: { "content-type": "text/calendar; charset=utf-8" } });
 };

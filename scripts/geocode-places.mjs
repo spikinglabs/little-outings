@@ -3,6 +3,8 @@
 // that build's checkout; add `geo:` to a file by hand to fix a pin for good).
 // Without a point a place falls back to its town centre, or isn't on the map at all when the
 // town isn't one of the site's towns. A failed lookup only logs; the next build tries again.
+// Answers are kept in PINS_CACHE (the deploy keeps that file between builds), so each address
+// is asked once, not on every build.
 import { readFileSync, readdirSync, writeFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import { load } from "js-yaml";
@@ -53,20 +55,27 @@ export function withGeo(text, line) {
   return lines.join("\n");
 }
 
+const CACHE = process.env.PINS_CACHE || "";
+const cache = CACHE && existsSync(CACHE) ? JSON.parse(readFileSync(CACHE, "utf8")) : {};
+let asked = 0;
+
 async function lookup(q) {
+  if (cache[q]) return cache[q];
+  if (asked++) await new Promise((r) => setTimeout(r, 1100)); // Nominatim: one request a second
   const url = `${NOMINATIM}?${new URLSearchParams({ q, format: "jsonv2", limit: "1", countrycodes: COUNTRIES, addressdetails: "1" })}`;
   const res = await fetch(url, { headers: { "user-agent": "little-outings place pins (+https://outings.allo.land)" } });
   if (!res.ok) throw new Error(`Nominatim ${res.status}`);
-  return (await res.json())[0] ?? null;
+  const hit = (await res.json())[0] ?? null;
+  // Only what geoLine reads; a miss isn't kept, so a fixed address is found on the next build.
+  if (hit) cache[q] = { lat: hit.lat, lon: hit.lon, address: { house_number: hit.address?.house_number } };
+  return hit;
 }
 
 const files = (dir) => (existsSync(dir) ? readdirSync(dir).filter((f) => f.endsWith(".yaml")).sort().map((f) => join(dir, f)) : []);
-let asked = 0;
 
 /** The first query that finds something, as a geo line, or null. */
 async function pin(queries) {
   for (const { q, precision } of queries) {
-    if (asked++) await new Promise((r) => setTimeout(r, 1100)); // Nominatim: one request a second
     const line = geoLine(await lookup(q), precision);
     if (line) return line;
   }
@@ -96,7 +105,8 @@ async function main() {
       console.log(`${path}: ${err.message}`);
     }
   }
-  console.log(`Pinned ${pinned} parent-suggested places and events${missed ? `, ${missed} still without a pin` : ""}.`);
+  if (CACHE) writeFileSync(CACHE, JSON.stringify(cache, null, 1) + "\n");
+  console.log(`Pinned ${pinned} parent-suggested places and events (${asked} asked Nominatim)${missed ? `, ${missed} still without a pin` : ""}.`);
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) await main();

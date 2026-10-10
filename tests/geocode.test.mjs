@@ -60,3 +60,17 @@ test("eventQueries asks for the venue in its town, then the town", () => {
   assert.deepEqual(eventQueries({ venue: "Pfarrheim" }), []);
   assert.match(geoLine({ lat: "50.9", lon: "6.4", address: { house_number: "1" } }, "area"), /precision: area/);
 });
+
+test("a cached answer pins without asking Nominatim", async () => {
+  const { mkdtempSync, mkdirSync, writeFileSync, readFileSync } = await import("node:fs");
+  const { tmpdir } = await import("node:os");
+  const { join, resolve } = await import("node:path");
+  const { execFileSync } = await import("node:child_process");
+  const dir = mkdtempSync(join(tmpdir(), "pins-"));
+  mkdirSync(join(dir, "content/places/community"), { recursive: true });
+  writeFileSync(join(dir, "content/places/community/inbox-1.yaml"), "name: Hof\naddress:\n  street: Steinpfahl 4a\n  town: Merzenich\n");
+  writeFileSync(join(dir, "pins.json"), JSON.stringify({ "Steinpfahl 4a, Merzenich": { lat: "50.8", lon: "6.5", address: { house_number: "4a" } } }));
+  const out = execFileSync("node", [resolve("scripts/geocode-places.mjs")], { cwd: dir, env: { ...process.env, PINS_CACHE: join(dir, "pins.json") } }).toString();
+  assert.match(out, /Pinned 1 .*\(0 asked Nominatim\)/);
+  assert.match(readFileSync(join(dir, "content/places/community/inbox-1.yaml"), "utf8"), /geo: \{ lat: 50\.800000, lon: 6\.500000, precision: exact \}/);
+});
