@@ -29,7 +29,20 @@ export function resolveGeo(geo: Raw | undefined, town: string | undefined, towns
   return { precision: "unknown" };
 }
 
+/**
+ * Parents often type the whole address as the street ("Steinpfahl 4a, 52399 Merzenich"), and the
+ * town has its own field, so the page read "…Merzenich, Merzenich". Moves a trailing postcode and
+ * town out of the street.
+ */
+export function splitStreet(street: string | undefined, postcode?: string): { street?: string; postcode?: string } {
+  const parts = String(street ?? "").split(",").map((s) => s.trim()).filter(Boolean);
+  const m = parts.length > 1 ? /^(?:D-)?(\d{5})\s+\S/.exec(parts[parts.length - 1]) : null;
+  if (!m) return { street, postcode };
+  return { street: parts.slice(0, -1).join(", "), postcode: postcode ?? m[1] };
+}
+
 export function normalizePlace(id: string, raw: Raw, answer: Raw | undefined, towns: Town[]): Place {
+  const { street, postcode } = splitStreet(raw.address.street, raw.address.postcode);
   const facilities = { ...(raw.facilities ?? {}) };
   for (const [f, v] of Object.entries((answer?.facilities ?? {}) as Raw)) facilities[f] = v;
   return {
@@ -38,8 +51,8 @@ export function normalizePlace(id: string, raw: Raw, answer: Raw | undefined, to
     kind: raw.kind,
     name: raw.name,
     town: raw.address.town,
-    street: raw.address.street,
-    postcode: raw.address.postcode,
+    street,
+    postcode,
     geo: resolveGeo(answer?.geo ?? raw.geo, raw.address.town, towns),
     hours: answer?.hours ?? raw.hours,
     ages: raw.ages,

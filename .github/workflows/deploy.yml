@@ -43,6 +43,8 @@ jobs:
         run: npm run import:cityklub
       - name: Import places (OpenStreetMap, farms)
         run: npm run import:places
+      - name: Pin parents' places (Nominatim)
+        run: npm run geocode:places
       - name: Count parents' answers from the inbox
         env:
           INBOX_REPO: ${{ vars.INBOX_REPO }}
