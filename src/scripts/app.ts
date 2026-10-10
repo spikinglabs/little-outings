@@ -317,6 +317,8 @@ if ("serviceWorker" in navigator && !import.meta.env.DEV) {
 }
 const standalone = matchMedia("(display-mode: standalone)").matches || (navigator as { standalone?: boolean }).standalone === true;
 const ios = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+// iPhones open the place in Apple Maps; everyone else gets Google's universal link.
+if (ios) for (const a of document.querySelectorAll<HTMLAnchorElement>("a[data-apple-maps]")) a.href = a.dataset.appleMaps!;
 const installBox = document.querySelector<HTMLElement>("[data-install]");
 const installBtn = document.querySelector<HTMLButtonElement>("[data-install-btn]");
 let installPrompt: InstallEvent | null = null;

@@ -38,8 +38,7 @@ paid: Paid entry
 trust: { parents: { one: "1 answer from parents", other: "{n} answers from parents" }, base: "Basics from {source}", verified: "✓ Checked", official: Official source, community: "Reported by parents, not checked yet", from: "From {source}, not checked yet" }
 save: Save
 saved: Saved
-route: Get directions
-mapSearch: Search on the map
+openMaps: Open in Maps
 until: to
 locPill: { venue: Approximate location, area: Town only }
 locNote: { venue: "The pin is only approximate.", area: "All we know: somewhere in {town}.", unknown: "The location is still missing." }

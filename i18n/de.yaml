@@ -38,8 +38,7 @@ paid: Kostenpflichtig
 trust: { parents: { one: "1 Antwort von Eltern", other: "{n} Antworten von Eltern" }, base: "Grunddaten: {source}", verified: "✓ Geprüft", official: Offizielle Quelle, community: "Von Eltern gemeldet, noch nicht geprüft", from: "Aus {source}, noch nicht geprüft" }
 save: Merken
 saved: Gemerkt
-route: Route planen
-mapSearch: Auf der Karte suchen
+openMaps: In Karten öffnen
 until: bis
 locPill: { venue: Ort ungefähr, area: Nur Stadt bekannt }
 locNote: { venue: "Der Ort ist nur ungefähr auf der Karte.", area: "Wir wissen nur: irgendwo in {town}.", unknown: "Der Ort fehlt noch." }
