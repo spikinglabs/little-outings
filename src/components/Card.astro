@@ -3,7 +3,8 @@
 import Stamp from "./Stamp.astro";
 import { tr, type T } from "../lib/i18n";
 import { ageText, dateRange, germanName, isFarm, isFree, nameOf, parentInput, pathFor, townName } from "../lib/format";
-import { icon, ROW } from "../lib/icons";
+import { icon } from "../lib/icons";
+import { rowFor } from "../lib/features";
 import { getData } from "../lib/data";
 import type { Item } from "../lib/types";
 
@@ -60,9 +61,10 @@ const search = [
     {german && <div class="de-name" lang="de">{german}</div>}
     <div class="meta">{meta}<span data-km></span>{item.type === "place" && item.rating && ` · ★ ${item.rating.stars.toLocaleString(t.locale)}`}</div>
     {item.type === "place" && (
-      // One digit per facility in ROW (1 = yes); app.ts draws the icons once the card is on screen.
+      // One digit per facility in the kind's row (1 = yes); app.ts draws the icons once the card is on screen.
       // Thousands of cards each carrying seven labelled icons made every list page heavy.
-      <div class="frow" data-fac={ROW.map((f) => (facilities[f]?.status === "yes" ? "1" : "0")).join("")} />
+      <div class="frow" data-row={place!.kind === "playground" ? "play" : undefined}
+        data-fac={rowFor(place!.kind).map((f) => (facilities[f]?.status === "yes" ? "1" : "0")).join("")} />
     )}
     <div class="pills">
       {speech && <span class:list={["pill", "speech", speech]}>{guessed ? t("speechGuess", { s: t(`speech.${speech}`) }) : t(`speech.${speech}`)}</span>}

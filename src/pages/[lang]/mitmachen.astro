@@ -5,7 +5,8 @@ import Base from "../../layouts/Base.astro";
 import GapForm from "../../components/GapForm.astro";
 import Contribute from "../../islands/Contribute";
 import SuggestPlace from "../../islands/SuggestPlace";
-import { FEATURES, KINDS } from "../../content.config";
+import { KINDS } from "../../content.config";
+import { featuresFor } from "../../lib/features";
 import { KIND_ICON, UI_ICON, svg } from "../../lib/icons";
 import { LANGS, useT, type Lang } from "../../lib/i18n";
 import { getData, getTasks } from "../../lib/data";
@@ -47,7 +48,7 @@ const placeUi = Object.fromEntries(placeKeys.map((k) => [k, t(k)]));
   <Contribute client:visible lang={lang} ui={ui} />
   <SuggestPlace client:visible lang={lang} ui={placeUi}
     kinds={KINDS.map((k) => [k, t(`kinds.${k}`)])}
-    features={FEATURES.map((f) => [f, t(`features.${f}`)])}
+    features={Object.fromEntries(KINDS.map((k) => [k, featuresFor(k).map((f) => [f, t(`features.${f}`)])]))}
     towns={suggestTowns as [string, string][]} />
 
   <section class="section">

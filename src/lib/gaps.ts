@@ -6,7 +6,7 @@ import type { Event, Gap, Item, Place } from "./types.ts";
 const ASK: Record<string, string[]> = {
   cafe: ["changing_table", "highchairs", "kids_menu", "playground"],
   farm: ["toilets", "changing_table", "playground", "stroller_friendly"],
-  playground: ["toilets", "stroller_friendly", "parking"],
+  playground: ["sandpit", "toddler_area", "shade", "toilets"],
   park: ["toilets", "stroller_friendly", "playground"],
   museum: ["changing_table", "stroller_friendly", "toilets"],
   pool: ["changing_table", "parking", "toilets"],

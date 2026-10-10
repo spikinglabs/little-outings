@@ -122,7 +122,7 @@ tasksLater: "Später"
 tasksCount: { one: "{n} Ausflug", other: "{n} Ausflüge" }
 tasksNone: "Nichts gefunden. Versucht ein anderes Wort oder zeigt alles an."
 kinds: { playground: Spielplatz, indoor: Indoorspielplatz, park: "Parks & Gärten", zoo: "Zoo & Tiere", farm: Bauernhof, pool: "Bad & Badesee", museum: Museum, cafe: Familiencafé, fun: "Freizeit- & Kletterpark" }
-features: { playground: Spielplatz, changing_table: Wickeltisch, highchairs: Hochstühle, kids_menu: Kinderkarte, toys: "Spielzeug & Mitgebsel", animals: Tiere, stroller_friendly: Kinderwagen-tauglich, nursing_room: Stillecke, indoor_play: Spielecke drinnen, toilets: Toiletten, farm_shop: Hofladen, parking: Parkplatz }
+features: { playground: Spielplatz, changing_table: Wickeltisch, highchairs: Hochstühle, kids_menu: Kinderkarte, toys: "Spielzeug & Mitgebsel", animals: Tiere, stroller_friendly: Kinderwagen-tauglich, nursing_room: Stillecke, indoor_play: Spielecke drinnen, toilets: Toiletten, farm_shop: Hofladen, parking: Parkplatz, sandpit: Sandkasten, water_play: Wasserspiel, swings: Schaukeln, slides: Rutschen, climbing: Klettern, toddler_area: Kleinkindbereich, shade: Schatten, benches: Bänke, fenced: Eingezäunt }
 tags: { fest: Fest, animals: Tiere, market: Markt, diy: Mitmachen, season: Saison, reading: Vorlesen, music: Musik, outside: Draußen, stage: "Theater & Kino", sport: "Sport & Bewegung", tour: "Museum & Führung", parents: "Für Eltern", learn: "Kurse & Sprachen", other: Sonstiges }
 empty: Hier ist noch nichts eingetragen. Kennt ihr etwas? Unter „Mitmachen“ könnt ihr es melden.
 install: { button: "App installieren", hint: "Little Outings lässt sich wie eine App auf den Startbildschirm legen.", hintIos: "Teilen antippen, dann „Zum Home-Bildschirm“, um Little Outings wie eine App zu nutzen.", short: Installieren, dismiss: Ausblenden, menu: "Im Browser-Menü „App installieren“ oder „Zum Startbildschirm hinzufügen“ wählen.", installed: "Little Outings ist auf diesem Gerät schon installiert. Öffne es über den Startbildschirm oder die App-Liste." }
@@ -207,6 +207,15 @@ chipAsk:
     toilets: "Gibt es Toiletten?"
     farm_shop: "Gibt es einen Hofladen?"
     parking: "Gibt es Parkplätze?"
+    sandpit: "Gibt es einen Sandkasten?"
+    water_play: "Gibt es eine Wasserspielstelle?"
+    swings: "Gibt es Schaukeln?"
+    slides: "Gibt es eine Rutsche?"
+    climbing: "Gibt es etwas zum Klettern?"
+    toddler_area: "Gibt es einen Bereich für Kleinkinder?"
+    shade: "Gibt es Schatten?"
+    benches: "Gibt es Bänke?"
+    fenced: "Ist der Platz eingezäunt?"
 mine:
   title: Meins
   sub: "Eure Merkliste, was ihr uns geschickt habt, und euer Profil. Ohne Anmeldung."

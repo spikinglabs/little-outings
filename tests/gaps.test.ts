@@ -48,3 +48,11 @@ test("tasks: soon events first, places after, past events never", () => {
   const ids = tasksOf([past, soon], [farm], "2026-10-08").map((t) => t.id);
   assert.deepEqual(ids, ["soon", "hof"]);
 });
+
+test("a playground asks about playground things, not high chairs", async () => {
+  const { featuresFor, askOnPage } = await import("../src/lib/features.ts");
+  assert.ok(featuresFor("playground").includes("sandpit"));
+  assert.ok(!featuresFor("playground").includes("highchairs"));
+  assert.ok(featuresFor("cafe").includes("highchairs"));
+  assert.deepEqual(askOnPage("playground"), featuresFor("playground"));
+});

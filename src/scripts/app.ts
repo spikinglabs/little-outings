@@ -3,7 +3,7 @@ import { KEYS, rememberSent } from "../lib/profile";
 import { pullNowAndThen, schedulePush } from "./sync";
 
 const body = document.body;
-const ui = JSON.parse(body.dataset.ui || "{}") as Record<string, string> & { fac?: [string, string][] };
+const ui = JSON.parse(body.dataset.ui || "{}") as Record<string, string> & { fac?: [string, string][]; facPlay?: [string, string][] };
 const towns = new Map<string, [number, number]>(
   (JSON.parse(body.dataset.towns || "[]") as [string, number, number][]).map(([n, la, lo]) => [n, [la, lo]]),
 );
@@ -25,8 +25,8 @@ export function markSaved(root: ParentNode = document) {
 }
 /** Draws the facility icons of place cards from their data-fac digits (one per facility, 1 = yes). */
 function fillRows(root: ParentNode) {
-  const fac = ui.fac || [];
   root.querySelectorAll<HTMLElement>(".frow[data-fac]").forEach((row) => {
+    const fac = (row.dataset.row === "play" ? ui.facPlay : ui.fac) || [];
     const bits = row.dataset.fac!;
     row.removeAttribute("data-fac");
     row.replaceChildren(...fac.map(([key, name], i) => {

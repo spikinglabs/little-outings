@@ -24,7 +24,8 @@ type Ctx = { request: Request; env: Env };
 
 // Same lists as src/content.config.ts (functions can't import Astro's zod config).
 const FEATURES = ["playground", "changing_table", "highchairs", "kids_menu", "toys", "animals", "stroller_friendly",
-  "nursing_room", "indoor_play", "toilets", "farm_shop", "parking"];
+  "nursing_room", "indoor_play", "toilets", "farm_shop", "parking",
+  "sandpit", "water_play", "swings", "slides", "climbing", "toddler_area", "shade", "benches", "fenced"];
 const LANGUAGE = ["none", "en", "de"];
 const GOOD_FOR = ["toddlers", "bigKids", "rainy", "longVisit", "quickHour", "friends"];
 /** Taps one connection may send per hour; a family answering every chip on a few places stays far below. */
