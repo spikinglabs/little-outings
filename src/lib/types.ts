@@ -38,6 +38,10 @@ export interface Place {
   names?: { zh?: string };
   town: string;
   street?: string;
+  /** Nearest road, when there is no street address. */
+  near?: string;
+  /** Stadtteil, e.g. "Neustadt-Süd". */
+  district?: string;
   postcode?: string;
   geo: Geo;
   hours?: Text;

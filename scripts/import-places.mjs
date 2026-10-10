@@ -7,6 +7,7 @@
 import { readFileSync, readdirSync, writeFileSync, mkdirSync, unlinkSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import { dump, load } from "js-yaml";
+import { keyOf } from "./osm-streets.mjs";
 
 const FARM_SOURCES = new Set(["landservice-nrw-farm-events", "gut-hixholz-farm-events"]);
 const OSM = { level: "community", source: "OpenStreetMap" };
@@ -16,12 +17,13 @@ const fold = (s) => String(s ?? "").toLowerCase().replace(/ä/g, "ae").replace(/
 const slug = (s) => fold(s).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 60);
 const jsonl = (path) => (existsSync(path) ? readFileSync(path, "utf8").split("\n").filter((l) => l.trim()).map((l) => JSON.parse(l)) : []);
 
-/** One OSM row → one place in the site's place schema. */
-export function placeFromOsm(row) {
+/** One OSM row → one place in the site's place schema. geo: its Nominatim answer, if any. */
+export function placeFromOsm(row, geo = {}) {
   const data = {
     kind: row.kind,
     name: row.name,
-    address: { street: row.street, postcode: row.postcode, town: row.town },
+    // No address tags (most playgrounds): the nearest road stands in, shown as "near …".
+    address: { street: row.street, near: row.street ? undefined : geo.road, district: geo.district, postcode: row.postcode ?? geo.postcode, town: row.town },
     geo: { lat: row.lat, lon: row.lon, precision: "exact" },
     hours: row.hours,
     indoor: row.indoor,
@@ -82,7 +84,9 @@ async function main() {
   const root = process.env.CONTENT_DIR || "content";
   const hiddenFile = join(root, "hidden-places.yaml");
   const hidden = new Set(existsSync(hiddenFile) ? load(readFileSync(hiddenFile, "utf8")) || [] : []);
-  const osm = jsonl(process.env.OSM_FILE || "data/places-osm.jsonl").map(placeFromOsm);
+  const geoFile = process.env.GEOCODE_FILE || "data/places-geocode.json";
+  const geo = existsSync(geoFile) ? JSON.parse(readFileSync(geoFile, "utf8")) : {};
+  const osm = jsonl(process.env.OSM_FILE || "data/places-osm.jsonl").map((row) => placeFromOsm(row, geo[keyOf(row)]));
   const farms = farmsFromEvents(jsonl(process.env.OUTINGS_FILE || "data/outings.jsonl"), osm);
   const out = join(root, "places", "imported");
   mkdirSync(out, { recursive: true });

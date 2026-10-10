@@ -77,6 +77,8 @@ export function normalizePlace(id: string, raw: Raw, answer: Raw | undefined, to
     name: raw.name,
     town: raw.address.town,
     street,
+    near: raw.address.near,
+    district: raw.address.district,
     postcode,
     geo: resolveGeo(answer?.geo ?? raw.geo, raw.address.town, towns),
     hours: answer?.hours ?? raw.hours,

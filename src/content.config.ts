@@ -48,7 +48,11 @@ const price = z.object({ free: z.boolean(), text: text.optional() });
 export const placeSchema = z.object({
   kind: z.enum(KINDS),
   name: z.string().min(1),
-  address: z.object({ street: z.string().optional(), postcode: z.string().optional(), town: z.string().min(1) }),
+  // near: the nearest road when the place has no street address; district: the Stadtteil.
+  address: z.object({
+    street: z.string().optional(), near: z.string().optional(), district: z.string().optional(),
+    postcode: z.string().optional(), town: z.string().min(1),
+  }),
   geo: geo.default({}),
   hours: text.optional(),
   ages: ages.optional(),

@@ -35,8 +35,6 @@ export const FEATURE_ICON: Record<string, string> = {
   fenced: '<path d="M5 21V7l2-3 2 3v14M15 21V7l2-3 2 3v14"/><path d="M3 11h18M3 17h18"/>',
 };
 
-export { ROW } from "./features";
-
 export const UI_ICON: Record<string, string> = {
   explore: '<circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/>',
   map: '<path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/>',

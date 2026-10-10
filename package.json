@@ -13,6 +13,7 @@
     "import:places": "node scripts/import-places.mjs",
     "geocode:places": "node scripts/geocode-places.mjs",
     "fetch:osm": "node scripts/fetch-osm-places.mjs",
+    "streets:places": "node scripts/osm-streets.mjs",
     "tally:inbox": "node scripts/tally-inbox.mjs",
     "translate": "node scripts/translate.mjs",
     "find:venues": "node scripts/find-venues.mjs",

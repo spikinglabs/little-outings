@@ -133,6 +133,7 @@ install: { button: "安装应用", hint: "可以把小出游添加到主屏幕�
 footer: 所有信息仅供参考，出发前请向主办方确认。
 byLine: "小出游是 {maker} 的产品。"
 dataFrom: "部分数据来自 {sources}。"
+nearStreet: "{street}附近"
 back: 返回
 km: "{d} 公里"
 untilShort: 至
