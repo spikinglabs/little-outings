@@ -50,7 +50,7 @@ const mapLabels = {
 const description = t("homeDescription", { events: listed.length, places: places.length });
 const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
 ---
-<Base lang={lang} tab="explore" description={description} ld={siteLd({ url: `${site}/${lang}/`, name: t("siteName"), description, lang, maker: MAKER_URL })}>
+<Base lang={lang} tab="explore" preload={`/${lang}/ideen/`} description={description} ld={siteLd({ url: `${site}/${lang}/`, name: t("siteName"), description, lang, maker: MAKER_URL })}>
   <section class="ask">
     <h1 set:html={t("ask", { when: `<span data-when-word>${whenIn.weekend}</span>` })} />
     <label class="search">

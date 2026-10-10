@@ -70,8 +70,19 @@ let loaded = false;
 async function loadPool() {
   try {
     const res = await fetch(pool.dataset.src!);
-    if (!res.ok) throw new Error(String(res.status));
-    pool.innerHTML = await res.text();
+    if (!res.ok || !res.body) throw new Error(String(res.status));
+    // Parsed piece by piece as it downloads (like the page itself), not all at once at the end.
+    const doc = document.implementation.createHTMLDocument("");
+    doc.open();
+    const text = new TextDecoder();
+    for (const reader = res.body.getReader(); ;) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      doc.write(text.decode(value, { stream: true }));
+    }
+    doc.write(text.decode());
+    doc.close();
+    pool.content.append(...doc.body.children);
   } catch {
     $("[data-loading]").textContent = ui.loadFail;
     return;
