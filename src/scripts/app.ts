@@ -211,9 +211,20 @@ const markAsked = (key: string, a: string) => {
   const all = asked(); all[key] = a;
   write("lo-asked", JSON.stringify(Object.fromEntries(Object.entries(all).slice(-1000))));
 };
+const forget = (key: string) => {
+  const all = asked(); delete all[key];
+  write("lo-asked", JSON.stringify(all));
+};
 const showSaid = (b: HTMLElement, a: string) => {
+  const sub = b.querySelector<HTMLElement>("[data-ask-sub]")!;
+  if (!b.classList.contains("said")) sub.dataset.before = sub.textContent ?? "";
   b.classList.add("said");
-  b.querySelector("[data-ask-sub]")!.textContent = ui.askYou.replace("{a}", ui[a] ?? a);
+  sub.textContent = ui.askYou.replace("{a}", ui[a] ?? a);
+};
+const unsaid = (b: HTMLElement) => {
+  const sub = b.querySelector<HTMLElement>("[data-ask-sub]")!;
+  b.classList.remove("said");
+  sub.textContent = sub.dataset.before ?? "";
 };
 if (sheet) {
   const chips = [...document.querySelectorAll<HTMLButtonElement>("button[data-ask]")];
@@ -223,9 +234,14 @@ if (sheet) {
   const buttons = sheet.querySelector<HTMLElement>("[data-ask-buttons]")!;
   const done = sheet.querySelector<HTMLElement>("[data-ask-done]")!;
   let current: HTMLButtonElement | null = null;
+  const answerButtons = [...buttons.querySelectorAll<HTMLButtonElement>("button[value]")];
   const ask = (b: HTMLButtonElement, lead = "") => {
     current = b;
     q.textContent = b.dataset.q!;
+    // Your earlier answer shows pressed; tapping it again takes it back.
+    const said = asked()[b.dataset.ask!];
+    answerButtons.forEach((x) => x.setAttribute("aria-pressed", String(x.value === said)));
+    if (said && !lead) lead = ui.askAgain.replace("{a}", ui[said] ?? said);
     done.textContent = lead;
     done.hidden = !lead;
     buttons.hidden = false;
@@ -236,8 +252,11 @@ if (sheet) {
   type Votes = { yes: number; no: number };
   const item = chips[0]?.dataset.ask!.split(":")[0];
   const showVotes = (b: HTMLButtonElement, v: Votes) => {
-    if (v.yes + v.no === 0) return;
-    if (!b.classList.contains("said")) b.querySelector("[data-ask-sub]")!.textContent = ui.askVotes.replace("{y}", String(v.yes)).replace("{n}", String(v.no));
+    const sub = b.querySelector<HTMLElement>("[data-ask-sub]")!;
+    const text = v.yes + v.no === 0 ? "" : ui.askVotes.replace("{y}", String(v.yes)).replace("{n}", String(v.no));
+    // With no votes left (say, after the only one was taken back) a sourced chip keeps what the page said.
+    if (b.classList.contains("said")) sub.dataset.before = text || (b.dataset.open == null ? sub.dataset.before ?? "" : "");
+    else if (text || b.dataset.open != null) sub.textContent = text;
     if (b.dataset.open == null) return;
     const status = v.yes > v.no ? "yes" : v.no > v.yes ? "no" : "unknown";
     b.closest("li")!.className = status;
@@ -245,8 +264,8 @@ if (sheet) {
   };
   const refreshCounts = () => {
     if (!item) return;
-    fetch(`/api/taps?item=${item}`, { cache: "no-store" }).then((r) => (r.ok ? r.json() : {})).then((c: { fac?: Record<string, Votes> }) => {
-      chips.forEach((b) => { const v = c.fac?.[b.dataset.ask!.split(":")[2]]; if (v) showVotes(b, v); });
+    fetch(`/api/taps?item=${item}`, { cache: "no-store" }).then((r) => (r.ok ? r.json() : null)).then((c: { fac?: Record<string, Votes> } | null) => {
+      if (c) chips.forEach((b) => showVotes(b, c.fac?.[b.dataset.ask!.split(":")[2]] ?? { yes: 0, no: 0 }));
     }).catch(() => { /* counts are a nicety */ });
   };
   refreshCounts();
@@ -257,6 +276,17 @@ if (sheet) {
     const a = ((ev as SubmitEvent).submitter as HTMLButtonElement | null)?.value;
     if (!a || !current) return;
     const [item, , feature] = current.dataset.ask!.split(":");
+    if (asked()[current.dataset.ask!] === a) {
+      // A second tap on your answer takes it back.
+      if (!(await undoTap({ kind: "fac", item, feature }))) { buttons.hidden = true; q.textContent = ""; done.textContent = ui.inboxSoon; done.hidden = false; return; }
+      forget(current.dataset.ask!);
+      unsaid(current);
+      refreshCounts();
+      answerButtons.forEach((x) => x.setAttribute("aria-pressed", "false"));
+      done.textContent = ui.askUndone;
+      done.hidden = false;
+      return;
+    }
     const ok = await sendTap({ kind: "fac", item, feature, answer: a },
       { kind: "answer", gap: current.dataset.ask, answer: a, lang: body.dataset.lang });
     if (!ok) { buttons.hidden = true; q.textContent = ""; done.textContent = ui.inboxSoon; done.hidden = false; return; }
@@ -292,7 +322,16 @@ if (langAsk) {
   chips.forEach((b) => b.addEventListener("click", async () => {
     const a = b.dataset.langAnswer!;
     const before = asked()[key];
-    if (before === a) return;
+    if (before === a) {
+      // A second tap on your answer takes it back.
+      if (!(await undoTap({ kind: "lang", item }))) { note.textContent = ui.inboxSoon; return; }
+      forget(key);
+      press("");
+      counts = { ...counts, [a]: Math.max(0, (counts[a] ?? 1) - 1) };
+      show(counts);
+      note.textContent = ui.langUndone;
+      return;
+    }
     const ok = await sendTap({ kind: "lang", item, answer: a }, { kind: "answer", gap: key, answer: a, lang: body.dataset.lang });
     if (!ok) { note.textContent = ui.inboxSoon; return; }
     markAsked(key, a);
@@ -317,6 +356,14 @@ export async function sendTap(tap: Record<string, unknown>, inboxPayload: Record
     if (res.status !== 503 && res.status !== 404 && res.status !== 405) return res.ok;
   } catch { /* fall through */ }
   return sendToInbox(inboxPayload);
+}
+
+/** Takes this browser's answer back in the counting store. Only D1 can do that; the inbox can't. */
+async function undoTap(tap: Record<string, unknown>): Promise<boolean> {
+  try {
+    const res = await fetch("/api/taps", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ ...tap, undo: true, voter: voter() }) });
+    return res.ok;
+  } catch { return false; }
 }
 
 /** Posts to the Cloudflare inbox function. Returns false while the inbox isn't set up. */

@@ -57,7 +57,7 @@ parentsSay: "家长评价 · ★ {r}（{n} 条评价）"
 onPoster: 海报上的德文名称
 speech: { none: 无需德语, en: 有英语, de: 主要说德语 }
 speechGuess: "{s}？"
-speechAsk: { title: 需要会德语吗？, guess: 这是根据活动标题猜的。去过的话，点一下正确的选项。, parents: "{n} 位家长这样说。去过的话，点一下正确的选项。", unknown: 还不清楚。去过的话，点一下正确的选项。, thanks: 谢谢！其他家长会看到。 }
+speechAsk: { title: 需要会德语吗？, guess: 这是根据活动标题猜的。去过的话，点一下正确的选项。, parents: "{n} 位家长这样说。去过的话，点一下正确的选项。", unknown: 还不清楚。去过的话，点一下正确的选项。, thanks: "谢谢！其他家长会看到。再点一次可以撤回。", undone: "已撤回你的回答。" }
 machine: 机器翻译
 translated: 译自德文。
 gapsTitle: 尚缺信息
@@ -193,6 +193,8 @@ chipAsk:
   next: "谢谢！再答一个？"
   thanks: "谢谢！这能帮到下一个家庭。"
   you: "你的回答：{a}"
+  again: "你的回答：{a}（再点一次可以撤回）"
+  undone: "已撤回你的回答。"
   close: 关闭
   q:
     playground: "那里有游乐场吗？"

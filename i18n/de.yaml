@@ -57,7 +57,7 @@ parentsSay: "Eltern sagen · ★ {r} aus {n} Bewertungen"
 onPoster: Auf dem Plakat
 speech: { none: Ohne Deutsch, en: Auf Englisch, de: Viel Deutsch }
 speechGuess: "{s}?"
-speechAsk: { title: "Braucht man Deutsch?", guess: "Aus dem Titel geschätzt. Wart ihr dort? Tippt an, was stimmt.", parents: "So sagen {n} Eltern. Wart ihr dort? Tippt an, was stimmt.", unknown: "Noch unbekannt. Wart ihr dort? Tippt an, was stimmt.", thanks: "Danke! Andere Eltern sehen das." }
+speechAsk: { title: "Braucht man Deutsch?", guess: "Aus dem Titel geschätzt. Wart ihr dort? Tippt an, was stimmt.", parents: "So sagen {n} Eltern. Wart ihr dort? Tippt an, was stimmt.", unknown: "Noch unbekannt. Wart ihr dort? Tippt an, was stimmt.", thanks: "Danke! Andere Eltern sehen das. Nochmal tippen nimmt es zurück.", undone: "Antwort zurückgenommen." }
 machine: maschinell übersetzt
 translated: ""
 gapsTitle: Fehlt noch
@@ -193,6 +193,8 @@ chipAsk:
   next: "Danke! Noch eine?"
   thanks: "Danke! Das hilft der nächsten Familie."
   you: "Eure Antwort: {a}"
+  again: "Eure Antwort: {a} · nochmal tippen nimmt sie zurück"
+  undone: "Antwort zurückgenommen."
   close: Schließen
   q:
     playground: "Gibt es einen Spielplatz?"

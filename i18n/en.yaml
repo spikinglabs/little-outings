@@ -57,7 +57,7 @@ parentsSay: "Parents say · ★ {r} from {n} reviews"
 onPoster: On the poster
 speech: { none: No German needed, en: In English, de: Mostly German }
 speechGuess: "{s}?"
-speechAsk: { title: "Do you need German?", guess: "Guessed from the title. Been there? Tap what's right.", parents: "What {n} parents say. Been there? Tap what's right.", unknown: "Not known yet. Been there? Tap what's right.", thanks: "Thanks! Other parents will see this." }
+speechAsk: { title: "Do you need German?", guess: "Guessed from the title. Been there? Tap what's right.", parents: "What {n} parents say. Been there? Tap what's right.", unknown: "Not known yet. Been there? Tap what's right.", thanks: "Thanks! Other parents will see this. Tap it again to take it back.", undone: "Answer taken back." }
 machine: machine-translated
 translated: Translated from German.
 gapsTitle: Still missing
@@ -193,6 +193,8 @@ chipAsk:
   next: "Thanks! One more?"
   thanks: "Thanks! That helps the next family."
   you: "You said: {a}"
+  again: "You said: {a} · tap it again to take it back"
+  undone: "Answer taken back."
   close: Close
   q:
     playground: "Is there a playground?"
