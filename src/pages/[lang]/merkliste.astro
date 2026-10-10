@@ -13,7 +13,7 @@ const t = useT(lang);
 const m = (k: string) => t(`mine.${k}`);
 const { events, places } = await getData();
 ---
-<Base lang={lang} title={m("title")} tab="saved">
+<Base lang={lang} title={m("title")} tab="saved" noindex>
   <h1 class="page-title">{m("title")}</h1>
   <p class="page-sub">{m("sub")}</p>
   <div class="shared" data-shared hidden>

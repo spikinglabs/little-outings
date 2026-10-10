@@ -10,7 +10,7 @@ const t = useT(lang);
 const p = (k: string) => t(`profile.${k}`);
 const ui = { ...t.group("profile"), count: t.group("profile.count") };
 ---
-<Base lang={lang} title={p("title")} tab="saved">
+<Base lang={lang} title={p("title")} tab="saved" noindex>
   <a class="back-link" href={`/${lang}/merkliste/`}>← {t("mine.back")}</a>
   <h1 class="page-title">{p("title")}</h1>
   <p class="page-sub">{p("sub")}</p>
