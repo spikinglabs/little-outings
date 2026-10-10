@@ -34,6 +34,12 @@ const whenKeys = ["today", "tomorrow", "weekend", "soon"];
 const whenIn = t.group("whenIn");
 const pluralUi = { nEvents: t.group("nEvents"), nPlaces: t.group("nPlacesAny"), tip: t("tip"), whenIn, mapShow: t("mapShow"), mapHide: t("mapHide"), areaBack: t("mapAreaBack"), showMore: t("mapShowMore"), locNone: t("locNone") };
 const homes = region.towns;
+// Town picker rows, A–Z in the reader's language (Düsseldorf next to Dortmund, 杜塞尔多夫 by pinyin).
+// keys: every name a parent might type, lowercased and without accents (koln finds Köln, 科隆 finds it too).
+const fold = (s: string) => s.normalize("NFD").replace(/\p{M}/gu, "").replace(/ß/g, "ss").toLowerCase();
+const collator = new Intl.Collator(t.locale);
+const towns = homes.map((h) => ({ name: h.name, label: townName(h.name, lang, homes), keys: [h.name, h.en, h.zh].filter(Boolean).map((x) => fold(x!)).join("|") }))
+  .sort((a, b) => collator.compare(a.label, b.label));
 // The map shows whatever the filters show (explore.ts tells it which ids).
 const mapLabels = { ...(t.group("nEvents") as { one: string; other: string }), more: t("mapMore") };
 ---
@@ -49,11 +55,7 @@ const mapLabels = { ...(t.group("nEvents") as { one: string; other: string }), m
       {whenKeys.map((k) => <button type="button" data-when={k} aria-pressed={k === "weekend" ? "true" : "false"}>{t(`when.${k}`)}</button>)}
     </div>
     <div class="filters" role="group">
-      <label class="chip">📍 {t("near")}
-        <select id="home" aria-label={t("near")}>
-          {homes.map((h) => <option value={h.name} selected={h.name === region.center}>{townName(h.name, lang, homes)}</option>)}
-        </select>
-      </label>
+      <button class="chip town-btn" type="button" id="home" value={region.center} aria-haspopup="dialog">📍 {t("near")} <b data-home-name>{townName(region.center, lang, homes)}</b><span class="caret" aria-hidden="true">▾</span></button>
       <button class="chip loc" type="button" data-locate aria-label={t("locate")} title={t("locate")}><Fragment set:html={svg(UI_ICON.locate, 'stroke-width="2"')} /></button>
       <button class="chip rain" type="button" data-flag="rain" aria-pressed="false">{t("filters.rain")}</button>
       <button class="chip" type="button" data-flag="farm" aria-pressed="false">{t("filters.farm")}</button>
@@ -75,6 +77,23 @@ const mapLabels = { ...(t.group("nEvents") as { one: string; other: string }), m
     </div>
     <p class="loc-msg small" role="status" data-loc-msg hidden></p>
   </section>
+  <!-- The town picker: a sheet with a search box, towns A–Z in the reader's language, the current one first.
+       A plain <select> can't be searched, and on phones it showed the region file's order. -->
+  <dialog class="sheet town-sheet" data-town-sheet aria-label={t("near")} autofocus>
+    <form method="dialog">
+      <label class="search">
+        <span class="sr-only">{t("townPh")}</span>
+        <Fragment set:html={svg(UI_ICON.search, 'stroke-width="2"')} />
+        <input type="search" data-town-q placeholder={t("townPh")} autocomplete="off" enterkeyhint="go" />
+      </label>
+      <ul class="town-list" data-town-list>
+        {towns.map((h) => (
+          <li><button type="submit" value={h.name} data-town={h.name} data-keys={h.keys}>{h.label}</button></li>
+        ))}
+      </ul>
+      <p class="small" data-town-none hidden>{t("townNone")}</p>
+    </form>
+  </dialog>
 
   <div class="map-bar">
     <button class="map-btn" type="button" data-map-toggle aria-expanded="false" aria-controls="explore-map">

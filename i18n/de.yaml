@@ -9,6 +9,8 @@ ask: "Was machen wir <em>{when}</em> mit den Kindern?"
 near: Rund um
 locate: "Meinen Standort nutzen"
 locNone: "Standort hat hier nicht geklappt. Wähl bitte einen Ort."
+townPh: "Ort eintippen"
+townNone: "Kein Ort mit diesem Namen"
 search: Suche
 searchPh: Hof, Café, Spielplatz oder Fest suchen
 filters: { farm: "🚜 Bauernhof", rain: "☂ Bei Regen", free: Kostenlos, animals: Mit Tieren, changing: Wickeltisch, nogerman: Ohne Deutsch, age: Alter, ageAll: alle, radius: Umkreis }
