@@ -12,7 +12,7 @@
 // A new event or place may carry `key`, a random secret the sender's browser keeps. Only its SHA-256
 // goes into the issue, and PUT /api/inbox with the same key changes it later (see onRequestPut).
 
-interface Env { GITHUB_TOKEN?: string; INBOX_REPO?: string; TURNSTILE_SECRET?: string }
+export interface Env { GITHUB_TOKEN?: string; INBOX_REPO?: string; TURNSTILE_SECRET?: string }
 type Ctx = { request: Request; env: Env };
 
 const json = (status: number, body: unknown) =>
@@ -25,9 +25,9 @@ const GOOD_FOR = ["toddlers", "bigKids", "rainy", "longVisit", "quickHour", "fri
 const TIP_TOPICS = ["bring", "bestTime", "parking", "ages", "other"];
 const yamlStr = (v: unknown, n?: number) => JSON.stringify(clip(v, n));
 const EVENT_FIELDS = ["title", "date", "time", "place", "price", "note"];
-const KEY = /^[A-Za-z0-9_-]{16,100}$/;
+export const KEY = /^[A-Za-z0-9_-]{16,100}$/;
 
-async function sha256(text: string) {
+export async function sha256(text: string) {
   const bytes = new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text)));
   return [...bytes].map((b) => b.toString(16).padStart(2, "0")).join("");
 }
@@ -56,7 +56,7 @@ function placeIssue(p: Record<string, unknown>, lang: unknown, edit?: string) {
 
 const keyHash = (key: unknown) => (typeof key === "string" && KEY.test(key) ? sha256(key) : Promise.resolve(undefined));
 
-const gh = (env: Env, path: string, init: RequestInit = {}) =>
+export const gh = (env: Env, path: string, init: RequestInit = {}) =>
   fetch(`https://api.github.com/repos/${env.INBOX_REPO}${path}`, {
     ...init,
     headers: {

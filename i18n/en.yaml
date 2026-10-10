@@ -220,6 +220,11 @@ profile:
   sentSub: "Something changed or wrong? Edit it here; we check changes before they show."
   sentEdit: "Edit"
   sentResend: "Send again"
+  statusWaiting: "Waiting for review"
+  statusChanged: "Published; your change is waiting for review"
+  statusPublished: "Published"
+  statusDeclined: "Not added"
+  seeIt: "See it"
   count:
     saved: { one: "1 saved outing", other: "{n} saved outings" }
     went: { one: "1 place you went", other: "{n} places you went" }

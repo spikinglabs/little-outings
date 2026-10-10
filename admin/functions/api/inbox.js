@@ -71,7 +71,8 @@ export async function onRequestPost({ request, env, data }) {
   }
 
   const res = body.action === "approve"
-    ? await call(`/issues/${number}/labels`, { method: "POST", body: JSON.stringify({ labels: ["approved"] }) })
+    // `published` stays when the sender edits it later, so their Profile can say the change is waiting.
+    ? await call(`/issues/${number}/labels`, { method: "POST", body: JSON.stringify({ labels: publish ? ["approved", "published"] : ["approved"] }) })
     : await call(`/issues/${number}`, {
       method: "PATCH",
       body: JSON.stringify({ state: "closed", state_reason: body.action === "done" ? "completed" : "not_planned" }),

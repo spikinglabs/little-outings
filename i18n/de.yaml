@@ -220,6 +220,11 @@ profile:
   sentSub: "Hat sich etwas geändert? Hier bearbeiten; wir prüfen Änderungen, bevor sie online gehen."
   sentEdit: "Bearbeiten"
   sentResend: "Neu senden"
+  statusWaiting: "Wartet auf Prüfung"
+  statusChanged: "Online; eure Änderung wartet auf Prüfung"
+  statusPublished: "Online"
+  statusDeclined: "Nicht aufgenommen"
+  seeIt: "Ansehen"
   count:
     saved: { one: "1 gemerkter Ausflug", other: "{n} gemerkte Ausflüge" }
     went: { one: "1 Ort, an dem ihr wart", other: "{n} Orte, an denen ihr wart" }
