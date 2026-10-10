@@ -12,6 +12,7 @@ import { ageText, germanName, nameOf, parentInput, townName } from "../../../lib
 import { FEATURES } from "../../../content.config";
 import { mapLink } from "../../../lib/maps";
 import { FEATURE_ICON, UI_ICON, svg } from "../../../lib/icons";
+import { askOnPage } from "../../../lib/features";
 import type { Place } from "../../../lib/types";
 
 export async function getStaticPaths() {
@@ -30,9 +31,12 @@ const order = { yes: 0, no: 1, unknown: 2 } as const;
 const goodFor = Object.entries(p.visits?.good_for ?? {}).filter(([, n]) => (n ?? 0) >= 2)
   .sort((a, b) => (b[1] ?? 0) - (a[1] ?? 0)).slice(0, 3)
   .map(([g]) => (lang === "en" ? t(`goodFor.${g}`).toLowerCase() : t(`goodFor.${g}`)));
+// Unknown ones only where they fit the kind: a playground asks about the sandpit, a café about high chairs.
+const ask = askOnPage(p.kind);
+const rank = (f: string) => (ask.includes(f) ? ask.indexOf(f) : ask.length);
 const facs = FEATURES.map((f) => ({ f, ...(p.facilities[f] ?? { status: "unknown" as const, confirmed: 0 }) }))
-  .filter((x) => x.status !== "unknown" || ["playground", "changing_table", "highchairs", "kids_menu", "toys", "animals", "stroller_friendly"].includes(x.f))
-  .sort((a, b) => order[a.status] - order[b.status]);
+  .filter((x) => x.status !== "unknown" || ask.includes(x.f))
+  .sort((a, b) => order[a.status] - order[b.status] || rank(a.f) - rank(b.f));
 const map = mapLink(p);
 ---
 <Base lang={lang} title={nameOf(p, lang)} description={[t(`kinds.${p.kind}`), town].join(" · ")}>

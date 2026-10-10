@@ -24,10 +24,18 @@ export const FEATURE_ICON: Record<string, string> = {
   toilets: '<path d="M7 4v16M17 4v16M4 9h6M14 9h6"/>',
   farm_shop: '<path d="M4 9h16l-1.5 11h-13z"/><path d="M8 9l4-5 4 5"/>',
   parking: '<rect x="4" y="4" width="16" height="16" rx="3"/><path d="M10 16V8h3a2.5 2.5 0 0 1 0 5h-3"/>',
+  sandpit: '<path d="M3 20h18"/><path d="M5 11h8l-1.2 6H6.2z"/><path d="M6 11c0-1.7 1.4-3 3-3s3 1.3 3 3"/><path d="M18 4v9M16.3 13h3.4L18 17z"/>',
+  water_play: '<path d="M12 3c3 4.4 5 7.2 5 9.8a5 5 0 0 1-10 0C7 10.2 9 7.4 12 3z"/><path d="M3 21c2 0 2-1.5 4.5-1.5S10 21 12 21s2.5-1.5 4.5-1.5S19 21 21 21"/>',
+  swings: '<path d="M3 4h18M5 4l-1 17M19 4l1 17"/><path d="M9 4v11M15 4v11M8 15h8"/>',
+  slides: '<path d="M5 21V5"/><path d="M5 5h3l9 14h4"/><path d="M5 10h4M5 15h4"/>',
+  climbing: '<rect x="5" y="3" width="14" height="18" rx="2"/><circle cx="9" cy="7.5" r="1.2"/><circle cx="15" cy="10.5" r="1.2"/><circle cx="9.5" cy="14" r="1.2"/><circle cx="14.5" cy="17.5" r="1.2"/>',
+  toddler_area: '<circle cx="12" cy="6.5" r="3"/><path d="M7 21c0-4.5 2.2-8 5-8s5 3.5 5 8"/><path d="M9.5 16.5h5"/>',
+  shade: '<path d="M3 12a9 9 0 0 1 18 0z"/><path d="M12 12v7a2 2 0 0 1-4 0"/>',
+  benches: '<path d="M4 9h16M4 13h16"/><path d="M6 13v6M18 13v6M6 9v4M18 9v4"/>',
+  fenced: '<path d="M5 21V7l2-3 2 3v14M15 21V7l2-3 2 3v14"/><path d="M3 11h18M3 17h18"/>',
 };
 
-/** The fixed facility row on every place card, always in this order (the Laptop Friendly idea). */
-export const ROW = ["playground", "changing_table", "highchairs", "kids_menu", "toys", "animals", "stroller_friendly"];
+export { ROW } from "./features";
 
 export const UI_ICON: Record<string, string> = {
   explore: '<circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/>',

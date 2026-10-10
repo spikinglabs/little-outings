@@ -99,3 +99,10 @@ test("the importer writes, hides and prunes place files", () => {
   assert.deepEqual(files, ["farm-velbert-gut-hixholz.yaml", "osm-node-7.yaml"]);
   assert.match(readFileSync(join(content, "places", "imported", "osm-node-7.yaml"), "utf8"), /^# Generated/);
 });
+
+test("a playground's own equipment tags become playground facilities", async () => {
+  const { playFeatures } = await import("../scripts/fetch-osm-places.mjs");
+  assert.deepEqual(playFeatures({ "playground:sandpit": "yes", "playground:swing": "2", "playground:slide": "no", bench: "yes", fenced: "yes" }),
+    ["sandpit", "swings", "benches", "fenced"]);
+  assert.deepEqual(playFeatures({ leisure: "playground" }), []);
+});

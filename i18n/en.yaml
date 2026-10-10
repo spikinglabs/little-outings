@@ -122,7 +122,7 @@ tasksLater: "Later"
 tasksCount: { one: "{n} outing", other: "{n} outings" }
 tasksNone: "Nothing matches. Try another word or show everything."
 kinds: { playground: Playground, indoor: Indoor play, park: "Parks & gardens", zoo: "Zoos & animals", farm: Farm, pool: "Pools & lakes", museum: Museum, cafe: Family café, fun: "Theme & adventure parks" }
-features: { playground: Playground, changing_table: Changing table, highchairs: High chairs, kids_menu: "Kids' menu", toys: "Toys & little gifts", animals: Animals, stroller_friendly: Pram-friendly, nursing_room: Nursing corner, indoor_play: Indoor play area, toilets: Toilets, farm_shop: Farm shop, parking: Parking }
+features: { playground: Playground, changing_table: Changing table, highchairs: High chairs, kids_menu: "Kids' menu", toys: "Toys & little gifts", animals: Animals, stroller_friendly: Pram-friendly, nursing_room: Nursing corner, indoor_play: Indoor play area, toilets: Toilets, farm_shop: Farm shop, parking: Parking, sandpit: Sandpit, water_play: Water play, swings: Swings, slides: Slides, climbing: Climbing, toddler_area: Toddler area, shade: Shade, benches: Benches, fenced: Fenced in }
 tags: { fest: Festival, animals: Animals, market: Market, diy: Hands-on, season: Seasonal, reading: Story time, music: Music, outside: Outdoors, stage: "Theatre & film", sport: "Sport & movement", tour: "Museums & tours", parents: "For parents", learn: "Courses & languages", other: Other }
 empty: Nothing listed here yet. Know something? Add it under Contribute.
 install: { button: "Install the app", hint: "Add Little Outings to your home screen, it works like an app.", hintIos: "Tap Share, then “Add to Home Screen”, to use Little Outings like an app.", short: Install, dismiss: Dismiss, menu: "In your browser menu, choose “Install app” or “Add to Home screen”.", installed: "Little Outings is already installed on this device. Open it from your home screen or app list." }
@@ -207,6 +207,15 @@ chipAsk:
     toilets: "Are there toilets?"
     farm_shop: "Is there a farm shop?"
     parking: "Is there parking?"
+    sandpit: "Is there a sandpit?"
+    water_play: "Is there water to play with?"
+    swings: "Are there swings?"
+    slides: "Is there a slide?"
+    climbing: "Is there something to climb?"
+    toddler_area: "Is there an area for toddlers?"
+    shade: "Is there shade?"
+    benches: "Are there benches?"
+    fenced: "Is it fenced in?"
 mine:
   title: Mine
   sub: "Your saved outings, what you sent us, and your profile. No sign-up needed."

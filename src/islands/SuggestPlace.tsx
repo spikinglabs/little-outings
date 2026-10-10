@@ -8,7 +8,8 @@ import { schedulePush } from "../scripts/sync";
 interface Props {
   lang: string;
   kinds: [string, string][];
-  features: [string, string][];
+  /** The facilities that fit each kind of place: a playground offers a sandpit, a café high chairs. */
+  features: Record<string, [string, string][]>;
   towns: [string, string][];
   ui: Record<string, string>;
 }
@@ -80,9 +81,16 @@ export default function SuggestPlace({ lang, kinds, features, towns, ui }: Props
     setSent(ok ? (editing ? ui.sentEdit : ui.placeThanks) : ui.inboxSoon);
   }
 
-  const leaveEdit = () => { setEditing(null); setResend(null); if (location.search) history.replaceState(null, "", location.pathname); };
+  const leaveEdit = () => { setEditing(null); setResend(null); setPicked(null); if (location.search) history.replaceState(null, "", location.pathname); };
   const another = () => { leaveEdit(); setSent(""); setDone(null); setOpen(true); };
   const p = editing?.place ?? resend?.place ?? {};
+  // The checkboxes follow the chosen kind; null until the parent picks one, so an edit shows its own kind.
+  const [picked, setPicked] = useState<string | null>(null);
+  const kind = picked ?? p.kind ?? kinds[0]?.[0];
+  // A place sent earlier keeps what it had ticked, even if that no longer fits its kind.
+  const labels = new Map(Object.values(features).flat());
+  const picks = [...(features[kind] ?? []), ...((p.features ?? []) as string[])
+    .filter((f) => labels.has(f) && !(features[kind] ?? []).some(([k]) => k === f)).map((f) => [f, labels.get(f)!] as [string, string])];
 
   return (
     <section class="poster" id="suggest-place" aria-live="polite">
@@ -106,7 +114,7 @@ export default function SuggestPlace({ lang, kinds, features, towns, ui }: Props
           {resend && <><h3>{ui.placeEditTitle}</h3><p class="small">{ui.resendNote}</p></>}
           <div class="row">
             <label>{ui.placeKind}
-              <select name="kind" required>{kinds.map(([k, label]) => <option value={k} selected={p.kind === k}>{label}</option>)}</select>
+              <select name="kind" required onChange={(e) => setPicked((e.target as HTMLSelectElement).value)}>{kinds.map(([k, label]) => <option value={k} selected={p.kind === k}>{label}</option>)}</select>
             </label>
             <label>{ui.placeTown}
               <input name="town" required maxLength={100} defaultValue={p.town ?? ""} list="place-towns" autocomplete="address-level2" placeholder={ui.placeTownPh} />
@@ -117,7 +125,7 @@ export default function SuggestPlace({ lang, kinds, features, towns, ui }: Props
           <label>{ui.placeStreet}<input name="street" maxLength={200} defaultValue={p.street ?? ""} /></label>
           <fieldset class="feature-picks">
             <legend>{ui.placeFeatures}</legend>
-            {features.map(([k, label]) => <label class="pick"><input type="checkbox" name="features" value={k} defaultChecked={(p.features ?? []).includes(k)} /> {label}</label>)}
+            {picks.map(([k, label]) => <label class="pick"><input type="checkbox" name="features" value={k} defaultChecked={(p.features ?? []).includes(k)} /> {label}</label>)}
           </fieldset>
           <label>{ui.placeNote}<textarea name="note" rows={3} maxLength={2000} placeholder={ui.placeNotePh} defaultValue={p.note ?? ""} /></label>
           <label>{ui.placeWebsite}<input name="website" type="url" maxLength={300} placeholder="https://" defaultValue={p.website ?? ""} /></label>

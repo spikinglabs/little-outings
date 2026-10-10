@@ -11,6 +11,8 @@ export const KINDS = ["playground", "indoor", "park", "zoo", "farm", "pool", "mu
 export const FEATURES = [
   "playground", "changing_table", "highchairs", "kids_menu", "toys", "animals", "stroller_friendly",
   "nursing_room", "indoor_play", "toilets", "farm_shop", "parking",
+  // Playgrounds (src/lib/features.ts says which kinds offer which).
+  "sandpit", "water_play", "swings", "slides", "climbing", "toddler_area", "shade", "benches", "fenced",
 ] as const;
 // "Good for ..." chips parents tap after a visit, and the topics of a "Good to know" tip.
 export const GOOD_FOR = ["toddlers", "bigKids", "rainy", "longVisit", "quickHour", "friends"] as const;
