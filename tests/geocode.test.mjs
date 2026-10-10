@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { queryOf, geoLine, withGeo } from "../scripts/geocode-places.mjs";
-import { splitStreet } from "../src/lib/merge.ts";
+import { canonicalTown, splitStreet, townsFromPlaces } from "../src/lib/merge.ts";
 
 test("queryOf asks for the street with its town, once", () => {
   assert.equal(queryOf({ street: "Steinpfahl 4a, 52399 Merzenich", town: "Merzenich" }), "Steinpfahl 4a, 52399 Merzenich");
@@ -27,4 +27,23 @@ test("splitStreet moves a typed postcode and town out of the street", () => {
   assert.deepEqual(splitStreet("Markt 1"), { street: "Markt 1", postcode: undefined });
   assert.deepEqual(splitStreet("Markt 1, 52349 Düren", "52351"), { street: "Markt 1", postcode: "52351" });
   assert.deepEqual(splitStreet(undefined), { street: undefined, postcode: undefined });
+});
+
+test("canonicalTown maps a typed name to the site's town", () => {
+  const towns = [{ name: "Köln", lat: 50.9, lon: 6.9, en: "Cologne", zh: "科隆" }];
+  assert.equal(canonicalTown("Cologne", towns), "Köln");
+  assert.equal(canonicalTown("köln", towns), "Köln");
+  assert.equal(canonicalTown("Merzenich", towns), "Merzenich");
+});
+
+test("townsFromPlaces adds a pinned place's town the region lacks, once", () => {
+  const towns = [{ name: "Düren", lat: 50.8, lon: 6.48 }];
+  const place = (town, geo) => ({ town, geo });
+  assert.deepEqual(townsFromPlaces([
+    place("Merzenich", { lat: 50.83, lon: 6.53, precision: "exact" }),
+    place("Merzenich", { lat: 50.84, lon: 6.54, precision: "exact" }),
+    place("Düren", { lat: 50.8, lon: 6.48, precision: "exact" }),
+    place("Niederzier", { lat: 50.88, lon: 6.47, precision: "area" }),
+    place("Kreuzau", { precision: "unknown" }),
+  ], towns), [{ name: "Merzenich", lat: 50.83, lon: 6.53 }]);
 });
