@@ -7,6 +7,7 @@ import { isEvening, stampOf, whenText, whereText } from "../src/lib/meetup.ts";
 import { matchPlaces } from "../src/lib/where.ts";
 import { fakeD1 } from "./fake-d1.ts";
 
+const ADMIN_KEY = "s3cret-".repeat(6);
 const NOW = Date.parse("2026-10-10T10:00:00Z");
 const sha = (s: string) => createHash("sha256").update(s).digest("hex");
 
@@ -19,10 +20,11 @@ async function setup() {
     tokens[u] = u.repeat(64).slice(0, 64).replace(/[^0-9a-f]/g, u === "a" ? "a" : "b");
     await db.prepare(`INSERT INTO profile_sessions VALUES (?, ?, ?)`).bind(sha(tokens[u]), `user-${u}`, Date.now()).run();
   }
-  const call = async (method: string, path: string, body?: unknown, who?: "a" | "b") => {
+  const call = async (method: string, path: string, body?: unknown, who?: "a" | "b", adminKey?: string) => {
     const headers: Record<string, string> = { "content-type": "application/json" };
     if (who) headers.authorization = `Bearer ${tokens[who]}`;
-    const res = await onRequest({ env: { DB: db }, params: { path: path ? path.split("/") : [] },
+    if (adminKey) headers["x-admin-key"] = adminKey;
+    const res = await onRequest({ env: { DB: db, MEETUP_ADMIN_KEY: ADMIN_KEY }, params: { path: path ? path.split("/") : [] },
       request: new Request(`https://outings.allo.land/api/meetups/${path}`, { method, headers, body: body ? JSON.stringify(body) : undefined }) });
     return { status: res.status, body: await res.json() as any };
   };
@@ -138,4 +140,13 @@ test("Where? finds places by the start of their name first", () => {
   assert.deepEqual(matchPlaces(all, "rhein").map((p) => p.title), ["Rheinpark", "Spielplatz Rheinpark"]);
   assert.deepEqual(matchPlaces(all, "dueren").map((p) => p.title), ["Düren Zoo"]);
   assert.deepEqual(matchPlaces(all, "r"), []);
+});
+
+test("the admin removes a reported invite with its key, and only with it", async () => {
+  const { call } = await setup();
+  const { id } = (await call("POST", "", picnic, "a")).body;
+  assert.equal((await call("DELETE", id, undefined, undefined, "wrong-key-".repeat(5))).status, 401);
+  assert.equal((await call("DELETE", id, undefined, "b", "wrong-key-".repeat(5))).status, 404);
+  assert.equal((await call("DELETE", id, undefined, undefined, ADMIN_KEY)).status, 200);
+  assert.equal((await call("GET", id)).status, 404);
 });

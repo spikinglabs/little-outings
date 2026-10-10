@@ -128,3 +128,37 @@ test("an approved place becomes a place file with only known features", async ()
   assert.ok(!f.text.includes("bogus") && !f.text.includes("javascript"));
   assert.ok(placeFile(9, { type: "castle", name: "x", town: "y" }).error);
 });
+
+test("a reported invite is removed on the site, then the report closes as done", async () => {
+  const rep = issue(7, "report", ["kind: report", 'item: "meetup-k7q2xpab3c"', 'reason: "other"', 'note: "https://s/m/k7q2xpab3c"']);
+  const keyed = { ...env, MEETUP_ADMIN_KEY: "k".repeat(40) };
+  const f = stubFetch({
+    "GET https://api.github.com/repos/o/inbox/issues/7": rep,
+    "DELETE https://site.example/api/meetups/k7q2xpab3c": { ok: true },
+    "PATCH https://api.github.com/repos/o/inbox/issues/7": {},
+    "POST https://api.github.com/repos/o/inbox/issues/7/comments": {},
+  });
+  try {
+    assert.equal((await decide({ request: post({ number: 7, action: "done" }), env: keyed, data: { user } })).status, 400, "only remove or reject");
+    assert.equal((await decide({ request: post({ number: 7, action: "remove" }), env, data: { user } })).status, 500, "needs the key");
+    assert.equal((await decide({ request: post({ number: 7, action: "remove" }), env: keyed, data: { user } })).status, 200);
+    const writes = f.calls.filter((c) => c.method !== "GET");
+    assert.deepEqual(writes.map((c) => [c.method, c.url.replace(/^https:\/\/[^/]+/, "")]), [
+      ["DELETE", "/api/meetups/k7q2xpab3c"],
+      ["PATCH", "/repos/o/inbox/issues/7"],
+      ["POST", "/repos/o/inbox/issues/7/comments"],
+    ]);
+    assert.deepEqual(writes[1].body, { state: "closed", state_reason: "completed" });
+    assert.equal(writes[2].body.body, "Invite removed in the admin by l@example.org.");
+  } finally { f.restore(); }
+});
+
+test("a reported invite links to its page in the list", async () => {
+  const rep = issue(7, "report", ["kind: report", 'item: "meetup-k7q2xpab3c"', 'reason: "other"']);
+  const f = stubFetch({ "GET https://api.github.com/repos/o/inbox/issues?state=open&per_page=100&page=1": [rep] });
+  try {
+    const [item] = (await (await list({ env })).json()).items;
+    assert.deepEqual(item.actions, ["remove", "reject"]);
+    assert.deepEqual(item.page, { name: "A family's invite", url: "https://site.example/m/k7q2xpab3c" });
+  } finally { f.restore(); }
+});

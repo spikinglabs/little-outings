@@ -10,6 +10,8 @@ import { AUTO_GAPS } from "./answers.js";
 //   done    → closes a report as completed, once you've fixed what it was about
 //            (also an answer about where something is or whether it's still on, once you've fixed it)
 //   reject  → closes as "not planned", so the tally ignores it for good
+//   remove  → a report about a family's invite (item meetup-<id>): deletes the invite on the site
+//            (DELETE /api/meetups/<id> with MEETUP_ADMIN_KEY) and closes the report as completed
 
 export const KINDS = {
   tip: { label: "Tip", actions: ["approve", "reject"] },
@@ -19,9 +21,16 @@ export const KINDS = {
   answer: { label: "Answer", actions: ["approve", "reject"] },
 };
 
-/** What can be done with an item: an answer about where or "still on?" can't be published, only fixed by hand. */
+/** The invite a report is about ("meetup-<id>"), or null. */
+export const meetupOf = (item) => /^meetup-([a-z2-9]{10})$/.exec(item?.data?.item ?? "")?.[1] ?? null;
+
+/**
+ * What can be done with an item: an answer about where or "still on?" can't be published, only fixed by hand.
+ * A reported invite has no page to fix by hand: it is removed, or the report rejected.
+ */
 export const actionsOf = (item) =>
-  item.kind === "answer" && !AUTO_GAPS.includes(item.data.gap) ? ["done", "reject"] : KINDS[item.kind].actions;
+  item.kind === "report" && meetupOf(item) ? ["remove", "reject"]
+    : item.kind === "answer" && !AUTO_GAPS.includes(item.data.gap) ? ["done", "reject"] : KINDS[item.kind].actions;
 
 /** The YAML block the inbox function writes (same reader as scripts/tally-inbox.mjs). */
 export function parseBody(body) {
