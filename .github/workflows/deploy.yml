@@ -44,7 +44,9 @@ jobs:
       - name: Import places (OpenStreetMap, farms)
         run: npm run import:places
       - name: Pin parents' places (Nominatim)
-        run: npm run geocode:places
+        run: |
+          out=$(npm run --silent geocode:places 2>&1); echo "$out"
+          echo "::notice title=Place pins::$(echo "$out" | tail -1)"
       - name: Count parents' answers from the inbox
         env:
           INBOX_REPO: ${{ vars.INBOX_REPO }}
