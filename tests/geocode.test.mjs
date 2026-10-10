@@ -26,6 +26,9 @@ test("splitStreet moves a typed postcode and town out of the street", () => {
   assert.deepEqual(splitStreet("Steinpfahl 4a, 52399 Merzenich"), { street: "Steinpfahl 4a", postcode: "52399" });
   assert.deepEqual(splitStreet("Markt 1"), { street: "Markt 1", postcode: undefined });
   assert.deepEqual(splitStreet("Markt 1, 52349 Düren", "52351"), { street: "Markt 1", postcode: "52351" });
+  assert.deepEqual(splitStreet("Gaiaboulevard 1, 6468 PH Kerkrade, Netherlands"), { street: "Gaiaboulevard 1", postcode: "6468 PH" });
+  assert.deepEqual(splitStreet("Rotenberg 1, 4700 Eupen"), { street: "Rotenberg 1", postcode: "4700" });
+  assert.deepEqual(splitStreet("Markt 1, Netherlands"), { street: "Markt 1, Netherlands", postcode: undefined });
   assert.deepEqual(splitStreet(undefined), { street: undefined, postcode: undefined });
 });
 

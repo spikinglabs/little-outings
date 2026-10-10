@@ -9,6 +9,8 @@ import { load } from "js-yaml";
 
 const DIR = "content/places/community";
 const NOMINATIM = "https://nominatim.openstreetmap.org/search";
+// Germany and its neighbours: families near the border go to GaiaZOO in Kerkrade (NL) too.
+const COUNTRIES = "de,nl,be,lu,fr,ch,at,cz,pl,dk";
 
 /** What to ask Nominatim for a place's address, or null when there is no street to find. */
 export function queryOf(address) {
@@ -38,7 +40,7 @@ export function withGeo(text, line) {
 }
 
 async function lookup(q) {
-  const url = `${NOMINATIM}?${new URLSearchParams({ q, format: "jsonv2", limit: "1", countrycodes: "de", addressdetails: "1" })}`;
+  const url = `${NOMINATIM}?${new URLSearchParams({ q, format: "jsonv2", limit: "1", countrycodes: COUNTRIES, addressdetails: "1" })}`;
   const res = await fetch(url, { headers: { "user-agent": "little-outings place pins (+https://outings.allo.land)" } });
   if (!res.ok) throw new Error(`Nominatim ${res.status}`);
   return (await res.json())[0] ?? null;

@@ -49,14 +49,19 @@ export function townsFromPlaces(places: Place[], towns: Town[]): Town[] {
   return out;
 }
 
+// A country typed after the town ("…, Netherlands"); the page shows the town on its own.
+const COUNTRY = /^(germany|deutschland|netherlands|the netherlands|niederlande|nederland|belgium|belgien|belgië|belgique|luxembourg|luxemburg|france|frankreich|austria|österreich|switzerland|schweiz|de|nl|be|lu)$/i;
+
 /**
  * Parents often type the whole address as the street ("Steinpfahl 4a, 52399 Merzenich"), and the
  * town has its own field, so the page read "…Merzenich, Merzenich". Moves a trailing postcode and
- * town out of the street.
+ * town out of the street: German "52399 Merzenich", Dutch "6468 PH Kerkrade", Belgian "4700 Eupen",
+ * with or without a country after it.
  */
 export function splitStreet(street: string | undefined, postcode?: string): { street?: string; postcode?: string } {
   const parts = String(street ?? "").split(",").map((s) => s.trim()).filter(Boolean);
-  const m = parts.length > 1 ? /^(?:D-)?(\d{5})\s+\S/.exec(parts[parts.length - 1]) : null;
+  if (parts.length > 2 && COUNTRY.test(parts[parts.length - 1])) parts.pop();
+  const m = parts.length > 1 ? /^(?:[A-Z]{1,2}-)?(\d{4,5}(?: ?[A-Z]{2})?)\s+\S/.exec(parts[parts.length - 1]) : null;
   if (!m) return { street, postcode };
   return { street: parts.slice(0, -1).join(", "), postcode: postcode ?? m[1] };
 }
