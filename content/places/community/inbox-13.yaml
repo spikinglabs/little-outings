@@ -1,0 +1,18 @@
+# Suggested by a parent (inbox #13), approved in the admin by leima137@gmail.com.
+# Edit here to fix it.
+kind: zoo
+name: "GaiaZOO"
+address: { street: "Gaiaboulevard 1, 6468 PH Kerkrade, Netherlands", town: "Kerkrade" }
+facilities:
+  playground: { status: "yes", confirmed: 1 }
+  changing_table: { status: "yes", confirmed: 1 }
+  highchairs: { status: "yes", confirmed: 1 }
+  kids_menu: { status: "yes", confirmed: 1 }
+  animals: { status: "yes", confirmed: 1 }
+  stroller_friendly: { status: "yes", confirmed: 1 }
+  indoor_play: { status: "yes", confirmed: 1 }
+  toilets: { status: "yes", confirmed: 1 }
+  parking: { status: "yes", confirmed: 1 }
+note: "Modern zoo with animals from around the world, plus an indoor dinosaur park & a petting zoo."
+website: "https://www.gaiazoo.nl/"
+trust: { level: community }
