@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { queryOf, geoLine, withGeo } from "../scripts/geocode-places.mjs";
+import { queryOf, geoLine, withGeo, eventQueries } from "../scripts/geocode-places.mjs";
 import { canonicalTown, splitStreet, townsFromPlaces } from "../src/lib/merge.ts";
 
 test("queryOf asks for the street with its town, once", () => {
@@ -49,4 +49,14 @@ test("townsFromPlaces adds a pinned place's town the region lacks, once", () => 
     place("Niederzier", { lat: 50.88, lon: 6.47, precision: "area" }),
     place("Kreuzau", { precision: "unknown" }),
   ], towns), [{ name: "Merzenich", lat: 50.83, lon: 6.53 }]);
+});
+
+test("eventQueries asks for the venue in its town, then the town", () => {
+  assert.deepEqual(eventQueries({ venue: "Bürgerhalle Koslar", town: "Jülich-Koslar" }), [
+    { q: "Bürgerhalle Koslar, Jülich-Koslar", precision: "venue" },
+    { q: "Jülich-Koslar", precision: "area" },
+  ]);
+  assert.deepEqual(eventQueries({ town: "Merzenich" }), [{ q: "Merzenich", precision: "area" }]);
+  assert.deepEqual(eventQueries({ venue: "Pfarrheim" }), []);
+  assert.match(geoLine({ lat: "50.9", lon: "6.4", address: { house_number: "1" } }, "area"), /precision: area/);
 });

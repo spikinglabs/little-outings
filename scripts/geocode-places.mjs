@@ -1,5 +1,5 @@
-// Pins places parents suggested: content/places/community/*.yaml with an address but no point
-// get one from OpenStreetMap's Nominatim, run before every build (the files change only in
+// Pins what parents suggested: content/places/community/*.yaml with an address and
+// content/events/community/*.yaml with a venue or town, but no point, get one from OpenStreetMap's Nominatim, run before every build (the files change only in
 // that build's checkout; add `geo:` to a file by hand to fix a pin for good).
 // Without a point a place falls back to its town centre, or isn't on the map at all when the
 // town isn't one of the site's towns. A failed lookup only logs; the next build tries again.
@@ -7,7 +7,8 @@ import { readFileSync, readdirSync, writeFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import { load } from "js-yaml";
 
-const DIR = "content/places/community";
+const PLACES = "content/places/community";
+const EVENTS = "content/events/community";
 const NOMINATIM = "https://nominatim.openstreetmap.org/search";
 // Germany and its neighbours: families near the border go to GaiaZOO in Kerkrade (NL) too.
 const COUNTRIES = "de,nl,be,lu,fr,ch,at,cz,pl,dk";
@@ -23,11 +24,24 @@ export function queryOf(address) {
   return [street, named ? "" : [postcode, town].filter(Boolean).join(" ")].filter(Boolean).join(", ");
 }
 
-/** The `geo:` line for a Nominatim hit: a house number is the place itself, a street only nearby. */
-export function geoLine(hit) {
+/**
+ * What to ask for an event, best first: its venue in its town ("Bürgerhalle Koslar, Jülich-Koslar"),
+ * then the town alone, which only says "somewhere in" it.
+ */
+export function eventQueries(event) {
+  const venue = String(event?.venue ?? "").trim(), town = String(event?.town ?? "").trim();
+  if (!town) return [];
+  return [...(venue ? [{ q: `${venue}, ${town}`, precision: "venue" }] : []), { q: town, precision: "area" }];
+}
+
+/**
+ * The `geo:` line for a Nominatim hit: a house number is the place itself, a street only nearby.
+ * `precision` overrides that, for an event's venue or town.
+ */
+export function geoLine(hit, precisionOf) {
   const lat = Number(hit?.lat), lon = Number(hit?.lon);
   if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
-  const precision = hit.address?.house_number ? "exact" : "venue";
+  const precision = precisionOf ?? (hit.address?.house_number ? "exact" : "venue");
   return `geo: { lat: ${lat.toFixed(6)}, lon: ${lon.toFixed(6)}, precision: ${precision} }`;
 }
 
@@ -46,29 +60,43 @@ async function lookup(q) {
   return (await res.json())[0] ?? null;
 }
 
+const files = (dir) => (existsSync(dir) ? readdirSync(dir).filter((f) => f.endsWith(".yaml")).sort().map((f) => join(dir, f)) : []);
+let asked = 0;
+
+/** The first query that finds something, as a geo line, or null. */
+async function pin(queries) {
+  for (const { q, precision } of queries) {
+    if (asked++) await new Promise((r) => setTimeout(r, 1100)); // Nominatim: one request a second
+    const line = geoLine(await lookup(q), precision);
+    if (line) return line;
+  }
+  return null;
+}
+
 async function main() {
-  if (!existsSync(DIR)) return;
   let pinned = 0, missed = 0;
-  for (const name of readdirSync(DIR).filter((f) => f.endsWith(".yaml")).sort()) {
-    const path = join(DIR, name);
+  const todo = [
+    ...files(PLACES).map((path) => [path, (d) => { const q = queryOf(d.address); return q ? [{ q }] : []; }]),
+    ...files(EVENTS).map((path) => [path, eventQueries]),
+  ];
+  for (const [path, queriesOf] of todo) {
     const text = readFileSync(path, "utf8");
-    const place = load(text) ?? {};
-    if (place.geo?.lat != null) continue;
-    const q = queryOf(place.address);
-    if (!q) continue;
-    if (pinned + missed) await new Promise((r) => setTimeout(r, 1100)); // Nominatim: one request a second
+    const data = load(text) ?? {};
+    if (data.geo?.lat != null || data.place) continue;
+    const queries = queriesOf(data);
+    if (!queries.length) continue;
     try {
-      const line = geoLine(await lookup(q));
-      if (!line) { missed++; console.log(`${name}: nothing found for "${q}"`); continue; }
+      const line = await pin(queries);
+      if (!line) { missed++; console.log(`${path}: nothing found for "${queries[0].q}"`); continue; }
       writeFileSync(path, withGeo(text, line));
       pinned++;
-      console.log(`${name}: ${line}`);
+      console.log(`${path}: ${line}`);
     } catch (err) {
       missed++;
-      console.log(`${name}: ${err.message}`);
+      console.log(`${path}: ${err.message}`);
     }
   }
-  console.log(`Pinned ${pinned} parent-suggested places${missed ? `, ${missed} still without a pin` : ""}.`);
+  console.log(`Pinned ${pinned} parent-suggested places and events${missed ? `, ${missed} still without a pin` : ""}.`);
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) await main();
