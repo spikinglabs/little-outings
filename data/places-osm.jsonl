@@ -316,8 +316,7 @@
 {"osm":"node/13680512205","kind":"zoo","name":"Flauschfarm - Alpakawanderungen","town":"Bonn","lat":50.717986,"lon":7.088388,"hours":"Mo-Su 09:00-20:00","website":"https://flauschfarm.de/","facilities":["animals"]}
 {"osm":"relation/8545368","kind":"zoo","name":"Waldau Wildgehege","town":"Bonn","lat":50.691196,"lon":7.102705,"free":true,"facilities":["animals"]}
 {"osm":"way/327067584","kind":"zoo","name":"Wildgehege der Forschungsstelle für Jagdkunde und Wildschadenverhütung","town":"Bonn","lat":50.735127,"lon":7.167886,"facilities":["animals"]}
-{"osm":"way/467766911","kind":"farm","name":"Biolandhof Gerden","town":"Düren","street":"Binsfelder Straße 301","postcode":"52351","lat":50.798461,"lon":6.507207,"hours":"Mo-Fr 08:30-18:00; Th-Fr 08:30-18:30; Sa 08:30-13:00","website":"https://www.biohof-gerden.de/","facilities":["animals","farm_shop"]}
-{"osm":"node/13794894970","kind":"farm","name":"Hofladen Feucht","town":"Düren","lat":50.8442,"lon":6.420908,"hours":"Th,Fr 09:00-18:00; Sa 09:00-13:00; PH off","facilities":["animals","farm_shop"]}
+{"osm":"node/13794894970","kind":"farm","name":"Hofladen Feucht","town":"Düren","lat":50.844161,"lon":6.421128,"hours":"Th,Fr 09:00-18:00; Sa 09:00-13:00; PH off","facilities":["animals","farm_shop"]}
 {"osm":"node/847276670","kind":"farm","name":"Lindenlädchen","town":"Düren","lat":50.834592,"lon":6.490084,"facilities":["animals","farm_shop"]}
 {"osm":"node/890954871","kind":"farm","name":"Spargel-Hof Lövenich","town":"Düren","street":"Schillingsstraße 72","postcode":"52355","lat":50.795475,"lon":6.447387,"hours":"Mo-Fr 09:00-18:30; Sa 08:00-14:00; Su,PH 10:00-12:00","website":"https://www.spargel-hof.de/","facilities":["animals","farm_shop"]}
 {"osm":"node/6128049246","kind":"farm","name":"Vitaminkiste","town":"Düren","street":"Gerichtsweg 4","postcode":"52355","lat":50.763406,"lon":6.472642,"facilities":["animals","farm_shop"]}
@@ -538,7 +537,7 @@
 {"osm":"node/273918832","kind":"zoo","name":"Streichelzoo","town":"Düsseldorf","lat":51.198843,"lon":6.803122,"hours":"Apr-Oct: Mo-Su,PH 08:00-17:30","free":true,"facilities":["animals"]}
 {"osm":"node/1790052703","kind":"cafe","name":"Die Kinderburg im Gesundheitspark","town":"Essen","street":"Feldmarkstraße 209","postcode":"45883","lat":51.500532,"lon":7.062731,"hours":"Mo-Tu 13:00-18:00, We-Fr 12:00-18:00; Sa,Su,PH 09:00-18:00","facilities":[]}
 {"osm":"way/93600423","kind":"farm","name":"Bauernhof am Mechtenberg","town":"Essen","lat":51.481025,"lon":7.099449,"facilities":["animals","farm_shop"]}
-{"osm":"way/263667221","kind":"farm","name":"Dellwiger Scheune","town":"Essen","street":"Schilfstraße 15","postcode":"45357","lat":51.491593,"lon":6.929829,"hours":"Mo-Fr 10:00-18:00, Sa 09:00-13:00","website":"http://www.xn--brmses-landscheune-e3b.de/","facilities":["animals","farm_shop"]}
+{"osm":"way/263667221","kind":"farm","name":"Dellwiger Scheune","town":"Essen","street":"Schilfstraße 15","postcode":"45357","lat":51.491593,"lon":6.929829,"hours":"Mo-Fr 10:00-18:00, Sa 9:00-13:00","website":"http://www.xn--brmses-landscheune-e3b.de/","facilities":["animals","farm_shop"]}
 {"osm":"way/96691084","kind":"farm","name":"Dümptener Bauernhof","town":"Essen","street":"Bonnemannstraße 66","postcode":"45475","lat":51.458626,"lon":6.915693,"facilities":["animals","farm_shop"]}
 {"osm":"node/13149925906","kind":"farm","name":"Gemüseverkauf","town":"Essen","lat":51.424552,"lon":6.955966,"hours":"Sa 10:00-14:00; Tu 17:00-19:00","facilities":["animals","farm_shop"]}
 {"osm":"node/5318100322","kind":"farm","name":"Heißener Hof","town":"Essen","lat":51.435016,"lon":6.931082,"website":"https://www.heissenerhof.de/","facilities":["animals","farm_shop"]}
@@ -840,7 +839,7 @@
 {"osm":"way/23039603","kind":"pool","name":"Schwimmzentrum Kettwig","town":"Heiligenhaus","lat":51.373214,"lon":6.934661,"facilities":[]}
 {"osm":"way/272446984","kind":"pool","name":"Schwimmzentrum Kettwig","town":"Heiligenhaus","street":"Im Teelbruch 12","postcode":"45219","lat":51.3741,"lon":6.934156,"facilities":[]}
 {"osm":"way/237086405","kind":"farm","name":"Der Kölner Biobauer","town":"Köln","street":"Poll-Vingster Straße 215","postcode":"51105","lat":50.926552,"lon":7.017252,"hours":"Mo-Fr 09:00-18:30, Sa 09:00-13:00","website":"https://www.koelner-bio-bauer.de/","facilities":["animals","farm_shop"]}
-{"osm":"way/147014412","kind":"farm","name":"Hofladen Lackstetter","town":"Köln","street":"Bellerstraße 92","postcode":"50354","lat":50.901902,"lon":6.889695,"hours":"Mo off; Tu-Su,PH 08:00-16:00","website":"https://www.hofladen-lackstetter.de/","facilities":["animals","farm_shop"]}
+{"osm":"way/147014412","kind":"farm","name":"Hofladen Lackstetter","town":"Köln","street":"Bellerstraße 92","postcode":"50354","lat":50.901902,"lon":6.889695,"hours":"Mo off; Tu-Su 08:00-16:00","website":"https://www.hofladen-lackstetter.de/","facilities":["animals","farm_shop"]}
 {"osm":"node/7141833095","kind":"farm","name":"Poller Hofladen","town":"Köln","street":"Auf dem Sandberg 66","postcode":"51105","lat":50.914144,"lon":6.993464,"hours":"Fr 17:00-18:30, Sa 08:30-12:30; PH off","facilities":["animals","farm_shop"]}
 {"osm":"node/11165443002","kind":"farm","name":"Stadt Land Gemüse","town":"Köln","lat":50.952236,"lon":6.914744,"hours":"Tu 10:00-14:00; We,Fr 10:00-18:30; Sa 10:00-14:00","website":"https://www.stadtlandgemuese.de/der-laden","facilities":["animals","farm_shop"]}
 {"osm":"way/24376212","kind":"fun","name":"\"Odonien\" - Kunst-und Kulturpark","town":"Köln","street":"Hornstraße 85","postcode":"50823","lat":50.954743,"lon":6.938769,"website":"https://www.odonien.de/","facilities":[]}
@@ -1029,10 +1028,11 @@
 {"osm":"way/171968482","kind":"zoo","name":"Waschbär","town":"Köln","lat":50.95883,"lon":6.975144,"facilities":["animals"]}
 {"osm":"way/171970836","kind":"zoo","name":"Wasservögel","town":"Köln","lat":50.960037,"lon":6.97546,"facilities":["animals"]}
 {"osm":"way/28908575","kind":"zoo","name":"Zebra","town":"Köln","lat":50.957972,"lon":6.973672,"facilities":["animals"]}
+{"osm":"node/14110607438","kind":"cafe","name":"Kids Club","town":"Leverkusen","lat":50.988994,"lon":6.96197,"facilities":[]}
 {"osm":"node/5742086598","kind":"farm","name":"Bauer Vogel Hof Jüch","town":"Leverkusen","street":"Jüch 60","postcode":"51377","lat":51.046896,"lon":7.067098,"hours":"We-Th 14:30-18:00; Fr 08:30-12:30, 14:30-18:00; Sa 08:30-13:00","website":"http://www.hof-juech.de/","facilities":["animals","farm_shop"]}
 {"osm":"node/12759054688","kind":"farm","name":"Hofaden Marseille","town":"Leverkusen","street":"Alte Schulstraße 19","postcode":"40764","lat":51.092558,"lon":6.980107,"hours":"Fr 09:00-17:30","facilities":["animals","farm_shop"]}
 {"osm":"node/1591487339","kind":"farm","name":"Imbacher Bauernhof","town":"Leverkusen","street":"Imbach 56","postcode":"51381","lat":51.079967,"lon":7.017977,"hours":"Mo-Th 09:00-13:00,15:00-18:00; Fr 09:00-18:00; Sa 08:00-13:00","website":"https://www.baumhoegger-wieden.de/","facilities":["animals","farm_shop"]}
-{"osm":"node/7093690040","kind":"farm","name":"Kasselberger Hühnerhof","town":"Leverkusen","street":"Kasselberger Weg 115","lat":51.039168,"lon":6.944531,"hours":"Mo 09:00-13:00,14:00-18:00; We-Fr 09:00-13:00,14:00-18:00; Sa 09:00-13:00","facilities":["animals","farm_shop"]}
+{"osm":"node/7093690040","kind":"farm","name":"Kasselberger Hühnerhof","town":"Leverkusen","street":"Kasselberger Weg 115","lat":51.039168,"lon":6.944531,"hours":"Mo 09:00-13:00, 14:00-18:00, We-Fr 09:00-13:00, 14:00-18:00, Sa 09:00-13:00","facilities":["animals","farm_shop"]}
 {"osm":"node/1535267810","kind":"farm","name":"Obstgut Morsbroich","town":"Leverkusen","street":"Auerweg 2","postcode":"51377","lat":51.034967,"lon":7.032272,"hours":"We 08:00-13:00; Th-Fr 08:00-18:00; Sa 08:00-13:00; Jan-Apr Mo-Tu off; May-Dec Mo-Tu 08:00-13:00; PH off","website":"https://www.obstgut-morsbroich.de/","facilities":["animals","farm_shop"]}
 {"osm":"node/6132964915","kind":"farm","name":"Obstgut Weyerhof","town":"Leverkusen","lat":51.057141,"lon":7.056368,"facilities":["animals","farm_shop"]}
 {"osm":"node/1591479832","kind":"farm","name":"Oderwald","town":"Leverkusen","street":"Hüscheider Straße 55","postcode":"51381","lat":51.08284,"lon":7.035346,"hours":"Th-Fr 08:00-18:30; Sa 08:00-13:00","website":"https://www.obst-oderwald.de/","facilities":["animals","farm_shop"]}
@@ -1172,7 +1172,6 @@
 {"osm":"relation/1470565","kind":"zoo","name":"Eiszeitliches Wildgehege Neandertal","town":"Mettmann","lat":51.221387,"lon":6.95851,"website":"https://www.wildgehege-neandertal.de/","facilities":["animals"]}
 {"osm":"node/13625044011","kind":"cafe","name":"Kindercafé Zauberwald","town":"Ratingen","street":"Bechemer Straße 33","lat":51.296002,"lon":6.851739,"hours":"Mo off; Tu-Su 10:00-18:00","facilities":[]}
 {"osm":"way/90626371","kind":"farm","name":"Bauerngarten Benninghoven","town":"Ratingen","street":"Mauerweg 3","postcode":"40882","lat":51.284976,"lon":6.873377,"hours":"Mo-Fr 08:30-18:30; Sa 08:30-18:00; Su 09:00-18:00","facilities":["animals","farm_shop"]}
-{"osm":"node/14068147937","kind":"farm","name":"Ben's Shop","town":"Ratingen","lat":51.272357,"lon":6.900489,"facilities":["animals","farm_shop"]}
 {"osm":"node/8718926295","kind":"farm","name":"Benninghoven","town":"Ratingen","lat":51.255151,"lon":6.837389,"facilities":["animals","farm_shop"]}
 {"osm":"node/9667975422","kind":"farm","name":"Gardumshof","town":"Ratingen","lat":51.315624,"lon":6.888817,"hours":"Tu-Th 15:00-18:30; Fr 10:00-13:00,15:00-19:00; Sa 10:00-19:00; PH,Su,Mo off","website":"https://instagram.com/gardumshof/","facilities":["animals","farm_shop"]}
 {"osm":"node/3057110957","kind":"farm","name":"Gut Grütersaap","town":"Ratingen","lat":51.268567,"lon":6.862803,"website":"http://www.gruetersaap.de/","facilities":["animals","farm_shop"]}
@@ -1202,7 +1201,7 @@
 {"osm":"node/2473719564","kind":"farm","name":"Bio-Hofladen Bredtmann","town":"Velbert","lat":51.306532,"lon":7.092981,"hours":"Tu-Fr 09:00-18:00; Sa 09:00-13:00; PH off","website":"http://www.bauer-bredtmann.de/","facilities":["animals","farm_shop"]}
 {"osm":"node/1174607677","kind":"farm","name":"Bio-Hofladen Örkhof (Demeter)","town":"Velbert","street":"Hohlstraße 139","postcode":"42555","lat":51.329588,"lon":7.121959,"hours":"We 11:00-18:00; Fr 11:00-18:00; Sa 09:00-14:00; PH off","website":"https://www.oerkhof.de/","facilities":["animals","farm_shop"]}
 {"osm":"node/7446785039","kind":"farm","name":"Hof Burgmann","town":"Velbert","lat":51.376762,"lon":7.045303,"website":"http://www.hof-burgmann.de/","facilities":["animals","farm_shop"]}
-{"osm":"node/1172169754","kind":"farm","name":"Hof Judt","town":"Velbert","lat":51.31889,"lon":7.134804,"hours":"Fr 12:00-18:00; Sa 08:30-12:00; PH off","website":"http://www.hofjudt.de/","facilities":["animals","farm_shop"]}
+{"osm":"node/1172169754","kind":"farm","name":"Hof Judt","town":"Velbert","lat":51.31889,"lon":7.134804,"hours":"Fr 12:00-18:00; Sa 8:30-12:00; PH off","website":"http://www.hofjudt.de/","facilities":["animals","farm_shop"]}
 {"osm":"node/1172169739","kind":"farm","name":"Hof zur Hellen","town":"Velbert","lat":51.319502,"lon":7.13458,"hours":"We,Fr 14:30-17:00; Sa,Su 11:00-17:00","website":"https://www.hofzurhellen.de/","facilities":["animals","farm_shop"]}
 {"osm":"node/7448470004","kind":"farm","name":"Lux","town":"Velbert","lat":51.390784,"lon":7.056239,"facilities":["animals","farm_shop"]}
 {"osm":"node/6142258549","kind":"farm","name":"Maas","town":"Velbert","lat":51.389363,"lon":7.001136,"hours":"Mo-Fr 08:00-18:00; Sa 08:00-13:30","facilities":["animals","farm_shop"]}
@@ -1295,7 +1294,6 @@
 {"osm":"node/4114488311","kind":"cafe","name":"Aho Familien Café","town":"Wuppertal","street":"Kölner Straße 11","postcode":"42119","lat":51.250861,"lon":7.143014,"facilities":[]}
 {"osm":"node/6050568532","kind":"farm","name":"Bauernmarkt Dr. Hackländer","town":"Wuppertal","lat":51.258468,"lon":7.224709,"facilities":["animals","farm_shop"]}
 {"osm":"node/6050590293","kind":"farm","name":"Hof Sonnenberg","town":"Wuppertal","lat":51.226834,"lon":7.082646,"hours":"Tu-Fr 14:00-18:00; Sa 09:00-12:00","website":"http://www.hofsonnenberg.de/","facilities":["animals","farm_shop"]}
-{"osm":"node/14234353867","kind":"farm","name":"Hofgemacht Wuppertal","town":"Wuppertal","street":"Kleinsporkert 33","postcode":"42287","lat":51.232048,"lon":7.240535,"website":"https://www.hofgemacht-wuppertal.de/","facilities":["animals","farm_shop"]}
 {"osm":"way/93188366","kind":"farm","name":"Schepershof","town":"Wuppertal","lat":51.313791,"lon":7.131748,"facilities":["animals","farm_shop"]}
 {"osm":"node/6050589133","kind":"farm","name":"Schröers Hofladen","town":"Wuppertal","street":"Ochsenkamp 1","postcode":"42279","lat":51.296987,"lon":7.223588,"hours":"Tu-Fr 17:00-19:00, Sa 10:00-13:00","facilities":["animals","farm_shop"]}
 {"osm":"node/1614609532","kind":"fun","name":"Natur-Hochseilgarten-Wuppertal","town":"Wuppertal","lat":51.254621,"lon":7.121315,"website":"https://www.wuppertal.de/natur-hochseilgarten-wuppertal","facilities":[]}
