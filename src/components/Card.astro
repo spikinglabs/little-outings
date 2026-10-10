@@ -50,7 +50,6 @@ const search = [
   data-indoor={item.indoor ? "1" : undefined}
   data-free={isFree(item) ? "1" : undefined}
   data-farm={isFarm(item, place) ? "1" : undefined}
-  data-ages={item.ages?.join("-")}
   data-feat={[...yes, ...tags, ...(item.type === "event" && !tags.length ? ["other"] : []), ...(item.type === "event" && item.language && item.language !== "de" ? ["nogerman"] : [])].join(" ")}
   data-verified={item.trust.level === "verified" ? "1" : undefined}
   data-q={search}

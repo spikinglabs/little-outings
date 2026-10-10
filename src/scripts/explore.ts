@@ -16,14 +16,14 @@ const count = (p: Plural, n: number, r?: number) =>
 
 // area: the map's bounds [south, west, north, east] once the reader moves the map; it replaces the radius.
 const PAGE = 24; // cards shown at once; OpenStreetMap brings in more than a thousand places
-const state = { limit: PAGE, area: null as number[] | null, view: 0, when: "weekend", q: "", rain: false, farm: false, free: false, animals: false, changing: false, nogerman: false, age: "", radius: 30, kind: "", tag: "" };
+const state = { limit: PAGE, area: null as number[] | null, view: 0, when: "weekend", q: "", rain: false, farm: false, free: false, animals: false, changing: false, nogerman: false, radius: 30, kind: "", tag: "" };
 const $ = <T extends Element = HTMLElement>(s: string) => document.querySelector<T>(s)!;
 const $$ = <T extends Element = HTMLElement>(s: string) => [...document.querySelectorAll<T>(s)];
 const home = $<HTMLButtonElement>("#home");
 
-// The chosen day, distance, age and chips last for this tab's session, so a refresh or a trip to
+// The chosen day, distance and chips last for this tab's session, so a refresh or a trip to
 // a card and back keeps them. The town is kept elsewhere (as home); no location is ever stored here.
-const KEPT = ["when", "rain", "farm", "free", "animals", "changing", "nogerman", "age", "radius", "kind", "tag"] as const;
+const KEPT = ["when", "rain", "farm", "free", "animals", "changing", "nogerman", "radius", "kind", "tag"] as const;
 const FLAGS = ["rain", "farm", "free", "animals", "changing", "nogerman"] as const;
 function restore() {
   let saved: Record<string, unknown> = {};
@@ -34,8 +34,7 @@ function restore() {
     const b = document.querySelector(`[data-flag="${k}"]`);
     if (b && saved[k] === true) { state[k] = true; b.setAttribute("aria-pressed", "true"); }
   }
-  const age = $<HTMLSelectElement>("#age"), radius = $<HTMLSelectElement>("#radius");
-  if ([...age.options].some((o) => o.value === saved.age)) age.value = state.age = saved.age as string;
+  const radius = $<HTMLSelectElement>("#radius");
   if ([...radius.options].some((o) => o.value === String(saved.radius))) { radius.value = String(saved.radius); state.radius = +radius.value; }
   if (typeof saved.kind === "string" && has(`[data-kind-chip="${CSS.escape(saved.kind)}"]`)) {
     state.kind = saved.kind;
@@ -111,11 +110,6 @@ function passes({ d, feat }: Row) {
   if (state.changing && !feat.includes("changing_table")) return false;
   // Places need no German; events only pass when they're held in English or need little talk.
   if (state.nogerman && d.type === "event" && !feat.includes("nogerman")) return false;
-  if (state.age && d.ages) {
-    const [lo, hi] = state.age.split("-").map(Number);
-    const [a, b] = d.ages.split("-").map(Number);
-    if (b < lo || a > hi) return false;
-  }
   return true;
 }
 
@@ -235,7 +229,6 @@ document.addEventListener("click", (ev) => {
   if (g) { state.tag = g.dataset.tagChip!; state.limit = PAGE; apply(); }
 });
 $<HTMLInputElement>("#q").addEventListener("input", (e) => { state.limit = PAGE; state.q = (e.target as HTMLInputElement).value.trim(); apply(); });
-$<HTMLSelectElement>("#age").addEventListener("change", (e) => { state.age = (e.target as HTMLSelectElement).value; apply(); });
 $<HTMLSelectElement>("#radius").addEventListener("change", (e) => { state.radius = +(e.target as HTMLSelectElement).value; state.area = null; apply(); });
 // "Around" opens the town picker. Typing narrows the list; Enter takes the first town left.
 const sheet = $<HTMLDialogElement>("[data-town-sheet]");

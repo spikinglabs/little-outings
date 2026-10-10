@@ -13,7 +13,7 @@ townPh: "Ort eintippen"
 townNone: "Kein Ort mit diesem Namen"
 search: Suche
 searchPh: Hof, Café, Spielplatz oder Fest suchen
-filters: { farm: "🚜 Bauernhof", rain: "☂ Bei Regen", free: Kostenlos, animals: Mit Tieren, changing: Wickeltisch, nogerman: Ohne Deutsch, age: Alter, ageAll: alle, radius: Umkreis }
+filters: { farm: "🚜 Bauernhof", rain: "☂ Bei Regen", free: Kostenlos, animals: Mit Tieren, changing: Wickeltisch, nogerman: Ohne Deutsch, radius: Umkreis }
 tip: "Unser Tipp {when}"
 only: "Nur {when}"
 always: Geht immer
