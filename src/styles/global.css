@@ -347,3 +347,57 @@ footer.foot { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--l
 .about p { line-height: 1.6; }
 .profile-ask { margin-top: 12px; }
 .profile-ask p { margin: 0; }
+
+/* Add: pick what, then one form */
+.add-pick { display: grid; gap: 12px; margin-top: 18px; }
+.add-tile { display: grid; grid-template-columns: auto 1fr; gap: 2px 14px; align-items: center; text-align: left; background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 16px; box-shadow: var(--shadow); cursor: pointer; color: var(--ink); }
+.add-tile:hover { border-color: var(--ink); }
+.add-tile b { font: 800 1.15rem/1.25 var(--display); }
+.add-tile > span:not(.add-ic) { color: var(--ink-soft); font-size: .92rem; }
+.add-ic { grid-row: span 2; width: 52px; height: 52px; border-radius: 12px; display: grid; place-items: center; font-size: 1.6rem; }
+.add-ic.gold { background: var(--gold); box-shadow: inset 0 0 0 2px var(--gold), inset 0 0 0 3.5px var(--gold-ink); }
+.add-ic.brown { background: var(--braun-bg); border: 2px solid var(--braun); }
+.add-form { scroll-margin-top: 12px; }
+.add-back { margin-top: 16px; }
+.add-form .poster { margin-top: 10px; }
+.ways { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 8px; }
+.ways .btn { flex-direction: column; gap: 2px; padding: 10px 4px; font-size: .85rem; text-align: center; }
+.ways .btn.on { background: var(--gold); color: var(--gold-ink); border-color: var(--gold-ink); }
+.optional { font-weight: 400; color: var(--ink-soft); }
+.where { position: relative; }
+.where-hits { display: grid; border: 1px solid var(--line); border-radius: 10px; background: var(--card); overflow: hidden; font-weight: 400; }
+.where-hits button { text-align: left; border: 0; border-top: 1px solid var(--line); background: none; padding: 8px 12px; cursor: pointer; font-size: .9rem; }
+.where-hits button:first-child { border-top: 0; }
+.where-hits button:hover, .where-hits button:focus-visible { background: var(--tint); }
+.where-hits .as-typed { color: var(--ink-soft); }
+.audience { border: 0; padding: 0; margin: 0; display: grid; gap: 8px; }
+.audience legend { font-weight: 700; font-size: .92rem; margin-bottom: 4px; padding: 0; }
+.form .opt { display: flex; grid-template-columns: none; gap: 10px; align-items: flex-start; border: 1.5px solid var(--line); border-radius: 12px; padding: 10px 12px; font-weight: 400; background: var(--card); cursor: pointer; }
+.form .opt.on { border-color: var(--ink); box-shadow: 0 0 0 1px var(--ink); }
+.form .opt input { width: auto; margin-top: 4px; accent-color: var(--ink); }
+.opt b { display: block; }
+.opt small { color: var(--ink-soft); font-size: .85rem; }
+.safety { margin: 0; background: var(--gold-bg); border-radius: 12px; padding: 10px 12px; font-size: .92rem; }
+.form .kind-picks label.pick.on, .form .feature-picks label.pick:has(input:checked) { border-color: var(--braun); background: var(--braun-bg); color: var(--braun); font-weight: 700; }
+.form .kind-picks input { position: absolute; opacity: 0; width: 1px; }
+
+/* Invite page (/m/<id>) */
+.invite { max-width: 640px; }
+.invite-kicker { display: inline-block; margin-top: 12px; font: 700 .72rem var(--sign); letter-spacing: .08em; text-transform: uppercase; background: var(--tint); border-radius: 6px; padding: 2px 8px; color: var(--ink-soft); }
+.invite .lead h1 { font-size: clamp(1.5rem, 6vw, 2.1rem); }
+.invite.off .lead h1 { text-decoration: line-through; }
+.invite-off { background: var(--rot); color: var(--rot-ink); font-weight: 700; border-radius: 12px; padding: 10px 12px; margin-top: 12px; }
+.answers { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 8px; margin-top: 12px; }
+.answers .btn { padding: 12px 6px; }
+.answers .btn[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.answers .go { background: var(--gold); color: var(--gold-ink); border: 0; box-shadow: inset 0 0 0 3px var(--gold), inset 0 0 0 5px var(--gold-ink); }
+.answers .go[aria-pressed="true"] { background: var(--gold); color: var(--gold-ink); box-shadow: inset 0 0 0 3px var(--gold), inset 0 0 0 6px var(--gold-ink), 0 0 0 3px var(--ink); }
+.invite-count { font-weight: 700; margin: 10px 0 0; }
+.share-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.share-row .btn { padding: 10px 6px; font-size: .9rem; }
+.share-row .wa { background: #1fa855; border-color: #1fa855; color: #fff; }
+.invite-box { margin-top: 18px; background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 14px; display: grid; gap: 10px; }
+.invite .invite-box h2 { font-size: 1.05rem; margin-top: 0; }
+.invite-box .profile-actions { margin: 0; }
+.invite-ready { background: var(--blau-bg); border-radius: 12px; padding: 10px 12px; font-weight: 700; margin-top: 12px; }
+.form .feature-picks label.pick { width: auto; margin-top: 0; justify-content: flex-start; }

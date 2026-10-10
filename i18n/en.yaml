@@ -2,7 +2,7 @@ locale: en-GB
 langName: English
 siteName: Little Outings
 tagline: Family outings near you
-tabs: { explore: Discover, saved: Mine, add: Contribute }
+tabs: { explore: Discover, saved: Mine, add: Add }
 when: { today: Today, tomorrow: Tomorrow, weekend: Weekend, soon: Next 2 weeks }
 whenIn: { today: today, tomorrow: tomorrow, weekend: this weekend, soon: in the next 2 weeks }
 ask: "What shall we do with the kids <em>{when}</em>?"
@@ -84,8 +84,8 @@ savedTitle: Saved
 savedEmpty: Nothing saved yet. Tap the bookmark on an event or place.
 events: Events
 places: Places
-addTitle: Contribute
-addSub: Saw a poster at a farm shop or know a great playground? Tell us, in English, German or Chinese. We check every tip before it goes live.
+addTitle: Add
+addSub: "Tell other families about something good, or plan an outing with friends. English, German or Chinese all work."
 posterTitle: Saw a poster? Just snap it.
 posterSub: Or paste a link or a message. We read the name, date, time and place automatically; you just give it a quick check.
 posterBtn: Take a photo of the poster
@@ -217,6 +217,7 @@ chipAsk:
     benches: "Are there benches?"
     fenced: "Is it fenced in?"
 mine:
+  sentAdded: What you added
   title: Mine
   sub: "Your saved outings, what you sent us, and your profile. No sign-up needed."
   saved: Saved
@@ -305,3 +306,83 @@ about:
   none: { h: What we don't do, p: "No ads, no tracking or analytics, no selling data, no names or emails." }
   wrong: { h: Something wrong?, p: "Every event and place page has “Something wrong?” at the bottom. Tap it and tell us." }
   who: { h: Who makes this, p: "Little Outings is a product by Spiking Labs, which also makes other apps for everyday life. You can see them all on the Spiking Labs website." }
+flow:
+  pickEvent: Something happening
+  pickEventSub: "An event you saw on a poster or online, or an outing you're organising yourself."
+  pickPlace: A place worth a visit
+  pickPlaceSub: "A playground, farm or café that's good any day."
+  other: "← Add something else"
+  faster: "Fill it in faster from:"
+  wayPoster: Poster
+  wayLink: Link or text
+  wayType: "I'll type"
+  what: "What?"
+  day: Day
+  time: Time
+  where: "Where?"
+  wherePh: "A park, playground, café or address"
+  asTyped: "Use “{q}” as typed"
+  noteLabel: "Anything to know?"
+  optional: "(optional)"
+  audience: "Who is it for?"
+  everyone: Everyone
+  everyoneSub: "A public event. We check it, then it shows on Discover."
+  invite: People I invite
+  inviteSub: "You get a link to share and see who's going. It isn't listed anywhere."
+  safety: "Only meet in public places where other people are around, like a park or playground in the daytime."
+  evening: "Evening meetups are less safe. If you can, pick a daytime start."
+  inviteBtn: Make my invite link
+  saveInvite: Save changes
+  editInvite: Change your invite
+  needPasskey: "Invites need your passkey, so you can always change or call off yours. No email, no name."
+  passHave: Sign in with my passkey
+  passNew: Make a passkey
+  passSoon: "Invites aren't switched on here yet."
+  passFail: "That didn't work. Nothing was changed."
+  passUnknown: "That passkey has no profile any more. Make a new one."
+  passNone: "This browser can't use passkeys, so invites don't work here. Try your phone's main browser."
+  tooMany: "That's a lot of invites for one day. Try again tomorrow."
+  kind: "What kind?"
+  name: Name
+  facilities: "What's there?"
+meet:
+  title: Invite
+  kicker: Only people with the link can see this
+  by: "A family's own meetup"
+  safety: "Little Outings doesn't know who made this. Only join if it's in a public place and you feel safe. Avoid evening meetups."
+  evening: "This one starts in the evening. Take extra care, and only go if you know who's organising it."
+  going: "We're going"
+  maybe: Maybe
+  no: "Can't go"
+  countGoing: { one: "1 family going", other: "{n} families going" }
+  countMaybe: "{n} maybe"
+  yours: "Your answer: {a}. Tap another to change it."
+  signIn: "To answer, sign in with your passkey. You can change your answer later from any phone. No email, no name."
+  invitePeople: Invite people
+  whatsapp: WhatsApp
+  share: "Share…"
+  copy: Copy link
+  copied: Link copied.
+  shareText: "Who's coming? {title}, {when}, {place}"
+  cancelled: Called off by the organiser.
+  missing: "This invite doesn't exist any more, or the link is incomplete."
+  soon: "Invites aren't switched on here yet, so this is a sample."
+  failed: "Couldn't load this invite. Check your connection and try again."
+  loading: "Loading…"
+  ready: "Your invite is ready. Send the link to friends or post it in your group."
+  yourInvite: This is your invite
+  edit: Edit
+  callOff: Call it off
+  callOffSure: "Call off this meetup? Everyone who opens the link will see it's off."
+  onAgain: "It's on again"
+  delete: Delete invite
+  deleteSure: "Delete this invite with all answers? The link stops working."
+  deleted: Invite deleted.
+  report: Report this invite
+  reported: "Thanks, we'll look at it."
+  sample: { title: Picnic and kite flying, place: "Rheinpark, Köln-Deutz", note: "Near the chairlift. Bring a blanket, we bring snacks." }
+  open: Open
+  mineTitle: Invites
+  mineSub: "Ones you made and ones you answered."
+  mineYours: Yours
+  mineSignIn: "Sign in with your passkey to see your invites."
