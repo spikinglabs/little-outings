@@ -67,13 +67,11 @@ const mapLabels = { ...(t.group("nEvents") as { one: string; other: string }), m
           <option value="0-2">0–2</option><option value="3-5">3–5</option><option value="6-9">6–9</option><option value="10-18">10+</option>
         </select>
       </label>
-      <button class="chip loc" type="button" data-locate aria-label={t("locate")} title={t("locate")}><Fragment set:html={svg(UI_ICON.locate, 'stroke-width="2"')} /></button>
       <label class="chip">{t("filters.radius")}
         <select id="radius" aria-label={t("filters.radius")}>
           <option value="10">10 km</option><option value="30" selected>30 km</option><option value="60">60 km</option><option value="100">100 km</option>
         </select>
       </label>
-      <button class="chip loc" type="button" data-locate aria-label={t("locate")} title={t("locate")}><Fragment set:html={svg(UI_ICON.locate, 'stroke-width="2"')} /></button>
     </div>
     <p class="loc-msg small" role="status" data-loc-msg hidden></p>
   </section>
