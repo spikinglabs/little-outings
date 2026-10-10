@@ -18,6 +18,21 @@ test("kindOf keeps family places and drops the rest", () => {
   assert.equal(kindOf({ tourism: "museum", name: "Kindermuseum" }), "museum");
   assert.equal(kindOf({ tourism: "museum", name: "Von der Heydt-Museum" }), null);
   assert.equal(kindOf({ amenity: "cafe" }), null);
+  assert.equal(kindOf({ amenity: "cafe", kids_area: "indoor" }), "cafe");
+  assert.equal(kindOf({ amenity: "cafe", name: "Spielcafé Wirbelwind" }), "cafe");
+  assert.equal(kindOf({ amenity: "cafe", name: "RheinBerg Spielcasino" }), null);
+  assert.equal(kindOf({ amenity: "cafe", name: "Bistro Nachspielzeit" }), null);
+  assert.equal(kindOf({ leisure: "indoor_play" }), "indoor");
+  assert.equal(kindOf({ leisure: "trampoline_park" }), "indoor");
+  assert.equal(kindOf({ zoo: "enclosure", name: "Wildgehege" }), "zoo");
+  assert.equal(kindOf({ tourism: "aquarium" }), "zoo");
+  assert.equal(kindOf({ leisure: "swimming_area" }), "pool");
+  assert.equal(kindOf({ tourism: "museum", museum: "technology", name: "LVR-Industriemuseum" }), "museum");
+  assert.equal(kindOf({ tourism: "theme_park" }), "fun");
+  assert.equal(kindOf({ sport: "climbing_adventure" }), "fun");
+  assert.equal(kindOf({ leisure: "park", wikidata: "Q1" }), "park");
+  assert.equal(kindOf({ leisure: "park" }), null, "not every green corner");
+  assert.equal(kindOf({ leisure: "park", wikidata: "Q2", name: "Chlodwigplatz" }), null, "a square is not an outing");
 });
 
 test("fromOsm picks the nearest town, facilities and a safe website", () => {
@@ -35,7 +50,8 @@ test("the Overpass query covers every town plus the radius in one box", () => {
   const [s, w, n, e] = bbox(towns);
   assert.ok(s < 51.256 - 0.05 && n > 51.34 + 0.05 && w < 7.043 - 0.08 && e > 7.15 + 0.08);
   const qs = overpassQueries(towns);
-  assert.equal(qs.length, 11);
+  assert.equal(qs.length, 24);
+  assert.ok(qs.every((q) => !/"zoo"~/.test(q.query)), "no regex on the zoo key: Overpass answers 504");
   assert.equal(qs[0].kind, "playground");
   assert.match(qs[0].query, /^\[out:json\]\[timeout:90\]\[bbox:[\d.,]+\];nwr\["leisure"="playground"\]\["name"\];out center tags;$/);
 });

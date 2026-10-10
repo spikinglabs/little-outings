@@ -94,7 +94,7 @@ export function eventFile(number, d, approvedBy) {
 }
 
 // Same lists as src/content.config.ts (the admin can't import the site's Astro config).
-const PLACE_KINDS = ["farm", "cafe", "playground", "park", "museum", "pool", "zoo"];
+const PLACE_KINDS = ["playground", "indoor", "park", "zoo", "farm", "pool", "museum", "cafe", "fun"];
 const FEATURES = ["playground", "changing_table", "highchairs", "kids_menu", "toys", "animals", "stroller_friendly",
   "nursing_room", "indoor_play", "toilets", "farm_shop", "parking"];
 

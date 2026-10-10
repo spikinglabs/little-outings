@@ -24,10 +24,12 @@ const listed = events.filter((e) => e.geo.precision !== "unknown");
 const tips = listed
   .filter((e) => e.trust.level === "verified" && e.geo.precision === "exact")
   .sort((a, b) => Number(placeById.get(b.place ?? "")?.kind === "farm") - Number(placeById.get(a.place ?? "")?.kind === "farm"));
+// Kinds of place in their fixed order (KINDS), when there is at least one.
 const presentKinds = KINDS.filter((k) => places.some((p) => p.kind === k));
-// Event types that at least one listed event has, most common first.
+// Event types that at least one listed event has, most common first; "other" for events with none.
 const presentTags = TAGS.map((g) => [g, listed.filter((e) => e.tags.includes(g)).length] as const)
-  .filter(([, n]) => n > 0).sort((a, b) => b[1] - a[1]).map(([g]) => g);
+  .filter(([, n]) => n > 0).sort((a, b) => b[1] - a[1]).map(([g]) => g as string)
+  .concat(listed.some((e) => !e.tags.length) ? ["other"] : []);
 const whenKeys = ["today", "tomorrow", "weekend", "soon"];
 const whenIn = t.group("whenIn");
 const pluralUi = { nEvents: t.group("nEvents"), nPlaces: t.group("nPlacesAny"), tip: t("tip"), whenIn, mapShow: t("mapShow"), mapHide: t("mapHide"), areaBack: t("mapAreaBack"), showMore: t("mapShowMore") };
@@ -104,15 +106,15 @@ const mapLabels = { ...(t.group("nEvents") as { one: string; other: string }), m
   <section class="section" aria-labelledby="ideas-h">
     <div class="section-head"><h2 id="ideas-h">{t("ideas")}</h2><p data-count aria-live="polite"></p></div>
     <div class="filters kinds" role="group" aria-label={t("ideasKinds")}>
-      <button class="chip" type="button" data-kind-chip="" aria-pressed="true">{t("allKinds")}</button>
-      <button class="chip" type="button" data-kind-chip="event" aria-pressed="false"><span class="dot-ev" aria-hidden="true"></span> {t("kindEvents")}</button>
+      <button class="chip" type="button" data-kind-chip="" aria-pressed="true">{t("allKinds")} <span class="n" data-n></span></button>
+      <button class="chip" type="button" data-kind-chip="event" aria-pressed="false"><span class="dot-ev" aria-hidden="true"></span> {t("kindEvents")} <span class="n" data-n></span></button>
       {presentKinds.map((k) => (
-        <button class="chip" type="button" data-kind-chip={k} aria-pressed="false"><Fragment set:html={svg(KIND_ICON[k])} /> {t(`kinds.${k}`)}</button>
+        <button class="chip" type="button" data-kind-chip={k} aria-pressed="false"><Fragment set:html={svg(KIND_ICON[k])} /> {t(`kinds.${k}`)} <span class="n" data-n></span></button>
       ))}
     </div>
     <div class="filters types" role="group" aria-label={t("eventTypes")} data-types hidden>
-      <button class="chip" type="button" data-tag-chip="" aria-pressed="true">{t("allTypes")}</button>
-      {presentTags.map((g) => <button class="chip" type="button" data-tag-chip={g} aria-pressed="false">{t(`tags.${g}`)}</button>)}
+      <button class="chip" type="button" data-tag-chip="" aria-pressed="true">{t("allTypes")} <span class="n" data-n></span></button>
+      {presentTags.map((g) => <button class="chip" type="button" data-tag-chip={g} aria-pressed="false">{t(`tags.${g}`)} <span class="n" data-n></span></button>)}
     </div>
     <div class="grid ideas" id="ideas">
       <div class="empty" data-empty hidden>{t("noIdeas")}</div>

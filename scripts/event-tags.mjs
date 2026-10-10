@@ -1,18 +1,20 @@
 // Event types from the title and venue, so parents can filter events by what happens there.
 // German first (the data is German), a few English words for English-language listings.
 const RULES = {
-  reading: /vorles|lesung|bilderbuch|geschicht|m(ä|ae)rchen|b(ü|ue)cherei|bibliothek|kamishibai|story ?time/,
-  diy: /bastel|werkstatt|workshop|mitmach|kreativ|malen|malerei|t(ö|oe)pfer|clay|n(ä|ae)h|flechten|experiment|forsch|kochen|kochgruppe|backen|craft|lego|robot|programmier/,
-  stage: /theater|puppen|kasper|oper\b|kinderoper|zirkus|zauber|kino|film|cinep(ä|ae)nz|figuren|musical|show\b/,
-  music: /musik|konzert|live\b|gitarre|quintett|band\b|singen|lieder|chor\b|orchester|trommel|rhythm|music/,
-  sport: /sport|turnen|schwimm|kletter|capoeira|kampfsport|selbstverteidigung|yoga|fu(ß|ss)ball|tanz|bewegung|judo|karate|reiten|radfahr|fahrrad|skate/,
+  reading: /vorles|lesung|lese|bilderbuch|b(ü|ue)cher|geschicht|m(ä|ae)rchen|b(ü|ue)cherei|bibliothek|kamishibai|story ?time|comic|literar/,
+  diy: /bastel|werkstatt|workshop|mitmach|kreativ|malen|malerei|t(ö|oe)pfer|clay|n(ä|ae)h|flechten|experiment|forsch|kochen|kochgruppe|backen|zubereit|craft|lego|robot|programmier|kunstklub|kunstschule|kunst zum|kunst\+kind|k(ü|ue)nstler|art camp|akademie|kr(a|ä|ae)nz|druck\b|bl(ä|ae)tterdruck|stop-motion|farbe/,
+  stage: /theater|puppen|kasper|oper\b|kinderoper|zirkus|zauber|kino|film|cinep(ä|ae)nz|figuren|musical|show\b|kabarett|comedy/,
+  music: /musik|konzert|live\b|gitarre|quintett|band\b|singen|lieder|chor\b|orchester|trommel|rhythm|music|musizi|sextett|disco|big band/,
+  sport: /sport|turnen|schwimm|kletter|capoeira|kampfsport|selbstverteidigung|yoga|fu(ß|ss)ball|tanz|bewegung|judo|karate|reiten|radfahr|fahrrad|skate|fecht|probetraining|shaolin|kung ?fu/,
   animals: /tier|zoo\b|bauernhof|pony|esel|ziege|pferd|v(ö|oe)gel|imker|biene|alpaka|farm/,
-  tour: /f(ü|ue)hrung|rundgang|museum|ausstellung|r(ö|oe)mer/,
+  tour: /f(ü|ue)hrung|rundgang|museum|ausstellung|r(ö|oe)mer|dokumentationszentrum|portr(ä|ae)t|skulptur|zeichnung/,
   market: /markt|tr(ö|oe)del|basar|bazar/,
   fest: /fest\b|fest |feier|kirmes|party|jubil(ä|ae)um|parade|umzug|hoffest|festival/,
-  outside: /wald|natur|wander|drau(ß|ss)en|garten|spaziergang|exkursion|outdoor|erlebnispfad/,
-  season: /ferien|halloween|advent|weihnacht|nikolaus|ostern|karneval|laterne|martin/,
-  parents: /vortrag|elternabend|elterncaf|babysitter|erziehung|beratung|mediation|ged(ä|ae)chtnistraining|mit kindern (ü|ue)ber|informationsveranstaltung|babymassage|elternzeit/,
+  outside: /wald|natur|wander|drau(ß|ss)en|garten|spaziergang|exkursion|outdoor|erlebnispfad|flederm(a|ä|ae)us|bl(ä|ae)tter|kr(ä|ae)uter/,
+  season: /ferien|halloween|advent|weihnacht|nikolaus|ostern|karneval|laterne|martin|fastelovend|kost(ü|ue)msitzung|kindersitzung|familiensitzung|dreigestirn|silvester|k(ü|ue)rbis|herbst/,
+  parents: /vortrag|elternabend|elterncaf|babysitter|erziehung|beratung|mediation|ged(ä|ae)chtnistraining|mit kindern (ü|ue)ber|informationsveranstaltung|babymassage|elternzeit|infoabend|sprechstunde|kindertagespflege|pflegekind|pr(ä|ae)vention|stress|autogen|kommunikation|alleinerziehend|first aid|erste hilfe|(?<!probe)training|ausschuss|beirat|b(ü|ue)rger\*?inneninformation|familienmesse|bildungsmesse|frauentag|walk and talk|netzwerk/,
+  // Courses and language groups: "Dialog in Deutsch" helps parents who are learning German.
+  learn: /deutsch als|deutsch f(ü|ue)r|dialog in deutsch|sprachkurs|niveaustufe|konversation|\bkurs\b|mappenkurs|book swap|schreib-lust/,
 };
 
 // A venue says what happens there only for these (a library also hosts language courses).

@@ -110,8 +110,17 @@ function apply() {
   const matched: Row[] = [];
   const onMap: Row[] = [];
   let nEv = 0, nPl = 0;
+  // How many ideas each chip would show here and now, so parents see what is around before tapping.
+  const perKind = new Map<string, number>(), perTag = new Map<string, number>();
+  const add = (m: Map<string, number>, k: string) => m.set(k, (m.get(k) ?? 0) + 1);
   for (const r of all) {
     const inTime = r.d.type !== "event" || (r.d.end! >= from && r.d.start! <= to);
+    if (inTime && near(r) && passes(r)) {
+      add(perKind, "");
+      if (r.d.type === "event") { add(perKind, "event"); for (const g of r.feat) add(perTag, g); }
+      if (r.d.kind) add(perKind, r.d.kind);
+      if (r.d.farm && r.d.kind !== "farm") add(perKind, "farm");
+    }
     const match = inTime && passes(r) && kindOk(r);
     if (match) onMap.push(r);
     if (match && near(r)) {
@@ -166,9 +175,16 @@ function apply() {
   const filtered = { ids: onMap.map((r) => r.d.id!), home: getHome(), radius: state.radius, view: state.view };
   window.loFiltered = filtered;
   document.dispatchEvent(new CustomEvent("lo:filtered", { detail: filtered }));
-  $$<HTMLButtonElement>("[data-kind-chip]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.kindChip === state.kind)));
+  const chipCount = (b: HTMLElement, n: number) => { const el = b.querySelector("[data-n]"); if (el) el.textContent = String(n); b.classList.toggle("none", n === 0); };
+  $$<HTMLButtonElement>("[data-kind-chip]").forEach((b) => {
+    b.setAttribute("aria-pressed", String(b.dataset.kindChip === state.kind));
+    chipCount(b, perKind.get(b.dataset.kindChip!) ?? 0);
+  });
   $("[data-types]").hidden = state.kind !== "event";
-  $$<HTMLButtonElement>("[data-tag-chip]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.tagChip === state.tag)));
+  $$<HTMLButtonElement>("[data-tag-chip]").forEach((b) => {
+    b.setAttribute("aria-pressed", String(b.dataset.tagChip === state.tag));
+    chipCount(b, b.dataset.tagChip ? perTag.get(b.dataset.tagChip) ?? 0 : perKind.get("event") ?? 0);
+  });
 }
 
 document.addEventListener("click", (ev) => {

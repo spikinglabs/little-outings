@@ -116,9 +116,9 @@ tasksAllTowns: "所有城市"
 tasksLater: "以后"
 tasksCount: { one: "{n} 个活动", other: "{n} 个活动" }
 tasksNone: "没有找到。换个词试试，或显示全部。"
-kinds: { farm: 农场, cafe: 咖啡馆, playground: 游乐场, park: 公园和森林, museum: 博物馆, pool: 游泳馆, zoo: 动物园 }
+kinds: { playground: 游乐场, indoor: 室内游乐场, park: 公园和花园, zoo: 动物园和动物, farm: 农场, pool: 泳池和湖泊, museum: 博物馆, cafe: 亲子咖啡馆, fun: 游乐园和攀爬园 }
 features: { playground: 游乐场, changing_table: 尿布台, highchairs: 儿童餐椅, kids_menu: 儿童餐, toys: 玩具和小礼物, animals: 动物, stroller_friendly: 婴儿车方便, nursing_room: 哺乳角, indoor_play: 室内游戏区, toilets: 卫生间, farm_shop: 农场小店, parking: 停车场 }
-tags: { fest: 节庆, animals: 动物, market: 市集, diy: 动手体验, season: 季节活动, reading: 绘本故事, music: 音乐, outside: 户外, stage: 戏剧和电影, sport: 运动, tour: 博物馆和导览, parents: 家长专场 }
+tags: { fest: 节庆, animals: 动物, market: 市集, diy: 动手体验, season: 季节活动, reading: 绘本故事, music: 音乐, outside: 户外, stage: 戏剧和电影, sport: 运动, tour: 博物馆和导览, parents: 家长专场, learn: 课程和语言, other: 其他 }
 empty: 这里还没有内容。你知道什么好去处吗？可以在“投稿”中告诉我们。
 install: { button: "安装应用", hint: "可以把小出游添加到主屏幕，像应用一样使用。", hintIos: "点“分享”，再选“添加到主屏幕”，就能像应用一样使用小出游。", short: 安装, dismiss: 关闭, menu: "在浏览器菜单中选择“安装应用”或“添加到主屏幕”。", installed: "小出游已经安装在这台设备上，请从主屏幕或应用列表打开。" }
 footer: 所有信息仅供参考，出发前请向主办方确认。

@@ -4,7 +4,11 @@ import { languageOf, tagsOf } from "../scripts/event-tags.mjs";
 
 test("event types come from the title, and a few from the venue", () => {
   assert.deepEqual(tagsOf("Regelmäßige Vorlesestunde", "Stadtbibliothek"), ["reading"]);
-  assert.deepEqual(tagsOf("Dialog in Deutsch", "Stadtbibliothek"), [], "a library venue alone is not story time");
+  assert.deepEqual(tagsOf("Dialog in Deutsch", "Stadtbibliothek"), ["learn"], "a library venue alone is not story time");
+  assert.deepEqual(tagsOf("Bücherbabys – die literarische Krabbelgruppe"), ["reading"]);
+  assert.deepEqual(tagsOf("Kinderkostümsitzung"), ["season"]);
+  assert.deepEqual(tagsOf("Probetraining beim Fechtklub"), ["sport"], "a trial session is sport, not a parents' training");
+  assert.deepEqual(tagsOf("Diversity-Training"), ["parents"]);
   assert.deepEqual(tagsOf("Kinderflohmarkt St. Severin"), ["market"]);
   assert.deepEqual(tagsOf("Herbstferien Kids Clay Workshop"), ["diy", "season"]);
   assert.deepEqual(tagsOf("Die Nachtigall", "Kinderoper"), ["stage"]);
