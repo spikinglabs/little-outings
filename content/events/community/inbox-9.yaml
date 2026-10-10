@@ -1,0 +1,10 @@
+# Suggested by a parent (inbox #9), approved in the admin by leima137@gmail.com.
+# Edit here to fix it. If the sender edits it, approving again replaces this file.
+title: "Vortrag über Zwangsarbeit in Merzenich"
+venue: "Pfarrheim"
+town: "Merzenich"
+start: "2026-10-15"
+time: "19:00"
+price: { free: true }
+note: "Historischer Vortrag von Inga Mehlert-Garms über Zwangsarbeit in Merzenich, veranstaltet von der Katholischen Kirchengemeinde St. Laurentius."
+trust: { level: community }
