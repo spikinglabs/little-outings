@@ -38,8 +38,7 @@ paid: 收费
 trust: { parents: { other: "{n} 条家长反馈" }, base: "基础信息来自 {source}", verified: "✓ 已核实", official: 官方来源, community: 家长提供，尚未核实, from: "来自 {source}，尚未核实" }
 save: 收藏
 saved: 已收藏
-route: 规划路线
-mapSearch: 在地图上搜索
+openMaps: 在地图应用中查看
 until: 至
 locPill: { venue: 大致位置, area: 仅知城市 }
 locNote: { venue: 地图上的位置只是大概。, area: "目前只知道在{town}的某处。", unknown: 地点暂缺。 }

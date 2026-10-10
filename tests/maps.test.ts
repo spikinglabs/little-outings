@@ -5,34 +5,49 @@ import { mapLink } from "../src/lib/maps.ts";
 const ev = (x: Record<string, unknown>) => ({ type: "event", id: "e", title: { de: "Into the Paperverse" }, start: "2026-04-25", end: "2026-04-25", tags: [], trust: { level: "official" }, ...x }) as any;
 const q = (href?: string) => href && new URL(href).searchParams.get("query");
 
-test("an exact point keeps directions", () => {
-  const l = mapLink(ev({ geo: { lat: 50.8, lon: 6.48, precision: "exact" }, venue: "Museum", town: "Düren" }))!;
-  assert.equal(l.search, false);
-  assert.match(l.href, /maps\/dir\/.*destination=50\.80000,6\.48000/);
+test("an exact point opens the venue on the map, not a route", () => {
+  const l = mapLink(ev({ geo: { lat: 50.8, lon: 6.48, precision: "exact" }, venue: "Leopold-Hoesch-Museum", town: "Düren" }))!;
+  assert.doesNotMatch(l.google, /\/dir\//);
+  assert.equal(q(l.google), "Leopold-Hoesch-Museum, Düren");
+  const a = new URL(l.apple);
+  assert.equal(a.host, "maps.apple.com");
+  assert.equal(a.searchParams.get("q"), "Leopold-Hoesch-Museum, Düren");
+  assert.equal(a.searchParams.get("sll"), "50.80000,6.48000");
+});
+
+test("a point without any name drops a pin", () => {
+  const l = mapLink({ type: "place", name: "", geo: { lat: 50.8, lon: 6.48, precision: "exact" } } as any)!;
+  assert.equal(q(l.google), "50.80000,6.48000");
+  assert.equal(new URL(l.apple).searchParams.get("ll"), "50.80000,6.48000");
+});
+
+test("an exact place without a street pins its point on Google", () => {
+  const l = mapLink({ type: "place", name: "Spielplatz", town: "Velbert", geo: { lat: 51.3, lon: 7.1, precision: "exact" } } as any)!;
+  assert.equal(q(l.google), "51.30000,7.10000");
+  assert.equal(new URL(l.apple).searchParams.get("q"), "Spielplatz, Velbert");
 });
 
 test("a known venue is searched by name and town", () => {
-  const l = mapLink(ev({ geo: { lat: 50.8, lon: 6.48, precision: "venue" }, venue: "Leopold-Hoesch-Museum", town: "Düren" }))!;
-  assert.equal(l.search, true);
-  assert.equal(q(l.href), "Leopold-Hoesch-Museum, Düren");
+  assert.equal(q(mapLink(ev({ geo: { lat: 50.8, lon: 6.48, precision: "venue" }, venue: "Leopold-Hoesch-Museum", town: "Düren" }))!.google), "Leopold-Hoesch-Museum, Düren");
 });
 
 test("with only the town, the title and town are searched", () => {
-  const l = mapLink(ev({ geo: { lat: 50.8, lon: 6.48, precision: "area" }, town: "Düren" }))!;
-  assert.equal(q(l.href), "Into the Paperverse, Düren");
+  assert.equal(q(mapLink(ev({ geo: { lat: 50.8, lon: 6.48, precision: "area" }, town: "Düren" }))!.google), "Into the Paperverse, Düren");
 });
 
 test("an unknown location with a town still gets a search", () => {
-  assert.equal(q(mapLink(ev({ geo: { precision: "unknown" }, town: "Düren" }))!.href), "Into the Paperverse, Düren");
+  const l = mapLink(ev({ geo: { precision: "unknown" }, town: "Düren" }))!;
+  assert.equal(q(l.google), "Into the Paperverse, Düren");
+  assert.equal(new URL(l.apple).searchParams.get("sll"), null);
 });
 
 test("a venue that already names the town is not repeated", () => {
-  assert.equal(q(mapLink(ev({ geo: { precision: "area" }, venue: "Stadtpark Düren", town: "Düren" }))!.href), "Stadtpark Düren");
+  assert.equal(q(mapLink(ev({ geo: { precision: "area" }, venue: "Stadtpark Düren", town: "Düren" }))!.google), "Stadtpark Düren");
 });
 
-test("an event at a vague place searches the place's name and street", () => {
+test("an event at a place searches the place's name and street", () => {
   const place = { type: "place", name: "Hof Mertens", street: "Feldweg 2", town: "Velbert", geo: { precision: "area" } } as any;
-  assert.equal(q(mapLink(ev({ geo: { precision: "area" }, place: "hof", town: "Velbert" }), place)!.href), "Hof Mertens, Feldweg 2, Velbert");
+  assert.equal(q(mapLink(ev({ geo: { precision: "area" }, place: "hof", town: "Velbert" }), place)!.google), "Hof Mertens, Feldweg 2, Velbert");
 });
 
 test("nothing to search and no point means no button", () => {

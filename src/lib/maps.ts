@@ -1,13 +1,13 @@
-// The main map button on a detail page. Exact points get directions; anything vaguer gets a
-// map search by name, so the phone's maps app finds the venue instead of routing to a town centre.
+// The main map button on a detail page. It opens the place in the phone's maps app, not a route,
+// so parents can check the place first and start navigation from there. It searches by name
+// (name, street, town), which shows the venue's card with photos and opening hours; when the
+// location is vague, that finds the venue instead of a town centre.
 import type { Event, Place } from "./types.ts";
 
-export type MapLink = { href: string; search: boolean };
+/** google: universal Maps URL (Google Maps app on Android, website elsewhere); apple: Apple Maps, swapped in on iPhones by app.ts. */
+export type MapLink = { google: string; apple: string };
 
-const route = (lat: number, lon: number) =>
-  `https://www.google.com/maps/dir/?api=1&destination=${lat.toFixed(5)},${lon.toFixed(5)}`;
-// Google's universal Maps URL opens the Google Maps app on phones that have it, the website otherwise.
-const search = (q: string) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`;
+const fixed = (n: number) => n.toFixed(5);
 
 /** Search words in German, as the venue signs and the map read: name, street, town (no repeats). */
 function query(parts: (string | undefined)[]) {
@@ -20,14 +20,22 @@ function query(parts: (string | undefined)[]) {
 const deTitle = (e: Event) => (typeof e.title === "string" ? e.title : e.title.de);
 
 export function mapLink(item: Place | Event, place?: Place): MapLink | undefined {
-  const { lat, lon, precision } = item.geo;
-  if (precision === "exact" && lat != null && lon != null) return { href: route(lat, lon), search: false };
+  const { lat, lon } = item.geo;
+  const point = lat != null && lon != null ? `${fixed(lat)},${fixed(lon)}` : "";
   let q = "";
   if (item.type === "place") q = query([item.name, item.street, item.town]);
   else if (place) q = query([place.name, place.street, place.town ?? item.town]);
   else if (item.venue) q = query([item.venue, item.town]);
   // Only the town is known: the title plus the town is the best hint the map can get.
   else if (item.town) q = query([deTitle(item), item.town]);
-  if (q) return { href: search(q), search: true };
-  return lat != null && lon != null ? { href: route(lat, lon), search: false } : undefined;
+  if (!q && !point) return undefined;
+  // A place from OpenStreetMap often has only a generic name ("Spielplatz") and no street; a name
+  // search could find another one, so Google gets the exact point instead.
+  const generic = item.type === "place" && item.geo.precision === "exact" && !item.street && point;
+  const google = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(generic ? point : q || point)}`;
+  // Apple Maps searches for q near the point (sll), or drops a pin at the point when there is no name.
+  const apple = q
+    ? `https://maps.apple.com/?q=${encodeURIComponent(q)}${point ? `&sll=${point}` : ""}`
+    : `https://maps.apple.com/?ll=${point}`;
+  return { google, apple };
 }
