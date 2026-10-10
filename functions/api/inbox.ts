@@ -1,7 +1,8 @@
 // Cloudflare Pages Function: POST /api/inbox
 // The only write path of the site. Each contribution (a new event draft, a suggested place or a gap answer)
 // becomes an issue in a private GitHub repo. A GitHub Action there groups answers and opens
-// a pull request on the site repo once two parents agree or a moderator adds `approved`.
+// The nightly deploy counts them (scripts/tally-inbox.mjs): a gap answer goes live once two browsers
+// send the same one, or a moderator approves it in the admin (admin/lib/answers.js).
 //
 // Environment (Cloudflare Pages → Settings → Variables):
 //   GITHUB_TOKEN      fine-grained token with Issues: write on INBOX_REPO only
@@ -87,8 +88,10 @@ export async function onRequestPost({ request, env }: Ctx) {
     const [id, gap, feature] = body.gap.split(":");
     title = `answer ${body.gap}`;
     label = "answer";
+    // `from` tells two parents apart without saying who they are: a hash of the browser's random id.
+    const from = typeof body.voter === "string" && KEY.test(body.voter) ? (await sha256(`answer:${body.voter}`)).slice(0, 16) : "";
     yaml = [`kind: answer`, `item: ${yamlStr(id, 80)}`, `gap: ${yamlStr(gap, 20)}`, feature ? `feature: ${yamlStr(feature, 40)}` : "",
-      `answer: ${yamlStr(body.answer)}`, `lang: ${yamlStr(body.lang, 5)}`].filter(Boolean).join("\n");
+      `answer: ${yamlStr(body.answer)}`, `lang: ${yamlStr(body.lang, 5)}`, from ? `from: ${JSON.stringify(from)}` : ""].filter(Boolean).join("\n");
   } else if (body.kind === "event" && body.draft && typeof body.draft === "object") {
     const d = body.draft;
     if (!d.title || !d.date) return json(400, { error: "title and date are required" });

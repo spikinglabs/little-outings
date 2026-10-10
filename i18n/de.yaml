@@ -66,6 +66,8 @@ ph: { where: Adresse oder Treffpunkt, time: "z. B. 14:00–17:00", price: "z. B.
 dunno: Weiß nicht
 send: Senden
 answered: Danke! Sobald zwei Eltern übereinstimmen, übernehmen wir es.
+answeredCheck: Danke! Wir prüfen es und tragen es ein.
+answeredVote: Danke! Deine Antwort wird mitgezählt.
 inboxSoon: Danke! Das Einsenden wird gerade eingerichtet. Bis dahin gern per GitHub melden.
 mapShowMore: "{n} weitere zeigen"
 mapMore: "und {n} weitere"
@@ -284,7 +286,7 @@ about:
   places: { h: Orte, p: "Spielplätze, Bäder, Museen, Höfe und andere Orte stammen aus OpenStreetMap (© OpenStreetMap-Mitwirkende, ODbL) und werden wöchentlich aktualisiert. Sobald Eltern etwas ergänzt haben, zeigt der Ort, wie viele Antworten es gibt." }
   translate: { h: Übersetzungen und Hinweise, p: "Chinesische Namen sind maschinell übersetzt; der deutsche Name steht darunter. „Braucht man Deutsch?“ ist zuerst aus dem Titel geschätzt und mit „?“ markiert. Sobald Eltern antippen, gilt die häufigste Antwort." }
   taps: { h: Deine Klicks, p: "Antworten zu Ausstattung, „Wir waren da“ und „Braucht man Deutsch?“ werden anonym bei Cloudflare gezählt. Jeder Browser hat eine Zufalls-ID: Eine Frage zählt einmal, eine neue Antwort ersetzt die alte. IP-Adressen werden nur als Hash gespeichert, gegen Massenklicks." }
-  writing: { h: Was du schreibst, p: "Tipps, Fehlermeldungen und vorgeschlagene Orte prüfen wir zuerst; sie erscheinen erst nach Freigabe. Bitte keine Namen, Telefonnummern oder andere persönliche Angaben." }
+  writing: { h: Was du schreibst, p: "Tipps, Fehlermeldungen und vorgeschlagene Orte prüfen wir zuerst; sie erscheinen erst nach Freigabe. Antworten bei „Fehlt noch“ (Öffnungszeiten, Uhrzeit, Preis) erscheinen, sobald zwei Eltern dasselbe antworten oder wir sie geprüft haben. Bitte keine Namen, Telefonnummern oder andere persönliche Angaben." }
   profile: { h: Dein Profil, p: "Merkliste, besuchte Orte und deine Antworten bleiben im Browser dieses Handys. Kein Konto, keine E-Mail. Unter „Meins“ und dann „Profil und Sync“ kannst du es herunterladen, auf ein anderes Handy umziehen oder löschen. Mit Passkey-Sync liegt eine Kopie auf dem Server, die mit dem Profil gelöscht wird." }
   none: { h: Was wir nicht tun, p: "Keine Werbung, kein Tracking, keine Statistik-Tools, kein Datenverkauf, keine Namen oder E-Mails." }
   wrong: { h: Etwas falsch?, p: "Unten auf jeder Termin- und Ortsseite steht „Stimmt etwas nicht?“. Tipp drauf und sag es uns." }

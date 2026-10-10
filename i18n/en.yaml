@@ -66,6 +66,8 @@ ph: { where: Address or meeting point, time: "e.g. 14:00–17:00", price: "e.g. 
 dunno: Not sure
 send: Send
 answered: Thanks! Once two parents agree, we add it.
+answeredCheck: Thanks! We'll check it and add it.
+answeredVote: Thanks! Your answer is counted.
 inboxSoon: Thanks! Sending is being set up. Until then, please report via GitHub.
 mapShowMore: "Show {n} more"
 mapMore: "and {n} more"
@@ -284,7 +286,7 @@ about:
   places: { h: Places, p: "Playgrounds, pools, museums, farms and other places come from OpenStreetMap (© OpenStreetMap contributors, ODbL), refreshed weekly. Once parents add to a place, it shows how many answers they gave." }
   translate: { h: Translations and labels, p: "Chinese names are machine-translated, with the German name underneath so you can match posters and signs. “Do you need German?” starts as a guess from the title, marked with “?”. Once parents tap an answer, the most common answer wins." }
   taps: { h: Your taps, p: "Taps on facilities, “We went” and “Do you need German?” are counted anonymously on Cloudflare. Each browser has a random id, so one question counts once and changing your answer replaces the old one. IP addresses are kept only as a hash, to stop vote flooding." }
-  writing: { h: What you write, p: "Tips, reports and suggested places go to us for review first and only appear once approved. Please don't include names, phone numbers or other personal details." }
+  writing: { h: What you write, p: "Tips, reports and suggested places go to us for review first and only appear once approved. An answer to “Still missing” (opening hours, time, price) goes live once two parents give the same answer, or once we've checked it. Please don't include names, phone numbers or other personal details." }
   profile: { h: Your profile, p: "Your saved list, the places you went and your answers stay in this phone's browser. There is no account and no email. Under “Mine”, then “Profile and sync”, you can download it, move it to another phone or delete it. If you choose passkey sync, the server keeps one copy, which is deleted with your profile." }
   none: { h: What we don't do, p: "No ads, no tracking or analytics, no selling data, no names or emails." }
   wrong: { h: Something wrong?, p: "Every event and place page has “Something wrong?” at the bottom. Tap it and tell us." }

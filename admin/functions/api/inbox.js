@@ -1,7 +1,8 @@
-import { KINDS, PUBLISHED, eventFile, github, placeFile, putSiteFile, reviewItem, sitePages, waiting } from "../../lib/inbox.js";
+import { AUTO_GAPS, agreement } from "../../lib/answers.js";
+import { PUBLISHED, actionsOf, eventFile, github, placeFile, putSiteFile, reviewItem, sitePages, waiting } from "../../lib/inbox.js";
 import { json } from "../../lib/store.js";
 
-// Lists the tips, reports and suggestions waiting for review, and approves or rejects one.
+// Lists the tips, reports, suggestions and unsettled gap answers waiting for review, and approves or rejects one.
 // Needs INBOX_REPO and INBOX_TOKEN (fine-grained, Issues: read and write on that repo only).
 // Approving an event or place also needs GITHUB_TOKEN (Contents: write on the site repo), as Publish does.
 // SITE_URL names the place or event a tip or report is about, from the site's public JSON.
@@ -12,21 +13,56 @@ const MISSING = "INBOX_TOKEN is not set for the admin site.";
 export async function onRequestGet({ env }) {
   if (!configured(env)) return json({ error: MISSING, items: [] }, 503);
   const { call } = github(env);
-  const items = [];
+  let items = [];
   for (let page = 1; page <= 10; page++) {
     const res = await call(`/issues?state=open&per_page=100&page=${page}`);
     if (!res.ok) return json({ error: `GitHub refused to list the inbox (${res.status}).` }, 502);
     const rows = await res.json();
     for (const issue of rows) {
       const item = reviewItem(issue);
-      if (item && waiting(item)) items.push(item);
+      if (item && waiting(item)) items.push({ ...item, actions: actionsOf(item) });
     }
     if (rows.length < 100) break;
   }
+  const answers = await withAgreement(call, items);
+  if (answers.error) return json({ error: answers.error }, 502);
+  items = answers.items;
   items.sort((a, b) => String(a.created_at).localeCompare(String(b.created_at)));
   const pages = await livePages(env.SITE_URL);
   for (const item of items) if (item.data.item) item.page = pages.get(item.data.item) || null;
   return json({ items });
+}
+
+/**
+ * Gap answers that two parents already agreed on go live by themselves, so they leave the list.
+ * The others carry what everyone answered to the same question, so a conflict is easy to settle.
+ */
+async function withAgreement(call, items) {
+  const open = items.filter((i) => i.kind === "answer" && AUTO_GAPS.includes(i.data.gap));
+  if (!open.length) return { items };
+  const all = [];
+  for (let page = 1; page <= 10; page++) {
+    const res = await call(`/issues?state=all&labels=answer&per_page=100&page=${page}`);
+    if (!res.ok) return { error: `GitHub refused to list the answers (${res.status}).` };
+    const rows = await res.json();
+    all.push(...rows);
+    if (rows.length < 100) break;
+  }
+  const groups = new Map();
+  for (const issue of all.sort((a, b) => a.number - b.number)) {
+    const item = issue.state_reason === "not_planned" ? null : reviewItem(issue);
+    if (!item || !AUTO_GAPS.includes(item.data.gap)) continue;
+    const k = `${item.data.item} ${item.data.gap}`;
+    if (!groups.has(k)) groups.set(k, []);
+    groups.get(k).push({ number: item.number, value: item.data.answer, from: item.data.from, approved: item.approved });
+  }
+  const keep = items.filter((i) => {
+    if (!open.includes(i)) return true;
+    const a = agreement(i.data.gap, groups.get(`${i.data.item} ${i.data.gap}`) ?? []);
+    i.agreement = { status: a.status, value: a.value, options: a.options.map(({ value, count }) => ({ value, count })) };
+    return a.status === "single" || a.status === "conflict";
+  });
+  return { items: keep };
 }
 
 /** Best-effort: without names the list still works, it just shows ids. */
@@ -55,7 +91,7 @@ export async function onRequestPost({ request, env, data }) {
   if (!found.ok) return json({ error: `GitHub could not find item ${number} (${found.status}).` }, found.status === 404 ? 404 : 502);
   const item = reviewItem(await found.json());
   if (!item) return json({ error: "That isn't a tip, report or suggestion." }, 400);
-  if (!KINDS[item.kind].actions.includes(body.action)) return json({ error: `Can't ${body.action} a ${item.kind}.` }, 400);
+  if (!actionsOf(item).includes(body.action)) return json({ error: `Can't ${body.action} a ${item.kind}.` }, 400);
   if (!waiting(item)) return json({ error: "Someone already decided on this one." }, 409);
 
   // An approved event or place becomes a content file; the commit starts the site's deploy.
@@ -78,7 +114,8 @@ export async function onRequestPost({ request, env, data }) {
       body: JSON.stringify({ state: "closed", state_reason: body.action === "done" ? "completed" : "not_planned" }),
     });
   if (!res.ok) return json({ error: `GitHub refused the change (${res.status}).` }, 502);
-  if (publish) {
+  // An approved answer is done here: the next deploy's tally puts it on the page.
+  if (publish || (body.action === "approve" && item.kind === "answer")) {
     await call(`/issues/${number}`, { method: "PATCH", body: JSON.stringify({ state: "closed", state_reason: "completed" }) }).catch(() => {});
   }
 

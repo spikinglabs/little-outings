@@ -1,10 +1,14 @@
+import { AUTO_GAPS } from "./answers.js";
+
 // What parents wrote that needs a person to look at it: issues in INBOX_REPO, created by the
 // site's /api/inbox. Taps (visits, chip answers) are counted, never reviewed, so they don't show here.
 //   approve → adds the `approved` label (the nightly tally then shows a tip). An approved event is
 //             also committed to the site repo as content/events/community/inbox-<number>.yaml and
 //             the issue is closed, so it goes live with the deploy that commit starts. A suggested
 //             place works the same way, as content/places/community/inbox-<number>.yaml.
+//            An approved gap answer (hours, time, price) goes live with the next deploy, even alone.
 //   done    → closes a report as completed, once you've fixed what it was about
+//            (also an answer about where something is or whether it's still on, once you've fixed it)
 //   reject  → closes as "not planned", so the tally ignores it for good
 
 export const KINDS = {
@@ -12,7 +16,12 @@ export const KINDS = {
   report: { label: "Report", actions: ["done", "reject"] },
   "new-event": { label: "New event", actions: ["approve", "reject"] },
   "new-place": { label: "New place", actions: ["approve", "reject"] },
+  answer: { label: "Answer", actions: ["approve", "reject"] },
 };
+
+/** What can be done with an item: an answer about where or "still on?" can't be published, only fixed by hand. */
+export const actionsOf = (item) =>
+  item.kind === "answer" && !AUTO_GAPS.includes(item.data.gap) ? ["done", "reject"] : KINDS[item.kind].actions;
 
 /** The YAML block the inbox function writes (same reader as scripts/tally-inbox.mjs). */
 export function parseBody(body) {
@@ -37,6 +46,8 @@ export function reviewItem(issue) {
   const kind = Object.keys(KINDS).find((k) => labels.includes(k));
   const data = kind && parseBody(issue.body);
   if (!data) return null;
+  // Facility and "Do you need German?" answers are votes, counted by the tally, not reviewed.
+  if (kind === "answer" && (data.gap === "fac" || data.gap === "lang" || !data.gap)) return null;
   return {
     number: issue.number,
     kind,

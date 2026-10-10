@@ -100,7 +100,8 @@ const imported = z.object({
 // Human fixes for imported events: any subset of event fields. Never overwritten by the import.
 const override = z.object(eventFields).partial().extend({ hidden: z.boolean().optional() });
 
-// Community answers merged by the inbox bot once two parents agree.
+// Hand-written answers for one item (hours, geo, fields). Parents' gap answers don't land here:
+// the nightly tally applies the ones two parents agreed on (scripts/tally-inbox.mjs).
 const answer = z.object({
   fields: z.object(eventFields).partial().optional(),
   facilities: facilities.optional(),
