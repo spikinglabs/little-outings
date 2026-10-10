@@ -7,7 +7,7 @@ import { LANGS, MAKER_URL, useT, type Lang } from "../../lib/i18n";
 export const getStaticPaths = () => LANGS.map((lang) => ({ params: { lang } }));
 const lang = Astro.params.lang as Lang;
 const t = useT(lang);
-const SECTIONS = ["events", "places", "translate", "taps", "writing", "profile", "none", "wrong", "who"];
+const SECTIONS = ["events", "places", "translate", "taps", "writing", "profile", "location", "none", "wrong", "who"];
 ---
 <Base lang={lang} title={t("about.title")}>
   <h1 class="page-title">{t("about.title")}</h1>

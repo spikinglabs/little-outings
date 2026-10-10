@@ -7,6 +7,8 @@
 export const KEYS = { saved: "lo-saved", went: "lo-went", asked: "lo-asked", home: "lo-home", voter: "lo-voter", sent: "lo-sent" } as const;
 /** Kept apart from the profile: this device's passkey sync session. */
 export const SYNC_KEY = "lo-sync";
+/** Also kept apart: the town nearest to this phone's rough location, found once on the first visit. Never synced. */
+export const NEAR_KEY = "lo-near";
 
 export type Sent = { kind: string; item?: string; at: string; data: Record<string, unknown> };
 export type Profile = {
@@ -95,7 +97,7 @@ export function writeProfile(store: Store, p: Profile) {
 }
 
 export function forget(store: Store) {
-  [...Object.values(KEYS), SYNC_KEY].forEach((k) => store.removeItem(k));
+  [...Object.values(KEYS), SYNC_KEY, NEAR_KEY].forEach((k) => store.removeItem(k));
 }
 
 /** Remembers something this browser sent to the inbox, so it shows up in the family's own export. */
