@@ -29,9 +29,9 @@ export function mapLink(item: Place | Event, place?: Place): MapLink | undefined
   // Only the town is known: the title plus the town is the best hint the map can get.
   else if (item.town) q = query([deTitle(item), item.town]);
   if (!q && !point) return undefined;
-  // A place from OpenStreetMap often has only a generic name ("Spielplatz") and no street; a name
-  // search could find another one, so Google gets the exact point instead.
-  const generic = item.type === "place" && item.geo.precision === "exact" && !item.street && point;
+  // Some OpenStreetMap places have only a one-word name ("Spielplatz") and no street; a name search
+  // could find another one, so Google gets the exact point instead.
+  const generic = item.type === "place" && item.geo.precision === "exact" && !item.street && point && !/\s/.test(item.name.trim());
   const google = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(generic ? point : q || point)}`;
   // Apple Maps searches for q near the point (sll), or drops a pin at the point when there is no name.
   const apple = q

@@ -21,10 +21,15 @@ test("a point without any name drops a pin", () => {
   assert.equal(new URL(l.apple).searchParams.get("ll"), "50.80000,6.48000");
 });
 
-test("an exact place without a street pins its point on Google", () => {
+test("an exact place with a one-word name and no street pins its point on Google", () => {
   const l = mapLink({ type: "place", name: "Spielplatz", town: "Velbert", geo: { lat: 51.3, lon: 7.1, precision: "exact" } } as any)!;
   assert.equal(q(l.google), "51.30000,7.10000");
   assert.equal(new URL(l.apple).searchParams.get("q"), "Spielplatz, Velbert");
+});
+
+test("an exact place with a real name is searched by name even without a street", () => {
+  const l = mapLink({ type: "place", name: "Waldspielplatz am Teich", town: "Heiligenhaus", geo: { lat: 51.3, lon: 7.1, precision: "exact" } } as any)!;
+  assert.equal(q(l.google), "Waldspielplatz am Teich, Heiligenhaus");
 });
 
 test("a known venue is searched by name and town", () => {
