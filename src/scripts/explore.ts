@@ -1,13 +1,13 @@
 // Filters on the Entdecken page: one list of ideas, events on the chosen day mixed with places
 // that are good any time. All cards are already in the HTML; this only hides and sorts them.
 // Distances are measured once per home town, and the list shows a page at a time.
-import { distanceOf, getHome, locateOnce, markSaved, renderKm, setHome } from "./app";
+import { distanceOf, getHome, markSaved, nearestTown, renderKm, setHome } from "./app";
 import type {} from "../islands/OutingsMap";
 
 type Plural = { one?: string; other: string };
 const ui = JSON.parse(document.getElementById("explore-ui")!.textContent!) as {
   nEvents: Plural; nPlaces: Plural; areaBack: string; tip: string; whenIn: Record<string, string>; mapShow: string; mapHide: string;
-  showMore: string;
+  showMore: string; locNone: string;
 };
 const lang = document.body.dataset.lang!;
 const pr = new Intl.PluralRules(lang);
@@ -213,8 +213,18 @@ $<HTMLSelectElement>("#age").addEventListener("change", (e) => { state.age = (e.
 $<HTMLSelectElement>("#radius").addEventListener("change", (e) => { state.radius = +(e.target as HTMLSelectElement).value; state.area = null; apply(); });
 home.value = getHome();
 home.addEventListener("change", () => { setHome(home.value); state.area = null; renderKm(); apply(); });
-// First visit: start "Around" at the town nearest this phone, if the browser may tell us roughly where it is.
-locateOnce(() => { home.value = getHome(); state.area = null; apply(); });
+// The small location button next to "Around": the browser asks for permission only after this tap.
+const locMsg = $("[data-loc-msg]");
+$<HTMLButtonElement>("[data-locate]").addEventListener("click", async (e) => {
+  const b = e.currentTarget as HTMLButtonElement;
+  b.disabled = true;
+  const town = await nearestTown();
+  b.disabled = false;
+  locMsg.hidden = !!town;
+  if (!town) { locMsg.textContent = ui.locNone; return; }
+  home.value = town;
+  setHome(town); state.area = null; apply();
+});
 // Moving the map makes its area the filter.
 document.addEventListener("lo:area", (e) => { state.limit = PAGE; state.area = (e as CustomEvent<number[]>).detail; apply(); });
 

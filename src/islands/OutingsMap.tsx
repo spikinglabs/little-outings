@@ -67,8 +67,7 @@ export default function OutingsMap({ pinsUrl, center, towns, locale, labels }: P
   function mount(box: HTMLDivElement, pins: Pin[]) {
     let home = center;
     try {
-      // The picked town, else the town nearest this phone (lo-near, see locateOnce in app.ts).
-      const h = localStorage.getItem("lo-home") || localStorage.getItem("lo-near");
+      const h = localStorage.getItem("lo-home");
       const t = towns.find(([n]) => n === h);
       if (t) home = [t[1], t[2]];
     } catch { /* storage blocked */ }

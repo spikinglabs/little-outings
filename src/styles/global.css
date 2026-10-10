@@ -52,6 +52,9 @@ h1, h2, h3 { font-family: var(--display); text-wrap: balance; letter-spacing: -0
 .chip.none:not([aria-pressed="true"]) { opacity: .5; }
 .chip.rain[aria-pressed="true"] { border-color: var(--blau); background: var(--blau); color: var(--paper); }
 .chip select { border: 0; background: transparent; padding: 0; cursor: pointer; }
+.chip.loc { padding: 6px 8px; color: var(--ink-soft); }
+.chip.loc:disabled { opacity: .5; cursor: progress; }
+.loc-msg { margin: 4px 0 0; }
 
 /* sections */
 .explore-cols > *, .section { min-width: 0; }
