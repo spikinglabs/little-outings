@@ -79,7 +79,11 @@ mapShow: "在地图上显示"
 mapHide: "隐藏地图"
 mapAreaOn: "只显示地图范围内的内容。"
 mapAreaBack: "回到{town}周边 {r} 公里"
-legend: { event: 活动, place: 地点，随时可去, approx: 虚线圈：大致位置, area: 带数字的圆圈：仅知城市, radius: "点状圆圈：搜索范围", here: "你在这里" }
+mapTouch: "用两根手指移动地图"
+mapZoom: "按住 Ctrl 并滚动来缩放地图"
+mapZoomMac: "按住 ⌘ 并滚动来缩放地图"
+mapClose: 关闭
+legend: { event: 活动, place: 地点，随时可去, approx: 虚线圈：大致位置, area: 带数字的圆圈：仅知城市, radius: "点状圆圈：搜索范围", here: "你在这里", cluster: "棕色数字：附近有好几个地点", more: "图标说明" }
 savedTitle: 收藏
 savedEmpty: 还没有收藏。点击活动或地点上的书签即可收藏。
 events: 活动

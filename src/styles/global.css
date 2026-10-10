@@ -197,8 +197,44 @@ h1, h2, h3 { font-family: var(--display); text-wrap: balance; letter-spacing: -0
 /* map */
 .mapwrap { background: var(--card); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; margin-top: 16px; }
 .map { height: min(60vh, 520px); }
-.map .leaflet-tile-pane { filter: grayscale(1) contrast(.75) brightness(1.12); opacity: .55; }
-.map.leaflet-container { background: var(--paper); }
+/* The map's colours follow light and dark mode: the faded OSM tiles are turned dark (inverted) in dark mode,
+   and the radius ring, town circles and Leaflet's own buttons use the page colours instead of fixed ones. */
+:root { --map-tiles: grayscale(1) contrast(.75) brightness(1.12); --map-tiles-op: .55; --spot: #6f4a2a; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --map-tiles: grayscale(1) invert(1) contrast(.7) brightness(.95); --map-tiles-op: .5; --spot: #7d5532; } }
+:root[data-theme="dark"] { --map-tiles: grayscale(1) invert(1) contrast(.7) brightness(.95); --map-tiles-op: .5; --spot: #7d5532; }
+.map .leaflet-tile-pane { filter: var(--map-tiles); opacity: var(--map-tiles-op); }
+.map.leaflet-container { background: var(--paper); font: inherit; }
+.map .radius-ring { stroke: var(--ink); }
+.map .area-ring { stroke: var(--braun); fill: var(--braun); }
+.map.leaflet-container .leaflet-bar a { background: var(--card); color: var(--ink); border-color: var(--line); }
+.map.leaflet-container .leaflet-control-attribution { background: color-mix(in srgb, var(--card) 80%, transparent); color: var(--ink-soft); font-size: .7rem; }
+.map.leaflet-container .leaflet-control-attribution a { color: var(--blau); }
+/* "Two fingers to move the map": a small pill instead of the plugin's full-map shade. */
+.map.leaflet-container::after { inset: 12px auto auto 50%; transform: translateX(-50%); width: max-content; max-width: calc(100% - 100px); padding: 7px 14px; border-radius: 999px; background: rgb(23 25 27 / .82); font: 600 .85rem/1.3 var(--body); text-align: center; z-index: 1001; }
+.map-locate { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 12px; border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; box-shadow: 0 1px 3px rgb(0 0 0 / .2); }
+.map-locate svg { width: 20px; height: 20px; }
+/* Places: a small brown mark with the kind's icon; where they crowd, a numbered bubble. */
+.spot { width: 24px; height: 24px; box-sizing: border-box; border-radius: 50%; display: grid; place-items: center; background: var(--spot); color: #fff; border: 2px solid #fff; box-shadow: 0 1px 3px rgb(0 0 0 / .3); }
+.spot svg { width: 13px; height: 13px; }
+.spot.approx { outline: 2px dashed var(--ink); outline-offset: 2px; }
+.cluster { width: 100%; height: 100%; box-sizing: border-box; border-radius: 50%; display: grid; place-items: center; background: var(--spot); color: #fff; border: 3px solid #fff; font: 700 13px/1 var(--sign, inherit); font-variant-numeric: tabular-nums; box-shadow: 0 1px 4px rgb(0 0 0 / .35); }
+/* The tapped mark, and the mark of the list card under the pointer. */
+.leaflet-marker-icon.sel, .leaflet-marker-icon.hot { z-index: 3000 !important; }
+.sel > .spot, .hot > .spot, .sel > .cluster, .hot > .cluster { transform: scale(1.3); box-shadow: 0 0 0 3px var(--gold), 0 1px 4px rgb(0 0 0 / .35); }
+.sel > .pin, .hot > .pin { transform: rotate(-45deg) scale(1.3); }
+.item.on-map { outline: 3px solid var(--gold); outline-offset: 2px; }
+/* The card for a tapped mark, over the bottom of the map. */
+.map-card { position: absolute; left: 10px; right: 10px; bottom: 22px; z-index: 1000; display: flex; align-items: center; gap: 10px; padding: 10px 6px 10px 10px; background: var(--card); color: var(--ink); border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 4px 16px rgb(0 0 0 / .22); cursor: auto; }
+.map-card[hidden] { display: none; }
+.map-card-mark { flex: none; width: 42px; height: 42px; border-radius: 10px; display: grid; place-items: center; background: var(--spot); color: #fff; }
+.map-card-mark.ev { background: var(--gold); color: var(--gold-ink); }
+.map-card-mark svg { width: 22px; height: 22px; }
+.map-card-body { flex: 1; min-width: 0; font-size: .9rem; }
+.map.leaflet-container .map-card-body > a { display: block; font-weight: 700; font-size: 1rem; color: var(--ink); text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.map.leaflet-container .map-card-body > a:hover { text-decoration: underline; }
+.map-card-body > small { display: block; color: var(--ink-soft); }
+.map.leaflet-container .map-card-body .area-list a { color: var(--ink); font-weight: 600; }
+.map-card-x { flex: none; align-self: flex-start; border: 0; background: none; color: var(--ink-soft); font-size: 1.3rem; line-height: 1; padding: 2px 6px; cursor: pointer; border-radius: 8px; }
 .map-bar { display: flex; justify-content: flex-end; margin: 4px 0 8px; }
 .map-btn { display: inline-flex; align-items: center; gap: 8px; border: 0; background: none; color: var(--blau); font-weight: 700; cursor: pointer; padding: 6px 2px; }
 .map-btn svg { width: 20px; height: 20px; }
@@ -210,16 +246,22 @@ h1, h2, h3 { font-family: var(--display); text-wrap: balance; letter-spacing: -0
 .more-btn { display: block; margin: 12px auto 0; border: 1px solid var(--line); background: var(--card); border-radius: 999px; padding: 8px 18px; cursor: pointer; font-weight: 600; }
 .legend { display: flex; flex-wrap: wrap; gap: 14px; padding: 10px 14px; font-size: .85rem; color: var(--ink-soft); border-top: 1px solid var(--line); }
 .legend i { display: inline-block; width: 12px; height: 12px; border-radius: 50%; vertical-align: -1px; margin-right: 5px; }
+.legend-more { margin-left: auto; }
+.legend-more[open] { flex-basis: 100%; margin-left: 0; }
+.legend-more summary { cursor: pointer; color: var(--blau); font-weight: 700; }
+.legend-more > div { display: flex; flex-wrap: wrap; gap: 8px 14px; margin-top: 8px; }
+.legend i.cluster-key { width: 16px; height: 16px; background: var(--spot); color: #fff; font: 700 9px/16px var(--sign, inherit); text-align: center; font-style: normal; vertical-align: -3px; }
+.legend i.area-key { background: color-mix(in srgb, var(--braun) 12%, transparent); border: 1px dashed var(--braun); }
 .pin { width: 26px; height: 26px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); display: grid; place-items: center; box-shadow: 0 1px 3px rgb(0 0 0 / .35); border: 2px solid #fff; }
 .pin.event { background: #ffcc00; }
 .pin.place { background: #6f4a2a; }
-.area-count { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: #fff; color: #6f4a2a; border: 2px dashed #6f4a2a; font: 700 13px/1 var(--sign, inherit); font-variant-numeric: tabular-nums; box-shadow: 0 1px 3px rgb(0 0 0 / .25); }
-.area-list { margin: 6px 0; padding-left: 16px; max-height: 220px; overflow-y: auto; }
+.area-count { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: var(--card); color: var(--braun); border: 2px dashed var(--braun); font: 700 13px/1 var(--sign, inherit); font-variant-numeric: tabular-nums; box-shadow: 0 1px 3px rgb(0 0 0 / .25); }
+.area-list { margin: 6px 0; padding-left: 16px; max-height: 160px; overflow-y: auto; }
 .area-list li + li { margin-top: 4px; }
 /* "You are here": the familiar blue location dot; the white ring keeps it clear on the faded map in light and dark mode. */
 .here-dot { width: 18px; height: 18px; border-radius: 50%; background: #1a73e8; border: 3px solid #fff; box-shadow: 0 0 0 1px rgb(0 0 0 / .25), 0 1px 4px rgb(0 0 0 / .35); box-sizing: border-box; }
 .legend i.here-key { background: #1a73e8; box-shadow: 0 0 0 3px rgb(26 115 232 / .25); }
-.pin.approx { outline: 2px dashed #17191b; outline-offset: 3px; }
+.pin.approx { outline: 2px dashed var(--ink); outline-offset: 3px; }
 
 footer.foot { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--ink-soft); font-size: .82rem; }
 .install { margin-top: 12px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
