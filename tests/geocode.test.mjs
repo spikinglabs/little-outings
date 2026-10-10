@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { queryOf, geoLine, withGeo } from "../scripts/geocode-places.mjs";
+import { queryOf, geoLine, withGeo, eventQueries } from "../scripts/geocode-places.mjs";
 import { canonicalTown, splitStreet, townsFromPlaces } from "../src/lib/merge.ts";
 
 test("queryOf asks for the street with its town, once", () => {
@@ -26,6 +26,9 @@ test("splitStreet moves a typed postcode and town out of the street", () => {
   assert.deepEqual(splitStreet("Steinpfahl 4a, 52399 Merzenich"), { street: "Steinpfahl 4a", postcode: "52399" });
   assert.deepEqual(splitStreet("Markt 1"), { street: "Markt 1", postcode: undefined });
   assert.deepEqual(splitStreet("Markt 1, 52349 Düren", "52351"), { street: "Markt 1", postcode: "52351" });
+  assert.deepEqual(splitStreet("Gaiaboulevard 1, 6468 PH Kerkrade, Netherlands"), { street: "Gaiaboulevard 1", postcode: "6468 PH" });
+  assert.deepEqual(splitStreet("Rotenberg 1, 4700 Eupen"), { street: "Rotenberg 1", postcode: "4700" });
+  assert.deepEqual(splitStreet("Markt 1, Netherlands"), { street: "Markt 1, Netherlands", postcode: undefined });
   assert.deepEqual(splitStreet(undefined), { street: undefined, postcode: undefined });
 });
 
@@ -46,4 +49,14 @@ test("townsFromPlaces adds a pinned place's town the region lacks, once", () => 
     place("Niederzier", { lat: 50.88, lon: 6.47, precision: "area" }),
     place("Kreuzau", { precision: "unknown" }),
   ], towns), [{ name: "Merzenich", lat: 50.83, lon: 6.53 }]);
+});
+
+test("eventQueries asks for the venue in its town, then the town", () => {
+  assert.deepEqual(eventQueries({ venue: "Bürgerhalle Koslar", town: "Jülich-Koslar" }), [
+    { q: "Bürgerhalle Koslar, Jülich-Koslar", precision: "venue" },
+    { q: "Jülich-Koslar", precision: "area" },
+  ]);
+  assert.deepEqual(eventQueries({ town: "Merzenich" }), [{ q: "Merzenich", precision: "area" }]);
+  assert.deepEqual(eventQueries({ venue: "Pfarrheim" }), []);
+  assert.match(geoLine({ lat: "50.9", lon: "6.4", address: { house_number: "1" } }, "area"), /precision: area/);
 });
