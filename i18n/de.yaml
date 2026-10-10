@@ -142,6 +142,8 @@ website: Website
 source: Quelle
 demo: Demo mit erfundenen Beispieldaten.
 reading: Wird gelesen …
+loading: Ideen werden geladen …
+loadFail: "Die Ideen konnten gerade nicht geladen werden. Bitte die Seite neu laden."
 draftTitle: Bitte kurz prüfen
 pleaseCheck: Bitte prüfen
 field: { title: Titel, date: Datum, time: Uhrzeit, place: Ort oder Adresse, price: Preis, note: "Was gibt es für Kinder?" }

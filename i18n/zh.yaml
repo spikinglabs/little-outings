@@ -142,6 +142,8 @@ website: 网站
 source: 来源
 demo: 演示版，数据均为虚构示例。
 reading: 正在识别…
+loading: 正在加载…
+loadFail: "暂时无法加载，请刷新页面。"
 draftTitle: 请快速核对
 pleaseCheck: 请核对
 field: { title: 标题, date: 日期, time: 时间, place: 地点或地址, price: 价格, note: 有哪些适合孩子的活动？ }

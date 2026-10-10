@@ -1,5 +1,5 @@
 // Filters on the Entdecken page: one list of ideas, events on the chosen day mixed with places
-// that are good any time. All cards are already in the HTML; this only hides and sorts them.
+// that are good any time. All cards arrive once from /<lang>/ideen/; this only hides and sorts them.
 // Distances are measured once per home town, and the list shows a page at a time.
 import { distanceOf, getHome, markSaved, nearestTown, renderKm, setHere, setHome } from "./app";
 import type {} from "../islands/OutingsMap";
@@ -7,7 +7,7 @@ import type {} from "../islands/OutingsMap";
 type Plural = { one?: string; other: string };
 const ui = JSON.parse(document.getElementById("explore-ui")!.textContent!) as {
   nEvents: Plural; nPlaces: Plural; areaBack: string; tip: string; whenIn: Record<string, string>; mapShow: string; mapHide: string;
-  showMore: string; locNone: string;
+  showMore: string; locNone: string; loadFail: string;
 };
 const lang = document.body.dataset.lang!;
 const pr = new Intl.PluralRules(lang);
@@ -63,10 +63,27 @@ function range(): [string, string] {
 // Each card's data, read once: with a few thousand cards, reading the DOM on every keystroke is too slow.
 type Row = { el: HTMLElement; d: DOMStringMap; lat: number; lon: number; feat: string[]; dist: number | null };
 // The cards wait in a <template>, outside the live page, and only the ones on screen are moved in.
-const all: Row[] = [...$<HTMLTemplateElement>("#ideas-pool").content.children].filter((el) => el.classList.contains("item"))
-  .map((el) => el as HTMLElement).map((el) => ({
-    el, d: el.dataset, lat: parseFloat(el.dataset.lat || ""), lon: parseFloat(el.dataset.lon || ""), feat: (el.dataset.feat || "").split(" "), dist: null,
-  }));
+// They are fetched once after the page shows (the service worker keeps a copy for next time and offline).
+const pool = $<HTMLTemplateElement>("#ideas-pool");
+let all: Row[] = [];
+let loaded = false;
+async function loadPool() {
+  try {
+    const res = await fetch(pool.dataset.src!);
+    if (!res.ok) throw new Error(String(res.status));
+    pool.innerHTML = await res.text();
+  } catch {
+    $("[data-loading]").textContent = ui.loadFail;
+    return;
+  }
+  all = [...pool.content.children].filter((el) => el.classList.contains("item"))
+    .map((el) => el as HTMLElement).map((el) => ({
+      el, d: el.dataset, lat: parseFloat(el.dataset.lat || ""), lon: parseFloat(el.dataset.lon || ""), feat: (el.dataset.feat || "").split(" "), dist: null,
+    }));
+  loaded = true;
+  $("[data-loading]").hidden = true;
+  apply();
+}
 let measuredFor = "";
 /** Distances from home, recomputed only when home changes. */
 function measure() {
@@ -119,6 +136,8 @@ function apply() {
   const word = ui.whenIn[state.when];
   $$("[data-when-word]").forEach((el) => (el.textContent = word));
   $$<HTMLButtonElement>("[data-when]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.when === state.when)));
+  // Until the cards are here, taps only change the filters; the list follows when they arrive.
+  if (!loaded) return;
 
   measure();
   // Events count when they fall on the chosen day; places always do. Chips: "event", or a kind of
@@ -311,4 +330,4 @@ function showMap(on: boolean, remember = true) {
 restore();
 if (location.hash === "#map") showMap(true, false);
 else try { if (localStorage.getItem("lo-map") === "1") showMap(true, false); } catch { /* storage blocked */ }
-apply();
+loadPool();

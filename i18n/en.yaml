@@ -142,6 +142,8 @@ website: Website
 source: Source
 demo: Demo with made-up example data.
 reading: Reading …
+loading: Loading ideas …
+loadFail: "The ideas couldn't load just now. Please reload the page."
 draftTitle: Please check quickly
 pleaseCheck: Please check
 field: { title: Title, date: Date, time: Time, place: Place or address, price: Price, note: "What's on for kids?" }

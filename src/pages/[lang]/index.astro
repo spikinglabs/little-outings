@@ -3,7 +3,6 @@
 // and places that are good any time, mixed and nearest first. Every card is rendered; the filter
 // script shows the ones that match the chosen day, distance and filters, a page at a time.
 import Base from "../../layouts/Base.astro";
-import Card from "../../components/Card.astro";
 import Stamp from "../../components/Stamp.astro";
 import { LANGS, MAKER_URL, tr, useT, type Lang } from "../../lib/i18n";
 import { getData } from "../../lib/data";
@@ -33,7 +32,7 @@ const presentTags = TAGS.map((g) => [g, listed.filter((e) => e.tags.includes(g))
   .concat(listed.some((e) => !e.tags.length) ? ["other"] : []);
 const whenKeys = ["today", "tomorrow", "weekend", "soon"];
 const whenIn = t.group("whenIn");
-const pluralUi = { nEvents: t.group("nEvents"), nPlaces: t.group("nPlacesAny"), tip: t("tip"), whenIn, mapShow: t("mapShow"), mapHide: t("mapHide"), areaBack: t("mapAreaBack"), showMore: t("mapShowMore"), locNone: t("locNone") };
+const pluralUi = { nEvents: t.group("nEvents"), nPlaces: t.group("nPlacesAny"), tip: t("tip"), whenIn, mapShow: t("mapShow"), mapHide: t("mapHide"), areaBack: t("mapAreaBack"), showMore: t("mapShowMore"), locNone: t("locNone"), loadFail: t("loadFail") };
 const homes = region.towns;
 // Town picker rows, A–Z in the reader's language (Düsseldorf next to Dortmund, 杜塞尔多夫 by pinyin).
 // keys: every name a parent might type, lowercased and without accents (koln finds Köln, 科隆 finds it too).
@@ -151,11 +150,10 @@ const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
       <div class="empty" data-empty hidden>{t("noIdeas")}</div>
     </div>
     <!-- Every card waits here, outside the page, until the filters show it: a few thousand cards
-         in the live page made phones slow to open and to switch back to. -->
-    <template id="ideas-pool">
-      {listed.map((e) => <Card item={e} t={t} hidden />)}
-      {places.map((p) => <Card item={p} t={t} hidden />)}
-    </template>
+         in the live page made phones slow to open and to switch back to. They arrive from
+         /<lang>/ideen/ (pages/[lang]/ideen.astro) right after the page shows, so the page itself stays small. -->
+    <template id="ideas-pool" data-src={`/${lang}/ideen/`}></template>
+    <p class="small ideas-loading" data-loading>{t("loading")}</p>
     <button class="more-btn" type="button" data-more hidden></button>
   </section>
   {events.length + places.length === 0 && <p class="empty">{t("empty")}</p>}
