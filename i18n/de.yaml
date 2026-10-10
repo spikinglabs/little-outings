@@ -7,6 +7,8 @@ when: { today: Heute, tomorrow: Morgen, weekend: Wochenende, soon: Nächste 2 Wo
 whenIn: { today: heute, tomorrow: morgen, weekend: am Wochenende, soon: in den nächsten 2 Wochen }
 ask: "Was machen wir <em>{when}</em> mit den Kindern?"
 near: Rund um
+locate: "Meinen Standort nutzen"
+locNone: "Standort hat hier nicht geklappt. Wähl bitte einen Ort."
 search: Suche
 searchPh: Hof, Café, Spielplatz oder Fest suchen
 filters: { farm: "🚜 Bauernhof", rain: "☂ Bei Regen", free: Kostenlos, animals: Mit Tieren, changing: Wickeltisch, nogerman: Ohne Deutsch, age: Alter, ageAll: alle, radius: Umkreis }
@@ -288,6 +290,7 @@ about:
   taps: { h: Deine Klicks, p: "Antworten zu Ausstattung, „Wir waren da“ und „Braucht man Deutsch?“ werden anonym bei Cloudflare gezählt. Jeder Browser hat eine Zufalls-ID: Eine Frage zählt einmal, eine neue Antwort ersetzt die alte. IP-Adressen werden nur als Hash gespeichert, gegen Massenklicks." }
   writing: { h: Was du schreibst, p: "Tipps, Fehlermeldungen und vorgeschlagene Orte prüfen wir zuerst; sie erscheinen erst nach Freigabe. Antworten bei „Fehlt noch“ (Öffnungszeiten, Uhrzeit, Preis) erscheinen, sobald zwei Eltern dasselbe antworten oder wir sie geprüft haben. Bitte keine Namen, Telefonnummern oder andere persönliche Angaben." }
   profile: { h: Dein Profil, p: "Merkliste, besuchte Orte und deine Antworten bleiben im Browser dieses Handys. Kein Konto, keine E-Mail. Unter „Meins“ und dann „Profil und Sync“ kannst du es herunterladen, auf ein anderes Handy umziehen oder löschen. Mit Passkey-Sync liegt eine Kopie auf dem Server, die mit dem Profil gelöscht wird." }
+  location: { h: Dein Standort, p: "Neben „Rund um“ gibt es einen kleinen Standort-Knopf. Nur wenn du ihn antippst, fragt dein Handy, ob es den ungefähren Standort teilen darf, um den nächsten Ort zu wählen. Der Standort bleibt auf deinem Handy und wird nie an uns gesendet; der Ort wird gespeichert wie ein selbst gewählter Ort. Ohne ihn startet „Rund um“ bei Köln." }
   none: { h: Was wir nicht tun, p: "Keine Werbung, kein Tracking, keine Statistik-Tools, kein Datenverkauf, keine Namen oder E-Mails." }
   wrong: { h: Etwas falsch?, p: "Unten auf jeder Termin- und Ortsseite steht „Stimmt etwas nicht?“. Tipp drauf und sag es uns." }
   who: { h: Wer steckt dahinter, p: "Little Outings ist ein Produkt von Spiking Labs. Spiking Labs macht auch andere Apps für den Alltag, alle zu sehen auf der Website von Spiking Labs." }

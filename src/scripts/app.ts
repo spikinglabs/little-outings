@@ -76,6 +76,24 @@ export const getHome = () => {
   return h && towns.has(h) ? h : body.dataset.home!;
 };
 export const setHome = (h: string) => { write("lo-home", h); renderKm(); };
+/** Further than this from every region town, the phone's location says nothing useful. */
+const NEAR_MAX_KM = 50;
+/**
+ * Only when the reader taps the location button: asks the browser for a rough location and returns
+ * the nearest region town. The coordinates never leave the phone. Null when they say no, location
+ * isn't available, or they are far from every town.
+ */
+export function nearestTown(): Promise<string | null> {
+  return new Promise((done) => {
+    if (!("geolocation" in navigator)) return done(null);
+    navigator.geolocation.getCurrentPosition((pos) => {
+      const here: [number, number] = [pos.coords.latitude, pos.coords.longitude];
+      let best: string | null = null, bestKm = Infinity;
+      for (const [name, at] of towns) { const d = km(here, at); if (d < bestKm) { best = name; bestKm = d; } }
+      done(bestKm <= NEAR_MAX_KM ? best : null);
+    }, () => done(null), { enableHighAccuracy: false, maximumAge: 600_000, timeout: 15_000 });
+  });
+}
 export function km(a: [number, number], b: [number, number]) {
   const R = 6371, r = Math.PI / 180, dLa = (b[0] - a[0]) * r, dLo = (b[1] - a[1]) * r;
   const h = Math.sin(dLa / 2) ** 2 + Math.cos(a[0] * r) * Math.cos(b[0] * r) * Math.sin(dLo / 2) ** 2;

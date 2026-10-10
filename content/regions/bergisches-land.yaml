@@ -3,7 +3,8 @@ name:
   de: Bergisches Land und Umgebung
   en: Bergisches Land and around
   zh: 贝吉施地区及周边
-center: Velbert
+# Default "Around" town when the phone's location is unknown or not shared.
+center: Köln
 towns:
 - name: Velbert
   lat: 51.34

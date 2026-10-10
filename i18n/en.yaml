@@ -7,6 +7,8 @@ when: { today: Today, tomorrow: Tomorrow, weekend: Weekend, soon: Next 2 weeks }
 whenIn: { today: today, tomorrow: tomorrow, weekend: this weekend, soon: in the next 2 weeks }
 ask: "What shall we do with the kids <em>{when}</em>?"
 near: Around
+locate: "Use my location"
+locNone: "Couldn’t use your location here. Pick a town instead."
 search: Search
 searchPh: Search farms, cafés, playgrounds or festivals
 filters: { farm: "🚜 Farm", rain: "☂ Rainy day", free: Free, animals: Animals, changing: Changing table, nogerman: "💬 No German needed", age: Age, ageAll: all, radius: Within }
@@ -288,6 +290,7 @@ about:
   taps: { h: Your taps, p: "Taps on facilities, “We went” and “Do you need German?” are counted anonymously on Cloudflare. Each browser has a random id, so one question counts once and changing your answer replaces the old one. IP addresses are kept only as a hash, to stop vote flooding." }
   writing: { h: What you write, p: "Tips, reports and suggested places go to us for review first and only appear once approved. An answer to “Still missing” (opening hours, time, price) goes live once two parents give the same answer, or once we've checked it. Please don't include names, phone numbers or other personal details." }
   profile: { h: Your profile, p: "Your saved list, the places you went and your answers stay in this phone's browser. There is no account and no email. Under “Mine”, then “Profile and sync”, you can download it, move it to another phone or delete it. If you choose passkey sync, the server keeps one copy, which is deleted with your profile." }
+  location: { h: Your location, p: "Next to “Around” there is a small location button. Only if you tap it does your phone ask to share its rough location, to pick the nearest town. The location stays on your phone and is never sent to us; the town is kept like a town you pick yourself. Without it, “Around” starts at Cologne." }
   none: { h: What we don't do, p: "No ads, no tracking or analytics, no selling data, no names or emails." }
   wrong: { h: Something wrong?, p: "Every event and place page has “Something wrong?” at the bottom. Tap it and tell us." }
   who: { h: Who makes this, p: "Little Outings is a product by Spiking Labs, which also makes other apps for everyday life. You can see them all on the Spiking Labs website." }

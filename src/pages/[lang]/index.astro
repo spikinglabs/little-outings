@@ -32,7 +32,7 @@ const presentTags = TAGS.map((g) => [g, listed.filter((e) => e.tags.includes(g))
   .concat(listed.some((e) => !e.tags.length) ? ["other"] : []);
 const whenKeys = ["today", "tomorrow", "weekend", "soon"];
 const whenIn = t.group("whenIn");
-const pluralUi = { nEvents: t.group("nEvents"), nPlaces: t.group("nPlacesAny"), tip: t("tip"), whenIn, mapShow: t("mapShow"), mapHide: t("mapHide"), areaBack: t("mapAreaBack"), showMore: t("mapShowMore") };
+const pluralUi = { nEvents: t.group("nEvents"), nPlaces: t.group("nPlacesAny"), tip: t("tip"), whenIn, mapShow: t("mapShow"), mapHide: t("mapHide"), areaBack: t("mapAreaBack"), showMore: t("mapShowMore"), locNone: t("locNone") };
 const homes = region.towns;
 // The map shows whatever the filters show (explore.ts tells it which ids).
 const mapLabels = { ...(t.group("nEvents") as { one: string; other: string }), more: t("mapMore") };
@@ -54,6 +54,7 @@ const mapLabels = { ...(t.group("nEvents") as { one: string; other: string }), m
           {homes.map((h) => <option value={h.name} selected={h.name === region.center}>{townName(h.name, lang, homes)}</option>)}
         </select>
       </label>
+      <button class="chip loc" type="button" data-locate aria-label={t("locate")} title={t("locate")}><Fragment set:html={svg(UI_ICON.locate, 'stroke-width="2"')} /></button>
       <button class="chip rain" type="button" data-flag="rain" aria-pressed="false">{t("filters.rain")}</button>
       <button class="chip" type="button" data-flag="farm" aria-pressed="false">{t("filters.farm")}</button>
       <button class="chip" type="button" data-flag="free" aria-pressed="false">{t("filters.free")}</button>
@@ -72,6 +73,7 @@ const mapLabels = { ...(t.group("nEvents") as { one: string; other: string }), m
         </select>
       </label>
     </div>
+    <p class="loc-msg small" role="status" data-loc-msg hidden></p>
   </section>
 
   <div class="map-bar">
