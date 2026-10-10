@@ -15,7 +15,8 @@ interface Props {
 }
 
 export default function SuggestPlace({ lang, kinds, features, towns, ui }: Props) {
-  const [open, setOpen] = useState(false);
+  // The Add page opens this form when "A place worth a visit" is picked, so it starts open.
+  const [open, setOpen] = useState(true);
   const [sent, setSent] = useState("");
   // What was sent, shown back in the confirmation.
   const [done, setDone] = useState<{ kind: string; name: string; town: string; street: string } | null>(null);
@@ -94,7 +95,7 @@ export default function SuggestPlace({ lang, kinds, features, towns, ui }: Props
 
   return (
     <section class="poster" id="suggest-place" aria-live="polite">
-      <h2>{ui.placeTitle}</h2>
+      <h2>{editing || resend ? ui.placeEditTitle : ui.placeTitle}</h2>
       <p>{ui.placeSub}</p>
       {sent && done ? (
         <div class="sent" role="status">
@@ -110,17 +111,20 @@ export default function SuggestPlace({ lang, kinds, features, towns, ui }: Props
         <button class="btn" type="button" style="margin-top:12px" onClick={() => setOpen(true)}>{ui.placeBtn}</button>
       ) : (
         <form class="form" onSubmit={send} key={editing?.number ?? resend?.at ?? "new"}>
-          {editing && <><h3>{ui.placeEditTitle}</h3><p class="small">{ui.editNote}</p></>}
-          {resend && <><h3>{ui.placeEditTitle}</h3><p class="small">{ui.resendNote}</p></>}
-          <div class="row">
-            <label>{ui.placeKind}
-              <select name="kind" required onChange={(e) => setPicked((e.target as HTMLSelectElement).value)}>{kinds.map(([k, label]) => <option value={k} selected={p.kind === k}>{label}</option>)}</select>
-            </label>
-            <label>{ui.placeTown}
-              <input name="town" required maxLength={100} defaultValue={p.town ?? ""} list="place-towns" autocomplete="address-level2" placeholder={ui.placeTownPh} />
-              <datalist id="place-towns">{towns.map(([k, label]) => <option value={k}>{label === k ? undefined : label}</option>)}</datalist>
-            </label>
-          </div>
+          {editing && <p class="small">{ui.editNote}</p>}
+          {resend && <p class="small">{ui.resendNote}</p>}
+          <fieldset class="feature-picks kind-picks">
+            <legend>{ui.placeKind}</legend>
+            {kinds.map(([k, label]) => (
+              <label class={`pick${kind === k ? " on" : ""}`}>
+                <input type="radio" name="kind" value={k} required checked={kind === k} onChange={() => setPicked(k)} /> {label}
+              </label>
+            ))}
+          </fieldset>
+          <label>{ui.placeTown}
+            <input name="town" required maxLength={100} defaultValue={p.town ?? ""} list="place-towns" autocomplete="address-level2" placeholder={ui.placeTownPh} />
+            <datalist id="place-towns">{towns.map(([k, label]) => <option value={k}>{label === k ? undefined : label}</option>)}</datalist>
+          </label>
           <label>{ui.placeName}<input name="name" required maxLength={200} defaultValue={p.name ?? ""} /></label>
           <label>{ui.placeStreet}<input name="street" maxLength={200} defaultValue={p.street ?? ""} /></label>
           <fieldset class="feature-picks">

@@ -2,7 +2,7 @@ locale: zh-CN
 langName: 中文
 siteName: 小出游
 tagline: 附近的亲子好去处
-tabs: { explore: 发现, saved: 我的, add: 投稿 }
+tabs: { explore: 发现, saved: 我的, add: 添加 }
 when: { today: 今天, tomorrow: 明天, weekend: 周末, soon: 未来两周 }
 whenIn: { today: 今天, tomorrow: 明天, weekend: 这个周末, soon: 未来两周 }
 ask: "<em>{when}</em>带孩子去哪儿玩？"
@@ -84,8 +84,8 @@ savedTitle: 收藏
 savedEmpty: 还没有收藏。点击活动或地点上的书签即可收藏。
 events: 活动
 places: 地点
-addTitle: 投稿
-addSub: 在农场小店看到海报，或者知道一个很棒的游乐场？告诉我们吧，中文、英文、德文都可以。每条信息发布前都会经过核实。
+addTitle: 添加
+addSub: "告诉其他家庭好去处，或和朋友约一次出游。中文、德语、英语都可以。"
 posterTitle: 看到海报了？拍下来就行。
 posterSub: 也可以粘贴链接或消息。我们会自动识别名称、日期、时间和地点，你只需快速确认。
 posterBtn: 拍摄海报照片
@@ -217,6 +217,7 @@ chipAsk:
     benches: "那里有长椅吗？"
     fenced: "那里有围栏吗？"
 mine:
+  sentAdded: 你添加的
   title: 我的
   sub: "你的收藏、你提交的内容和你的资料。无需注册。"
   saved: 收藏
@@ -305,3 +306,83 @@ about:
   none: { h: 我们不做的事, p: "没有广告，没有统计追踪，不卖数据，不收集姓名和邮箱。" }
   wrong: { h: 信息不对？, p: "每个活动和地点页面下面都有“信息有误？”，点一下告诉我们。" }
   who: { h: 谁在做, p: "小出游是 Spiking Labs 的产品。Spiking Labs 还做其他日常生活用的应用，都可以在 Spiking Labs 网站上看到。" }
+flow:
+  pickEvent: 有活动
+  pickEventSub: "在海报或网上看到的活动，或你自己组织的出游。"
+  pickPlace: 值得去的地方
+  pickPlaceSub: "游乐场、农场或咖啡馆，哪天去都合适。"
+  other: "← 添加别的"
+  faster: "更快填写："
+  wayPoster: 海报
+  wayLink: 链接或文字
+  wayType: 自己填
+  what: "做什么？"
+  day: 日期
+  time: 时间
+  where: "在哪里？"
+  wherePh: "公园、游乐场、咖啡馆或地址"
+  asTyped: "就用“{q}”"
+  noteLabel: "有什么要知道的？"
+  optional: "（可选）"
+  audience: "给谁看？"
+  everyone: 所有人
+  everyoneSub: "公开活动。我们核实后会显示在“发现”里。"
+  invite: 我邀请的人
+  inviteSub: "你会得到一个分享链接，并能看到谁会来。不会在任何地方列出。"
+  safety: "只在有其他人在场的公共场所见面，比如白天的公园或游乐场。"
+  evening: "晚上的聚会不太安全。如果可以，请选白天的时间。"
+  inviteBtn: 生成邀请链接
+  saveInvite: 保存修改
+  editInvite: 修改邀请
+  needPasskey: "邀请需要用你的通行密钥，这样你随时可以修改或取消。不需要邮箱，也不需要名字。"
+  passHave: 用我的通行密钥登录
+  passNew: 创建通行密钥
+  passSoon: "这里还没有开通邀请功能。"
+  passFail: "没有成功，什么都没改。"
+  passUnknown: "这个通行密钥已经没有对应的资料了，请新建一个。"
+  passNone: "这个浏览器不支持通行密钥，所以这里不能用邀请。请换用手机自带的浏览器。"
+  tooMany: "今天的邀请有点多了，明天再试吧。"
+  kind: "什么地方？"
+  name: 名称
+  facilities: "那里有什么？"
+meet:
+  title: 邀请
+  kicker: 只有拿到链接的人能看到
+  by: 家长自己组织的聚会
+  safety: "小出游不知道这是谁发起的。只有在公共场所、你觉得安全时才参加。避免晚上的聚会。"
+  evening: "这次聚会在晚上开始。请格外小心，只有认识组织者时才去。"
+  going: 我们去
+  maybe: 也许
+  no: 去不了
+  countGoing: { other: "{n} 个家庭会去" }
+  countMaybe: "{n} 个也许"
+  yours: "你的回复：{a}。点别的可以改。"
+  signIn: "回复前请用通行密钥登录，之后在任何手机上都能修改回复。不需要邮箱，也不需要名字。"
+  invitePeople: 邀请别人
+  whatsapp: WhatsApp
+  share: "分享…"
+  copy: 复制链接
+  copied: 链接已复制。
+  shareText: "谁一起来？{title}，{when}，{place}"
+  cancelled: 组织者已取消。
+  missing: "这个邀请已经不存在，或者链接不完整。"
+  soon: "这里还没有开通邀请功能，这是一个示例。"
+  failed: "邀请加载失败。请检查网络后再试。"
+  loading: "加载中…"
+  ready: "邀请做好了。把链接发给朋友，或发到你的群里。"
+  yourInvite: 这是你的邀请
+  edit: 修改
+  callOff: 取消聚会
+  callOffSure: "取消这次聚会？打开链接的人会看到已取消。"
+  onAgain: 照常进行
+  delete: 删除邀请
+  deleteSure: "删除这个邀请和所有回复？链接将失效。"
+  deleted: 邀请已删除。
+  report: 举报这个邀请
+  reported: "谢谢，我们会看一下。"
+  sample: { title: 野餐和放风筝, place: "Rheinpark, Köln-Deutz", note: "在缆车附近。带上毯子，我们带零食。" }
+  open: 打开
+  mineTitle: 邀请
+  mineSub: "你发起的和你回复过的。"
+  mineYours: 我的
+  mineSignIn: "用通行密钥登录后可以看到你的邀请。"
