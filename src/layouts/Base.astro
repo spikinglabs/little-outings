@@ -41,7 +41,18 @@ const ui = {
     <meta name="description" content={description ?? t("tagline")} />
     <meta property="og:title" content={title ?? t("siteName")} />
     <meta property="og:description" content={description ?? t("tagline")} />
-    <meta name="theme-color" content="#ffcc00" />
+    <meta name="theme-color" content="#ffcc00" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#121314" media="(prefers-color-scheme: dark)" />
+    <script is:inline>
+      // Light or dark as chosen under Profile (lo-theme); without a choice the phone's setting decides.
+      // Runs before the page paints so a chosen theme never flashes the other one first.
+      (function () {
+        var c; try { c = localStorage.getItem("lo-theme"); } catch (e) {}
+        if (c !== "light" && c !== "dark") return;
+        document.documentElement.dataset.theme = c;
+        document.querySelectorAll('meta[name="theme-color"]').forEach(function (m) { m.content = c === "dark" ? "#121314" : "#ffcc00"; });
+      })();
+    </script>
     {LANGS.map((l) => <link rel="alternate" hreflang={l} href={`${site}/${l}/${rest}`} />)}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="manifest" href={`/${lang}/manifest.webmanifest`} />

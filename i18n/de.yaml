@@ -216,6 +216,11 @@ profile:
   title: Profil und Sync
   sub: "Ohne Anmeldung. Euer Profil liegt auf diesem Handy: was ihr gemerkt habt, wo ihr wart, eure Antworten und was ihr uns geschickt habt. Mit Passkey-Sync bleibt eine Kopie sicher und erscheint auf euren anderen Geräten."
   have: "Auf diesem Handy"
+  themeTitle: Hell oder dunkel
+  themeSub: "Auto folgt der Einstellung deines Handys."
+  themeAuto: Auto
+  themeLight: Hell
+  themeDark: Dunkel
   sentTitle: "Was ihr gesendet habt"
   sentSub: "Hat sich etwas geändert? Hier bearbeiten; wir prüfen Änderungen, bevor sie online gehen."
   sentEdit: "Bearbeiten"

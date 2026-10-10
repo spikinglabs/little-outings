@@ -216,6 +216,11 @@ profile:
   title: Profile and sync
   sub: "No sign-up. Your profile lives on this phone: what you saved, where you went, your answers and what you sent us. Turn on passkey sync to keep a copy safe and use it on your other devices."
   have: "On this phone"
+  themeTitle: Light or dark
+  themeSub: "Auto follows your phone's setting."
+  themeAuto: Auto
+  themeLight: Light
+  themeDark: Dark
   sentTitle: "What you sent"
   sentSub: "Something changed or wrong? Edit it here; we check changes before they show."
   sentEdit: "Edit"

@@ -26,6 +26,16 @@ const ui = { ...t.group("profile"), count: t.group("profile.count") };
     <ul class="profile-counts" data-counts></ul>
   </section>
 
+  <section class="section profile-box">
+    <h2>{p("themeTitle")}</h2>
+    <p class="small">{p("themeSub")}</p>
+    <div class="when" role="group" aria-label={p("themeTitle")} data-theme-pick>
+      <button type="button" data-theme-set="auto">{p("themeAuto")}</button>
+      <button type="button" data-theme-set="light">{p("themeLight")}</button>
+      <button type="button" data-theme-set="dark">{p("themeDark")}</button>
+    </div>
+  </section>
+
   <section class="section profile-box" data-passkey>
     <h2>{p("passkeyTitle")}</h2>
     <p class="small">{p("passkeySub")}</p>
@@ -111,6 +121,25 @@ const ui = { ...t.group("profile"), count: t.group("profile.count") };
     }
     document.addEventListener("lo:profile", renderCounts);
     renderCounts();
+
+    /* ---------- light or dark ---------- */
+    // Kept in this browser only (lo-theme), like a device setting; the head script in Base.astro applies it on load.
+    const LIGHT = "#ffcc00", DARK = "#121314";
+    function applyTheme(choice: string) {
+      const root = document.documentElement;
+      const metas = document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]');
+      try { choice === "auto" ? localStorage.removeItem("lo-theme") : localStorage.setItem("lo-theme", choice); } catch { /* private mode: this page only */ }
+      if (choice === "auto") {
+        delete root.dataset.theme;
+        metas.forEach((m) => (m.content = m.media.includes("dark") ? DARK : LIGHT));
+      } else {
+        root.dataset.theme = choice;
+        metas.forEach((m) => (m.content = choice === "dark" ? DARK : LIGHT));
+      }
+      document.querySelectorAll("[data-theme-set]").forEach((b) => b.setAttribute("aria-pressed", String((b as HTMLElement).dataset.themeSet === choice)));
+    }
+    document.querySelectorAll<HTMLElement>("[data-theme-set]").forEach((b) => b.addEventListener("click", () => applyTheme(b.dataset.themeSet!)));
+    applyTheme(document.documentElement.dataset.theme ?? "auto");
 
     /* ---------- passkey sync ---------- */
     const note = (text: string) => { const el = $("[data-passkey-note]"); el.textContent = text; el.hidden = !text; };
