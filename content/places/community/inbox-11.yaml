@@ -1,0 +1,10 @@
+# Suggested by a parent (inbox #11), approved in the admin by leima137@gmail.com.
+# Edit here to fix it.
+kind: playground
+name: "Spielplatz Merzpark"
+address: { street: "Steinpfahl 4a, 52399 Merzenich", town: "Merzenich" }
+facilities:
+  playground: { status: "yes", confirmed: 1 }
+  toys: { status: "yes", confirmed: 1 }
+note: "Sand"
+trust: { level: community }
