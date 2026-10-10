@@ -13,7 +13,7 @@ townPh: "Type a town"
 townNone: "No town by that name here"
 search: Search
 searchPh: Search farms, cafés, playgrounds or festivals
-filters: { farm: "🚜 Farm", rain: "☂ Rainy day", free: Free, animals: Animals, changing: Changing table, nogerman: "💬 No German needed", age: Age, ageAll: all, radius: Within }
+filters: { farm: "🚜 Farm", rain: "☂ Rainy day", free: Free, animals: Animals, changing: Changing table, nogerman: "💬 No German needed", radius: Within }
 tip: "Our pick {when}"
 only: "Only {when}"
 always: Always a good idea

@@ -63,12 +63,6 @@ const mapLabels = { ...(t.group("nEvents") as { one: string; other: string }), m
       <button class="chip" type="button" data-flag="animals" aria-pressed="false">{t("filters.animals")}</button>
       <button class="chip" type="button" data-flag="changing" aria-pressed="false">{t("filters.changing")}</button>
       {lang !== "de" && <button class="chip" type="button" data-flag="nogerman" aria-pressed="false">{t("filters.nogerman")}</button>}
-      <label class="chip">{t("filters.age")}
-        <select id="age" aria-label={t("filters.age")}>
-          <option value="">{t("filters.ageAll")}</option>
-          <option value="0-2">0–2</option><option value="3-5">3–5</option><option value="6-9">6–9</option><option value="10-18">10+</option>
-        </select>
-      </label>
       <label class="chip">{t("filters.radius")}
         <select id="radius" aria-label={t("filters.radius")}>
           <option value="10">10 km</option><option value="30" selected>30 km</option><option value="60">60 km</option><option value="100">100 km</option>
