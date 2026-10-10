@@ -7,6 +7,7 @@
 //   POST /api/taps   { kind: "fac", item, feature, answer: yes|no|unsure, voter }
 //                    { kind: "visit", item, again: yes|maybe|no, good_for: [...], voter }
 //                    { kind: "lang", item, answer: none|en|de, voter }   how much German an event needs
+//                    { kind: "fac" | "lang", item, feature?, undo: true, voter }   takes this browser's answer back
 //   GET  /api/taps?item=<id>   live counts for one place
 //   GET  /api/taps?all=1       counts for every place (read by the nightly build)
 //   POST /api/taps?mine=1  { voter }   this browser's own taps, for "Download my data"
@@ -53,8 +54,11 @@ async function sha(s: string) {
 }
 
 /** The rows one tap writes: [key, value]. Null when the tap is malformed. */
-export function rowsOf(body: any): { item: string; rows: [string, string][]; clear?: string } | null {
+export function rowsOf(body: any): { item: string; rows: [string, string][]; clear?: string; remove?: string } | null {
   if (!body || typeof body.item !== "string" || !ID.test(body.item)) return null;
+  // A second tap on the same answer takes it back: the row goes, so it no longer counts.
+  if (body.undo === true && body.kind === "fac" && FEATURES.includes(body.feature)) return { item: body.item, rows: [], remove: `fac:${body.feature}` };
+  if (body.undo === true && body.kind === "lang") return { item: body.item, rows: [], remove: "lang" };
   if (body.kind === "fac" && FEATURES.includes(body.feature) && ["yes", "no", "unsure"].includes(body.answer)) {
     return { item: body.item, rows: [[`fac:${body.feature}`, body.answer]] };
   }
@@ -118,6 +122,7 @@ export async function onRequestPost({ request, env }: Ctx) {
   const write = db.prepare(`INSERT INTO taps (item, key, value, voter, ip, at) VALUES (?, ?, ?, ?, ?, ?)
     ON CONFLICT (item, key, voter) DO UPDATE SET value = excluded.value, ip = excluded.ip, at = excluded.at`);
   await db.batch([
+    ...(tap.remove ? [db.prepare(`DELETE FROM taps WHERE item = ? AND voter = ? AND key = ?`).bind(tap.item, voter, tap.remove)] : []),
     ...(tap.clear ? [db.prepare(`DELETE FROM taps WHERE item = ? AND voter = ? AND key LIKE ?`).bind(tap.item, voter, tap.clear)] : []),
     ...tap.rows.map(([k, v]) => write.bind(tap.item, k, v, voter, ip, now)),
   ]);

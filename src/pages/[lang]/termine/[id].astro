@@ -62,7 +62,7 @@ const map = mapLink(e, place);
       <h2>💬 {t("speechAsk.title")}</h2>
       <div class="speech-chips">
         {LANGUAGE.map((k) => (
-          <button type="button" class:list={["chip", k, { current: e.language === k, guess: e.languageFrom === "guess" }]} data-lang-answer={k} aria-pressed="false">
+          <button type="button" class:list={["chip", { current: e.language === k, guess: e.languageFrom === "guess" }]} data-lang-answer={k} aria-pressed="false">
             {t(`speech.${k}`)}<small data-n>{e.languageVotes?.[k] ? ` · ${e.languageVotes[k]}` : ""}</small>
           </button>
         ))}
