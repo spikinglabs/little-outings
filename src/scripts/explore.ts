@@ -21,6 +21,31 @@ const $ = <T extends Element = HTMLElement>(s: string) => document.querySelector
 const $$ = <T extends Element = HTMLElement>(s: string) => [...document.querySelectorAll<T>(s)];
 const home = $<HTMLButtonElement>("#home");
 
+// The chosen day, distance, age and chips last for this tab's session, so a refresh or a trip to
+// a card and back keeps them. The town is kept elsewhere (as home); no location is ever stored here.
+const KEPT = ["when", "rain", "farm", "free", "animals", "changing", "nogerman", "age", "radius", "kind", "tag"] as const;
+const FLAGS = ["rain", "farm", "free", "animals", "changing", "nogerman"] as const;
+function restore() {
+  let saved: Record<string, unknown> = {};
+  try { saved = JSON.parse(sessionStorage.getItem("lo-filters") || "{}"); } catch { return; }
+  const has = (sel: string) => !!document.querySelector(sel);
+  if (typeof saved.when === "string" && has(`[data-when="${CSS.escape(saved.when)}"]`)) state.when = saved.when;
+  for (const k of FLAGS) {
+    const b = document.querySelector(`[data-flag="${k}"]`);
+    if (b && saved[k] === true) { state[k] = true; b.setAttribute("aria-pressed", "true"); }
+  }
+  const age = $<HTMLSelectElement>("#age"), radius = $<HTMLSelectElement>("#radius");
+  if ([...age.options].some((o) => o.value === saved.age)) age.value = state.age = saved.age as string;
+  if ([...radius.options].some((o) => o.value === String(saved.radius))) { radius.value = String(saved.radius); state.radius = +radius.value; }
+  if (typeof saved.kind === "string" && has(`[data-kind-chip="${CSS.escape(saved.kind)}"]`)) {
+    state.kind = saved.kind;
+    if (saved.kind === "event" && typeof saved.tag === "string" && has(`[data-tag-chip="${CSS.escape(saved.tag)}"]`)) state.tag = saved.tag;
+  }
+}
+function keep() {
+  try { sessionStorage.setItem("lo-filters", JSON.stringify(Object.fromEntries(KEPT.map((k) => [k, state[k]])))); } catch { /* storage blocked */ }
+}
+
 // Dates in Germany, as YYYY-MM-DD strings, so they compare with the data-start/data-end attributes.
 const ymd = (d: Date) => new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Berlin" }).format(d);
 const addDays = (s: string, n: number) => { const d = new Date(`${s}T12:00:00Z`); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); };
@@ -95,6 +120,7 @@ function passes({ d, feat }: Row) {
 }
 
 function apply() {
+  keep();
   const [from, to] = range();
   const word = ui.whenIn[state.when];
   $$("[data-when-word]").forEach((el) => (el.textContent = word));
@@ -289,6 +315,7 @@ function showMap(on: boolean, remember = true) {
   if (remember) try { localStorage.setItem("lo-map", on ? "1" : "0"); } catch { /* storage blocked */ }
 }
 // Old links to the map page arrive as #map.
+restore();
 if (location.hash === "#map") showMap(true, false);
 else try { if (localStorage.getItem("lo-map") === "1") showMap(true, false); } catch { /* storage blocked */ }
 apply();
