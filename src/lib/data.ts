@@ -1,7 +1,7 @@
 // Build-time data access for pages. Everything here runs once per build, never in the browser.
 import { getCollection } from "astro:content";
 import { readFileSync } from "node:fs";
-import { applyEventTally, applyTally, applyTranslations, normalizeEvent, normalizePlace, shiftDays, type Town } from "./merge.ts";
+import { applyEventTally, applyTally, applyTranslations, canonicalTown, normalizeEvent, normalizePlace, shiftDays, townsFromPlaces, type Town } from "./merge.ts";
 import { tasksOf } from "./gaps.ts";
 import type { Event, Place, Tally } from "./types.ts";
 
@@ -29,15 +29,24 @@ async function load(): Promise<Data> {
     getCollection("regions"), getCollection("places"), getCollection("events"),
     getCollection("imported"), getCollection("overrides"), getCollection("answers"),
   ]);
-  const region = regions[0]?.data ?? { name: "", center: "", towns: [] };
-  const towns = regions.flatMap((r) => r.data.towns);
+  const home = regions[0]?.data ?? { name: "", center: "", towns: [] };
+  const regionTowns = regions.flatMap((r) => r.data.towns);
   const slug = (id: string) => id.split("/").pop()!;
   const answer = new Map(answers.map((a) => [slug(a.id), a.data]));
   const override = new Map(overrides.map((o) => [slug(o.id), o.data]));
 
   const tallies = inboxTallies();
   const zh = translations("zh");
-  const places = rawPlaces.map((p) => applyTranslations(applyTally(normalizePlace(slug(p.id), p.data, answer.get(slug(p.id)), towns), tallies[slug(p.id)]), zh));
+  // Places parents suggested (inbox-<n>) name their town as typed; "Cologne" is the site's Köln.
+  const raw = rawPlaces.map((p) => {
+    const id = slug(p.id);
+    if (!id.startsWith("inbox-")) return { id, data: p.data };
+    return { id, data: { ...p.data, address: { ...p.data.address, town: canonicalTown(p.data.address.town, regionTowns) } } };
+  });
+  const places = raw.map((p) => applyTranslations(applyTally(normalizePlace(p.id, p.data, answer.get(p.id), regionTowns), tallies[p.id]), zh));
+  // A town only a parent's place is in (Merzenich) joins the town picker.
+  const towns = [...regionTowns, ...townsFromPlaces(places.filter((p) => p.id.startsWith("inbox-")), regionTowns)];
+  const region = { ...home, towns };
   const placeById = new Map(places.map((p) => [p.id, p]));
 
   const seen = new Set<string>();
