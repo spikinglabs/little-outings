@@ -114,6 +114,7 @@ test("approving a suggested event commits it as a content file and closes the is
     assert.match(text, /^start: "2026-10-15"$/m);
     assert.match(text, /^price: \{ free: true \}$/m);
     assert.ok(f.calls.some((c) => c.method === "PATCH" && c.body.state === "closed" && c.body.state_reason === "completed"));
+    assert.deepEqual(f.calls.find((c) => c.method === "POST" && c.url.endsWith("/labels")).body.labels, ["approved", "published"]);
   } finally { f.restore(); }
 });
 

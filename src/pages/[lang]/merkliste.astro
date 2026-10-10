@@ -40,7 +40,9 @@ const { events, places } = await getData();
     <p class="empty" data-saved-empty>{t("savedEmpty")}</p>
   </section>
 
-  <SentList client:only="preact" lang={lang} ui={{ sentTitle: t("profile.sentTitle"), sentSub: t("profile.sentSub"), sentEdit: t("profile.sentEdit"), sentResend: t("profile.sentResend") }} />
+  <SentList client:only="preact" lang={lang} ui={{ sentTitle: t("profile.sentTitle"), sentSub: t("profile.sentSub"), sentEdit: t("profile.sentEdit"), sentResend: t("profile.sentResend"),
+    status_waiting: t("profile.statusWaiting"), status_changed: t("profile.statusChanged"), status_published: t("profile.statusPublished"),
+    status_declined: t("profile.statusDeclined"), seeIt: t("profile.seeIt") }} />
 
   <section class="section profile-box">
     <h2>{m("profile")}</h2>

@@ -220,6 +220,11 @@ profile:
   sentSub: "信息有变或有误？可以在这里修改，修改上线前会经过审核。"
   sentEdit: "修改"
   sentResend: "重新发送"
+  statusWaiting: "等待审核"
+  statusChanged: "已发布；你的修改正在等待审核"
+  statusPublished: "已发布"
+  statusDeclined: "未收录"
+  seeIt: "查看"
   count:
     saved: { other: "收藏了 {n} 个去处" }
     went: { other: "去过 {n} 个地方" }
