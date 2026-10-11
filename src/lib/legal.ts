@@ -1,7 +1,11 @@
 // Who runs Little Outings, for the Impressum (§ 5 DDG) and as controller in the privacy notice.
-// The Impressum must name a real person or company with a postal address and a way to reach them quickly.
+// Source: Handelsregister B, Amtsgericht Köln, HRB 122682 (extract of 27.06.2026).
 export const OPERATOR = {
-  name: "TODO: Name or company",
-  address: ["TODO: Street and number", "TODO: Postcode and town", "Deutschland"],
+  name: "SL Spiking Labs UG (haftungsbeschränkt)",
+  address: ["Subbelrather Str. 15 a", "50823 Köln", "Deutschland"],
+  managers: ["Ahmed Elsherbiny", "Lei Ma"],
+  register: "Amtsgericht Köln, HRB 122682",
+  /** Responsible for editorial content under § 18 (2) MStV; one natural person. */
+  editor: "Lei Ma",
   email: "TODO: email@example.com",
 };

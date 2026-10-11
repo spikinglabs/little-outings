@@ -403,7 +403,9 @@ legal:
   german: "本页以德文版本为准。"
   imprint: 法律声明（Impressum）
   email: 邮箱
-  content: "根据德国《州际媒体条约》第 18 条第 2 款，内容负责人为上述人员。"
+  represented: 法定代表（总经理）
+  register: 商业登记
+  content: "根据德国《州际媒体条约》第 18 条第 2 款，内容负责人：{name}，地址同上。"
   privacy: 隐私政策
   controller: { h: 负责方, p: "本网站在 GDPR 意义上的数据控制者是：" }
   hosting: { h: 托管, p: "本网站运行在 Cloudflare Pages 上（Cloudflare, Inc.，美国；已通过欧美数据隐私框架认证，并签有数据处理协议）。为传送网页，Cloudflare 必然会处理你的 IP 地址和技术请求数据，并保留短期安全日志。法律依据：GDPR 第 6 条第 1 款 f 项，即我们维持网站安全运行的正当利益。" }

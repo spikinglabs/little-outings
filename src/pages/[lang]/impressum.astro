@@ -19,8 +19,9 @@ const contact = [OPERATOR.name, ...OPERATOR.address];
     <section>
       <h2>{t("legal.imprint")}</h2>
       <p>{contact.map((l, i) => <>{i > 0 && <br />}{l}</>)}</p>
+      <p>{t("legal.represented")}: {OPERATOR.managers.join(", ")}<br />{t("legal.register")}: {OPERATOR.register}</p>
       <p>{t("legal.email")}: <a href={`mailto:${OPERATOR.email}`}>{OPERATOR.email}</a></p>
-      <p class="small">{t("legal.content")}</p>
+      <p class="small">{t("legal.content", { name: OPERATOR.editor })}</p>
     </section>
     <h1 class="page-title">{t("legal.privacy")}</h1>
     <section>
