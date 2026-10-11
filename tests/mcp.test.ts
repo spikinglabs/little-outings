@@ -34,7 +34,7 @@ test("initialize agrees a protocol version and explains the server", async () =>
 test("notifications get 202 and no body; unknown methods an error", async () => {
   assert.equal((await rpc({ ASSETS }, "notifications/initialized", undefined, null)).status, 202);
   assert.equal((await rpc({ ASSETS }, "resources/list")).body.error.code, -32601);
-  assert.equal((await onRequestGet()).status, 405);
+  assert.equal((await onRequestGet({ request: new Request("https://outings.test/mcp", { headers: { accept: "text/event-stream" } }) })).status, 405);
 });
 
 test("tools are listed, search and fetch read the built files", async () => {
@@ -82,4 +82,12 @@ test("assistants together share an hourly and a daily limit", async () => {
   assert.equal(await allowWrite(db, now), false);
   assert.equal(await allowWrite(db, now + 3700_000), true); // next hour
   assert.equal(await allowWrite(db, now + 2 * 86400_000), true); // old rows are cleared
+});
+
+test("a browser opening the address gets a help page in its language", async () => {
+  const res = await onRequestGet({ request: new Request("https://outings.test/mcp", { headers: { accept: "text/html,*/*", "accept-language": "de-DE,de;q=0.9,en;q=0.8" } }) });
+  assert.equal(res.status, 200);
+  const html = await res.text();
+  assert.match(html, /lang="de"/);
+  assert.match(html, /https:\/\/outings\.test\/mcp/);
 });
