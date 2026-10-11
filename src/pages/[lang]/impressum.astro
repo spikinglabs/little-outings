@@ -22,6 +22,7 @@ const contact = [OPERATOR.name, ...OPERATOR.address];
       <p>{t("legal.represented")}: {OPERATOR.managers.join(", ")}<br />{t("legal.register")}: {OPERATOR.register}</p>
       <p>{t("legal.email")}: <a href={`mailto:${OPERATOR.email}`}>{OPERATOR.email}</a></p>
       <p class="small">{t("legal.content", { name: OPERATOR.editor })}</p>
+      <p>{t("legal.takedown")} <a href={`mailto:${OPERATOR.email}`}>{OPERATOR.email}</a></p>
     </section>
     <h1 class="page-title">{t("legal.privacy")}</h1>
     <section>

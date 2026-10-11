@@ -406,6 +406,7 @@ legal:
   represented: Represented by the managing directors
   register: Commercial register
   content: "Responsible for the content under § 18 (2) MStV: {name}, address as above."
+  takedown: "Found something here that infringes your rights, such as copyrighted text or images? Write to us and we will remove it promptly:"
   privacy: Privacy notice
   controller: { h: Who is responsible, p: "The controller under the GDPR for this website is:" }
   hosting: { h: Hosting, p: "The site runs on Cloudflare Pages (Cloudflare, Inc., USA; certified under the EU-US Data Privacy Framework, with a data processing agreement). To deliver pages, Cloudflare necessarily processes your IP address and technical request data and keeps short-lived security logs. Legal basis: Art. 6 (1) (f) GDPR, our interest in a secure, working website." }
