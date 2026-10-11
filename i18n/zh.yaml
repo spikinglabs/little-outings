@@ -24,6 +24,7 @@ kindEvents: 活动
 eventTypes: 活动类型
 allTypes: 全部类型
 noIdeas: 没有符合条件的结果。试试扩大范围、换一天或减少筛选条件。
+noneHere: "{town}周边暂时还没有内容。我们正在添加这里的地点和活动，过几天再来看看。"
 nPlacesAny: { one: "1 个随时可去的地方", other: "{n} 个随时可去的地方" }
 allKinds: 全部
 nEvents: { one: "1 个活动", other: "{n} 个活动" }

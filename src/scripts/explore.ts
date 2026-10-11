@@ -6,7 +6,7 @@ import type {} from "../islands/OutingsMap";
 
 type Plural = { one?: string; other: string };
 const ui = JSON.parse(document.getElementById("explore-ui")!.textContent!) as {
-  nEvents: Plural; nPlaces: Plural; areaBack: string; tip: string; whenIn: Record<string, string>; mapShow: string; mapHide: string;
+  nEvents: Plural; nPlaces: Plural; areaBack: string; tip: string; whenIn: Record<string, string>; mapShow: string; mapHide: string; noneHere: string;
   showMore: string; locNone: string; loadFail: string;
 };
 const lang = document.body.dataset.lang!;
@@ -121,9 +121,10 @@ function mixKinds(sorted: Row[]): Row[] {
 }
 const show = (el: HTMLElement, on: boolean) => { if (el.hidden === on) el.hidden = !on; };
 
-/** Whether a card is where the reader is looking: inside the map area once they moved the map, else within the radius. */
+/** Whether a card is where the reader is looking: inside the map area once they moved the map, else within the radius.
+ * A card with no point (a farm in a town outside the region) is near nowhere, or it would show for every town. */
 function near({ lat, lon, dist }: Row) {
-  if (!state.area) return dist == null || dist <= state.radius;
+  if (!state.area) return dist != null && dist <= state.radius;
   const [s, w, n, e] = state.area;
   return lat >= s && lat <= n && lon >= w && lon <= e;
 }
@@ -213,7 +214,11 @@ function apply() {
   renderKm();
 
   $("[data-count]").textContent = [nEv ? count(ui.nEvents, nEv) : "", nPl ? count(ui.nPlaces, nPl) : ""].filter(Boolean).join(" · ");
-  $("[data-empty]").hidden = matched.length > 0;
+  // Nothing at all around this town (a town just added, before its data arrives) reads differently from filters that match nothing.
+  const bare = !matched.length && !all.some(near);
+  $("[data-empty]").hidden = matched.length > 0 || bare;
+  $("[data-empty-town]").hidden = !bare;
+  $("[data-empty-town]").textContent = ui.noneHere.replace("{town}", $("[data-home-name]").textContent ?? "");
   $("[data-area-note]").hidden = !state.area;
   $("[data-area-reset]").textContent = ui.areaBack.replace("{r}", String(state.radius))
     .replace("{town}", $("[data-home-name]").textContent ?? "");
