@@ -68,21 +68,8 @@ export const gh = (env: Env, path: string, init: RequestInit = {}) =>
     },
   });
 
-export async function onRequestPost({ request, env }: Ctx) {
-  if (!env.GITHUB_TOKEN || !env.INBOX_REPO) return json(503, { error: "inbox not configured" });
-  if (Number(request.headers.get("content-length") ?? 0) > 20000) return json(413, { error: "too large" });
-  let body: any;
-  try { body = await request.json(); } catch { return json(400, { error: "invalid json" }); }
-
-  if (env.TURNSTILE_SECRET) {
-    const form = new FormData();
-    form.append("secret", env.TURNSTILE_SECRET);
-    form.append("response", clip(body.turnstile, 2048));
-    form.append("remoteip", request.headers.get("cf-connecting-ip") ?? "");
-    const check = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", { method: "POST", body: form });
-    if (!((await check.json()) as any).success) return json(403, { error: "turnstile failed" });
-  }
-
+/** The issue one contribution becomes, or why it can't be one. Also used by the /mcp connector. */
+export async function issueOf(body: any): Promise<{ title: string; yaml: string; label: string } | { error: string }> {
   let title: string, yaml: string, label: string;
   if (body.kind === "answer" && typeof body.gap === "string" && /^[a-z0-9-]+:[a-z]+(:[a-z_]+)?$/.test(body.gap)) {
     const [id, gap, feature] = body.gap.split(":");
@@ -94,12 +81,12 @@ export async function onRequestPost({ request, env }: Ctx) {
       `answer: ${yamlStr(body.answer)}`, `lang: ${yamlStr(body.lang, 5)}`, from ? `from: ${JSON.stringify(from)}` : ""].filter(Boolean).join("\n");
   } else if (body.kind === "event" && body.draft && typeof body.draft === "object") {
     const d = body.draft;
-    if (!d.title || !d.date) return json(400, { error: "title and date are required" });
+    if (!d.title || !d.date) return { error: "title and date are required" };
     ({ title, yaml } = eventIssue(d, body.lang, await keyHash(body.key)));
     label = "new-event";
   } else if (body.kind === "place" && body.place && typeof body.place === "object") {
     const made = placeIssue(body.place, body.lang, await keyHash(body.key));
-    if ("error" in made) return json(400, { error: made.error });
+    if (made.error !== undefined) return { error: made.error };
     ({ title, yaml } = made);
     label = "new-place";
   } else if (body.kind === "visit" && typeof body.item === "string" && /^[a-z0-9-]+$/.test(body.item)
@@ -122,15 +109,40 @@ export async function onRequestPost({ request, env }: Ctx) {
     yaml = [`kind: report`, `item: ${yamlStr(body.item, 80)}`, `reason: ${yamlStr(body.reason, 20)}`,
       `note: ${yamlStr(body.note, 1000)}`, `lang: ${yamlStr(body.lang, 5)}`].join("\n");
   } else {
-    return json(400, { error: "unknown contribution" });
+    return { error: "unknown contribution" };
   }
+  return { title, yaml, label };
+}
 
+/** Opens the issue in the inbox repo; its number, 0 when GitHub didn't say, or null when it failed. */
+export async function fileIssue(env: Env, title: string, labels: string[], yaml: string): Promise<number | null> {
   const res = await gh(env, "/issues", {
     method: "POST",
-    body: JSON.stringify({ title, labels: [label], body: "```yaml\n" + yaml + "\n```\n" }),
+    body: JSON.stringify({ title, labels, body: "```yaml\n" + yaml + "\n```\n" }),
   });
-  if (!res.ok) return json(502, { error: "inbox unavailable" });
-  const number = ((await res.json().catch(() => ({}))) as { number?: number }).number;
+  if (!res.ok) return null;
+  return ((await res.json().catch(() => ({}))) as { number?: number }).number ?? 0;
+}
+
+export async function onRequestPost({ request, env }: Ctx) {
+  if (!env.GITHUB_TOKEN || !env.INBOX_REPO) return json(503, { error: "inbox not configured" });
+  if (Number(request.headers.get("content-length") ?? 0) > 20000) return json(413, { error: "too large" });
+  let body: any;
+  try { body = await request.json(); } catch { return json(400, { error: "invalid json" }); }
+
+  if (env.TURNSTILE_SECRET) {
+    const form = new FormData();
+    form.append("secret", env.TURNSTILE_SECRET);
+    form.append("response", clip(body.turnstile, 2048));
+    form.append("remoteip", request.headers.get("cf-connecting-ip") ?? "");
+    const check = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", { method: "POST", body: form });
+    if (!((await check.json()) as any).success) return json(403, { error: "turnstile failed" });
+  }
+
+  const made = await issueOf(body);
+  if ("error" in made) return json(400, { error: made.error });
+  const number = await fileIssue(env, made.title, [made.label], made.yaml);
+  if (number === null) return json(502, { error: "inbox unavailable" });
   return json(200, { ok: true, ...(number ? { number } : {}) });
 }
 

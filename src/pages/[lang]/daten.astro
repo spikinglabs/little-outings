@@ -7,7 +7,8 @@ import { LANGS, MAKER_URL, useT, type Lang } from "../../lib/i18n";
 export const getStaticPaths = () => LANGS.map((lang) => ({ params: { lang } }));
 const lang = Astro.params.lang as Lang;
 const t = useT(lang);
-const SECTIONS = ["events", "places", "translate", "taps", "stats", "writing", "profile", "location", "none", "wrong", "who"];
+const mcp = `${(Astro.site?.toString() ?? "https://outings.allo.land/").replace(/\/$/, "")}/mcp`;
+const SECTIONS = ["events", "places", "translate", "taps", "stats", "writing", "ai", "profile", "location", "none", "wrong", "who"];
 ---
 <Base lang={lang} title={t("about.title")}>
   <h1 class="page-title">{t("about.title")}</h1>
@@ -16,7 +17,7 @@ const SECTIONS = ["events", "places", "translate", "taps", "stats", "writing", "
     {SECTIONS.map((k) => (
       <section>
         <h2>{t(`about.${k}.h`)}</h2>
-        <p>{t(`about.${k}.p`)}</p>
+        <p>{t(`about.${k}.p`, k === "ai" ? { url: mcp } : undefined)}</p>
         {k === "profile" && <p><a href={`/${lang}/profil/`}>{t("profile.link")} →</a></p>}
         {k === "who" && <p><a href={`/${lang}/impressum`}>{t("legal.link")} →</a></p>}
         {k === "who" && <p><a href={MAKER_URL} target="_blank" rel="noopener">spikinglabs.com ↗</a></p>}
