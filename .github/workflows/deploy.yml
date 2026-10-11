@@ -46,7 +46,9 @@ jobs:
       - name: Import places (OpenStreetMap, farms)
         env:
           PLACES_EXPORT: ${{ vars.PLACES_EXPORT }}
-        run: npm run import:places
+        run: |
+          out=$(npm run --silent import:places 2>&1) || { echo "$out"; exit 1; }
+          echo "$out"; echo "::notice title=Places::$(echo "$out" | tail -1)"
       # Nominatim answers are kept between builds, so only new addresses wait a second each.
       - uses: actions/cache@v4
         with:
