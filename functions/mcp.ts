@@ -272,10 +272,69 @@ export async function onRequestPost({ request, env }: Ctx) {
   return answer ? reply(answer) : new Response(null, { status: 202, headers: cors });
 }
 
-// No server-to-client stream and no sessions: GET and DELETE aren't offered (the spec's answer is 405).
-export const onRequestGet = () =>
-  new Response("Little Outings connector for AI assistants (MCP). Add this address as a custom connector in your assistant.", {
+// A person who opens the address in a browser gets a short page on how to add it; an MCP client asking
+// for a server-to-client stream gets 405, since there are no streams or sessions.
+const HELP: Record<"de" | "en" | "zh", { title: string; intro: string; steps: string[]; ask: string; site: string; copy: string }> = {
+  en: {
+    title: "Little Outings in your AI assistant",
+    intro: "This address is for AI assistants, not for the browser. Add it to your assistant once, then ask it for family outings.",
+    steps: ["Claude: Settings → Connectors → Add custom connector, and paste the address.",
+      "ChatGPT: turn on developer mode in Settings, then add a connector (app) with the address.",
+      "No login needed. Some assistants need a paid plan for custom connectors."],
+    ask: "Then ask, for example: “Anything indoors for a 3-year-old in Cologne this Saturday?”",
+    site: "Open Little Outings",
+    copy: "Copy",
+  },
+  de: {
+    title: "Little Outings in deinem KI-Assistenten",
+    intro: "Diese Adresse ist für KI-Assistenten, nicht für den Browser. Füge sie einmal in deinem Assistenten hinzu und frag ihn dann nach Ausflügen mit Kindern.",
+    steps: ["Claude: Einstellungen → Konnektoren → Eigenen Konnektor hinzufügen, Adresse einfügen.",
+      "ChatGPT: In den Einstellungen den Entwicklermodus einschalten, dann einen Konnektor (App) mit der Adresse anlegen.",
+      "Ohne Anmeldung. Manche Assistenten brauchen für eigene Konnektoren ein Bezahl-Abo."],
+    ask: "Dann frag zum Beispiel: „Was gibt es diesen Samstag in Köln drinnen für eine Dreijährige?“",
+    site: "Little Outings öffnen",
+    copy: "Kopieren",
+  },
+  zh: {
+    title: "在 AI 助手里使用小出游",
+    intro: "这个地址是给 AI 助手用的，不是在浏览器里打开的。在助手里添加一次，之后就可以直接问它带孩子去哪儿玩。",
+    steps: ["Claude：设置 → 连接器 → 添加自定义连接器，粘贴这个地址。",
+      "ChatGPT：在设置里打开开发者模式，然后用这个地址添加连接器（应用）。",
+      "无需登录。部分助手的自定义连接器需要付费订阅。"],
+    ask: "然后可以问：“这个周六科隆有什么适合三岁孩子的室内活动？”",
+    site: "打开小出游",
+    copy: "复制",
+  },
+};
+
+export function helpPage(request: Request) {
+  const url = new URL(request.url);
+  const wanted = (request.headers.get("accept-language") ?? "").toLowerCase();
+  const lang = (["de", "zh", "en"] as const).map((l) => [l, wanted.indexOf(l)] as const).filter(([, i]) => i >= 0).sort((a, b) => a[1] - b[1])[0]?.[0] ?? "en";
+  const h = HELP[lang];
+  const address = `${url.origin}/mcp`;
+  return `<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex"><title>${h.title}</title><style>
+:root{--paper:#f6f5f2;--card:#fff;--ink:#17191b;--soft:#5b6066;--line:#dddbd5;--gold:#ffcc00;--braun:#6f4a2a}
+@media (prefers-color-scheme:dark){:root{--paper:#141517;--card:#1e2023;--ink:#f1efea;--soft:#a9adb2;--line:#33363a}}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.5 system-ui,sans-serif}
+main{max-width:34rem;margin:0 auto;padding:2rem 16px}h1{font-size:1.5rem;line-height:1.2;border-left:6px solid var(--gold);padding-left:.6rem}
+.addr{display:flex;gap:.5rem;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:.6rem .8rem;margin:1rem 0}
+.addr code{flex:1;overflow-wrap:anywhere;font-size:1rem}button{font:inherit;border:0;border-radius:8px;background:var(--gold);color:#17191b;padding:.4rem .8rem;font-weight:600}
+li{margin:.4rem 0}a{color:inherit}.soft{color:var(--soft)}</style></head><body><main>
+<h1>${h.title}</h1><p>${h.intro}</p>
+<div class="addr"><code id="a">${address}</code><button type="button" onclick="navigator.clipboard&&navigator.clipboard.writeText(document.getElementById('a').textContent).then(()=>{this.textContent='✓'})">${h.copy}</button></div>
+<ol>${h.steps.map((s) => `<li>${s}</li>`).join("")}</ol><p>${h.ask}</p>
+<p><a href="/${lang}/">${h.site} →</a></p></main></body></html>`;
+}
+
+export const onRequestGet = ({ request }: { request: Request }) => {
+  if ((request.headers.get("accept") ?? "").includes("text/html")) {
+    return new Response(helpPage(request), { headers: { "content-type": "text/html; charset=utf-8", "cache-control": "public, max-age=3600", vary: "accept, accept-language" } });
+  }
+  return new Response("Little Outings connector for AI assistants (MCP). Add this address as a custom connector in your assistant.", {
     status: 405, headers: { ...cors, allow: "POST, OPTIONS", "content-type": "text/plain; charset=utf-8" },
   });
+};
 export const onRequestDelete = () => new Response(null, { status: 405, headers: { ...cors, allow: "POST, OPTIONS" } });
 export const onRequestOptions = () => new Response(null, { status: 204, headers: cors });
