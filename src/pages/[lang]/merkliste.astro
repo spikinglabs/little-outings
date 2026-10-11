@@ -24,7 +24,7 @@ const { events, places } = await getData();
   <section class="section">
     <div class="section-head">
       <h2>{m("saved")}</h2>
-      <button class="btn" type="button" data-share hidden>{t("share.button")}</button>
+      <button class="btn" type="button" data-share data-count="share" hidden>{t("share.button")}</button>
     </div>
     <p class="small share-done" data-share-done role="status" hidden></p>
     <div class="saved-group" data-saved-section>

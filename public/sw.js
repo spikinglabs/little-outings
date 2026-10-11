@@ -6,10 +6,10 @@
 //                  Add, Profile and invites (/m/<id>) always ask the network first: an old copy there would
 //                  send with an older build's form (before PR 40, places were sent without an edit key),
 //                  or show an invite as it was hours ago.
-//   /_astro/, icons, fonts → cache first (file names change when the content does). Only real
+//   /_astro/ (fonts included), icons → cache first (file names change when the content does). Only real
 //                  CSS/JS/images are kept: the host answers a missing old file with a 200 HTML page.
 //   /api/, /admin/ and anything not GET → straight to the network, never cached
-const VERSION = "v6";
+const VERSION = "v7";
 const FRESH_MS = 12 * 60 * 60 * 1000;
 const PAGES = `pages-${VERSION}`;
 const STATIC = `static-${VERSION}`;
@@ -31,11 +31,10 @@ self.addEventListener("fetch", (event) => {
   const req = event.request;
   if (req.method !== "GET") return;
   const url = new URL(req.url);
-  const fonts = url.hostname === "fonts.googleapis.com" || url.hostname === "fonts.gstatic.com";
-  if (url.origin !== self.location.origin && !fonts) return;
+  if (url.origin !== self.location.origin) return;
   if (url.pathname.startsWith("/api/") || url.pathname.startsWith("/admin/")) return;
 
-  if (fonts || url.pathname.startsWith("/_astro/") || url.pathname.startsWith("/icons/")) {
+  if (url.pathname.startsWith("/_astro/") || url.pathname.startsWith("/icons/")) {
     event.respondWith(cacheFirst(req));
   } else {
     event.respondWith(networkFirst(req, url, event));

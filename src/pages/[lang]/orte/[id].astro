@@ -113,9 +113,9 @@ const ld = placeLd(p, { url: `${site}${Astro.url.pathname}`, name: nameOf(p, lan
     )}
 
     <div class="actions">
-      {map && <a class="btn primary" href={map.google} data-apple-maps={map.apple} target="_blank" rel="noopener">{t("openMaps")}</a>}
+      {map && <a class="btn primary" href={map.google} data-apple-maps={map.apple} data-count="maps" target="_blank" rel="noopener">{t("openMaps")}</a>}
       <button class="btn" type="button" data-save={p.id} aria-pressed="false"><Fragment set:html={svg(UI_ICON.saved, 'stroke-width="2" width="18" height="18"')} /><span data-save-label>{t("save")}</span></button>
-      {p.website && !p.website.startsWith("https://www.openstreetmap.org/") && <a class="btn" href={p.website} target="_blank" rel="noopener">{t("website")} ↗</a>}
+      {p.website && !p.website.startsWith("https://www.openstreetmap.org/") && <a class="btn" href={p.website} data-count="website" target="_blank" rel="noopener">{t("website")} ↗</a>}
     </div>
 
     {((!p.rating && p.quotes.length > 0) || (p.tips?.length ?? 0) > 0) && (

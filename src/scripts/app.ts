@@ -1,6 +1,7 @@
 // Runs on every page: the saved list, the "near" town and distances, and gap answers.
 import { KEYS, rememberSent } from "../lib/profile";
 import { pullNowAndThen, schedulePush } from "./sync";
+import { count, type CountAction } from "../lib/count";
 
 const body = document.body;
 const ui = JSON.parse(body.dataset.ui || "{}") as Record<string, string> & { fac?: [string, string][] };
@@ -11,6 +12,12 @@ const towns = new Map<string, [number, number]>(
 const read = (k: string) => { try { return localStorage.getItem(k); } catch { return null; } };
 // Every change to the profile also goes to passkey sync, when the family turned it on.
 const write = (k: string, v: string) => { try { localStorage.setItem(k, v); schedulePush(); } catch { /* private mode */ } };
+
+// Anonymous daily totals for marked links and buttons (directions, calendar, website, share).
+document.addEventListener("click", (ev) => {
+  const el = (ev.target as Element).closest<HTMLElement>("[data-count]");
+  if (el) count(el.dataset.count as CountAction);
+});
 
 /* ---------- saved list (stays on this device) ---------- */
 export const saved = new Set<string>(JSON.parse(read("lo-saved") || "[]"));
@@ -58,6 +65,7 @@ document.addEventListener("click", (ev) => {
   renderSaved();
   // No count badge on the Mine tab; a short bounce shows where the saved outing went.
   if (saved.has(id)) {
+    count("save");
     const tab = document.querySelector<HTMLElement>('.tabs [data-tab="saved"]');
     tab?.classList.remove("bump");
     void tab?.offsetWidth; // restart the animation on quick repeat taps
@@ -470,4 +478,4 @@ if (!standalone && related) {
     say(ui.installed);
   }).catch(() => {});
 }
-window.addEventListener("appinstalled", () => { if (installBox) installBox.hidden = true; closeHint(); });
+window.addEventListener("appinstalled", () => { if (installBox) installBox.hidden = true; closeHint(); count("install"); });

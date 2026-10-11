@@ -17,7 +17,7 @@
   --blau: #1d4f91;       /* Verkehrsblau, close to RAL 5017 */
   --blau-bg: #e3eaf4;
   --cjk: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", sans-serif;
-  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, var(--cjk);
+  --display: "Bricolage Grotesque Variable", "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, var(--cjk);
   --body: "Atkinson Hyperlegible", "Segoe UI", system-ui, var(--cjk);
   --sign: "Barlow Semi Condensed", "Bahnschrift", "DIN Alternate", "Arial Narrow", var(--cjk);
   --r: 14px;

@@ -313,7 +313,8 @@ about:
   writing: { h: Was du schreibst, p: "Tipps, Fehlermeldungen und vorgeschlagene Orte prüfen wir zuerst; sie erscheinen erst nach Freigabe. Antworten bei „Fehlt noch“ (Öffnungszeiten, Uhrzeit, Preis) erscheinen, sobald zwei Eltern dasselbe antworten oder wir sie geprüft haben. Bitte keine Namen, Telefonnummern oder andere persönliche Angaben." }
   profile: { h: Dein Profil, p: "Merkliste, besuchte Orte und deine Antworten bleiben im Browser dieses Handys. Kein Konto, keine E-Mail. Unter „Meins“ und dann „Profil und Sync“ kannst du es herunterladen, auf ein anderes Handy umziehen oder löschen. Mit Passkey-Sync liegt eine Kopie auf dem Server, die mit dem Profil gelöscht wird." }
   location: { h: Dein Standort, p: "Neben „Rund um“ gibt es einen kleinen Standort-Knopf. Nur wenn du ihn antippst, fragt dein Handy, ob es den ungefähren Standort teilen darf, um den nächsten Ort zu wählen. Der Standort bleibt auf deinem Handy und wird nie an uns gesendet; der Ort wird gespeichert wie ein selbst gewählter Ort. Die Karte zeigt dann mit einem blauen Punkt, wo du bist, bis du den Tab schließt oder selbst einen Ort wählst. Ohne ihn startet „Rund um“ bei Köln." }
-  none: { h: Was wir nicht tun, p: "Keine Werbung, kein Tracking, keine Statistik-Tools, kein Datenverkauf, keine Namen oder E-Mails." }
+  stats: { h: Besuche zählen, p: "Seitenaufrufe zählen wir mit Cloudflare Web Analytics, ohne Cookies und ohne Besucher auseinanderzuhalten. Außerdem zählen wir ein paar Klicks wie Merken oder Route öffnen, nur als Tagessumme. Beides weiß nicht, wer du bist." }
+  none: { h: Was wir nicht tun, p: "Keine Werbung, keine Cookies, kein seitenübergreifendes Tracking, kein Datenverkauf, keine Namen oder E-Mails." }
   wrong: { h: Etwas falsch?, p: "Unten auf jeder Termin- und Ortsseite steht „Stimmt etwas nicht?“. Tipp drauf und sag es uns." }
   who: { h: Wer steckt dahinter, p: "Little Outings ist ein Produkt von Spiking Labs. Spiking Labs macht auch andere Apps für den Alltag, alle zu sehen auf der Website von Spiking Labs." }
 flow:
@@ -396,3 +397,25 @@ meet:
   mineSub: "Eure eigenen und die, auf die ihr geantwortet habt."
   mineYours: Eure
   mineSignIn: "Meldet euch mit eurem Passkey an, um eure Einladungen zu sehen."
+legal:
+  link: Impressum
+  title: Impressum und Datenschutzerklärung
+  german: "Maßgeblich ist die deutsche Fassung dieser Seite."
+  imprint: Impressum
+  email: E-Mail
+  represented: Vertreten durch die Geschäftsführer
+  register: Registereintrag
+  content: "Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV: {name}, Anschrift wie oben."
+  takedown: "Verletzt etwas auf dieser Seite deine Rechte, etwa urheberrechtlich geschützte Texte oder Bilder? Schreib uns, wir entfernen es umgehend:"
+  privacy: Datenschutzerklärung
+  controller: { h: Verantwortlicher, p: "Verantwortlich im Sinne der DSGVO für diese Website ist:" }
+  hosting: { h: Hosting, p: "Die Seite läuft auf Cloudflare Pages (Cloudflare, Inc., USA; zertifiziert nach dem EU-US Data Privacy Framework, mit Auftragsverarbeitungsvertrag). Um Seiten auszuliefern, verarbeitet Cloudflare zwangsläufig deine IP-Adresse und technische Anfragedaten und führt kurzlebige Sicherheitsprotokolle. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO, unser Interesse an einer sicheren, funktionierenden Website." }
+  stats: { h: Nutzungsstatistik, p: "Wir nutzen Cloudflare Web Analytics, um Seitenaufrufe, verweisende Seiten, Länder, Gerätetypen und Ladezeiten zu zählen. Es setzt keine Cookies, speichert nichts auf deinem Gerät und erkennt wiederkehrende Besucher nicht; wir sehen nur Summen. Außerdem zählen wir einige Aktionen (Merken, Route öffnen, in den Kalender, Website öffnen, Liste teilen, App installieren) als Tagessummen nach Sprache, ohne IP-Adresse und ohne ID. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO, unser Interesse zu wissen, welche Teile der Seite genutzt werden." }
+  device: { h: Auf deinem Gerät gespeichert, p: "Deine Merkliste, der gewählte Ort, deine Antworten, eine zufällige Browser-ID und deine Einstellungen liegen im lokalen Speicher deines Browsers, nur weil du diese Funktionen nutzt (§ 25 Abs. 2 Nr. 2 TDDDG). Wir verwenden keine Cookies. Du kannst alles unter Meins › Profil und Sync löschen oder indem du die Websitedaten in deinem Browser löschst." }
+  taps: { h: Klicks und Abstimmungen, p: "Antworten zu Ausstattung, „Wir waren da“ und „Braucht man Deutsch?“ werden in einer Cloudflare-D1-Datenbank gespeichert, zusammen mit einem Hash deiner zufälligen Browser-ID und einem Hash deiner IP-Adresse, den wir nur gegen Massenklicks nutzen. Sie bleiben, bis du dein Profil löschst. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO." }
+  sent: { h: Was du uns schickst, p: "Tipps, Meldungen sowie vorgeschlagene Termine oder Orte werden als Einträge in einem privaten GitHub-Repository gespeichert (GitHub, Inc., USA; EU-US Data Privacy Framework), damit wir sie prüfen können. Freigegebener Text erscheint ohne deinen Namen. Bitte keine persönlichen Daten angeben. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO." }
+  parse: { h: Plakate und Links auslesen, p: "Wenn du einen Termin aus einem Foto, Link oder eingefügtem Text anlegst, wird dieser Inhalt einmalig an einen KI-Dienst geschickt (Google Gemini oder Anthropic Claude, beide USA, EU-US Data Privacy Framework), der das Formular für dich ausfüllt. Das Foto wird nicht gespeichert. Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO, weil du es anforderst." }
+  sync: { h: Passkey-Sync und Einladungen, p: "Wenn du den Passkey-Sync einschaltest oder eine Einladung erstellst, speichern wir dein Profil bzw. die Einladung und den öffentlichen Schlüssel deines Passkeys in Cloudflare D1. Es gibt keinen Namen und keine E-Mail. Wenn du dein Profil löschst, wird beides gelöscht. Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO." }
+  map: { h: Karte, p: "Die Kartenkacheln kommen von OpenStreetMap (OpenStreetMap Foundation, Vereinigtes Königreich, mit EU-Angemessenheitsbeschluss), die dafür deine IP-Adresse erhält. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO. Dein Standort wird nur auf deinem Handy verwendet, wenn du den Standort-Knopf antippst, und nie an uns geschickt." }
+  fonts: { h: Schriften, p: "Alle Schriften werden von unserer eigenen Seite geladen. Kein Schriftendienst erhält deine Daten." }
+  rights: { h: Deine Rechte, p: "Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch gegen Verarbeitungen aufgrund berechtigter Interessen (Art. 15–21 DSGVO). Das meiste kannst du selbst unter Meins › Profil und Sync erledigen, sonst schreib uns eine E-Mail. Du kannst dich außerdem bei einer Datenschutz-Aufsichtsbehörde beschweren." }

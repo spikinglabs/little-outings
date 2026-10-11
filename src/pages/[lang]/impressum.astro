@@ -1,0 +1,41 @@
+---
+// Impressum and privacy notice (Datenschutzerklärung). The plain-words version is /<lang>/daten.
+// Keep it true: when a service the site uses changes (hosting, analytics, map tiles, AI parsing,
+// the GitHub inbox, D1 tables), change the matching section here and on the data page.
+import Base from "../../layouts/Base.astro";
+import { LANGS, useT, type Lang } from "../../lib/i18n";
+import { OPERATOR } from "../../lib/legal";
+
+export const getStaticPaths = () => LANGS.map((lang) => ({ params: { lang } }));
+const lang = Astro.params.lang as Lang;
+const t = useT(lang);
+const SECTIONS = ["hosting", "stats", "device", "taps", "sent", "parse", "sync", "map", "fonts", "rights"];
+const contact = [OPERATOR.name, ...OPERATOR.address];
+---
+<Base lang={lang} title={t("legal.title")}>
+  <h1 class="page-title">{t("legal.title")}</h1>
+  {lang !== "de" && <p class="page-sub">{t("legal.german")}</p>}
+  <div class="about">
+    <section>
+      <h2>{t("legal.imprint")}</h2>
+      <p>{contact.map((l, i) => <>{i > 0 && <br />}{l}</>)}</p>
+      <p>{t("legal.represented")}: {OPERATOR.managers.join(", ")}<br />{t("legal.register")}: {OPERATOR.register}</p>
+      <p>{t("legal.email")}: <a href={`mailto:${OPERATOR.email}`}>{OPERATOR.email}</a></p>
+      <p class="small">{t("legal.content", { name: OPERATOR.editor })}</p>
+      <p>{t("legal.takedown")} <a href={`mailto:${OPERATOR.email}`}>{OPERATOR.email}</a></p>
+    </section>
+    <h1 class="page-title">{t("legal.privacy")}</h1>
+    <section>
+      <h2>{t("legal.controller.h")}</h2>
+      <p>{t("legal.controller.p")}</p>
+      <p>{contact.join(", ")} · <a href={`mailto:${OPERATOR.email}`}>{OPERATOR.email}</a></p>
+    </section>
+    {SECTIONS.map((k) => (
+      <section>
+        <h2>{t(`legal.${k}.h`)}</h2>
+        <p>{t(`legal.${k}.p`)}</p>
+      </section>
+    ))}
+    <p><a href={`/${lang}/daten`}>{t("about.link")} →</a></p>
+  </div>
+</Base>
