@@ -210,6 +210,10 @@
   "venue": "Ludwig Forum Aachen",
   "street": "Jülicher Straße 97–109"
  },
+ "https://ludwigforum.de/event/sonntagsmalerei-2027-10-10/": {
+  "venue": "Ludwig Forum Aachen",
+  "street": "Jülicher Straße 97–109"
+ },
  "https://suermondt-ludwig-museum.de/event/an-die-farbe-fertig-los-3/": {
   "venue": null
  },
@@ -258,8 +262,97 @@
  "https://suermondt-ludwig-museum.de/event/yoga-im-museum-2-2/": {
   "venue": "Suermondt-Ludwig-Museum"
  },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/eine-kindheit-in-dueren-im-2-weltkrieg": {
+  "venue": "Volkshochschule Rur-Eifel",
+  "street": "Violengasse 2"
+ },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/elterngeld-elternzeit-23-02-2027": {
+  "venue": "Volkshochschule Rur-Eifel",
+  "street": "Violengasse 2"
+ },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/familienfuehrung-15-11-2026": {
+  "venue": null
+ },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/familienfuehrung-18-10-2026": {
+  "venue": null
+ },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/familienfuehrung-20-12-2026": {
+  "venue": null
+ },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/herbstferienprogramm-mach-es-dir-gemuetlich": {
+  "venue": null
+ },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/herbstferienprogramm-mach-es-dir-gemuetlich-22-10-2026": {
+  "venue": null
+ },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/herbstferienprogramm-mach-es-dir-gemuetlich-26-10-2026": {
+  "venue": null
+ },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/herbstferienprogramm-mach-es-dir-gemuetlich-29-10-2026": {
+  "venue": null
+ },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/histolab-fuer-kids_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy": {
+  "venue": "Stadtmuseum",
+  "street": "Arnoldsweilerstraße 38"
+ },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/histolab-fuer-kids_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy": {
+  "venue": "Stadtmuseum",
+  "street": "Arnoldsweilerstraße 38"
+ },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/histolab-fuer-kids_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy": {
+  "venue": "Stadtmuseum",
+  "street": "Arnoldsweilerstraße 38"
+ },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/into-the-paperverse-papier-und-computerspiel": {
   "venue": null
+ },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/jugendliche-medien-was-eltern-und-paedagogen-wissen-sollten": {
+  "venue": "Volkshochschule Rur-Eifel",
+  "street": "Violengasse 2"
+ },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/kinder-medien-was-eltern-und-paedagogen-wissen-sollten": {
+  "venue": "Volkshochschule Rur-Eifel",
+  "street": "Violengasse 2"
+ },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/komm-mit-ins-vorleseland-12-10-2026": {
+  "venue": null
+ },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/kraeuter-diplom-fuer-kinder-ab-6-jahren": {
+  "venue": "Volkshochschule Rur-Eifel",
+  "street": "Violengasse 2"
+ },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/kraeuter-diplom-fuer-kinder-ab-6-jahren-24-03-2027": {
+  "venue": "Volkshochschule Rur-Eifel",
+  "street": "Violengasse 2"
+ },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/lukpuppentheater-ein-olchi-unterm-graetenbaum": {
+  "venue": null
+ },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/lukpuppentheater-ein-olchi-unterm-graetenbaum-07-12-2026_copy": {
+  "venue": null
+ },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/mundartabend-am-bundesweiten-vorlesetag": {
+  "venue": null
+ },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/naturheilkundliche-behandlungsmoeglichkeiten-von-kindern": {
+  "venue": "Volkshochschule Rur-Eifel",
+  "street": "Violengasse 2"
+ },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/naturheilkundliche-behandlungsmoeglichkeiten-von-kindern-18-03-2027": {
+  "venue": "Volkshochschule Rur-Eifel",
+  "street": "Violengasse 2"
+ },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/orgaqueen-orgaking-workshop-zu-vereinbarkeit-von-familie-und-beruf-17-10-2026": {
+  "venue": "Volkshochschule Rur-Eifel",
+  "street": "Violengasse 2"
+ },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/schlaf-doch-endlich-wie-eltern-das-ein-und-durchschlafen-ihrer-kinder-foerdern-koennen": {
+  "venue": "Volkshochschule Rur-Eifel",
+  "street": "Violengasse 2"
+ },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/vorlesewerkstatt-wie-vorlesen-zum-erlebnis-wird-20-02-2027": {
+  "venue": "Volkshochschule Rur-Eifel",
+  "street": "Violengasse 2"
  },
  "https://www.koeln.de/event/kinder-maedels-flohmarkt-koeln-ehrenfeld/": {
   "venue": "Rösenhöfe",
@@ -268,10 +361,6 @@
  "https://www.koeln.de/event/kinderflohmarkt-in-raderthal/": {
   "venue": "Ev. Kita",
   "street": "Albert-Schweitzer-Straße 3-5"
- },
- "https://www.koeln.de/event/kinderflohmarkt-in-suelz/": {
-  "venue": "Pfarrsaal St. Nikolaus",
-  "street": "Berrenrather Str. 256"
  },
  "https://www.koeln.de/event/nikolaus-kinder-disco/": {
   "venue": "SPRUNG.RAUM",
