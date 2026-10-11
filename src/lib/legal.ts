@@ -7,5 +7,5 @@ export const OPERATOR = {
   register: "Amtsgericht Köln, HRB 122682",
   /** Responsible for editorial content under § 18 (2) MStV; one natural person. */
   editor: "Lei Ma",
-  email: "TODO: email@example.com",
+  email: "hi@spikinglabs.com",
 };
