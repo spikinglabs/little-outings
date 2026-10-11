@@ -4,17 +4,22 @@ import { LANGS, MAKER_URL, useT, type Lang } from "../lib/i18n";
 import { UI_ICON, sprite, svg } from "../lib/icons";
 import { FEATURES } from "../content.config";
 import { getData } from "../lib/data";
+import { ldJson } from "../lib/seo";
 
 interface Props {
   lang: Lang;
   title?: string;
   description?: string;
   tab?: "explore" | "saved" | "add";
-  /** A preview picture for link cards in chats; also adds og:url (functions/m/[id].ts rewrites both). */
+  /** A large preview picture for link cards in chats (functions/m/[id].ts rewrites it and og:url); the app icon otherwise. */
   image?: string;
   noindex?: boolean;
+  /** schema.org JSON-LD for this page (src/lib/seo.ts). */
+  ld?: unknown;
+  /** A file the page's script will fetch, requested together with the page instead of after it. */
+  preload?: string;
 }
-const { lang, title, description, tab, image, noindex } = Astro.props;
+const { lang, title, description, tab, image, noindex, ld, preload } = Astro.props;
 const t = useT(lang);
 const { region } = await getData();
 // The "saved" tab is labelled "Mine": it holds the saved list, what was sent and the profile.
@@ -28,6 +33,9 @@ const tabs = [
 ] as const;
 const pageTitle = title ? `${title} · ${t("siteName")}` : `${t("siteName")} · ${t("tagline")}`;
 const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
+// One address per page, on the real domain, so little-outings.pages.dev never counts as a copy.
+const canonical = `${site}${Astro.url.pathname}`;
+const OG_LOCALE: Record<Lang, string> = { de: "de_DE", en: "en_GB", zh: "zh_CN" };
 // Strings the browser scripts need, in this language.
 const ui = {
   fac: FEATURES.map((f) => [f, t(`features.${f}`)]),
@@ -43,14 +51,17 @@ const ui = {
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{pageTitle}</title>
     <meta name="description" content={description ?? t("tagline")} />
+    {!noindex && <link rel="canonical" href={canonical} />}
+    <meta property="og:site_name" content={t("siteName")} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content={OG_LOCALE[lang]} />
     <meta property="og:title" content={title ?? t("siteName")} />
     <meta property="og:description" content={description ?? t("tagline")} />
-    {image && <>
-      <meta property="og:type" content="website" />
-      <meta property="og:url" content={`${site}${Astro.url.pathname}`} />
-      <meta property="og:image" content={`${site}${image}`} />
-      <meta name="twitter:card" content="summary_large_image" />
-    </>}
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={`${site}${image ?? "/icons/icon-512.png"}`} />
+    <meta name="twitter:card" content={image ? "summary_large_image" : "summary"} />
+    {ld && <script type="application/ld+json" set:html={ldJson(ld)} />}
+    {preload && <link rel="preload" href={preload} as="fetch" crossorigin="anonymous" />}
     {noindex && <meta name="robots" content="noindex" />}
     <meta name="theme-color" content="#ffcc00" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#121314" media="(prefers-color-scheme: dark)" />
@@ -64,7 +75,9 @@ const ui = {
         document.querySelectorAll('meta[name="theme-color"]').forEach(function (m) { m.content = c === "dark" ? "#121314" : "#ffcc00"; });
       })();
     </script>
-    {LANGS.map((l) => <link rel="alternate" hreflang={l} href={`${site}/${l}/${rest}`} />)}
+    {!noindex && LANGS.map((l) => <link rel="alternate" hreflang={l === "zh" ? "zh-Hans" : l} href={`${site}/${l}/${rest}`} />)}
+    {/* Readers with another language land on German; on the home page the root picks one from the browser. */}
+    {!noindex && <link rel="alternate" hreflang="x-default" href={rest ? `${site}/de/${rest}` : `${site}/`} />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="manifest" href={`/${lang}/manifest.webmanifest`} />
     <script is:inline>

@@ -2,6 +2,7 @@ locale: zh-CN
 langName: 中文
 siteName: 小出游
 tagline: 附近的亲子好去处
+homeDescription: "科隆、波恩和杜塞尔多夫周边的亲子出游：{events} 个亲子活动和 {places} 个适合孩子的地方，包括游乐场、农场、动物园和游泳池。免费，无需注册。"
 tabs: { explore: 发现, saved: 我的, add: 添加 }
 when: { today: 今天, tomorrow: 明天, weekend: 周末, soon: 未来两周 }
 whenIn: { today: 今天, tomorrow: 明天, weekend: 这个周末, soon: 未来两周 }
@@ -141,6 +142,8 @@ website: 网站
 source: 来源
 demo: 演示版，数据均为虚构示例。
 reading: 正在识别…
+loading: 正在加载…
+loadFail: "暂时无法加载，请刷新页面。"
 draftTitle: 请快速核对
 pleaseCheck: 请核对
 field: { title: 标题, date: 日期, time: 时间, place: 地点或地址, price: 价格, note: 有哪些适合孩子的活动？ }

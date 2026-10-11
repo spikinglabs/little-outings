@@ -3,15 +3,15 @@
 // and places that are good any time, mixed and nearest first. Every card is rendered; the filter
 // script shows the ones that match the chosen day, distance and filters, a page at a time.
 import Base from "../../layouts/Base.astro";
-import Card from "../../components/Card.astro";
 import Stamp from "../../components/Stamp.astro";
-import { LANGS, tr, useT, type Lang } from "../../lib/i18n";
+import { LANGS, MAKER_URL, tr, useT, type Lang } from "../../lib/i18n";
 import { getData } from "../../lib/data";
 import { pathFor, townName } from "../../lib/format";
 import { KINDS, TAGS } from "../../content.config";
 import { KIND_ICON, UI_ICON, svg } from "../../lib/icons";
 import OutingsMap from "../../islands/OutingsMap";
 import { mapCenter } from "../../lib/pins";
+import { siteLd } from "../../lib/seo";
 
 export const getStaticPaths = () => LANGS.map((lang) => ({ params: { lang } }));
 const lang = Astro.params.lang as Lang;
@@ -32,7 +32,7 @@ const presentTags = TAGS.map((g) => [g, listed.filter((e) => e.tags.includes(g))
   .concat(listed.some((e) => !e.tags.length) ? ["other"] : []);
 const whenKeys = ["today", "tomorrow", "weekend", "soon"];
 const whenIn = t.group("whenIn");
-const pluralUi = { nEvents: t.group("nEvents"), nPlaces: t.group("nPlacesAny"), tip: t("tip"), whenIn, mapShow: t("mapShow"), mapHide: t("mapHide"), areaBack: t("mapAreaBack"), showMore: t("mapShowMore"), locNone: t("locNone") };
+const pluralUi = { nEvents: t.group("nEvents"), nPlaces: t.group("nPlacesAny"), tip: t("tip"), whenIn, mapShow: t("mapShow"), mapHide: t("mapHide"), areaBack: t("mapAreaBack"), showMore: t("mapShowMore"), locNone: t("locNone"), loadFail: t("loadFail") };
 const homes = region.towns;
 // Town picker rows, A–Z in the reader's language (Düsseldorf next to Dortmund, 杜塞尔多夫 by pinyin).
 // keys: every name a parent might type, lowercased and without accents (koln finds Köln, 科隆 finds it too).
@@ -46,8 +46,11 @@ const mapLabels = {
   places: t.group("nPlacesAny") as { one?: string; other: string }, touch: t("mapTouch"), zoom: t("mapZoom"), zoomMac: t("mapZoomMac"),
   locate: t("locate"), close: t("mapClose"), save: t("save"),
 };
+// What search results and AI answers show for the home page.
+const description = t("homeDescription", { events: listed.length, places: places.length });
+const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
 ---
-<Base lang={lang} tab="explore">
+<Base lang={lang} tab="explore" preload={`/${lang}/ideen/`} description={description} ld={siteLd({ url: `${site}/${lang}/`, name: t("siteName"), description, lang, maker: MAKER_URL })}>
   <section class="ask">
     <h1 set:html={t("ask", { when: `<span data-when-word>${whenIn.weekend}</span>` })} />
     <label class="search">
@@ -147,11 +150,10 @@ const mapLabels = {
       <div class="empty" data-empty hidden>{t("noIdeas")}</div>
     </div>
     <!-- Every card waits here, outside the page, until the filters show it: a few thousand cards
-         in the live page made phones slow to open and to switch back to. -->
-    <template id="ideas-pool">
-      {listed.map((e) => <Card item={e} t={t} hidden />)}
-      {places.map((p) => <Card item={p} t={t} hidden />)}
-    </template>
+         in the live page made phones slow to open and to switch back to. They arrive from
+         /<lang>/ideen/ (pages/[lang]/ideen.astro) right after the page shows, so the page itself stays small. -->
+    <template id="ideas-pool" data-src={`/${lang}/ideen/`}></template>
+    <p class="small ideas-loading" data-loading>{t("loading")}</p>
     <button class="more-btn" type="button" data-more hidden></button>
   </section>
   {events.length + places.length === 0 && <p class="empty">{t("empty")}</p>}

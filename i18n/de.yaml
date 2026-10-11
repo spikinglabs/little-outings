@@ -2,6 +2,7 @@ locale: de-DE
 langName: Deutsch
 siteName: Little Outings
 tagline: Ausflüge mit Kindern in eurer Nähe
+homeDescription: "Ausflüge mit Kindern rund um Köln, Bonn und Düsseldorf: {events} Termine für Familien und {places} kinderfreundliche Orte wie Spielplätze, Bauernhöfe, Zoos und Schwimmbäder. Kostenlos, ohne Anmeldung."
 tabs: { explore: Entdecken, saved: Meins, add: Neu }
 when: { today: Heute, tomorrow: Morgen, weekend: Wochenende, soon: Nächste 2 Wochen }
 whenIn: { today: heute, tomorrow: morgen, weekend: am Wochenende, soon: in den nächsten 2 Wochen }
@@ -141,6 +142,8 @@ website: Website
 source: Quelle
 demo: Demo mit erfundenen Beispieldaten.
 reading: Wird gelesen …
+loading: Ideen werden geladen …
+loadFail: "Die Ideen konnten gerade nicht geladen werden. Bitte die Seite neu laden."
 draftTitle: Bitte kurz prüfen
 pleaseCheck: Bitte prüfen
 field: { title: Titel, date: Datum, time: Uhrzeit, place: Ort oder Adresse, price: Preis, note: "Was gibt es für Kinder?" }

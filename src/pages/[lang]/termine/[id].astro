@@ -13,6 +13,7 @@ import type { Event } from "../../../lib/types";
 import { LANGUAGE } from "../../../content.config";
 import { calInput } from "../../../lib/event-cal";
 import { googleUrl } from "../../../lib/calendar";
+import { eventLd } from "../../../lib/seo";
 
 export async function getStaticPaths() {
   const { events } = await getData();
@@ -31,8 +32,20 @@ const yes = Object.entries(place?.facilities ?? {}).filter(([, v]) => v.status =
 const cal = await calInput(e, lang, Astro.site);
 const translated = isFallback(e.title, lang) || isFallback(e.note, lang);
 const map = mapLink(e, place);
+// Search snippet: when, where, what kind and the organiser's note, so the result answers "what is it?".
+const where = [place ? nameOf(place, lang) : e.venue, town].filter(Boolean).join(", ");
+const description = [
+  [dateRange(t, e), e.time, where].filter(Boolean).join(" · "),
+  [e.price?.free && t("free"), ...e.tags.filter((g) => g !== "other").map((g) => t(`tags.${g}`))].filter(Boolean).join(", "),
+  e.note && tr(e.note, lang),
+].filter(Boolean).join(". ").slice(0, 300);
+const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
+const ld = eventLd(e, {
+  url: `${site}${Astro.url.pathname}`, name: title, description, lang, place,
+  placeUrl: place && `${site}${pathFor(lang, place)}`, placeName: place && nameOf(place, lang),
+});
 ---
-<Base lang={lang} title={title} description={[dateRange(t, e), town].join(" · ")}>
+<Base lang={lang} title={title} description={description} ld={ld}>
   <article class="detail" data-lat={e.geo.lat} data-lon={e.geo.lon} data-precision={prec}>
     <a class="back" href={`/${lang}/`}>← {t("back")}</a>
     <div class="lead">

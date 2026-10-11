@@ -1,5 +1,6 @@
 ---
 // The root picks a language from the browser and falls back to German.
+const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
 ---
 <!doctype html>
 <html lang="de">
@@ -8,9 +9,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Little Outings</title>
     <meta http-equiv="refresh" content="0; url=/de/" />
-    <link rel="alternate" hreflang="de" href="/de/" />
-    <link rel="alternate" hreflang="en" href="/en/" />
-    <link rel="alternate" hreflang="zh" href="/zh/" />
+    <meta name="description" content="Ausflüge mit Kindern · Family outings · 亲子出游" />
+    <link rel="alternate" hreflang="de" href={`${site}/de/`} />
+    <link rel="alternate" hreflang="en" href={`${site}/en/`} />
+    <link rel="alternate" hreflang="zh-Hans" href={`${site}/zh/`} />
+    <link rel="alternate" hreflang="x-default" href={`${site}/`} />
     <script is:inline>
       try {
         var l = (navigator.languages || [navigator.language || "de"]).map(function (x) { return x.slice(0, 2); })

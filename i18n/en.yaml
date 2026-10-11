@@ -2,6 +2,7 @@ locale: en-GB
 langName: English
 siteName: Little Outings
 tagline: Family outings near you
+homeDescription: "Family outings around Cologne, Bonn and Düsseldorf: {events} events for kids and {places} kid-friendly places like playgrounds, farms, zoos and pools. Free, no sign-up."
 tabs: { explore: Discover, saved: Mine, add: Add }
 when: { today: Today, tomorrow: Tomorrow, weekend: Weekend, soon: Next 2 weeks }
 whenIn: { today: today, tomorrow: tomorrow, weekend: this weekend, soon: in the next 2 weeks }
@@ -141,6 +142,8 @@ website: Website
 source: Source
 demo: Demo with made-up example data.
 reading: Reading …
+loading: Loading ideas …
+loadFail: "The ideas couldn't load just now. Please reload the page."
 draftTitle: Please check quickly
 pleaseCheck: Please check
 field: { title: Title, date: Date, time: Time, place: Place or address, price: Price, note: "What's on for kids?" }
