@@ -28,6 +28,11 @@ Events come from public city calendars (via cityklub) and from parents; places c
 - Event pages: ${base}/{de|en|zh}/termine/{id}/ (also an .ics calendar file at ${base}/{lang}/termine/{id}.ics)
 - Place pages: ${base}/{de|en|zh}/orte/{id}/
 
+## For AI assistants
+
+- MCP connector (Streamable HTTP, no login): ${base}/mcp. Tools: search, fetch, and suggest_event, suggest_place, add_tip, report_problem (these go to a moderator for review before anything is published).
+- [Search](${base}/api/v1/search?town=Köln&what=events&lang=en): GET /api/v1/search with q (free text), town, lat, lon, radius_km, from, to (YYYY-MM-DD; default the next 7 days), what (events | places | all), kinds, indoor, free, needs (confirmed facilities), lang (de | en | zh), limit (≤ 50). Returns short results with page links.
+
 ## Data (JSON, same records as the pages)
 
 - [Events](${base}/api/v1/events.json): title (de, plus zh/en translations), start and end date, time, town, venue, location precision, price, tags, source
