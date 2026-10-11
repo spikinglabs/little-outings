@@ -16,8 +16,10 @@ interface Props {
   noindex?: boolean;
   /** schema.org JSON-LD for this page (src/lib/seo.ts). */
   ld?: unknown;
+  /** A file the page's script will fetch, requested together with the page instead of after it. */
+  preload?: string;
 }
-const { lang, title, description, tab, image, noindex, ld } = Astro.props;
+const { lang, title, description, tab, image, noindex, ld, preload } = Astro.props;
 const t = useT(lang);
 const { region } = await getData();
 // The "saved" tab is labelled "Mine": it holds the saved list, what was sent and the profile.
@@ -59,6 +61,7 @@ const ui = {
     <meta property="og:image" content={`${site}${image ?? "/icons/icon-512.png"}`} />
     <meta name="twitter:card" content={image ? "summary_large_image" : "summary"} />
     {ld && <script type="application/ld+json" set:html={ldJson(ld)} />}
+    {preload && <link rel="preload" href={preload} as="fetch" crossorigin="anonymous" />}
     {noindex && <meta name="robots" content="noindex" />}
     <meta name="theme-color" content="#ffcc00" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#121314" media="(prefers-color-scheme: dark)" />

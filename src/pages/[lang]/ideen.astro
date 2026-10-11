@@ -1,0 +1,16 @@
+---
+// Every card for the Discover list, fetched by explore.ts after the page shows. Kept out of the
+// home page itself, which was 3.5 MB with all of them inline. Not a page to read on its own (noindex in _headers).
+import Card from "../../components/Card.astro";
+import { LANGS, useT, type Lang } from "../../lib/i18n";
+import { getData } from "../../lib/data";
+
+export const getStaticPaths = () => LANGS.map((lang) => ({ params: { lang } }));
+const lang = Astro.params.lang as Lang;
+const t = useT(lang);
+const { events, places } = await getData();
+// Events without any position can't be placed near anyone; they live on the tasks page.
+const listed = events.filter((e) => e.geo.precision !== "unknown");
+---
+{listed.map((e) => <Card item={e} t={t} hidden />)}
+{places.map((p) => <Card item={p} t={t} hidden />)}

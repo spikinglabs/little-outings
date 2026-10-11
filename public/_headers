@@ -5,3 +5,7 @@
 # The site's address is outings.allo.land; keep the Cloudflare copy out of search results.
 https://little-outings.pages.dev/*
   X-Robots-Tag: noindex
+
+# Discover's cards, loaded by the home page; not a page of its own.
+/:lang/ideen/
+  X-Robots-Tag: noindex
