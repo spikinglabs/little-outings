@@ -32,7 +32,7 @@ const presentTags = TAGS.map((g) => [g, listed.filter((e) => e.tags.includes(g))
   .concat(listed.some((e) => !e.tags.length) ? ["other"] : []);
 const whenKeys = ["today", "tomorrow", "weekend", "soon"];
 const whenIn = t.group("whenIn");
-const pluralUi = { nEvents: t.group("nEvents"), nPlaces: t.group("nPlacesAny"), tip: t("tip"), whenIn, mapShow: t("mapShow"), mapHide: t("mapHide"), areaBack: t("mapAreaBack"), showMore: t("mapShowMore"), locNone: t("locNone"), loadFail: t("loadFail") };
+const pluralUi = { nEvents: t.group("nEvents"), nPlaces: t.group("nPlacesAny"), tip: t("tip"), whenIn, mapShow: t("mapShow"), mapHide: t("mapHide"), areaBack: t("mapAreaBack"), showMore: t("mapShowMore"), locNone: t("locNone"), loadFail: t("loadFail"), noneHere: t("noneHere") };
 const homes = region.towns;
 // Town picker rows, A–Z in the reader's language (Düsseldorf next to Dortmund, 杜塞尔多夫 by pinyin).
 // keys: every name a parent might type, lowercased and without accents (koln finds Köln, 科隆 finds it too).
@@ -148,6 +148,7 @@ const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
     </div>
     <div class="grid ideas" id="ideas">
       <div class="empty" data-empty hidden>{t("noIdeas")}</div>
+      <div class="empty" data-empty-town hidden></div>
     </div>
     <!-- Every card waits here, outside the page, until the filters show it: a few thousand cards
          in the live page made phones slow to open and to switch back to. They arrive from

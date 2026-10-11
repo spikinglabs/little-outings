@@ -24,6 +24,7 @@ kindEvents: Veranstaltungen
 eventTypes: Art der Veranstaltung
 allTypes: Alle Arten
 noIdeas: Dazu passt nichts. Versucht einen größeren Umkreis, einen anderen Tag oder weniger Filter.
+noneHere: Rund um {town} haben wir noch nichts. Orte und Termine kommen gerade erst dazu, schaut in ein paar Tagen wieder vorbei.
 nPlacesAny: { one: "1 Ort für jederzeit", other: "{n} Orte für jederzeit" }
 allKinds: Alle
 nEvents: { one: "1 Termin", other: "{n} Termine" }
