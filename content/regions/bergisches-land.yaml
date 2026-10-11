@@ -67,3 +67,7 @@ towns:
   lat: 50.804
   lon: 6.493
   zh: 迪伦
+- name: Berlin
+  lat: 52.52
+  lon: 13.405
+  zh: 柏林
