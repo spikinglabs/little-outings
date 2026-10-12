@@ -162,10 +162,6 @@
   "venue": "Ludwig Forum",
   "street": "Jülicher Straße 97–109"
  },
- "https://ludwigforum.de/event/sonntagsmalerei-2026-10-11/": {
-  "venue": "Ludwig Forum Aachen",
-  "street": "Jülicher Straße 97–109"
- },
  "https://ludwigforum.de/event/sonntagsmalerei-2026-11-08/": {
   "venue": "Ludwig Forum Aachen",
   "street": "Jülicher Straße 97–109"
@@ -291,10 +287,6 @@
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/herbstferienprogramm-mach-es-dir-gemuetlich-29-10-2026": {
   "venue": null
  },
- "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/histolab-fuer-kids_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy": {
-  "venue": "Stadtmuseum",
-  "street": "Arnoldsweilerstraße 38"
- },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/histolab-fuer-kids_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy": {
   "venue": "Stadtmuseum",
   "street": "Arnoldsweilerstraße 38"
@@ -357,10 +349,6 @@
  "https://www.koeln.de/event/kinder-maedels-flohmarkt-koeln-ehrenfeld/": {
   "venue": "Rösenhöfe",
   "street": "Venloer Straße 193"
- },
- "https://www.koeln.de/event/kinderflohmarkt-in-raderthal/": {
-  "venue": "Ev. Kita",
-  "street": "Albert-Schweitzer-Straße 3-5"
  },
  "https://www.koeln.de/event/nikolaus-kinder-disco/": {
   "venue": "SPRUNG.RAUM",
