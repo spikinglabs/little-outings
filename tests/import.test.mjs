@@ -66,3 +66,11 @@ test("an event without a point asks for its street, venue, then district", async
     { lat: 52.5, lon: 13.3, precision: "exact" });
   assert.equal(await pinOf(ev.ask, async () => null), null);
 });
+
+test("warns about towns whose events pile up on the town centre", async () => {
+  const { crowdedTowns } = await import("../scripts/import-cityklub.mjs");
+  const lines = crowdedTowns(new Map([["Berlin", [1503, 1503]], ["Köln", [900, 30]], ["Düren", [24, 24]]]));
+  assert.equal(lines.length, 2);
+  assert.match(lines[0], /^::warning .*1503 of 1503 events in Berlin/);
+  assert.match(lines[1], /24 of 24 events in Düren/);
+});
