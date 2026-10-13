@@ -32,7 +32,7 @@ const slug = (s) =>
  * Location precision follows cityklub's map levels:
  * recorded point → exact, otherwise the town centre (area), otherwise unknown.
  */
-export function fromExport(row, { towns, today, venues = {} }) {
+export function fromExport(row, { towns, today, venues = {}, addresses = {} }) {
   if ((row.status && row.status !== "scheduled") || row.expired === true) return null;
   if (!row.event_id || !row.title || !row.start_date || !row.source_url) return null;
   if ((row.end_date || row.start_date) < today) return null;
@@ -69,22 +69,28 @@ export function fromExport(row, { towns, today, venues = {} }) {
   out.language = languageOf(row.title, out.tags);
   if (!out.tags.length) delete out.tags;
   for (const k of Object.keys(out)) if (out[k] === undefined) delete out[k];
-  const ask = hasPoint ? [] : pinQueries({ ...loc, street: street || found?.street, venue: row.venue || found?.venue }, town);
+  const venue = row.venue || found?.venue;
+  // A street kept by hand in content/venue-addresses.yaml for a venue the source names without one.
+  const known = addresses[town.name]?.[String(venue ?? "").trim()];
+  const ask = hasPoint ? [] : pinQueries({ ...loc, street: street || found?.street || known, venue }, town);
   return { id: `ck-${slug(row.event_id)}`, data: out, ask };
 }
 
 /**
  * What to ask Nominatim for an event without a point, best first: its street address, its venue
- * by name, then its district (a big city's events would otherwise all share the town centre).
+ * by name (also without a trailing part, "Stadtbibliothek – Kinderbibliothek" → "Stadtbibliothek"),
+ * then its district (a big city's events would otherwise all share the town centre).
  */
 export function pinQueries(loc, town) {
   const street = String(loc.street ?? "").trim(), venue = String(loc.venue ?? "").trim();
   const district = String(loc.district ?? "").trim();
   const near = [town.lat, town.lon, 30];
   const where = [loc.postal_code, town.name].filter(Boolean).join(" ");
+  const short = venue.split(/\s+[–—-]\s+|\s*\(|,\s*/)[0].trim();
   return [
     ...(street ? [{ q: `${street}, ${where}`, near }] : []),
     ...(venue ? [{ q: `${venue}, ${town.name}`, near, precision: "venue" }] : []),
+    ...(short && short !== venue ? [{ q: `${short}, ${town.name}`, near, precision: "venue" }] : []),
     ...(district && district !== town.name ? [{ q: `${district}, ${town.name}`, near, precision: "area" }] : []),
   ];
 }
@@ -134,6 +140,8 @@ async function main() {
   const today = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Berlin" }).format(new Date());
   const rows = await readExport(location);
   const venues = existsSync(VENUES) ? JSON.parse(readFileSync(VENUES, "utf8")) : {};
+  const addressFile = join(root, "venue-addresses.yaml");
+  const addresses = existsSync(addressFile) ? load(readFileSync(addressFile, "utf8")) ?? {} : {};
   const out = join(root, "imported", "cityklub");
   mkdirSync(out, { recursive: true });
 
@@ -142,7 +150,7 @@ async function main() {
   let pinned = 0, missed = 0, failed = "";
   const perTown = new Map(); // town → [events, events still on the town centre]
   for (const row of rows) {
-    const ev = fromExport(row, { towns, today, venues });
+    const ev = fromExport(row, { towns, today, venues, addresses });
     if (!ev || keep.has(ev.id)) continue;
     keep.add(ev.id);
     if (pin && ev.ask.length && !failed) {

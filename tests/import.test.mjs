@@ -74,3 +74,18 @@ test("warns about towns whose events pile up on the town centre", async () => {
   assert.match(lines[0], /^::warning .*1503 of 1503 events in Berlin/);
   assert.match(lines[1], /24 of 24 events in Düren/);
 });
+
+test("a venue's hand-kept street and its short name are asked for too", () => {
+  const aachen = { name: "Aachen", lat: 50.776, lon: 6.084 };
+  const near = [50.776, 6.084, 30];
+  const row = (venue) => ({ event_id: venue, title: "Vorlesen", start_date: "2099-11-01", family: true, source_url: "https://example.org/a", venue, location: { city: "Aachen" } });
+  const addresses = { Aachen: { Stadbibliothek: "Couvenstraße 15" } };
+  assert.deepEqual(fromExport(row("Stadbibliothek"), { towns: [aachen], today: "2026-10-08", addresses }).ask, [
+    { q: "Couvenstraße 15, Aachen", near },
+    { q: "Stadbibliothek, Aachen", near, precision: "venue" },
+  ]);
+  assert.deepEqual(fromExport(row("Stadtbibliothek – Kinderbibliothek"), { towns: [aachen], today: "2026-10-08" }).ask, [
+    { q: "Stadtbibliothek – Kinderbibliothek, Aachen", near, precision: "venue" },
+    { q: "Stadtbibliothek, Aachen", near, precision: "venue" },
+  ]);
+});
