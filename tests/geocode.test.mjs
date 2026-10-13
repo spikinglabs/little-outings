@@ -74,3 +74,8 @@ test("a cached answer pins without asking Nominatim", async () => {
   assert.match(out, /Pinned 1 .*\(0 asked Nominatim\)/);
   assert.match(readFileSync(join(dir, "content/places/community/inbox-1.yaml"), "utf8"), /geo: \{ lat: 50\.800000, lon: 6\.500000, precision: exact \}/);
 });
+
+test("viewbox spans the distance around a town", async () => {
+  const { viewbox } = await import("../scripts/nominatim.mjs");
+  assert.equal(viewbox([52.52, 13.405, 30]), "12.961,52.790,13.849,52.250");
+});

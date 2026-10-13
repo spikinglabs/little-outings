@@ -3,7 +3,8 @@
 // ids, the home town and the radius as a "lo:filtered" event (also kept on window.loFiltered).
 // Events are gold pins; places are small brown marks with their kind's icon, grouped into numbered
 // bubbles where they crowd, so the dated events stand out. Approximate spots get a dashed ring, and
-// town-only events share one circle per town, labelled with how many there are. Tapping a mark opens a
+// events known only by town or district share one circle there, labelled with how many there are;
+// events at the same venue share one pin with their count. Tapping a mark opens a
 // card at the bottom of the map and outlines the same idea in the list; pointing at a list card lights up
 // its mark. On phones one finger scrolls the page and two move the map. After the reader taps a location
 // button (and only then), a blue dot with an accuracy halo shows where the phone is ("lo:here").
@@ -187,15 +188,31 @@ export default function OutingsMap({ pinsUrl, center, towns, locale, labels }: P
       areas.clearLayers();
       places.clearLayers();
       const groups = new Map<string, Pin[]>();
+      const venues = new Map<string, Pin[]>();
       const spots: L.Marker[] = [];
       for (const p of list) {
-        if (p.precision === "area") {
-          const key = `${p.lat.toFixed(3)},${p.lon.toFixed(3)}`;
-          groups.set(key, [...(groups.get(key) ?? []), p]);
-        } else if (p.type === "place") spots.push(markerFor(p));
-        else markerFor(p).addTo(events);
+        const key = `${p.lat.toFixed(4)},${p.lon.toFixed(4)}`;
+        if (p.precision === "area") groups.set(key, [...(groups.get(key) ?? []), p]);
+        else if (p.type === "place") spots.push(markerFor(p));
+        else venues.set(key, [...(venues.get(key) ?? []), p]);
       }
       places.addLayers(spots);
+      // Events at the same venue (a theatre's whole season) share one pin with their count.
+      for (const group of venues.values()) {
+        if (group.length === 1) { markerFor(group[0]).addTo(events); continue; }
+        const { lat, lon, precision } = group[0];
+        const n = group.length;
+        L.marker([lat, lon], {
+          icon: L.divIcon({
+            className: "",
+            html: `<div class="pin event${precision === "venue" ? " approx" : ""}"><b>${n}</b></div>`,
+            iconSize: [26, 26],
+            iconAnchor: [13, 26],
+          }),
+          title: nEvents(n),
+          zIndexOffset: 500,
+        }).on("click", () => selectGroup(group)).addTo(events);
+      }
       for (const group of groups.values()) {
         const { lat, lon } = group[0];
         const n = group.length;

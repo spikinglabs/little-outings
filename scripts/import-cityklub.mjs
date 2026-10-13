@@ -3,7 +3,10 @@
 // Reads data/outings.jsonl when it exists: the list published from the admin site
 // (admin/), already deduplicated and limited to family events. Otherwise reads
 // CITYKLUB_EXPORT, the public export of spikinglabs/cityklub-event-data.
+// Only events starting within HORIZON_DAYS (default 183, about 6 months) are imported.
 // Files here are rewritten every run. Human fixes go in content/overrides/<id>.yaml.
+// With PINS_CACHE set (the deploy), events that came without a point are pinned from their
+// street, venue or district with OpenStreetMap's Nominatim; otherwise they sit on the town centre.
 //
 //   npm run import:cityklub
 //   CITYKLUB_EXPORT=https://…/exports/events.jsonl npm run import:cityklub
@@ -12,6 +15,7 @@ import { readFileSync, readdirSync, writeFileSync, mkdirSync, unlinkSync, exists
 import { join } from "node:path";
 import { dump, load } from "js-yaml";
 import { languageOf, tagsOf } from "./event-tags.mjs";
+import { lookup, saveCache, stats } from "./nominatim.mjs";
 
 const SOURCE_NAMES = { "cologne-city-events": "Stadt Köln" };
 const FAMILY = new Set(["children_mentioned", "family_mentioned"]);
@@ -29,10 +33,13 @@ const slug = (s) =>
  * Location precision follows cityklub's map levels:
  * recorded point → exact, otherwise the town centre (area), otherwise unknown.
  */
-export function fromExport(row, { towns, today, venues = {} }) {
+export function fromExport(row, { towns, today, until, venues = {}, addresses = {} }) {
   if ((row.status && row.status !== "scheduled") || row.expired === true) return null;
   if (!row.event_id || !row.title || !row.start_date || !row.source_url) return null;
   if ((row.end_date || row.start_date) < today) return null;
+  // Only events starting within HORIZON_DAYS get pages (Pages takes at most 20,000 files); later
+  // ones join as the nightly rebuild brings them closer.
+  if (until && row.start_date > until) return null;
   if (ONLINE.test(row.venue || "")) return null;
   // Published outings are family events by construction; export rows carry categories.
   if (row.family !== true && !(row.categories || []).some((c) => FAMILY.has(c))) return null;
@@ -66,7 +73,50 @@ export function fromExport(row, { towns, today, venues = {} }) {
   out.language = languageOf(row.title, out.tags);
   if (!out.tags.length) delete out.tags;
   for (const k of Object.keys(out)) if (out[k] === undefined) delete out[k];
-  return { id: `ck-${slug(row.event_id)}`, data: out };
+  const venue = row.venue || found?.venue;
+  // A street kept by hand in content/venue-addresses.yaml for a venue the source names without one.
+  const known = addresses[town.name]?.[String(venue ?? "").trim()];
+  const ask = hasPoint ? [] : pinQueries({ ...loc, street: street || found?.street || known, venue }, town);
+  return { id: `ck-${slug(row.event_id)}`, data: out, ask };
+}
+
+/**
+ * What to ask Nominatim for an event without a point, best first: its street address, its venue
+ * by name (also without a trailing part, "Stadtbibliothek – Kinderbibliothek" → "Stadtbibliothek"),
+ * then its district (a big city's events would otherwise all share the town centre).
+ */
+export function pinQueries(loc, town) {
+  const street = String(loc.street ?? "").trim(), venue = String(loc.venue ?? "").trim();
+  const district = String(loc.district ?? "").trim();
+  const near = [town.lat, town.lon, 30];
+  const where = [loc.postal_code, town.name].filter(Boolean).join(" ");
+  const short = venue.split(/\s+[–—-]\s+|\s*\(|,\s*/)[0].trim();
+  return [
+    ...(street ? [{ q: `${street}, ${where}`, near }] : []),
+    ...(venue ? [{ q: `${venue}, ${town.name}`, near, precision: "venue" }] : []),
+    ...(short && short !== venue ? [{ q: `${short}, ${town.name}`, near, precision: "venue" }] : []),
+    ...(district && district !== town.name ? [{ q: `${district}, ${town.name}`, near, precision: "area" }] : []),
+  ];
+}
+
+/**
+ * A warning (shown on the deploy run) for each town where many events have no spot of their own
+ * and pile up on the town centre, as all of Berlin's did before events were pinned.
+ */
+export function crowdedTowns(perTown, { min = 20, share = 0.25 } = {}) {
+  return [...perTown].filter(([, [all, centre]]) => centre >= min && centre / all >= share)
+    .map(([town, [all, centre]]) => `::warning title=Events on the town centre::${centre} of ${all} events in ${town} have no street, venue or district that OpenStreetMap could find, so they share one spot on the map.`);
+}
+
+/** A point for the first query that finds one; a street with a house number is exact. */
+export async function pinOf(queries, find = lookup) {
+  for (const { q, near, precision } of queries) {
+    const hit = await find(q, near);
+    const lat = Number(hit?.lat), lon = Number(hit?.lon);
+    if (!hit || !Number.isFinite(lat) || !Number.isFinite(lon)) continue;
+    return { lat: +lat.toFixed(6), lon: +lon.toFixed(6), precision: precision ?? (hit.address?.house_number ? "exact" : "venue") };
+  }
+  return null;
 }
 
 async function readExport(location) {
@@ -91,17 +141,32 @@ async function main() {
   const root = process.env.CONTENT_DIR || "content";
   const towns = loadTowns(join(root, "regions"));
   if (!towns.length) throw new Error(`no towns in ${root}/regions; add a region file first`);
-  const today = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Berlin" }).format(new Date());
+  const day = (d) => new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Berlin" }).format(d);
+  const today = day(new Date());
+  const until = day(new Date(Date.now() + Number(process.env.HORIZON_DAYS || 183) * 864e5));
   const rows = await readExport(location);
   const venues = existsSync(VENUES) ? JSON.parse(readFileSync(VENUES, "utf8")) : {};
+  const addressFile = join(root, "venue-addresses.yaml");
+  const addresses = existsSync(addressFile) ? load(readFileSync(addressFile, "utf8")) ?? {} : {};
   const out = join(root, "imported", "cityklub");
   mkdirSync(out, { recursive: true });
 
   const keep = new Set();
+  const pin = process.env.PINS_CACHE ? pinOf : null;
+  let pinned = 0, missed = 0, failed = "";
+  const perTown = new Map(); // town → [events, events still on the town centre]
   for (const row of rows) {
-    const ev = fromExport(row, { towns, today, venues });
+    const ev = fromExport(row, { towns, today, until, venues, addresses });
     if (!ev || keep.has(ev.id)) continue;
     keep.add(ev.id);
+    if (pin && ev.ask.length && !failed) {
+      try {
+        const geo = await pin(ev.ask);
+        if (geo) { ev.data.geo = geo; pinned++; } else missed++;
+      } catch (err) { failed = err.message; } // Nominatim down: the rest stay on the town centre
+    }
+    const [all, centre] = perTown.get(ev.data.town) ?? [0, 0];
+    perTown.set(ev.data.town, [all + 1, centre + (ev.data.geo.lat == null ? 1 : 0)]);
     const header = "# Generated by scripts/import-cityklub.mjs. Do not edit; put fixes in content/overrides/.\n";
     writeFileSync(join(out, `${ev.id}.yaml`), header + dump(ev.data, { lineWidth: 120 }));
   }
@@ -109,7 +174,10 @@ async function main() {
   for (const f of readdirSync(out)) {
     if (f.endsWith(".yaml") && !keep.has(f.slice(0, -5))) { unlinkSync(join(out, f)); removed++; }
   }
+  saveCache();
   console.log(`cityklub: ${rows.length} rows, ${keep.size} family events in the region, ${removed} stale files removed`);
+  for (const line of crowdedTowns(perTown)) console.log(line);
+  if (pin) console.log(`cityklub: pinned ${pinned} events without a point (${stats.asked} asked Nominatim), ${missed} on their town centre${failed ? `; stopped: ${failed}` : ""}`);
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) await main();

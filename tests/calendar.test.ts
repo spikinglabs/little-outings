@@ -29,3 +29,10 @@ test("ics escapes commas and uses all-day dates", () => {
   assert.match(s, /DTSTART;VALUE=DATE:20261010\r\nDTEND;VALUE=DATE:20261011/);
   assert.ok(s.split("\r\n").every((l) => new TextEncoder().encode(l).length <= 75));
 });
+
+test("the .ics function reads the calendar text the event page carries", async () => {
+  const { icsOf } = await import("../functions/api/ics/[lang]/[id].ts");
+  const page = `<p>x</p><script type="text/calendar" id="ics">BEGIN:VCALENDAR\r\nDESCRIPTION:a <\\/b>\r\nEND:VCALENDAR</script>`;
+  assert.equal(icsOf(page), "BEGIN:VCALENDAR\r\nDESCRIPTION:a </b>\r\nEND:VCALENDAR");
+  assert.equal(icsOf("<p>no calendar</p>"), null);
+});
