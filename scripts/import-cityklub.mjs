@@ -3,6 +3,7 @@
 // Reads data/outings.jsonl when it exists: the list published from the admin site
 // (admin/), already deduplicated and limited to family events. Otherwise reads
 // CITYKLUB_EXPORT, the public export of spikinglabs/cityklub-event-data.
+// Only events starting within HORIZON_DAYS (default 183, about 6 months) are imported.
 // Files here are rewritten every run. Human fixes go in content/overrides/<id>.yaml.
 // With PINS_CACHE set (the deploy), events that came without a point are pinned from their
 // street, venue or district with OpenStreetMap's Nominatim; otherwise they sit on the town centre.
@@ -32,10 +33,13 @@ const slug = (s) =>
  * Location precision follows cityklub's map levels:
  * recorded point → exact, otherwise the town centre (area), otherwise unknown.
  */
-export function fromExport(row, { towns, today, venues = {}, addresses = {} }) {
+export function fromExport(row, { towns, today, until, venues = {}, addresses = {} }) {
   if ((row.status && row.status !== "scheduled") || row.expired === true) return null;
   if (!row.event_id || !row.title || !row.start_date || !row.source_url) return null;
   if ((row.end_date || row.start_date) < today) return null;
+  // Only events starting within HORIZON_DAYS get pages (Pages takes at most 20,000 files); later
+  // ones join as the nightly rebuild brings them closer.
+  if (until && row.start_date > until) return null;
   if (ONLINE.test(row.venue || "")) return null;
   // Published outings are family events by construction; export rows carry categories.
   if (row.family !== true && !(row.categories || []).some((c) => FAMILY.has(c))) return null;
@@ -137,7 +141,9 @@ async function main() {
   const root = process.env.CONTENT_DIR || "content";
   const towns = loadTowns(join(root, "regions"));
   if (!towns.length) throw new Error(`no towns in ${root}/regions; add a region file first`);
-  const today = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Berlin" }).format(new Date());
+  const day = (d) => new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Berlin" }).format(d);
+  const today = day(new Date());
+  const until = day(new Date(Date.now() + Number(process.env.HORIZON_DAYS || 183) * 864e5));
   const rows = await readExport(location);
   const venues = existsSync(VENUES) ? JSON.parse(readFileSync(VENUES, "utf8")) : {};
   const addressFile = join(root, "venue-addresses.yaml");
@@ -150,7 +156,7 @@ async function main() {
   let pinned = 0, missed = 0, failed = "";
   const perTown = new Map(); // town → [events, events still on the town centre]
   for (const row of rows) {
-    const ev = fromExport(row, { towns, today, venues, addresses });
+    const ev = fromExport(row, { towns, today, until, venues, addresses });
     if (!ev || keep.has(ev.id)) continue;
     keep.add(ev.id);
     if (pin && ev.ask.length && !failed) {

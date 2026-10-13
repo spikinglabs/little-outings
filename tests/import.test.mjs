@@ -89,3 +89,10 @@ test("a venue's hand-kept street and its short name are asked for too", () => {
     { q: "Stadtbibliothek, Aachen", near, precision: "venue" },
   ]);
 });
+
+test("events starting after the horizon wait for a later build", () => {
+  const row = { event_id: "far", title: "Weihnachtsmarkt", start_date: "2027-12-01", family: true, source_url: "https://example.org/w", location: { city: "Köln" } };
+  assert.equal(fromExport(row, { ...ctx, until: "2027-04-08" }), null);
+  assert.ok(fromExport(row, { ...ctx, until: "2028-01-01" }));
+  assert.ok(fromExport(row, ctx));
+});
