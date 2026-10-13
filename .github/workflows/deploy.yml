@@ -75,6 +75,12 @@ jobs:
       - run: npm run build
         env:
           SITE_URL: ${{ vars.SITE_URL }}
+      # Cloudflare Pages refuses a deploy of more than 20,000 files; warn well before that.
+      - name: Count files
+        run: |
+          n=$(find dist -type f | wc -l)
+          echo "::notice title=Files::$n of 20,000"
+          [ "$n" -lt 17000 ] || echo "::warning title=Files::$n files; Cloudflare Pages takes at most 20,000. Build pages only for events starting in the next months."
       - name: Check Cloudflare credentials
         id: cf
         env:
