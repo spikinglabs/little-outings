@@ -2,6 +2,7 @@
 // The build writes a compact index (/api/v1/search-index.json) and the full records split into a
 // few files (/api/v1/items/<n>.json); the functions read those, so the search needs no database.
 // Pure code with no Astro imports: it runs at build time and inside Cloudflare Pages Functions.
+import { lastDay } from "./horizon.ts";
 import type { Event, Place } from "./types";
 
 export type Lang = "de" | "en" | "zh";
@@ -198,6 +199,12 @@ export function search(index: Index, query: Query, base: string): Result {
   if (!isDate(from)) from = dates?.from ?? index.today;
   if (from < index.today) from = index.today;
   if (!isDate(to) || to < from) to = dates?.to ?? addDays(from, 6);
+  // Events are only listed two weeks ahead, the same as Discover's "next two weeks".
+  const last = lastDay(index.today);
+  if (to > last) {
+    notes.push(`Events are listed up to ${last} (two weeks ahead); later ones appear as that date comes closer.`);
+    to = last;
+  }
 
   const center = query.lat !== undefined && query.lon !== undefined && Number.isFinite(+query.lat) && Number.isFinite(+query.lon)
     ? { lat: +query.lat, lon: +query.lon } : town;

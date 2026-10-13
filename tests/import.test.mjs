@@ -96,3 +96,10 @@ test("events starting after the horizon wait for a later build", () => {
   assert.ok(fromExport(row, { ...ctx, until: "2028-01-01" }));
   assert.ok(fromExport(row, ctx));
 });
+
+test("events are imported for the same two weeks Discover shows", async () => {
+  const { lastDay, DAYS_AHEAD } = await import("../src/lib/horizon.ts");
+  assert.equal(DAYS_AHEAD, 14);
+  assert.equal(lastDay("2026-10-14"), "2026-10-27"); // today plus 13 days, as in "next two weeks"
+  assert.equal(lastDay("2026-03-20"), "2026-04-02"); // across the change to summer time
+});

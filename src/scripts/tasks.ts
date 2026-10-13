@@ -1,5 +1,6 @@
 // Search and filters (by what is known: words, town, dates) for outings that still need a detail, 30 at a time.
 import { fold } from "../lib/fold";
+import { lastDay } from "../lib/horizon";
 import { renderKm } from "./app";
 
 type Plural = { one?: string; other: string };
@@ -9,7 +10,7 @@ const PAGE = 30;
 const state = { q: "", when: "", town: "", limit: PAGE };
 const ymd = (d: Date) => new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Berlin" }).format(d);
 const today = ymd(new Date());
-const in2w = ymd(new Date(Date.now() + 13 * 864e5));
+const in2w = lastDay(today);
 function whenOk(d: DOMStringMap) {
   if (!state.when) return true;
   if (state.when === "place") return d.type === "place";
