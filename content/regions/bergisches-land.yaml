@@ -71,3 +71,8 @@ towns:
   lat: 52.52
   lon: 13.405
   zh: 柏林
+- name: München
+  lat: 48.137
+  lon: 11.575
+  zh: 慕尼黑
+  en: Munich
