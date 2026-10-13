@@ -43,3 +43,26 @@ test("reads rows published from the admin site", () => {
   assert.equal(ev.data.venue, "Museum, Venloer Str. 1");
   assert.equal(fromExport({ ...published, family: undefined }, ctx), null);
 });
+
+test("an event without a point asks for its street, venue, then district", async () => {
+  const { pinQueries, pinOf } = await import("../scripts/import-cityklub.mjs");
+  const berlin = { name: "Berlin", lat: 52.52, lon: 13.405 };
+  const near = [52.52, 13.405, 30];
+  const ev = fromExport({
+    event_id: "b1", title: "Kindertheater", start_date: "2099-11-01", family: true, source_url: "https://example.org/b",
+    venue: "ATZE Musiktheater", location: { city: "Berlin", district: "Mitte", street: "Luxemburger Straße 20", postal_code: "13353" },
+  }, { towns: [berlin], today: "2026-10-08" });
+  assert.deepEqual(ev.data.geo, { precision: "area" });
+  assert.deepEqual(ev.ask, [
+    { q: "Luxemburger Straße 20, 13353 Berlin", near },
+    { q: "ATZE Musiktheater, Berlin", near, precision: "venue" },
+    { q: "Mitte, Berlin", near, precision: "area" },
+  ]);
+  assert.deepEqual(pinQueries({ city: "Berlin" }, berlin), []);
+  // The first query that finds something wins; a house number makes it exact.
+  const hits = { "ATZE Musiktheater, Berlin": { lat: "52.5422", lon: "13.3502", address: {} } };
+  assert.deepEqual(await pinOf(ev.ask, async (q) => hits[q] ?? null), { lat: 52.5422, lon: 13.3502, precision: "venue" });
+  assert.deepEqual(await pinOf(ev.ask, async () => ({ lat: "52.5", lon: "13.3", address: { house_number: "20" } })),
+    { lat: 52.5, lon: 13.3, precision: "exact" });
+  assert.equal(await pinOf(ev.ask, async () => null), null);
+});

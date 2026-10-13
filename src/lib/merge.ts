@@ -16,16 +16,15 @@ function layer<T extends Raw>(...parts: (Raw | undefined)[]): T {
 }
 
 /**
- * Fill in a position: keep exact or venue points, otherwise fall back to the town
- * centre ("area"), otherwise "unknown". Unknown items are listed as tasks, never on the map.
+ * Fill in a position: keep a point (exact, venue, or an area such as a city district), otherwise
+ * fall back to the town centre ("area"), otherwise "unknown". Unknown items are listed as tasks,
+ * never on the map.
  */
 export function resolveGeo(geo: Raw | undefined, town: string | undefined, towns: Town[]): Geo {
-  const hasPoint = geo?.lat != null && geo?.lon != null;
-  if (hasPoint && geo!.precision !== "area" && geo!.precision !== "unknown")
-    return { lat: geo!.lat, lon: geo!.lon, precision: geo!.precision ?? "exact" };
+  if (geo?.lat != null && geo?.lon != null && geo.precision !== "unknown")
+    return { lat: geo.lat, lon: geo.lon, precision: geo.precision ?? "exact" };
   const anchor = towns.find((t) => t.name === town);
   if (anchor) return { lat: anchor.lat, lon: anchor.lon, precision: "area" };
-  if (hasPoint) return { lat: geo!.lat, lon: geo!.lon, precision: "area" };
   return { precision: "unknown" };
 }
 

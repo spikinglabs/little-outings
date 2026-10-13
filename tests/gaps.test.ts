@@ -56,3 +56,7 @@ test("a playground asks about playground things, not high chairs", async () => {
   assert.ok(featuresFor("cafe").includes("highchairs"));
   assert.deepEqual(askOnPage("playground"), featuresFor("playground"));
 });
+
+test("a district point stays where it is instead of the town centre", () => {
+  assert.deepEqual(resolveGeo({ lat: 52.53, lon: 13.51, precision: "area" }, "Velbert", towns), { lat: 52.53, lon: 13.51, precision: "area" });
+});

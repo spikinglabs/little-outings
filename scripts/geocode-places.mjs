@@ -2,18 +2,15 @@
 // content/events/community/*.yaml with a venue or town, but no point, get one from OpenStreetMap's Nominatim, run before every build (the files change only in
 // that build's checkout; add `geo:` to a file by hand to fix a pin for good).
 // Without a point a place falls back to its town centre, or isn't on the map at all when the
-// town isn't one of the site's towns. A failed lookup only logs; the next build tries again.
-// Answers are kept in PINS_CACHE (the deploy keeps that file between builds), so each address
-// is asked once, not on every build.
+// town isn't one of the site's towns. A failed lookup only logs; a miss is asked again after a month.
+// Answers are kept in PINS_CACHE (scripts/nominatim.mjs), so each address is asked once.
 import { readFileSync, readdirSync, writeFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import { load } from "js-yaml";
+import { lookup, saveCache, stats } from "./nominatim.mjs";
 
 const PLACES = "content/places/community";
 const EVENTS = "content/events/community";
-const NOMINATIM = "https://nominatim.openstreetmap.org/search";
-// Germany and its neighbours: families near the border go to GaiaZOO in Kerkrade (NL) too.
-const COUNTRIES = "de,nl,be,lu,fr,ch,at,cz,pl,dk";
 
 /** What to ask Nominatim for a place's address, or null when there is no street to find. */
 export function queryOf(address) {
@@ -55,22 +52,6 @@ export function withGeo(text, line) {
   return lines.join("\n");
 }
 
-const CACHE = process.env.PINS_CACHE || "";
-const cache = CACHE && existsSync(CACHE) ? JSON.parse(readFileSync(CACHE, "utf8")) : {};
-let asked = 0;
-
-async function lookup(q) {
-  if (cache[q]) return cache[q];
-  if (asked++) await new Promise((r) => setTimeout(r, 1100)); // Nominatim: one request a second
-  const url = `${NOMINATIM}?${new URLSearchParams({ q, format: "jsonv2", limit: "1", countrycodes: COUNTRIES, addressdetails: "1" })}`;
-  const res = await fetch(url, { headers: { "user-agent": "little-outings place pins (+https://outings.allo.land)" } });
-  if (!res.ok) throw new Error(`Nominatim ${res.status}`);
-  const hit = (await res.json())[0] ?? null;
-  // Only what geoLine reads; a miss isn't kept, so a fixed address is found on the next build.
-  if (hit) cache[q] = { lat: hit.lat, lon: hit.lon, address: { house_number: hit.address?.house_number } };
-  return hit;
-}
-
 const files = (dir) => (existsSync(dir) ? readdirSync(dir).filter((f) => f.endsWith(".yaml")).sort().map((f) => join(dir, f)) : []);
 
 /** The first query that finds something, as a geo line, or null. */
@@ -105,8 +86,8 @@ async function main() {
       console.log(`${path}: ${err.message}`);
     }
   }
-  if (CACHE) writeFileSync(CACHE, JSON.stringify(cache, null, 1) + "\n");
-  console.log(`Pinned ${pinned} parent-suggested places and events (${asked} asked Nominatim)${missed ? `, ${missed} still without a pin` : ""}.`);
+  saveCache();
+  console.log(`Pinned ${pinned} parent-suggested places and events (${stats.asked} asked Nominatim)${missed ? `, ${missed} still without a pin` : ""}.`);
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) await main();
