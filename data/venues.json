@@ -210,6 +210,14 @@
   "venue": "Ludwig Forum Aachen",
   "street": "Jülicher Straße 97–109"
  },
+ "https://museen-tempelhof-schoeneberg.de/events/basteln-raetseln-gruseln-halloween-workshop-in-den-herbstferien/": {
+  "venue": "Jugend Museum",
+  "street": "Hauptstr. 40-42"
+ },
+ "https://museen-tempelhof-schoeneberg.de/events/halloween-workshop-in-den-herbstferien/": {
+  "venue": "Jugend Museum",
+  "street": "Hauptstr. 40-42"
+ },
  "https://suermondt-ludwig-museum.de/event/an-die-farbe-fertig-los-3/": {
   "venue": null
  },
@@ -305,9 +313,6 @@
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/kinder-medien-was-eltern-und-paedagogen-wissen-sollten": {
   "venue": "Volkshochschule Rur-Eifel",
   "street": "Violengasse 2"
- },
- "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/komm-mit-ins-vorleseland-12-10-2026": {
-  "venue": null
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/kraeuter-diplom-fuer-kinder-ab-6-jahren": {
   "venue": "Volkshochschule Rur-Eifel",
