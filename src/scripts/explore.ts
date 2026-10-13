@@ -1,6 +1,7 @@
 // Filters on the Entdecken page: one list of ideas, events on the chosen day mixed with places
 // that are good any time. All cards arrive once from /<lang>/ideen/; this only hides and sorts them.
 // Distances are measured once per home town, and the list shows a page at a time.
+import { lastDay } from "../lib/horizon";
 import { distanceOf, getHome, markSaved, nearestTown, renderKm, setHere, setHome } from "./app";
 import type {} from "../islands/OutingsMap";
 
@@ -57,7 +58,7 @@ function range(): [string, string] {
     const sat = dow === 6 ? today : dow === 0 ? addDays(today, -1) : addDays(today, 6 - dow);
     return [sat < today ? today : sat, addDays(sat, 1)];
   }
-  return [today, addDays(today, 13)];
+  return [today, lastDay(today)];
 }
 
 // Each card's data, read once: with a few thousand cards, reading the DOM on every keystroke is too slow.

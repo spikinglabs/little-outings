@@ -19,7 +19,7 @@ const place = (id: string, extra: any = {}) => entryOf({
 const index: Index = {
   generated: "2026-10-14", today: "2026-10-14", towns, // a Wednesday
   items: [
-    ev("a", "2026-10-14", "2026-10-14"), ev("b", "2026-10-17", "2026-10-18"), ev("c", "2026-11-01", "2026-11-01"),
+    ev("a", "2026-10-14", "2026-10-14"), ev("b", "2026-10-17", "2026-10-18"), ev("c", "2026-10-24", "2026-10-24"),
     ev("bonn", "2026-10-15", "2026-10-15", { town: "Bonn", geo: { lat: 50.737, lon: 7.098, precision: "area" } }),
     ev("theatre", "2026-10-16", "2026-10-16", { title: "Kasper und das Krokodil", tags: ["stage"], indoor: true }),
     place("p1"), place("p2", { facilities: {}, kind: "pool", indoor: true }),
@@ -57,9 +57,13 @@ test("filters: kinds, indoor, facilities, what, dates, radius", () => {
   assert.deepEqual(ids(search(index, { town: "Köln", kinds: ["stage"] }, "https://x")), ["theatre"]);
   assert.deepEqual(ids(search(index, { town: "Köln", indoor: true }, "https://x")), ["theatre", "p2"]);
   assert.deepEqual(ids(search(index, { town: "Köln", needs: ["sandpit"] }, "https://x")), ["p1"]);
-  assert.deepEqual(ids(search(index, { town: "Köln", what: "events", from: "2026-10-30", to: "2026-11-02" }, "https://x")), ["c"]);
+  assert.deepEqual(ids(search(index, { town: "Köln", what: "events", from: "2026-10-23", to: "2026-10-25" }, "https://x")), ["c"]);
   assert.deepEqual(ids(search(index, { town: "Bonn", what: "events" }, "https://x")), ["bonn"]);
   assert.deepEqual(ids(search(index, { town: "Bonn", what: "events", radius_km: 40 }, "https://x")), ["a", "bonn", "theatre", "b"]);
+  // Two weeks ahead at most, like Discover and the imported events.
+  const far = search(index, { town: "Köln", what: "events", from: "2026-10-20", to: "2026-12-31" }, "https://x");
+  assert.equal(far.to, "2026-10-27");
+  assert.match(far.notes[0], /up to 2026-10-27/);
   const unknown = search(index, { town: "Berlin" }, "https://x");
   assert.match(unknown.notes[0], /isn't a town/);
 });

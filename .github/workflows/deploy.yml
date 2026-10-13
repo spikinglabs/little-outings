@@ -80,7 +80,7 @@ jobs:
         run: |
           n=$(find dist -type f | wc -l)
           echo "::notice title=Files::$n of 20,000"
-          [ "$n" -lt 17000 ] || echo "::warning title=Files::$n files; Cloudflare Pages takes at most 20,000. Build pages only for events starting in the next months."
+          [ "$n" -lt 17000 ] || echo "::warning title=Files::$n files; Cloudflare Pages takes at most 20,000. Every place and event is a page per language."
       - name: Check Cloudflare credentials
         id: cf
         env:

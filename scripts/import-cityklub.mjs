@@ -3,7 +3,7 @@
 // Reads data/outings.jsonl when it exists: the list published from the admin site
 // (admin/), already deduplicated and limited to family events. Otherwise reads
 // CITYKLUB_EXPORT, the public export of spikinglabs/cityklub-event-data.
-// Only events starting within HORIZON_DAYS (default 183, about 6 months) are imported.
+// Only events starting by lastDay() (src/lib/horizon.ts: two weeks, Discover's longest "When") are imported.
 // Files here are rewritten every run. Human fixes go in content/overrides/<id>.yaml.
 // With PINS_CACHE set (the deploy), events that came without a point are pinned from their
 // street, venue or district with OpenStreetMap's Nominatim; otherwise they sit on the town centre.
@@ -16,6 +16,7 @@ import { join } from "node:path";
 import { dump, load } from "js-yaml";
 import { languageOf, tagsOf } from "./event-tags.mjs";
 import { lookup, saveCache, stats } from "./nominatim.mjs";
+import { lastDay } from "../src/lib/horizon.ts";
 
 const SOURCE_NAMES = { "cologne-city-events": "Stadt Köln" };
 const FAMILY = new Set(["children_mentioned", "family_mentioned"]);
@@ -37,8 +38,8 @@ export function fromExport(row, { towns, today, until, venues = {}, addresses = 
   if ((row.status && row.status !== "scheduled") || row.expired === true) return null;
   if (!row.event_id || !row.title || !row.start_date || !row.source_url) return null;
   if ((row.end_date || row.start_date) < today) return null;
-  // Only events starting within HORIZON_DAYS get pages (Pages takes at most 20,000 files); later
-  // ones join as the nightly rebuild brings them closer.
+  // Only events starting by `until` get pages (Pages takes at most 20,000 files); later ones join
+  // as the nightly rebuild reaches them.
   if (until && row.start_date > until) return null;
   if (ONLINE.test(row.venue || "")) return null;
   // Published outings are family events by construction; export rows carry categories.
@@ -143,7 +144,7 @@ async function main() {
   if (!towns.length) throw new Error(`no towns in ${root}/regions; add a region file first`);
   const day = (d) => new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Berlin" }).format(d);
   const today = day(new Date());
-  const until = day(new Date(Date.now() + Number(process.env.HORIZON_DAYS || 183) * 864e5));
+  const until = lastDay(today);
   const rows = await readExport(location);
   const venues = existsSync(VENUES) ? JSON.parse(readFileSync(VENUES, "utf8")) : {};
   const addressFile = join(root, "venue-addresses.yaml");
