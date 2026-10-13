@@ -27,7 +27,7 @@ const LANGS = ["de", "en", "zh"];
 const TIP_TOPICS = ["bring", "bestTime", "parking", "ages", "other"];
 const REASONS = ["closed", "cancelled", "where", "notKids", "outdated", "other"];
 
-const INSTRUCTIONS = `Little Outings (outings.allo.land) lists family events for children and kid-friendly places (playgrounds, pools, farms, zoos, museums, family cafés …) around Cologne, Düsseldorf, Bonn, Aachen and the Bergisches Land, and in Berlin and Munich, Germany.
+const INSTRUCTIONS = `Little Outings (outings.allo.land) lists family events for children and kid-friendly places (playgrounds, pools, farms, zoos, museums, family cafés …) around Cologne, Düsseldorf, Bonn, Aachen and the Bergisches Land, and in Berlin, Munich, Frankfurt and Hamburg, Germany.
 Use search to find ideas for a town and dates, then fetch for details. Always give parents the page link (url) and remind them to check with the organiser; facilities not listed are unknown, not missing.
 Parents can add what they know: suggest_event, suggest_place, add_tip and report_problem send it to a moderator for review. Only send what the parent asked you to send, and show them what you'll send first.`;
 

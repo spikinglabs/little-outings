@@ -76,3 +76,12 @@ towns:
   lon: 11.575
   zh: 慕尼黑
   en: Munich
+- name: Frankfurt am Main
+  lat: 50.111
+  lon: 8.682
+  zh: 法兰克福
+  en: Frankfurt
+- name: Hamburg
+  lat: 53.551
+  lon: 9.993
+  zh: 汉堡
