@@ -16,7 +16,7 @@ import { complete, pickLlm } from "../src/lib/llm.ts";
 export const CACHE = "data/translations/zh.json";
 const BATCH = 60;
 
-export const PROMPT = `You translate German names of family events and kid-friendly places in Germany (Köln, Bonn, Aachen, Bergisches Land, Wuppertal area, Berlin) into Simplified Chinese, for Chinese-speaking parents who live there and read little German.
+export const PROMPT = `You translate German names of family events and kid-friendly places in Germany (Köln, Bonn, Aachen, Bergisches Land, Wuppertal area, Berlin, München) into Simplified Chinese, for Chinese-speaking parents who live there and read little German.
 - Say plainly what it is, short like a title: "Regelmäßige Vorlesestunde" → "定期亲子读书会"; "Sonntagsmalerei" → "周日绘画活动".
 - Never add facts that are not in the original (no ages, prices, places that aren't there).
 - Towns use their standard Chinese names: Köln 科隆, Bonn 波恩, Aachen 亚琛, Düsseldorf 杜塞尔多夫, Wuppertal 伍珀塔尔.
