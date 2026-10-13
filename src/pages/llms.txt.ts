@@ -25,7 +25,7 @@ Events come from public city calendars (via cityklub) and from parents; places c
 - [发现, 中文](${base}/zh/)
 - [Data sources and privacy](${base}/en/daten/)
 - [Add an event or place](${base}/en/mitmachen/)
-- Event pages: ${base}/{de|en|zh}/termine/{id}/ (also an .ics calendar file at ${base}/{lang}/termine/{id}.ics)
+- Event pages: ${base}/{de|en|zh}/termine/{id}/ (also an .ics calendar file at ${base}/api/ics/{lang}/{id}.ics)
 - Place pages: ${base}/{de|en|zh}/orte/{id}/
 
 ## For AI assistants

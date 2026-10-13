@@ -39,27 +39,31 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 22, cache: npm }
       - run: npm ci
-      - name: Import cityklub events
-        env:
-          CITYKLUB_EXPORT: ${{ vars.CITYKLUB_EXPORT }}
-        run: npm run import:cityklub
-      - name: Import places (OpenStreetMap, farms)
-        env:
-          PLACES_EXPORT: ${{ vars.PLACES_EXPORT }}
-        run: |
-          out=$(npm run --silent import:places 2>&1) || { echo "$out"; exit 1; }
-          echo "$out"; echo "::notice title=Places::$(echo "$out" | tail -1)"
       # Nominatim answers are kept between builds, so only new addresses wait a second each.
       - uses: actions/cache@v4
         with:
           path: .cache/pins.json
           key: pins-${{ github.run_id }}
           restore-keys: pins-
+      # Events that came without a point are pinned from their street, venue or district.
+      - name: Import cityklub events
+        env:
+          CITYKLUB_EXPORT: ${{ vars.CITYKLUB_EXPORT }}
+          PINS_CACHE: .cache/pins.json
+        run: |
+          mkdir -p .cache
+          out=$(npm run --silent import:cityklub 2>&1) || { echo "$out"; exit 1; }
+          echo "$out"; echo "::notice title=Event pins::$(echo "$out" | tail -1)"
+      - name: Import places (OpenStreetMap, farms)
+        env:
+          PLACES_EXPORT: ${{ vars.PLACES_EXPORT }}
+        run: |
+          out=$(npm run --silent import:places 2>&1) || { echo "$out"; exit 1; }
+          echo "$out"; echo "::notice title=Places::$(echo "$out" | tail -1)"
       - name: Pin parents' places (Nominatim)
         env:
           PINS_CACHE: .cache/pins.json
         run: |
-          mkdir -p .cache
           out=$(npm run --silent geocode:places 2>&1); echo "$out"
           echo "::notice title=Place pins::$(echo "$out" | tail -1)"
       - name: Count parents' answers from the inbox
@@ -71,6 +75,12 @@ jobs:
       - run: npm run build
         env:
           SITE_URL: ${{ vars.SITE_URL }}
+      # Cloudflare Pages refuses a deploy of more than 20,000 files; warn well before that.
+      - name: Count files
+        run: |
+          n=$(find dist -type f | wc -l)
+          echo "::notice title=Files::$n of 20,000"
+          [ "$n" -lt 17000 ] || echo "::warning title=Files::$n files; Cloudflare Pages takes at most 20,000. Build pages only for events starting in the next months."
       - name: Check Cloudflare credentials
         id: cf
         env:

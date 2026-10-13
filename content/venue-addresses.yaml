@@ -1,0 +1,7 @@
+# Streets for venues an event source names without an address, so their events get a map pin
+# (scripts/import-cityklub.mjs). Town, then the venue exactly as the source writes it.
+# Add one when a deploy run warns that a town's events sit on the town centre.
+Aachen:
+  Stadbibliothek: Couvenstraße 15 # sic, the city's calendar misspells it
+  Stadtbibliothek: Couvenstraße 15
+  Stadtbibliothek – Kinderbibliothek: Couvenstraße 15

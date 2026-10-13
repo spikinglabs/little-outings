@@ -255,6 +255,7 @@ h1, h2, h3 { font-family: var(--display); text-wrap: balance; letter-spacing: -0
 .pin { width: 26px; height: 26px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); display: grid; place-items: center; box-shadow: 0 1px 3px rgb(0 0 0 / .35); border: 2px solid #fff; }
 .pin.event { background: #ffcc00; }
 .pin.place { background: #6f4a2a; }
+.pin > b { transform: rotate(45deg); color: #1a1a1a; font: 700 11px/1 var(--sign, inherit); font-variant-numeric: tabular-nums; }
 .area-count { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: var(--card); color: var(--braun); border: 2px dashed var(--braun); font: 700 13px/1 var(--sign, inherit); font-variant-numeric: tabular-nums; box-shadow: 0 1px 3px rgb(0 0 0 / .25); }
 .area-list { margin: 6px 0; padding-left: 16px; max-height: 160px; overflow-y: auto; }
 .area-list li + li { margin-top: 4px; }
