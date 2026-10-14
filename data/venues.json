@@ -162,6 +162,10 @@
   "venue": "Ludwig Forum",
   "street": "Jülicher Straße 97–109"
  },
+ "https://ludwigforum.de/event/play-with-clay-2/": {
+  "venue": "Ludwig Forum Aachen",
+  "street": "Jülicher Straße 97–109"
+ },
  "https://ludwigforum.de/event/sonntagsmalerei-2026-11-08/": {
   "venue": "Ludwig Forum Aachen",
   "street": "Jülicher Straße 97–109"
@@ -254,9 +258,6 @@
  "https://suermondt-ludwig-museum.de/event/suermondt-museumsclub-12-2-2/2026-12-15/": {
   "venue": null
  },
- "https://suermondt-ludwig-museum.de/event/suermondt-museumsclub-12-2/2026-10-13/": {
-  "venue": null
- },
  "https://suermondt-ludwig-museum.de/event/von-hexen-tieren-und-magischen-wesen-2/": {
   "venue": "Suermondt-Ludwig-Museum"
  },
@@ -265,6 +266,17 @@
  },
  "https://suermondt-ludwig-museum.de/event/yoga-im-museum-2-2/": {
   "venue": "Suermondt-Ludwig-Museum"
+ },
+ "https://www.bonn.de/veranstaltungskalender/veranstaltungen/hauptkalender/beratungsstelle-fuer-eltern-kinder-und-jugendliche/kleine-kinder-entspannt-erziehen.php": {
+  "venue": null
+ },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/breakdance-und-hip-hop-workshop-fuer-kinder-von-5-7-j": {
+  "venue": "Weinberghalle in Merzenich",
+  "street": "Schulstraße 18"
+ },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/breakdance-und-hip-hop-workshop-fuer-kinder-von-8-11-j": {
+  "venue": "Weinberghalle in Merzenich",
+  "street": "Schulstraße 18"
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/eine-kindheit-in-dueren-im-2-weltkrieg": {
   "venue": "Volkshochschule Rur-Eifel",
@@ -307,10 +319,6 @@
   "venue": null
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/jugendliche-medien-was-eltern-und-paedagogen-wissen-sollten": {
-  "venue": "Volkshochschule Rur-Eifel",
-  "street": "Violengasse 2"
- },
- "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/kinder-medien-was-eltern-und-paedagogen-wissen-sollten": {
   "venue": "Volkshochschule Rur-Eifel",
   "street": "Violengasse 2"
  },
