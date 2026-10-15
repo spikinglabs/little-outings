@@ -106,6 +106,9 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID || vars.CLOUDFLARE_ACCOUNT_ID }}
+          # Use the wrangler that npm ci installed from package-lock.json. Letting the action
+          # run its own `npm i wrangler` here dropped workerd's Linux binary and failed the deploy.
+          wranglerVersion: "3.114.17"
           # Uploads dist/ and the Pages Functions in functions/.
           command: pages deploy dist --project-name=${{ env.PROJECT }} --branch=${{ github.event_name == 'pull_request' && github.head_ref || 'main' }}
       - name: Show the URL
