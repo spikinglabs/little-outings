@@ -63,6 +63,30 @@
  "https://couven-museum.de/event/tintenfass-und-flohfalle-vom-zauber-der-dinge/": {
   "venue": "Couven Museum"
  },
+ "https://historisches-museum-frankfurt.de/de/aktuelles-programm": {
+  "venue": null
+ },
+ "https://historisches-museum-frankfurt.ticketfritz.de/Event/Kalender/11543?Typ=Vorlage": {
+  "venue": null
+ },
+ "https://historisches-museum-frankfurt.ticketfritz.de/Event/Kalender/12196?Typ=Vorlage": {
+  "venue": null
+ },
+ "https://historisches-museum-frankfurt.ticketfritz.de/Event/Kalender/13116?Typ=Vorlage": {
+  "venue": "Historische Museum"
+ },
+ "https://historisches-museum-frankfurt.ticketfritz.de/Event/Kalender/13118?Typ=Vorlage": {
+  "venue": null
+ },
+ "https://historisches-museum-frankfurt.ticketfritz.de/Event/Kalender/26590?Typ=Vorlage": {
+  "venue": null
+ },
+ "https://historisches-museum-frankfurt.ticketfritz.de/Event/Kalender/26591?Typ=Vorlage": {
+  "venue": null
+ },
+ "https://historisches-museum-frankfurt.ticketfritz.de/Event/Kalender/28938?Typ=Vorlage": {
+  "venue": null
+ },
  "https://izm.de/event/erzaehlcafe-fuer-seniorinnen-essen/": {
   "venue": "Internationales Zeitungsmuseum Aachen",
   "street": "Pontstr. 13"
@@ -330,6 +354,10 @@
   "venue": "Volkshochschule Rur-Eifel",
   "street": "Violengasse 2"
  },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/kreativ-und-entspannt-fuer-familien-mit-neurodivergenten-kindern": {
+  "venue": "Volkshochschule Rur-Eifel",
+  "street": "Violengasse 2"
+ },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/lukpuppentheater-ein-olchi-unterm-graetenbaum": {
   "venue": null
  },
@@ -355,6 +383,10 @@
   "venue": "Volkshochschule Rur-Eifel",
   "street": "Violengasse 2"
  },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/upcycling-tierspielzeug-fuer-hunde-und-katzen-basteln": {
+  "venue": "Volkshochschule Rur-Eifel",
+  "street": "Violengasse 2"
+ },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/vorlesewerkstatt-wie-vorlesen-zum-erlebnis-wird-20-02-2027": {
   "venue": "Volkshochschule Rur-Eifel",
   "street": "Violengasse 2"
@@ -370,5 +402,17 @@
  "https://www.koeln.de/event/silvester-kinder-disco/": {
   "venue": "SPRUNG.RAUM",
   "street": "Junkersring 28"
+ },
+ "https://www.mfk-frankfurt.de/mc-events/digitaler-familientalk-hass-und-gewalt-auf-tiktok/": {
+  "venue": null
+ },
+ "https://www.mfk-frankfurt.de/mc-events/digitaler-familientalk-wie-informieren-sich-kinder-jugendliche/": {
+  "venue": null
+ },
+ "https://www.mfk-frankfurt.de/mc-events/offene-kinderwerkstatt-15/?mc_id=4147": {
+  "venue": null
+ },
+ "https://www.schauburg.net/de/programm/just-listen": {
+  "venue": "Musiktheater für die Turnhalle"
  }
 }
