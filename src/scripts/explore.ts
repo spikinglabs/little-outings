@@ -2,6 +2,7 @@
 // that are good any time. All cards arrive once from /<lang>/ideen/; this only hides and sorts them.
 // Distances are measured once per home town, and the list shows a page at a time.
 import { lastDay } from "../lib/horizon";
+import { holidayFor, type Period } from "../lib/holidays";
 import { distanceOf, getHome, markSaved, nearestTown, renderKm, setHere, setHome } from "./app";
 import type {} from "../islands/OutingsMap";
 
@@ -9,6 +10,7 @@ type Plural = { one?: string; other: string };
 const ui = JSON.parse(document.getElementById("explore-ui")!.textContent!) as {
   nEvents: Plural; nPlaces: Plural; areaBack: string; tip: string; whenIn: Record<string, string>; mapShow: string; mapHide: string; noneHere: string;
   showMore: string; locNone: string; loadFail: string;
+  holidays: { towns: Record<string, string>; periods: Record<string, Period[]>; label: Record<string, string>; labelIn: Record<string, string> };
 };
 const lang = document.body.dataset.lang!;
 const pr = new Intl.PluralRules(lang);
@@ -49,8 +51,31 @@ function keep() {
 // Dates in Germany, as YYYY-MM-DD strings, so they compare with the data-start/data-end attributes.
 const ymd = (d: Date) => new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Berlin" }).format(d);
 const addDays = (s: string, n: number) => { const d = new Date(`${s}T12:00:00Z`); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); };
+// The home town's school holidays, while they are on or start within the days events are listed for.
+// The "Holidays" button carries their name (Herbstferien) and only shows then.
+const holidayBtn = $<HTMLButtonElement>('[data-when="holiday"]');
+function holiday() {
+  const today = ymd(new Date());
+  return holidayFor(ui.holidays.periods[ui.holidays.towns[getHome()]], today, lastDay(today));
+}
+function holidayWord(): string {
+  const h = holiday();
+  holidayBtn.hidden = !h;
+  if (!h) {
+    if (state.when === "holiday") state.when = "weekend";
+    return "";
+  }
+  const name = h.name in ui.holidays.label ? h.name : "other";
+  holidayBtn.textContent = ui.holidays.label[name];
+  return ui.holidays.labelIn[name];
+}
+
 function range(): [string, string] {
   const today = ymd(new Date());
+  if (state.when === "holiday") {
+    const h = holiday();
+    if (h) return [h.from, h.to];
+  }
   const dow = new Date(`${today}T12:00:00Z`).getUTCDay();
   if (state.when === "today") return [today, today];
   if (state.when === "tomorrow") return [addDays(today, 1), addDays(today, 1)];
@@ -145,8 +170,9 @@ function passes({ d, feat }: Row) {
 
 function apply() {
   keep();
+  const inHoliday = holidayWord();
   const [from, to] = range();
-  const word = ui.whenIn[state.when];
+  const word = state.when === "holiday" ? inHoliday : ui.whenIn[state.when];
   $$("[data-when-word]").forEach((el) => (el.textContent = word));
   $$<HTMLButtonElement>("[data-when]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.when === state.when)));
   // Until the cards are here, taps only change the filters; the list follows when they arrive.

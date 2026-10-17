@@ -12,6 +12,8 @@ import { KIND_ICON, UI_ICON, svg } from "../../lib/icons";
 import OutingsMap from "../../islands/OutingsMap";
 import { mapCenter } from "../../lib/pins";
 import { siteLd } from "../../lib/seo";
+import { townStates, type Period } from "../../lib/holidays";
+import schoolHolidays from "../../../data/school-holidays.json";
 
 export const getStaticPaths = () => LANGS.map((lang) => ({ params: { lang } }));
 const lang = Astro.params.lang as Lang;
@@ -32,7 +34,17 @@ const presentTags = TAGS.map((g) => [g, listed.filter((e) => e.tags.includes(g))
   .concat(listed.some((e) => !e.tags.length) ? ["other"] : []);
 const whenKeys = ["today", "tomorrow", "weekend", "soon"];
 const whenIn = t.group("whenIn");
-const pluralUi = { nEvents: t.group("nEvents"), nPlaces: t.group("nPlacesAny"), tip: t("tip"), whenIn, mapShow: t("mapShow"), mapHide: t("mapHide"), areaBack: t("mapAreaBack"), showMore: t("mapShowMore"), locNone: t("locNone"), loadFail: t("loadFail"), noneHere: t("noneHere") };
+// School holidays per state, from the build day on; the script shows the "Holidays" choice for the home town.
+const buildDay = new Date().toISOString().slice(0, 10);
+const states = townStates(region.towns);
+const holidays = {
+  towns: states,
+  periods: Object.fromEntries(Object.entries(schoolHolidays.states as Record<string, Period[]>)
+    .filter(([s]) => Object.values(states).includes(s))
+    .map(([s, ps]) => [s, ps.filter((p) => p.end >= buildDay)])),
+  label: t.group("holiday"), labelIn: t.group("holidayIn"),
+};
+const pluralUi = { nEvents: t.group("nEvents"), nPlaces: t.group("nPlacesAny"), tip: t("tip"), whenIn, mapShow: t("mapShow"), mapHide: t("mapHide"), areaBack: t("mapAreaBack"), showMore: t("mapShowMore"), locNone: t("locNone"), loadFail: t("loadFail"), noneHere: t("noneHere"), holidays };
 const homes = region.towns;
 // Town picker rows, A–Z in the reader's language (Düsseldorf next to Dortmund, 杜塞尔多夫 by pinyin).
 // keys: every name a parent might type, lowercased and without accents (koln finds Köln, 科隆 finds it too).
@@ -59,7 +71,10 @@ const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
       <input id="q" type="search" placeholder={t("searchPh")} autocomplete="off" />
     </label>
     <div class="when" role="group">
-      {whenKeys.map((k) => <button type="button" data-when={k} aria-pressed={k === "weekend" ? "true" : "false"}>{t(`when.${k}`)}</button>)}
+      {whenKeys.map((k) => <>
+        <button type="button" data-when={k} aria-pressed={k === "weekend" ? "true" : "false"}>{t(`when.${k}`)}</button>
+        {k === "weekend" && <button type="button" data-when="holiday" aria-pressed="false" hidden></button>}
+      </>)}
     </div>
     <div class="filters" role="group">
       <button class="chip town-btn" type="button" id="home" value={region.center} aria-haspopup="dialog">📍 {t("near")} <b data-home-name>{townName(region.center, lang, homes)}</b><span class="caret" aria-hidden="true">▾</span></button>

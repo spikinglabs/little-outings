@@ -6,6 +6,9 @@ homeDescription: "Ausflüge mit Kindern rund um Köln, Bonn und Düsseldorf: {ev
 tabs: { explore: Entdecken, saved: Meins, add: Neu }
 when: { today: Heute, tomorrow: Morgen, weekend: Wochenende, soon: Nächste 2 Wochen }
 whenIn: { today: heute, tomorrow: morgen, weekend: am Wochenende, soon: in den nächsten 2 Wochen }
+# School holidays (data/school-holidays.json names them in German): the "When" button and its phrase.
+holiday: { Herbstferien: Herbstferien, Weihnachtsferien: Weihnachtsferien, Winterferien: Winterferien, Frühjahrsferien: Frühjahrsferien, Osterferien: Osterferien, Pfingstferien: Pfingstferien, Sommerferien: Sommerferien, other: Ferien }
+holidayIn: { Herbstferien: in den Herbstferien, Weihnachtsferien: in den Weihnachtsferien, Winterferien: in den Winterferien, Frühjahrsferien: in den Frühjahrsferien, Osterferien: in den Osterferien, Pfingstferien: in den Pfingstferien, Sommerferien: in den Sommerferien, other: in den Ferien }
 ask: "Was machen wir <em>{when}</em> mit den Kindern?"
 near: Rund um
 locate: "Meinen Standort nutzen"

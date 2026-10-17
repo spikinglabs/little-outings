@@ -6,6 +6,9 @@ homeDescription: "Family outings around Cologne, Bonn and Düsseldorf: {events} 
 tabs: { explore: Discover, saved: Mine, add: Add }
 when: { today: Today, tomorrow: Tomorrow, weekend: Weekend, soon: Next 2 weeks }
 whenIn: { today: today, tomorrow: tomorrow, weekend: this weekend, soon: in the next 2 weeks }
+# School holidays (data/school-holidays.json names them in German): the "When" button and its phrase.
+holiday: { Herbstferien: Autumn holidays, Weihnachtsferien: Christmas holidays, Winterferien: Winter holidays, Frühjahrsferien: Spring holidays, Osterferien: Easter holidays, Pfingstferien: Whitsun holidays, Sommerferien: Summer holidays, other: School holidays }
+holidayIn: { Herbstferien: in the autumn holidays, Weihnachtsferien: in the Christmas holidays, Winterferien: in the winter holidays, Frühjahrsferien: in the spring holidays, Osterferien: in the Easter holidays, Pfingstferien: in the Whitsun holidays, Sommerferien: in the summer holidays, other: in the school holidays }
 ask: "What shall we do with the kids <em>{when}</em>?"
 near: Around
 locate: "Use my location"
