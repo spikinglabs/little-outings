@@ -15,6 +15,7 @@
     "tally:inbox": "node scripts/tally-inbox.mjs",
     "translate": "node scripts/translate.mjs",
     "find:venues": "node scripts/find-venues.mjs",
+    "fetch:holidays": "node scripts/fetch-holidays.mjs",
     "test": "node --test tests/*.test.mjs tests/*.test.ts"
   },
   "author": "",

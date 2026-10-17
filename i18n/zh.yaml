@@ -6,6 +6,9 @@ homeDescription: "科隆、波恩和杜塞尔多夫周边的亲子出游：{even
 tabs: { explore: 发现, saved: 我的, add: 添加 }
 when: { today: 今天, tomorrow: 明天, weekend: 周末, soon: 未来两周 }
 whenIn: { today: 今天, tomorrow: 明天, weekend: 这个周末, soon: 未来两周 }
+# School holidays (data/school-holidays.json names them in German): the "When" button and its phrase.
+holiday: { Herbstferien: 秋假, Weihnachtsferien: 圣诞假期, Winterferien: 寒假, Frühjahrsferien: 春假, Osterferien: 复活节假期, Pfingstferien: 圣灵降临节假期, Sommerferien: 暑假, other: 学校假期 }
+holidayIn: { Herbstferien: 秋假期间, Weihnachtsferien: 圣诞假期期间, Winterferien: 寒假期间, Frühjahrsferien: 春假期间, Osterferien: 复活节假期期间, Pfingstferien: 圣灵降临节假期期间, Sommerferien: 暑假期间, other: 学校假期期间 }
 ask: "<em>{when}</em>带孩子去哪儿玩？"
 near: 附近：
 locate: "使用我的位置"

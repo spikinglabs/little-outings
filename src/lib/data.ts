@@ -14,7 +14,7 @@ const demoShift = process.env.DEMO ? Math.round((Date.parse(TODAY) - Date.parse(
 
 let cache: Promise<Data> | undefined;
 export interface Data {
-  region: { name: any; center: string; towns: (Town & { zh?: string; en?: string })[] };
+  region: { name: any; center: string; towns: (Town & { zh?: string; en?: string; state?: string })[] };
   places: Place[];
   /** Upcoming events only (end ≥ today), sorted by start. */
   events: Event[];
@@ -30,7 +30,7 @@ async function load(): Promise<Data> {
     getCollection("imported"), getCollection("overrides"), getCollection("answers"),
   ]);
   const home = regions[0]?.data ?? { name: "", center: "", towns: [] };
-  const regionTowns = regions.flatMap((r) => r.data.towns);
+  const regionTowns = regions.flatMap((r) => r.data.towns.map((t) => ({ ...t, state: t.state ?? r.data.state })));
   const slug = (id: string) => id.split("/").pop()!;
   const answer = new Map(answers.map((a) => [slug(a.id), a.data]));
   const override = new Map(overrides.map((o) => [slug(o.id), o.data]));

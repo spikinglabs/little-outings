@@ -118,7 +118,9 @@ const answer = z.object({
 const region = z.object({
   name: text,
   center: z.string(),
-  towns: z.array(z.object({ name: z.string(), zh: z.string().optional(), en: z.string().optional(), lat: z.number(), lon: z.number() })),
+  // German state code (NW, BE, BY …) for school holidays; a town's own `state` wins.
+  state: z.string().optional(),
+  towns: z.array(z.object({ name: z.string(), zh: z.string().optional(), en: z.string().optional(), lat: z.number(), lon: z.number(), state: z.string().optional() })),
 });
 
 export const collections = {
