@@ -23,10 +23,6 @@
   "venue": "Klangbrücke Altes Kurhaus",
   "street": "Kurhausstraße 2"
  },
- "https://altes-kurhaus-aachen.de/veranstaltung/jens-dueppe-quintett-feat-francesco-bearzatti/": {
-  "venue": "Klangbrücke Altes Kurhaus",
-  "street": "Kurhausstraße 2"
- },
  "https://altes-kurhaus-aachen.de/veranstaltung/joshua-milo-sextett/": {
   "venue": "Klangbrücke Altes Kurhaus",
   "street": "Kurhausstraße 2"
@@ -86,10 +82,6 @@
  },
  "https://historisches-museum-frankfurt.ticketfritz.de/Event/Kalender/28938?Typ=Vorlage": {
   "venue": null
- },
- "https://izm.de/event/erzaehlcafe-fuer-seniorinnen-essen/": {
-  "venue": "Internationales Zeitungsmuseum Aachen",
-  "street": "Pontstr. 13"
  },
  "https://koelnerkarneval.de/session/veranstaltungen/veranstaltung/40-kinderkostuemfest": {
   "venue": "Aula Dechenstr. (Neu-Ehrenfeld)",
@@ -372,10 +364,6 @@
   "street": "Violengasse 2"
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/naturheilkundliche-behandlungsmoeglichkeiten-von-kindern-18-03-2027": {
-  "venue": "Volkshochschule Rur-Eifel",
-  "street": "Violengasse 2"
- },
- "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/orgaqueen-orgaking-workshop-zu-vereinbarkeit-von-familie-und-beruf-17-10-2026": {
   "venue": "Volkshochschule Rur-Eifel",
   "street": "Violengasse 2"
  },
