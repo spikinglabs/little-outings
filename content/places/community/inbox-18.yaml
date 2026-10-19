@@ -1,0 +1,9 @@
+# Suggested by a parent (inbox #18), approved in the admin by leima137@gmail.com.
+# Edit here to fix it.
+kind: playground
+name: "Museum Vieille Montagne"
+address: { street: "Rue de Liège 278, 4720 Kelmis, Belgium", town: "Kelmis" }
+facilities:
+  toilets: { status: "yes", confirmed: 1 }
+website: "https://mvm-kelmis.be/de/"
+trust: { level: community }
