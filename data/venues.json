@@ -27,10 +27,6 @@
   "venue": "Klangbrücke Altes Kurhaus",
   "street": "Kurhausstraße 2"
  },
- "https://centre-charlemagne.eu/termin/herbstferienworkshop-5/": {
-  "venue": "Centre Charlemagne",
-  "street": "Katschhof 1"
- },
  "https://centre-charlemagne.eu/termin/herbstworkshop/": {
   "venue": "Centre Charlemagne",
   "street": "Katschhof 1"
@@ -298,9 +294,6 @@
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/familienfuehrung-20-12-2026": {
   "venue": null
  },
- "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/herbstferienprogramm-mach-es-dir-gemuetlich-22-10-2026": {
-  "venue": null
- },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/herbstferienprogramm-mach-es-dir-gemuetlich-26-10-2026": {
   "venue": null
  },
@@ -366,9 +359,6 @@
  "https://www.koeln.de/event/silvester-kinder-disco/": {
   "venue": "SPRUNG.RAUM",
   "street": "Junkersring 28"
- },
- "https://www.mfk-frankfurt.de/mc-events/digitaler-familientalk-hass-und-gewalt-auf-tiktok/": {
-  "venue": null
  },
  "https://www.mfk-frankfurt.de/mc-events/digitaler-familientalk-wie-informieren-sich-kinder-jugendliche/": {
   "venue": null
