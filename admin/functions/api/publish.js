@@ -1,8 +1,9 @@
 import { publishRows, toJsonl } from "../../public/apply.js";
-import { KEYS, json, readCandidates, readDecisions } from "../../lib/store.js";
+import { KEYS, json, readCandidates, readDecisions, readJson } from "../../lib/store.js";
 
 // Commits the published outings to the site repository as a data file. The push
 // starts the site's normal deploy, and git keeps the history of every publish.
+// The nightly sort (scripts/sort-events.mjs) writes the same file without this button.
 const PATH = "data/outings.jsonl";
 
 function base64(text) {
@@ -18,12 +19,13 @@ export async function onRequestPost({ env, data }) {
   const repo = env.GITHUB_REPO || "spikinglabs/little-outings";
   const branch = env.GITHUB_BRANCH || "main";
 
-  const [{ rows: candidates, manifest }, { decisions }] = await Promise.all([
+  const [{ rows: candidates, manifest }, { decisions }, sorted] = await Promise.all([
     readCandidates(env.OUTINGS),
     readDecisions(env.OUTINGS),
+    readJson(env.OUTINGS, KEYS.sorted),
   ]);
   if (!candidates.length) return json({ error: "There are no candidates yet." }, 409);
-  const rows = publishRows(candidates, decisions);
+  const rows = publishRows(candidates, decisions, sorted);
 
   const api = `https://api.github.com/repos/${repo}/contents/${PATH}`;
   const headers = {

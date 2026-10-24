@@ -23,7 +23,7 @@
     </div>
     <div class="publish">
       <span class="save" id="save" role="status" aria-live="polite"></span>
-      <button class="primary" id="publish" disabled>Publish</button>
+      <button class="primary" id="publish" disabled title="Happens by itself every night; this publishes right away">Publish now</button>
     </div>
   </header>
 
@@ -31,6 +31,15 @@
     <div class="banner" id="banner" hidden></div>
 
     <section class="stats" id="stats" aria-label="Summary"></section>
+
+    <section class="panel" id="check-panel">
+      <div class="panel-head">
+        <h2>Check these <span class="badge out" id="check-count"></span></h2>
+        <p>Every night the AI reads each new event's title and venue and publishes the ones made for families. These are the ones it wasn't sure about. Tap Show or Hide, and it goes live at the next nightly run (or press Publish now). To pull anything else off the site, find it under Events and tap Hide. <span id="check-sorted"></span></p>
+      </div>
+      <ol class="events" id="check"></ol>
+      <button class="more" id="check-more" hidden>Show more</button>
+    </section>
 
     <section class="panel" id="inbox-panel">
       <div class="panel-head">
@@ -44,7 +53,7 @@
     <section class="panel">
       <div class="panel-head">
         <h2>Keywords</h2>
-        <p>Events from included sources are published when their title or venue contains one of these keywords. Parts of words count, so “kind” also finds Kinderflohmarkt. Anything else you can still publish one by one with Show.</p>
+        <p>Only for events the AI hasn't sorted yet (for example when no AI key is set): those are published when their title or venue contains one of these keywords. Parts of words count, so “kind” also finds Kinderflohmarkt.</p>
       </div>
       <ul class="chips" id="keywords" aria-label="Keywords"></ul>
       <form class="keyword-add" id="keyword-form">
@@ -58,7 +67,7 @@
     <section class="panel">
       <div class="panel-head">
         <h2>Events</h2>
-        <p>Override a single event, or fix its title and address. Every change saves automatically and goes live when you press Publish.</p>
+        <p>Override a single event, or fix its title and address. Every change saves automatically and goes live at the next nightly run, or when you press Publish now.</p>
       </div>
       <form class="filters" id="filters" role="search">
         <label>Search <input type="search" name="q" placeholder="Title, venue, town, postcode, source"></label>
@@ -67,6 +76,10 @@
         <label>Show
           <select name="state">
             <option value="">Everything</option>
+            <option value="ai-yes">AI: for families</option>
+            <option value="ai-no">AI: not for families</option>
+            <option value="ai-unsure">AI: unsure</option>
+            <option value="ai-none">Not sorted by AI yet</option>
             <option value="match">Keyword matches</option>
             <option value="nomatch">No keyword match</option>
             <option value="published">Will be published</option>

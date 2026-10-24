@@ -1,10 +1,12 @@
 import {
-  EDITABLE, EDITABLE_LOCATION, familyMatch, fold, keywordsOf, matchesSearch, publishRows, rowState, sourceSummary,
+  EDITABLE, EDITABLE_LOCATION, aiVerdict, sortKey, familyMatch, fold, keywordsOf, matchesSearch, publishRows, rowState, sourceSummary,
   usesDetected,
 } from "./apply.js";
 
 const PAGE = 50;
-const state = { candidates: [], decisions: null, etag: null, manifest: null, lastPublish: null, user: null, shown: PAGE };
+const state = { candidates: [], decisions: null, etag: null, manifest: null, lastPublish: null, sorted: null, user: null, shown: PAGE, checkShown: 20 };
+// Every rule below reads the AI's verdicts too; keywords only decide what it hasn't sorted yet.
+const stateOf = (row) => rowState(row, state.decisions, state.sorted);
 const $ = (id) => document.getElementById(id);
 const esc = (value) =>
   String(value ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
@@ -61,8 +63,8 @@ async function save() {
 }
 
 async function publish() {
-  const count = publishRows(state.candidates, state.decisions).length;
-  if (!window.confirm(`Publish ${count} outings to the live site?`)) return;
+  const count = publishRows(state.candidates, state.decisions, state.sorted).length;
+  if (!window.confirm(`Publish ${count} outings to the live site now? (This also happens by itself every night.)`)) return;
   await saving;
   $("publish").disabled = true;
   setSave("Publishing…");
@@ -124,7 +126,7 @@ function addKeyword(word) {
 
 /** Show every listed event that isn't published yet; hidden-by-you events stay hidden. */
 function showAll(rows) {
-  const targets = rows.filter((row) => !rowState(row, state.decisions).published && state.decisions.events[row.event_id]?.visibility !== "hide");
+  const targets = rows.filter((row) => !stateOf(row).published && state.decisions.events[row.event_id]?.visibility !== "hide");
   if (!targets.length || !window.confirm(`Show all ${targets.length} listed events that aren't published yet?`)) return;
   for (const row of targets) eventEntry(row.event_id).visibility = "show";
   changed();
@@ -143,16 +145,21 @@ function setVisibility(id, visibility) {
 function render() {
   if (!state.decisions) return;
   const { candidates, decisions, manifest, lastPublish, user } = state;
-  const published = publishRows(candidates, decisions).length;
+  const published = publishRows(candidates, decisions, state.sorted).length;
   const edited = Object.values(decisions.events).filter((e) => e.edits).length;
   $("who").textContent = `Signed in as ${user?.email || "?"} · candidates from ${when(manifest?.generated_at)}`;
   $("publish").disabled = !candidates.length;
-  $("publish").textContent = `Publish ${published}`;
+  $("publish").textContent = `Publish ${published} now`;
 
-  const matches = candidates.filter((row) => familyMatch(row, decisions, decisions.events[row.event_id]?.edits).matched).length;
+  const ai = { yes: 0, no: 0 };
+  for (const row of candidates) {
+    const verdict = aiVerdict(row, state.sorted);
+    if (verdict in ai) ai[verdict]++;
+  }
   $("stats").innerHTML = [
     [candidates.length, "upcoming events found"],
-    [matches, "match your keywords"],
+    [ai.yes, "AI says for families"],
+    [ai.no, "AI says not for families"],
     [published, "will be published"],
     [manifest?.duplicates_count ?? 0, "duplicate listings merged"],
     [edited, "events you corrected"],
@@ -162,9 +169,58 @@ function render() {
   if (!candidates.length) {
     banner("No candidates yet. They appear after cityklub's next export run writes them to the Little Outings bucket.");
   }
+  renderCheck();
   renderKeywords();
   renderSources();
   renderEvents();
+}
+
+/**
+ * Events the AI wasn't sure about, from included sources, that you haven't decided yet:
+ * one entry per title and venue, so a weekly course is one tap for all its dates.
+ */
+function unsureGroups() {
+  const groups = new Map();
+  for (const row of state.candidates) {
+    if (!stateOf(row).unsure) continue;
+    const key = sortKey(row);
+    if (!groups.has(key)) groups.set(key, { key, row, ids: [] });
+    groups.get(key).ids.push(row.event_id);
+  }
+  return [...groups.values()];
+}
+
+function setGroupVisibility(key, visibility) {
+  const group = unsureGroups().find((g) => g.key === key);
+  if (!group) return;
+  for (const id of group.ids) eventEntry(id).visibility = visibility;
+  changed();
+}
+
+function renderCheck() {
+  const groups = unsureGroups();
+  $("check-count").textContent = groups.length || "";
+  $("check-sorted").textContent = state.sorted?.updated_at
+    ? `Last sorted ${when(state.sorted.updated_at)}.`
+    : "The AI hasn't sorted anything yet. Until its first nightly run, your keywords decide.";
+  $("check").innerHTML = groups.slice(0, state.checkShown).map(({ key, row, ids }) => {
+    const day = new Date(`${row.start_date}T12:00:00`);
+    return `<li class="event">
+      <div class="stamp"><b>${day.getDate()}</b><span>${esc(day.toLocaleDateString("de-DE", { month: "short" }))}</span></div>
+      <div class="event-body">
+        <h3>${esc(row.title)}</h3>
+        <p>${esc([row.venue, row.location?.city].filter(Boolean).join(" · ") || "No venue")}</p>
+        <div class="meta"><span class="badge out">${esc(row.source_name)}</span>
+          ${ids.length > 1 ? `<span class="badge out">${ids.length} dates</span>` : ""}
+          <a href="${esc(row.source_url)}" target="_blank" rel="noopener noreferrer">source</a></div>
+      </div>
+      <div class="event-actions">
+        <button type="button" class="primary" data-act="group" data-key="${esc(key)}" data-mode="show">Show</button>
+        <button type="button" class="ghost" data-act="group" data-key="${esc(key)}" data-mode="hide">Hide</button>
+      </div>
+    </li>`;
+  }).join("") || '<li class="sub">Nothing to check. Everything else is published or left out by itself.</li>';
+  $("check-more").hidden = groups.length <= state.checkShown;
 }
 
 function renderKeywords() {
@@ -177,7 +233,7 @@ function renderKeywords() {
 }
 
 function renderSources() {
-  const rows = sourceSummary(state.candidates, state.decisions);
+  const rows = sourceSummary(state.candidates, state.decisions, state.sorted);
   const seg = (id, current) =>
     ["auto", "include", "exclude"].map((mode) =>
       `<button type="button" data-act="source" data-id="${esc(id)}" data-mode="${mode}" aria-pressed="${current === mode}">${
@@ -203,10 +259,14 @@ function filtered() {
     const entry = state.decisions.events[row.event_id];
     if (source && row.source_id !== source) return false;
     if (town && row.location?.city !== town) return false;
-    if (show === "published" && !rowState(row, state.decisions).published) return false;
-    if (show === "unpublished" && rowState(row, state.decisions).published) return false;
+    if (show === "published" && !stateOf(row).published) return false;
+    if (show === "unpublished" && stateOf(row).published) return false;
     if (show === "changed" && !entry) return false;
     if (show === "duplicates" && !row.also_listed?.length) return false;
+    if (show === "ai-yes" && aiVerdict(row, state.sorted) !== "yes") return false;
+    if (show === "ai-no" && aiVerdict(row, state.sorted) !== "no") return false;
+    if (show === "ai-unsure" && aiVerdict(row, state.sorted) !== "unsure") return false;
+    if (show === "ai-none" && aiVerdict(row, state.sorted)) return false;
     if (show === "match" && !familyMatch(row, state.decisions, entry?.edits).matched) return false;
     if (show === "nomatch" && familyMatch(row, state.decisions, entry?.edits).matched) return false;
     if (show === "noaddress" && (entry?.edits?.location?.street || row.location?.street)) return false;
@@ -220,7 +280,7 @@ function renderEvents() {
   $("count").textContent = `${rows.length} of ${state.candidates.length} events`;
   $("events").innerHTML = rows.slice(0, state.shown).map(eventHtml).join("");
   $("more").hidden = rows.length <= state.shown;
-  const waiting = rows.filter((row) => !rowState(row, state.decisions).published && state.decisions.events[row.event_id]?.visibility !== "hide").length;
+  const waiting = rows.filter((row) => !stateOf(row).published && state.decisions.events[row.event_id]?.visibility !== "hide").length;
   const all = $("show-all");
   all.hidden = !waiting || rows.length === state.candidates.length;
   all.textContent = `Show all ${waiting} listed`;
@@ -230,9 +290,11 @@ function renderEvents() {
 function eventHtml(row) {
   const entry = state.decisions.events[row.event_id] || {};
   const view = { ...row, ...(entry.edits || {}), location: { ...row.location, ...(entry.edits?.location || {}) } };
-  const st = rowState(row, state.decisions);
+  const st = stateOf(row);
   const match = familyMatch(row, state.decisions, entry.edits);
-  const why = [...match.words, ...(match.detected ? ["description or farm source"] : [])];
+  const verdict = aiVerdict(row, state.sorted);
+  // Keywords only explain an event the AI hasn't sorted.
+  const why = verdict ? [] : [...match.words, ...(match.detected ? ["description or farm source"] : [])];
   const day = new Date(`${row.start_date}T12:00:00`);
   const address = [[view.location.street, view.location.house_number].filter(Boolean).join(" "), view.location.postal_code, view.location.city]
     .filter(Boolean).join(", ");
@@ -248,8 +310,9 @@ function eventHtml(row) {
       <div class="meta">
         ${row.cleared ? '<span class="badge cleared">cleared</span>' : '<span class="badge private">private only</span>'}
         <span class="badge out">${esc(row.source_name)}</span>
+        ${verdict ? `<span class="badge ${verdict === "yes" ? "match" : "out"}">${esc({ yes: "AI: for families", no: "AI: not for families", unsure: "AI: unsure" }[verdict])}</span>` : ""}
         ${why.length ? `<span class="badge match">${esc(why.join(", "))}</span>` : ""}
-        ${st.published ? "" : `<span class="badge out">${esc(st.reason)}</span>`}
+        ${st.published || st.reason.startsWith("AI") ? "" : `<span class="badge out">${esc(st.reason)}</span>`}
         ${entry.edits ? '<span class="badge edited">edited</span>' : ""}
         ${row.also_listed?.length ? `<span class="badge out">also in ${row.also_listed.length} other listing${row.also_listed.length > 1 ? "s" : ""}</span>` : ""}
         <a href="${esc(row.source_url)}" target="_blank" rel="noopener noreferrer">source</a>
@@ -264,7 +327,7 @@ function eventHtml(row) {
 }
 
 function fillFilterOptions() {
-  const sources = sourceSummary(state.candidates, state.decisions);
+  const sources = sourceSummary(state.candidates, state.decisions, state.sorted);
   const towns = [...new Set(state.candidates.map((r) => r.location?.city).filter(Boolean))].sort((a, b) => a.localeCompare(b, "de"));
   const sel = $("filters").elements;
   sel.source.innerHTML = '<option value="">All sources</option>' + sources.map((s) => `<option value="${esc(s.id)}">${esc(s.name)}</option>`).join("");
@@ -324,6 +387,7 @@ document.addEventListener("click", (event) => {
   const { act, id, mode } = button.dataset;
   if (act === "source") setSource(id, mode);
   else if (act === "visibility") setVisibility(id, mode);
+  else if (act === "group") setGroupVisibility(button.dataset.key, mode);
   else if (act === "edit") openEditor(id);
   else if (act === "reload") load();
   else if (act === "unkeyword") setKeywords(keywordsOf(state.decisions).filter((w) => w !== button.dataset.word));
@@ -341,6 +405,7 @@ $("show-all").addEventListener("click", () => showAll(state.listed || []));
 $("filters").addEventListener("input", () => { state.shown = PAGE; renderEvents(); });
 $("filters").addEventListener("submit", (event) => event.preventDefault());
 $("more").addEventListener("click", () => { state.shown += PAGE; renderEvents(); });
+$("check-more").addEventListener("click", () => { state.checkShown += 20; renderCheck(); });
 $("publish").addEventListener("click", publish);
 window.addEventListener("beforeunload", (event) => {
   if ($("save").textContent.startsWith("Unsaved") || $("save").textContent === "Saving…") event.preventDefault();

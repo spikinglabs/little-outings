@@ -1,5 +1,5 @@
 // Reads and writes the Little Outings bucket (R2 binding OUTINGS).
-// cityklub writes candidates; only this admin writes decisions.
+// cityklub writes candidates; only this admin writes decisions; the nightly sort writes verdicts.
 
 import { emptyDecisions, parseJsonl } from "../public/apply.js";
 
@@ -9,6 +9,8 @@ export const KEYS = {
   manifest: `${PREFIX}/candidates.json`,
   decisions: `${PREFIX}/decisions.json`,
   lastPublish: `${PREFIX}/last-publish.json`,
+  // The nightly AI sorting's verdicts, written by scripts/sort-events.mjs in the site repository.
+  sorted: `${PREFIX}/sorted.json`,
 };
 
 export function json(body, status = 200) {

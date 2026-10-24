@@ -1,9 +1,12 @@
-# Finds venues for events that came without one (scripts/find-venues.mjs, data/venues.json) and
+# Sorts new events with AI and publishes them (scripts/sort-events.mjs), finds venues for events that came without one (scripts/find-venues.mjs, data/venues.json) and
 # translates new event titles and place names into Chinese every night, before the deploy
 # (02:15) builds the site, and commits data/translations/zh.json. Each text is translated once.
 # Needs a repository secret GEMINI_API_KEY (Gemini) or ANTHROPIC_API_KEY (Claude); with both, Gemini
 # is used unless the variable LLM_PROVIDER says "anthropic". The variable TRANSLATE_MODEL picks the
-# model (defaults in src/lib/llm.ts). Without a key it only reports what is missing.
+# model (defaults in src/lib/llm.ts), SORT_MODEL the one that sorts events. Without a key it only reports what is missing.
+# Sorting reads and writes the Little Outings bucket with wrangler: it needs a Cloudflare API token with
+# "Workers R2 Storage: Edit", either the secret R2_SORT_TOKEN or the deploy's CLOUDFLARE_API_TOKEN with that
+# permission added, plus CLOUDFLARE_ACCOUNT_ID. Without access the step is skipped and the run stays green.
 name: Translate
 on:
   schedule:
@@ -13,6 +16,8 @@ permissions:
   contents: write
 concurrency:
   group: translate
+env:
+  BUCKET: spikinglabs-little-outings
 jobs:
   translate:
     runs-on: ubuntu-latest
@@ -21,6 +26,43 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 22, cache: npm }
       - run: npm ci
+      - name: Download candidates and decisions
+        id: bucket
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.R2_SORT_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID || vars.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          mkdir -p .cache/outings
+          for f in candidates.jsonl candidates.json decisions.json sorted.json; do
+            if npx wrangler r2 object get "$BUCKET/little-outings/$f" --file ".cache/outings/$f.part" > /dev/null 2>&1; then
+              mv ".cache/outings/$f.part" ".cache/outings/$f"
+            else
+              rm -f ".cache/outings/$f.part"; echo "No $f in the bucket."
+            fi
+          done
+          if [ -f .cache/outings/candidates.jsonl ]; then echo "ok=1" >> "$GITHUB_OUTPUT"
+          else echo "::notice title=Sort events::Could not read the Little Outings bucket (token needs Workers R2 Storage: Edit); sorting skipped."; fi
+      - name: Sort new events with AI and publish
+        if: steps.bucket.outputs.ok == '1'
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          LLM_PROVIDER: ${{ vars.LLM_PROVIDER }}
+          SORT_MODEL: ${{ vars.SORT_MODEL }}
+        run: |
+          out=$(npm run --silent sort:events 2>&1) || { echo "$out"; exit 1; }
+          echo "$out"; echo "::notice title=Sort events::$(echo "$out" | tail -1)"
+      - name: Save the verdicts for the admin
+        if: steps.bucket.outputs.ok == '1'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.R2_SORT_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID || vars.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          npx wrangler r2 object put "$BUCKET/little-outings/sorted.json" --file .cache/outings/sorted.json --content-type application/json
+          # Only main's publish is the live one.
+          if [ "$GITHUB_REF_NAME" = main ] && [ -f .cache/outings/last-publish.json ]; then
+            npx wrangler r2 object put "$BUCKET/little-outings/last-publish.json" --file .cache/outings/last-publish.json --content-type application/json
+          fi
       - name: Find venues on event pages
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -44,11 +86,12 @@ jobs:
         run: |
           out=$(npm run --silent translate 2>&1) || { echo "$out"; exit 1; }
           echo "$out"; echo "::notice title=Translate::$(echo "$out" | tail -1)"
-      - name: Commit the venues and translations
+      - name: Commit the outings, venues and translations
         run: |
-          git add data/translations/zh.json data/venues.json
+          git add data/translations/zh.json data/venues.json data/outings.jsonl
           if git diff --cached --quiet; then echo "No changes."; exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "Add venues from event pages and Chinese titles"
+          git commit -m "Publish sorted events, venues from event pages and Chinese titles"
+          git pull --rebase origin "$GITHUB_REF_NAME"
           git push
