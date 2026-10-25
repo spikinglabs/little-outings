@@ -4,11 +4,11 @@
   "description": "Family outings around you: kid-friendly places and local events, in German, English and Chinese.",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/pack-pages.mjs",
     "preview": "astro preview",
     "check": "astro check",
     "demo": "DEMO=1 astro dev",
-    "build:demo": "DEMO=1 astro build",
+    "build:demo": "DEMO=1 astro build && node scripts/pack-pages.mjs",
     "import:cityklub": "node scripts/import-cityklub.mjs",
     "import:places": "node scripts/import-places.mjs",
     "geocode:places": "node scripts/geocode-places.mjs",
