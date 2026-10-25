@@ -3,6 +3,6 @@ import type { APIRoute } from "astro";
 
 export const GET: APIRoute = ({ site }) => {
   const base = site?.toString().replace(/\/$/, "") ?? "";
-  const body = ["User-agent: *", "Disallow: /admin/", "Disallow: /api/", "Allow: /api/v1/", "", `Sitemap: ${base}/sitemap.xml`, ""].join("\n");
+  const body = ["User-agent: *", "Disallow: /admin/", "Disallow: /api/", "Disallow: /packs/", "Allow: /api/v1/", "", `Sitemap: ${base}/sitemap.xml`, ""].join("\n");
   return new Response(body, { headers: { "content-type": "text/plain; charset=utf-8" } });
 };

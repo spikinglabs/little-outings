@@ -1,7 +1,9 @@
 // Cloudflare Pages Function: GET /api/ics/<lang>/<id>.ics
 // An event as a calendar file, for "Add to calendar" (Apple, Outlook, phones). The event page carries
-// the file's text (built with the page, in its language); this reads it from there, so the build
-// doesn't write a second file per event and language (Pages takes at most 20,000 files).
+// the file's text (built with the page, in its language); this reads it from the page's pack, so the
+// build doesn't write a second file per event and language (Pages takes at most 20,000 files).
+import { readPacked } from "../../../../src/lib/page-packs.ts";
+
 interface Env { ASSETS: { fetch: (r: Request | string) => Promise<Response> } }
 type Ctx = { request: Request; env: Env; params: { lang: string; id: string } };
 
@@ -16,8 +18,8 @@ export function icsOf(html: string): string | null {
 export async function onRequestGet({ request, env, params }: Ctx) {
   const id = String(params.id).replace(/\.ics$/, "");
   if (!LANGS.includes(params.lang) || !/^[\w-]+$/.test(id)) return new Response("Not found", { status: 404 });
-  const page = await env.ASSETS.fetch(new URL(`/${params.lang}/termine/${id}/`, request.url).toString());
-  const text = page.ok ? icsOf(await page.text()) : null;
+  const page = await readPacked((path) => env.ASSETS.fetch(new URL(path, request.url).toString()), "termine", params.lang, id);
+  const text = page ? icsOf(page) : null;
   if (!text) return new Response("Not found", { status: 404 });
   return new Response(text, {
     headers: {

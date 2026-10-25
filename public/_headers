@@ -9,3 +9,7 @@ https://little-outings.pages.dev/*
 # Discover's cards, loaded by the home page; not a page of its own.
 /:lang/ideen/
   X-Robots-Tag: noindex
+
+# Event pages packed for the Pages Functions (src/lib/page-packs.ts); the pages are at /<lang>/termine/<id>/.
+/packs/*
+  X-Robots-Tag: noindex
