@@ -1,0 +1,123 @@
+---
+// The weekend edition as one A4 sheet for Kita, library and doctor's notice boards: up to eight rows,
+// each with a QR code to its page, in the page's language plus a second one (German with English,
+// otherwise the language with German). The footer's QR code leads to the current edition, so an old
+// sheet still sends people to this week's. QR codes are drawn here at build time, by no outside service.
+import "@fontsource/atkinson-hyperlegible/400.css";
+import "@fontsource/atkinson-hyperlegible/700.css";
+import "@fontsource/barlow-semi-condensed/600.css";
+import "@fontsource/barlow-semi-condensed/700.css";
+import "@fontsource-variable/bricolage-grotesque/opsz.css";
+import { renderSVG } from "uqr";
+import { LANGS, useT, type Lang } from "../../../../lib/i18n";
+import { getData, TODAY } from "../../../../lib/data";
+import { townName } from "../../../../lib/format";
+import { OPERATOR } from "../../../../lib/legal";
+import { liveEdition, weekendTowns } from "../../../../lib/weekend-data";
+import { clockText, dayShort, skyWord, textIn, weekendRange, type L, type Pick } from "../../../../lib/weekend";
+
+export const getStaticPaths = () =>
+  LANGS.flatMap((lang) => weekendTowns().map((town) => ({ params: { lang, town: town.slug }, props: { editions: town.editions } })));
+
+const lang = Astro.params.lang as Lang;
+const second: L = lang === "de" ? "en" : "de";
+const t = useT(lang), t2 = useT(second);
+const { region, eventById, placeById } = await getData();
+const ed = liveEdition(Astro.props.editions, TODAY) ?? Astro.props.editions[0];
+const town = townName(ed.town, lang, region.towns);
+const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
+const qr = (url: string) => renderSVG(url, { border: 0, ecc: "M" });
+const pageOf = (p: Pick) => `${site}/${lang}/${p.type === "place" ? "orte" : "termine"}/${p.id}/?von=druck`;
+const picks = ed.picks.filter((p) => (p.type === "event" ? eventById.has(p.id) : placeById.has(p.id)));
+const still = (ed.still ?? []).filter((s) => eventById.has(s.id)).slice(0, Math.max(0, 8 - picks.length))
+  .map((s) => ({ id: s.id, type: "event" as const, title: s.title, venue: s.venue, days: [], still: s.end }));
+const rows = [...picks, ...still];
+const short = (d: string) => new Intl.DateTimeFormat(t.locale, { timeZone: "UTC", day: "numeric", month: "numeric" }).format(new Date(`${d}T12:00:00Z`));
+const when = (p: Pick & { still?: string }) =>
+  p.still ? [t("weekend.still"), t("weekend.until", { date: short(p.still) })]
+  : p.type === "place" ? [t("weekend.always"), ""]
+  : [p.days.map((d) => dayShort(d, lang)).join("+"), clockText(p.time) ?? ""];
+const facts = (p: Pick) => [p.type === "place" ? p.district : (p.venue ?? "").split(",")[0], p.free ? t("free") : "", p.book ? t("weekend.book") : ""].filter(Boolean).join(" · ");
+const current = `${site}/${lang}/wochenende/${ed.slug}/`;
+const shortUrl = `${site.replace(/^https?:\/\//, "")}/w/${ed.slug}${lang === "de" ? "" : `/${lang}`}`;
+const weather = ed.weather?.map((w) => `${dayShort(w.day, lang)} ${skyWord(w.code, lang)} ${Math.round(w.max)}°`).join(" · ");
+---
+<!doctype html>
+<html lang={lang}>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>{t("weekend.title", { town })} · A4</title>
+  <style is:global>
+    @page { size: A4 portrait; margin: 12mm; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #d9d6cf; color: #17191b; font: 11pt/1.35 "Atkinson Hyperlegible", system-ui, "PingFang SC", "Noto Sans SC", sans-serif; }
+    .hint { max-width: 210mm; margin: 12px auto; padding: 0 12px; font-size: 10pt; display: flex; gap: 16px; flex-wrap: wrap; }
+    .sheet { width: 210mm; min-height: 297mm; margin: 0 auto 24px; background: #fff; padding: 14mm 14mm 12mm; display: flex; flex-direction: column; }
+    .top { display: flex; justify-content: space-between; gap: 16px; border-bottom: 3pt solid #17191b; padding-bottom: 8px; }
+    .eyebrow { font: 700 9pt "Barlow Semi Condensed", sans-serif; letter-spacing: .1em; text-transform: uppercase; color: #d1001f; }
+    h1 { font: 800 25pt/1.02 "Bricolage Grotesque Variable", "Bricolage Grotesque", sans-serif; margin: 3px 0 2px; letter-spacing: -.01em; }
+    h1 em { font-style: normal; background: #ffcc00; padding: 0 .1em; }
+    .alt-title { color: #5b6066; font-size: 10pt; }
+    .dates { text-align: right; font: 700 15pt/1.1 "Barlow Semi Condensed", sans-serif; white-space: nowrap; }
+    .dates small { display: block; font-size: 9pt; font-weight: 600; color: #5b6066; }
+    .rows { flex: 1; }
+    .row { display: grid; grid-template-columns: 19mm 1fr 20mm; gap: 4mm; align-items: center; border-bottom: .5pt solid #dddbd5; padding: 2.4mm 0; break-inside: avoid; }
+    .when { border: 1.5pt solid #17191b; border-radius: 2mm; text-align: center; font: 700 11pt/1.05 "Barlow Semi Condensed", sans-serif; padding: 1.5mm 0; }
+    .when small { display: block; font-size: 8.5pt; font-weight: 600; }
+    .when.place { border-color: #6f4a2a; color: #6f4a2a; }
+    .when.still { border-style: dashed; }
+    h2 { margin: 0; font: 700 12pt/1.15 "Bricolage Grotesque Variable", "Bricolage Grotesque", sans-serif; }
+    .row p { margin: .6mm 0 0; font-size: 9.5pt; color: #3d4146; }
+    .row .two { color: #1d4f91; font-size: 9pt; }
+    .qr svg { width: 20mm; height: 20mm; display: block; }
+    .foot { display: grid; grid-template-columns: 26mm 1fr; gap: 5mm; align-items: center; border-top: 3pt solid #17191b; padding-top: 4mm; margin-top: 4mm; }
+    .foot .qr svg { width: 26mm; height: 26mm; }
+    .foot b { font: 800 13pt "Bricolage Grotesque Variable", "Bricolage Grotesque", sans-serif; }
+    .foot p { margin: 1mm 0 0; font-size: 8.5pt; color: #5b6066; }
+    @media print {
+      body { background: #fff; }
+      .hint { display: none; }
+      .sheet { width: auto; min-height: 0; height: 271mm; margin: 0; padding: 0; }
+    }
+  </style>
+</head>
+<body>
+  <p class="hint"><span>{t("weekend.printHint")}</span> <a href={`/${lang}/wochenende/${ed.slug}/`}>{t("weekend.printBack")}</a></p>
+  <main class="sheet">
+    <header class="top">
+      <div>
+        <div class="eyebrow">{t("siteName")} · {town}</div>
+        <h1 set:html={t("weekend.h1", { town })} />
+        <div class="alt-title" lang={second}>{t2("weekend.title", { town: townName(ed.town, second, region.towns) })}</div>
+      </div>
+      <div class="dates">{weekendRange(ed.weekend, lang)}{weather && <small>{weather}</small>}</div>
+    </header>
+    <div class="rows">
+      {rows.map((p) => {
+        const [a, b] = when(p as any);
+        return (
+          <section class="row">
+            <div class:list={["when", p.type === "place" && "place", (p as any).still && "still"]}>{a}{b && <small>{b}</small>}</div>
+            <div>
+              <h2>{textIn((p as Pick).label, lang, p.title)}</h2>
+              <p>{[textIn((p as Pick).why, lang), facts(p as Pick)].filter(Boolean).join(" · ")}</p>
+              {(p as Pick).label?.[second] && <p class="two" lang={second}>{[(p as Pick).label![second], (p as Pick).why?.[second]].filter(Boolean).join(" · ")}</p>}
+            </div>
+            <div class="qr" set:html={qr(pageOf(p as Pick))} />
+          </section>
+        );
+      })}
+    </div>
+    <footer class="foot">
+      <div class="qr" set:html={qr(`${current}?von=druck`)} />
+      <div>
+        <b>{t("weekend.printWeekly", { url: shortUrl })}</b>
+        <p>{t("weekend.printFoot")}</p>
+        <p>{OPERATOR.name}, {OPERATOR.address.slice(0, 2).join(", ")} · {site.replace(/^https?:\/\//, "")}/{lang}/impressum{ed.weather && <> · {t("weekend.weather")}</>}</p>
+      </div>
+    </footer>
+  </main>
+</body>
+</html>

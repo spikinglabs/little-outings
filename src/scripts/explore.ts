@@ -303,6 +303,8 @@ function showHome(town: string) {
   if (!b) return;
   home.value = town;
   $("[data-home-name]").textContent = b.textContent;
+  // The weekend edition's card shows for its own town only.
+  for (const a of $$<HTMLElement>("[data-weekend-town]")) a.hidden = a.dataset.weekendTown !== town;
 }
 function filterTowns() {
   const q = fold(townQ.value);

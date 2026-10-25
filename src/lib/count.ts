@@ -1,6 +1,6 @@
 // Adds one to an anonymous daily total (see functions/api/hit.ts): no id, no cookie, nothing stored here.
 // Buttons and links can also carry data-count="<action>"; app.ts counts their clicks.
-export type CountAction = "save" | "maps" | "calendar" | "website" | "share" | "install";
+export type CountAction = "save" | "maps" | "calendar" | "website" | "share" | "install" | "copy";
 
 export function count(e: CountAction) {
   const path = location.pathname;

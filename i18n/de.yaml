@@ -415,7 +415,7 @@ legal:
   privacy: Datenschutzerklärung
   controller: { h: Verantwortlicher, p: "Verantwortlich im Sinne der DSGVO für diese Website ist:" }
   hosting: { h: Hosting, p: "Die Seite läuft auf Cloudflare Pages (Cloudflare, Inc., USA; zertifiziert nach dem EU-US Data Privacy Framework, mit Auftragsverarbeitungsvertrag). Um Seiten auszuliefern, verarbeitet Cloudflare zwangsläufig deine IP-Adresse und technische Anfragedaten und führt kurzlebige Sicherheitsprotokolle. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO, unser Interesse an einer sicheren, funktionierenden Website." }
-  stats: { h: Nutzungsstatistik, p: "Wir nutzen Cloudflare Web Analytics, um Seitenaufrufe, verweisende Seiten, Länder, Gerätetypen und Ladezeiten zu zählen. Es setzt keine Cookies, speichert nichts auf deinem Gerät und erkennt wiederkehrende Besucher nicht; wir sehen nur Summen. Außerdem zählen wir einige Aktionen (Merken, Route öffnen, in den Kalender, Website öffnen, Liste teilen, App installieren) als Tagessummen nach Sprache, ohne IP-Adresse und ohne ID. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO, unser Interesse zu wissen, welche Teile der Seite genutzt werden." }
+  stats: { h: Nutzungsstatistik, p: "Wir nutzen Cloudflare Web Analytics, um Seitenaufrufe, verweisende Seiten, Länder, Gerätetypen und Ladezeiten zu zählen. Es setzt keine Cookies, speichert nichts auf deinem Gerät und erkennt wiederkehrende Besucher nicht; wir sehen nur Summen. Außerdem zählen wir einige Aktionen (Merken, Route öffnen, in den Kalender, Website öffnen, Liste teilen, App installieren, Wochenend-Text kopieren, über den Aushang oder Telegram gekommen) als Tagessummen nach Sprache, ohne IP-Adresse und ohne ID. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO, unser Interesse zu wissen, welche Teile der Seite genutzt werden." }
   device: { h: Auf deinem Gerät gespeichert, p: "Deine Merkliste, der gewählte Ort, deine Antworten, eine zufällige Browser-ID und deine Einstellungen liegen im lokalen Speicher deines Browsers, nur weil du diese Funktionen nutzt (§ 25 Abs. 2 Nr. 2 TDDDG). Wir verwenden keine Cookies. Du kannst alles unter Meins › Profil und Sync löschen oder indem du die Websitedaten in deinem Browser löschst." }
   taps: { h: Klicks und Abstimmungen, p: "Antworten zu Ausstattung, „Wir waren da“ und „Braucht man Deutsch?“ werden in einer Cloudflare-D1-Datenbank gespeichert, zusammen mit einem Hash deiner zufälligen Browser-ID und einem Hash deiner IP-Adresse, den wir nur gegen Massenklicks nutzen. Sie bleiben, bis du dein Profil löschst. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO." }
   sent: { h: Was du uns schickst, p: "Tipps, Meldungen sowie vorgeschlagene Termine oder Orte werden als Einträge in einem privaten GitHub-Repository gespeichert (GitHub, Inc., USA; EU-US Data Privacy Framework), damit wir sie prüfen können. Freigegebener Text erscheint ohne deinen Namen. Bitte keine persönlichen Daten angeben. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO." }
@@ -424,3 +424,40 @@ legal:
   map: { h: Karte, p: "Die Kartenkacheln kommen von OpenStreetMap (OpenStreetMap Foundation, Vereinigtes Königreich, mit EU-Angemessenheitsbeschluss), die dafür deine IP-Adresse erhält. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO. Dein Standort wird nur auf deinem Handy verwendet, wenn du den Standort-Knopf antippst, und nie an uns geschickt." }
   fonts: { h: Schriften, p: "Alle Schriften werden von unserer eigenen Seite geladen. Kein Schriftendienst erhält deine Daten." }
   rights: { h: Deine Rechte, p: "Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch gegen Verarbeitungen aufgrund berechtigter Interessen (Art. 15–21 DSGVO). Das meiste kannst du selbst unter Meins › Profil und Sync erledigen, sonst schreib uns eine E-Mail. Du kannst dich außerdem bei einer Datenschutz-Aufsichtsbehörde beschweren." }
+# The weekly "This weekend" edition (/de/wochenende/<town>/, src/lib/weekend.ts).
+weekend:
+  title: "Wochenende mit Kindern in {town}"
+  h1: "Dieses <em>Wochenende</em> mit Kindern in {town}"
+  kicker: "Ausgabe KW {week} · {town}"
+  sub: "{range} · ausgesucht für Familien"
+  description: "Was tun mit Kindern am Wochenende in {town}? {list} und mehr: Ideen für {range}, jeden Freitag neu."
+  always: Immer offen
+  still: Läuft noch
+  until: "bis {date}"
+  book: Anmeldung nötig
+  holidayLast: Letzter Ferientag
+  share: Weitersagen
+  copyWa: Text für WhatsApp kopieren
+  copyWechat: Text für WeChat kopieren
+  copied: Kopiert
+  selected: "Markiert, jetzt kopieren"
+  sendWa: In WhatsApp senden
+  telegram: Telegram-Kanal
+  print: Zum Aushängen (A4)
+  rss: RSS-Feed
+  next: "Die nächste Ausgabe kommt am Freitag, {date}, früh am Morgen."
+  meanwhile: Alles fürs Wochenende auf Entdecken
+  lastEdition: "Letzte Ausgabe: {range}"
+  archiveNote: "Diese Ausgabe war für {range}."
+  current: Zur aktuellen Ausgabe
+  earlier: Frühere Ausgaben
+  how: "Jeden Freitag neu: aus allen Familien-Terminen in {town} ausgesucht, mit Blick aufs Wetter und die Ferien. Bitte vorher beim Veranstalter nachsehen."
+  weather: "Wetter: Open-Meteo.com"
+  card: "Die Wochenend-Ausgabe für {town}"
+  cardKicker: Jeden Freitag neu
+  hub: Wochenende mit Kindern
+  hubSub: Jeden Freitag neue Ideen fürs Wochenende, für jede Stadt.
+  printWeekly: "Jede Woche neu: {url}"
+  printFoot: "Ideen für Familien, auf Deutsch, Englisch und Chinesisch. Ohne Anmeldung, ohne Werbung. Bitte vorher beim Veranstalter nachsehen."
+  printHint: "Zum Drucken Strg+P oder ⌘P drücken, A4 hochkant. Diese Zeile wird nicht mitgedruckt."
+  printBack: Zurück zur Ausgabe

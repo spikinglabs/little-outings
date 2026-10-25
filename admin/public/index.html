@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="admin.css">
   <script type="module" src="admin.js"></script>
   <script type="module" src="inbox.js"></script>
+  <script type="module" src="weekend.js"></script>
 </head>
 <body>
   <div class="flag" aria-hidden="true"><i></i><i></i><i></i></div>
@@ -39,6 +40,15 @@
       </div>
       <ol class="events" id="check"></ol>
       <button class="more" id="check-more" hidden>Show more</button>
+    </section>
+
+    <section class="panel" id="weekend-panel">
+      <div class="panel-head">
+        <h2>Weekend</h2>
+        <p>This weekend's edition per town, drafted on Thursday night and published on Friday morning at /de/wochenende/&lt;town&gt;/. Swap a pick, drop one, or change its German line; the English and Chinese lines are written again when it publishes. If you do nothing, it goes out as drafted. <span id="weekend-when"></span></p>
+      </div>
+      <div class="banner" id="weekend-banner" hidden></div>
+      <div id="weekend"></div>
     </section>
 
     <section class="panel" id="inbox-panel">

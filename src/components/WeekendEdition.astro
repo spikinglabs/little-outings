@@ -1,0 +1,125 @@
+---
+// One weekend edition: the weather, the picks by day with a line on why, "Open any time", "Still on",
+// and the share box with the texts parents copy into WhatsApp or WeChat. Used by the current edition
+// (/<lang>/wochenende/<town>/) and the archive (/<lang>/wochenende/<town>/<saturday>/).
+import Card from "./Card.astro";
+import { getData } from "../lib/data";
+import { townName } from "../lib/format";
+import { tr, type T } from "../lib/i18n";
+import { addDays, chatText, isRainy, skyWord, telegramChannel, textIn, weekendRange, type Edition, type Pick } from "../lib/weekend";
+
+interface Props { edition: Edition; t: T; archived?: boolean }
+const { edition: ed, t, archived } = Astro.props;
+const lang = t.lang;
+const { region, eventById, placeById } = await getData();
+const town = townName(ed.town, lang, region.towns);
+const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
+const page = `${site}/${lang}/wochenende/${ed.slug}/`;
+const itemOf = (p: Pick) => (p.type === "event" ? eventById.get(p.id) : placeById.get(p.id));
+// Picks whose event or place is still on the site; one that was cancelled since Friday drops out.
+const picks = ed.picks.filter((p) => itemOf(p));
+const dayName = (d: string, opts: Intl.DateTimeFormatOptions) => new Intl.DateTimeFormat(t.locale, { timeZone: "UTC", ...opts }).format(new Date(`${d}T12:00:00Z`));
+const days = [addDays(ed.weekend, -1), ed.weekend, addDays(ed.weekend, 1)]
+  .map((d) => ({ d, picks: picks.filter((p) => p.type === "event" && p.days[0] === d) }))
+  .filter((x) => x.picks.length);
+const places = picks.filter((p) => p.type === "place");
+const still = (ed.still ?? []).filter((s) => eventById.has(s.id));
+const short = (d: string) => dayName(d, { day: "numeric", month: "short" });
+const holiday = ed.holiday && (ed.holiday.last ? t("weekend.holidayLast") : t(`holiday.${ed.holiday.name}`));
+const shortUrl = `${site.replace(/^https?:\/\//, "")}/w/${ed.slug}${lang === "de" ? "" : `/${lang}`}`;
+const wa = chatText({ ...ed, picks }, { lang, style: "whatsapp", town, url: shortUrl });
+const wechat = lang === "zh" ? chatText({ ...ed, picks }, { lang, style: "wechat", town, url: shortUrl }) : "";
+const channel = telegramChannel(ed.slug);
+---
+<section class="wk" data-weekend>
+  <header class="wk-head">
+    <p class="wk-kicker">{t("weekend.kicker", { week: ed.week, town })}</p>
+    <h1 set:html={t("weekend.h1", { town })} />
+    <p class="page-sub">{t("weekend.sub", { range: weekendRange(ed.weekend, lang) })}</p>
+    {archived && <p class="wk-archived">{t("weekend.archiveNote", { range: weekendRange(ed.weekend, lang) })} <a href={`/${lang}/wochenende/${ed.slug}/`}>{t("weekend.current")} →</a></p>}
+    <div class="pills wk-pills">
+      {ed.weather?.map((w) => <span class:list={["pill", isRainy(w) && "rain"]}>{dayName(w.day, { weekday: "short" })} {skyWord(w.code, lang)} {Math.round(w.max)}°</span>)}
+      {holiday && <span class="pill wk-holiday">{holiday}</span>}
+    </div>
+  </header>
+
+  {days.map(({ d, picks }) => (
+    <section class="wk-day" aria-labelledby={`wk-${d}`}>
+      <h2 id={`wk-${d}`}>{dayName(d, { weekday: "long", day: "numeric", month: "long" })}</h2>
+      <div class="grid">
+        {picks.map((p) => (
+          <div class="wk-pick">
+            {p.why && <p class="wk-why">{textIn(p.why, lang)}{p.book && <b> · {t("weekend.book")}</b>}</p>}
+            {!p.why && p.book && <p class="wk-why"><b>{t("weekend.book")}</b></p>}
+            <Card item={itemOf(p)!} t={t} />
+          </div>
+        ))}
+      </div>
+    </section>
+  ))}
+
+  {places.length > 0 && (
+    <section class="wk-day" aria-labelledby="wk-always">
+      <h2 id="wk-always">{t("weekend.always")}</h2>
+      <div class="grid">
+        {places.map((p) => (
+          <div class="wk-pick">
+            {p.why && <p class="wk-why">{textIn(p.why, lang)}</p>}
+            <Card item={itemOf(p)!} t={t} />
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {still.length > 0 && (
+    <section class="wk-still" aria-labelledby="wk-still">
+      <h2 id="wk-still">{t("weekend.still")}</h2>
+      <ul>
+        {still.map((s) => (
+          <li><a href={`/${lang}/termine/${s.id}/`}>{tr(eventById.get(s.id)!.title, lang)}</a>{s.venue && <>, {s.venue.split(",")[0]}</>} · {t("weekend.until", { date: short(s.end) })}</li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  {!archived && (
+    <section class="wk-share" aria-labelledby="wk-share">
+      <h2 id="wk-share">{t("weekend.share")}</h2>
+      <div class="wk-btns">
+        {wechat && <button type="button" class="btn primary" data-copy="wechat" data-count="copy">{t("weekend.copyWechat")}</button>}
+        <button type="button" class:list={["btn", !wechat && "primary"]} data-copy="whatsapp" data-count="copy">{t("weekend.copyWa")}</button>
+        <a class="btn" href={`https://wa.me/?text=${encodeURIComponent(wa)}`} target="_blank" rel="noopener" data-count="share">{t("weekend.sendWa")}</a>
+        {channel && <a class="btn" href={`https://t.me/${channel.replace(/^@/, "")}`} target="_blank" rel="noopener">{t("weekend.telegram")}</a>}
+        <a class="btn" href={`/${lang}/wochenende/${ed.slug}/druck/`}>{t("weekend.print")}</a>
+        <a class="btn" href={`/${lang}/wochenende/${ed.slug}/rss.xml`}>{t("weekend.rss")}</a>
+      </div>
+      <textarea class="wk-text" data-text="whatsapp" readonly rows="9" aria-label={t("weekend.copyWa")} hidden={!!wechat}>{wa}</textarea>
+      {wechat && <textarea class="wk-text" data-text="wechat" readonly rows="9" aria-label={t("weekend.copyWechat")}>{wechat}</textarea>}
+      <p class="small" role="status" data-copy-msg></p>
+    </section>
+  )}
+
+  <p class="small wk-how">{t("weekend.how", { town })}{ed.weather && <> {t("weekend.weather")}</>}</p>
+  <link rel="alternate" type="application/rss+xml" title={t("weekend.title", { town })} href={`${page}rss.xml`} />
+</section>
+
+<script is:inline define:vars={{ copied: t("weekend.copied"), selected: t("weekend.selected") }}>
+  // Copy buttons: the clipboard when the browser allows it, otherwise the text is selected for a manual copy.
+  // People arriving from the printed sheet or the Telegram post carry ?von=…; counted as a daily total only.
+  document.querySelectorAll("[data-copy]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var box = document.querySelector('[data-text="' + b.dataset.copy + '"]');
+      var msg = document.querySelector("[data-copy-msg]");
+      var done = function (m) { msg.textContent = m; setTimeout(function () { msg.textContent = ""; }, 2500); };
+      var select = function () { box.hidden = false; box.focus(); box.select(); done(selected); };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(box.value).then(function () { done(copied); }, select);
+      else select();
+    });
+  });
+  var von = new URLSearchParams(location.search).get("von");
+  if (von === "druck" || von === "telegram") {
+    var body = JSON.stringify({ e: von === "druck" ? "from_print" : "from_telegram", on: "other", lang: document.documentElement.lang.slice(0, 2) });
+    try { navigator.sendBeacon("/api/hit", body); } catch (e) {}
+  }
+</script>
