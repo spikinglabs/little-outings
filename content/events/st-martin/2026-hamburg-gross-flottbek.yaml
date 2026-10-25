@@ -1,0 +1,13 @@
+# St. Martin 2026, from hamburg.de/freizeit/jahreszeiten/herbst/laternenumzug-hamburg-22840 (checked 2026-10-26).
+# Entered by hand for the St. Martin season; delete after November.
+title: "Laternenumzug Groß Flottbek"
+venue: "Baron-Voght-Straße 183"
+town: "Hamburg"
+start: "2026-11-21"
+time: "18:00"
+geo: { lat: 53.56545, lon: 9.87575, precision: exact }
+price: { free: true }
+tags: [season, outside]
+note: "Freiwillige Feuerwehr Groß Flottbek."
+trust: { level: official, source: "hamburg.de" }
+website: "https://www.hamburg.de/freizeit/jahreszeiten/herbst/laternenumzug-hamburg-22840"

@@ -16,7 +16,7 @@ interface Props {
 
 function whatFromUrl(): What {
   const q = new URLSearchParams(location.search);
-  if (q.has("meetup")) return "event";
+  if (q.has("meetup") || q.has("martin")) return "event";
   const n = Number(q.get("edit"));
   const at = q.get("resend");
   if (n || at) {

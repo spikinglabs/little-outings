@@ -1,0 +1,12 @@
+# St. Martin 2026, from evangelische-termine.de (checked 2026-10-26).
+# Entered by hand for the St. Martin season; delete after November.
+title: "Ökumenische Martinsfeier mit Lichterzug von Capistran nach Nazareth"
+venue: "Immanuelkirche Denning"
+town: "München"
+start: "2026-11-09"
+time: "17:00"
+geo: { lat: 48.15305, lon: 11.64454, precision: venue }
+price: { free: true }
+tags: [season, outside]
+trust: { level: official, source: "evangelische-termine.de" }
+website: "https://www.evangelische-termine.de/veranstaltung_im_detail8085131.html"

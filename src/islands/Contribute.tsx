@@ -4,12 +4,15 @@
 //   everyone  a public event: it goes to /api/inbox, a moderator checks it, then it shows on Discover
 //   invite    an unlisted invite page (/m/<id>) to share with friends; needs the family's passkey
 // ?edit=<inbox number> changes an event this browser sent, ?meetup=<id> changes one of its invites.
+// ?martin=1 is the short St. Martin form parents share in Kita chats: always public, and only for
+// walks every family may join.
 import { useEffect, useState } from "preact/hooks";
 import { markReplaced, readProfile, rememberSent, updateSent } from "../lib/profile";
 import { schedulePush } from "../scripts/sync";
 import { authHeaders, login, passkeysWork, register, signedIn, type PasskeyResult } from "../scripts/passkey";
 import WherePicker, { type Where } from "./WherePicker";
 import { isEvening } from "../lib/meetup";
+import { isMartin } from "../lib/martin";
 
 type Draft = { title: string; date: string; time: string; place: string; price: string; note: string };
 type Field = keyof Draft;
@@ -18,7 +21,7 @@ const EMPTY: Draft = { title: "", date: "", time: "", place: "", price: "", note
 
 interface Props {
   lang: string;
-  ui: Record<string, string> & { field: Record<Field, string>; flow: Record<string, string> };
+  ui: Record<string, string> & { field: Record<Field, string>; flow: Record<string, string>; martin: Record<string, string> };
 }
 
 /** Phone photos are large; a 1600px JPEG is plenty to read a poster and keeps uploads small. */
@@ -53,6 +56,9 @@ export default function Contribute({ lang, ui }: Props) {
   const [resend, setResend] = useState("");
   // ?meetup=<id>: one of this family's invites.
   const [meetup, setMeetup] = useState("");
+  // ?martin=1: a St. Martin walk, and whether every family may join it.
+  const [martin, setMartin] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const fill = (d: Partial<Draft>, w?: Where) => { setDraft({ ...EMPTY, ...d }); setWhere(w ?? { place: d.place ?? "" }); };
 
@@ -60,6 +66,7 @@ export default function Contribute({ lang, ui }: Props) {
     const q = new URLSearchParams(location.search);
     const n = Number(q.get("edit"));
     const at = q.get("resend");
+    if (q.has("martin")) { setMartin(true); setAudience("everyone"); return; }
     const m = q.get("meetup");
     if (m && /^[a-z2-9]{10}$/.test(m)) {
       fetch(`/api/meetups/${m}`, { headers: authHeaders() }).then((r) => (r.ok ? r.json() : null)).then((r) => {
@@ -94,8 +101,8 @@ export default function Contribute({ lang, ui }: Props) {
 
   function reset() {
     fill({}); setUnsure([]); setPhoto(""); setPaste(""); setNote(""); setEditing(null); setResend(""); setMeetup("");
-    setAudience(""); setWay(""); setStep("form");
-    if (location.search) history.replaceState(null, "", location.pathname);
+    setAudience(martin ? "everyone" : ""); setOpen(false); setWay(""); setStep("form");
+    if (location.search && !martin) history.replaceState(null, "", location.pathname);
   }
 
   async function parse(body: Record<string, unknown>) {
@@ -131,7 +138,9 @@ export default function Contribute({ lang, ui }: Props) {
   const placeLine = () => (where.town && !where.place.includes(where.town) ? `${where.place}, ${where.town}` : where.place);
 
   async function sendPublic() {
-    const d = { ...draft, place: placeLine() };
+    // The St. Martin form asks who walks ("Kita Sonnenschein"); the title says what it is.
+    const title = martin && !isMartin(draft.title) ? `${ui.martin.titlePrefix}: ${draft.title}` : draft.title;
+    const d = { ...draft, title, place: placeLine() };
     let ok = false;
     try {
       if (editing) {
@@ -219,10 +228,10 @@ export default function Contribute({ lang, ui }: Props) {
         </div>
       ) : (
         <>
-          <h2>{changing ? (meetup ? f.editInvite : ui.editTitle) : f.pickEvent}</h2>
+          <h2>{changing ? (meetup ? f.editInvite : ui.editTitle) : martin ? ui.martin.title : f.pickEvent}</h2>
           {!changing && (
             <>
-              <p>{f.faster}</p>
+              <p>{martin ? ui.martin.sub : f.faster}</p>
               <div class="ways" role="group" aria-label={f.faster}>
                 <label class={`btn${way === "poster" ? " on" : ""}`}>
                   <span aria-hidden="true">📷</span> {f.wayPoster}
@@ -249,7 +258,7 @@ export default function Contribute({ lang, ui }: Props) {
             <form class="form" onSubmit={send}>
               {note && <p class="small" role="status">{note}</p>}
               {photo && <img src={photo} alt="" style="width:120px;border-radius:10px;border:1px solid var(--line)" />}
-              <label>{f.what}{flag("title")}<input class={unsure.includes("title") ? "check" : ""} value={draft.title} required maxLength={100} onInput={set("title")} /></label>
+              <label>{martin ? ui.martin.what : f.what}{flag("title")}<input class={unsure.includes("title") ? "check" : ""} value={draft.title} required maxLength={100} onInput={set("title")} /></label>
               <div class="row">
                 <label>{f.day}{flag("date")}<input type="date" class={unsure.includes("date") ? "check" : ""} value={draft.date} required onInput={set("date")} /></label>
                 <label>{f.time}{flag("time")}
@@ -257,11 +266,17 @@ export default function Contribute({ lang, ui }: Props) {
                 </label>
               </div>
               <WherePicker lang={lang} value={where} onChange={(w) => { setWhere(w); setDraft((d) => ({ ...d, place: w.place })); }} ui={f} required={invite} />
-              {!invite && <label>{ui.field.price}{flag("price")}<input value={draft.price} onInput={set("price")} /></label>}
+              {!invite && !martin && <label>{ui.field.price}{flag("price")}<input value={draft.price} onInput={set("price")} /></label>}
               <label>{f.noteLabel} <span class="optional">{f.optional}</span>
                 <textarea rows={3} maxLength={invite ? 500 : 2000} value={draft.note} onInput={(e) => setDraft({ ...draft, note: (e.target as HTMLTextAreaElement).value })} />
               </label>
-              {!editing && !resend && !meetup && (
+              {martin && !editing && (
+                <label class={`opt${open ? " on" : ""}`}>
+                  <input type="checkbox" checked={open} required onChange={(e) => setOpen((e.target as HTMLInputElement).checked)} />
+                  <span><b>{ui.martin.open}</b><small>{ui.martin.openSub}</small></span>
+                </label>
+              )}
+              {!editing && !resend && !meetup && !martin && (
                 <fieldset class="audience">
                   <legend>{f.audience}</legend>
                   {(["everyone", "invite"] as const).map((a) => (

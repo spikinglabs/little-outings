@@ -17,7 +17,20 @@ townPh: "Ort eintippen"
 townNone: "Kein Ort mit diesem Namen"
 search: Suche
 searchPh: Hof, Café, Spielplatz oder Fest suchen
-filters: { farm: "🚜 Bauernhof", rain: "☂ Bei Regen", free: Kostenlos, animals: Mit Tieren, changing: Wickeltisch, nogerman: Ohne Deutsch, radius: Umkreis }
+filters: { farm: "🚜 Bauernhof", rain: "☂ Bei Regen", free: Kostenlos, animals: Mit Tieren, changing: Wickeltisch, nogerman: Ohne Deutsch, martin: "🏮 St. Martin", radius: Umkreis }
+# St. Martin season (src/lib/martin.ts): the Discover chip, its "add yours" line and the short form behind ?martin=1.
+martin:
+  add: "Euer Martinszug fehlt?"
+  addLink: In einer Minute eintragen
+  share: Link für die Kita-Gruppe teilen
+  shareText: "Wann und wo ist euer Martinszug? Tragt ihn hier in einer Minute ein, dann finden ihn alle Familien im Viertel: {url}"
+  copied: Link kopiert
+  title: Wo zieht euer Martinszug?
+  sub: "Ein Foto vom Aushang an der Kita-Tür reicht, wir lesen Tag, Uhrzeit und Treffpunkt heraus. Oder tippt es kurz ein."
+  what: Wer zieht? (Kita, Schule, Pfarrei, Verein)
+  open: "Alle Familien aus dem Viertel können mitgehen"
+  openSub: Wir zeigen nur Züge, bei denen jede Familie mitlaufen darf. Züge nur für die eigene Kita bitte nicht eintragen.
+  titlePrefix: Martinszug
 tip: "Unser Tipp {when}"
 only: "Nur {when}"
 always: Geht immer

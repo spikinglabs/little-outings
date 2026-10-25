@@ -14,6 +14,7 @@ import { mapCenter } from "../../lib/pins";
 import { siteLd } from "../../lib/seo";
 import { townStates, type Period } from "../../lib/holidays";
 import schoolHolidays from "../../../data/school-holidays.json";
+import { isMartin } from "../../lib/martin";
 
 export const getStaticPaths = () => LANGS.map((lang) => ({ params: { lang } }));
 const lang = Astro.params.lang as Lang;
@@ -44,7 +45,10 @@ const holidays = {
     .map(([s, ps]) => [s, ps.filter((p) => p.end >= buildDay)])),
   label: t.group("holiday"), labelIn: t.group("holidayIn"),
 };
-const pluralUi = { nEvents: t.group("nEvents"), nPlaces: t.group("nPlacesAny"), tip: t("tip"), whenIn, mapShow: t("mapShow"), mapHide: t("mapHide"), areaBack: t("mapAreaBack"), showMore: t("mapShowMore"), locNone: t("locNone"), loadFail: t("loadFail"), noneHere: t("noneHere"), holidays };
+// St. Martin walks: the chip shows in their season (explore.ts) when there is at least one.
+const hasMartin = listed.some((e) => isMartin(tr(e.title, "de")));
+const martin = { shareText: t("martin.shareText"), copied: t("martin.copied") };
+const pluralUi = { nEvents: t.group("nEvents"), nPlaces: t.group("nPlacesAny"), tip: t("tip"), whenIn, mapShow: t("mapShow"), mapHide: t("mapHide"), areaBack: t("mapAreaBack"), showMore: t("mapShowMore"), locNone: t("locNone"), loadFail: t("loadFail"), noneHere: t("noneHere"), holidays, martin };
 const homes = region.towns;
 // Town picker rows, A–Z in the reader's language (Düsseldorf next to Dortmund, 杜塞尔多夫 by pinyin).
 // keys: every name a parent might type, lowercased and without accents (koln finds Köln, 科隆 finds it too).
@@ -79,6 +83,7 @@ const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
     <div class="filters" role="group">
       <button class="chip town-btn" type="button" id="home" value={region.center} aria-haspopup="dialog">📍 {t("near")} <b data-home-name>{townName(region.center, lang, homes)}</b><span class="caret" aria-hidden="true">▾</span></button>
       <button class="chip loc" type="button" data-locate aria-label={t("locate")} title={t("locate")}><Fragment set:html={svg(UI_ICON.locate, 'stroke-width="2"')} /></button>
+      {hasMartin && <button class="chip martin" type="button" data-flag="martin" aria-pressed="false" hidden>{t("filters.martin")}</button>}
       <button class="chip rain" type="button" data-flag="rain" aria-pressed="false">{t("filters.rain")}</button>
       <button class="chip" type="button" data-flag="farm" aria-pressed="false">{t("filters.farm")}</button>
       <button class="chip" type="button" data-flag="free" aria-pressed="false">{t("filters.free")}</button>
@@ -92,6 +97,10 @@ const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
       </label>
     </div>
     <p class="loc-msg small" role="status" data-loc-msg hidden></p>
+    <p class="martin-bar small" data-martin-bar hidden>
+      {t("martin.add")} <a href={`/${lang}/mitmachen/?martin=1`}>{t("martin.addLink")}</a>
+      · <button class="link-btn" type="button" data-martin-share>{t("martin.share")}</button>
+    </p>
   </section>
   <!-- The town picker: a sheet with a search box, towns A–Z in the reader's language, the current one first.
        A plain <select> can't be searched, and on phones it showed the region file's order. -->

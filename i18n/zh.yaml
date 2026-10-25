@@ -17,7 +17,20 @@ townPh: "输入城镇名"
 townNone: "没有找到这个城镇"
 search: 搜索
 searchPh: 搜索农场、咖啡馆、游乐场或活动
-filters: { farm: "🚜 农场", rain: "☂ 下雨也能去", free: 免费, animals: 有动物, changing: 尿布台, nogerman: "💬 不懂德语也能玩", radius: 范围 }
+filters: { farm: "🚜 农场", rain: "☂ 下雨也能去", free: 免费, animals: 有动物, changing: 尿布台, nogerman: "💬 不懂德语也能玩", martin: "🏮 圣马丁灯笼游行", radius: 范围 }
+# St. Martin season (src/lib/martin.ts): the Discover chip, its "add yours" line and the short form behind ?martin=1.
+martin:
+  add: 没找到你们的灯笼游行？
+  addLink: 一分钟添加
+  share: 把链接分享到幼儿园群
+  shareText: "你们的圣马丁灯笼游行在什么时间、什么地方？一分钟就能在这里添加，附近的家庭都能找到：{url}"
+  copied: 链接已复制
+  title: 你们的灯笼游行在哪里？
+  sub: 拍一张幼儿园门口的通知就够了，我们会读出日期、时间和集合地点。也可以直接输入。
+  what: 谁组织的？（幼儿园、学校、教会、协会）
+  open: 附近所有家庭都可以参加
+  openSub: 我们只显示所有家庭都能参加的游行。只限本幼儿园的游行请不要添加。
+  titlePrefix: Martinszug
 tip: "{when}推荐"
 only: "仅限{when}"
 always: 随时可去
