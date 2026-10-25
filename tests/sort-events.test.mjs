@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { emptyDecisions, publishRows, rowState, sortKey } from "../admin/public/apply.js";
-import { describe, parseAnswers, prune, sortItems, toSort } from "../scripts/sort-events.mjs";
+import { describe, keepYes, parseAnswers, prune, sortItems, toSort } from "../scripts/sort-events.mjs";
 
 const row = (id, title, extra = {}) => ({
   event_id: id, title, venue: "Haus der Familie", start_date: "2026-11-01", source_id: "bonn-city-events",
@@ -53,4 +53,8 @@ test("answers are checked and the batch keeps what it got", async () => {
 
 test("verdicts for past events are dropped", () => {
   assert.deepEqual(prune({ [sortKey(kids)]: "yes", "old|": "no" }, [kids]), { [sortKey(kids)]: "yes" });
+});
+
+test("a rules change keeps only yes verdicts, so the rest is asked again", () => {
+  assert.deepEqual(keepYes({ a: "yes", b: "no", c: "unsure" }), { a: "yes" });
 });
