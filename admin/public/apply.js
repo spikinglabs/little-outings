@@ -57,14 +57,31 @@ export function sourceMode(sourceId, cleared, decisions) {
   return cleared ? "include" : "exclude";
 }
 
-/** Whether a row will be published, and why: own choice, then source, then keywords. */
-export function rowState(row, decisions) {
+/** The text the AI sorting judges and caches by: title and venue, folded. */
+export function sortKey(row) {
+  return `${fold(row.title)}|${fold(row.venue)}`;
+}
+
+/** "yes" | "no" | "unsure" from the nightly AI sorting (scripts/sort-events.mjs), or undefined. */
+export function aiVerdict(row, sorted) {
+  return sorted?.verdicts?.[sortKey(row)];
+}
+
+/**
+ * Whether a row will be published, and why: own choice, then source, then the AI's verdict.
+ * Keywords only decide events the AI hasn't sorted yet; "unsure" waits for you.
+ */
+export function rowState(row, decisions, sorted = null) {
   const entry = decisions.events?.[row.event_id];
   if (entry?.visibility === "show") return { published: true, reason: "shown by you" };
   if (entry?.visibility === "hide") return { published: false, reason: "hidden by you" };
   if (sourceMode(row.source_id, row.cleared, decisions) !== "include") {
     return { published: false, reason: "source excluded" };
   }
+  const verdict = aiVerdict(row, sorted);
+  if (verdict === "yes") return { published: true, reason: "AI: for families" };
+  if (verdict === "no") return { published: false, reason: "AI: not for families" };
+  if (verdict === "unsure") return { published: false, reason: "AI unsure, check it", unsure: true };
   return familyMatch(row, decisions, entry?.edits).matched
     ? { published: true, reason: "keyword match" }
     : { published: false, reason: "no keyword match" };
@@ -88,10 +105,10 @@ export function applyEdits(row, edits = {}) {
 }
 
 /** The rows the site imports: decisions applied, admin-only fields removed. */
-export function publishRows(candidates, decisions) {
+export function publishRows(candidates, decisions, sorted = null) {
   const rows = [];
   for (const row of candidates) {
-    if (!rowState(row, decisions).published) continue;
+    if (!rowState(row, decisions, sorted).published) continue;
     const edited = applyEdits(row, decisions.events?.[row.event_id]?.edits);
     const { also_listed, cleared, family, family_signals, ...publicRow } = edited;
     rows.push({ ...publicRow, family: true });
@@ -100,7 +117,7 @@ export function publishRows(candidates, decisions) {
 }
 
 /** Per-source counts for the sources table. */
-export function sourceSummary(candidates, decisions) {
+export function sourceSummary(candidates, decisions, sorted = null) {
   const sources = new Map();
   for (const row of candidates) {
     const entry = sources.get(row.source_id) || {
@@ -112,7 +129,7 @@ export function sourceSummary(candidates, decisions) {
     };
     entry.cleared = entry.cleared && row.cleared;
     entry.candidates++;
-    if (rowState(row, decisions).published) entry.published++;
+    if (rowState(row, decisions, sorted).published) entry.published++;
     sources.set(row.source_id, entry);
   }
   return [...sources.values()]
