@@ -21,12 +21,16 @@ const PUBLISHED = process.env.OUTINGS_FILE || "data/outings.jsonl";
 const LIMIT = Number(process.env.SORT_LIMIT) || 3000; // new titles judged per night at most
 const BATCH = 50;
 
+/** Bump when the rules below change: verdicts other than "yes" from an older version are asked again. */
+export const PROMPT_VERSION = 2;
+
 export const PROMPT = `You sort events for "Little Outings", a website where parents in Germany find outings to do with their children.
 You get a JSON list of events (title, venue, source, and hints such as "source:" for a source that only lists family events). Most are German.
+Be generous: the site wants anything a family could enjoy together, not only events made for children.
 For each event decide if it belongs on the site:
-- "yes": made for children (about 0-12) or families, or a parent would happily take young children: children's theatre, puppet shows, story time, kids' workshops and courses, family tours, children's concerts, zoo and farm days, Kinderflohmarkt, holiday camps, lantern walks, family festivals.
-- "no": aimed at adults or teenagers only: lectures, adult courses and talks, language cafés, parent-only evenings, nightlife, parties, business, senior events, most concerts, theatre and exhibitions for adults, sport for adults. Also "no" when only the venue sounds family-like (a "Haus der Familie" or a children's library hosting an adult course).
-- "unsure": the title doesn't tell, e.g. a bare exhibition name, a festival or market that may or may not suit children.
+- "yes": made for children or families (children's theatre, story time, kids' workshops, family tours, Kinderflohmarkt, holiday camps, lantern walks), AND general events that children can enjoy alongside their parents: festivals, markets and Christmas markets, fairs and Kirmes, parades and carnival, planetarium and dome shows, museum and zoo visits, guided tours and walks, open-air and light shows, circus, magic, puppetry, animal shows, sports matches, science days, open days, concerts and films without an adult theme.
+- "no": only what is clearly for adults or not fun with children: lectures and talks, courses and workshops for adults, language cafés and integration courses, parent-only evenings and counselling, support groups, nightlife, parties and clubbing, stand-up comedy, wine or beer tastings, business and networking, senior events, readings and theatre on adult themes, anything 16+ or 18+.
+- "unsure": only when you really can't tell.
 Return only JSON: {"answers": [{"i": 0, "f": "yes"}, ...]} with one answer per event, f being "yes", "no" or "unsure".`;
 
 /** Events worth judging: from included sources, without your own Show/Hide, not judged yet. One per title + venue. */
@@ -94,6 +98,11 @@ export async function sortItems(items, llm, model, ask = complete) {
   return { verdicts, error: null };
 }
 
+/** After the rules change, only "yes" stands; the rest is asked again under the new rules. */
+export function keepYes(verdicts) {
+  return Object.fromEntries(Object.entries(verdicts).filter(([, v]) => v === "yes"));
+}
+
 /** Verdicts for titles still among the candidates; the rest are past events. */
 export function prune(verdicts, candidates) {
   const live = new Set(candidates.map(sortKey));
@@ -118,6 +127,10 @@ async function main() {
   const decisions = readJson(`${DIR}/decisions.json`, emptyDecisions());
   const manifest = readJson(`${DIR}/candidates.json`, null);
   const sorted = readJson(`${DIR}/sorted.json`, { schema_version: 1, verdicts: {} });
+  if (sorted.prompt_version !== PROMPT_VERSION) {
+    sorted.verdicts = keepYes(sorted.verdicts);
+    sorted.prompt_version = PROMPT_VERSION;
+  }
 
   const todo = toSort(candidates, decisions, sorted.verdicts);
   const llm = pickLlm(process.env);
