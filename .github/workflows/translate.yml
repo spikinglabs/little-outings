@@ -3,7 +3,7 @@
 # (02:15) builds the site, and commits data/translations/zh.json. Each text is translated once.
 # Needs a repository secret GEMINI_API_KEY (Gemini) or ANTHROPIC_API_KEY (Claude); with both, Gemini
 # is used unless the variable LLM_PROVIDER says "anthropic". The variable TRANSLATE_MODEL picks the
-# model (defaults in src/lib/llm.ts), SORT_MODEL the one that sorts events. Without a key it only reports what is missing.
+# model (defaults in src/lib/llm.ts), SORT_MODEL the one that sorts events, SORT_LIMIT how many new titles it sorts per night (default 3000). Without a key it only reports what is missing.
 # Sorting reads and writes the Little Outings bucket with wrangler: it needs a Cloudflare API token with
 # "Workers R2 Storage: Edit", either the secret R2_SORT_TOKEN or the deploy's CLOUDFLARE_API_TOKEN with that
 # permission added, plus CLOUDFLARE_ACCOUNT_ID. Without access the step is skipped and the run stays green.
@@ -49,6 +49,7 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           LLM_PROVIDER: ${{ vars.LLM_PROVIDER }}
           SORT_MODEL: ${{ vars.SORT_MODEL }}
+          SORT_LIMIT: ${{ vars.SORT_LIMIT }}
         run: |
           out=$(npm run --silent sort:events 2>&1) || { echo "$out"; exit 1; }
           echo "$out"; echo "::notice title=Sort events::$(echo "$out" | tail -1)"

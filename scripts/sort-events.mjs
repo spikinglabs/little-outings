@@ -11,6 +11,7 @@
 //
 //   GEMINI_API_KEY=… npm run sort:events      (or ANTHROPIC_API_KEY; see src/lib/llm.ts for the switch)
 //   SORT_MODEL=…                              optional; the provider's default otherwise
+//   SORT_LIMIT=…                              new titles sorted per night at most (default 3000), to cap the cost
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { complete, pickLlm } from "../src/lib/llm.ts";
 import { emptyDecisions, parseJsonl, publishRows, sortKey, sourceMode, toJsonl } from "../admin/public/apply.js";
