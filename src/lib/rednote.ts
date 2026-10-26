@@ -41,7 +41,7 @@ export interface XhsSet { id: string; title: string; caption: string; sheets: Sh
 
 // ---------- the weekly set ----------
 
-const TAGS = (town: string) => ["德国带娃", `${town}带娃`, town, "周末去哪儿", "遛娃", "德国生活", "德国妈妈", "留德"];
+const TAGS = (town: string) => ["德国带娃", `${town}带娃`, town, "周末去哪儿", "遛娃", "德国生活", "德国妈妈", "德国爸爸", "留德"];
 const hashtags = (tags: string[]) => tags.map((t) => `#${t}`).join(" ");
 
 const md = (d: string) => `${Number(d.slice(5, 7))}.${Number(d.slice(8, 10))}`;
