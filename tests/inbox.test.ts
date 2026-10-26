@@ -101,3 +101,21 @@ test("a place sent with a key can be edited too, and only as a place", async () 
   assert.equal(ok.status, 200);
   assert.match(calls.find((c) => c.method === "PATCH")!.body.body, /name: "Hof Sonne"/);
 });
+
+test("a calendar feed becomes a new-feed issue with what the check found", async () => {
+  let sent: any;
+  globalThis.fetch = (async (url: string, init: RequestInit = {}) => {
+    if (String(url).startsWith("https://bib.example")) return new Response("BEGIN:VCALENDAR\nBEGIN:VEVENT\nSUMMARY:Lesung\nDTSTART:20991101\nEND:VEVENT\nEND:VCALENDAR");
+    sent = JSON.parse(String(init.body));
+    return new Response("{}", { status: 201 });
+  }) as any;
+  const res = await onRequestPost({ env, request: post({ kind: "feed", lang: "de", feed: {
+    url: "webcal://bib.example/cal.ics", org: "Stadtbibliothek", town: "Köln", contact: "a@bib.example", note: "",
+  } }) } as any);
+  assert.equal(res.status, 200);
+  assert.deepEqual(sent.labels, ["new-feed"]);
+  assert.match(sent.body, /url: "https:\/\/bib.example\/cal.ics"/);
+  assert.match(sent.body, /checked: "1 upcoming of 1 events; next: 2099-11-01 Lesung"/);
+  const bad = await onRequestPost({ env, request: post({ kind: "feed", feed: { url: "nope", org: "X", town: "Köln" } }) } as any);
+  assert.equal(bad.status, 400);
+});

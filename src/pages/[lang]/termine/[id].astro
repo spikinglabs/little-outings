@@ -14,6 +14,7 @@ import { LANGUAGE } from "../../../content.config";
 import { calInput } from "../../../lib/event-cal";
 import { googleUrl, ics } from "../../../lib/calendar";
 import { eventLd } from "../../../lib/seo";
+import { seasonPageFor, seasonPath } from "../../../lib/seasons";
 
 export async function getStaticPaths() {
   const { events } = await getData();
@@ -22,7 +23,7 @@ export async function getStaticPaths() {
 const { event: e } = Astro.props as { event: Event };
 const lang = Astro.params.lang as Lang;
 const t = useT(lang);
-const { region, placeById } = await getData();
+const { region, placeById, seasons } = await getData();
 const place = e.place ? placeById.get(e.place) : undefined;
 const title = nameOf(e, lang);
 const german = germanName(e, lang);
@@ -35,6 +36,9 @@ const cal = await calInput(e, lang, Astro.site);
 const icsText = ics(cal, `${new Date().toISOString().slice(0, 10).replace(/-/g, "")}T000000Z`).replace(/<\//g, "<\\/");
 const translated = isFallback(e.title, lang) || isFallback(e.note, lang);
 const map = mapLink(e, place);
+// A season's note (St. Martin walks are often for one Kita only, so ask first) and its town page.
+const seasonNotes = seasons.seasons.filter((s) => s.note && e.seasons?.includes(s.id));
+const seasonPage = seasonPageFor(e, seasons);
 // Search snippet: when, where, what kind and the organiser's note, so the result answers "what is it?".
 const where = [place ? nameOf(place, lang) : e.venue, town].filter(Boolean).join(", ");
 const description = [
@@ -89,7 +93,10 @@ const ld = eventLd(e, {
         : !e.language ? t("speechAsk.unknown") : ""
       }</p>
     </section>
+    {seasonNotes.map((s) => <p class="note season-note">{s.emoji} {tr(s.note, lang)}</p>)}
     {e.note && <p class="note">{tr(e.note, lang)}</p>}
+    {e.kids && <p class="note">{t("kids.label")}: {e.kids.map((k) => t(`kids.${k}`)).join(", ")}</p>}
+    {seasonPage && <p class="note"><a href={seasonPath(lang, seasonPage.season, seasonPage.file.slug)}>{seasonPage.season.emoji} {tr(seasonPage.season.page!.title, lang).replace("{town}", town)} →</a></p>}
     {translated && lang !== "de" && !isFallback(e.title, lang) && <p class="orig">{t("translated")}</p>}
 
     {place && yes.length > 0 && (

@@ -55,6 +55,8 @@ h1, h2, h3 { font-family: var(--display); text-wrap: balance; letter-spacing: -0
 .chip.loc { padding: 6px 8px; color: var(--ink-soft); }
 .chip.loc:disabled { opacity: .5; cursor: progress; }
 .loc-msg { margin: 4px 0 0; }
+.season-bar { margin: 8px 0 0; }
+.season-bar .link-btn { font-size: inherit; }
 
 /* sections */
 .explore-cols > *, .section { min-width: 0; }
@@ -121,6 +123,7 @@ h1, h2, h3 { font-family: var(--display); text-wrap: balance; letter-spacing: -0
 .facts li { display: grid; grid-template-columns: 1.4rem 1fr; gap: 8px; }
 .detail h2 { font-size: 1.15rem; margin-top: 24px; }
 .note { margin: 12px 0 0; max-width: 65ch; }
+.season-note { border-left: 3px solid var(--line); padding-left: 10px; }
 .checks { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 6px; padding: 0; margin: 8px 0 0; list-style: none; }
 .checks li { display: flex; align-items: center; gap: 8px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 7px 10px; font-size: .9rem; }
 .checks li.unknown, .checks li.no { color: var(--ink-soft); background: transparent; border-style: dashed; }
@@ -398,6 +401,7 @@ footer.foot { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--l
 /* Add: pick what, then one form */
 .add-pick { display: grid; gap: 12px; margin-top: 18px; }
 .add-tile { display: grid; grid-template-columns: auto 1fr; gap: 2px 14px; align-items: center; text-align: left; background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 16px; box-shadow: var(--shadow); cursor: pointer; color: var(--ink); }
+.add-organiser { justify-self: start; margin-top: 4px; }
 .add-tile:hover { border-color: var(--ink); }
 .add-tile b { font: 800 1.15rem/1.25 var(--display); }
 .add-tile > span:not(.add-ic) { color: var(--ink-soft); font-size: .92rem; }
@@ -448,3 +452,14 @@ footer.foot { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--l
 .invite-box .profile-actions { margin: 0; }
 .invite-ready { background: var(--blau-bg); border-radius: 12px; padding: 10px 12px; font-weight: 700; margin-top: 12px; }
 .form .feature-picks label.pick { width: auto; margin-top: 0; justify-content: flex-start; }
+
+/* season landing pages (pages/[lang]/[season]/) */
+.season-page { max-width: 900px; display: grid; gap: 14px; }
+.season-page .eyebrow { margin: 10px 0 -10px; font: 700 .8rem/1 var(--sign); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-soft); }
+.season-page h2 { font-size: 1.25rem; margin-top: 12px; }
+.season-page .btn { justify-self: start; }
+.season-page .pills.kids .pill { background: var(--gold-bg); }
+.season-past { margin: 0; padding-left: 1.1em; display: grid; gap: 4px; color: var(--ink-soft); }
+.season-hub { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+.season-hub a { display: grid; gap: 2px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); text-decoration: none; color: var(--ink); }
+.season-towns ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 14px; }

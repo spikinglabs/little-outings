@@ -1,0 +1,45 @@
+---
+// A season's overview: its town pages, e.g. "Christmas markets with kids" → Cologne, Bonn, Berlin …
+import Base from "../../../layouts/Base.astro";
+import { LANGS, tr, useT, type Lang } from "../../../lib/i18n";
+import { getData, TODAY } from "../../../lib/data";
+import { townName } from "../../../lib/format";
+import { seasonPages, seasonPath, type Season } from "../../../lib/seasons";
+
+export async function getStaticPaths() {
+  const { seasons } = await getData();
+  const withPages = [...new Map(seasonPages(seasons).map((p) => [p.season.id, p.season])).values()];
+  return LANGS.flatMap((lang) => withPages.map((s) => ({ params: { lang, season: s.page!.slug }, props: { seasonId: s.id } })));
+}
+const { seasonId } = Astro.props as { seasonId: string };
+const lang = Astro.params.lang as Lang;
+const t = useT(lang);
+const { region, seasons } = await getData();
+const season = seasons.seasons.find((s) => s.id === seasonId) as Season;
+const page = season.page!;
+const fmt = (d: string) => new Intl.DateTimeFormat(t.locale, { timeZone: "UTC", day: "numeric", month: "short" }).format(new Date(`${d}T12:00:00Z`));
+const collator = new Intl.Collator(t.locale);
+const towns = seasonPages(seasons).filter((p) => p.season.id === seasonId).map(({ file }) => {
+  const now = file.items.filter((f) => f.to >= TODAY);
+  const items = now.length ? now : file.items;
+  return {
+    href: seasonPath(lang, season, file.slug), name: townName(file.town, lang, region.towns), n: items.length,
+    from: items.map((f) => f.from).sort()[0], to: items.map((f) => f.to).sort().at(-1)!,
+  };
+}).sort((a, b) => collator.compare(a.name, b.name));
+const title = tr(page.hub, lang);
+const intro = tr(page.intro, lang).replace(/\{town\}/g, towns.map((x) => x.name).join(", "));
+---
+<Base lang={lang} title={title} description={intro}>
+  <div class="season-page">
+    <a class="back" href={`/${lang}/`}>← {t("back")}</a>
+    <p class="eyebrow">{season.emoji} {tr(season.label, lang)}</p>
+    <h1 class="page-title">{title}</h1>
+    <p class="page-sub">{intro}</p>
+    <ul class="season-hub">
+      {towns.map((x) => (
+        <li><a href={x.href}><b>{x.name}</b><span class="small">{tr(page.fixtures, lang)}: {x.n} · {t("season.dates", { from: fmt(x.from), to: fmt(x.to) })}</span></a></li>
+      ))}
+    </ul>
+  </div>
+</Base>

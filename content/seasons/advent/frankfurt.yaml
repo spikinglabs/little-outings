@@ -1,0 +1,38 @@
+# Frankfurter Weihnachtsmarkt 2026. frankfurt.de blocks automatic reads; dates and hours from festival listings
+# that agree with each other (checked 2026-10-26). Check against frankfurt-tourismus.de when it is reachable.
+town: Frankfurt am Main
+source: Veranstalterangaben
+checked: 2026-10-26
+items:
+  - id: roemerberg
+    name: Frankfurter Weihnachtsmarkt (Römerberg)
+    from: 2026-11-23
+    to: 2026-12-22
+    hours: "Mo–Sa 10–21, So 11–21 Uhr"
+    street: Römerberg
+    geo: { lat: 50.11021, lon: 8.68217 }
+    district: Altstadt
+    kids: [carousel]
+    free: true
+    note:
+      de: "Einer der ältesten Weihnachtsmärkte Deutschlands; verteilt auf Römerberg, Paulsplatz, Mainkai, Hauptwache und Roßmarkt. Eröffnung am 23.11. um 17 Uhr."
+      en: "One of Germany's oldest Christmas markets, spread over Römerberg, Paulsplatz, Mainkai, Hauptwache and Roßmarkt. Opens on 23 Nov at 5 pm."
+      zh: "德国最古老的圣诞市场之一，分布在罗马贝格广场、保罗广场、美因河岸、Hauptwache和Roßmarkt。11月23日17点开幕。"
+  - id: mainkai
+    name: Weihnachtsmarkt am Mainkai
+    from: 2026-11-23
+    to: 2026-12-22
+    hours: "Mo–Sa 10–21, So 11–21 Uhr"
+    street: Mainkai
+    geo: { lat: 50.10870, lon: 8.68025 }
+    district: Altstadt
+    free: true
+  - id: hauptwache
+    name: Weihnachtsmarkt an der Hauptwache und am Roßmarkt
+    from: 2026-11-23
+    to: 2026-12-22
+    hours: "Mo–Sa 10–21, So 11–21 Uhr"
+    street: Roßmarkt
+    geo: { lat: 50.11229, lon: 8.67668 }
+    district: Innenstadt
+    free: true

@@ -19,6 +19,35 @@ search: Suche
 searchPh: Hof, Café, Spielplatz oder Fest suchen
 filters: { farm: "🚜 Bauernhof", rain: "☂ Bei Regen", free: Kostenlos, animals: Mit Tieren, changing: Wickeltisch, nogerman: Ohne Deutsch, radius: Umkreis }
 order: { label: Reihenfolge, mixed: Gemischt, soonest: Bald zuerst, nearest: Nah zuerst }
+# Season chips and pages (content/seasons.yaml, src/lib/seasons.ts). A season's own texts there win.
+season:
+  add: "Etwas fehlt?"
+  addLink: In einer Minute eintragen
+  share: Link teilen
+  shareText: "Kennt ihr etwas, das hier noch fehlt? In einer Minute eingetragen, dann finden es alle Familien: {url}"
+  copied: Link kopiert
+  dates: "{from} bis {to}"
+  hours: Öffnungszeiten
+  website: Website
+  lastSeason: "Letzte Saison ({year})"
+  offSeason: "Die nächste Saison ist noch nicht eingetragen. Hier stehen die Termine vom letzten Mal, damit ihr planen könnt."
+  missing: "Fehlt ein Markt oder stimmt etwas nicht?"
+  missingLink: Schreibt es uns
+  towns: Städte
+  checked: "Geprüft am {date} · Quelle: {source}"
+  showChip: "Alle auf der Karte und in der Liste"
+kids:
+  label: Für Kinder
+  carousel: Kinderkarussell
+  rides: Fahrgeschäfte
+  ice_rink: Eisbahn
+  fairy_tale: Märchen
+  crafts: Basteln und Backen
+  nativity: Krippe
+  animals: Tiere
+  train: Kindereisenbahn
+  stage: Bühne und Puppentheater
+  santa: Nikolaus
 tip: "Unser Tipp {when}"
 only: "Nur {when}"
 always: Geht immer
@@ -166,7 +195,6 @@ cancelEdit: "Abbrechen"
 sentEdit: "Gespeichert. Wir prüfen die Änderung, bevor sie online geht."
 typeIt: Lieber selbst eintippen
 report:
-  title: Stimmt etwas nicht?
   closed: Gibt es nicht mehr oder ist geschlossen
   cancelled: Fällt aus
   where: Ist woanders
@@ -177,7 +205,6 @@ report:
   notePh: z. B. Der Spielplatz wurde umgebaut, jetzt mit Wasserbereich
   thanks: Danke! Wir schauen es uns an.
 visit:
-  title: Wart ihr schon da?
   again: Würdet ihr wieder hingehen?
   yes: Ja
   maybe: Vielleicht
@@ -235,8 +262,6 @@ chipAsk:
     fenced: "Ist der Platz eingezäunt?"
 mine:
   sentAdded: Was ihr eingetragen habt
-  title: Meins
-  sub: "Eure Merkliste, was ihr uns geschickt habt, und euer Profil. Ohne Anmeldung."
   saved: Merkliste
   profile: Profil und Sync
   syncOn: "Mit eurem Passkey synchronisiert, also auch auf euren anderen Geräten."
@@ -245,8 +270,6 @@ mine:
   back: Meins
 profile:
   link: "Profil und Sync"
-  title: Profil und Sync
-  sub: "Ohne Anmeldung. Euer Profil liegt auf diesem Handy: was ihr gemerkt habt, wo ihr wart, eure Antworten und was ihr uns geschickt habt. Mit Passkey-Sync bleibt eine Kopie sicher und erscheint auf euren anderen Geräten."
   have: "Auf diesem Handy"
   themeTitle: Hell oder dunkel
   themeSub: "Auto folgt der Einstellung deines Handys."
@@ -311,11 +334,10 @@ profile:
   deleted: Gelöscht. Dieses Handy fängt neu an.
 about:
   link: Daten und Datenschutz
-  title: Daten und Datenschutz
   intro: Woher Little Outings seine Angaben hat und wo deine Antworten und dein Profil liegen.
   events: { h: Termine, p: "Termine stammen aus den öffentlichen Kalendern von Städten, Büchereien, Museen und Höfen. Wir nutzen nur Fakten wie Titel, Datum, Uhrzeit und Ort, mit Link zur Originalseite. Zeiten und Preise bitte dort prüfen." }
   places: { h: Orte, p: "Spielplätze, Bäder, Museen, Höfe und andere Orte stammen aus OpenStreetMap (© OpenStreetMap-Mitwirkende, ODbL) und werden wöchentlich aktualisiert. Sobald Eltern etwas ergänzt haben, zeigt der Ort, wie viele Antworten es gibt." }
-  translate: { h: Übersetzungen und Hinweise, p: "Chinesische Namen sind maschinell übersetzt; der deutsche Name steht darunter. „Braucht man Deutsch?“ ist zuerst aus dem Titel geschätzt und mit „?“ markiert. Sobald Eltern antippen, gilt die häufigste Antwort." }
+  translate: { h: Übersetzungen und Hinweise, p: "Chinesische Namen und englische Veranstaltungstitel sind maschinell übersetzt; der deutsche Name steht darunter. „Braucht man Deutsch?“ ist zuerst aus dem Titel geschätzt und mit „?“ markiert. Sobald Eltern antippen, gilt die häufigste Antwort." }
   taps: { h: Deine Klicks, p: "Antworten zu Ausstattung, „Wir waren da“ und „Braucht man Deutsch?“ werden anonym bei Cloudflare gezählt. Jeder Browser hat eine Zufalls-ID: Eine Frage zählt einmal, eine neue Antwort ersetzt die alte. IP-Adressen werden nur als Hash gespeichert, gegen Massenklicks." }
   writing: { h: Was du schreibst, p: "Tipps, Fehlermeldungen und vorgeschlagene Orte prüfen wir zuerst; sie erscheinen erst nach Freigabe. Antworten bei „Fehlt noch“ (Öffnungszeiten, Uhrzeit, Preis) erscheinen, sobald zwei Eltern dasselbe antworten oder wir sie geprüft haben. Bitte keine Namen, Telefonnummern oder andere persönliche Angaben." }
   ai: { h: Mit deinem KI-Assistenten, p: "Frag Claude, ChatGPT oder einen anderen Assistenten nach Ideen von Little Outings: Füge {url} als eigenen Connector hinzu (bei Claude: Einstellungen → Konnektoren; bei ChatGPT: Einstellungen → Apps, Entwicklermodus). Ohne Anmeldung. Dein Assistent kann dann Termine und Orte suchen und für dich einen Tipp oder einen neuen Termin schicken; den prüfen wir wie alles andere zuerst. Manche Assistenten brauchen für eigene Connectoren ein Bezahl-Abo." }
@@ -335,7 +357,6 @@ flow:
   wayPoster: Plakat
   wayLink: Link oder Text
   wayType: "Selbst tippen"
-  what: "Was?"
   day: Tag
   time: Uhrzeit
   where: "Wo?"
@@ -365,7 +386,6 @@ flow:
   name: Name
   facilities: "Was gibt es dort?"
 meet:
-  title: Einladung
   kicker: Nur wer den Link hat, sieht das
   by: Ein Treffen von Familien
   safety: "Little Outings weiß nicht, wer das erstellt hat. Geht nur hin, wenn es an einem öffentlichen Ort ist und ihr euch sicher fühlt. Meidet Treffen am Abend."
@@ -400,14 +420,12 @@ meet:
   report: Einladung melden
   reported: "Danke, wir sehen es uns an."
   sample: { title: Picknick und Drachensteigen, place: "Rheinpark, Köln-Deutz", note: "Bei der Seilbahn. Bringt eine Decke mit, wir bringen Snacks." }
-  open: Öffnen
   mineTitle: Einladungen
   mineSub: "Eure eigenen und die, auf die ihr geantwortet habt."
   mineYours: Eure
   mineSignIn: "Meldet euch mit eurem Passkey an, um eure Einladungen zu sehen."
 legal:
   link: Impressum
-  title: Impressum und Datenschutzerklärung
   german: "Maßgeblich ist die deutsche Fassung dieser Seite."
   imprint: Impressum
   email: E-Mail
@@ -427,3 +445,23 @@ legal:
   map: { h: Karte, p: "Die Kartenkacheln kommen von OpenStreetMap (OpenStreetMap Foundation, Vereinigtes Königreich, mit EU-Angemessenheitsbeschluss), die dafür deine IP-Adresse erhält. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO. Dein Standort wird nur auf deinem Handy verwendet, wenn du den Standort-Knopf antippst, und nie an uns geschickt." }
   fonts: { h: Schriften, p: "Alle Schriften werden von unserer eigenen Seite geladen. Kein Schriftendienst erhält deine Daten." }
   rights: { h: Deine Rechte, p: "Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch gegen Verarbeitungen aufgrund berechtigter Interessen (Art. 15–21 DSGVO). Das meiste kannst du selbst unter Meins › Profil und Sync erledigen, sonst schreib uns eine E-Mail. Du kannst dich außerdem bei einer Datenschutz-Aufsichtsbehörde beschweren." }
+feed:
+  pick: "Sie veranstalten etwas für Familien? Schicken Sie uns Ihren Kalender →"
+  title: Ihren Kalender einsenden
+  sub: "Museen, Bibliotheken, Theater, Zoos, Familienzentren: Wenn Ihr Programm einen Kalender-Link hat (iCal, endet auf .ics, den Google Kalender oder Outlook abonnieren können), schicken Sie ihn uns hier. Wir prüfen ihn einmal, danach erscheinen Ihre Termine jeden Tag von selbst bei Little Outings."
+  url: Kalender-Link
+  urlHelp: "Heißt auf Ihrer Terminseite oft „Abonnieren“, „iCal“, „Zum Kalender hinzufügen“ oder „Export“. webcal://-Links gehen auch."
+  check: Link prüfen
+  found: "Klappt: {n} kommende Termine. Die nächsten:"
+  noUpcoming: "Das ist ein Kalender, aber ohne kommende Termine. Ist es der richtige?"
+  err_badUrl: "Das sieht nicht wie eine Webadresse aus. Sie sollte mit https:// oder webcal:// beginnen."
+  err_unreachable: "Wir konnten den Link nicht öffnen. Ist er öffentlich, ohne Anmeldung?"
+  err_tooBig: "Dieser Kalender ist zu groß für eine Vorschau, Sie können ihn aber trotzdem senden."
+  err_notCalendar: "Der Link öffnet eine Webseite, keine Kalenderdatei. Suchen Sie einen Link, der auf .ics endet."
+  org: Ihre Einrichtung
+  town: Ort
+  contact: E-Mail (freiwillig)
+  contactHelp: "Nur für Rückfragen zu Ihrem Kalender. Wird nie auf der Seite gezeigt."
+  note: Was sollten wir wissen?
+  notePh: "Welche Termine für Kinder sind, Alter, wo sie stattfinden …"
+  thanks: "Danke! Wir schauen uns Ihren Kalender an und nehmen ihn bald auf. Spätere Änderungen erscheinen dann von selbst."

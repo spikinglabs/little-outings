@@ -17,6 +17,8 @@ const place = item.type === "event" && item.place ? placeById.get(item.place) : 
 const facilities = place?.facilities ?? {};
 const yes = Object.entries(facilities).filter(([, v]) => v.status === "yes").map(([k]) => k);
 const tags = item.type === "event" ? item.tags : [];
+// Seasons (St. Martin, Advent …), for their chips on Discover.
+const seasons = item.type === "event" ? (item.seasons ?? []).map((s) => `s-${s}`) : [];
 const name = nameOf(item, lang);
 const german = germanName(item, lang);
 // "Do I need German?" only matters to readers who don't read German.
@@ -35,7 +37,7 @@ const soon = item.type === "place" ? events.filter((e) => e.place === item.id).l
 const prec = item.geo.precision;
 const search = [
   item.type === "event" ? (typeof item.title === "string" ? item.title : Object.values(item.title).join(" ")) : item.name,
-  item.type === "place" ? item.names?.zh : undefined,
+  ...(item.type === "place" ? Object.values(item.names ?? {}) : []),
   item.type === "event" ? item.venue : t(`kinds.${item.kind}`), item.town, town, item.type === "place" ? item.district : undefined, ...tags.map((g) => t(`tags.${g}`)),
 ].filter(Boolean).join(" ").toLowerCase();
 ---
@@ -55,7 +57,7 @@ const search = [
   data-indoor={item.indoor ? "1" : undefined}
   data-free={isFree(item) ? "1" : undefined}
   data-farm={isFarm(item, place) ? "1" : undefined}
-  data-feat={[...yes, ...tags, ...(item.type === "event" && !tags.length ? ["other"] : []), ...(item.type === "event" && item.language && item.language !== "de" ? ["nogerman"] : [])].join(" ")}
+  data-feat={[...yes, ...tags, ...(item.type === "event" && !tags.length ? ["other"] : []), ...(item.type === "event" && item.language && item.language !== "de" ? ["nogerman"] : []), ...seasons].join(" ")}
   data-verified={item.trust.level === "verified" ? "1" : undefined}
   data-q={search}
 >
@@ -78,6 +80,7 @@ const search = [
       {item.ages && <span class="pill">{ageText(t, item.ages)}</span>}
       {tags.slice(0, 2).map((g) => <span class="pill">{t(`tags.${g}`)}</span>)}
     </div>
+    <slot />
     <div class="trust">
       {soon > 0 ? <b>{t("soonAt", { n: soon })}</b>
         : answers > 0 && item.trust.level === "community" ? <b>{t("trust.parents", { n: answers })}</b>

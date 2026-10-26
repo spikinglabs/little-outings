@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { mkdtempSync, mkdirSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { textsIn, update } from "../scripts/translate.mjs";
+import { LANGUAGES, textsIn, update } from "../scripts/translate.mjs";
 
 // A fake Gemini endpoint: echoes each sent text back as "中:<text>", or answers `list` as given.
 const answer = (list) => async (_url, req) => {
@@ -31,6 +31,25 @@ test("translates only what is missing and drops what nothing uses", async () => 
   assert.deepEqual(r.cache, { Hoffest: "农场节", Lesung: "中:Lesung" });
   assert.equal(calls, 1);
   assert.equal(r.done, 1);
+});
+
+test("keeps titles other runs still need and stops at the nightly limit", async () => {
+  const items = [{ text: "A", kind: "event" }, { text: "B", kind: "event" }, { text: "C", kind: "event" }];
+  const r = await update(items, { Later: "以后" }, { llm, model: "m", fetch: answer(), limit: 2, keep: new Set(["Later"]) });
+  assert.deepEqual(r.cache, { A: "中:A", B: "中:B", Later: "以后" });
+  assert.equal(r.missing, 3);
+  assert.equal(r.done, 2);
+});
+
+test("English covers event titles only and has its own prompt", async () => {
+  const en = LANGUAGES.find((l) => l.lang === "en");
+  assert.equal(en.cache, "data/translations/en.json");
+  assert.deepEqual([{ kind: "event" }, { kind: "playground" }].map(en.wants), [true, false]);
+  let body;
+  const fetch = async (url, req) => { body = req.body; return answer(["Farm festival"])(url, req); };
+  const r = await update([{ text: "Hoffest", kind: "event" }], {}, { llm, model: "m", fetch, prompt: en.prompt });
+  assert.deepEqual(r.cache, { Hoffest: "Farm festival" });
+  assert.match(body, /into English/);
 });
 
 test("without a key, or with a broken answer, nothing new is written", async () => {
