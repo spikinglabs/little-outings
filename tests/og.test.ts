@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync, readdirSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { dateHeadline, dateSign, eventKey, fitHeadline, placeKey, seasonKey, squareSvg, wideSvg, wrap } from "../src/lib/og.ts";
 
 // Enough of useT for the date sign: the strings it asks for, per language.
@@ -61,4 +61,12 @@ test("the Chinese font has every character the pictures can show", () => {
   }
   const missing = [...new Set([...text].filter((c) => c >= "⺀" && c <= "￯" && !have.has(c)))];
   assert.deepEqual(missing, []);
+});
+
+test("every season has its emoji picture for the preview sign", () => {
+  // design/og/README.md says where to get one (Twemoji, named by code points).
+  const emoji = [...readFileSync("content/seasons.yaml", "utf8").matchAll(/^\s+emoji: "([^"]+)"/gm)].map((m) => m[1]);
+  const file = (e: string) => [...e].map((c) => c.codePointAt(0)!.toString(16)).filter((c) => c !== "fe0f").join("-");
+  assert.ok(emoji.length > 0);
+  assert.deepEqual(emoji.filter((e) => !existsSync(`design/og/emoji/${file(e)}.svg`)), []);
 });
