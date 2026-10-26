@@ -234,6 +234,7 @@ cancelEdit: "取消"
 sentEdit: "已保存。修改审核通过后会显示在网站上。"
 typeIt: 自己手动填写
 report:
+  title: 信息有误？
   closed: 已关闭或不存在
   cancelled: 活动已取消
   where: 地点不对
@@ -244,6 +245,7 @@ report:
   notePh: 例如：游乐场已翻新，现在有戏水区
   thanks: 谢谢！我们会核实。
 visit:
+  title: 去过这里吗？
   again: 还会再去吗？
   yes: 会
   maybe: 也许
@@ -301,6 +303,8 @@ chipAsk:
     fenced: "那里有围栏吗？"
 mine:
   sentAdded: 你添加的
+  title: 我的
+  sub: "你的收藏、你提交的内容和你的资料。无需注册。"
   saved: 收藏
   profile: 资料与同步
   syncOn: "已通过通行密钥同步，你的其他设备上也有。"
@@ -309,6 +313,8 @@ mine:
   back: 我的
 profile:
   link: "资料与同步"
+  title: 资料与同步
+  sub: "无需注册。你的资料保存在这部手机上：收藏、去过的地方、你的回答，以及你发给我们的内容。开启通行密钥同步后，会另存一份副本，并能在你的其他设备上使用。"
   have: "这部手机上"
   themeTitle: 浅色或深色
   themeSub: "自动：跟随手机的设置。"
@@ -373,6 +379,7 @@ profile:
   deleted: 已删除，这部手机重新开始。
 about:
   link: 数据与隐私
+  title: 数据与隐私
   intro: 小出游的信息从哪里来，你的反馈和资料存在哪里。
   events: { h: 活动, p: "活动来自城市、图书馆、博物馆和农场的公开活动日历。我们只用标题、日期、时间和地点这类事实，并附上原网页链接。时间和价格请以原网页为准。" }
   places: { h: 地点, p: "游乐场、泳池、博物馆和农场等地点来自 OpenStreetMap（© OpenStreetMap 贡献者，ODbL 许可），每周更新一次。有家长补充过的地点，会显示家长反馈的数量。" }
@@ -396,6 +403,7 @@ flow:
   wayPoster: 海报
   wayLink: 链接或文字
   wayType: 自己填
+  what: "做什么？"
   day: 日期
   time: 时间
   where: "在哪里？"
@@ -425,6 +433,7 @@ flow:
   name: 名称
   facilities: "那里有什么？"
 meet:
+  title: 邀请
   kicker: 只有拿到链接的人能看到
   by: 家长自己组织的聚会
   safety: "小出游不知道这是谁发起的。只有在公共场所、你觉得安全时才参加。避免晚上的聚会。"
@@ -459,12 +468,14 @@ meet:
   report: 举报这个邀请
   reported: "谢谢，我们会看一下。"
   sample: { title: 野餐和放风筝, place: "Rheinpark, Köln-Deutz", note: "在缆车附近。带上毯子，我们带零食。" }
+  open: 打开
   mineTitle: 邀请
   mineSub: "你发起的和你回复过的。"
   mineYours: 我的
   mineSignIn: "用通行密钥登录后可以看到你的邀请。"
 legal:
   link: 法律声明（Impressum）
+  title: 法律声明与隐私政策
   german: "本页以德文版本为准。"
   imprint: 法律声明（Impressum）
   email: 邮箱

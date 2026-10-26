@@ -234,6 +234,7 @@ cancelEdit: "Cancel"
 sentEdit: "Saved. We'll check the change before it shows on the site."
 typeIt: Type it in yourself
 report:
+  title: Something wrong?
   closed: It's closed or gone
   cancelled: It's cancelled
   where: It's in a different place
@@ -244,6 +245,7 @@ report:
   notePh: e.g. the playground was rebuilt, now with a water area
   thanks: Thank you! We'll check it.
 visit:
+  title: Been here?
   again: Would you go again?
   yes: "Yes"
   maybe: Maybe
@@ -301,6 +303,8 @@ chipAsk:
     fenced: "Is it fenced in?"
 mine:
   sentAdded: What you added
+  title: Mine
+  sub: "Your saved outings, what you sent us, and your profile. No sign-up needed."
   saved: Saved
   profile: Profile and sync
   syncOn: "Synced with your passkey, so it's on your other devices too."
@@ -309,6 +313,8 @@ mine:
   back: Mine
 profile:
   link: "Profile and sync"
+  title: Profile and sync
+  sub: "No sign-up. Your profile lives on this phone: what you saved, where you went, your answers and what you sent us. Turn on passkey sync to keep a copy safe and use it on your other devices."
   have: "On this phone"
   themeTitle: Light or dark
   themeSub: "Auto follows your phone's setting."
@@ -373,6 +379,7 @@ profile:
   deleted: Deleted. This phone starts fresh.
 about:
   link: Data and privacy
+  title: Data and privacy
   intro: Where Little Outings gets its information, and where your answers and profile are kept.
   events: { h: Events, p: "Events come from the public calendars of cities, libraries, museums and farms. We use only facts such as title, date, time and place, with a link to the original page. Check times and prices there." }
   places: { h: Places, p: "Playgrounds, pools, museums, farms and other places come from OpenStreetMap (© OpenStreetMap contributors, ODbL), refreshed weekly. Once parents add to a place, it shows how many answers they gave." }
@@ -396,6 +403,7 @@ flow:
   wayPoster: Poster
   wayLink: Link or text
   wayType: "I'll type"
+  what: "What?"
   day: Day
   time: Time
   where: "Where?"
@@ -425,6 +433,7 @@ flow:
   name: Name
   facilities: "What's there?"
 meet:
+  title: Invite
   kicker: Only people with the link can see this
   by: "A family's own meetup"
   safety: "Little Outings doesn't know who made this. Only join if it's in a public place and you feel safe. Avoid evening meetups."
@@ -459,12 +468,14 @@ meet:
   report: Report this invite
   reported: "Thanks, we'll look at it."
   sample: { title: Picnic and kite flying, place: "Rheinpark, Köln-Deutz", note: "Near the chairlift. Bring a blanket, we bring snacks." }
+  open: Open
   mineTitle: Invites
   mineSub: "Ones you made and ones you answered."
   mineYours: Yours
   mineSignIn: "Sign in with your passkey to see your invites."
 legal:
   link: Imprint
+  title: Imprint and privacy notice
   german: "The German version of this page is the binding one."
   imprint: Imprint
   email: Email
