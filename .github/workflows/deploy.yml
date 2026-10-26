@@ -124,6 +124,18 @@ jobs:
           wranglerVersion: "3.114.17"
           # Uploads dist/ and the Pages Functions in functions/.
           command: pages deploy dist --project-name=${{ env.PROJECT }} --branch=${{ github.event_name == 'pull_request' && github.head_ref || 'main' }}
+      # Bing (ChatGPT search, Copilot, DuckDuckGo) hears about new pages at once; the list of sent URLs is kept between runs.
+      - uses: actions/cache@v4
+        if: steps.cf.outputs.ok == 'true' && github.event_name != 'pull_request'
+        with:
+          path: .cache/indexnow-sent.txt
+          key: indexnow-${{ github.run_id }}
+          restore-keys: indexnow-
+      - name: Tell search engines about new pages (IndexNow)
+        if: steps.cf.outputs.ok == 'true' && github.event_name != 'pull_request'
+        run: |
+          out=$(npm run --silent indexnow 2>&1); echo "$out"
+          echo "::notice title=IndexNow::$(echo "$out" | tail -1)"
       - name: Show the URL
         if: steps.cf.outputs.ok == 'true'
         run: echo "Deployed to ${{ steps.deploy.outputs.deployment-url }}" >> "$GITHUB_STEP_SUMMARY"

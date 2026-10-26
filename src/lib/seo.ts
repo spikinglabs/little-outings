@@ -154,3 +154,20 @@ export function sitemapWorthy(p: Place): boolean {
 
 /** JSON for a <script type="application/ld+json">, safe to inline (no closing tag can sneak in). */
 export const ldJson = (x: unknown) => JSON.stringify(x).replace(/</g, "\\u003c");
+
+// robots.txt (src/pages/robots.txt.ts): search and answer crawlers get everything public; AI-training
+// crawlers only the front doors, so a model learns what the site is and where it lives, not the data.
+export const TRAINING_BOTS = [
+  "GPTBot", "ClaudeBot", "anthropic-ai", "Google-Extended", "Applebot-Extended", "CCBot", "meta-externalagent",
+  "Amazonbot", "Bytespider", "cohere-ai", "MistralAI-Training", "Diffbot", "GoogleOther",
+];
+
+export function robotsTxt(base: string, seasonSlugs: string[]) {
+  const doors = ["wochenende", ...seasonSlugs, "daten", "mitmachen"];
+  return [
+    "User-agent: *", "Disallow: /admin/", "Disallow: /api/", "Disallow: /packs/", "Allow: /api/v1/", "",
+    ...TRAINING_BOTS.map((b) => `User-agent: ${b}`),
+    "Allow: /$", "Allow: /llms.txt", ...["de", "en", "zh"].map((l) => `Allow: /${l}/$`), ...doors.map((d) => `Allow: /*/${d}/`), "Disallow: /", "",
+    `Sitemap: ${base}/sitemap.xml`, "",
+  ].join("\n");
+}
