@@ -110,8 +110,10 @@ h1, h2, h3 { font-family: var(--display); text-wrap: balance; letter-spacing: -0
 .fi.on { color: var(--paper); background: var(--ink); border: 1px solid var(--ink); }
 .fi svg { width: 17px; height: 17px; }
 .kinds { margin-bottom: 10px; }
-.head-side { display: grid; justify-items: end; gap: 2px; text-align: right; }
-.order-pick { display: inline-flex; align-items: center; gap: 4px; color: var(--blau); font-size: .9rem; font-weight: 700; cursor: pointer; }
+.ideas-h { font-size: 1.3rem; font-weight: 700; margin-bottom: 2px; }
+.ideas-meta { display: flex; align-items: baseline; justify-content: space-between; gap: 4px 12px; flex-wrap: wrap; margin-bottom: 10px; }
+.ideas-meta p { margin: 0; color: var(--ink-soft); font-size: .9rem; min-width: 0; }
+.order-pick { margin-left: auto; display: inline-flex; align-items: center; gap: 4px; color: var(--blau); font-size: .9rem; font-weight: 700; cursor: pointer; }
 .order-pick select { appearance: none; border: 0; background: none; color: inherit; font: inherit; padding: 2px 0; cursor: pointer; text-decoration: underline dotted; text-underline-offset: 3px; }
 .pill.last { background: var(--rot); color: var(--rot-ink); font-weight: 700; }
 
