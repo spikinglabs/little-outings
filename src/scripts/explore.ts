@@ -382,7 +382,7 @@ const martinBtn = document.querySelector<HTMLButtonElement>('[data-flag="martin"
 if (martinBtn && martinSeason(ymd(new Date()))) martinBtn.hidden = false;
 $<HTMLButtonElement>("[data-martin-share]").addEventListener("click", async (e) => {
   const b = e.currentTarget as HTMLButtonElement;
-  const text = ui.martin.shareText.replace("{url}", `${location.origin}/${lang}/mitmachen/?martin=1`);
+  const text = ui.martin.shareText.replace("{url}", `${location.origin}/${lang}/mitmachen/#event`);
   try {
     if (navigator.share) { await navigator.share({ text }); return; }
   } catch (err) { if ((err as Error).name === "AbortError") return; }

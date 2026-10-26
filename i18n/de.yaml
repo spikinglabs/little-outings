@@ -18,19 +18,13 @@ townNone: "Kein Ort mit diesem Namen"
 search: Suche
 searchPh: Hof, Café, Spielplatz oder Fest suchen
 filters: { farm: "🚜 Bauernhof", rain: "☂ Bei Regen", free: Kostenlos, animals: Mit Tieren, changing: Wickeltisch, nogerman: Ohne Deutsch, martin: "🏮 St. Martin", radius: Umkreis }
-# St. Martin season (src/lib/martin.ts): the Discover chip, its "add yours" line and the short form behind ?martin=1.
+# St. Martin season (src/lib/martin.ts): the Discover chip and its "add yours" line, which opens the normal Add event form.
 martin:
   add: "Euer Martinszug fehlt?"
   addLink: In einer Minute eintragen
   share: Link für die Kita-Gruppe teilen
   shareText: "Wann und wo ist euer Martinszug? Tragt ihn hier in einer Minute ein, dann finden ihn alle Familien im Viertel: {url}"
   copied: Link kopiert
-  title: Wo zieht euer Martinszug?
-  sub: "Ein Foto vom Aushang an der Kita-Tür reicht, wir lesen Tag, Uhrzeit und Treffpunkt heraus. Oder tippt es kurz ein."
-  what: Wer zieht? (Kita, Schule, Pfarrei, Verein)
-  open: "Alle Familien aus dem Viertel können mitgehen"
-  openSub: Wir zeigen nur Züge, bei denen jede Familie mitlaufen darf. Züge nur für die eigene Kita bitte nicht eintragen.
-  titlePrefix: Martinszug
 tip: "Unser Tipp {when}"
 only: "Nur {when}"
 always: Geht immer
@@ -176,7 +170,6 @@ cancelEdit: "Abbrechen"
 sentEdit: "Gespeichert. Wir prüfen die Änderung, bevor sie online geht."
 typeIt: Lieber selbst eintippen
 report:
-  title: Stimmt etwas nicht?
   closed: Gibt es nicht mehr oder ist geschlossen
   cancelled: Fällt aus
   where: Ist woanders
@@ -187,7 +180,6 @@ report:
   notePh: z. B. Der Spielplatz wurde umgebaut, jetzt mit Wasserbereich
   thanks: Danke! Wir schauen es uns an.
 visit:
-  title: Wart ihr schon da?
   again: Würdet ihr wieder hingehen?
   yes: Ja
   maybe: Vielleicht
@@ -245,8 +237,6 @@ chipAsk:
     fenced: "Ist der Platz eingezäunt?"
 mine:
   sentAdded: Was ihr eingetragen habt
-  title: Meins
-  sub: "Eure Merkliste, was ihr uns geschickt habt, und euer Profil. Ohne Anmeldung."
   saved: Merkliste
   profile: Profil und Sync
   syncOn: "Mit eurem Passkey synchronisiert, also auch auf euren anderen Geräten."
@@ -255,8 +245,6 @@ mine:
   back: Meins
 profile:
   link: "Profil und Sync"
-  title: Profil und Sync
-  sub: "Ohne Anmeldung. Euer Profil liegt auf diesem Handy: was ihr gemerkt habt, wo ihr wart, eure Antworten und was ihr uns geschickt habt. Mit Passkey-Sync bleibt eine Kopie sicher und erscheint auf euren anderen Geräten."
   have: "Auf diesem Handy"
   themeTitle: Hell oder dunkel
   themeSub: "Auto folgt der Einstellung deines Handys."
@@ -321,7 +309,6 @@ profile:
   deleted: Gelöscht. Dieses Handy fängt neu an.
 about:
   link: Daten und Datenschutz
-  title: Daten und Datenschutz
   intro: Woher Little Outings seine Angaben hat und wo deine Antworten und dein Profil liegen.
   events: { h: Termine, p: "Termine stammen aus den öffentlichen Kalendern von Städten, Büchereien, Museen und Höfen. Wir nutzen nur Fakten wie Titel, Datum, Uhrzeit und Ort, mit Link zur Originalseite. Zeiten und Preise bitte dort prüfen." }
   places: { h: Orte, p: "Spielplätze, Bäder, Museen, Höfe und andere Orte stammen aus OpenStreetMap (© OpenStreetMap-Mitwirkende, ODbL) und werden wöchentlich aktualisiert. Sobald Eltern etwas ergänzt haben, zeigt der Ort, wie viele Antworten es gibt." }
@@ -345,7 +332,6 @@ flow:
   wayPoster: Plakat
   wayLink: Link oder Text
   wayType: "Selbst tippen"
-  what: "Was?"
   day: Tag
   time: Uhrzeit
   where: "Wo?"
@@ -375,7 +361,6 @@ flow:
   name: Name
   facilities: "Was gibt es dort?"
 meet:
-  title: Einladung
   kicker: Nur wer den Link hat, sieht das
   by: Ein Treffen von Familien
   safety: "Little Outings weiß nicht, wer das erstellt hat. Geht nur hin, wenn es an einem öffentlichen Ort ist und ihr euch sicher fühlt. Meidet Treffen am Abend."
@@ -410,14 +395,12 @@ meet:
   report: Einladung melden
   reported: "Danke, wir sehen es uns an."
   sample: { title: Picknick und Drachensteigen, place: "Rheinpark, Köln-Deutz", note: "Bei der Seilbahn. Bringt eine Decke mit, wir bringen Snacks." }
-  open: Öffnen
   mineTitle: Einladungen
   mineSub: "Eure eigenen und die, auf die ihr geantwortet habt."
   mineYours: Eure
   mineSignIn: "Meldet euch mit eurem Passkey an, um eure Einladungen zu sehen."
 legal:
   link: Impressum
-  title: Impressum und Datenschutzerklärung
   german: "Maßgeblich ist die deutsche Fassung dieser Seite."
   imprint: Impressum
   email: E-Mail
