@@ -25,6 +25,7 @@ martin:
   share: Share the link with your Kita group
   shareText: "When and where is your St. Martin lantern walk? Add it here in a minute so every family nearby can find it: {url}"
   copied: Link copied
+  open: "Many lantern walks are meant for the families of one Kita, school or parish. Check with the organiser that other families are welcome too."
 tip: "Our pick {when}"
 only: "Only {when}"
 always: Always a good idea

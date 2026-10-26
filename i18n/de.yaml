@@ -25,6 +25,7 @@ martin:
   share: Link für die Kita-Gruppe teilen
   shareText: "Wann und wo ist euer Martinszug? Tragt ihn hier in einer Minute ein, dann finden ihn alle Familien im Viertel: {url}"
   copied: Link kopiert
+  open: "Viele Martinszüge sind für die Familien einer Kita, Schule oder Gemeinde gedacht. Fragt beim Veranstalter nach, ob auch andere Familien mitgehen können."
 tip: "Unser Tipp {when}"
 only: "Nur {when}"
 always: Geht immer

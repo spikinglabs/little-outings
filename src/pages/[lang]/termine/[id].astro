@@ -14,6 +14,7 @@ import { LANGUAGE } from "../../../content.config";
 import { calInput } from "../../../lib/event-cal";
 import { googleUrl, ics } from "../../../lib/calendar";
 import { eventLd } from "../../../lib/seo";
+import { isMartin } from "../../../lib/martin";
 
 export async function getStaticPaths() {
   const { events } = await getData();
@@ -35,6 +36,8 @@ const cal = await calInput(e, lang, Astro.site);
 const icsText = ics(cal, `${new Date().toISOString().slice(0, 10).replace(/-/g, "")}T000000Z`).replace(/<\//g, "<\\/");
 const translated = isFallback(e.title, lang) || isFallback(e.note, lang);
 const map = mapLink(e, place);
+// St. Martin walks are often for one Kita or parish only, so remind parents to ask first.
+const martin = isMartin(tr(e.title, "de"));
 // Search snippet: when, where, what kind and the organiser's note, so the result answers "what is it?".
 const where = [place ? nameOf(place, lang) : e.venue, town].filter(Boolean).join(", ");
 const description = [
@@ -89,6 +92,7 @@ const ld = eventLd(e, {
         : !e.language ? t("speechAsk.unknown") : ""
       }</p>
     </section>
+    {martin && <p class="note martin-note">🏮 {t("martin.open")}</p>}
     {e.note && <p class="note">{tr(e.note, lang)}</p>}
     {translated && lang !== "de" && !isFallback(e.title, lang) && <p class="orig">{t("translated")}</p>}
 
