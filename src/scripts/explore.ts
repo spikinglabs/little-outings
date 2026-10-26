@@ -2,7 +2,8 @@
 // that are good any time. All cards arrive once from /<lang>/ideen/; this only hides and sorts them.
 // Distances are measured once per home town, and the list shows a page at a time.
 import { lastDay } from "../lib/horizon";
-import { lastChance, splitRunning } from "../lib/running";
+import { lastChance } from "../lib/running";
+import { ORDERS, orderEvents, orderPlaces, type Order } from "../lib/order";
 import { holidayFor, type Period } from "../lib/holidays";
 import { distanceOf, getHome, markSaved, nearestTown, renderKm, setHere, setHome } from "./app";
 import type {} from "../islands/OutingsMap";
@@ -20,14 +21,14 @@ const count = (p: Plural, n: number, r?: number) =>
 
 // area: the map's bounds [south, west, north, east] once the reader moves the map; it replaces the radius.
 const PAGE = 24; // cards shown at once; OpenStreetMap brings in more than a thousand places
-const state = { limit: PAGE, area: null as number[] | null, view: 0, when: "weekend", q: "", rain: false, farm: false, free: false, animals: false, changing: false, nogerman: false, radius: 30, kind: "", tag: "" };
+const state = { limit: PAGE, area: null as number[] | null, view: 0, when: "weekend", q: "", rain: false, farm: false, free: false, animals: false, changing: false, nogerman: false, radius: 30, kind: "", tag: "", order: "mixed" as Order };
 const $ = <T extends Element = HTMLElement>(s: string) => document.querySelector<T>(s)!;
 const $$ = <T extends Element = HTMLElement>(s: string) => [...document.querySelectorAll<T>(s)];
 const home = $<HTMLButtonElement>("#home");
 
 // The chosen day, distance and chips last for this tab's session, so a refresh or a trip to
 // a card and back keeps them. The town is kept elsewhere (as home); no location is ever stored here.
-const KEPT = ["when", "rain", "farm", "free", "animals", "changing", "nogerman", "radius", "kind", "tag"] as const;
+const KEPT = ["when", "rain", "farm", "free", "animals", "changing", "nogerman", "radius", "kind", "tag", "order"] as const;
 const FLAGS = ["rain", "farm", "free", "animals", "changing", "nogerman"] as const;
 function restore() {
   let saved: Record<string, unknown> = {};
@@ -40,6 +41,7 @@ function restore() {
   }
   const radius = $<HTMLSelectElement>("#radius");
   if ([...radius.options].some((o) => o.value === String(saved.radius))) { radius.value = String(saved.radius); state.radius = +radius.value; }
+  if (ORDERS.includes(saved.order as Order)) { state.order = saved.order as Order; $<HTMLSelectElement>("#order").value = state.order; }
   if (typeof saved.kind === "string" && has(`[data-kind-chip="${CSS.escape(saved.kind)}"]`)) {
     state.kind = saved.kind;
     if (saved.kind === "event" && typeof saved.tag === "string" && has(`[data-tag-chip="${CSS.escape(saved.tag)}"]`)) state.tag = saved.tag;
@@ -207,16 +209,15 @@ function apply() {
       if (r.d.type === "event") nEv++; else nPl++;
     }
   }
-  // Events soonest then nearest, places nearest first but with the kinds mixed, and the two
-  // alternated, so the list always has something happening and something good any time.
-  const sorted = matched.filter((r) => r.d.type === "event")
-    .sort((a, b) => (a.d.start! < from ? from : a.d.start!).localeCompare(b.d.start! < from ? from : b.d.start!) || (a.dist ?? 0) - (b.dist ?? 0));
-  // Long runs (exhibitions) go after the events that happen only then, so the list opens with those;
-  // in their last week they keep their place, marked "Last chance".
+  // Events and places in the chosen order (lib/order.ts), alternated, so the list always has
+  // something happening and something good any time. "Mixed" shuffles once a day per town.
   const today = ymd(new Date());
-  const split = splitRunning(sorted, (r) => ({ start: r.d.start!, end: r.d.end! }), today);
-  const evs = [...split.main, ...split.running];
-  const pls = mixKinds(matched.filter((r) => r.d.type !== "event").sort((a, b) => (a.dist ?? 1e9) - (b.dist ?? 1e9)));
+  const seed = `${today}|${getHome()}`;
+  const asItem = (r: Row) => ({ r, id: r.d.id!, start: r.d.start ?? "", end: r.d.end ?? "", time: r.d.time, dist: r.dist });
+  const evs = orderEvents(matched.filter((r) => r.d.type === "event").map(asItem), state.order, from, today, seed).map((x) => x.r);
+  const shuffled = orderPlaces(matched.filter((r) => r.d.type !== "event").map(asItem), state.order, seed).map((x) => x.r);
+  // Nearest first mixes the kinds, so twenty playgrounds in a row don't hide the farm.
+  const pls = state.order === "mixed" ? shuffled : mixKinds(shuffled);
   matched.length = 0;
   for (let i = 0; i < Math.max(evs.length, pls.length); i++) {
     if (evs[i]) matched.push(evs[i]);
@@ -302,6 +303,7 @@ document.addEventListener("click", (ev) => {
 });
 $<HTMLInputElement>("#q").addEventListener("input", (e) => { state.limit = PAGE; state.q = (e.target as HTMLInputElement).value.trim(); apply(); });
 $<HTMLSelectElement>("#radius").addEventListener("change", (e) => { state.radius = +(e.target as HTMLSelectElement).value; state.area = null; apply(); });
+$<HTMLSelectElement>("#order").addEventListener("change", (e) => { state.order = (e.target as HTMLSelectElement).value as Order; state.limit = PAGE; apply(); });
 // "Around" opens the town picker. Typing narrows the list; Enter takes the first town left.
 const sheet = $<HTMLDialogElement>("[data-town-sheet]");
 const townQ = $<HTMLInputElement>("[data-town-q]");

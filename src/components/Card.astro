@@ -48,6 +48,7 @@ const search = [
   data-start={item.type === "event" ? item.start : undefined}
   data-end={item.type === "event" ? item.end : undefined}
   data-long={long ? "1" : undefined}
+  data-time={item.type === "event" ? item.time : undefined}
   data-lat={item.geo.lat}
   data-lon={item.geo.lon}
   data-precision={prec}

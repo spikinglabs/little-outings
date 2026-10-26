@@ -18,6 +18,7 @@ townNone: "没有找到这个城镇"
 search: 搜索
 searchPh: 搜索农场、咖啡馆、游乐场或活动
 filters: { farm: "🚜 农场", rain: "☂ 下雨也能去", free: 免费, animals: 有动物, changing: 尿布台, nogerman: "💬 不懂德语也能玩", radius: 范围 }
+order: { label: 排序, mixed: 随机, soonest: 时间最近, nearest: 距离最近 }
 tip: "{when}推荐"
 only: "仅限{when}"
 always: 随时可去

@@ -108,6 +108,7 @@ h1, h2, h3 { font-family: var(--display); text-wrap: balance; letter-spacing: -0
 .fi.on { color: var(--paper); background: var(--ink); border: 1px solid var(--ink); }
 .fi svg { width: 17px; height: 17px; }
 .kinds { margin-bottom: 10px; }
+.order-pick { margin: 0 0 10px; }
 .pill.last { background: var(--rot); color: var(--rot-ink); font-weight: 700; }
 
 /* detail pages */

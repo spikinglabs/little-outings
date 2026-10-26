@@ -18,6 +18,7 @@ townNone: "No town by that name here"
 search: Search
 searchPh: Search farms, cafés, playgrounds or festivals
 filters: { farm: "🚜 Farm", rain: "☂ Rainy day", free: Free, animals: Animals, changing: Changing table, nogerman: "💬 No German needed", radius: Within }
+order: { label: Order, mixed: Mixed, soonest: Soonest, nearest: Nearest }
 tip: "Our pick {when}"
 only: "Only {when}"
 always: Always a good idea
