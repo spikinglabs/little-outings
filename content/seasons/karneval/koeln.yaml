@@ -1,0 +1,143 @@
+# Karneval parades in Köln for 2027, from koeln.de (checked 2026-10-26). Only parades koeln.de already lists
+# for 2027; the Saturday and Tuesday Veedelszöch follow with the AI pull in December and January.
+# "(Stand 2026)" means koeln.de still shows last year's time or place.
+town: Köln
+source: koeln.de
+checked: 2026-10-26
+items:
+  - id: schull-un-veedelszoech
+    name: Schull- un Veedelszöch
+    from: 2027-02-07
+    to: 2027-02-07
+    hours: "Abmarsch 11:11 Uhr"
+    street: Severinstorburg
+    geo: { lat: 50.92196, lon: 6.95932 }
+    district: Innenstadt
+    free: true
+    website: "https://www.koeln.de/karneval/umzuege/schull-und-veedelszoech-koeln/"
+    note:
+      de: "Schulen, Kitas und Vereine aus den Veedeln ziehen zu Fuß über den Weg des Rosenmontagszugs, mit selbst gebauten Kostümen. Der Kinderzug schlechthin, und ruhiger als Rosenmontag."
+      en: "Schools, Kitas and clubs from the neighbourhoods walk the Rosenmontag route in home-made costumes. The parade for children, and calmer than Rosenmontag."
+      zh: "各街区的学校、幼儿园和社团穿着自制服装，沿玫瑰星期一游行路线步行。最适合孩子的游行，比玫瑰星期一安静。"
+  - id: rosenmontagszug
+    name: Kölner Rosenmontagszug
+    from: 2027-02-08
+    to: 2027-02-08
+    hours: "ab 10 Uhr (Stand 2026)"
+    street: Chlodwigplatz
+    geo: { lat: 50.92156, lon: 6.95948 }
+    district: Innenstadt
+    free: true
+    website: "https://www.koeln.de/karneval/rosenmontagszug-koeln/"
+    note:
+      de: "Sehr voll in der Innenstadt. Mit kleinen Kindern lieber an den Anfang des Zugwegs in der Südstadt oder an breite Stellen der Ringe, früh da sein."
+      en: "Very crowded in the city centre. With small children pick the start of the route in the Südstadt or a wide spot on the Ringe, and come early."
+      zh: "市中心非常拥挤。带小孩最好去南城的游行起点或环路较宽的路段，早点到。"
+  - id: poll
+    name: Veedelszug Poll
+    from: 2027-02-07
+    to: 2027-02-07
+    hours: "Abmarsch 10 Uhr"
+    street: Am Grauen Stein
+    geo: { lat: 50.92519, lon: 6.99191 }
+    district: Poll
+    free: true
+  - id: porz
+    name: Rosensonntagszug Porz
+    from: 2027-02-07
+    to: 2027-02-07
+    hours: "Abmarsch 12 Uhr (Stand 2026)"
+    street: Kölner Straße
+    geo: { lat: 50.89674, lon: 7.04127 }
+    district: Porz
+    free: true
+  - id: longerich
+    name: Veedelszug Longerich
+    from: 2027-02-07
+    to: 2027-02-07
+    hours: "Abmarsch 13 Uhr (Stand 2026)"
+    street: Contzenstraße
+    geo: { lat: 50.99530, lon: 6.90952 }
+    district: Longerich
+    free: true
+  - id: brueck
+    name: Veedelszug Brück
+    from: 2027-02-07
+    to: 2027-02-07
+    hours: "Abmarsch 13:30 Uhr"
+    street: Kleinfeldchensweg
+    geo: { lat: 50.93924, lon: 7.08364 }
+    district: Brück
+    free: true
+  - id: duennwald
+    name: Veedelszug Dünnwald
+    from: 2027-02-07
+    to: 2027-02-07
+    hours: "Abmarsch 13:30 Uhr"
+    street: Leuchterstraße
+    geo: { lat: 50.99726, lon: 7.04600 }
+    district: Dünnwald
+    free: true
+  - id: esch-auweiler
+    name: Veedelszug Esch/Auweiler
+    from: 2027-02-07
+    to: 2027-02-07
+    hours: "Abmarsch 13:30 Uhr (Stand 2026)"
+    street: Griesberger Straße
+    geo: { lat: 51.01435, lon: 6.85706 }
+    district: Esch/Auweiler
+    free: true
+  - id: niehl
+    name: Veedelszug Niehl
+    from: 2027-02-07
+    to: 2027-02-07
+    hours: "Abmarsch 13:30 Uhr"
+    street: Friedrich-Karl-Straße
+    geo: { lat: 50.97499, lon: 6.97367 }
+    district: Niehl
+    free: true
+  - id: hoehenhaus
+    name: Veedelszug Höhenhaus
+    from: 2027-02-07
+    to: 2027-02-07
+    hours: "Abmarsch 14 Uhr"
+    street: Von-Ketteler-Straße
+    geo: { lat: 50.98439, lon: 7.02316 }
+    district: Höhenhaus
+    free: true
+  - id: loevenich-weiden
+    name: Veedelszug Lövenich und Weiden
+    from: 2027-02-07
+    to: 2027-02-07
+    hours: "Abmarsch 14 Uhr (Stand 2026)"
+    street: Dieselstraße
+    geo: { lat: 50.94517, lon: 6.84129 }
+    district: Lövenich
+    free: true
+  - id: ostheim
+    name: Veedelszug Ostheim
+    from: 2027-02-07
+    to: 2027-02-07
+    hours: "Abmarsch 14 Uhr (Stand 2026)"
+    street: Hardtgenbuscher Kirchweg
+    geo: { lat: 50.92654, lon: 7.04654 }
+    district: Ostheim
+    free: true
+  - id: widdersdorf
+    name: Veedelszug Widdersdorf
+    from: 2027-02-07
+    to: 2027-02-07
+    hours: "Abmarsch 14 Uhr"
+    street: Marktplatz Widdersdorf
+    geo: { lat: 50.96750, lon: 6.83500 }
+    district: Widdersdorf
+    free: true
+  - id: langel-rheinkassel
+    name: Veedelszug Langel, Rheinkassel und Kasselberg
+    from: 2027-02-07
+    to: 2027-02-07
+    hours: "Abmarsch 14:30 Uhr"
+    street: Rheinkasseler Weg
+    geo: { lat: 51.04103, lon: 6.93255 }
+    district: Rheinkassel
+    free: true

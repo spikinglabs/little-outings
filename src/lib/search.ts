@@ -71,7 +71,7 @@ export function entryOf(x: Event | Place): Entry {
 
 // --- Searching -------------------------------------------------------------------------------
 
-export const PLACE_KINDS = ["playground", "indoor", "park", "zoo", "farm", "pool", "museum", "cafe", "fun"];
+export const PLACE_KINDS = ["playground", "indoor", "park", "zoo", "farm", "pool", "museum", "cafe", "fun", "winter"];
 export const EVENT_TAGS = ["fest", "animals", "market", "diy", "season", "reading", "music", "outside", "stage", "sport", "tour", "parents", "learn", "other"];
 export const FACILITIES = ["playground", "changing_table", "highchairs", "kids_menu", "toys", "animals", "stroller_friendly",
   "nursing_room", "indoor_play", "toilets", "farm_shop", "parking", "sandpit", "water_play", "swings", "slides", "climbing",

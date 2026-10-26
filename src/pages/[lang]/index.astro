@@ -49,7 +49,7 @@ const holidays = {
 // Chinese families' own occasions come first on the Chinese pages.
 const pages = seasonPages(data.seasons);
 const seasons = data.seasons.seasons
-  .filter((s) => listed.some((e) => e.seasons?.includes(s.id)))
+  .filter((s) => listed.some((e) => e.seasons?.includes(s.id)) || (s.kinds?.length && data.places.some((p) => s.kinds!.includes(p.kind))))
   .sort((a, b) => (lang === "zh" ? Number(!!b.zh_first) - Number(!!a.zh_first) : 0))
   .map((s) => ({
     id: s.id, chip: s.chip, label: `${s.emoji} ${tr(s.label, lang)}`,
