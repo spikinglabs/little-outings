@@ -1,21 +1,25 @@
-// Every indexable page in all three languages, each linked to its translations (hreflang).
+// The pages search engines should spend their visits on, in all three languages, each linked to its
+// translations (hreflang). Google crawls a new site slowly and left ~13,000 listed pages "discovered,
+// not indexed" (Search Console, Oct 2026), so the list is now the hubs plus places with something of
+// their own. Event pages are left out: they are gone within two weeks, usually before Google gets to
+// them; the weekend editions and places link to them, so they can still be found.
 // Saved list, profile and invites are personal, so they stay out (and carry noindex).
 import type { APIRoute } from "astro";
 import { LANGS } from "../lib/i18n";
 import { getData, TODAY } from "../lib/data";
 import { editionTowns, liveEdition } from "../lib/weekend-data";
 import { seasonPages } from "../lib/seasons";
+import { sitemapWorthy } from "../lib/seo";
 
 export const GET: APIRoute = async ({ site }) => {
   const base = site?.toString().replace(/\/$/, "") ?? "";
-  const { events, places, seasons } = await getData();
+  const { places, seasons } = await getData();
   // Season pages (Christmas markets …): each overview and its town pages.
   const seasonal = seasonPages(seasons).flatMap(({ season, file }) => [`${season.page!.slug}/`, `${season.page!.slug}/${file.slug}/`]);
   const paths = [
     "", "mitmachen/", "daten/",
     ...new Set(seasonal),
-    ...events.map((e) => `termine/${e.id}/`),
-    ...places.map((p) => `orte/${p.id}/`),
+    ...places.filter(sitemapWorthy).map((p) => `orte/${p.id}/`),
   ];
   // The weekend editions: one address per town that changes every Friday.
   const weekend = editionTowns();
