@@ -2,6 +2,8 @@
 // that are good any time. All cards arrive once from /<lang>/ideen/; this only hides and sorts them.
 // Distances are measured once per home town, and the list shows a page at a time.
 import { lastDay } from "../lib/horizon";
+import { count as countHit } from "../lib/count";
+import { normCode } from "../lib/rednote-code";
 import { lastChance } from "../lib/running";
 import { ORDERS, orderEvents, orderPlaces, type Order } from "../lib/order";
 import { holidayFor, type Period } from "../lib/holidays";
@@ -381,7 +383,18 @@ document.addEventListener("click", (ev) => {
   const g = t.closest<HTMLButtonElement>("[data-tag-chip]");
   if (g) { state.tag = g.dataset.tagChip!; state.limit = PAGE; apply(); }
 });
-$<HTMLInputElement>("#q").addEventListener("input", (e) => { state.limit = PAGE; state.q = (e.target as HTMLInputElement).value.trim(); apply(); });
+// A code from a Rednote card ("K31-2", src/lib/rednote-code.ts) opens that pick's page.
+const xhsCodes: Record<string, string> = JSON.parse(document.getElementById("xhs-codes")?.textContent || "{}");
+$<HTMLInputElement>("#q").addEventListener("input", (e) => {
+  const q = (e.target as HTMLInputElement).value.trim();
+  const code = normCode(q);
+  if (code && xhsCodes[code]) {
+    countHit("from_rednote", xhsCodes[code].startsWith("orte/") ? "place" : "event");
+    location.href = `/${document.documentElement.lang.slice(0, 2)}/${xhsCodes[code]}`;
+    return;
+  }
+  state.limit = PAGE; state.q = q; apply();
+});
 $<HTMLSelectElement>("#radius").addEventListener("change", (e) => { state.radius = +(e.target as HTMLSelectElement).value; state.area = null; apply(); });
 $<HTMLSelectElement>("#order").addEventListener("change", (e) => { state.order = (e.target as HTMLSelectElement).value as Order; state.limit = PAGE; apply(); });
 // "Around" opens the town picker. Typing narrows the list; Enter takes the first town left.

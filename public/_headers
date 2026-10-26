@@ -13,3 +13,7 @@ https://little-outings.pages.dev/*
 # Event pages packed for the Pages Functions (src/lib/page-packs.ts); the pages are at /<lang>/termine/<id>/.
 /packs/*
   X-Robots-Tag: noindex
+
+# Rednote cards and their captions for the admin's Rednote box (src/pages/xhs/); not pages to find.
+/xhs/*
+  X-Robots-Tag: noindex

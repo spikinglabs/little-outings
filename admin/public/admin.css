@@ -177,3 +177,12 @@ dialog label { display: grid; gap: 2px; font-size: 13px; color: var(--ink-soft);
 .season-rows { list-style: none; padding: 0; margin: 8px 0 12px; display: grid; gap: 8px; }
 .season-row { display: flex; gap: 10px; align-items: flex-start; }
 .season-row input { margin-top: 4px; }
+
+/* Rednote box */
+.rednote-set { display: grid; gap: 6px; margin-bottom: 18px; }
+.rednote-set h3 { margin: 8px 0 4px; }
+.rednote-set label { font-size: 13px; color: var(--ink-soft); }
+.rednote-pics { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 6px; }
+.rednote-pics img { display: block; width: 135px; height: 180px; border-radius: 6px; border: 1px solid var(--line); }
+.rednote-copy { display: flex; gap: 8px; align-items: flex-start; }
+.rednote-copy input, .rednote-copy textarea { flex: 1; min-width: 0; }

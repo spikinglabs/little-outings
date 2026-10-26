@@ -1,5 +1,6 @@
 // Runs after `astro build` (npm run build): turns the link preview pictures, dist/og/<lang>/*.svg
 // (src/pages/og/[lang]/[file].ts), into PNG, which is what WhatsApp and WeChat show, and removes the SVG.
+// The Rednote cards, dist/xhs/*.svg (src/pages/xhs/), go the same way.
 // Fonts: the site's own Atkinson Hyperlegible and Barlow Semi Condensed from @fontsource (WOFF, unpacked
 // here to TrueType, since resvg reads no WOFF) and Noto Sans SC cut to the Chinese the pictures use
 // (design/og/, scripts/og-font.py). No system fonts, so a picture looks the same on every machine.
@@ -69,19 +70,29 @@ export const renderPng = (svg, fontFiles) =>
 if (import.meta.url === `file://${process.argv[1]}`) {
   const root = join(dist, "og");
   const fonts = fontFiles();
-  let n = 0;
-  let bytes = 0;
-  for (const lang of existsSync(root) ? readdirSync(root) : []) {
-    for (const file of readdirSync(join(root, lang)).filter((f) => f.endsWith(".svg"))) {
-      const svg = join(root, lang, file);
+  const draw = (dir) => {
+    let n = 0, bytes = 0;
+    for (const file of existsSync(dir) ? readdirSync(dir).filter((f) => f.endsWith(".svg")) : []) {
+      const svg = join(dir, file);
       const png = renderPng(readFileSync(svg, "utf8"), fonts);
       writeFileSync(svg.replace(/\.svg$/, ".png"), png);
       rmSync(svg);
       n++;
       bytes += png.length;
     }
+    return [n, bytes];
+  };
+  let n = 0;
+  let bytes = 0;
+  for (const lang of existsSync(root) ? readdirSync(root) : []) {
+    const [a, b] = draw(join(root, lang));
+    n += a;
+    bytes += b;
   }
   console.log(`drew ${n} link preview pictures (${Math.round(bytes / 1024)} KB)`);
+  // The Rednote cards (src/pages/xhs/), drawn the same way.
+  const [cards, cardBytes] = draw(join(dist, "xhs"));
+  console.log(`drew ${cards} Rednote cards (${Math.round(cardBytes / 1024)} KB)`);
 
   // Every picture a page names must be there: a missing one shows no preview at all.
   const missing = new Set();

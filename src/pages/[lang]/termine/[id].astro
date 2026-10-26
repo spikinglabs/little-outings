@@ -18,6 +18,8 @@ import { googleUrl, ics } from "../../../lib/calendar";
 import { eventLd } from "../../../lib/seo";
 import { seasonPageFor, seasonPath } from "../../../lib/seasons";
 import { eventKey } from "../../../lib/og";
+import RednoteShare from "../../../components/RednoteShare.astro";
+import { rednoteSets } from "../../../lib/rednote-data";
 
 export async function getStaticPaths() {
   const { events } = await getData();
@@ -43,6 +45,8 @@ const map = mapLink(e, place);
 const wx = runsLong(e.start, e.end) ? undefined : dayAt(await getWeather(), e.town, e.start < TODAY ? TODAY : e.start);
 // A season's note (St. Martin walks are often for one Kita only, so ask first) and its town page.
 const seasonNotes = seasons.seasons.filter((s) => s.note && e.seasons?.includes(s.id));
+// A Rednote explainer for the event's season (St. Martin …), for Chinese readers to share.
+const xhs = lang === "zh" && e.seasons?.length ? (await rednoteSets()).sets.find((s) => s.season && e.seasons!.includes(s.season)) : undefined;
 const seasonPage = seasonPageFor(e, seasons);
 // Search snippet: when, where, what kind and the organiser's note, so the result answers "what is it?".
 const where = [place ? nameOf(place, lang) : e.venue, town].filter(Boolean).join(", ");
@@ -105,6 +109,7 @@ const ld = eventLd(e, {
     {e.kids && <p class="note">{t("kids.label")}: {e.kids.map((k) => t(`kids.${k}`)).join(", ")}</p>}
     {seasonPage && <p class="note"><a href={seasonPath(lang, seasonPage.season, seasonPage.file.slug)}>{seasonPage.season.emoji} {tr(seasonPage.season.page!.title, lang).replace("{town}", town)} →</a></p>}
     {translated && lang !== "de" && !isFallback(e.title, lang) && <p class="orig">{t("translated")}</p>}
+    {xhs && <RednoteShare set={xhs} />}
 
     {place && yes.length > 0 && (
       <>

@@ -17,6 +17,7 @@ import schoolHolidays from "../../../data/school-holidays.json";
 import { editionTowns, liveEdition } from "../../lib/weekend-data";
 import { addDays } from "../../lib/weekend";
 import { seasonPages, seasonPath } from "../../lib/seasons";
+import { rednoteSets } from "../../lib/rednote-data";
 
 export const getStaticPaths = () => LANGS.map((lang) => ({ params: { lang } }));
 const lang = Astro.params.lang as Lang;
@@ -239,6 +240,8 @@ const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
   </section>
   {events.length + places.length === 0 && <p class="empty">{t("empty")}</p>}
   <script is:inline type="application/json" id="explore-ui" set:html={JSON.stringify(pluralUi)} />
+  <!-- Codes on the Rednote cards ("K31-2") and the page each opens; typed into the search box (explore.ts). -->
+  <script is:inline type="application/json" id="xhs-codes" set:html={JSON.stringify((await rednoteSets()).codes)} />
   <script>
     import "../../scripts/explore";
   </script>
