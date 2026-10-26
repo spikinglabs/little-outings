@@ -5,7 +5,7 @@
 import Base from "../../layouts/Base.astro";
 import Stamp from "../../components/Stamp.astro";
 import { LANGS, MAKER_URL, tr, useT, type Lang } from "../../lib/i18n";
-import { getData } from "../../lib/data";
+import { getData, getWeather } from "../../lib/data";
 import { pathFor, townName } from "../../lib/format";
 import { KINDS, TAGS } from "../../content.config";
 import { KIND_ICON, UI_ICON, svg } from "../../lib/icons";
@@ -57,7 +57,9 @@ const seasons = data.seasons.seasons
     shareText: s.share_text ? tr(s.share_text, lang) : t("season.shareText"),
     hub: s.page && pages.some((p) => p.season.id === s.id) ? { href: seasonPath(lang, s), label: tr(s.page.hub, lang) } : undefined,
   }));
-const pluralUi = { nEvents: t.group("nEvents"), nPlaces: t.group("nPlacesAny"), tip: t("tip"), whenIn, mapShow: t("mapShow"), mapHide: t("mapHide"), areaBack: t("mapAreaBack"), showMore: t("mapShowMore"), locNone: t("locNone"), loadFail: t("loadFail"), noneHere: t("noneHere"), holidays, seasons: seasons.map(({ id, chip, shareText }) => ({ id, chip, shareText })), copied: t("season.copied") };
+// The next days' weather per town, from the nightly build (no request from the reader's phone).
+const weather = await getWeather();
+const pluralUi = { nEvents: t.group("nEvents"), nPlaces: t.group("nPlacesAny"), tip: t("tip"), whenIn, mapShow: t("mapShow"), mapHide: t("mapHide"), areaBack: t("mapAreaBack"), showMore: t("mapShowMore"), locNone: t("locNone"), loadFail: t("loadFail"), noneHere: t("noneHere"), holidays, seasons: seasons.map(({ id, chip, shareText }) => ({ id, chip, shareText })), copied: t("season.copied"), weather, wx: t.group("wx") };
 const homes = region.towns;
 // Town picker rows, A–Z in the reader's language (Düsseldorf next to Dortmund, 杜塞尔多夫 by pinyin).
 // keys: every name a parent might type, lowercased and without accents (koln finds Köln, 科隆 finds it too).
@@ -93,6 +95,16 @@ const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
         <button type="button" data-when={k} aria-pressed={k === "weekend" ? "true" : "false"}>{t(`when.${k}`)}</button>
         {k === "weekend" && <button type="button" data-when="holiday" aria-pressed="false" hidden></button>}
       </>)}
+    </div>
+    <!-- The chosen days' weather, and a nudge toward ideas that suit it (explore.ts). Hidden without a forecast. -->
+    <div class="wx" data-wx hidden>
+      <p class="wx-days" data-wx-days></p>
+      <p class="wx-tip small"><span data-wx-tip></span>
+        <button class="chip" type="button" data-flag="rain" data-wx-btn="roof" aria-pressed="false" hidden>{t("wx.onlyRoof")}</button>
+        <button class="chip" type="button" data-flag="outdoor" data-wx-btn="out" aria-pressed="false" hidden>{t("wx.onlyOut")}</button>
+        <button class="chip" type="button" data-wx-btn="water" aria-pressed="false" hidden>{t("wx.onlyWater")}</button>
+        <a class="wx-by" href="https://open-meteo.com/" target="_blank" rel="noopener">{t("wx.by")}</a>
+      </p>
     </div>
     <div class="filters" role="group">
       <button class="chip town-btn" type="button" id="home" value={region.center} aria-haspopup="dialog">📍 {t("near")} <b data-home-name>{townName(region.center, lang, homes)}</b><span class="caret" aria-hidden="true">▾</span></button>

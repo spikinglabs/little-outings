@@ -6,6 +6,7 @@ import { lastChance } from "../lib/running";
 import { ORDERS, orderEvents, orderPlaces, type Order } from "../lib/order";
 import { holidayFor, type Period } from "../lib/holidays";
 import { inWindow, type Window } from "../lib/seasons-window";
+import { daysFor, fit, mood, moods, sharedMood, skyIcon, skyWord, wantsRoof, type Day, type Mood, type Packed } from "../lib/weather";
 import { distanceOf, getHome, markSaved, nearestTown, renderKm, setHere, setHome } from "./app";
 import type {} from "../islands/OutingsMap";
 
@@ -15,6 +16,7 @@ const ui = JSON.parse(document.getElementById("explore-ui")!.textContent!) as {
   showMore: string; locNone: string; loadFail: string;
   holidays: { towns: Record<string, string>; periods: Record<string, Period[]>; label: Record<string, string>; labelIn: Record<string, string> };
   seasons: { id: string; chip: Window[]; shareText: string }[]; copied: string;
+  weather?: Packed; wx: Record<string, string>;
 };
 const lang = document.body.dataset.lang!;
 const pr = new Intl.PluralRules(lang);
@@ -23,15 +25,15 @@ const count = (p: Plural, n: number, r?: number) =>
 
 // area: the map's bounds [south, west, north, east] once the reader moves the map; it replaces the radius.
 const PAGE = 24; // cards shown at once; OpenStreetMap brings in more than a thousand places
-const state = { limit: PAGE, area: null as number[] | null, view: 0, when: "weekend", q: "", rain: false, farm: false, free: false, animals: false, changing: false, nogerman: false, season: "", radius: 30, kind: "", tag: "", order: "mixed" as Order };
+const state = { limit: PAGE, area: null as number[] | null, view: 0, when: "weekend", q: "", rain: false, farm: false, free: false, animals: false, changing: false, nogerman: false, outdoor: false, season: "", radius: 30, kind: "", tag: "", order: "mixed" as Order };
 const $ = <T extends Element = HTMLElement>(s: string) => document.querySelector<T>(s)!;
 const $$ = <T extends Element = HTMLElement>(s: string) => [...document.querySelectorAll<T>(s)];
 const home = $<HTMLButtonElement>("#home");
 
 // The chosen day, distance and chips last for this tab's session, so a refresh or a trip to
 // a card and back keeps them. The town is kept elsewhere (as home); no location is ever stored here.
-const KEPT = ["when", "rain", "farm", "free", "animals", "changing", "nogerman", "season", "radius", "kind", "tag", "order"] as const;
-const FLAGS = ["rain", "farm", "free", "animals", "changing", "nogerman"] as const;
+const KEPT = ["when", "rain", "outdoor", "farm", "free", "animals", "changing", "nogerman", "season", "radius", "kind", "tag", "order"] as const;
+const FLAGS = ["rain", "outdoor", "farm", "free", "animals", "changing", "nogerman"] as const;
 type Flag = (typeof FLAGS)[number];
 function restore() {
   let saved: Record<string, unknown> = {};
@@ -39,8 +41,9 @@ function restore() {
   const has = (sel: string) => !!document.querySelector(sel);
   if (typeof saved.when === "string" && has(`[data-when="${CSS.escape(saved.when)}"]`)) state.when = saved.when;
   for (const k of FLAGS) {
+    // "Only outdoors" sits in the weather line, which shows once the script has read the forecast.
     const b = document.querySelector<HTMLElement>(`[data-flag="${k}"]`);
-    if (b && !b.hidden && saved[k] === true) { state[k] = true; b.setAttribute("aria-pressed", "true"); }
+    if (b && (!b.hidden || k === "outdoor") && saved[k] === true) state[k] = true;
   }
   if (typeof saved.season === "string" && seasonBtn(saved.season)) state.season = saved.season;
   const radius = $<HTMLSelectElement>("#radius");
@@ -165,7 +168,9 @@ function near({ lat, lon, dist }: Row) {
 /** Every filter except where: the map draws these, so moving it reveals more. */
 function passes({ d, feat }: Row) {
   if (state.q && !state.q.toLowerCase().split(/\s+/).every((w) => d.q!.includes(w))) return false;
-  if (state.rain && !d.indoor) return false;
+  // Under a roof as far as we know (the record, or a guess from the kind or type: Card.astro).
+  if (state.rain && d.roof !== "1") return false;
+  if (state.outdoor && d.roof !== "0") return false;
   if (state.farm && !d.farm) return false;
   if (state.free && !d.free) return false;
   if (state.animals && !feat.includes("animals")) return false;
@@ -177,6 +182,52 @@ function passes({ d, feat }: Row) {
   return true;
 }
 
+// ---------- weather ----------
+// The forecast came with the page (lib/weather.ts, built nightly). The line shows up to three of the chosen
+// days; when they call for it, a nudge says what comes first and offers a chip. Nothing asks for location.
+const weekday = (d: string, style: "long" | "short") => new Intl.DateTimeFormat(lang, { weekday: style, timeZone: "UTC" }).format(new Date(`${d}T12:00:00Z`));
+const fill = (s: string, v: Record<string, string | number>) => s.replace(/\{(\w+)\}/g, (_, k) => String(v[k] ?? ""));
+const coverOf = (r: Row) => ({ indoor: r.d.roof === "1" ? true : r.d.roof === "0" ? false : undefined, water: !!r.d.water });
+type Sky = { byDay: Map<string, Mood>; places: Mood };
+function weather(from: string, to: string, word: string): Sky {
+  const box = $("[data-wx]");
+  const days = daysFor(ui.weather, getHome(), from, to);
+  const shown = days.slice(0, 3);
+  box.hidden = !shown.length;
+  // "Only outdoors" lives here alone: when it isn't offered for these days, it's off.
+  const offerOut = shown.some((d) => mood(d) === "nice");
+  if (!offerOut) state.outdoor = false;
+  if (!shown.length) return { byDay: new Map(), places: "plain" };
+  const wx = ui.wx;
+  $("[data-wx-days]").textContent = shown.map((d) => [
+    shown.length > 1 ? weekday(d.day, "short") : "", skyIcon(d.code), skyWord(d.code, lang), `${d.max}°`,
+    shown.length === 1 && d.rain >= 30 ? `☔ ${d.rain} %` : "", // one day has room for the chance of rain
+  ].filter(Boolean).join(" ")).join(" · ");
+  // One sentence per kind of weather among the shown days: under a roof (rain, snow, cold), outside, water.
+  const wholeRange = days.length === shown.length && shown[0].day === from && shown.at(-1)!.day === to && state.when !== "soon";
+  const when = (ds: Day[]) => (ds.length === shown.length && wholeRange ? word
+    : fill(wx.onDay, { day: ds.map((d) => weekday(d.day, "long")).join(wx.and) }));
+  const top = (ds: Day[]) => Math.max(...ds.map((d) => d.max));
+  const groups: { key: "roof" | "out" | "water"; days: Day[] }[] = [
+    { key: "roof" as const, days: shown.filter((d) => wantsRoof(mood(d))) },
+    { key: "out" as const, days: shown.filter((d) => mood(d) === "nice") },
+    { key: "water" as const, days: shown.filter((d) => mood(d) === "hot") },
+  ].filter((g) => g.days.length);
+  const sentences = groups.map((g) => {
+    const m = g.key === "roof" ? (["rain", "snow", "cold"] as Mood[]).find((x) => g.days.some((d) => mood(d) === x))! : g.key === "out" ? "nice" : "hot";
+    return fill(wx[m], { when: when(g.days), t: top(g.days) });
+  });
+  // "… come first" only while the list is Mixed: Soonest and Nearest stay plain sorts.
+  if (groups.length && state.order === "mixed") {
+    sentences.push(groups.length > 1 ? wx.firstEach : wx[{ roof: "firstRoof", out: "firstOut", water: "firstWater" }[groups[0].key]]);
+  }
+  $("[data-wx-tip]").textContent = sentences.join(lang === "zh" ? "" : " ");
+  $$<HTMLButtonElement>("[data-wx-btn]").forEach((b) => (b.hidden = !groups.some((g) => g.key === b.dataset.wxBtn)));
+  // Places have no day: they follow the weather only when a short range shares one.
+  const short = Date.parse(to) - Date.parse(from) <= 2 * 864e5;
+  return { byDay: moods(days), places: short ? sharedMood(days) : "plain" };
+}
+
 function apply() {
   keep();
   const inHoliday = holidayWord();
@@ -186,6 +237,9 @@ function apply() {
   $$("[data-season-bar]").forEach((p) => (p.hidden = p.dataset.seasonBar !== state.season));
   $$<HTMLButtonElement>("[data-season]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.season === state.season)));
   $$<HTMLButtonElement>("[data-when]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.when === state.when)));
+  $$<HTMLButtonElement>("[data-flag]").forEach((b) => b.setAttribute("aria-pressed", String(state[b.dataset.flag as Flag])));
+  $$<HTMLButtonElement>('[data-wx-btn="water"]').forEach((b) => b.setAttribute("aria-pressed", String(state.kind === "pool")));
+  const sky = weather(from, to, word);
   // Until the cards are here, taps only change the filters; the list follows when they arrive.
   if (!loaded) return;
 
@@ -223,8 +277,11 @@ function apply() {
   const today = ymd(new Date());
   const seed = `${today}|${getHome()}`;
   const asItem = (r: Row) => ({ r, id: r.d.id!, start: r.d.start ?? "", end: r.d.end ?? "", time: r.d.time, dist: r.dist });
-  const evs = orderEvents(matched.filter((r) => r.d.type === "event").map(asItem), state.order, from, today, seed).map((x) => x.r);
-  const shuffled = orderPlaces(matched.filter((r) => r.d.type !== "event").map(asItem), state.order, seed).map((x) => x.r);
+  // In Mixed, what suits each day's weather comes first within that part of the day (lib/weather.ts).
+  const evs = orderEvents(matched.filter((r) => r.d.type === "event").map(asItem), state.order, from, today, seed,
+    (x, day) => fit(sky.byDay.get(day) ?? "plain", coverOf(x.r))).map((x) => x.r);
+  const shuffled = orderPlaces(matched.filter((r) => r.d.type !== "event").map(asItem), state.order, seed,
+    (x) => fit(sky.places, coverOf(x.r))).map((x) => x.r);
   // Nearest first mixes the kinds, so twenty playgrounds in a row don't hide the farm.
   const pls = state.order === "mixed" ? shuffled : mixKinds(shuffled);
   matched.length = 0;
@@ -313,6 +370,8 @@ document.addEventListener("click", (ev) => {
   if (t.closest("[data-area-reset]")) { state.area = null; state.view++; apply(); }
   const m = t.closest<HTMLButtonElement>("[data-map-toggle]");
   if (m) showMap(m.getAttribute("aria-expanded") !== "true");
+  // "Pools & lakes" in the weather line: on and off again, unlike the kind chips below.
+  if (t.closest('[data-wx-btn="water"]')) { state.kind = state.kind === "pool" ? "" : "pool"; state.tag = ""; state.limit = PAGE; apply(); }
   const k = t.closest<HTMLButtonElement>("[data-kind-chip]");
   if (k) { state.kind = k.dataset.kindChip!; state.tag = ""; apply(); }
   const g = t.closest<HTMLButtonElement>("[data-tag-chip]");

@@ -19,6 +19,25 @@ search: 搜索
 searchPh: 搜索农场、咖啡馆、游乐场或活动
 filters: { farm: "🚜 农场", rain: "☂ 下雨也能去", free: 免费, animals: 有动物, changing: 尿布台, nogerman: "💬 不懂德语也能玩", radius: 范围 }
 order: { label: 排序, mixed: 随机, soonest: 时间最近, nearest: 距离最近 }
+# 发现页和活动页上的天气（src/lib/weather.ts）。{when}：今天、本周末、周六；{t}：摄氏度。
+wx:
+  rain: "{when}可能下雨。"
+  snow: "{when}可能下雪，注意保暖。"
+  cold: "{when}较冷，最高{t}°。"
+  hot: "{when}很热，最高{t}°。"
+  nice: "{when}没有雨，最高{t}°，适合户外。"
+  firstRoof: 室内的推荐排在前面。
+  firstOut: 户外的推荐排在前面。
+  firstWater: 泳池和戏水的推荐排在前面。
+  firstEach: 每天的推荐按当天的天气排序。
+  onDay: "{day}"
+  and: "和"
+  onlyRoof: "☂ 只看雨天可去"
+  onlyOut: "🌳 只看户外"
+  onlyWater: "💧 泳池和湖"
+  by: "天气：Open-Meteo"
+  forecast: 天气预报
+  rainChance: "降雨概率{n}%"
 # Season chips and pages (content/seasons.yaml, src/lib/seasons.ts). A season's own texts there win.
 season:
   add: "还缺了什么？"

@@ -19,6 +19,25 @@ search: Search
 searchPh: Search farms, cafés, playgrounds or festivals
 filters: { farm: "🚜 Farm", rain: "☂ Rainy day", free: Free, animals: Animals, changing: Changing table, nogerman: "💬 No German needed", radius: Within }
 order: { label: Order, mixed: Mixed, soonest: Soonest, nearest: Nearest }
+# Weather on Discover and event pages (src/lib/weather.ts). {when}: today, this weekend, on Saturday; {t}: °C.
+wx:
+  rain: "Rain likely {when}."
+  snow: "Snow likely {when}: wrap up warm."
+  cold: "Cold {when}, up to {t}°."
+  hot: "Hot {when}, up to {t}°."
+  nice: "Dry {when}, up to {t}°: a good time to be outside."
+  firstRoof: Rain-proof ideas come first.
+  firstOut: Outdoor ideas come first.
+  firstWater: Pools and water play come first.
+  firstEach: "Each day's ideas suit its weather."
+  onDay: "on {day}"
+  and: " and "
+  onlyRoof: "☂ Only rain-proof"
+  onlyOut: "🌳 Only outdoors"
+  onlyWater: "💧 Pools & lakes"
+  by: "Weather: Open-Meteo"
+  forecast: Forecast
+  rainChance: "{n}% chance of rain"
 # Season chips and pages (content/seasons.yaml, src/lib/seasons.ts). A season's own texts there win.
 season:
   add: "Something missing?"

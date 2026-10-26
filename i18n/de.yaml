@@ -19,6 +19,25 @@ search: Suche
 searchPh: Hof, Café, Spielplatz oder Fest suchen
 filters: { farm: "🚜 Bauernhof", rain: "☂ Bei Regen", free: Kostenlos, animals: Mit Tieren, changing: Wickeltisch, nogerman: Ohne Deutsch, radius: Umkreis }
 order: { label: Reihenfolge, mixed: Gemischt, soonest: Bald zuerst, nearest: Nah zuerst }
+# Wetter auf Entdecken und Terminseiten (src/lib/weather.ts). {when}: heute, am Wochenende, am Samstag; {t}: °C.
+wx:
+  rain: "Regen wahrscheinlich {when}."
+  snow: "Schnee wahrscheinlich {when}: warm anziehen."
+  cold: "Kalt {when}, höchstens {t}°."
+  hot: "Heiß {when}, bis {t}°."
+  nice: "Trocken {when}, bis {t}°: gut für draußen."
+  firstRoof: Ideen für drinnen zuerst.
+  firstOut: Ideen für draußen zuerst.
+  firstWater: Bäder und Wasserspiel zuerst.
+  firstEach: Jeder Tag zeigt zuerst, was zu seinem Wetter passt.
+  onDay: "am {day}"
+  and: " und "
+  onlyRoof: "☂ Nur drinnen"
+  onlyOut: "🌳 Nur draußen"
+  onlyWater: "💧 Bäder & Seen"
+  by: "Wetter: Open-Meteo"
+  forecast: Vorhersage
+  rainChance: "Regenrisiko {n} %"
 # Season chips and pages (content/seasons.yaml, src/lib/seasons.ts). A season's own texts there win.
 season:
   add: "Etwas fehlt?"

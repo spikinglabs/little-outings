@@ -5,7 +5,9 @@ import GapBox from "../../../components/GapBox.astro";
 import ReportBox from "../../../components/ReportBox.astro";
 import VisitBox from "../../../components/VisitBox.astro";
 import { LANGS, isFallback, tr, useT, type Lang } from "../../../lib/i18n";
-import { getData } from "../../../lib/data";
+import { getData, getWeather, TODAY } from "../../../lib/data";
+import { dayAt, skyIcon, skyWord } from "../../../lib/weather";
+import { runsLong } from "../../../lib/running";
 import { ageText, dateRange, germanName, nameOf, pathFor, townName } from "../../../lib/format";
 import { mapLink } from "../../../lib/maps";
 import { FEATURE_ICON, UI_ICON, svg } from "../../../lib/icons";
@@ -36,6 +38,8 @@ const cal = await calInput(e, lang, Astro.site);
 const icsText = ics(cal, `${new Date().toISOString().slice(0, 10).replace(/-/g, "")}T000000Z`).replace(/<\//g, "<\\/");
 const translated = isFallback(e.title, lang) || isFallback(e.note, lang);
 const map = mapLink(e, place);
+// The forecast for the event's day when it's within the next week (built nightly). Exhibitions and other long runs have no one day.
+const wx = runsLong(e.start, e.end) ? undefined : dayAt(await getWeather(), e.town, e.start < TODAY ? TODAY : e.start);
 // A season's note (St. Martin walks are often for one Kita only, so ask first) and its town page.
 const seasonNotes = seasons.seasons.filter((s) => s.note && e.seasons?.includes(s.id));
 const seasonPage = seasonPageFor(e, seasons);
@@ -71,6 +75,8 @@ const ld = eventLd(e, {
       </span></li>
       {e.price && <li><span>€</span><span>{e.price.free ? t("free") : tr(e.price.text, lang) || t("paid")}</span></li>}
       {e.ages && <li><span>👧</span><span>{ageText(t, e.ages)}</span></li>}
+      {wx && <li><span>{skyIcon(wx.code)}</span><span>{t("wx.forecast")}: {skyWord(wx.code, lang)}, {wx.max}° / {wx.min}°{wx.rain >= 30 && ` · ${t("wx.rainChance", { n: wx.rain })}`}
+        {" "}<a class="small" href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a></span></li>}
       {e.indoor != null && <li><span>{e.indoor ? "☂" : "☀"}</span><span>{e.indoor ? t("indoor") : t("outdoor")}</span></li>}
       <li><span>✓</span><span class="small">
         {e.trust.level === "community" ? t("trust.community") : <>{t(`trust.${e.trust.level}`)}{e.trust.source && ` · ${tr(e.trust.source, lang)}`}</>}

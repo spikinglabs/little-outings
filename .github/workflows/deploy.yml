@@ -68,6 +68,11 @@ jobs:
         run: |
           out=$(npm run --silent import:toilets 2>&1); echo "$out"
           echo "::notice title=Toilets::$(echo "$out" | tail -1)"
+      # The next week's weather per town for Discover and event pages (free, no key). Never fails the build.
+      - name: Fetch the weather (Open-Meteo)
+        run: |
+          out=$(npm run --silent fetch:weather 2>&1); echo "$out"
+          echo "::notice title=Weather::$(echo "$out" | tail -1)"
       - name: Pin parents' places (Nominatim)
         env:
           PINS_CACHE: .cache/pins.json

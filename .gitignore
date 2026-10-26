@@ -8,3 +8,4 @@ data/inbox-tallies.json
 .wrangler/
 .cache/
 data/toilets.jsonl
+data/weather.json

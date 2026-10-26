@@ -8,6 +8,7 @@ import { rowFor } from "../lib/features";
 import { getData } from "../lib/data";
 import type { Item } from "../lib/types";
 import { runsLong } from "../lib/running";
+import { indoorGuess } from "../lib/search";
 
 interface Props { item: Item; t: T; hidden?: boolean }
 const { item, t, hidden } = Astro.props;
@@ -35,6 +36,10 @@ const meta = item.type === "event"
 const answers = parentInput(item);
 const soon = item.type === "place" ? events.filter((e) => e.place === item.id).length : 0;
 const prec = item.geo.precision;
+// Under a roof or not, for the rain chip and the weather nudge: what the record says, else a guess from the
+// kind of place or the event's type (a museum, story time: in; a playground, a fest: out). Water for hot days.
+const roof = indoorGuess(item.indoor, [...tags, ...(place ? [place.kind] : [])]);
+const water = place?.kind === "pool" || yes.includes("water_play");
 const search = [
   item.type === "event" ? (typeof item.title === "string" ? item.title : Object.values(item.title).join(" ")) : item.name,
   ...(item.type === "place" ? Object.values(item.names ?? {}) : []),
@@ -55,6 +60,8 @@ const search = [
   data-lon={item.geo.lon}
   data-precision={prec}
   data-indoor={item.indoor ? "1" : undefined}
+  data-roof={roof === undefined ? undefined : roof ? "1" : "0"}
+  data-water={water ? "1" : undefined}
   data-free={isFree(item) ? "1" : undefined}
   data-farm={isFarm(item, place) ? "1" : undefined}
   data-feat={[...yes, ...tags, ...(item.type === "event" && !tags.length ? ["other"] : []), ...(item.type === "event" && item.language && item.language !== "de" ? ["nogerman"] : []), ...seasons].join(" ")}
