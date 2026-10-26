@@ -1,0 +1,130 @@
+# Christmas markets in Hamburg, 2026: the city centre and the district markets with a children's programme,
+# from hamburg.de's market pages (checked 2026-10-26).
+town: Hamburg
+source: hamburg.de
+checked: 2026-10-26
+items:
+  - id: rathausmarkt
+    name: Historischer Weihnachtsmarkt auf dem Rathausmarkt
+    from: 2026-11-23
+    to: 2026-12-23
+    hours: "Täglich 11–21 Uhr"
+    street: Rathausmarkt
+    geo: { lat: 53.55086, lon: 9.99290 }
+    district: Altstadt
+    kids: [carousel, santa]
+    free: true
+    website: https://www.hamburg.de/tourismus/weihnachten-hamburg/weihnachtsmarkt-hamburg/weihnachtsmarkt-rathausmarkt-301092
+    note:
+      de: "Täglich um 16, 18 und 20 Uhr fliegt der Weihnachtsmann mit Schlitten über den Markt. Historisches Karussell; an den Advents-Samstagen um 14 und 17 Uhr Weihnachtsparade in der Mönckebergstraße."
+      en: "Father Christmas flies over the market on his sleigh daily at 4, 6 and 8 pm. A historic carousel, and a Christmas parade on Mönckebergstraße on Advent Saturdays at 2 and 5 pm."
+      zh: "每天16点、18点和20点，圣诞老人乘雪橇从市场上空飞过。有老式旋转木马；降临期周六14点和17点在Mönckebergstraße有圣诞游行。"
+  - id: jungfernstieg
+    name: Weißer Zauber am Jungfernstieg
+    from: 2026-11-18
+    to: 2026-12-23
+    hours: "Mo–Do und So 11–21, Fr–Sa 11–22 Uhr; Totensonntag (22.11.) zu"
+    street: Jungfernstieg
+    geo: { lat: 53.55210, lon: 9.99340 }
+    district: Neustadt
+    kids: [rides, fairy_tale, santa]
+    free: true
+    website: https://www.hamburg.de/tourismus/weihnachten-hamburg/weihnachtsmarkt-hamburg/weihnachtsmarkt-jungfernstieg-301080
+    note:
+      de: "Historisches Riesenrad von 1899, Märchenschiffe auf der Binnenalster (26.11.–23.12.). Am 6.12. ab 16:30 Uhr kommt der Nikolaus."
+      en: "A historic Ferris wheel from 1899 and fairy-tale boats on the Inner Alster (26 Nov to 23 Dec). St. Nicholas comes on 6 Dec from 4:30 pm."
+      zh: "有1899年的老式摩天轮，内阿尔斯特湖上有童话船（11月26日至12月23日）。12月6日16:30起圣尼古拉斯来访。"
+  - id: gaensemarkt
+    name: Lebkuchendorf auf dem Gänsemarkt
+    from: 2026-11-18
+    to: 2026-12-23
+    hours: "Täglich 11–21 Uhr"
+    street: Gänsemarkt
+    geo: { lat: 53.55566, lon: 9.98604 }
+    district: Neustadt
+    kids: [fairy_tale]
+    free: true
+    website: https://www.hamburg.de/tourismus/weihnachten-hamburg/weihnachtsmarkt-hamburg/weihnachtsmarkt-auf-dem-gaensemarkt-301122
+    note: { de: "Ein Dorf aus Lebkuchen-Häuschen rund um das Lessingdenkmal.", en: "A village of gingerbread huts around the Lessing monument.", zh: "莱辛纪念碑周围的姜饼小屋村。" }
+  - id: petrikirche
+    name: Weihnachtsmarkt an der Petrikirche
+    from: 2026-11-18
+    to: 2026-12-23
+    street: Bei der Petrikirche
+    geo: { lat: 53.55023, lon: 9.99727 }
+    district: Altstadt
+    kids: [fairy_tale, stage]
+    free: true
+    website: https://www.hamburg.de/tourismus/weihnachten-hamburg/weihnachtsmarkt-hamburg/weihnachtsmarkt-petrikirche-301062
+    note: { de: "Klein, märchenhaft und familiär, mit beweglichen Märchenfiguren.", en: "Small and family-friendly, with moving fairy-tale figures.", zh: "小而温馨，有会动的童话人物。" }
+  - id: barmbek
+    name: Barmbeker Weihnachtsmarkt
+    from: 2026-11-12
+    to: 2026-12-30
+    hours: "Täglich 12–21 Uhr"
+    street: Piazzetta Ralph Giordano
+    geo: { lat: 53.58811, lon: 10.04630 }
+    district: Barmbek-Nord
+    kids: [carousel, stage]
+    free: true
+    website: https://www.hamburg.de/tourismus/weihnachten-hamburg/weihnachtsmarkt-hamburg/weihnachtsmarkt-barmbek-307194
+    note: { de: "Nostalgisches Kinderkarussell, Puppentheater und Zauberer.", en: "A nostalgic children's carousel, puppet theatre and a magician.", zh: "有怀旧儿童旋转木马、木偶剧和魔术师。" }
+  - id: ottensen
+    name: Weihnachtsmarkt Ottensen
+    from: 2026-11-23
+    to: 2026-12-23
+    hours: "Mo–Mi 11–21, Do–Sa 11–22, So 12–20 Uhr"
+    street: Ottenser Hauptstraße
+    geo: { lat: 53.55222, lon: 9.93291 }
+    district: Ottensen
+    kids: [carousel, stage, crafts, santa]
+    free: true
+    website: https://www.hamburg.de/tourismus/weihnachten-hamburg/weihnachtsmarkt-hamburg/weihnachtsmarkt-ottensen-307780
+    note:
+      de: "Karussell, sonntags Puppentheater, Back- und Bastelaktionen im Mercado; in der Zwergenhütte verkaufen Kinder bis 12 Selbstgemachtes."
+      en: "A carousel, puppet theatre on Sundays, baking and crafts in the Mercado; in the dwarf hut children up to 12 sell things they made."
+      zh: "有旋转木马、周日木偶剧，Mercado商场里有烘焙和手工活动；12岁以下的孩子可以在小矮人小屋卖自己做的东西。"
+  - id: wandsbek
+    name: Wandsbeker Winterzauber
+    from: 2026-10-31
+    to: 2027-01-01
+    hours: "Täglich 12–22 Uhr, ab 27.12. 12–21 Uhr; 24.12. 12–14 Uhr"
+    street: Wandsbeker Marktplatz
+    geo: { lat: 53.57170, lon: 10.06708 }
+    district: Wandsbek
+    kids: [ice_rink, carousel, santa]
+    website: https://www.hamburg.de/tourismus/weihnachten-hamburg/weihnachtsmarkt-hamburg/wandsbeker-winterzauber-308186
+    note:
+      de: "Winterdorf mit Eisbahn und Kinderkarussell. Mittwochs 12–18 Uhr Familientag mit ermäßigten Preisen; am 6.12. kommt der Nikolaus aufs Eis."
+      en: "A winter village with an ice rink and children's carousel. Family day with lower prices on Wednesdays, 12 to 6 pm; St. Nicholas comes onto the ice on 6 Dec."
+      zh: "有溜冰场和儿童旋转木马的冬日村庄。每周三12点至18点为家庭日，价格优惠；12月6日圣尼古拉斯来到冰场。"
+  - id: bergedorf
+    name: Bergedorfer Weihnachtsmarkt
+    from: 2026-11-20
+    to: 2026-12-30
+    hours: "Täglich 11–21 Uhr; 22.11., 25. und 26.12. zu; 24.12. 11–13 Uhr"
+    street: Schloßstraße 4
+    geo: { lat: 53.48966, lon: 10.21263 }
+    district: Bergedorf
+    kids: [crafts, santa]
+    free: true
+    website: https://www.hamburg.de/tourismus/weihnachten-hamburg/weihnachtsmarkt-hamburg/weihnachtsmarkt-im-zentrum-bergedorf-307244
+    note:
+      de: "Kinderwelt Villa Kunterbunt mit Spielsachen und Basteln, am Wochenende Kekse backen; im Santa's Home Fotos mit dem Weihnachtsmann."
+      en: "A Villa Villekulla children's corner with toys and crafts, cookie baking at weekends, and photos with Father Christmas in Santa's Home."
+      zh: "有“长袜子皮皮小屋”儿童区，提供玩具和手工，周末可以烤饼干；在“圣诞老人之家”可以和圣诞老人合影。"
+  - id: harburg
+    name: Weihnachtsmarkt vor dem Harburger Rathaus
+    from: 2026-11-19
+    to: 2026-12-28
+    hours: "Mo–Sa 11–21:30, So 13–21:30 Uhr"
+    street: Harburger Rathausplatz
+    geo: { lat: 53.45966, lon: 9.98019 }
+    district: Harburg
+    kids: [carousel, fairy_tale, crafts, stage, santa]
+    free: true
+    website: https://www.hamburg.de/tourismus/weihnachten-hamburg/weihnachtsmarkt-hamburg/weihnachtsmarkt-vor-dem-harburger-rathaus-301138
+    note:
+      de: "Großes Kinderprogramm: Kinderkarussell, Märchenlesungen, Kasperletheater, Basteln, Stockbrot und Weihnachtsmann-Sprechstunden."
+      en: "A big children's programme: carousel, fairy-tale readings, Punch and Judy, crafts, stick bread and Father Christmas visiting hours."
+      zh: "儿童节目丰富：旋转木马、童话朗读、木偶剧、手工、烤面包棍，还有圣诞老人见面时间。"

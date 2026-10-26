@@ -86,6 +86,10 @@ export interface Event {
   website?: string;
   /** Set for events that came from the cityklub public export. */
   origin?: { name: string; url: string };
+  /** Seasons and occasions it belongs to (content/seasons.yaml), e.g. "martin", "advent". */
+  seasons?: string[];
+  /** Fixtures (Christmas markets, fairs): what children find there, e.g. "carousel" (src/lib/seasons.ts KIDS). */
+  kids?: string[];
 }
 
 export type Item = Place | Event;

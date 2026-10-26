@@ -1,0 +1,251 @@
+# Christmas markets in Berlin, 2026: the big ones and those with something for children, from berlin.de's
+# market pages (checked 2026-10-26). Berlin has about 100 markets; this is a pick, not all of them.
+town: Berlin
+source: berlin.de
+checked: 2026-10-26
+items:
+  - id: gedaechtniskirche
+    name: Weihnachtsmarkt an der Gedächtniskirche
+    from: 2026-11-13
+    to: 2027-01-03
+    hours: "Zeiten noch nicht bekannt"
+    street: Kurfürstendamm 237
+    geo: { lat: 52.50421, lon: 13.33494 }
+    district: Charlottenburg
+    kids: [carousel]
+    free: true
+    website: https://www.berlin.de/weihnachtsmarkt/3240274-3496862-weihnachtsmarkt-an-der-gedaechtniskirche.html
+    note: { de: "Gemächliche Karussells für die Kleinen.", en: "Gentle carousels for little ones.", zh: "有适合小朋友的慢速旋转木马。" }
+  - id: rotes-rathaus
+    name: Weihnachtsmarkt am Roten Rathaus
+    from: 2026-11-23
+    to: 2027-01-03
+    hours: "Mo–Fr 12–22, Sa–So 11–22 Uhr; 24. und 31.12. zu"
+    street: Rathausstraße 15
+    geo: { lat: 52.51827, lon: 13.40783 }
+    district: Mitte
+    kids: [ice_rink, rides, stage, fairy_tale]
+    website: https://www.berlin.de/weihnachtsmarkt/5096971-3496862-weihnachtsmarkt-am-roten-rathaus.html
+    note:
+      de: "Eisbahn rund um den Neptunbrunnen, Riesenrad, Puppenspieler und Märchenerzähler."
+      en: "An ice rink around the Neptune Fountain, a Ferris wheel, puppeteers and storytellers."
+      zh: "海神喷泉周围有溜冰场，还有摩天轮、木偶艺人和讲故事的人。"
+  - id: gendarmenmarkt
+    name: Weihnachtsmarkt am Gendarmenmarkt
+    from: 2026-11-23
+    to: 2026-12-31
+    hours: "So–Do 11–22, Fr–Sa 11–23 Uhr, 24.12. 11–18 Uhr"
+    street: Gendarmenmarkt
+    geo: { lat: 52.51357, lon: 13.39230 }
+    district: Mitte
+    free: false
+    website: https://www.berlin.de/weihnachtsmarkt/3235772-3496862-weihnachtsmarkt-am-gendarmenmarkt.html
+    note:
+      de: "2 Euro Eintritt, Mo–Fr 11–14 Uhr frei."
+      en: "2 euros entry, free Monday to Friday 11 am to 2 pm."
+      zh: "门票2欧元，周一至周五11点至14点免费。"
+  - id: potsdamer-platz
+    name: Weihnachtsmarkt und Winterwelt am Potsdamer Platz
+    from: 2026-11-23
+    to: 2026-12-26
+    hours: "Täglich 11–22 Uhr"
+    street: Potsdamer Platz
+    geo: { lat: 52.50980, lon: 13.37559 }
+    district: Tiergarten
+    kids: [rides]
+    free: true
+    website: https://www.berlin.de/weihnachtsmarkt/3249647-3496862-weihnachtsmarkt-am-potsdamer-platz.html
+    note: { de: "Mit Rodelbahn.", en: "With a toboggan run.", zh: "有滑雪橇滑道。" }
+  - id: charlottenburg
+    name: Weihnachtsmarkt am Schloss Charlottenburg
+    from: 2026-11-23
+    to: 2026-12-27
+    hours: "Mo–Do 13–22, Fr–So 12–22 Uhr; 24.12. zu"
+    street: Spandauer Damm 20
+    geo: { lat: 52.51992, lon: 13.29355 }
+    district: Charlottenburg
+    kids: [carousel, rides]
+    free: true
+    website: https://www.berlin.de/weihnachtsmarkt/3240314-3496862-weihnachtsmarkt-am-schloss-charlottenbur.html
+    note: { de: "Zwei Kinderkarussells und ein kleines Riesenrad.", en: "Two children's carousels and a small Ferris wheel.", zh: "有两个儿童旋转木马和一个小摩天轮。" }
+  - id: humboldt-forum
+    name: Wintermarkt am Humboldt Forum
+    from: 2026-11-18
+    to: 2027-01-03
+    hours: "Täglich 11–22 Uhr; 22.11. und 24.12. zu"
+    street: Schlossplatz
+    geo: { lat: 52.51673, lon: 13.40317 }
+    district: Mitte
+    kids: [rides]
+    free: true
+    website: https://www.berlin.de/weihnachtsmarkt/8360550-3496862-weihnachtsmarkt-am-humboldt-forum.html
+    note: { de: "Historische Fahrgeschäfte.", en: "Historic fairground rides.", zh: "有老式游乐设施。" }
+  - id: kulturbrauerei
+    name: Lucia Weihnachtsmarkt in der Kulturbrauerei
+    from: 2026-11-23
+    to: 2026-12-22
+    hours: "Mo–Fr 15–22, Sa–So 13–22 Uhr"
+    street: Schönhauser Allee 36
+    geo: { lat: 52.53942, lon: 13.41367 }
+    district: Prenzlauer Berg
+    kids: [carousel, crafts, santa]
+    free: true
+    website: https://www.berlin.de/weihnachtsmarkt/3240367-3496862-lucia-weihnachtsmarkt-in-der-kulturbraue.html
+    note:
+      de: "Nachmittags bei Familien beliebt: Ritterburg, Kettenkarussell, Bastel-Workshops, täglich kommt der Weihnachtsmann."
+      en: "Popular with families in the afternoon: a knights' castle, a chain carousel, craft workshops and Father Christmas every day."
+      zh: "下午很受家庭欢迎：有骑士城堡、链条旋转木马、手工工作坊，圣诞老人每天都来。"
+  - id: zehlendorf
+    name: Zehlendorfer Weihnachtsmarkt
+    from: 2026-11-23
+    to: 2026-12-30
+    hours: "Zeiten noch nicht bekannt; Bühne Sa–So ab 16 Uhr"
+    street: Kirchstraße 1
+    geo: { lat: 52.43503, lon: 13.71618 }
+    district: Zehlendorf
+    kids: [ice_rink, crafts, santa, stage]
+    website: https://www.berlin.de/weihnachtsmarkt/5703047-3496862-zehlendorfer-weihnachtsmarkt.html
+    note:
+      de: "Schlittschuhbahn (2,50 Euro), Bastel- und Backaktionen für Kinder, der Weihnachtsmann kommt regelmäßig."
+      en: "An ice rink (2.50 euros), crafts and baking for children, and regular visits from Father Christmas."
+      zh: "有溜冰场（2.5欧元）、儿童手工和烘焙活动，圣诞老人会定期来。"
+  - id: lichtenberg
+    name: Lichtenberger Winterzeit
+    from: 2026-10-31
+    to: 2026-12-27
+    hours: "Mo–Do 14–22, Fr–Sa 14–23, So 14–22 Uhr; 22.11. und 24.12. zu"
+    street: Landsberger Allee 300
+    geo: { lat: 52.53401, lon: 13.50247 }
+    district: Lichtenberg
+    kids: [rides]
+    free: true
+    website: https://www.berlin.de/weihnachtsmarkt/5741424-3496862-lichtenberger-winterzeit.html
+    note:
+      de: "Weihnachts-Rummel mit rund 80 Fahrgeschäften. Mittwochs Familientag mit ermäßigten Preisen."
+      en: "A Christmas funfair with about 80 rides. Wednesday is family day with lower prices."
+      zh: "有约80个游乐设施的圣诞游乐场。周三是家庭日，价格优惠。"
+  - id: winterquartier
+    name: Winterquartier Berlin
+    from: 2026-11-06
+    to: 2027-02-28
+    hours: "Sa–So 12–20 Uhr; Eisbahn mit eigenen Zeiten"
+    street: Modersohnstraße 49a
+    geo: { lat: 52.50162, lon: 13.45628 }
+    district: Friedrichshain
+    kids: [ice_rink]
+    website: https://www.berlin.de/weihnachtsmarkt/9921991-3496862-winterquartier-berlin.html
+    note: { de: "Schlittschuhhalle mit rund 1000 m² Eis. Eintritt auf Spendenbasis.", en: "An indoor ice rink of about 1,000 m². Entry by donation.", zh: "约1000平方米的室内溜冰场。入场随意捐赠。" }
+  - id: rixdorf
+    name: Alt-Rixdorfer Weihnachtsmarkt
+    from: 2026-12-04
+    to: 2026-12-06
+    hours: "Fr 17–21, Sa 14–21, So 14–20 Uhr"
+    street: Richardplatz 28
+    geo: { lat: 52.47419, lon: 13.44630 }
+    district: Neukölln
+    kids: [animals, santa, fairy_tale]
+    website: https://www.berlin.de/weihnachtsmarkt/3240343-3496862-alt-rixdorfer-weihnachtsmarkt.html
+    note:
+      de: "Historischer Markt: Ponyreiten, die drei Weisen kommen mit Kamelen, der Weihnachtsmann mit Engeln."
+      en: "A historic market with pony rides, the Three Wise Men arriving with camels, and Father Christmas with angels."
+      zh: "历史风格市场：可以骑小马，三博士骑骆驼到来，圣诞老人和天使也会来。"
+  - id: dahlem
+    name: Adventsmarkt auf der Domäne Dahlem
+    from: 2026-11-28
+    to: 2026-12-20
+    hours: "Nur an den Adventswochenenden (28./29.11., 5./6., 12./13., 19./20.12.)"
+    street: Königin-Luise-Straße 49
+    geo: { lat: 52.45942, lon: 13.28904 }
+    district: Dahlem
+    kids: [animals, crafts]
+    website: https://www.berlin.de/weihnachtsmarkt/3250138-3496862-adventsmarkt-auf-der-domaene-dahlem.html
+    note:
+      de: "Gutshof mit Tieren, Bastelangeboten und einer kleinen Feuershow für Kinder."
+      en: "A city farm with animals, crafts and a small fire show for children."
+      zh: "庄园农场，有动物、手工活动和给孩子看的小型火焰表演。"
+  - id: lehmanns-bauernhof
+    name: Weihnachtsmarkt auf Lehmanns Bauernhof
+    from: 2026-12-04
+    to: 2026-12-13
+    hours: "Nur 4.–6. und 11.–13.12.: Fr 14–20, Sa–So 12–20 Uhr"
+    street: Alt-Marienfelde 35
+    geo: { lat: 52.41193, lon: 13.36693 }
+    district: Marienfelde
+    kids: [animals, fairy_tale]
+    free: true
+    website: https://www.berlin.de/weihnachtsmarkt/5742213-3496862-weihnachtsmarkt-auf-lehmanns-bauernhof.html
+    note:
+      de: "Hoftiere besuchen, Ponyreiten und eine Märchenerzählerin."
+      en: "Visit the farm animals, ride a pony and listen to a storyteller."
+      zh: "看农场动物、骑小马，还有讲童话的人。"
+  - id: spaethsche-baumschulen
+    name: Weihnachtsmarkt in den Späth'schen Baumschulen
+    from: 2026-11-28
+    to: 2026-12-13
+    hours: "Nur an den ersten drei Adventswochenenden, 11–20 Uhr"
+    street: Späthstraße 80
+    geo: { lat: 52.45428, lon: 13.47334 }
+    district: Baumschulenweg
+    kids: [fairy_tale, crafts, stage]
+    free: false
+    website: https://www.berlin.de/weihnachtsmarkt/5734559-3496862-weihnachtsmarkt-in-den-spaethschen-baums.html
+    note:
+      de: "Grimm-Märchen vom Monbijou-Theater, Kremserfahrten und Weihnachtsbasteln im Zelt. 8 Euro, Kinder bis 16 frei."
+      en: "Grimm fairy tales by the Monbijou Theatre, horse-drawn wagon rides and Christmas crafts in a tent. 8 euros, under-16s free."
+      zh: "有Monbijou剧团的格林童话、马车游览和帐篷里的圣诞手工。8欧元，16岁以下免费。"
+  - id: britz
+    name: Mittelalterlicher Weihnachtsmarkt am Gutshof Schloss Britz
+    from: 2026-11-27
+    to: 2026-12-20
+    hours: "Nur an den Adventswochenenden (Fr–So)"
+    street: Alt-Britz 73
+    geo: { lat: 52.44579, lon: 13.43800 }
+    district: Britz
+    kids: [fairy_tale, stage]
+    website: https://www.berlin.de/weihnachtsmarkt/5506372-3496862-mittelalterlicher-weihnachtsmarkt-am-gut.html
+    note:
+      de: "Nordische Märchenweihnacht mit Schattentheater; Kinder können Bogenschießen und auf Wikingerboote klettern."
+      en: "A Nordic fairy-tale Christmas with shadow theatre; children can try archery and climb on Viking boats."
+      zh: "北欧童话圣诞，有皮影戏；孩子可以射箭、爬维京船。"
+  - id: jagdschloss-grunewald
+    name: Weihnachtsmarkt am Jagdschloss Grunewald
+    from: 2026-12-05
+    to: 2026-12-06
+    hours: "11–19 Uhr"
+    street: Hüttenweg 100
+    geo: { lat: 52.46722, lon: 13.26159 }
+    district: Grunewald
+    kids: [fairy_tale]
+    free: false
+    website: https://www.berlin.de/weihnachtsmarkt/5506437-3496862-weihnachtsmarkt-am-jagdschloss-grunewald.html
+    note:
+      de: "Märchenfiguren wie Frau Holle laufen über den Markt, dazu eine Märchenerzählerin. 3,50 Euro, Kinder bis 6 frei."
+      en: "Fairy-tale characters such as Mother Holle walk around, plus a storyteller. 3.50 euros, under-6s free."
+      zh: "霍勒大妈等童话人物在市场里走动，还有讲故事的人。3.5欧元，6岁以下免费。"
+  - id: tierheim
+    name: Weihnachtsmarkt im Tierheim Berlin
+    from: 2026-12-06
+    to: 2026-12-06
+    hours: "11–16 Uhr"
+    street: Hausvaterweg 39
+    geo: { lat: 52.57559, lon: 13.54506 }
+    district: Falkenberg
+    kids: [animals, fairy_tale]
+    free: false
+    website: https://www.berlin.de/weihnachtsmarkt/7897509-3496862-weihnachtsmarkt-im-tierheim-berlin.html
+    note:
+      de: "Kinder grillen Stockbrot und hören Märchen. 1 Euro, Kinder unter 6 frei."
+      en: "Children toast stick bread over the fire and listen to fairy tales. 1 euro, under-6s free."
+      zh: "孩子们可以在火边烤面包棍、听童话。1欧元，6岁以下免费。"
+  - id: forstamt-tegel
+    name: Advent im Forstamt Tegel
+    from: 2026-11-28
+    to: 2026-11-28
+    hours: "13–18 Uhr"
+    street: Ruppiner Chaussee 78
+    geo: { lat: 52.60549, lon: 13.27123 }
+    district: Tegel
+    kids: [animals]
+    free: true
+    website: https://www.berlin.de/weihnachtsmarkt/5737880-3496862-advent-im-forstamt-tegel.html
+    note: { de: "Mit Führungen zur Greifvogelstation und Kinderprogramm.", en: "With tours to the birds of prey station and a children's programme.", zh: "有猛禽站导览和儿童节目。" }

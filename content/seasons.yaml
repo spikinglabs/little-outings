@@ -1,0 +1,84 @@
+# Seasons and occasions (src/lib/seasons.ts). Each one is a chip on Discover that shows itself in
+# its weeks, when there is at least one matching idea near the reader's town.
+#
+#   id        short name; also the #link that opens Discover with the chip on (/de/#advent)
+#   emoji, label   the chip
+#   chip      when the chip shows: "MM-DD" every year, or "YYYY-MM-DD" for occasions that move (Chinese New Year)
+#   match     German titles that belong (a regular expression, case ignored). Fixtures always belong.
+#   zh_first  listed before the other chips on the Chinese pages
+#   add, share, share_text   the line under the chip; the generic one (i18n season.*) otherwise
+#   note      shown on the page of every matching event
+#   page      an own landing page per town (/de/<slug>/<town>/) and an overview (/de/<slug>/), built from
+#             the fixtures in content/seasons/<id>/<town>.yaml plus matching events
+#   sources   the city pages that list the fixtures ({year} is this year); scripts/season-lists.mjs reads them once a year with AI
+#             and puts the rows in the admin's "Season lists" for approval
+
+- id: martin
+  emoji: "🏮"
+  label: { de: St. Martin, en: St. Martin, zh: 圣马丁灯笼游行 }
+  chip: [{ from: "10-25", to: "11-15" }]
+  # "Martin Pfeiffer" and Martin Luther are not lantern walks.
+  match: 'martins?-?(?:zug|züge|zuege|umzug|umzüge|umzuege|feier|fest|singen|lieder|spiel|andacht|markt)|(?:sankt|st\.?)[ -]?martins?\b|laterne(?:n|l)?-?(?:umzug|umzüge|zug|züge|lauf|fest|wanderung|bastel)|lichterzug'
+  add: { de: "Euer Martinszug fehlt?", en: "Your lantern walk missing?", zh: "没找到你们的灯笼游行？" }
+  share: { de: Link für die Kita-Gruppe teilen, en: Share the link with your Kita group, zh: 把链接分享到幼儿园群 }
+  share_text:
+    de: "Wann und wo ist euer Martinszug? Tragt ihn hier in einer Minute ein, dann finden ihn alle Familien im Viertel: {url}"
+    en: "When and where is your St. Martin lantern walk? Add it here in a minute so every family nearby can find it: {url}"
+    zh: "你们的圣马丁灯笼游行在什么时间、什么地方？一分钟就能在这里添加，附近的家庭都能找到：{url}"
+  note:
+    de: "Viele Martinszüge sind für die Familien einer Kita, Schule oder Gemeinde gedacht. Fragt beim Veranstalter nach, ob auch andere Familien mitgehen können."
+    en: "Many lantern walks are meant for the families of one Kita, school or parish. Check with the organiser that other families are welcome too."
+    zh: "很多灯笼游行只面向某个幼儿园、学校或教区的家庭。出发前请向主办方确认其他家庭能否参加。"
+
+- id: advent
+  emoji: "🎄"
+  label: { de: Advent, en: Advent, zh: 圣诞季 }
+  chip: [{ from: "11-10", to: "12-24" }]
+  match: 'weihnachtsm(?:a|ä)rkt|adventsm(?:a|ä)rkt|christkindl|wintermarkt|nikolaus|\badvent(?!ure)|weihnachtsm(?:ä|a)rchen|weihnachtsbastel|weihnachtsback|plätzchen|krippe(?:n|nspiel)|lebkuchen|wichtel|christmas'
+  add: { de: "Ein Weihnachtsmarkt fehlt?", en: "A Christmas market is missing?", zh: "缺了哪个圣诞市场？" }
+  page:
+    slug: weihnachtsmaerkte
+    hub: { de: Weihnachtsmärkte mit Kindern, en: Christmas markets with kids, zh: 带孩子逛圣诞市场 }
+    title: { de: "Weihnachtsmärkte mit Kindern in {town}", en: "Christmas markets with kids in {town}", zh: "{town}：带孩子逛圣诞市场" }
+    intro:
+      de: "Welche Märkte haben ein Kinderkarussell, eine Eisbahn oder einen Märchenwald? Alle Weihnachtsmärkte in {town} mit Öffnungszeiten, dazu Nikolaus, Basteln und Weihnachtsmärchen für Kinder."
+      en: "Which markets have a children's carousel, an ice rink or a fairy-tale forest? Every Christmas market in {town} with opening hours, plus St. Nicholas visits, crafts and Christmas shows for children."
+      zh: "哪些市场有儿童旋转木马、溜冰场或童话森林？{town}所有圣诞市场及开放时间，还有圣尼古拉斯、手工和儿童圣诞剧。"
+    fixtures: { de: Weihnachtsmärkte, en: Christmas markets, zh: 圣诞市场 }
+    also: { de: "Nikolaus, Basteln und Weihnachtsmärchen", en: "St. Nicholas, crafts and Christmas shows", zh: 圣尼古拉斯、手工和圣诞剧 }
+  sources:
+    - { town: koeln, url: "https://www.koeln.de/weihnachten/weihnachtsmaerkte-koeln/" }
+    - { town: duesseldorf, url: "https://www.visitduesseldorf.de/erleben/veranstaltungen/weihnachten-in-duesseldorf" }
+    - { town: berlin, url: "https://www.berlin.de/weihnachtsmarkt/" }
+    - { town: muenchen, url: "https://www.muenchen.de/veranstaltungen/weihnachtsmaerkte-christkindlmaerkte-{year}" }
+    - { town: hamburg, url: "https://www.hamburg.de/tourismus/weihnachten-hamburg/weihnachtsmarkt-hamburg" }
+    # bonn.de and frankfurt.de block automatic reads; their lists are kept by hand.
+
+# Fairs come and go all year; the chip shows only while one runs near the reader. Fixtures only, because
+# "Dom" in a title is mostly Cologne Cathedral.
+- id: kirmes
+  emoji: "🎡"
+  label: { de: Kirmes, en: Funfair, zh: 游乐集市 }
+  chip: [{ from: "01-01", to: "12-31" }]
+
+- id: cny
+  emoji: "🧧"
+  label: { de: Chinesisches Neujahr, en: Chinese New Year, zh: 春节 }
+  chip: [{ from: "2027-01-30", to: "2027-02-14" }, { from: "2028-01-19", to: "2028-02-03" }]
+  match: 'chinesisch\w* neujahr|chinese new year|lunar new year|mondneujahr|frühlingsfest der chinesen|春节|中国新年'
+  zh_first: true
+
+- id: kindertag
+  emoji: "🎈"
+  label: { de: Kindertag 1. Juni, en: Children's Day 1 June, zh: 六一儿童节 }
+  chip: [{ from: "05-25", to: "06-01" }]
+  # "Weltkindertag" is in September and has a word before "kinder", so \b keeps it out.
+  match: '\bkindertag\b|internationale[rn]? kindertag|六一'
+  zh_first: true
+
+- id: midautumn
+  emoji: "🥮"
+  label: { de: Mondfest, en: Mid-Autumn Festival, zh: 中秋节 }
+  chip: [{ from: "2027-09-08", to: "2027-09-15" }, { from: "2028-09-26", to: "2028-10-03" }]
+  match: 'mondfest|mittherbstfest|mid-autumn|moon festival|mondkuchen|中秋'
+  zh_first: true

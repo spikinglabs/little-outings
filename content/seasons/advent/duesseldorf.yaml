@@ -1,0 +1,86 @@
+# Christmas markets in Düsseldorf's city centre, 2026: seven themed markets from 19 November to 30 December,
+# from visitduesseldorf.de (checked 2026-10-26). Hours are the same for all of them.
+town: Düsseldorf
+source: visitduesseldorf.de
+checked: 2026-10-26
+items:
+  - id: handwerkermarkt
+    name: Handwerkermarkt am Rathaus
+    from: 2026-11-19
+    to: 2026-12-30
+    hours: "So–Do 11–20, Fr–Sa 11–21 Uhr; 22. und 25.12. zu, 24.12. 11–15 Uhr"
+    street: Marktplatz
+    geo: { lat: 51.22585, lon: 6.77223 }
+    district: Altstadt
+    kids: [carousel, crafts, stage]
+    free: true
+    website: https://www.visitduesseldorf.de/erleben/veranstaltungen/weihnachten-in-duesseldorf
+    note:
+      de: "Ein Magnet für Familien: Mitmachaktionen für Kinder, ein Handpuppen-Stand und ein Kinderkarussell."
+      en: "A favourite with families: hands-on activities for children, a hand-puppet stall and a children's carousel."
+      zh: "很受家庭欢迎：有儿童动手活动、手偶摊位和儿童旋转木马。"
+  - id: maerchenmarkt
+    name: Märchen-Markt
+    from: 2026-11-19
+    to: 2026-12-30
+    hours: "So–Do 11–20, Fr–Sa 11–21 Uhr; 22. und 25.12. zu, 24.12. 11–15 Uhr"
+    street: Gustaf-Gründgens-Platz
+    geo: { lat: 51.22760, lon: 6.78351 }
+    district: Stadtmitte
+    kids: [carousel, fairy_tale, stage]
+    free: true
+    website: https://www.visitduesseldorf.de/erleben/veranstaltungen/weihnachten-in-duesseldorf
+    note:
+      de: "Mit Kinderkarussell; am Gustaf-Gründgens-Platz spielt an vier Terminen das Kasperletheater."
+      en: "With a children's carousel; a Punch and Judy show plays four times on Gustaf-Gründgens-Platz."
+      zh: "有儿童旋转木马；Gustaf-Gründgens广场上的木偶剧会演出四场。"
+  - id: roncalli
+    name: Roncalli's Weihnachtspromenade
+    from: 2026-11-19
+    to: 2026-12-30
+    hours: "So–Do 11–20, Fr–Sa 11–21 Uhr; 22. und 25.12. zu, 24.12. 11–15 Uhr"
+    street: Burgplatz
+    geo: { lat: 51.22703, lon: 6.77137 }
+    district: Altstadt
+    kids: [rides, stage]
+    free: true
+    website: https://www.visitduesseldorf.de/erleben/veranstaltungen/weihnachten-in-duesseldorf
+    note:
+      de: "Alte Zirkuswagen, Artistik und Musik zwischen Burgplatz und Altem Hafen; nebenan das Riesenrad am Burgplatz (55 m)."
+      en: "Old circus wagons, acrobatics and music between Burgplatz and the old harbour; the 55-metre Ferris wheel is next door."
+      zh: "城堡广场到老港口之间有老式马戏车、杂技和音乐；旁边是55米高的摩天轮。"
+  - id: koe
+    name: Kö-Markt und Eislaufbahn am Corneliusplatz
+    from: 2026-11-19
+    to: 2026-12-30
+    hours: "So–Do 11–20, Fr–Sa 11–21 Uhr; Eisbahn mit eigenen Zeiten"
+    street: Corneliusplatz
+    geo: { lat: 51.22598, lon: 6.77920 }
+    district: Stadtmitte
+    kids: [ice_rink]
+    free: true
+    website: https://www.visitduesseldorf.de/erleben/veranstaltungen/weihnachten-in-duesseldorf
+    note:
+      de: "Kö on Ice: Schlittschuhlaufen am Ende der Königsallee, dazu der Lichterdom und das neue Winter Village."
+      en: "Kö on Ice: skating at the end of the Königsallee, plus the light dome and the new Winter Village."
+      zh: "Kö on Ice：在国王大道尽头滑冰，还有灯光穹顶和新的冬日村。"
+  - id: altstadtmarkt
+    name: Altstadt-Markt
+    from: 2026-11-19
+    to: 2026-12-30
+    hours: "So–Do 11–20, Fr–Sa 11–21 Uhr; 22. und 25.12. zu, 24.12. 11–15 Uhr"
+    street: Flinger Straße
+    geo: { lat: 51.22550, lon: 6.77592 }
+    district: Altstadt
+    free: true
+    website: https://www.visitduesseldorf.de/erleben/veranstaltungen/weihnachten-in-duesseldorf
+  - id: schadowmarkt
+    name: Schadow-Markt
+    from: 2026-11-19
+    to: 2026-12-30
+    hours: "So–Do 11–20, Fr–Sa 11–21 Uhr; 22. und 25.12. zu, 24.12. 11–15 Uhr"
+    street: Schadowstraße
+    geo: { lat: 51.22720, lon: 6.78536 }
+    district: Stadtmitte
+    free: true
+    website: https://www.visitduesseldorf.de/erleben/veranstaltungen/weihnachten-in-duesseldorf

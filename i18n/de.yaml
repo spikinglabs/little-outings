@@ -17,15 +17,36 @@ townPh: "Ort eintippen"
 townNone: "Kein Ort mit diesem Namen"
 search: Suche
 searchPh: Hof, Café, Spielplatz oder Fest suchen
-filters: { farm: "🚜 Bauernhof", rain: "☂ Bei Regen", free: Kostenlos, animals: Mit Tieren, changing: Wickeltisch, nogerman: Ohne Deutsch, martin: "🏮 St. Martin", radius: Umkreis }
-# St. Martin season (src/lib/martin.ts): the Discover chip and its "add yours" line, which opens the normal Add event form.
-martin:
-  add: "Euer Martinszug fehlt?"
+filters: { farm: "🚜 Bauernhof", rain: "☂ Bei Regen", free: Kostenlos, animals: Mit Tieren, changing: Wickeltisch, nogerman: Ohne Deutsch, radius: Umkreis }
+# Season chips and pages (content/seasons.yaml, src/lib/seasons.ts). A season's own texts there win.
+season:
+  add: "Etwas fehlt?"
   addLink: In einer Minute eintragen
-  share: Link für die Kita-Gruppe teilen
-  shareText: "Wann und wo ist euer Martinszug? Tragt ihn hier in einer Minute ein, dann finden ihn alle Familien im Viertel: {url}"
+  share: Link teilen
+  shareText: "Kennt ihr etwas, das hier noch fehlt? In einer Minute eingetragen, dann finden es alle Familien: {url}"
   copied: Link kopiert
-  open: "Viele Martinszüge sind für die Familien einer Kita, Schule oder Gemeinde gedacht. Fragt beim Veranstalter nach, ob auch andere Familien mitgehen können."
+  dates: "{from} bis {to}"
+  hours: Öffnungszeiten
+  website: Website
+  lastSeason: "Letzte Saison ({year})"
+  offSeason: "Die nächste Saison ist noch nicht eingetragen. Hier stehen die Termine vom letzten Mal, damit ihr planen könnt."
+  missing: "Fehlt ein Markt oder stimmt etwas nicht?"
+  missingLink: Schreibt es uns
+  towns: Städte
+  checked: "Geprüft am {date} · Quelle: {source}"
+  showChip: "Alle auf der Karte und in der Liste"
+kids:
+  label: Für Kinder
+  carousel: Kinderkarussell
+  rides: Fahrgeschäfte
+  ice_rink: Eisbahn
+  fairy_tale: Märchen
+  crafts: Basteln und Backen
+  nativity: Krippe
+  animals: Tiere
+  train: Kindereisenbahn
+  stage: Bühne und Puppentheater
+  santa: Nikolaus
 tip: "Unser Tipp {when}"
 only: "Nur {when}"
 always: Geht immer

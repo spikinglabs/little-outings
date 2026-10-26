@@ -17,6 +17,8 @@
     "find:venues": "node scripts/find-venues.mjs",
     "sort:events": "node scripts/sort-events.mjs",
     "fetch:holidays": "node scripts/fetch-holidays.mjs",
+    "season:lists": "node scripts/season-lists.mjs draft",
+    "season:pins": "node scripts/season-lists.mjs geocode",
     "test": "node --test tests/*.test.mjs tests/*.test.ts"
   },
   "author": "",
