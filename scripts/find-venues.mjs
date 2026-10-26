@@ -12,10 +12,12 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { dirname } from "node:path";
 import { complete, pickLlm } from "../src/lib/llm.ts";
+import { eachLimit } from "../src/lib/pool.ts";
 
 export const CACHE = "data/venues.json";
 const PUBLISHED = process.env.OUTINGS_FILE || "data/outings.jsonl";
 const PER_RUN = 150; // pages read per night at most; the rest wait for the next run
+const AT_ONCE = 6; // pages read at the same time, from many different sites
 const MAX_TEXT = 20000; // page text sent to the model; long menus can push the venue past this…
 const PLACE_WORDS = /Veranstaltungsort|Veranstaltungsadresse|Treffpunkt|\bOrt:|Adresse/i; // …so text around these is added
 
@@ -82,14 +84,14 @@ export async function update(rows, cache, opts) {
   const missing = want.filter((r) => !(r.source_url in cache));
   let done = 0;
   if (opts.llm) {
-    for (const row of missing.slice(0, PER_RUN)) {
+    await eachLimit(missing.slice(0, PER_RUN), AT_ONCE, async (row) => {
       try {
         cache[row.source_url] = await lookup(row, opts);
         done++;
       } catch (e) {
         console.warn(String(e));
       }
-    }
+    });
   }
   const used = new Set(want.map((r) => r.source_url));
   const next = Object.fromEntries(Object.keys(cache).filter((k) => used.has(k)).sort().map((k) => [k, cache[k]]));
