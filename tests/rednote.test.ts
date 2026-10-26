@@ -94,3 +94,8 @@ test("a pick that dropped out leaves the other codes as posted", () => {
   assert.equal(s.sheets[1].code, "K31-2");
   assert.deepEqual(codesOf(live, ["K31-2"]), { "K31-2": "orte/osm-n1/" });
 });
+
+test("the last line is never one or two lone characters", () => {
+  const l = lines("傍晚天黑后集合，通常在17点到18点之间。", 18);
+  assert.ok([...l.at(-1)!].length > 3, l.join("|"));
+});

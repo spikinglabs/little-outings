@@ -187,6 +187,15 @@ export function lines(text: string, maxEm: number): string[] {
   for (let i = 1; i < out.length; i++) {
     while (CLOSING.test(out[i])) { out[i - 1] += out[i][0]; out[i] = out[i].slice(1); }
   }
+  // No last line of one or two characters ("间。"): it takes two more Chinese characters from the line above.
+  const n = out.length;
+  if (n > 1 && [...out[n - 1].replace(/[，。、；：！？）」』》]/g, "")].length <= 2) {
+    const prev = [...out[n - 2]];
+    if (prev.length > 4 && prev.slice(-2).every((c) => /[\u4e00-\u9fff]/.test(c))) {
+      out[n - 1] = prev.slice(-2).join("") + out[n - 1];
+      out[n - 2] = prev.slice(0, -2).join("");
+    }
+  }
   return out.filter(Boolean);
 }
 
@@ -218,7 +227,7 @@ export function sheetSvg(s: Sheet, page?: string): string {
   } else y += 40;
 
   const cover = s.tone === "gold" && !s.code;
-  const t = fitTitle(s.title, width, cover ? [[150, 2], [128, 3], [108, 3]] : [[96, 1], [84, 1], [84, 2], [72, 2], [72, 3], [62, 4]]);
+  const t = fitTitle(s.title, width, cover ? [[150, 2], [128, 3], [108, 3]] : [[96, 1], [84, 1], [72, 1], [84, 2], [72, 2], [62, 3], [62, 4]]);
   for (const l of t.lines) { y += t.size; out.push(text(x, y, l, t.size, c.ink, 700)); y += t.size * 0.22; }
   y += 40;
 
