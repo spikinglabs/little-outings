@@ -1,0 +1,13 @@
+# St. Martin 2026, from hamburg.de/freizeit/jahreszeiten/herbst/laternenumzug-hamburg-22840 (checked 2026-10-26).
+# Entered by hand for the St. Martin season; delete after November.
+title: "Laternenumzug Harburg"
+venue: "Harburger Rathausplatz (Start: S-Bahnhof Heimfeld, Seeveplatz oder Höhlertwiete/Sand)"
+town: "Hamburg"
+start: "2026-11-08"
+time: "ab 17:30, Abmarsch ca. 18:15"
+geo: { lat: 53.45966, lon: 9.98019, precision: exact }
+price: { free: true }
+tags: [season, outside]
+note: "Großer Laternenumzug der Harburger Schützengilde, gegen 19 Uhr Feuerwerk am Rathausplatz."
+trust: { level: official, source: "hamburg.de" }
+website: "https://www.hamburg.de/freizeit/jahreszeiten/herbst/laternenumzug-hamburg-22840"

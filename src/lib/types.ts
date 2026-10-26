@@ -35,7 +35,7 @@ export interface Place {
   kind: string;
   name: string;
   /** Machine translations of the name (data/translations/), shown with the German name beneath. */
-  names?: { zh?: string };
+  names?: { en?: string; zh?: string };
   town: string;
   street?: string;
   /** Nearest road, when there is no street address. */

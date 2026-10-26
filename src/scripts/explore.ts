@@ -3,6 +3,7 @@
 // Distances are measured once per home town, and the list shows a page at a time.
 import { lastDay } from "../lib/horizon";
 import { holidayFor, type Period } from "../lib/holidays";
+import { martinSeason } from "../lib/martin";
 import { distanceOf, getHome, markSaved, nearestTown, renderKm, setHere, setHome } from "./app";
 import type {} from "../islands/OutingsMap";
 
@@ -11,6 +12,7 @@ const ui = JSON.parse(document.getElementById("explore-ui")!.textContent!) as {
   nEvents: Plural; nPlaces: Plural; areaBack: string; tip: string; whenIn: Record<string, string>; mapShow: string; mapHide: string; noneHere: string;
   showMore: string; locNone: string; loadFail: string;
   holidays: { towns: Record<string, string>; periods: Record<string, Period[]>; label: Record<string, string>; labelIn: Record<string, string> };
+  martin: { shareText: string; copied: string };
 };
 const lang = document.body.dataset.lang!;
 const pr = new Intl.PluralRules(lang);
@@ -19,23 +21,24 @@ const count = (p: Plural, n: number, r?: number) =>
 
 // area: the map's bounds [south, west, north, east] once the reader moves the map; it replaces the radius.
 const PAGE = 24; // cards shown at once; OpenStreetMap brings in more than a thousand places
-const state = { limit: PAGE, area: null as number[] | null, view: 0, when: "weekend", q: "", rain: false, farm: false, free: false, animals: false, changing: false, nogerman: false, radius: 30, kind: "", tag: "" };
+const state = { limit: PAGE, area: null as number[] | null, view: 0, when: "weekend", q: "", rain: false, farm: false, free: false, animals: false, changing: false, nogerman: false, martin: false, radius: 30, kind: "", tag: "" };
 const $ = <T extends Element = HTMLElement>(s: string) => document.querySelector<T>(s)!;
 const $$ = <T extends Element = HTMLElement>(s: string) => [...document.querySelectorAll<T>(s)];
 const home = $<HTMLButtonElement>("#home");
 
 // The chosen day, distance and chips last for this tab's session, so a refresh or a trip to
 // a card and back keeps them. The town is kept elsewhere (as home); no location is ever stored here.
-const KEPT = ["when", "rain", "farm", "free", "animals", "changing", "nogerman", "radius", "kind", "tag"] as const;
-const FLAGS = ["rain", "farm", "free", "animals", "changing", "nogerman"] as const;
+const KEPT = ["when", "rain", "farm", "free", "animals", "changing", "nogerman", "martin", "radius", "kind", "tag"] as const;
+const FLAGS = ["rain", "farm", "free", "animals", "changing", "nogerman", "martin"] as const;
+type Flag = (typeof FLAGS)[number];
 function restore() {
   let saved: Record<string, unknown> = {};
   try { saved = JSON.parse(sessionStorage.getItem("lo-filters") || "{}"); } catch { return; }
   const has = (sel: string) => !!document.querySelector(sel);
   if (typeof saved.when === "string" && has(`[data-when="${CSS.escape(saved.when)}"]`)) state.when = saved.when;
   for (const k of FLAGS) {
-    const b = document.querySelector(`[data-flag="${k}"]`);
-    if (b && saved[k] === true) { state[k] = true; b.setAttribute("aria-pressed", "true"); }
+    const b = document.querySelector<HTMLElement>(`[data-flag="${k}"]`);
+    if (b && !b.hidden && saved[k] === true) { state[k] = true; b.setAttribute("aria-pressed", "true"); }
   }
   const radius = $<HTMLSelectElement>("#radius");
   if ([...radius.options].some((o) => o.value === String(saved.radius))) { radius.value = String(saved.radius); state.radius = +radius.value; }
@@ -165,6 +168,8 @@ function passes({ d, feat }: Row) {
   if (state.changing && !feat.includes("changing_table")) return false;
   // Places need no German; events only pass when they're held in English or need little talk.
   if (state.nogerman && d.type === "event" && !feat.includes("nogerman")) return false;
+  // St. Martin: only the lantern walks, so places step aside.
+  if (state.martin && !feat.includes("martin")) return false;
   return true;
 }
 
@@ -174,6 +179,7 @@ function apply() {
   const [from, to] = range();
   const word = state.when === "holiday" ? inHoliday : ui.whenIn[state.when];
   $$("[data-when-word]").forEach((el) => (el.textContent = word));
+  $("[data-martin-bar]").hidden = !state.martin;
   $$<HTMLButtonElement>("[data-when]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.when === state.when)));
   // Until the cards are here, taps only change the filters; the list follows when they arrive.
   if (!loaded) return;
@@ -277,9 +283,11 @@ document.addEventListener("click", (ev) => {
   if (w) { state.when = w.dataset.when!; apply(); }
   const f = t.closest<HTMLButtonElement>("[data-flag]");
   if (f) {
-    const k = f.dataset.flag as "rain" | "farm" | "free" | "animals" | "changing" | "nogerman";
+    const k = f.dataset.flag as Flag;
     state[k] = !state[k];
     f.setAttribute("aria-pressed", String(state[k]));
+    // Lantern walks spread over two weeks, so the chip looks at all of them, not just the weekend.
+    if (k === "martin" && state.martin) state.when = "soon";
     apply();
   }
   if (t.closest("[data-area-reset]")) { state.area = null; state.view++; apply(); }
@@ -371,8 +379,23 @@ function showMap(on: boolean, remember = true) {
   if (on) document.dispatchEvent(new Event("lo:map-shown"));
   if (remember) try { localStorage.setItem("lo-map", on ? "1" : "0"); } catch { /* storage blocked */ }
 }
+// St. Martin: the chip shows from late October to mid November. A shared link ending in #martin opens with it on.
+const martinBtn = document.querySelector<HTMLButtonElement>('[data-flag="martin"]');
+if (martinBtn && martinSeason(ymd(new Date()))) martinBtn.hidden = false;
+$<HTMLButtonElement>("[data-martin-share]").addEventListener("click", async (e) => {
+  const b = e.currentTarget as HTMLButtonElement;
+  const text = ui.martin.shareText.replace("{url}", `${location.origin}/${lang}/mitmachen/#event`);
+  try {
+    if (navigator.share) { await navigator.share({ text }); return; }
+  } catch (err) { if ((err as Error).name === "AbortError") return; }
+  try { await navigator.clipboard.writeText(text); b.textContent = ui.martin.copied; }
+  catch { location.href = `https://wa.me/?text=${encodeURIComponent(text)}`; }
+});
+
 // Old links to the map page arrive as #map.
 restore();
+if (!martinBtn || martinBtn.hidden) state.martin = false;
+else if (location.hash === "#martin") { state.martin = true; state.when = "soon"; martinBtn.setAttribute("aria-pressed", "true"); }
 if (location.hash === "#map") showMap(true, false);
 else try { if (localStorage.getItem("lo-map") === "1") showMap(true, false); } catch { /* storage blocked */ }
 loadPool();

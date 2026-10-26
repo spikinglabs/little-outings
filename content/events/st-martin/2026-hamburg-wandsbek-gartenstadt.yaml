@@ -1,0 +1,13 @@
+# St. Martin 2026, from hamburg.de/freizeit/jahreszeiten/herbst/laternenumzug-hamburg-22840 (checked 2026-10-26).
+# Entered by hand for the St. Martin season; delete after November.
+title: "Laternenumzug Wandsbek Gartenstadt"
+venue: "Gartenstadtweg 81 (Parkplatz der Wohnungsbaugenossenschaft)"
+town: "Hamburg"
+start: "2026-11-03"
+time: "17:30, Abmarsch ca. 18:45"
+geo: { lat: 53.5914, lon: 10.07948, precision: exact }
+price: { free: true }
+tags: [season, outside]
+note: "Mit Spielmannszug, Kinderpunsch zum Aufwärmen."
+trust: { level: official, source: "hamburg.de" }
+website: "https://www.hamburg.de/freizeit/jahreszeiten/herbst/laternenumzug-hamburg-22840"

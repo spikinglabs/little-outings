@@ -55,6 +55,8 @@ h1, h2, h3 { font-family: var(--display); text-wrap: balance; letter-spacing: -0
 .chip.loc { padding: 6px 8px; color: var(--ink-soft); }
 .chip.loc:disabled { opacity: .5; cursor: progress; }
 .loc-msg { margin: 4px 0 0; }
+.martin-bar { margin: 8px 0 0; }
+.martin-bar .link-btn { font-size: inherit; }
 
 /* sections */
 .explore-cols > *, .section { min-width: 0; }
@@ -119,6 +121,7 @@ h1, h2, h3 { font-family: var(--display); text-wrap: balance; letter-spacing: -0
 .facts li { display: grid; grid-template-columns: 1.4rem 1fr; gap: 8px; }
 .detail h2 { font-size: 1.15rem; margin-top: 24px; }
 .note { margin: 12px 0 0; max-width: 65ch; }
+.martin-note { border-left: 3px solid var(--line); padding-left: 10px; }
 .checks { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 6px; padding: 0; margin: 8px 0 0; list-style: none; }
 .checks li { display: flex; align-items: center; gap: 8px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 7px 10px; font-size: .9rem; }
 .checks li.unknown, .checks li.no { color: var(--ink-soft); background: transparent; border-style: dashed; }
@@ -396,6 +399,7 @@ footer.foot { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--l
 /* Add: pick what, then one form */
 .add-pick { display: grid; gap: 12px; margin-top: 18px; }
 .add-tile { display: grid; grid-template-columns: auto 1fr; gap: 2px 14px; align-items: center; text-align: left; background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 16px; box-shadow: var(--shadow); cursor: pointer; color: var(--ink); }
+.add-organiser { justify-self: start; margin-top: 4px; }
 .add-tile:hover { border-color: var(--ink); }
 .add-tile b { font: 800 1.15rem/1.25 var(--display); }
 .add-tile > span:not(.add-ic) { color: var(--ink-soft); font-size: .92rem; }

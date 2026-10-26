@@ -17,7 +17,15 @@ townPh: "Type a town"
 townNone: "No town by that name here"
 search: Search
 searchPh: Search farms, cafés, playgrounds or festivals
-filters: { farm: "🚜 Farm", rain: "☂ Rainy day", free: Free, animals: Animals, changing: Changing table, nogerman: "💬 No German needed", radius: Within }
+filters: { farm: "🚜 Farm", rain: "☂ Rainy day", free: Free, animals: Animals, changing: Changing table, nogerman: "💬 No German needed", martin: "🏮 St. Martin", radius: Within }
+# St. Martin season (src/lib/martin.ts): the Discover chip and its "add yours" line, which opens the normal Add event form.
+martin:
+  add: Your lantern walk missing?
+  addLink: Add it in a minute
+  share: Share the link with your Kita group
+  shareText: "When and where is your St. Martin lantern walk? Add it here in a minute so every family nearby can find it: {url}"
+  copied: Link copied
+  open: "Many lantern walks are meant for the families of one Kita, school or parish. Check with the organiser that other families are welcome too."
 tip: "Our pick {when}"
 only: "Only {when}"
 always: Always a good idea
@@ -163,7 +171,6 @@ cancelEdit: "Cancel"
 sentEdit: "Saved. We'll check the change before it shows on the site."
 typeIt: Type it in yourself
 report:
-  title: Something wrong?
   closed: It's closed or gone
   cancelled: It's cancelled
   where: It's in a different place
@@ -174,7 +181,6 @@ report:
   notePh: e.g. the playground was rebuilt, now with a water area
   thanks: Thank you! We'll check it.
 visit:
-  title: Been here?
   again: Would you go again?
   yes: "Yes"
   maybe: Maybe
@@ -232,8 +238,6 @@ chipAsk:
     fenced: "Is it fenced in?"
 mine:
   sentAdded: What you added
-  title: Mine
-  sub: "Your saved outings, what you sent us, and your profile. No sign-up needed."
   saved: Saved
   profile: Profile and sync
   syncOn: "Synced with your passkey, so it's on your other devices too."
@@ -242,8 +246,6 @@ mine:
   back: Mine
 profile:
   link: "Profile and sync"
-  title: Profile and sync
-  sub: "No sign-up. Your profile lives on this phone: what you saved, where you went, your answers and what you sent us. Turn on passkey sync to keep a copy safe and use it on your other devices."
   have: "On this phone"
   themeTitle: Light or dark
   themeSub: "Auto follows your phone's setting."
@@ -308,11 +310,10 @@ profile:
   deleted: Deleted. This phone starts fresh.
 about:
   link: Data and privacy
-  title: Data and privacy
   intro: Where Little Outings gets its information, and where your answers and profile are kept.
   events: { h: Events, p: "Events come from the public calendars of cities, libraries, museums and farms. We use only facts such as title, date, time and place, with a link to the original page. Check times and prices there." }
   places: { h: Places, p: "Playgrounds, pools, museums, farms and other places come from OpenStreetMap (© OpenStreetMap contributors, ODbL), refreshed weekly. Once parents add to a place, it shows how many answers they gave." }
-  translate: { h: Translations and labels, p: "Chinese names are machine-translated, with the German name underneath so you can match posters and signs. “Do you need German?” starts as a guess from the title, marked with “?”. Once parents tap an answer, the most common answer wins." }
+  translate: { h: Translations and labels, p: "Event titles in English and Chinese, and Chinese place names, are machine-translated, with the German name underneath so you can match posters and signs. “Do you need German?” starts as a guess from the title, marked with “?”. Once parents tap an answer, the most common answer wins." }
   taps: { h: Your taps, p: "Taps on facilities, “We went” and “Do you need German?” are counted anonymously on Cloudflare. Each browser has a random id, so one question counts once and changing your answer replaces the old one. IP addresses are kept only as a hash, to stop vote flooding." }
   writing: { h: What you write, p: "Tips, reports and suggested places go to us for review first and only appear once approved. An answer to “Still missing” (opening hours, time, price) goes live once two parents give the same answer, or once we've checked it. Please don't include names, phone numbers or other personal details." }
   ai: { h: Use it in your AI assistant, p: "Ask Claude, ChatGPT or another assistant for ideas from Little Outings: add {url} as a custom connector (in Claude: Settings → Connectors; in ChatGPT: Settings → Apps, developer mode). No login needed. Your assistant can then search events and places, and send a tip or a new event for you; those go to us for review like everything else. Some assistants need a paid plan for custom connectors." }
@@ -332,7 +333,6 @@ flow:
   wayPoster: Poster
   wayLink: Link or text
   wayType: "I'll type"
-  what: "What?"
   day: Day
   time: Time
   where: "Where?"
@@ -362,7 +362,6 @@ flow:
   name: Name
   facilities: "What's there?"
 meet:
-  title: Invite
   kicker: Only people with the link can see this
   by: "A family's own meetup"
   safety: "Little Outings doesn't know who made this. Only join if it's in a public place and you feel safe. Avoid evening meetups."
@@ -397,14 +396,12 @@ meet:
   report: Report this invite
   reported: "Thanks, we'll look at it."
   sample: { title: Picnic and kite flying, place: "Rheinpark, Köln-Deutz", note: "Near the chairlift. Bring a blanket, we bring snacks." }
-  open: Open
   mineTitle: Invites
   mineSub: "Ones you made and ones you answered."
   mineYours: Yours
   mineSignIn: "Sign in with your passkey to see your invites."
 legal:
   link: Imprint
-  title: Imprint and privacy notice
   german: "The German version of this page is the binding one."
   imprint: Imprint
   email: Email
@@ -463,3 +460,23 @@ weekend:
   printFoot: "Ideas for families, in German, English and Chinese. No sign-up, no ads. Please check with the organiser before you go."
   printHint: "Press Ctrl+P or ⌘P to print, A4 portrait. This line isn't printed."
   printBack: Back to the edition
+feed:
+  pick: "Do you run events for families? Send us your calendar →"
+  title: Send us your calendar
+  sub: "Museums, libraries, theatres, zoos, family centres: if your programme has a calendar link (iCal, ending in .ics, the kind Google Calendar or Outlook can subscribe to), send it here. We check it once, then your events appear on Little Outings by themselves, every day."
+  url: Calendar link
+  urlHelp: "Often called “Subscribe”, “iCal”, “Add to calendar” or “Export” on your events page. webcal:// links work too."
+  check: Check the link
+  found: "Works: {n} upcoming events. The next ones:"
+  noUpcoming: "This is a calendar, but it has no upcoming events. Is it the right one?"
+  err_badUrl: "That doesn't look like a web address. It should start with https:// or webcal://."
+  err_unreachable: "We couldn't open that link. Is it public, without a login?"
+  err_tooBig: "That calendar is too large to preview here, but you can still send it."
+  err_notCalendar: "That link opens a web page, not a calendar file. Look for a link ending in .ics."
+  org: Your organisation
+  town: Town
+  contact: Email (optional)
+  contactHelp: "Only for questions about your calendar. Never shown on the site."
+  note: Anything we should know?
+  notePh: "Which events are for children, ages, where they take place …"
+  thanks: "Thank you! We'll look at your calendar and add it soon. Changes you make to it later show up here by themselves."

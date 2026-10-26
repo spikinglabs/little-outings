@@ -17,7 +17,15 @@ townPh: "输入城镇名"
 townNone: "没有找到这个城镇"
 search: 搜索
 searchPh: 搜索农场、咖啡馆、游乐场或活动
-filters: { farm: "🚜 农场", rain: "☂ 下雨也能去", free: 免费, animals: 有动物, changing: 尿布台, nogerman: "💬 不懂德语也能玩", radius: 范围 }
+filters: { farm: "🚜 农场", rain: "☂ 下雨也能去", free: 免费, animals: 有动物, changing: 尿布台, nogerman: "💬 不懂德语也能玩", martin: "🏮 圣马丁灯笼游行", radius: 范围 }
+# St. Martin season (src/lib/martin.ts): the Discover chip and its "add yours" line, which opens the normal Add event form.
+martin:
+  add: 没找到你们的灯笼游行？
+  addLink: 一分钟添加
+  share: 把链接分享到幼儿园群
+  shareText: "你们的圣马丁灯笼游行在什么时间、什么地方？一分钟就能在这里添加，附近的家庭都能找到：{url}"
+  copied: 链接已复制
+  open: "很多灯笼游行只面向某个幼儿园、学校或教区的家庭。出发前请向主办方确认其他家庭能否参加。"
 tip: "{when}推荐"
 only: "仅限{when}"
 always: 随时可去
@@ -163,7 +171,6 @@ cancelEdit: "取消"
 sentEdit: "已保存。修改审核通过后会显示在网站上。"
 typeIt: 自己手动填写
 report:
-  title: 信息有误？
   closed: 已关闭或不存在
   cancelled: 活动已取消
   where: 地点不对
@@ -174,7 +181,6 @@ report:
   notePh: 例如：游乐场已翻新，现在有戏水区
   thanks: 谢谢！我们会核实。
 visit:
-  title: 去过这里吗？
   again: 还会再去吗？
   yes: 会
   maybe: 也许
@@ -232,8 +238,6 @@ chipAsk:
     fenced: "那里有围栏吗？"
 mine:
   sentAdded: 你添加的
-  title: 我的
-  sub: "你的收藏、你提交的内容和你的资料。无需注册。"
   saved: 收藏
   profile: 资料与同步
   syncOn: "已通过通行密钥同步，你的其他设备上也有。"
@@ -242,8 +246,6 @@ mine:
   back: 我的
 profile:
   link: "资料与同步"
-  title: 资料与同步
-  sub: "无需注册。你的资料保存在这部手机上：收藏、去过的地方、你的回答，以及你发给我们的内容。开启通行密钥同步后，会另存一份副本，并能在你的其他设备上使用。"
   have: "这部手机上"
   themeTitle: 浅色或深色
   themeSub: "自动：跟随手机的设置。"
@@ -308,11 +310,10 @@ profile:
   deleted: 已删除，这部手机重新开始。
 about:
   link: 数据与隐私
-  title: 数据与隐私
   intro: 小出游的信息从哪里来，你的反馈和资料存在哪里。
   events: { h: 活动, p: "活动来自城市、图书馆、博物馆和农场的公开活动日历。我们只用标题、日期、时间和地点这类事实，并附上原网页链接。时间和价格请以原网页为准。" }
   places: { h: 地点, p: "游乐场、泳池、博物馆和农场等地点来自 OpenStreetMap（© OpenStreetMap 贡献者，ODbL 许可），每周更新一次。有家长补充过的地点，会显示家长反馈的数量。" }
-  translate: { h: 翻译和标签, p: "中文名称是机器翻译，德文原名写在下面，方便你对照海报和路牌。“需要会德语吗？”一开始是根据活动标题猜的，带“？”；家长点选以后，以多数人的回答为准。" }
+  translate: { h: 翻译和标签, p: "中文名称和英文活动标题是机器翻译，德文原名写在下面，方便你对照海报和路牌。“需要会德语吗？”一开始是根据活动标题猜的，带“？”；家长点选以后，以多数人的回答为准。" }
   taps: { h: 你的点选, p: "设施、“去过”和“需要会德语吗？”这些点选会匿名计数，存在 Cloudflare 上。每个浏览器有一个随机编号，同一个问题只算一票，改选会覆盖之前的回答。IP 地址只保存加密后的哈希，用来防止刷票。" }
   writing: { h: 你写的内容, p: "小贴士、报错和推荐的新地点会先交给我们审核，审核通过后才会公开。“尚缺信息”的回答（开放时间、时间、价格）在两位家长回答一致或经我们核实后上线。请不要写姓名、电话等个人信息。" }
   ai: { h: 在你的 AI 助手里使用, p: "让 Claude、ChatGPT 或其他助手直接从小出游找点子：把 {url} 添加为自定义连接器（Claude：设置 → 连接器；ChatGPT：设置 → 应用，开发者模式）。无需登录。之后助手可以搜索活动和地点，也能替你发送小贴士或新活动，和其他内容一样会先经我们审核。部分助手的自定义连接器需要付费订阅。" }
@@ -332,7 +333,6 @@ flow:
   wayPoster: 海报
   wayLink: 链接或文字
   wayType: 自己填
-  what: "做什么？"
   day: 日期
   time: 时间
   where: "在哪里？"
@@ -362,7 +362,6 @@ flow:
   name: 名称
   facilities: "那里有什么？"
 meet:
-  title: 邀请
   kicker: 只有拿到链接的人能看到
   by: 家长自己组织的聚会
   safety: "小出游不知道这是谁发起的。只有在公共场所、你觉得安全时才参加。避免晚上的聚会。"
@@ -397,14 +396,12 @@ meet:
   report: 举报这个邀请
   reported: "谢谢，我们会看一下。"
   sample: { title: 野餐和放风筝, place: "Rheinpark, Köln-Deutz", note: "在缆车附近。带上毯子，我们带零食。" }
-  open: 打开
   mineTitle: 邀请
   mineSub: "你发起的和你回复过的。"
   mineYours: 我的
   mineSignIn: "用通行密钥登录后可以看到你的邀请。"
 legal:
   link: 法律声明（Impressum）
-  title: 法律声明与隐私政策
   german: "本页以德文版本为准。"
   imprint: 法律声明（Impressum）
   email: 邮箱
@@ -463,3 +460,23 @@ weekend:
   printFoot: "亲子出游推荐，提供德文、英文和中文。无需注册，没有广告。出发前请向主办方确认。"
   printHint: "按 Ctrl+P 或 ⌘P 打印，A4 纵向。此行不会被打印。"
   printBack: 返回本期
+feed:
+  pick: "您为家庭举办活动吗？把您的日历发给我们 →"
+  title: 提交您的活动日历
+  sub: "博物馆、图书馆、剧院、动物园、家庭中心：如果您的活动有日历链接（iCal，以 .ics 结尾，可以被 Google 日历或 Outlook 订阅），请在这里提交。我们审核一次后，您的活动会每天自动出现在小出游上。"
+  url: 日历链接
+  urlHelp: "在活动页面上常叫“订阅”“iCal”“添加到日历”或“导出”。webcal:// 链接也可以。"
+  check: 检查链接
+  found: "可以使用：{n} 个即将举行的活动。最近的几个："
+  noUpcoming: "这是一个日历，但没有即将举行的活动。链接对吗？"
+  err_badUrl: "这看起来不像网址。应以 https:// 或 webcal:// 开头。"
+  err_unreachable: "我们打不开这个链接。它是公开的、不需要登录吗？"
+  err_tooBig: "这个日历太大，无法在这里预览，但您仍然可以提交。"
+  err_notCalendar: "这个链接打开的是网页，不是日历文件。请找以 .ics 结尾的链接。"
+  org: 您的机构
+  town: 城市
+  contact: 电子邮件（可选）
+  contactHelp: "只用于询问有关您日历的问题，绝不会显示在网站上。"
+  note: 还有什么需要我们知道的？
+  notePh: "哪些活动适合儿童、年龄、地点……"
+  thanks: "谢谢！我们会查看您的日历并尽快添加。之后的修改会自动显示。"

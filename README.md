@@ -77,8 +77,9 @@ One-time setup, in GitHub → Settings → Secrets and variables → Actions:
   `CLOUDFLARE_ACCOUNT_ID`. The first deploy creates the `little-outings` Pages project.
 - Variables `CITYKLUB_EXPORT` (URL of the public `events.jsonl`) and, once you
   have a domain, `SITE_URL`.
-- Chinese translations (`translate.yml`, nightly): secret `GEMINI_API_KEY` or
-  `ANTHROPIC_API_KEY`; optional variables `LLM_PROVIDER` and `TRANSLATE_MODEL`.
+- Translations (`translate.yml`, nightly; Chinese titles and place names, English event titles,
+  cached in `data/translations/`): secret `GEMINI_API_KEY` or `ANTHROPIC_API_KEY`; optional
+  variables `LLM_PROVIDER`, `TRANSLATE_MODEL` and `TRANSLATE_LIMIT` (new texts per language per night).
 
 Without the Cloudflare secrets the deploy step is skipped and runs stay green.
 
