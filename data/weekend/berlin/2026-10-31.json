@@ -1,0 +1,118 @@
+{
+  "town": "Berlin",
+  "slug": "berlin",
+  "weekend": "2026-10-31",
+  "week": 44,
+  "published_at": "2026-10-26T06:19:10.033Z",
+  "by": "score",
+  "weather": [
+    {
+      "day": "2026-10-31",
+      "code": 3,
+      "max": 11.1,
+      "rain": 5
+    },
+    {
+      "day": "2026-11-01",
+      "code": 3,
+      "max": 9.8,
+      "rain": 12
+    }
+  ],
+  "holiday": {
+    "name": "Herbstferien",
+    "last": true
+  },
+  "picks": [
+    {
+      "id": "ck-evt-e19a91f0f78eacb4d197",
+      "type": "event",
+      "title": "Street Circus & Food Festival Elsterwerdaer Platz",
+      "venue": "Elsterwerdaer Platz",
+      "district": "Marzahn-Hellersdorf",
+      "days": [
+        "2026-10-30",
+        "2026-10-31",
+        "2026-11-01"
+      ],
+      "time": "Fr 14-22 Uhr Sa 12-22 Uhr So 12-20 Uhr",
+      "indoor": false,
+      "tags": [
+        "fest"
+      ]
+    },
+    {
+      "id": "ck-evt-3b477519bc51ed92a231",
+      "type": "event",
+      "title": "Gruselige Tierwelt",
+      "venue": "Tierpark Berlin, Am Tierpark 125",
+      "district": "Lichtenberg",
+      "days": [
+        "2026-10-30",
+        "2026-10-31"
+      ],
+      "time": "15:00–16:30",
+      "indoor": false,
+      "tags": [
+        "animals"
+      ]
+    },
+    {
+      "id": "ck-evt-e935f6cbc9c193c1745e",
+      "type": "event",
+      "title": "Der Traumzauberbaum",
+      "venue": "Zeiss-Großplanetarium",
+      "days": [
+        "2026-10-31"
+      ],
+      "time": "12:30",
+      "indoor": true,
+      "tags": [
+        "stage"
+      ]
+    },
+    {
+      "id": "ck-evt-08b33b79d12615d93d15",
+      "type": "event",
+      "title": "Familienwerkstatt: Nanu, warum schwimmt das?",
+      "venue": "Deutsches Technikmuseum, Trebbiner Straße 9",
+      "district": "Friedrichshain-Kreuzberg",
+      "days": [
+        "2026-10-31"
+      ],
+      "time": "13:00–13:30",
+      "indoor": true,
+      "tags": [
+        "diy",
+        "sport",
+        "tour"
+      ]
+    },
+    {
+      "id": "ck-evt-31b5419fc187ec848f41",
+      "type": "event",
+      "title": "Familien-Führung",
+      "venue": "Großes Haus, Bismarckstraße 35",
+      "district": "Charlottenburg-Wilmersdorf",
+      "days": [
+        "2026-10-31"
+      ],
+      "time": "14:30",
+      "indoor": true,
+      "tags": [
+        "tour"
+      ]
+    },
+    {
+      "id": "osm-way-1039863708",
+      "type": "place",
+      "title": "Tiergehege im Viktoriapark",
+      "kind": "zoo",
+      "hours": "24/7",
+      "free": true,
+      "district": "Kreuzberg",
+      "venue": "Kreuzbergstraße",
+      "days": []
+    }
+  ]
+}

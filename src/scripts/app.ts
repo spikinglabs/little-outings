@@ -140,7 +140,9 @@ export function kmText(d: number, precision?: string) {
 }
 export function renderKm() {
   document.querySelectorAll<HTMLElement>("[data-lat]").forEach((el) => {
-    const d = distanceOf(el);
+    let d = distanceOf(el);
+    // On another town's weekend edition, "ca. 477 km" from your home town says nothing.
+    if (d != null && d > 60 && el.closest("[data-weekend]")) d = null;
     el.querySelectorAll<HTMLElement>(":scope [data-km]").forEach((s) => {
       s.textContent = d == null ? "" : ` · ${kmText(d, el.dataset.precision)}`;
     });

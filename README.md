@@ -49,14 +49,15 @@ Stadt bekannt", shaded circle), `unknown` (not listed or mapped; only a task).
 
 ## Weekend edition
 
-Every town in `WEEKEND_TOWNS` (`src/lib/weekend.ts`, Cologne for now) gets five picks plus one
-place each weekend at `/<lang>/wochenende/<town>/`, with a print sheet (`…/druck/`), an RSS
+Every town in `WEEKEND_TOWNS` (`src/lib/weekend.ts`: Köln, Bonn, Düsseldorf, Berlin, München,
+Frankfurt, Hamburg) gets five picks plus one place each weekend; a town with fewer than three family
+events that weekend skips it at `/<lang>/wochenende/<town>/`, with a print sheet (`…/druck/`), an RSS
 feed (`…/rss.xml`) and short links (`/w/koeln`, `public/_redirects`). `scripts/weekend-edition.mjs`
 runs in the nightly Translate workflow: on Thursday it drafts the picks (plain score, then the AI
 chooses from the top 30) into the bucket for the admin's Weekend panel; on Friday it publishes
 `data/weekend/<town>/<saturday>.json` with the forecast from Open-Meteo. `weekend-post.yml`
 posts it to Telegram on Friday morning once `TELEGRAM_BOT_TOKEN` is set and the town has a channel
-in `TELEGRAM`. Run a step by hand with `WEEKEND_MODE=draft|publish npm run weekend`.
+in `TELEGRAM`. Places come from `PLACES_EXPORT` (every town), else the snapshot. Run a step by hand with `WEEKEND_MODE=draft|publish npm run weekend`.
 
 ## Static API
 

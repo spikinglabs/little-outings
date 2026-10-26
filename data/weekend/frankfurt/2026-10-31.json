@@ -1,0 +1,108 @@
+{
+  "town": "Frankfurt am Main",
+  "slug": "frankfurt",
+  "weekend": "2026-10-31",
+  "week": 44,
+  "published_at": "2026-10-26T06:19:10.099Z",
+  "by": "score",
+  "weather": [
+    {
+      "day": "2026-10-31",
+      "code": 3,
+      "max": 11.4,
+      "rain": 3
+    },
+    {
+      "day": "2026-11-01",
+      "code": 3,
+      "max": 10.8,
+      "rain": 3
+    }
+  ],
+  "picks": [
+    {
+      "id": "ck-evt-5b1104edc75727ab5d6f",
+      "type": "event",
+      "title": "Halloween im Zoo",
+      "venue": "Zoo Frankfurt, Bernhard-Grzimek-Allee 1",
+      "days": [
+        "2026-10-31"
+      ],
+      "time": "10:00",
+      "indoor": false,
+      "tags": [
+        "animals",
+        "season"
+      ]
+    },
+    {
+      "id": "ck-evt-12d611eff26e4ad26f6c",
+      "type": "event",
+      "title": "Familienführung im Jüdischen Museum",
+      "venue": "Jüdisches Museum Frankfurt",
+      "days": [
+        "2026-10-31"
+      ],
+      "time": "11:00",
+      "indoor": true,
+      "tags": [
+        "tour"
+      ]
+    },
+    {
+      "id": "ck-evt-86e7078d29bb67f1c34f",
+      "type": "event",
+      "title": "Oper für Kinder",
+      "venue": "Holzfoyer",
+      "days": [
+        "2026-10-31"
+      ],
+      "time": "14:00",
+      "indoor": true,
+      "tags": [
+        "stage"
+      ]
+    },
+    {
+      "id": "ck-evt-684cad2d140ef7db5cc6",
+      "type": "event",
+      "title": "Familienführung im Museum Judengasse",
+      "venue": "Museum Judengasse Frankfurt",
+      "days": [
+        "2026-10-31"
+      ],
+      "time": "14:00",
+      "indoor": true,
+      "tags": [
+        "tour"
+      ]
+    },
+    {
+      "id": "ck-evt-192bfa3d42a9a7d61dac",
+      "type": "event",
+      "title": "Offene Kinderwerkstatt",
+      "venue": "Museum für Kommunikation Frankfurt am Main Schaumainkai 53 Frankfurt am Main 60596",
+      "days": [
+        "2026-10-31",
+        "2026-11-01"
+      ],
+      "time": "All day",
+      "indoor": true,
+      "tags": [
+        "diy",
+        "tour"
+      ]
+    },
+    {
+      "id": "osm-way-29407015",
+      "type": "place",
+      "title": "Botanischer Garten",
+      "kind": "park",
+      "hours": "Mar-Oct: Mo-Sa 09:00-18:00; Mar-Oct: Su,PH 09:00-13:00",
+      "free": true,
+      "district": "Bockenheim",
+      "venue": "Siesmayerstraße 72",
+      "days": []
+    }
+  ]
+}

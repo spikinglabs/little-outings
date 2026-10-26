@@ -16,9 +16,10 @@ import { appendFileSync, readFileSync, writeFileSync, existsSync, mkdirSync, rea
 import { join } from "node:path";
 import { load } from "js-yaml";
 import { fromExport } from "./import-cityklub.mjs";
+import { download } from "./import-places.mjs";
 import { complete, pickLlm } from "../src/lib/llm.ts";
 import {
-  LONG_RUN, PICKS, PICK_PROMPT, PLACE_PROMPT, RECENT_EVENTS, RECENT_PLACES, SHORTLIST, WEEKEND_TOWNS,
+  LONG_RUN, MIN_EVENTS, PICKS, PICK_PROMPT, PLACE_PROMPT, RECENT_EVENTS, RECENT_PLACES, SHORTLIST, WEEKEND_TOWNS,
   addDays, byWhen, describe, madeForKids, dow, indoorOf, isDry, isRainy, isoWeek, parsePicks, pickMix, placeCandidates, recentKey,
   scoreEvent, townSlug, weekendOf,
 } from "../src/lib/weekend.ts";
@@ -137,7 +138,7 @@ export async function draftTown({ town, rows, places, towns, sat, weather, holid
   const want = Math.min(PICKS, shortlist.length);
   const answer = want ? await ask(llm, PICK_PROMPT.replace("{n}", String(want)), `${header}\n\n${shortlist.map(describe).join("\n")}`) : null;
   const chosen = answer ? parsePicks(answer, shortlist.length) : [];
-  if (chosen.length >= Math.min(3, want)) {
+  if (want && chosen.length >= Math.min(3, want)) {
     picks = chosen.slice(0, PICKS).map((c) => ({ ...shortlist[c.i], label: c.label, why: c.why }));
     // Fill up from the plain score if the AI gave fewer than asked.
     for (const p of pickMix(shortlist, { rain, sat, sun })) if (picks.length < want && !picks.includes(p)) picks.push(p);
@@ -149,7 +150,10 @@ export async function draftTown({ town, rows, places, towns, sat, weather, holid
   const placeList = placeCandidates(places, { town, month, rain, recent: recentPlaces, hidden });
   // The AI's picks are kept; from the plain score only clear family events (score 2 and up).
   const kept = by === "ai" ? picks : picks.filter((p) => (p.score ?? 0) >= 2);
-  picks = [...kept, ...placeList.slice(0, Math.max(1, PICKS + 1 - kept.length))];
+  // Places of different kinds, so a thin weekend isn't filled with five farm shops.
+  const kinds = new Set();
+  const placePicks = placeList.filter((p) => !kinds.has(p.kind) && kinds.add(p.kind)).slice(0, Math.max(1, PICKS + 1 - kept.length));
+  picks = [...kept, ...placePicks];
   await addLines(llm, picks);
   for (const p of picks) delete p.source;
 
@@ -173,7 +177,9 @@ function regionTowns() {
 
 export async function draft({ sat, today, llm }) {
   const towns = regionTowns();
-  const rows = jsonl(PUBLISHED), places = jsonl(PLACES);
+  const rows = jsonl(PUBLISHED);
+  // The live places file (every town), else the snapshot in the repository, which has the first towns only.
+  const places = (process.env.PLACES_EXPORT && (await download(process.env.PLACES_EXPORT))) || jsonl(PLACES);
   const holidays = readJson("data/school-holidays.json", { states: {} }).states ?? {};
   const hiddenFile = join(ROOT, "hidden-places.yaml");
   const hidden = new Set(existsSync(hiddenFile) ? load(readFileSync(hiddenFile, "utf8")) || [] : []);
@@ -200,6 +206,10 @@ export async function publish({ sat, llm, draftDoc }) {
   for (const [town, d] of Object.entries(doc.towns)) {
     const rec = towns.find((t) => t.name === town);
     if (!rec || !d.picks?.length) continue;
+    // A town with too few family events this weekend (say its collection stopped) skips a week
+    // rather than going out as a list of farm shops; the page then points to next Friday.
+    const events = d.picks.filter((p) => p.type === "event").length;
+    if (events < MIN_EVENTS) { console.log(`::notice title=Weekend::${town}: only ${events} events, no edition this week`); continue; }
     await addLines(llm, d.picks);
     const weather = (await forecast(rec.lat, rec.lon, sat)) ?? d.weather;
     const slug = townSlug(town);
