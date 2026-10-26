@@ -424,3 +424,23 @@ legal:
   map: { h: Map, p: "Map tiles load from OpenStreetMap (OpenStreetMap Foundation, United Kingdom, covered by an EU adequacy decision), which receives your IP address to send the tiles. Legal basis: Art. 6 (1) (f) GDPR. Your location is only used on your phone if you tap the locate button, and is never sent to us." }
   fonts: { h: Fonts, p: "All fonts are served from our own site. No font service receives your data." }
   rights: { h: Your rights, p: "You have the right to access, correction, deletion, restriction of processing, data portability and to object to processing based on legitimate interests (Art. 15–21 GDPR). Most of this you can do yourself under Mine › Profile and sync; otherwise email us. You can also complain to a data protection supervisory authority." }
+feed:
+  pick: "Do you run events for families? Send us your calendar →"
+  title: Send us your calendar
+  sub: "Museums, libraries, theatres, zoos, family centres: if your programme has a calendar link (iCal, ending in .ics, the kind Google Calendar or Outlook can subscribe to), send it here. We check it once, then your events appear on Little Outings by themselves, every day."
+  url: Calendar link
+  urlHelp: "Often called “Subscribe”, “iCal”, “Add to calendar” or “Export” on your events page. webcal:// links work too."
+  check: Check the link
+  found: "Works: {n} upcoming events. The next ones:"
+  noUpcoming: "This is a calendar, but it has no upcoming events. Is it the right one?"
+  err_badUrl: "That doesn't look like a web address. It should start with https:// or webcal://."
+  err_unreachable: "We couldn't open that link. Is it public, without a login?"
+  err_tooBig: "That calendar is too large to preview here, but you can still send it."
+  err_notCalendar: "That link opens a web page, not a calendar file. Look for a link ending in .ics."
+  org: Your organisation
+  town: Town
+  contact: Email (optional)
+  contactHelp: "Only for questions about your calendar. Never shown on the site."
+  note: Anything we should know?
+  notePh: "Which events are for children, ages, where they take place …"
+  thanks: "Thank you! We'll look at your calendar and add it soon. Changes you make to it later show up here by themselves."

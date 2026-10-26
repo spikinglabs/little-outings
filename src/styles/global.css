@@ -396,6 +396,7 @@ footer.foot { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--l
 /* Add: pick what, then one form */
 .add-pick { display: grid; gap: 12px; margin-top: 18px; }
 .add-tile { display: grid; grid-template-columns: auto 1fr; gap: 2px 14px; align-items: center; text-align: left; background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 16px; box-shadow: var(--shadow); cursor: pointer; color: var(--ink); }
+.add-organiser { justify-self: start; margin-top: 4px; }
 .add-tile:hover { border-color: var(--ink); }
 .add-tile b { font: 800 1.15rem/1.25 var(--display); }
 .add-tile > span:not(.add-ic) { color: var(--ink-soft); font-size: .92rem; }

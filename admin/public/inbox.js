@@ -4,7 +4,7 @@ const esc = (value) =>
   String(value ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 const dateFmt = new Intl.DateTimeFormat("de-DE", { dateStyle: "medium", timeStyle: "short", timeZone: "Europe/Berlin" });
 
-const KIND = { tip: "Tip", report: "Report", "new-event": "New event", "new-place": "New place", answer: "Answer" };
+const KIND = { tip: "Tip", report: "Report", "new-event": "New event", "new-place": "New place", answer: "Answer", "new-feed": "Calendar feed" };
 const GAP = { hours: "Opening hours", time: "Time", price: "Price", where: "Where exactly", still: "Still on?" };
 const BUTTON = { approve: "Approve", done: "Done, fixed", reject: "Reject", remove: "Remove invite" };
 const TOPIC = { bring: "Bring", bestTime: "Best time", parking: "Parking", ages: "Best for ages", other: "Other" };
@@ -45,6 +45,13 @@ function details(item) {
     return `<p class="said">Reported invite</p><p class="sub">Open it to check. Removing deletes it for everyone; Reject keeps it.</p>`;
   }
   if (item.kind === "report") return `<p class="said">${esc(REASON[d.reason] || d.reason)}</p>${d.note ? `<p>“${esc(d.note)}”</p>` : ""}`;
+  if (item.kind === "new-feed") {
+    const src = item.source;
+    return `<p class="said">${esc(d.org)}</p><dl>${field("Town", d.town)}${field("Link", d.url)}${field("Check", d.checked)}${
+      field("Contact", d.contact)}${field("Note", d.note)}</dl>${src ? `<details><summary>Source file for cityklub-event-data</summary>
+      <p class="sub">Add it as <code>${esc(src.path)}</code>, check the venue and categories, then mark this done.</p>
+      <pre>${esc(src.text)}</pre></details>` : ""}`;
+  }
   if (item.kind === "new-event") {
     return `<p class="said">${esc(d.title)}</p><dl>${field("Date", d.date)}${field("Time", d.time)}${field("Place", d.place)}${
       field("Price", d.price)}${field("Note", d.note)}</dl>`;
