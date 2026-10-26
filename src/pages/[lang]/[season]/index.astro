@@ -5,6 +5,7 @@ import { LANGS, tr, useT, type Lang } from "../../../lib/i18n";
 import { getData, TODAY } from "../../../lib/data";
 import { townName } from "../../../lib/format";
 import { seasonPages, seasonPath, type Season } from "../../../lib/seasons";
+import { seasonKey } from "../../../lib/og";
 
 export async function getStaticPaths() {
   const { seasons } = await getData();
@@ -30,7 +31,7 @@ const towns = seasonPages(seasons).filter((p) => p.season.id === seasonId).map((
 const title = tr(page.hub, lang);
 const intro = tr(page.intro, lang).replace(/\{town\}/g, towns.map((x) => x.name).join(", "));
 ---
-<Base lang={lang} title={title} description={intro}>
+<Base lang={lang} title={title} description={intro} og={seasonKey(seasonId)}>
   <div class="season-page">
     <a class="back" href={`/${lang}/`}>← {t("back")}</a>
     <p class="eyebrow">{season.emoji} {tr(season.label, lang)}</p>

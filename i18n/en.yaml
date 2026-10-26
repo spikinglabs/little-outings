@@ -53,6 +53,7 @@ only: "Only {when}"
 always: Always a good idea
 ideas: Ideas nearby
 runsUntil: "until {date}"
+og: { until: until, list: "Family outing ideas, saved and shared. Open them and add them to your own list." }
 lastChance: Last chance
 ideasKinds: What kind of outing
 kindEvents: Events

@@ -15,6 +15,7 @@ import { calInput } from "../../../lib/event-cal";
 import { googleUrl, ics } from "../../../lib/calendar";
 import { eventLd } from "../../../lib/seo";
 import { seasonPageFor, seasonPath } from "../../../lib/seasons";
+import { eventKey } from "../../../lib/og";
 
 export async function getStaticPaths() {
   const { events } = await getData();
@@ -52,7 +53,7 @@ const ld = eventLd(e, {
   placeUrl: place && `${site}${pathFor(lang, place)}`, placeName: place && nameOf(place, lang),
 });
 ---
-<Base lang={lang} title={title} description={description} ld={ld}>
+<Base lang={lang} title={title} description={description} ld={ld} og={eventKey(e)}>
   <article class="detail" data-lat={e.geo.lat} data-lon={e.geo.lon} data-precision={prec}>
     <a class="back" href={`/${lang}/`}>← {t("back")}</a>
     <div class="lead">

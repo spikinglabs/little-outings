@@ -53,6 +53,7 @@ only: "仅限{when}"
 always: 随时可去
 ideas: 附近的好去处
 runsUntil: "至{date}"
+og: { until: 至, list: "收藏并分享的亲子出游点子。打开看看，也能加到你自己的收藏里。" }
 lastChance: 即将结束
 ideasKinds: 出游类型
 kindEvents: 活动
