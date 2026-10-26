@@ -56,7 +56,7 @@ export function entryOf(x: Event | Place): Entry {
   if (x.type === "place") {
     const has = Object.entries(x.facilities).filter(([, f]) => f.status === "yes").map(([k]) => k);
     return {
-      t: "p", id: x.id, n: x.name, ...(x.names?.zh ? { zh: x.names.zh } : {}), k: [x.kind], town: x.town,
+      t: "p", id: x.id, n: x.name, ...(x.names?.en ? { en: x.names.en } : {}), ...(x.names?.zh ? { zh: x.names.zh } : {}), k: [x.kind], town: x.town,
       ...((x.district || x.street) ? { at: [x.district, x.street].filter(Boolean).join(", ") } : {}), ...geo,
       ...(indoorGuess(x.indoor, [x.kind]) !== undefined ? { in: indoorGuess(x.indoor, [x.kind]) } : {}), ...(x.free ? { free: true } : {}), ...(has.length ? { has } : {}),
     };
@@ -325,7 +325,7 @@ export function details(x: Event | Place, lang: Lang, base: string, towns: Town[
     if (facts.price) lines.push(`Price: ${facts.price}`);
     if (x.note) lines.push(text(x.note, lang));
   } else {
-    title = (lang === "zh" && x.names?.zh) || x.name;
+    title = (lang !== "de" && x.names?.[lang]) || x.name;
     const yes = Object.entries(x.facilities).filter(([, f]) => f.status === "yes").map(([k]) => k);
     const no = Object.entries(x.facilities).filter(([, f]) => f.status === "no").map(([k]) => k);
     facts = {
