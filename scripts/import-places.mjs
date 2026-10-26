@@ -1,7 +1,7 @@
 // Imported places → content/places/imported/<id>.yaml, run before every build.
 //
 //   PLACES_EXPORT           OpenStreetMap places with their nearest street, a URL (or a path): the public
-//                           places bucket, refreshed weekly by spikinglabs/cityklub-event-data (cityklub places)
+//                           places bucket, refreshed monthly by spikinglabs/osm-family-data
 //   data/places-osm.jsonl   the last snapshot, used when PLACES_EXPORT is unset or can't be read
 //   data/outings.jsonl      farms that run events (farm event sources) become farm places too
 //   content/hidden-places.yaml   ids that must never appear (a list), e.g. a closed playground

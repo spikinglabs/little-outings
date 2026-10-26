@@ -84,6 +84,22 @@ approxKm: "约 {d} 公里"
 nearby: 就在附近
 thePlace: 活动地点
 forFamilies: 亲子设施
+toiletsNear:
+  title: 附近的厕所和尿布台
+  toilets: 公共厕所
+  changing: 尿布台
+  water: 饮用水
+  away: "{n} 米"
+  table: 有尿布台
+  tableIn: { wheelchair_toilet: 在无障碍厕所内, female_toilet: 在女厕内, male_toilet: 在男厕内, unisex_toilet: 在无性别厕所内, dedicated_room: 在母婴室, room: 在单独房间, sales_area: 在店内 }
+  free: 免费
+  paid: 收费
+  wheelchair: 无障碍
+  customers: 限顾客
+  source: "来自 OpenStreetMap，{n} 米范围内。开放时间可能有变。"
+  route: 路线
+  mapShow: 显示厕所
+  mapHide: 隐藏厕所
 unknownNote: "“?” 表示暂不确定。去过的话，点一下告诉我们。"
 confirmedBy: "{n} 位家长确认"
 upcomingHere: 近期活动

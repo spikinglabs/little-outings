@@ -129,6 +129,13 @@ h1, h2, h3 { font-family: var(--display); text-wrap: balance; letter-spacing: -0
 .checks .dot { width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; background: var(--ink); color: var(--paper); flex: none; }
 .checks li.unknown .dot, .checks li.no .dot { background: var(--line); color: var(--ink-soft); }
 .checks .dot svg { width: 15px; height: 15px; }
+.near { display: grid; gap: 6px; padding: 0; margin: 8px 0 0; list-style: none; }
+.near li { display: flex; align-items: center; gap: 10px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 7px 10px; font-size: .9rem; }
+.near li > span:nth-child(2) { flex: 1; min-width: 0; }
+.near .dot { width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; background: var(--ink); color: var(--paper); flex: none; }
+.near .dot svg { width: 15px; height: 15px; }
+.near small { display: block; font-size: .74rem; color: var(--ink-soft); line-height: 1.3; }
+.near a { flex: none; font-size: .85rem; }
 .checks small { display: block; font-size: .74rem; color: var(--ink-soft); line-height: 1.2; }
 .quote { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; margin-top: 8px; }
 .quote small { display: block; color: var(--ink-soft); margin-top: 4px; }
@@ -231,6 +238,8 @@ h1, h2, h3 { font-family: var(--display); text-wrap: balance; letter-spacing: -0
 .map-card[hidden] { display: none; }
 .map-card-mark { flex: none; width: 42px; height: 42px; border-radius: 10px; display: grid; place-items: center; background: var(--spot); color: #fff; }
 .map-card-mark.ev { background: var(--gold); color: var(--gold-ink); }
+.map-card-mark.wc { background: #3d6a9e; }
+.map-wc[aria-pressed="true"] { background: #3d6a9e; color: #fff; border-color: #3d6a9e; }
 .map-card-mark svg { width: 22px; height: 22px; }
 .map-card-body { flex: 1; min-width: 0; font-size: .9rem; }
 .map.leaflet-container .map-card-body > a { display: block; font-weight: 700; font-size: 1rem; color: var(--ink); text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

@@ -70,6 +70,11 @@ const mapLabels = {
   ...(t.group("nEvents") as { one: string; other: string }), more: t("mapMore"), here: t("legend.here"),
   places: t.group("nPlacesAny") as { one?: string; other: string }, touch: t("mapTouch"), zoom: t("mapZoom"), zoomMac: t("mapZoomMac"),
   locate: t("locate"), close: t("mapClose"), save: t("save"),
+  toilets: {
+    show: t("toiletsNear.mapShow"), hide: t("toiletsNear.mapHide"), toilets: t("toiletsNear.toilets"), changing: t("toiletsNear.changing"),
+    water: t("toiletsNear.water"), table: t("toiletsNear.table"), free: t("toiletsNear.free"), paid: t("toiletsNear.paid"),
+    wheelchair: t("toiletsNear.wheelchair"), customers: t("toiletsNear.customers"), route: t("toiletsNear.route"),
+  },
 };
 // What search results and AI answers show for the home page.
 const description = t("homeDescription", { events: listed.length, places: places.length });
@@ -138,7 +143,7 @@ const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
     </button>
   </div>
   <div class="mapwrap explore-map" id="explore-map" hidden>
-    <OutingsMap client:only="preact" pinsUrl={`/${lang}/pins.json`} center={mapCenter(data)} towns={homes.map((x) => [x.name, x.lat, x.lon])} locale={t.locale} labels={mapLabels} />
+    <OutingsMap client:only="preact" pinsUrl={`/${lang}/pins.json`} toiletsUrl="/toilets.json" center={mapCenter(data)} towns={homes.map((x) => [x.name, x.lat, x.lon])} locale={t.locale} labels={mapLabels} />
     <!-- The two marks everyone needs stay in view; the rest fold away behind "More". -->
     <div class="legend">
       <span><i style="background:#ffcc00"></i>{t("legend.event")}</span>
