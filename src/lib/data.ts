@@ -71,7 +71,7 @@ async function load(): Promise<Data> {
     if (ev.end < TODAY) continue;
     if (seen.has(ev.id)) throw new Error(`duplicate id "${ev.id}"`);
     seen.add(ev.id);
-    events.push(applyEventTally(applyTranslations({ ...ev, geo: resolveGeo(f.geo, file.town, towns) }, zh), tallies[ev.id]));
+    events.push(applyEventTally(applyTranslations({ ...ev, geo: resolveGeo(f.geo, file.town, towns) }, tr), tallies[ev.id]));
   }
   for (const e of events) {
     const found = seasonsOf(typeof e.title === "string" ? e.title : e.title.de, seasons.seasons);
