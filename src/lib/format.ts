@@ -18,12 +18,12 @@ const text = (v: Text, lang: Lang) => (typeof v === "string" ? v : v[lang] || v.
 
 /** An event's title or a place's name in the reader's language, machine translations included. */
 export const nameOf = (x: Item, lang: Lang) =>
-  x.type === "event" ? text(x.title, lang) : (lang === "zh" && x.names?.zh) || x.name;
+  x.type === "event" ? text(x.title, lang) : (lang !== "de" && x.names?.[lang]) || x.name;
 
 /** The German original when nameOf shows a machine translation, so parents can match signs and posters. */
 export function germanName(x: Item, lang: Lang): string | undefined {
-  if (x.type === "event") return x.machine?.includes(lang as "zh") ? text(x.title, "de") : undefined;
-  return lang === "zh" && x.names?.zh ? x.name : undefined;
+  if (x.type === "event") return lang !== "de" && x.machine?.includes(lang) ? text(x.title, "de") : undefined;
+  return lang !== "de" && x.names?.[lang] ? x.name : undefined;
 }
 
 /** How many answers parents gave about a place: facility votes, "We went" and approved tips. */

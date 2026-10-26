@@ -1,9 +1,10 @@
 # Sorts new events with AI and publishes them (scripts/sort-events.mjs), finds venues for events that came without one (scripts/find-venues.mjs, data/venues.json) and
-# translates new event titles and place names into Chinese every night, before the deploy
-# (02:15) builds the site, and commits data/translations/zh.json. Each text is translated once.
+# translates new event titles and place names into Chinese, and event titles into English, every night, before the deploy
+# (02:15) builds the site, and commits data/translations/zh.json and en.json. Each text is translated once per language.
 # Needs a repository secret GEMINI_API_KEY (Gemini) or ANTHROPIC_API_KEY (Claude); with both, Gemini
 # is used unless the variable LLM_PROVIDER says "anthropic". The variable TRANSLATE_MODEL picks the
-# model (defaults in src/lib/llm.ts), SORT_MODEL the one that sorts events, SORT_LIMIT how many new titles it sorts per night (default 3000). Without a key it only reports what is missing.
+# model (defaults in src/lib/llm.ts), SORT_MODEL the one that sorts events, SORT_LIMIT how many new titles it sorts per night (default 3000),
+# TRANSLATE_LIMIT how many new texts it translates per language per night (default 3000). Without a key it only reports what is missing.
 # Sorting reads and writes the Little Outings bucket with wrangler: it needs a Cloudflare API token with
 # "Workers R2 Storage: Edit", either the secret R2_SORT_TOKEN or the deploy's CLOUDFLARE_API_TOKEN with that
 # permission added, plus CLOUDFLARE_ACCOUNT_ID. Without access the step is skipped and the run stays green.
@@ -84,15 +85,16 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           LLM_PROVIDER: ${{ vars.LLM_PROVIDER }}
           TRANSLATE_MODEL: ${{ vars.TRANSLATE_MODEL }}
+          TRANSLATE_LIMIT: ${{ vars.TRANSLATE_LIMIT }}
         run: |
           out=$(npm run --silent translate 2>&1) || { echo "$out"; exit 1; }
           echo "$out"; echo "::notice title=Translate::$(echo "$out" | tail -1)"
       - name: Commit the outings, venues and translations
         run: |
-          git add data/translations/zh.json data/venues.json data/outings.jsonl
+          git add data/translations/zh.json data/translations/en.json data/venues.json data/outings.jsonl
           if git diff --cached --quiet; then echo "No changes."; exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "Publish sorted events, venues from event pages and Chinese titles"
+          git commit -m "Publish sorted events, venues from event pages and translated titles"
           git pull --rebase origin "$GITHUB_REF_NAME"
           git push

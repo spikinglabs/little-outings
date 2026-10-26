@@ -36,14 +36,14 @@ async function load(): Promise<Data> {
   const override = new Map(overrides.map((o) => [slug(o.id), o.data]));
 
   const tallies = inboxTallies();
-  const zh = translations("zh");
+  const tr = { en: translations("en"), zh: translations("zh") };
   // Places parents suggested (inbox-<n>) name their town as typed; "Cologne" is the site's Köln.
   const raw = rawPlaces.map((p) => {
     const id = slug(p.id);
     if (!id.startsWith("inbox-")) return { id, data: p.data };
     return { id, data: { ...p.data, address: { ...p.data.address, town: canonicalTown(p.data.address.town, regionTowns) } } };
   });
-  const places = raw.map((p) => applyTranslations(applyTally(normalizePlace(p.id, p.data, answer.get(p.id), regionTowns), tallies[p.id]), zh));
+  const places = raw.map((p) => applyTranslations(applyTally(normalizePlace(p.id, p.data, answer.get(p.id), regionTowns), tallies[p.id]), tr));
   // A town only a parent's place is in (Merzenich) joins the town picker.
   const towns = [...regionTowns, ...townsFromPlaces(places.filter((p) => p.id.startsWith("inbox-")), regionTowns)];
   const region = { ...home, towns };
@@ -58,7 +58,7 @@ async function load(): Promise<Data> {
     const ev = normalizeEvent(id, e.data, { answer: answer.get(id), override: override.get(id) }, placeById, towns);
     if (!ev) continue;
     if (demoShift) Object.assign(ev, { start: shiftDays(ev.start, demoShift), end: shiftDays(ev.end, demoShift) });
-    if (ev.end >= TODAY) events.push(applyEventTally(applyTranslations(ev, zh), tallies[id]));
+    if (ev.end >= TODAY) events.push(applyEventTally(applyTranslations(ev, tr), tallies[id]));
   }
   events.sort((a, b) => a.start.localeCompare(b.start) || a.id.localeCompare(b.id));
   return { region, places, events, placeById, eventById: new Map(events.map((e) => [e.id, e])) };

@@ -32,7 +32,7 @@ const soon = item.type === "place" ? events.filter((e) => e.place === item.id).l
 const prec = item.geo.precision;
 const search = [
   item.type === "event" ? (typeof item.title === "string" ? item.title : Object.values(item.title).join(" ")) : item.name,
-  item.type === "place" ? item.names?.zh : undefined,
+  ...(item.type === "place" ? Object.values(item.names ?? {}) : []),
   item.type === "event" ? item.venue : t(`kinds.${item.kind}`), item.town, town, item.type === "place" ? item.district : undefined, ...tags.map((g) => t(`tags.${g}`)),
 ].filter(Boolean).join(" ").toLowerCase();
 ---

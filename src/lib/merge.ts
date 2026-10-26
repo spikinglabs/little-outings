@@ -137,11 +137,20 @@ export function normalizeEvent(
  * Adds cached machine translations (data/translations/zh.json): a Chinese title for events whose
  * title is still plain German, a Chinese name for places. A translation written by hand wins.
  */
-export function applyTranslations<T extends Event | Place>(item: T, zh: Record<string, string>): T {
-  if (item.type === "place") return zh[item.name] ? { ...item, names: { ...item.names, zh: zh[item.name] } } : item;
+export function applyTranslations<T extends Event | Place>(item: T, caches: Partial<Record<"en" | "zh", Record<string, string>>>): T {
+  const langs = (Object.keys(caches) as ("en" | "zh")[]).sort();
+  if (item.type === "place") {
+    const names = Object.fromEntries(langs.filter((l) => caches[l]![item.name]).map((l) => [l, caches[l]![item.name]]));
+    return Object.keys(names).length ? { ...item, names: { ...item.names, ...names } } : item;
+  }
   const ev = item as Event;
-  if (typeof ev.title !== "string" || !zh[ev.title]) return item;
-  return { ...ev, title: { de: ev.title, zh: zh[ev.title] }, machine: ["zh"] } as T;
+  if (typeof ev.title !== "string") return item;
+  const de = ev.title;
+  const found = langs.filter((l) => caches[l]![de]);
+  if (!found.length) return item;
+  // A title that is already English comes back unchanged: shown as is, without a German line beneath.
+  const machine = found.filter((l) => caches[l]![de] !== de);
+  return { ...ev, title: { de, ...Object.fromEntries(found.map((l) => [l, caches[l]![de]])) }, ...(machine.length ? { machine } : {}) } as T;
 }
 
 /**
