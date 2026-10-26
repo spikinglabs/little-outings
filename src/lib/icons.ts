@@ -47,6 +47,7 @@ export const UI_ICON: Record<string, string> = {
   locate: '<circle cx="12" cy="12" r="4"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/>',
   camera: '<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',
   water: '<path d="M12 3c3 4.4 5 7.2 5 9.8a5 5 0 0 1-10 0C7 10.2 9 7.4 12 3z"/>',
+  share: '<circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="m8.2 10.8 7.6-4.4M8.2 13.2l7.6 4.4"/>',
   brand: '<path d="M4 18c3-6 6-9 8-9s5 3 8 9"/><circle cx="12" cy="5" r="2"/><path d="M2 20h20"/>',
 };
 

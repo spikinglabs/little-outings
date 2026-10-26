@@ -19,6 +19,26 @@ document.addEventListener("click", (ev) => {
   if (el) count(el.dataset.count as CountAction);
 });
 
+/* ---------- share an event or place (src/components/ShareButton.astro) ---------- */
+document.addEventListener("click", async (ev) => {
+  const b = (ev.target as Element).closest<HTMLButtonElement>("[data-share-page]");
+  if (!b) return;
+  const url = location.origin + location.pathname;
+  const text = b.dataset.text!;
+  try {
+    if (navigator.share) { await navigator.share({ title: b.dataset.title, text, url }); count("share"); return; }
+  } catch (e) {
+    if ((e as Error).name === "AbortError") return; // closed the share sheet
+  }
+  // No share sheet (most desktop browsers): copy text and link, and say so on the button for a moment.
+  try { await navigator.clipboard.writeText(`${text}\n${url}`); } catch { prompt(b.dataset.done, url); return; }
+  count("copy");
+  const label = b.querySelector<HTMLElement>("[data-share-label]")!;
+  const was = label.textContent;
+  label.textContent = b.dataset.done!;
+  setTimeout(() => { label.textContent = was; }, 2500);
+});
+
 /* ---------- saved list (stays on this device) ---------- */
 export const saved = new Set<string>(JSON.parse(read("lo-saved") || "[]"));
 /** Sets the save buttons under root to this device's list (cards moved into the page need it too). */
