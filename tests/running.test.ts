@@ -15,7 +15,7 @@ test("the last seven days are a last chance", () => {
   assert.equal(lastChance("2026-11-02", "2026-10-26"), false);
 });
 
-test("long events leave the main list until their last week, ending soonest first", () => {
+test("long events go after the rest until their last week, ending soonest first", () => {
   const rows = [
     { id: "opera", start: "2026-10-31", end: "2026-10-31" },
     { id: "skulpturen", start: "2026-07-05", end: "2026-12-06" },

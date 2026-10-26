@@ -22,8 +22,6 @@ tip: "Unser Tipp {when}"
 only: "Nur {when}"
 always: Geht immer
 ideas: Ideen in der Nähe
-running: Läuft eine Weile
-runningHint: Ausstellungen und mehr, jeden Tag bis zum Ende.
 runsUntil: "bis {date}"
 lastChance: Letzte Chance
 ideasKinds: Was für ein Ausflug

@@ -22,8 +22,6 @@ tip: "{when}推荐"
 only: "仅限{when}"
 always: 随时可去
 ideas: 附近的好去处
-running: 持续进行中
-runningHint: 展览等活动，结束前哪天去都可以。
 runsUntil: "至{date}"
 lastChance: 即将结束
 ideasKinds: 出游类型

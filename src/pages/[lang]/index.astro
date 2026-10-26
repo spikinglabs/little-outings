@@ -161,12 +161,6 @@ const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
       <button class="chip" type="button" data-tag-chip="" aria-pressed="true">{t("allTypes")} <span class="n" data-n></span></button>
       {presentTags.map((g) => <button class="chip" type="button" data-tag-chip={g} aria-pressed="false">{t(`tags.${g}`)} <span class="n" data-n></span></button>)}
     </div>
-    <!-- Exhibitions and other long runs: on any day, so folded here instead of topping the list (lib/running.ts). -->
-    <details class="running" data-running hidden>
-      <summary><b>{t("running")}</b> <span class="n" data-running-n></span></summary>
-      <p class="small">{t("runningHint")}</p>
-      <div class="grid ideas" data-running-list></div>
-    </details>
     <div class="grid ideas" id="ideas">
       <div class="empty" data-empty hidden>{t("noIdeas")}</div>
       <div class="empty" data-empty-town hidden></div>
