@@ -19,19 +19,22 @@ const text = `${set.title}\n\n${set.caption}`;
   </div>
   <p class="small" role="status" data-xhs-msg></p>
   <div data-xhs-manual hidden>
-    <p class="small">长按每张图片保存到相册，再复制下面的文字。</p>
     <div class="xhs-pics">
       {pictures.map((p, i) => <img src={p} alt={`第 ${i + 1} 张`} width="1080" height="1440" loading="lazy" />)}
     </div>
-    <textarea class="wk-text" readonly rows="8" aria-label="笔记文字" data-xhs-text>{text}</textarea>
+    <textarea readonly rows="8" aria-label="笔记文字" data-xhs-text>{text}</textarea>
   </div>
 </section>
 
 <style>
-  .xhs { display: grid; gap: 10px; margin-top: 24px; }
+  .xhs { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; margin-top: 24px; }
+  .xhs p { margin: 0; }
   .xhs h2 { margin: 0; }
   .xhs-pics { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 6px; }
   .xhs-pics img { width: 150px; height: auto; flex: none; border-radius: 8px; border: 1px solid var(--line); }
+  [data-xhs-manual] { display: grid; gap: 8px; min-width: 0; }
+  [data-xhs-manual][hidden] { display: none; }
+  .xhs textarea { width: 100%; box-sizing: border-box; font: inherit; font-size: 15px; padding: 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--card); color: inherit; }
 </style>
 
 <script is:inline>
