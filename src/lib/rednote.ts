@@ -42,7 +42,9 @@ export interface XhsSet { id: string; title: string; caption: string; sheets: Sh
 // ---------- the weekly set ----------
 
 const TAGS = (town: string) => ["德国带娃", `${town}带娃`, town, "周末去哪儿", "遛娃", "德国生活", "德国妈妈", "德国爸爸", "留德"];
-const hashtags = (tags: string[]) => tags.map((t) => `#${t}`).join(" ");
+/** Our own tag leads every caption, so posts and parents' shares all gather under #小出游. */
+export const BRAND_TAG = "小出游";
+const hashtags = (tags: string[]) => [BRAND_TAG, ...tags.filter((t) => t !== BRAND_TAG)].map((t) => `#${t}`).join(" ");
 
 const md = (d: string) => `${Number(d.slice(5, 7))}.${Number(d.slice(8, 10))}`;
 const venueOf = (p: Pick) => (p.venue ?? "").trim();
