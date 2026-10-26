@@ -43,7 +43,9 @@ export function dateSign(t: T, key: string): Sign {
 
 export function dateHeadline(t: T, key: string): string {
   const d = longDate(t, key.slice(2));
-  return key.startsWith("u-") ? t("runsUntil", { date: d }) : d;
+  if (!key.startsWith("u-")) return d;
+  const until = t("runsUntil", { date: d });
+  return until.charAt(0).toUpperCase() + until.slice(1);
 }
 
 // Colours from design/tokens.css (light): the signs look the same in any chat theme.

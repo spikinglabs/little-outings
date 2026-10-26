@@ -28,6 +28,7 @@ test("the date sign reads like the card stamp, in each language", () => {
   assert.deepEqual(dateSign(fakeT("zh", "zh-CN"), "d-2026-11-08"), { type: "date", top: "周日", day: "8", mon: "11月" });
   assert.equal(dateSign(fakeT("en", "en-GB"), "u-2026-12-24").type === "date" && (dateSign(fakeT("en", "en-GB"), "u-2026-12-24") as any).top, "until");
   assert.equal(dateHeadline(fakeT("de", "de-DE"), "d-2026-11-08"), "Sonntag, 8. November");
+  assert.equal(dateHeadline(fakeT("de", "de-DE"), "u-2026-12-24"), "Bis Donnerstag, 24. Dezember");
 });
 
 test("headlines wrap at spaces, Chinese anywhere, and shrink to fit", () => {
