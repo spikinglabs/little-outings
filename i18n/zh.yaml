@@ -270,6 +270,7 @@ tipTopic: { bring: 要带…, bestTime: 最佳时间…, parking: 停车…, age
 share:
   page: 分享
   pageCopied: 链接已复制
+  wechatHint: "点右上角 ··· 可以发送给朋友或分享到朋友圈"
   via: "来自小出游 Little Outings"
   button: 分享我的清单
   copied: 链接已复制。可以在另一部手机上打开，或发给一起计划的人。

@@ -27,3 +27,12 @@ test("unknown actions are refused", async () => {
   const env = { DB: fakeD1() };
   assert.equal((await onRequestPost({ env, request: post({ e: "pageview" }) })).status, 400);
 });
+
+test("every action the app counts is one the server keeps", async () => {
+  const { readFileSync } = await import("node:fs");
+  const { EVENTS } = await import("../functions/api/hit.ts");
+  const type = readFileSync("src/lib/count.ts", "utf8").match(/type CountAction = ([^;]+);/)![1];
+  const actions = [...type.matchAll(/"([a-z_]+)"/g)].map((m) => m[1]);
+  assert.ok(actions.includes("from_wechat"));
+  assert.deepEqual(actions.filter((a) => !EVENTS.includes(a)), []);
+});
