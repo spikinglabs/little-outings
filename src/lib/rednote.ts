@@ -41,7 +41,9 @@ export interface XhsSet { id: string; title: string; caption: string; sheets: Sh
 
 // ---------- the weekly set ----------
 
-const TAGS = (town: string) => ["德国带娃", `${town}带娃`, town, "周末去哪儿", "遛娃", "德国生活", "德国妈妈", "德国爸爸", "留德"];
+// 小出游 first: the brand tag gathers every note of ours, and searching it on Rednote finds them all.
+const BRAND_TAG = "小出游";
+const TAGS = (town: string) => [BRAND_TAG, "德国带娃", `${town}带娃`, town, "周末去哪儿", "遛娃", "德国生活", "德国妈妈", "德国爸爸", "留德"];
 const hashtags = (tags: string[]) => tags.map((t) => `#${t}`).join(" ");
 
 const md = (d: string) => `${Number(d.slice(5, 7))}.${Number(d.slice(8, 10))}`;
@@ -149,7 +151,7 @@ export const codesOf = (ed: Edition, codes = ed.picks.map((_, i) => codeOf(ed.sl
 export interface SetFile { title: string; caption: string; tags?: string[]; until?: string; season?: string; cards: Sheet[] }
 
 export function fileSet(id: string, f: SetFile): XhsSet {
-  return { id, title: f.title, caption: [f.caption.trim(), "", hashtags(f.tags ?? [])].join("\n").trim(), sheets: f.cards };
+  return { id, title: f.title, caption: [f.caption.trim(), "", hashtags([BRAND_TAG, ...(f.tags ?? []).filter((t) => t !== BRAND_TAG)])].join("\n").trim(), sheets: f.cards };
 }
 
 /** Problems with a set file, so a typo fails the tests rather than drawing a broken card. */

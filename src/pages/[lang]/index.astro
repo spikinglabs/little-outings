@@ -96,7 +96,7 @@ const mapLabels = {
 const description = t("homeDescription", { events: listed.length, places: places.length });
 const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
 ---
-<Base lang={lang} tab="explore" preload={`/${lang}/ideen/`} description={description} ld={siteLd({ url: `${site}/${lang}/`, name: t("siteName"), description, lang, maker: MAKER_URL })}>
+<Base lang={lang} tab="explore" preload={`/${lang}/ideen/`} description={description} ld={siteLd({ site, url: `${site}/${lang}/`, name: t("siteName"), description, lang, maker: MAKER_URL })}>
   <section class="ask">
     <h1 set:html={t("ask", { when: `<span data-when-word>${whenIn.weekend}</span>` })} />
     <label class="search">
@@ -239,6 +239,12 @@ const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
     <button class="more-btn" type="button" data-more hidden></button>
   </section>
   {events.length + places.length === 0 && <p class="empty">{t("empty")}</p>}
+  <!-- What the site is, in words a search engine can read: the cards arrive by script, so without this
+       the page says little about itself (and nothing that answers a search for 小出游). -->
+  <section class="brand-about">
+    <h2>{t("brandAbout.h")}</h2>
+    <p class="small">{t("brandAbout.p")}</p>
+  </section>
   <script is:inline type="application/json" id="explore-ui" set:html={JSON.stringify(pluralUi)} />
   <!-- Codes on the Rednote cards ("K31-2") and the page each opens; typed into the search box (explore.ts). -->
   <script is:inline type="application/json" id="xhs-codes" set:html={JSON.stringify((await rednoteSets()).codes)} />

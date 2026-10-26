@@ -41,6 +41,7 @@ test("the weekly set has a cover, a card per pick and a closing card", () => {
   assert.match(s.caption, /①【周六 10:00–15:00】MINTköln 科学日，Interim Zentralbibliothek（免费） 编号K31-1/);
   assert.match(s.caption, /天气：周六 有雨 11°/);
   assert.match(s.caption, /#科隆带娃/);
+  assert.match(s.caption, /\n#小出游 #德国带娃/, "the brand tag comes first");
   assert.doesNotMatch(s.caption + JSON.stringify(s.sheets), /https?:|allo\.land/);
 });
 
@@ -76,7 +77,9 @@ test("hand-written sets are complete and carry no links", () => {
   for (const f of setFiles) {
     const file = load(readFileSync(`content/rednote/${f}`, "utf8")) as SetFile;
     assert.deepEqual(checkSetFile(file), [], f);
-    assert.match(fileSet(f, file).caption, /#/);
+    const caption = fileSet(f, file).caption;
+    assert.match(caption, /\n#小出游 /, `${f}: the brand tag comes first`);
+    assert.equal(caption.split("#小出游").length, 2, `${f}: and only once`);
   }
 });
 

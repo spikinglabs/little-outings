@@ -2,7 +2,10 @@ locale: de-DE
 langName: Deutsch
 siteName: Little Outings
 tagline: Ausflüge mit Kindern in eurer Nähe
-homeDescription: "Ausflüge mit Kindern rund um Köln, Bonn und Düsseldorf: {events} Termine für Familien und {places} kinderfreundliche Orte wie Spielplätze, Bauernhöfe, Zoos und Schwimmbäder. Kostenlos, ohne Anmeldung."
+homeDescription: "Ausflüge mit Kindern in Köln, Bonn, Düsseldorf, Berlin, München, Frankfurt und Hamburg: {events} Termine für Familien und {places} kinderfreundliche Orte wie Spielplätze, Bauernhöfe, Zoos und Schwimmbäder. Kostenlos, ohne Anmeldung."
+brandAbout:
+  h: Über Little Outings
+  p: "Little Outings (chinesisch 小出游) ist eine kostenlose Seite für Familien in Deutschland: Termine für Kinder und kinderfreundliche Orte wie Spielplätze, Bauernhöfe, Zoos, Schwimmbäder und Familiencafés in Köln, Bonn, Düsseldorf, Berlin, München, Frankfurt und Hamburg, auf Deutsch, Englisch und Chinesisch. Jede Nacht aktualisiert, ohne Anmeldung."
 tabs: { explore: Entdecken, saved: Meins, add: Neu }
 when: { today: Heute, tomorrow: Morgen, weekend: Wochenende, soon: Nächste 2 Wochen }
 whenIn: { today: heute, tomorrow: morgen, weekend: am Wochenende, soon: in den nächsten 2 Wochen }

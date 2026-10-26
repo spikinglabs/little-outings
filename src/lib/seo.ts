@@ -108,18 +108,36 @@ export function eventLd(
   };
 }
 
-/** For the home page: who publishes the site and in which languages. */
-export function siteLd(o: { url: string; name: string; description: string; lang: Lang; maker: string }) {
+/** The site's names: Little Outings everywhere, 小出游 in Chinese. */
+export const BRAND_NAMES = ["Little Outings", "小出游"];
+
+/** For the home page: the site, and the brand behind it with every name a parent might search for. */
+export function siteLd(o: { site: string; url: string; name: string; description: string; lang: Lang; maker: string }) {
+  const brand = `${o.site}/#brand`;
   return {
     "@context": SCHEMA,
-    "@type": "WebSite",
-    "@id": `${o.url}#site`,
-    url: o.url,
-    name: o.name,
-    alternateName: ["Little Outings", "小出游"],
-    description: o.description,
-    inLanguage: o.lang,
-    publisher: { "@type": "Organization", name: "Spiking Labs", url: o.maker },
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": `${o.url}#site`,
+        url: o.url,
+        name: o.name,
+        alternateName: BRAND_NAMES.filter((n) => n !== o.name),
+        description: o.description,
+        inLanguage: o.lang,
+        publisher: { "@id": brand },
+      },
+      {
+        "@type": "Organization",
+        "@id": brand,
+        name: "Little Outings",
+        alternateName: ["小出游"],
+        url: `${o.site}/`,
+        logo: `${o.site}/apple-touch-icon.png`,
+        sameAs: [o.maker],
+        parentOrganization: { "@type": "Organization", name: "Spiking Labs", url: o.maker },
+      },
+    ],
   };
 }
 

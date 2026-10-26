@@ -393,11 +393,14 @@ function pickLine(p: Pick, lang: L, style: "whatsapp" | "wechat"): string {
  * The text parents copy into a chat. WhatsApp shows *bold*; WeChat shows asterisks as they are, so
  * its version marks the days with 【】 instead. The link comes last so the chat shows its preview.
  */
+const BRAND: Record<L, string> = { de: "Little Outings", en: "Little Outings", zh: "小出游" };
+
 export function chatText(ed: Edition, o: { lang: L; style: "whatsapp" | "wechat"; town: string; url: string; more?: number }): string {
   const w = WORDS[o.lang];
   const title = w.head.replace("{town}", o.town);
   const lines = [
-    o.style === "wechat" ? `【${title}】` : `*${title}*`,
+    // The name up front, so a forwarded text still says where it came from (and what to search for).
+    o.style === "wechat" ? `【${title}】${BRAND[o.lang]}` : `*${title}* · ${BRAND[o.lang]}`,
     [weekendRange(ed.weekend, o.lang), weatherLine(ed.weather, o.lang)].filter(Boolean).join(" · "),
     holidayLine(ed, o.lang),
     "",
