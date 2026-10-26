@@ -436,6 +436,8 @@ weekend:
   until: "至{date}"
   book: 需预约
   holidayLast: 学校假期最后一天
+  moreH: 这只是一小部分精选
+  moreP: "本周末{town}共有{events}个亲子活动和{places}个好去处。在“发现”页面可以看到全部，带地图和“雨天”“免费”等筛选。"
   share: 分享
   copyWa: 复制WhatsApp文字
   copyWechat: 复制微信文字
@@ -451,7 +453,7 @@ weekend:
   archiveNote: "本期为{range}。"
   current: 查看最新一期
   earlier: 往期
-  how: "每周五更新：从{town}所有亲子活动中精选，并考虑天气和学校假期。出发前请向主办方确认。"
+  how: "每周五更新，从{town}所有亲子活动中精选：优先为孩子设计、免费、白天的活动，并结合天气；同一地点只选一次，近几周推荐过的不再重复。出发前请向主办方确认。"
   weather: "天气：Open-Meteo.com"
   card: "{town}本周末推荐"
   cardKicker: 每周五更新

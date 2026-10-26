@@ -6,12 +6,13 @@ import Card from "./Card.astro";
 import { getData } from "../lib/data";
 import { townName } from "../lib/format";
 import { tr, type T } from "../lib/i18n";
+import { weekendCounts } from "../lib/weekend-data";
 import { addDays, chatText, isRainy, skyWord, telegramChannel, textIn, weekendRange, type Edition, type Pick } from "../lib/weekend";
 
 interface Props { edition: Edition; t: T; archived?: boolean }
 const { edition: ed, t, archived } = Astro.props;
 const lang = t.lang;
-const { region, eventById, placeById } = await getData();
+const { region, events, places: allPlaces, eventById, placeById } = await getData();
 const town = townName(ed.town, lang, region.towns);
 const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
 const page = `${site}/${lang}/wochenende/${ed.slug}/`;
@@ -27,8 +28,11 @@ const still = (ed.still ?? []).filter((s) => eventById.has(s.id));
 const short = (d: string) => dayName(d, { day: "numeric", month: "short" });
 const holiday = ed.holiday && (ed.holiday.last ? t("weekend.holidayLast") : t(`holiday.${ed.holiday.name}`));
 const shortUrl = `${site.replace(/^https?:\/\//, "")}/w/${ed.slug}${lang === "de" ? "" : `/${lang}`}`;
-const wa = chatText({ ...ed, picks }, { lang, style: "whatsapp", town, url: shortUrl });
-const wechat = lang === "zh" ? chatText({ ...ed, picks }, { lang, style: "wechat", town, url: shortUrl }) : "";
+// The picks are a handful; say how much more Discover has this weekend, here and in the chat texts.
+const count = weekendCounts(events, allPlaces, ed.town, ed.weekend);
+const more = Math.max(0, count.events - picks.filter((p) => p.type === "event").length);
+const wa = chatText({ ...ed, picks }, { lang, style: "whatsapp", town, url: shortUrl, more });
+const wechat = lang === "zh" ? chatText({ ...ed, picks }, { lang, style: "wechat", town, url: shortUrl, more }) : "";
 const channel = telegramChannel(ed.slug);
 ---
 <section class="wk" data-weekend>
@@ -81,6 +85,13 @@ const channel = telegramChannel(ed.slug);
         ))}
       </ul>
     </section>
+  )}
+
+  {!archived && count.events + count.places > picks.length && (
+    <a class="wk-more" href={`/${lang}/`}>
+      <span><b>{t("weekend.moreH")}</b>{t("weekend.moreP", { events: count.events, places: count.places, town })}</span>
+      <span class="arrow" aria-hidden="true">→</span>
+    </a>
   )}
 
   {!archived && (

@@ -175,3 +175,8 @@ test("the admin swaps picks only for the draft's own alternates, and a new Germa
   assert.throws(() => applyWeekendEdit(draft, { towns: { Bonn: { picks: [{ id: "a" }] } } }, {}), /No draft/);
   assert.equal(draft.towns.Köln.picks[0].why?.de, "alt", "the stored draft is not changed in place");
 });
+
+test("the chat text says how much more there is", () => {
+  const wa = chatText(edition, { lang: "de", style: "whatsapp", town: "Köln", url: "outings.allo.land/w/koeln", more: 91 });
+  assert.ok(wa.trimEnd().endsWith("Und 91 weitere Termine fürs Wochenende: 👉 outings.allo.land/w/koeln"));
+});

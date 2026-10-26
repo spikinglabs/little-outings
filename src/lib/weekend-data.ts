@@ -37,3 +37,12 @@ export function nextFriday(today: string): string {
   const w = dow(today);
   return addDays(today, (5 - w + 7) % 7 || 7);
 }
+
+/** How many family events (Saturday or Sunday) and places a town has, for "There's much more" under the picks. */
+export function weekendCounts(events: { town?: string; start: string; end: string }[], places: { town: string }[], town: string, sat: string) {
+  const sun = addDays(sat, 1);
+  return {
+    events: events.filter((e) => e.town === town && e.start <= sun && e.end >= sat).length,
+    places: places.filter((p) => p.town === town).length,
+  };
+}

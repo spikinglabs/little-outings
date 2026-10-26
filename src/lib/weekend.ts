@@ -326,9 +326,9 @@ const DAYS: Record<L, string[]> = {
   zh: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"],
 };
 const WORDS = {
-  de: { head: "Wochenende mit Kindern in {town}", free: "frei", any: "Immer", book: "Anmeldung", all: "Alle Ideen", last: "Letzter Ferientag", holiday: "{name}" },
-  en: { head: "This weekend with kids in {town}", free: "free", any: "Any time", book: "book ahead", all: "All ideas", last: "Last day of the school holidays", holiday: "School holidays" },
-  zh: { head: "本周末带孩子去哪儿 · {town}", free: "免费", any: "随时", book: "需预约", all: "全部推荐", last: "学校假期最后一天", holiday: "学校假期" },
+  de: { more: "Und {n} weitere Termine fürs Wochenende:", head: "Wochenende mit Kindern in {town}", free: "frei", any: "Immer", book: "Anmeldung", all: "Alle Ideen", last: "Letzter Ferientag", holiday: "{name}" },
+  en: { more: "And {n} more events this weekend:", head: "This weekend with kids in {town}", free: "free", any: "Any time", book: "book ahead", all: "All ideas", last: "Last day of the school holidays", holiday: "School holidays" },
+  zh: { more: "本周末还有{n}个活动：", head: "本周末带孩子去哪儿 · {town}", free: "免费", any: "随时", book: "需预约", all: "全部推荐", last: "学校假期最后一天", holiday: "学校假期" },
 } as const;
 
 export const dayShort = (d: string, lang: L) => DAYS[lang][dow(d)];
@@ -385,7 +385,7 @@ function pickLine(p: Pick, lang: L, style: "whatsapp" | "wechat"): string {
  * The text parents copy into a chat. WhatsApp shows *bold*; WeChat shows asterisks as they are, so
  * its version marks the days with 【】 instead. The link comes last so the chat shows its preview.
  */
-export function chatText(ed: Edition, o: { lang: L; style: "whatsapp" | "wechat"; town: string; url: string }): string {
+export function chatText(ed: Edition, o: { lang: L; style: "whatsapp" | "wechat"; town: string; url: string; more?: number }): string {
   const w = WORDS[o.lang];
   const title = w.head.replace("{town}", o.town);
   const lines = [
@@ -395,7 +395,7 @@ export function chatText(ed: Edition, o: { lang: L; style: "whatsapp" | "wechat"
     "",
     ...ed.picks.map((p) => pickLine(p, o.lang, o.style)),
     "",
-    `👉 ${o.url}`,
+    o.more ? `${w.more.replace("{n}", String(o.more))} 👉 ${o.url}` : `👉 ${o.url}`,
   ];
   return lines.filter((l, i) => l !== "" || (i > 0 && lines[i - 1] !== "")).join("\n").replace(/\n{3,}/g, "\n\n");
 }

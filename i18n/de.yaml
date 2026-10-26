@@ -436,6 +436,8 @@ weekend:
   until: "bis {date}"
   book: Anmeldung nötig
   holidayLast: Letzter Ferientag
+  moreH: Das ist nur eine kleine Auswahl
+  moreP: "An diesem Wochenende gibt es {events} Familien-Termine und {places} Orte in {town}. Alle findest du auf Entdecken, mit Karte und Filtern wie „Bei Regen“ oder „Kostenlos“."
   share: Weitersagen
   copyWa: Text für WhatsApp kopieren
   copyWechat: Text für WeChat kopieren
@@ -451,7 +453,7 @@ weekend:
   archiveNote: "Diese Ausgabe war für {range}."
   current: Zur aktuellen Ausgabe
   earlier: Frühere Ausgaben
-  how: "Jeden Freitag neu: aus allen Familien-Terminen in {town} ausgesucht, mit Blick aufs Wetter und die Ferien. Bitte vorher beim Veranstalter nachsehen."
+  how: "Jeden Freitag neu: aus allen Familien-Terminen in {town} ausgesucht. Vorn liegt, was für Kinder gemacht ist, kostenlos und tagsüber, passend zum Wetter; jeder Ort nur einmal, und nichts, was in den letzten Wochen schon dabei war. Bitte vorher beim Veranstalter nachsehen."
   weather: "Wetter: Open-Meteo.com"
   card: "Die Wochenend-Ausgabe für {town}"
   cardKicker: Jeden Freitag neu

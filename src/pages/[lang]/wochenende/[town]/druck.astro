@@ -13,7 +13,7 @@ import { LANGS, useT, type Lang } from "../../../../lib/i18n";
 import { getData, TODAY } from "../../../../lib/data";
 import { townName } from "../../../../lib/format";
 import { OPERATOR } from "../../../../lib/legal";
-import { liveEdition, weekendTowns } from "../../../../lib/weekend-data";
+import { liveEdition, weekendCounts, weekendTowns } from "../../../../lib/weekend-data";
 import { clockText, dayShort, skyWord, textIn, weekendRange, type L, type Pick } from "../../../../lib/weekend";
 
 export const getStaticPaths = () =>
@@ -22,7 +22,7 @@ export const getStaticPaths = () =>
 const lang = Astro.params.lang as Lang;
 const second: L = lang === "de" ? "en" : "de";
 const t = useT(lang), t2 = useT(second);
-const { region, eventById, placeById } = await getData();
+const { region, events, places, eventById, placeById } = await getData();
 const ed = liveEdition(Astro.props.editions, TODAY) ?? Astro.props.editions[0];
 const town = townName(ed.town, lang, region.towns);
 const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
@@ -39,6 +39,7 @@ const when = (p: Pick & { still?: string }) =>
   : [p.days.map((d) => dayShort(d, lang)).join("+"), clockText(p.time) ?? ""];
 const facts = (p: Pick) => [p.type === "place" ? p.district : (p.venue ?? "").split(",")[0], p.free ? t("free") : "", p.book ? t("weekend.book") : ""].filter(Boolean).join(" · ");
 const current = `${site}/${lang}/wochenende/${ed.slug}/`;
+const count = weekendCounts(events, places, ed.town, ed.weekend);
 const shortUrl = `${site.replace(/^https?:\/\//, "")}/w/${ed.slug}${lang === "de" ? "" : `/${lang}`}`;
 const weather = ed.weather?.map((w) => `${dayShort(w.day, lang)} ${skyWord(w.code, lang)} ${Math.round(w.max)}°`).join(" · ");
 ---
@@ -76,6 +77,7 @@ const weather = ed.weather?.map((w) => `${dayShort(w.day, lang)} ${skyWord(w.cod
     .foot .qr svg { width: 26mm; height: 26mm; }
     .foot b { font: 800 13pt "Bricolage Grotesque Variable", "Bricolage Grotesque", sans-serif; }
     .foot p { margin: 1mm 0 0; font-size: 8.5pt; color: #5b6066; }
+    .foot b.more { font: 700 10pt "Atkinson Hyperlegible", sans-serif; color: #17191b; }
     @media print {
       body { background: #fff; }
       .hint { display: none; }
@@ -114,6 +116,7 @@ const weather = ed.weather?.map((w) => `${dayShort(w.day, lang)} ${skyWord(w.cod
       <div class="qr" set:html={qr(`${current}?von=druck`)} />
       <div>
         <b>{t("weekend.printWeekly", { url: shortUrl })}</b>
+        <p><b class="more">{t("weekend.moreP", { events: count.events, places: count.places, town })}</b></p>
         <p>{t("weekend.printFoot")}</p>
         <p>{OPERATOR.name}, {OPERATOR.address.slice(0, 2).join(", ")} · {site.replace(/^https?:\/\//, "")}/{lang}/impressum{ed.weather && <> · {t("weekend.weather")}</>}</p>
       </div>

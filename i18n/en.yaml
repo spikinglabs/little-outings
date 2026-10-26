@@ -436,6 +436,8 @@ weekend:
   until: "until {date}"
   book: Book ahead
   holidayLast: Last day of the school holidays
+  moreH: This is just a small selection
+  moreP: "This weekend there are {events} family events and {places} places in {town}. Find them all on Discover, with a map and filters like “Rainy day” or “Free”."
   share: Pass it on
   copyWa: Copy text for WhatsApp
   copyWechat: Copy text for WeChat
@@ -451,7 +453,7 @@ weekend:
   archiveNote: "This edition was for {range}."
   current: See the current edition
   earlier: Earlier editions
-  how: "New every Friday: picked from all family events in {town}, with the weather and school holidays in mind. Please check with the organiser before you go."
+  how: "New every Friday, picked from all family events in {town}. Things made for children, free and in the daytime come first, matched to the weather; each venue only once, and nothing featured in recent weeks. Please check with the organiser before you go."
   weather: "Weather: Open-Meteo.com"
   card: "This weekend's edition for {town}"
   cardKicker: New every Friday
