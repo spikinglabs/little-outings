@@ -1,0 +1,117 @@
+{
+  "town": "Hamburg",
+  "slug": "hamburg",
+  "weekend": "2026-10-31",
+  "week": 44,
+  "published_at": "2026-10-26T06:19:10.131Z",
+  "by": "score",
+  "weather": [
+    {
+      "day": "2026-10-31",
+      "code": 45,
+      "max": 11,
+      "rain": 3
+    },
+    {
+      "day": "2026-11-01",
+      "code": 45,
+      "max": 8.9,
+      "rain": 5
+    }
+  ],
+  "picks": [
+    {
+      "id": "ck-evt-168adb05f266caff3b72",
+      "type": "event",
+      "title": "Bilderbuchkino: Der Blätterdieb",
+      "venue": "Bücherhalle Osdorfer Born",
+      "days": [
+        "2026-10-30"
+      ],
+      "time": "16:00–16:30",
+      "indoor": false,
+      "tags": [
+        "reading",
+        "stage",
+        "outside"
+      ]
+    },
+    {
+      "id": "ck-evt-4cb54dda219ca66be01c",
+      "type": "event",
+      "title": "Aktionstag zum Welt-Lemuren-Tag",
+      "venue": "Tierpark Hagenbeck, Lokstedter Grenzstraße 2",
+      "district": "Stellingen",
+      "days": [
+        "2026-10-31"
+      ],
+      "indoor": false,
+      "tags": [
+        "animals"
+      ]
+    },
+    {
+      "id": "ck-evt-1ab98252cdd6a42c277e",
+      "type": "event",
+      "title": "Kreativ-Werkstatt für Kinder ab 8 Jahren",
+      "venue": "Archäologisches Museum Hamburg, Harburger Rathausplatz 5",
+      "days": [
+        "2026-11-01"
+      ],
+      "time": "14:00",
+      "indoor": true,
+      "tags": [
+        "diy",
+        "tour"
+      ]
+    },
+    {
+      "id": "ck-evt-b3a922fe47d5f6292c54",
+      "type": "event",
+      "title": "Wildes Basteln",
+      "venue": "Zentralbibliothek",
+      "days": [
+        "2026-11-01"
+      ],
+      "time": "14:00–17:00",
+      "indoor": true,
+      "tags": [
+        "diy"
+      ]
+    },
+    {
+      "id": "ck-evt-a972411dfdeb11bff785",
+      "type": "event",
+      "title": "Sonntags­märchen",
+      "venue": "Altonaer Museum",
+      "days": [
+        "2026-11-01"
+      ],
+      "time": "15:00–16:00",
+      "indoor": true,
+      "tags": [
+        "reading",
+        "tour"
+      ]
+    },
+    {
+      "id": "osm-way-20790727",
+      "type": "place",
+      "title": "Wildgehege Niendorf",
+      "kind": "zoo",
+      "hours": "24/7",
+      "free": true,
+      "district": "Eimsbüttel",
+      "venue": "Bondenwald",
+      "days": []
+    }
+  ],
+  "still": [
+    {
+      "id": "ck-evt-34685898b921a8d6c242",
+      "title": "Ferienaktion: Meeresforscher im Einsatz!",
+      "venue": "Tierpark Hagenbeck, Lokstedter Grenzstraße 2",
+      "end": "2026-10-30"
+    }
+  ]
+}

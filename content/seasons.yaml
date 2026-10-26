@@ -10,8 +10,11 @@
 #   note      shown on the page of every matching event
 #   page      an own landing page per town (/de/<slug>/<town>/) and an overview (/de/<slug>/), built from
 #             the fixtures in content/seasons/<id>/<town>.yaml plus matching events
-#   sources   the city pages that list the fixtures ({year} is this year); scripts/season-lists.mjs reads them once a year with AI
-#             and puts the rows in the admin's "Season lists" for approval
+#   sources   the city pages that list the fixtures ({year} is this year); scripts/season-lists.mjs reads them with AI
+#             and puts the rows in the admin's "Season lists" for approval. Several pages for one town become one list.
+#   pull      the months (1–12) the AI reads the sources, on the 1st; when the cities have published the new dates
+#   kinds     place kinds that belong too (ice rinks in winter), so the chip shows them with the events
+#   fixture_tags   event tags for the fixtures (default: market)
 
 - id: martin
   emoji: "🏮"
@@ -46,6 +49,7 @@
       zh: "哪些市场有儿童旋转木马、溜冰场或童话森林？{town}所有圣诞市场及开放时间，还有圣尼古拉斯、手工和儿童圣诞剧。"
     fixtures: { de: Weihnachtsmärkte, en: Christmas markets, zh: 圣诞市场 }
     also: { de: "Nikolaus, Basteln und Weihnachtsmärchen", en: "St. Nicholas, crafts and Christmas shows", zh: 圣尼古拉斯、手工和圣诞剧 }
+  pull: [10]
   sources:
     - { town: koeln, url: "https://www.koeln.de/weihnachten/weihnachtsmaerkte-koeln/" }
     - { town: duesseldorf, url: "https://www.visitduesseldorf.de/erleben/veranstaltungen/weihnachten-in-duesseldorf" }
@@ -54,11 +58,92 @@
     - { town: hamburg, url: "https://www.hamburg.de/tourismus/weihnachten-hamburg/weihnachtsmarkt-hamburg" }
     # bonn.de and frankfurt.de block automatic reads; their lists are kept by hand.
 
+- id: winter
+  emoji: "⛸️"
+  label: { de: Eis & Schnee, en: Ice & snow, zh: 滑冰和玩雪 }
+  chip: [{ from: "12-01", to: "02-28" }]
+  match: 'eislauf|eisbahn|schlittschuh|eisstock|rodel|schlitten|kindersilvester|silvester für kinder|silvester mit kindern|wintersport|eisdisco|eiszeit'
+  kinds: [winter]
+
+- id: karneval
+  emoji: "🎭"
+  label: { de: Karneval, en: Carnival, zh: 狂欢节 }
+  chip: [{ from: "2027-01-07", to: "2027-02-10" }, { from: "2028-01-07", to: "2028-02-29" }]
+  # Grown-up parties and 11.11 never reach the site: the nightly sort keeps family events only.
+  match: 'karneval|fasching|fastnacht|fastelovend|fastelovvend|veedelsz(?:o|ö)ch|kamelle|kinder(?:sitzung|prinz|dreigestirn)|weiberfastnacht|rosenmontag|helau|alaaf'
+  fixture_tags: [fest, outside]
+  add: { de: "Euer Kita- oder Veedelszug fehlt?", en: "Your Kita or neighbourhood parade missing?", zh: "没找到你们幼儿园或街区的游行？" }
+  page:
+    slug: karneval
+    hub: { de: Karneval mit Kindern, en: Carnival with kids, zh: 带孩子过狂欢节 }
+    title: { de: "Karneval mit Kindern in {town}", en: "Carnival with kids in {town}", zh: "{town}：带孩子过狂欢节" }
+    intro:
+      de: "Kinderzüge, Veedelszüge und Rosenmontag in {town}: wann und wo, welcher Zug für kleine Kinder passt, dazu Kindersitzungen und Kinderfasching."
+      en: "Children's parades, neighbourhood parades and Rosenmontag in {town}: when and where, which parade suits small children, plus children's sessions and carnival parties for kids."
+      zh: "{town}的儿童游行、街区游行和玫瑰星期一：时间地点、哪个游行适合小孩，还有儿童狂欢会和儿童化装派对。"
+    fixtures: { de: Umzüge, en: Parades, zh: 游行 }
+    also: { de: "Kindersitzungen und Kinderfasching", en: "Children's sessions and carnival parties", zh: 儿童狂欢会和化装派对 }
+  # The district lists come out in December and January.
+  pull: [12, 1]
+  sources:
+    - { town: koeln, url: "https://www.koeln.de/karneval/umzuege/ll/karnevalszuege-veedelszuege/" }
+    - { town: koeln, url: "https://www.koeln.de/karneval/umzuege/ll/karnevalszuege-veedelszuege/karnevalszuege-stadtteile-sonntag/" }
+    - { town: koeln, url: "https://www.koeln.de/karneval/umzuege/ll/karnevalszuege-veedelszuege/karnevalszuege-stadtteile-rosenmontag/" }
+    - { town: koeln, url: "https://www.koeln.de/karneval/umzuege/ll/karnevalszuege-veedelszuege/karnevalszuege-stadtteile-dienstag/" }
+    - { town: duesseldorf, url: "https://www.visitduesseldorf.de/erleben/veranstaltungen/karneval" }
+    - { town: muenchen, url: "https://www.muenchen.de/veranstaltungen/fasching" }
+    # Bonn, Aachen and Frankfurt publish no readable list; their parades keep their days and are kept by hand.
+
+- id: basar
+  emoji: "👕"
+  label: { de: Kinderbasare, en: Kids' bazaars, zh: 儿童二手市集 }
+  chip: [{ from: "02-15", to: "04-30" }, { from: "09-01", to: "11-10" }]
+  match: 'kinder\w*basar|basar rund ums kind|kinder\w*flohmarkt|flohmarkt rund ums kind|kinder(?:sachen|kleider)?börse|spielzeug(?:basar|börse|flohmarkt)|baby\w*basar'
+  add: { de: "Euer Basar fehlt?", en: "Your bazaar missing?", zh: "没找到你们的市集？" }
+
+- id: ostern
+  emoji: "🐣"
+  label: { de: Ostern, en: Easter, zh: 复活节 }
+  chip: [{ from: "2027-03-13", to: "2027-04-05" }, { from: "2028-04-01", to: "2028-04-23" }]
+  match: '\bostern\b|oster(?:ei|eier|markt|hase|n?fest|feuer|basteln|suche|brunnen|lamm|spaziergang|werkstatt|nest)|eiersuche|easter'
+
+- id: maifest
+  emoji: "🌳"
+  label: { de: Maifest, en: May Day, zh: 五月节 }
+  chip: [{ from: "04-24", to: "05-02" }]
+  # "Tanz in den Mai" is a grown-up party.
+  match: 'maibaum|maifest|mai-fest|maikönig|maikranz|maiwanderung'
+
+- id: denkmaltag
+  emoji: "🏰"
+  label: { de: Tag des offenen Denkmals, en: Heritage Open Day, zh: 文物古迹开放日 }
+  chip: [{ from: "2027-09-04", to: "2027-09-12" }, { from: "2028-09-02", to: "2028-09-10" }]
+  match: 'tag des offenen denkmals|denkmaltag'
+
+- id: weltkindertag
+  emoji: "🧒"
+  label: { de: Weltkindertag, en: World Children's Day, zh: 世界儿童日 }
+  chip: [{ from: "09-13", to: "09-20" }]
+  match: 'weltkindertag|kinderrechte(?:fest|tag)'
+
+- id: maus
+  emoji: "🐭"
+  label: { de: Maus-Türöffner-Tag, en: Mouse Door-Opener Day, zh: 小老鼠开门日 }
+  chip: [{ from: "09-26", to: "10-03" }]
+  match: 'türöffner|sendung mit der maus|maus-tag|maustag'
+
+- id: herbst
+  emoji: "🎃"
+  label: { de: Herbst & Halloween, en: Autumn & Halloween, zh: 秋天和万圣节 }
+  chip: [{ from: "09-15", to: "10-31" }]
+  match: 'kürbis|halloween|apfel(?:fest|tag|tage|ernte|markt|saft)|erntefest|erntedank|drachenfest|drachen steigen|drachensteigen|kartoffel(?:fest|feuer|ernte)|herbstfest|herbstmarkt|kastanien|laub(?:fest|basteln)'
+
 # Fairs come and go all year; the chip shows only while one runs near the reader. Fixtures only, because
 # "Dom" in a title is mostly Cologne Cathedral.
 - id: kirmes
   emoji: "🎡"
   label: { de: Kirmes, en: Funfair, zh: 游乐集市 }
+  fixture_tags: [fest]
   chip: [{ from: "01-01", to: "12-31" }]
 
 - id: cny

@@ -27,6 +27,7 @@ Events come from public city calendars (via cityklub) and from parents; places c
 - [Add an event or place](${base}/en/mitmachen/)
 - Event pages: ${base}/{de|en|zh}/termine/{id}/ (also an .ics calendar file at ${base}/api/ics/{lang}/{id}.ics)
 - Place pages: ${base}/{de|en|zh}/orte/{id}/
+- This weekend's picks per town, new every Friday: ${base}/{de|en|zh}/wochenende/{town}/ (e.g. ${base}/en/wochenende/koeln/; RSS at …/rss.xml)
 
 ## For AI assistants
 

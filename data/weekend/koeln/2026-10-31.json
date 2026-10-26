@@ -1,0 +1,163 @@
+{
+  "town": "Köln",
+  "slug": "koeln",
+  "weekend": "2026-10-31",
+  "week": 44,
+  "published_at": "2026-10-25T23:33:27.186Z",
+  "by": "admin",
+  "holiday": {
+    "name": "Herbstferien",
+    "last": true
+  },
+  "picks": [
+    {
+      "id": "ck-evt-cdd0d20f88b40ac10c88",
+      "type": "event",
+      "title": "LeseWelten",
+      "venue": "Stadtteilbibliothek Nippes, Neusser Straße 450",
+      "district": "Weidenpesch",
+      "days": [
+        "2026-10-30"
+      ],
+      "time": "16 bis 17 Uhr",
+      "free": true,
+      "price": "Die Teilnahme ist kostenlos.",
+      "indoor": true,
+      "tags": [
+        "reading"
+      ],
+      "label": {
+        "de": "LeseWelten",
+        "en": "LeseWelten story hour",
+        "zh": "LeseWelten 阅读时光"
+      },
+      "why": {
+        "de": "Freitagnachmittag Geschichten in der Bibliothek, kostenlos.",
+        "en": "Friday-afternoon stories at the library, free.",
+        "zh": "周五下午在图书馆听故事，免费。"
+      }
+    },
+    {
+      "id": "ck-evt-3c6e6ab2a91aa570206a",
+      "type": "event",
+      "title": "MINTköln 2026: Aktionstag",
+      "venue": "Interim Zentralbibliothek, Hohe Straße 68-82",
+      "days": [
+        "2026-10-31"
+      ],
+      "time": "10 bis 15 Uhr",
+      "free": true,
+      "price": "Die Teilnahme ist kostenlos.",
+      "indoor": true,
+      "tags": [],
+      "label": {
+        "de": "MINTköln Aktionstag",
+        "en": "MINTköln science day",
+        "zh": "MINTköln 科学日"
+      },
+      "why": {
+        "de": "Letzter Tag des MINT-Festivals, in der Zentralbibliothek.",
+        "en": "Last day of Cologne's science festival, at the central library.",
+        "zh": "科隆科学节最后一天，在中央图书馆。"
+      }
+    },
+    {
+      "id": "ck-evt-796efbf995fcd9107b42",
+      "type": "event",
+      "title": "Vorlesezeit",
+      "venue": "Stadtteilbibliothek Chorweiler, Pariser Platz 1",
+      "district": "Chorweiler",
+      "days": [
+        "2026-10-31"
+      ],
+      "time": "11 bis 11:30 Uhr",
+      "free": true,
+      "price": "Die Teilnahme ist kostenlos.",
+      "indoor": true,
+      "tags": [
+        "reading"
+      ],
+      "label": {
+        "de": "Vorlesezeit",
+        "en": "Story time",
+        "zh": "故事时间"
+      },
+      "why": {
+        "de": "Eine halbe Stunde Geschichten, gut für die Kleinen.",
+        "en": "Half an hour of stories in German, good for little ones.",
+        "zh": "半小时德语故事，适合小朋友。"
+      }
+    },
+    {
+      "id": "ck-evt-477029b1a87cb68656e5",
+      "type": "event",
+      "title": "Mit dem Einhorn unterwegs (Handpuppen Führung)",
+      "venue": "Museum Schnütgen",
+      "days": [
+        "2026-11-01"
+      ],
+      "time": "11:00",
+      "indoor": true,
+      "tags": [
+        "stage",
+        "tour"
+      ],
+      "label": {
+        "de": "Mit dem Einhorn unterwegs",
+        "en": "Unicorn puppet tour",
+        "zh": "独角兽手偶导览"
+      },
+      "why": {
+        "de": "Eine Handpuppe führt durchs Museum Schnütgen.",
+        "en": "A hand puppet leads the tour through Museum Schnütgen.",
+        "zh": "手偶带你参观 Schnütgen 博物馆。"
+      }
+    },
+    {
+      "id": "ck-evt-a20522336c89d9e37ebb",
+      "type": "event",
+      "title": "Familienführungen voller Staunen (Familien mit Kindern ab 5 Jahren, Teilnahme kostenlos)",
+      "venue": "Museum Ludwig",
+      "days": [
+        "2026-11-01"
+      ],
+      "time": "11:00",
+      "book": true,
+      "indoor": true,
+      "tags": [
+        "tour"
+      ],
+      "label": {
+        "de": "Familienführung im Museum Ludwig",
+        "en": "Family tour at Museum Ludwig",
+        "zh": "路德维希博物馆亲子导览"
+      },
+      "why": {
+        "de": "Kunst gemeinsam entdecken, für Kinder ab 5, kostenlos.",
+        "en": "Discover art together, for children aged 5 and up, free.",
+        "zh": "和孩子一起看艺术，5岁以上，免费。"
+      }
+    },
+    {
+      "id": "osm-way-23222614",
+      "type": "place",
+      "title": "Lindenthaler Tierpark",
+      "kind": "zoo",
+      "hours": "Jan-Mar: Mo-Su 09:00-17:00; Apr-Sep: Mo-Su 09:00-19:00; Oct-Dec: Mo-Su 09:00-17:00",
+      "free": true,
+      "district": "Lindenthal",
+      "venue": "Marcel-Proust-Promenade 1",
+      "days": [],
+      "label": {
+        "de": "Lindenthaler Tierpark",
+        "en": "Lindenthal animal park",
+        "zh": "Lindenthal 小动物园"
+      },
+      "why": {
+        "de": "Kleiner Tierpark im Stadtwald, Eintritt frei.",
+        "en": "Small animal park in the city forest, free entry.",
+        "zh": "城市森林里的小动物园，免费入园。"
+      }
+    }
+  ]
+}

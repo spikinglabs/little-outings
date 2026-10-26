@@ -1,0 +1,111 @@
+{
+  "town": "Bonn",
+  "slug": "bonn",
+  "weekend": "2026-10-31",
+  "week": 44,
+  "published_at": "2026-10-26T06:19:09.991Z",
+  "by": "score",
+  "weather": [
+    {
+      "day": "2026-10-31",
+      "code": 45,
+      "max": 11.7,
+      "rain": 6
+    },
+    {
+      "day": "2026-11-01",
+      "code": 2,
+      "max": 10.2,
+      "rain": 4
+    }
+  ],
+  "holiday": {
+    "name": "Herbstferien",
+    "last": true
+  },
+  "picks": [
+    {
+      "id": "ck-evt-ec9474a1ded0a0e84fba",
+      "type": "event",
+      "title": "Feriennähkurs III",
+      "venue": "Ninibutz - Stofflädchen und Atelier, Kessenicher Straße 175",
+      "days": [
+        "2026-10-30"
+      ],
+      "time": "15:00",
+      "tags": [
+        "diy",
+        "season"
+      ]
+    },
+    {
+      "id": "ck-evt-6fc0f021c282dfcffaf4",
+      "type": "event",
+      "title": "Selbstverteidigung & Kampfsport für Kinder und Jugendliche in Bonn – Kostenloses Probetraining",
+      "venue": "KopfKörperSchule Bonn, Erich-Hoffmann-Straße 6",
+      "days": [
+        "2026-10-31"
+      ],
+      "time": "10:00",
+      "indoor": true,
+      "tags": [
+        "sport"
+      ]
+    },
+    {
+      "id": "ck-evt-132c5f1e4103d1ea90c7",
+      "type": "event",
+      "title": "Versammlung der Tiere",
+      "venue": "Kunstmuseum Bonn, Helmut-Kohl-Allee 2",
+      "days": [
+        "2026-10-31",
+        "2026-11-01"
+      ],
+      "time": "11:00",
+      "indoor": true,
+      "tags": [
+        "animals",
+        "tour"
+      ]
+    },
+    {
+      "id": "ck-evt-7beef01531d39e2a007d",
+      "type": "event",
+      "title": "Bücherkunstpause für Kinder - Einkaufspause für Eltern.",
+      "venue": "Pavilion des Innenstadtmanangement Bonn, Budapester Straße 7",
+      "days": [
+        "2026-10-31"
+      ],
+      "time": "14:00",
+      "indoor": true,
+      "tags": [
+        "reading"
+      ]
+    },
+    {
+      "id": "ck-evt-b02a44639ce7ba06e6d8",
+      "type": "event",
+      "title": "Halloween für Kinder in Bonn",
+      "venue": "Vor dem Alten Rathaus in Bonn, Markt 2",
+      "days": [
+        "2026-10-31"
+      ],
+      "time": "19:00",
+      "indoor": false,
+      "tags": [
+        "season"
+      ]
+    },
+    {
+      "id": "osm-way-142937225",
+      "type": "place",
+      "title": "Botanischer Garten",
+      "kind": "park",
+      "hours": "Apr-Nov: Su-We,Fr,PH,Sa 10:00-18:00; Apr-Sep: Th 10:00-20:00; Nov-Mar: Mo-Fr 10:00-16:00; Nov-Mar: Sa off; Jan 01,Dec 25,26 off",
+      "free": true,
+      "district": "Stadtbezirk Bonn",
+      "venue": "Nees-Weg",
+      "days": []
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+# Fasching in München 2027, from muenchen.de (checked 2026-10-26).
+town: München
+source: muenchen.de
+checked: 2026-10-26
+items:
+  - id: inthronisation
+    name: Inthronisation des Prinzenpaares
+    from: 2027-01-05
+    to: 2027-01-05
+    hours: "11–16 Uhr, Warm-up ab 10 Uhr"
+    street: Marienplatz
+    geo: { lat: 48.13714, lon: 11.57540 }
+    district: Altstadt
+    free: true
+    website: "https://www.muenchen.de/veranstaltungen/fasching"
+    note:
+      de: "Auch das Kinder- und Jugendprinzenpaar wird gekrönt."
+      en: "The children's and youth prince and princess are crowned too."
+      zh: "儿童和青少年王子公主也会加冕。"
+  - id: damische-ritter
+    name: Faschingsumzug der Damischen Ritter
+    from: 2027-01-31
+    to: 2027-01-31
+    hours: "13:13 Uhr"
+    street: Isartor
+    geo: { lat: 48.13511, lon: 11.58204 }
+    district: Altstadt
+    free: true
+    note:
+      de: "Vom Isartor über das Rosental in die Kaufingerstraße, danach Bühnenprogramm am Marienplatz."
+      en: "From Isartor via Rosental into Kaufingerstraße, then a stage show on Marienplatz."
+      zh: "从伊萨尔门经罗森塔尔到考芬格大街，之后在玛利亚广场有舞台表演。"
+  - id: muenchen-narrisch
+    name: München narrisch
+    from: 2027-02-07
+    to: 2027-02-09
+    street: Marienplatz
+    geo: { lat: 48.13714, lon: 11.57540 }
+    district: Altstadt
+    free: true
+    note:
+      de: "Straßenfasching in der Fußgängerzone mit Bühnen am Marienplatz und Stachus; Kostüme willkommen."
+      en: "Street carnival in the pedestrian zone with stages at Marienplatz and Stachus; costumes welcome."
+      zh: "步行街上的街头狂欢，玛利亚广场和卡尔广场设有舞台，欢迎穿服装。"
+  - id: tanz-der-marktweiber
+    name: Tanz der Marktweiber
+    from: 2027-02-09
+    to: 2027-02-09
+    hours: "11 Uhr"
+    street: Viktualienmarkt
+    geo: { lat: 48.13575, lon: 11.57695 }
+    district: Altstadt
+    free: true
+    note:
+      de: "Die Marktfrauen tanzen am Faschingsdienstag auf dem Viktualienmarkt."
+      en: "The market women dance on the Viktualienmarkt on Shrove Tuesday."
+      zh: "狂欢节星期二，市场女摊主们在维克图阿利恩市场跳舞。"

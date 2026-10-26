@@ -7,7 +7,7 @@ const ROOT = process.env.DEMO ? "./examples" : "./content";
 
 export const LANGS = ["de", "en", "zh"] as const;
 // Kinds of place, in the order Discover shows them as chips: what families look for most first.
-export const KINDS = ["playground", "indoor", "park", "zoo", "farm", "pool", "museum", "cafe", "fun"] as const;
+export const KINDS = ["playground", "indoor", "park", "zoo", "farm", "pool", "museum", "cafe", "fun", "winter"] as const;
 export const FEATURES = [
   "playground", "changing_table", "highchairs", "kids_menu", "toys", "animals", "stroller_friendly",
   "nursing_room", "indoor_play", "toilets", "farm_shop", "parking",

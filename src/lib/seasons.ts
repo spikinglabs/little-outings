@@ -24,6 +24,12 @@ export interface Season {
   note?: Text;
   page?: { slug: string; hub: Text; title: Text; intro: Text; fixtures: Text; also: Text };
   sources?: { town: string; url: string }[];
+  /** Months (1–12) the AI reads `sources`. */
+  pull?: number[];
+  /** Place kinds that belong, e.g. winter for ice rinks. */
+  kinds?: string[];
+  /** The event tags its fixtures get besides "season"; markets by default. */
+  fixture_tags?: string[];
 }
 
 /** What a child finds at a market or fair; the labels are in i18n `kids.*`. */
@@ -74,6 +80,9 @@ export function parseSeasons(raw: unknown): Season[] {
         throw new Error(`${where}: chip dates must both be "MM-DD" or both "YYYY-MM-DD"`);
     if (s.match) new RegExp(s.match, "i");
     if (s.page && !/^[a-z][a-z0-9-]*$/.test(s.page.slug ?? "")) throw new Error(`${where}: page.slug must be lowercase letters`);
+    if (s.pull && !(Array.isArray(s.pull) && s.pull.every((m: unknown) => Number.isInteger(m) && (m as number) >= 1 && (m as number) <= 12)))
+      throw new Error(`${where}: pull must be a list of months 1–12`);
+    if (s.sources?.length && !s.pull?.length) throw new Error(`${where}: sources need pull months`);
     return { ...s, chip };
   });
 }
@@ -101,7 +110,7 @@ export function parseFixtures(season: string, slug: string, raw: any): FixtureFi
 }
 
 /** A fixture as an event, so it gets a card, a page, a pin and a Save button like any other. */
-export function fixtureEvent(file: FixtureFile, f: Fixture): Event {
+export function fixtureEvent(file: FixtureFile, f: Fixture, tags: string[] = ["market"]): Event {
   const exact = f.geo?.lat != null && f.geo?.lon != null;
   return {
     type: "event",
@@ -114,7 +123,7 @@ export function fixtureEvent(file: FixtureFile, f: Fixture): Event {
     end: f.to,
     time: f.hours,
     ...(f.free != null && { price: { free: f.free } }),
-    tags: ["market", "season"],
+    tags: [...tags, "season"],
     note: f.note,
     trust: { level: "official", ...(file.source && { source: file.source }) },
     website: f.website,

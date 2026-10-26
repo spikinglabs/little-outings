@@ -26,7 +26,8 @@ const page = season.page!;
 const file = seasons.fixtures.find((f) => f.season === seasonId && f.slug === slug) as FixtureFile;
 const town = townName(file.town, lang, region.towns);
 const ids = new Set(file.items.map((f) => `season-${seasonId}-${slug}-${f.id}`));
-const current = events.filter((e) => ids.has(e.id));
+const order = [...ids];
+const current = events.filter((e) => ids.has(e.id)).sort((a, b) => a.start.localeCompare(b.start) || order.indexOf(a.id) - order.indexOf(b.id));
 const past: Fixture[] = current.length ? [] : file.items;
 const pastYear = past.length ? past[0].from.slice(0, 4) : "";
 // The season's other events here (Nikolaus, crafts, Christmas shows), soonest first.

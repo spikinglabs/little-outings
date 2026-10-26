@@ -19,7 +19,7 @@ const facilities = place?.facilities ?? {};
 const yes = Object.entries(facilities).filter(([, v]) => v.status === "yes").map(([k]) => k);
 const tags = item.type === "event" ? item.tags : [];
 // Seasons (St. Martin, Advent …), for their chips on Discover.
-const seasons = item.type === "event" ? (item.seasons ?? []).map((s) => `s-${s}`) : [];
+const seasons = (item.seasons ?? []).map((s) => `s-${s}`);
 const name = nameOf(item, lang);
 const german = germanName(item, lang);
 // "Do I need German?" only matters to readers who don't read German.

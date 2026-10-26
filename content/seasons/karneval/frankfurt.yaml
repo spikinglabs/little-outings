@@ -1,0 +1,31 @@
+# Fastnacht in Frankfurt 2027. The parades keep their days every year (Sunday, Tuesday); times are last year's
+# (Großer Rat der Karnevalvereine, Journal Frankfurt, hessenschau; checked 2026-10-26).
+town: Frankfurt am Main
+source: Großer Rat der Karnevalvereine Frankfurt
+checked: 2026-10-26
+items:
+  - id: fastnachtszug
+    name: Frankfurter Fastnachtszug
+    from: 2027-02-07
+    to: 2027-02-07
+    hours: "ab 12:21 Uhr (Stand 2026)"
+    street: Untermainkai
+    geo: { lat: 50.10392, lon: 8.66917 }
+    district: Innenstadt
+    free: true
+    note:
+      de: "Der größte Umzug Hessens, vom Untermainkai zum Römerberg, etwa vier Stunden."
+      en: "Hesse's biggest parade, from Untermainkai to Römerberg, about four hours."
+      zh: "黑森州最大的游行，从下美因河岸到罗马广场，约四小时。"
+  - id: klaa-paris
+    name: Fastnachtszug Klaa Paris
+    from: 2027-02-09
+    to: 2027-02-09
+    street: Heddernheimer Landstraße
+    geo: { lat: 50.16345, lon: 8.63600 }
+    district: Heddernheim
+    free: true
+    note:
+      de: "Der traditionelle Dienstagszug in Heddernheim, dem „Klaa Paris“."
+      en: "The traditional Tuesday parade in Heddernheim, 'Little Paris'."
+      zh: "在“小巴黎”海德恩海姆举行的传统星期二游行。"

@@ -475,6 +475,38 @@ footer.foot { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--l
 .invite-ready { background: var(--blau-bg); border-radius: 12px; padding: 10px 12px; font-weight: 700; margin-top: 12px; }
 .form .feature-picks label.pick { width: auto; margin-top: 0; justify-content: flex-start; }
 
+/* The weekly "This weekend" edition (/<lang>/wochenende/<town>/). */
+.wk-head { padding-top: 14px; }
+.wk-head h1 { font-size: clamp(1.8rem, 7vw, 2.6rem); font-weight: 800; line-height: 1.06; margin: 4px 0 6px; }
+.wk-head h1 em { font-style: normal; background: var(--gold); color: var(--gold-ink); padding: 0 .14em; border-radius: 6px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.wk-kicker { margin: 0; font-family: var(--sign); font-weight: 700; font-size: .82rem; letter-spacing: .1em; text-transform: uppercase; color: var(--rot); }
+.wk-pills { margin-top: 10px; }
+.wk-holiday { background: var(--gold-bg); font-weight: 700; }
+.wk-archived { background: var(--gold-bg); border-radius: 10px; padding: 8px 12px; }
+.wk-day { margin-top: 22px; }
+.wk-day h2, .wk-still h2, .wk-share h2, .wk-archive h2 { font-family: var(--sign); font-size: .9rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 8px; }
+.wk-pick { display: grid; gap: 4px; }
+.wk-why { margin: 0 2px; font-size: .95rem; }
+.wk-still { margin-top: 22px; }
+.wk-still ul, .wk-archive ul { margin: 0; padding-left: 18px; }
+.wk-still li, .wk-archive li { margin: 4px 0; }
+.wk-share { margin-top: 26px; background: var(--card); border: 1.5px solid var(--ink); border-radius: 16px; padding: 14px; }
+.wk-btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.wk-btns .btn { padding: 9px 14px; }
+.wk-text { display: block; width: 100%; margin-top: 12px; font: .85rem/1.45 ui-monospace, Menlo, Consolas, var(--cjk); background: var(--tint); color: var(--ink); border: 0; border-radius: 10px; padding: 10px; resize: vertical; }
+.wk-how { margin-top: 18px; }
+.wk-archive { margin-top: 22px; }
+.wk-towns { list-style: none; padding: 0; display: grid; gap: 10px; margin-top: 16px; }
+.wk-card { display: grid; gap: 2px; background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 14px; text-decoration: none; color: var(--ink); box-shadow: var(--shadow); }
+.wk-card b { font-family: var(--display); font-size: 1.15rem; }
+/* Discover's link to the edition: a quieter cousin of the gold tip. */
+.wk-banner { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 14px; padding: 12px 14px; border-radius: 14px; background: var(--card); border: 1.5px solid var(--ink); color: var(--ink); text-decoration: none; }
+.wk-banner b { font-family: var(--display); font-size: 1.05rem; display: block; }
+.wk-banner .wk-kicker { font-size: .74rem; }
+.wk-banner .arrow { font-size: 1.3rem; flex: none; }
+.wk-more { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 24px; padding: 14px; border-radius: 16px; background: var(--gold); color: var(--gold-ink); text-decoration: none; box-shadow: inset 0 0 0 3px var(--gold), inset 0 0 0 4.5px var(--gold-ink); }
+.wk-more b { display: block; font-family: var(--display); font-size: 1.1rem; margin-bottom: 2px; }
+.wk-more .arrow { font-size: 1.4rem; flex: none; }
 /* season landing pages (pages/[lang]/[season]/) */
 .season-page { max-width: 900px; display: grid; gap: 14px; }
 .season-page .eyebrow { margin: 10px 0 -10px; font: 700 .8rem/1 var(--sign); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-soft); }

@@ -68,11 +68,15 @@ async function load(): Promise<Data> {
   // Fixtures (Christmas markets, fairs) are events too; one without a pin sits at its town's centre.
   const seasons = loadSeasons("content/seasons.yaml", ROOT);
   for (const file of seasons.fixtures) for (const f of file.items) {
-    const ev = fixtureEvent(file, f);
+    const ev = fixtureEvent(file, f, seasons.seasons.find((s) => s.id === file.season)?.fixture_tags);
     if (ev.end < TODAY) continue;
     if (seen.has(ev.id)) throw new Error(`duplicate id "${ev.id}"`);
     seen.add(ev.id);
     events.push(applyEventTally(applyTranslations({ ...ev, geo: resolveGeo(f.geo, file.town, towns) }, tr), tallies[ev.id]));
+  }
+  for (const p of places) {
+    const of = seasons.seasons.filter((s) => s.kinds?.includes(p.kind)).map((s) => s.id);
+    if (of.length) p.seasons = of;
   }
   for (const e of events) {
     const found = seasonsOf(typeof e.title === "string" ? e.title : e.title.de, seasons.seasons);

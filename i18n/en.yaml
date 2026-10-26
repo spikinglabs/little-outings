@@ -197,7 +197,7 @@ tasksAllTowns: "All towns"
 tasksLater: "Later"
 tasksCount: { one: "{n} outing", other: "{n} outings" }
 tasksNone: "Nothing matches. Try another word or show everything."
-kinds: { playground: Playground, indoor: Indoor play, park: "Parks & gardens", zoo: "Zoos & animals", farm: Farm, pool: "Pools & lakes", museum: Museum, cafe: Family café, fun: "Theme & adventure parks" }
+kinds: { playground: Playground, indoor: Indoor play, park: "Parks & gardens", zoo: "Zoos & animals", farm: Farm, pool: "Pools & lakes", museum: Museum, cafe: Family café, fun: "Theme & adventure parks", winter: "Ice rinks & sledging" }
 features: { playground: Playground, changing_table: Changing table, highchairs: High chairs, kids_menu: "Kids' menu", toys: "Toys & little gifts", animals: Animals, stroller_friendly: Pram-friendly, nursing_room: Nursing corner, indoor_play: Indoor play area, toilets: Toilets, farm_shop: Farm shop, parking: Parking, sandpit: Sandpit, water_play: Water play, swings: Swings, slides: Slides, climbing: Climbing, toddler_area: Toddler area, shade: Shade, benches: Benches, fenced: Fenced in }
 tags: { fest: Festival, animals: Animals, market: Market, diy: Hands-on, season: Seasonal, reading: Story time, music: Music, outside: Outdoors, stage: "Theatre & film", sport: "Sport & movement", tour: "Museums & tours", parents: "For parents", learn: "Courses & languages", other: Other }
 empty: Nothing listed here yet. Know something? Add it under Contribute.
@@ -471,7 +471,7 @@ legal:
   privacy: Privacy notice
   controller: { h: Who is responsible, p: "The controller under the GDPR for this website is:" }
   hosting: { h: Hosting, p: "The site runs on Cloudflare Pages (Cloudflare, Inc., USA; certified under the EU-US Data Privacy Framework, with a data processing agreement). To deliver pages, Cloudflare necessarily processes your IP address and technical request data and keeps short-lived security logs. Legal basis: Art. 6 (1) (f) GDPR, our interest in a secure, working website." }
-  stats: { h: Usage statistics, p: "We use Cloudflare Web Analytics to count page views, referring sites, countries, device types and loading speed. It sets no cookies, stores nothing on your device and does not recognise returning visitors; we only see totals. We also count a few actions (saving, opening directions, adding to the calendar, opening a website, sharing the list, installing the app) as daily totals by language, with no IP address and no id. Legal basis: Art. 6 (1) (f) GDPR, our interest in knowing which parts of the site are used." }
+  stats: { h: Usage statistics, p: "We use Cloudflare Web Analytics to count page views, referring sites, countries, device types and loading speed. It sets no cookies, stores nothing on your device and does not recognise returning visitors; we only see totals. We also count a few actions (saving, opening directions, adding to the calendar, opening a website, sharing the list, installing the app, copying the weekend text, arriving from the printed sheet or Telegram) as daily totals by language, with no IP address and no id. Legal basis: Art. 6 (1) (f) GDPR, our interest in knowing which parts of the site are used." }
   device: { h: Stored on your device, p: "Your saved list, the town you picked, your answers, a random browser id and your settings are kept in your browser's local storage, only because you use those functions (§ 25 (2) no. 2 TDDDG). We do not use cookies. You can delete everything under Mine › Profile and sync, or by clearing the site data in your browser." }
   taps: { h: Taps and votes, p: "Taps on facilities, “We went” and “Do you need German?” are stored in a Cloudflare D1 database together with a hash of your random browser id and a hash of your IP address, which we use only to stop vote flooding. They stay until you delete your profile. Legal basis: Art. 6 (1) (f) GDPR." }
   sent: { h: What you send us, p: "Tips, reports and suggested events or places are stored as entries in a private GitHub repository (GitHub, Inc., USA; EU-US Data Privacy Framework) so we can review them. Approved text is published without your name. Please don't include personal details. Legal basis: Art. 6 (1) (f) GDPR." }
@@ -480,6 +480,45 @@ legal:
   map: { h: Map, p: "Map tiles load from OpenStreetMap (OpenStreetMap Foundation, United Kingdom, covered by an EU adequacy decision), which receives your IP address to send the tiles. Legal basis: Art. 6 (1) (f) GDPR. Your location is only used on your phone if you tap the locate button, and is never sent to us." }
   fonts: { h: Fonts, p: "All fonts are served from our own site. No font service receives your data." }
   rights: { h: Your rights, p: "You have the right to access, correction, deletion, restriction of processing, data portability and to object to processing based on legitimate interests (Art. 15–21 GDPR). Most of this you can do yourself under Mine › Profile and sync; otherwise email us. You can also complain to a data protection supervisory authority." }
+# The weekly "This weekend" edition (/en/wochenende/<town>/, src/lib/weekend.ts).
+weekend:
+  title: "This weekend with kids in {town}"
+  h1: "This <em>weekend</em> with kids in {town}"
+  kicker: "Week {week} · {town}"
+  sub: "{range} · picked for families"
+  description: "What to do with kids this weekend in {town}? {list} and more: ideas for {range}, new every Friday."
+  always: Open any time
+  still: Still on
+  until: "until {date}"
+  book: Book ahead
+  holidayLast: Last day of the school holidays
+  moreH: This is just a small selection
+  moreP: "This weekend there are {events} family events and {places} places in {town}. Find them all on Discover, with a map and filters like “Rainy day” or “Free”."
+  share: Pass it on
+  copyWa: Copy text for WhatsApp
+  copyWechat: Copy text for WeChat
+  copied: Copied
+  selected: "Selected, now copy it"
+  sendWa: Send in WhatsApp
+  telegram: Telegram channel
+  print: Print for a notice board (A4)
+  rss: RSS feed
+  next: "The next edition comes out early on Friday, {date}."
+  meanwhile: Everything for the weekend on Discover
+  lastEdition: "Last edition: {range}"
+  archiveNote: "This edition was for {range}."
+  current: See the current edition
+  earlier: Earlier editions
+  how: "New every Friday, picked from all family events in {town}. Things made for children, free and in the daytime come first, matched to the weather; each venue only once, and nothing featured in recent weeks. Please check with the organiser before you go."
+  weather: "Weather: Open-Meteo.com"
+  card: "This weekend's edition for {town}"
+  cardKicker: New every Friday
+  hub: Weekends with kids
+  hubSub: New ideas for the weekend every Friday, for each town.
+  printWeekly: "New every week: {url}"
+  printFoot: "Ideas for families, in German, English and Chinese. No sign-up, no ads. Please check with the organiser before you go."
+  printHint: "Press Ctrl+P or ⌘P to print, A4 portrait. This line isn't printed."
+  printBack: Back to the edition
 feed:
   pick: "Do you run events for families? Send us your calendar →"
   title: Send us your calendar

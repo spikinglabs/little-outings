@@ -1,0 +1,64 @@
+---
+// This weekend's edition for one town, at the same address every week so links, QR codes and
+// search results keep pointing at the current one. From Monday to Thursday it says when the next comes.
+import Base from "../../../../layouts/Base.astro";
+import WeekendEdition from "../../../../components/WeekendEdition.astro";
+import Card from "../../../../components/Card.astro";
+import { LANGS, useT, type Lang } from "../../../../lib/i18n";
+import { getData, TODAY } from "../../../../lib/data";
+import { townName } from "../../../../lib/format";
+import { archiveOf, liveEdition, nextFriday, weekendTowns } from "../../../../lib/weekend-data";
+import { textIn, weekendRange } from "../../../../lib/weekend";
+
+export const getStaticPaths = () =>
+  LANGS.flatMap((lang) => weekendTowns().map((town) => ({ params: { lang, town: town.slug }, props: { editions: town.editions } })));
+
+const lang = Astro.params.lang as Lang;
+const { editions } = Astro.props;
+const t = useT(lang);
+const { region, placeById } = await getData();
+const live = liveEdition(editions, TODAY);
+const last = editions[0];
+const town = townName(last.town, lang, region.towns);
+const archive = archiveOf(editions, live);
+const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
+const range = live ? weekendRange(live.weekend, lang) : "";
+const title = live ? `${t("weekend.title", { town })}: ${range}` : t("weekend.title", { town });
+const list = live ? live.picks.filter((p) => p.type === "event").slice(0, 3).map((p) => textIn(p.label, lang, p.title)).join(", ") : "";
+const description = live ? t("weekend.description", { town, list, range }) : t("weekend.how", { town });
+const nextDay = new Intl.DateTimeFormat(t.locale, { timeZone: "UTC", day: "numeric", month: "long" }).format(new Date(`${nextFriday(TODAY)}T12:00:00Z`));
+// Mon–Thu: the place from the last edition is still a good idea.
+const keep = !live ? last.picks.filter((p) => p.type === "place" && placeById.has(p.id)) : [];
+const ld = live && {
+  "@context": "https://schema.org", "@type": "ItemList", name: title, url: `${site}/${lang}/wochenende/${live.slug}/`,
+  itemListElement: live.picks.map((p, i) => ({
+    "@type": "ListItem", position: i + 1, name: textIn(p.label, lang, p.title),
+    url: `${site}/${lang}/${p.type === "place" ? "orte" : "termine"}/${p.id}/`,
+  })),
+};
+---
+<Base lang={lang} tab="explore" title={title} description={description} ld={ld || undefined}>
+  {live ? <WeekendEdition edition={live} t={t} /> : (
+    <section class="wk">
+      <header class="wk-head">
+        <p class="wk-kicker">{t("weekend.cardKicker")}</p>
+        <h1 set:html={t("weekend.h1", { town })} />
+        <p class="page-sub">{t("weekend.next", { date: nextDay })}</p>
+        <p><a class="btn primary" href={`/${lang}/`}>{t("weekend.meanwhile")}</a></p>
+      </header>
+      {keep.length > 0 && (
+        <section class="wk-day">
+          <h2>{t("weekend.always")}</h2>
+          <div class="grid">{keep.map((p) => <Card item={placeById.get(p.id)!} t={t} />)}</div>
+        </section>
+      )}
+      <p class="small wk-how">{t("weekend.how", { town })}</p>
+    </section>
+  )}
+  {archive.length > 0 && (
+    <nav class="wk-archive" aria-labelledby="wk-earlier">
+      <h2 id="wk-earlier">{t("weekend.earlier")}</h2>
+      <ul>{archive.map((e) => <li><a href={`/${lang}/wochenende/${e.slug}/${e.weekend}/`}>{weekendRange(e.weekend, lang)}</a></li>)}</ul>
+    </nav>
+  )}
+</Base>
