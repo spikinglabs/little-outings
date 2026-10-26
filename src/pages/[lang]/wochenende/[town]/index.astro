@@ -9,6 +9,7 @@ import { getData, TODAY } from "../../../../lib/data";
 import { townName } from "../../../../lib/format";
 import { archiveOf, liveEdition, nextFriday, weekendTowns } from "../../../../lib/weekend-data";
 import { textIn, weekendRange } from "../../../../lib/weekend";
+import { weekendKey } from "../../../../lib/og";
 
 export const getStaticPaths = () =>
   LANGS.flatMap((lang) => weekendTowns().map((town) => ({ params: { lang, town: town.slug }, props: { editions: town.editions } })));
@@ -37,7 +38,7 @@ const ld = live && {
   })),
 };
 ---
-<Base lang={lang} tab="explore" title={title} description={description} ld={ld || undefined}>
+<Base lang={lang} tab="explore" title={title} description={description} ld={ld || undefined} og={weekendKey(Astro.params.town)}>
   {live ? <WeekendEdition edition={live} t={t} /> : (
     <section class="wk">
       <header class="wk-head">

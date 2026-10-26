@@ -12,8 +12,9 @@ const lang = Astro.params.lang as Lang;
 const t = useT(lang);
 const { region } = await getData();
 const towns = weekendTowns().map((x) => ({ ...x, label: townName(x.name, lang, region.towns), live: liveEdition(x.editions, TODAY) }));
+import { weekendKey } from "../../../lib/og";
 ---
-<Base lang={lang} tab="explore" title={t("weekend.hub")} description={t("weekend.hubSub")}>
+<Base lang={lang} tab="explore" title={t("weekend.hub")} description={t("weekend.hubSub")} og={weekendKey()}>
   <section class="wk">
     <header class="wk-head">
       <h1>{t("weekend.hub")}</h1>
