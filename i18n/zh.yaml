@@ -149,6 +149,9 @@ inboxSoon: 谢谢！提交功能正在搭建中，目前请通过 GitHub 反馈�
 mapShowMore: "再显示 {n} 项"
 mapMore: "还有 {n} 个"
 mapShow: "在地图上显示"
+mapShowShort: 地图
+mapHideShort: 收起地图
+shortcuts: 常用入口
 mapHide: "隐藏地图"
 mapAreaOn: "只显示地图范围内的内容。"
 mapAreaBack: "回到{town}周边 {r} 公里"
@@ -512,7 +515,8 @@ weekend:
   earlier: 往期
   how: "每周五更新，从{town}所有亲子活动中精选：优先为孩子设计、免费、白天的活动，并结合天气；同一地点只选一次，近几周推荐过的不再重复。出发前请向主办方确认。"
   weather: "天气：Open-Meteo.com"
-  card: "{town}本周末推荐"
+  nav: 周末精选
+  new: 新
   cardKicker: 每周五更新
   hub: 周末带孩子去哪儿
   hubSub: 每周五为每个城市推荐周末好去处。

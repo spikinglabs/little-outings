@@ -9,7 +9,9 @@
 #   add, share, share_text   the line under the chip; the generic one (i18n season.*) otherwise
 #   note      shown on the page of every matching event
 #   page      an own landing page per town (/de/<slug>/<town>/) and an overview (/de/<slug>/), built from
-#             the fixtures in content/seasons/<id>/<town>.yaml plus matching events
+#             the fixtures in content/seasons/<id>/<town>.yaml plus matching events.
+#             page.nav is its short link on Discover (next to "Show on map") and in the footer;
+#             page.link is when Discover shows that link (the chip's weeks if left out). The footer always has it.
 #   sources   the city pages that list the fixtures ({year} is this year); scripts/season-lists.mjs reads them with AI
 #             and puts the rows in the admin's "Season lists" for approval. Several pages for one town become one list.
 #   pull      the months (1–12) the AI reads the sources, on the 1st; when the cities have published the new dates
@@ -49,6 +51,9 @@
       zh: "哪些市场有儿童旋转木马、溜冰场或童话森林？{town}所有圣诞市场及开放时间，还有圣尼古拉斯、手工和儿童圣诞剧。"
     fixtures: { de: Weihnachtsmärkte, en: Christmas markets, zh: 圣诞市场 }
     also: { de: "Nikolaus, Basteln und Weihnachtsmärchen", en: "St. Nicholas, crafts and Christmas shows", zh: 圣尼古拉斯、手工和圣诞剧 }
+    nav: { de: Weihnachtsmärkte, en: Christmas markets, zh: 圣诞市场 }
+    # From early November, when parents start planning, until the last markets close.
+    link: [{ from: "11-01", to: "12-31" }]
   pull: [10]
   sources:
     - { town: koeln, url: "https://www.koeln.de/weihnachten/weihnachtsmaerkte-koeln/" }
@@ -83,6 +88,7 @@
       zh: "{town}的儿童游行、街区游行和玫瑰星期一：时间地点、哪个游行适合小孩，还有儿童狂欢会和儿童化装派对。"
     fixtures: { de: Umzüge, en: Parades, zh: 游行 }
     also: { de: "Kindersitzungen und Kinderfasching", en: "Children's sessions and carnival parties", zh: 儿童狂欢会和化装派对 }
+    nav: { de: Karnevalszüge, en: Carnival parades, zh: 狂欢节游行 }
   # The district lists come out in December and January.
   pull: [12, 1]
   sources:

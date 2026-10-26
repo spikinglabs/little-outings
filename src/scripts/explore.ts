@@ -7,7 +7,7 @@ import { ORDERS, orderEvents, orderPlaces, type Order } from "../lib/order";
 import { holidayFor, type Period } from "../lib/holidays";
 import { inWindow, type Window } from "../lib/seasons-window";
 import { daysFor, fit, mood, moods, sharedMood, skyIcon, skyWord, wantsRoof, type Day, type Mood, type Packed } from "../lib/weather";
-import { distanceOf, getHome, markSaved, nearestTown, renderKm, setHere, setHome } from "./app";
+import { distanceOf, getHome, markSaved, nearestTown, renderKm, setHere, setHome, townKm } from "./app";
 import type {} from "../islands/OutingsMap";
 
 type Plural = { one?: string; other: string };
@@ -15,7 +15,11 @@ const ui = JSON.parse(document.getElementById("explore-ui")!.textContent!) as {
   nEvents: Plural; nPlaces: Plural; areaBack: string; tip: string; whenIn: Record<string, string>; mapShow: string; mapHide: string; noneHere: string;
   showMore: string; locNone: string; loadFail: string;
   holidays: { towns: Record<string, string>; periods: Record<string, Period[]>; label: Record<string, string>; labelIn: Record<string, string> };
-  seasons: { id: string; chip: Window[]; shareText: string }[]; copied: string;
+  seasons: { id: string; chip: Window[]; shareText: string }[]; copied: string; mapShort: [string, string];
+  links: {
+    weekend: Record<string, { href: string; until: string }>;
+    seasons: { id: string; window: Window[]; hub: string; towns: Record<string, string> }[];
+  };
   weather?: Packed; wx: Record<string, string>;
 };
 const lang = document.body.dataset.lang!;
@@ -391,8 +395,39 @@ function showHome(town: string) {
   if (!b) return;
   home.value = town;
   $("[data-home-name]").textContent = b.textContent;
-  // The weekend edition's card shows for its own town only.
-  for (const a of $$<HTMLElement>("[data-weekend-town]")) a.hidden = a.dataset.weekendTown !== town;
+  shortcuts(town);
+}
+/** A season page within reach of the town: its own, else the nearest within 40 km (Hürth gets Köln's markets). */
+function seasonPageNear(towns: Record<string, string>, town: string): string | undefined {
+  if (towns[town]) return towns[town];
+  let best: string | undefined, bestKm = 40;
+  for (const [name, href] of Object.entries(towns)) {
+    const d = townKm(town, name);
+    if (d != null && d < bestKm) { best = href; bestKm = d; }
+  }
+  return best;
+}
+/**
+ * The links next to "Show on map": the town's weekend edition every day (its page says when the next
+ * comes out), marked new from Friday to Sunday, and a season's page in its weeks when there's one near.
+ * The line under a pressed season chip points at the same town page. With a link showing, phones get
+ * the map button's short label so everything stays on one row.
+ */
+function shortcuts(town: string) {
+  const today = ymd(new Date());
+  const wk = ui.links.weekend[town];
+  const wa = $<HTMLAnchorElement>("[data-weekend-link]");
+  wa.hidden = !wk;
+  if (wk) wa.href = wk.href;
+  $("[data-weekend-new]").hidden = !wk || today > wk.until;
+  for (const s of ui.links.seasons) {
+    const near = seasonPageNear(s.towns, town);
+    const a = document.querySelector<HTMLAnchorElement>(`[data-season-link="${CSS.escape(s.id)}"]`);
+    if (a) { a.hidden = !near || !inWindow(s.window, today); if (near) a.href = near; }
+    const hub = document.querySelector<HTMLAnchorElement>(`[data-season-hub="${CSS.escape(s.id)}"]`);
+    if (hub) hub.href = near ?? s.hub;
+  }
+  $(".map-bar").classList.toggle("has-links", $$("[data-shortcuts] a").some((a) => !a.hidden));
 }
 function filterTowns() {
   const q = fold(townQ.value);
@@ -456,6 +491,7 @@ function showMap(on: boolean, remember = true) {
   if (!on && state.area) { state.area = null; apply(); }
   $("[data-map-toggle]").setAttribute("aria-expanded", String(on));
   $("[data-map-label]").textContent = on ? ui.mapHide : ui.mapShow;
+  $("[data-map-short]").textContent = ui.mapShort[on ? 1 : 0];
   if (on) document.dispatchEvent(new Event("lo:map-shown"));
   if (remember) try { localStorage.setItem("lo-map", on ? "1" : "0"); } catch { /* storage blocked */ }
 }

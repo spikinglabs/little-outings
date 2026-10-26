@@ -22,7 +22,8 @@ export interface Season {
   share?: Text;
   share_text?: Text;
   note?: Text;
-  page?: { slug: string; hub: Text; title: Text; intro: Text; fixtures: Text; also: Text };
+  /** `nav`: the short link to it on Discover and in the footer; `link`: when Discover shows that link (the chip's weeks otherwise). */
+  page?: { slug: string; hub: Text; title: Text; intro: Text; fixtures: Text; also: Text; nav?: Text; link?: Window[] };
   sources?: { town: string; url: string }[];
   /** Months (1–12) the AI reads `sources`. */
   pull?: number[];
@@ -74,16 +75,19 @@ export function parseSeasons(raw: unknown): Season[] {
     if (ids.has(s.id)) throw new Error(`${where}: id used twice`);
     ids.add(s.id);
     if (!s.emoji || !s.label) throw new Error(`${where}: needs emoji and label`);
-    const chip = (s.chip ?? []).map((w: any) => ({ from: String(ymd(w.from) || w.from), to: String(ymd(w.to) || w.to) }));
-    for (const w of chip)
-      if (!(/^\d{2}-\d{2}$/.test(w.from) && /^\d{2}-\d{2}$/.test(w.to)) && !(DAY.test(w.from) && DAY.test(w.to)))
-        throw new Error(`${where}: chip dates must both be "MM-DD" or both "YYYY-MM-DD"`);
+    const windows = (ws: any[] | undefined, name: string) => (ws ?? []).map((w: any) => {
+      const win = { from: String(ymd(w.from) || w.from), to: String(ymd(w.to) || w.to) };
+      if (!(/^\d{2}-\d{2}$/.test(win.from) && /^\d{2}-\d{2}$/.test(win.to)) && !(DAY.test(win.from) && DAY.test(win.to)))
+        throw new Error(`${where}: ${name} dates must both be "MM-DD" or both "YYYY-MM-DD"`);
+      return win;
+    });
+    const chip = windows(s.chip, "chip");
     if (s.match) new RegExp(s.match, "i");
     if (s.page && !/^[a-z][a-z0-9-]*$/.test(s.page.slug ?? "")) throw new Error(`${where}: page.slug must be lowercase letters`);
     if (s.pull && !(Array.isArray(s.pull) && s.pull.every((m: unknown) => Number.isInteger(m) && (m as number) >= 1 && (m as number) <= 12)))
       throw new Error(`${where}: pull must be a list of months 1–12`);
     if (s.sources?.length && !s.pull?.length) throw new Error(`${where}: sources need pull months`);
-    return { ...s, chip };
+    return { ...s, chip, ...(s.page && { page: { ...s.page, link: s.page.link ? windows(s.page.link, "page.link") : chip } }) };
   });
 }
 

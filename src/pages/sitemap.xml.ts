@@ -3,7 +3,7 @@
 import type { APIRoute } from "astro";
 import { LANGS } from "../lib/i18n";
 import { getData, TODAY } from "../lib/data";
-import { liveEdition, weekendTowns } from "../lib/weekend-data";
+import { editionTowns, liveEdition } from "../lib/weekend-data";
 import { seasonPages } from "../lib/seasons";
 
 export const GET: APIRoute = async ({ site }) => {
@@ -18,9 +18,9 @@ export const GET: APIRoute = async ({ site }) => {
     ...places.map((p) => `orte/${p.id}/`),
   ];
   // The weekend editions: one address per town that changes every Friday.
-  const weekend = weekendTowns();
+  const weekend = editionTowns();
   if (weekend.length) paths.push("wochenende/", ...weekend.map((w) => `wochenende/${w.slug}/`));
-  const fresh = new Map(weekend.map((w) => [`wochenende/${w.slug}/`, (liveEdition(w.editions, TODAY) ?? w.editions[0]).published_at.slice(0, 10)]));
+  const fresh = new Map(weekend.filter((w) => w.editions.length).map((w) => [`wochenende/${w.slug}/`, (liveEdition(w.editions, TODAY) ?? w.editions[0]).published_at.slice(0, 10)]));
   const alt = (rest: string) =>
     LANGS.map((l) => `<xhtml:link rel="alternate" hreflang="${l === "zh" ? "zh-Hans" : l}" href="${base}/${l}/${rest}"/>`).join("") +
     `<xhtml:link rel="alternate" hreflang="x-default" href="${base}/${rest && `de/${rest}`}"/>`;

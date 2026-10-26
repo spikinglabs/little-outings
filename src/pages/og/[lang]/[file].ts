@@ -7,7 +7,7 @@ import { getData } from "../../../lib/data";
 import { townName } from "../../../lib/format";
 import { KIND_ICON, UI_ICON } from "../../../lib/icons";
 import { seasonPages } from "../../../lib/seasons";
-import { weekendTowns } from "../../../lib/weekend-data";
+import { editionTowns } from "../../../lib/weekend-data";
 import { HOME_KEY, LIST_KEY, weekendKey, dateHeadline, dateSign, eventKey, seasonKey, squareSvg, wideSvg, type Card } from "../../../lib/og";
 
 /** Twemoji's picture for an emoji, from design/og/emoji/ (see its README). */
@@ -28,7 +28,7 @@ export async function getStaticPaths() {
     // No dates on the weekend picture: chat apps keep a link's preview for weeks.
     const calendar = { type: "icon" as const, icon: UI_ICON.calendar, tone: "gold" as const };
     cards.set(weekendKey(), card(calendar, t("weekend.hub"), t("weekend.cardKicker")));
-    for (const w of weekendTowns()) cards.set(weekendKey(w.slug), card(calendar, t("weekend.title", { town: townName(w.editions[0].town, lang, region.towns) }), t("weekend.cardKicker")));
+    for (const w of editionTowns()) cards.set(weekendKey(w.slug), card(calendar, t("weekend.title", { town: townName(w.name, lang, region.towns) }), t("weekend.cardKicker")));
     for (const [kind, icon] of Object.entries(KIND_ICON)) cards.set(`k-${kind}`, card({ type: "icon", icon, tone: "braun" }, t(`kinds.${kind}`)));
     for (const key of new Set(events.map(eventKey))) cards.set(key, card(dateSign(t, key), dateHeadline(t, key)));
     for (const { season, file } of seasonPages(seasons)) {
