@@ -1,0 +1,36 @@
+# Christmas markets in Bonn, 2026. bonn.de blocks automatic reads; dates from the city's press release as
+# quoted by market listings (checked 2026-10-26).
+town: Bonn
+source: Stadt Bonn
+checked: 2026-10-26
+items:
+  - id: muensterplatz
+    name: Bonner Weihnachtsmarkt
+    from: 2026-11-18
+    to: 2026-12-23
+    hours: "Stände 12–21 Uhr, Gastronomie bis 21:30, Fr–Sa bis 22:30 Uhr; Totensonntag (22.11.) zu"
+    street: Münsterplatz
+    geo: { lat: 50.73418, lon: 7.09919 }
+    district: Zentrum
+    free: true
+    note:
+      de: "Vom Münsterplatz über Bottlerplatz, Friedensplatz, Vivatsgasse, Windeckstraße und Poststraße."
+      en: "From Münsterplatz through Bottlerplatz, Friedensplatz, Vivatsgasse, Windeckstraße and Poststraße."
+      zh: "从明斯特广场延伸到Bottlerplatz、Friedensplatz、Vivatsgasse、Windeckstraße和Poststraße。"
+  - id: dreikoenigsmarkt
+    name: Dreikönigsmarkt
+    from: 2026-12-27
+    to: 2027-01-06
+    street: Remigiusplatz
+    geo: { lat: 50.73485, lon: 7.10182 }
+    district: Zentrum
+    free: true
+  - id: bad-godesberg
+    name: Nikolausmarkt Bad Godesberg
+    from: 2026-11-20
+    to: 2026-12-23
+    hours: "Stände bis 19 Uhr, Glühwein Mo–Sa 11–23, So 12–23 Uhr"
+    street: Theaterplatz
+    geo: { lat: 50.68318, lon: 7.15303 }
+    district: Bad Godesberg
+    free: true

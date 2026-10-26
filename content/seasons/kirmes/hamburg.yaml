@@ -1,0 +1,20 @@
+# Fairs in Hamburg (checked 2026-10-26 on hamburg.de/dom). The DOM runs three times a year:
+# Frühlingsdom (spring), Sommerdom (summer) and Winterdom; add the next ones when their dates are out.
+town: Hamburg
+source: hamburg.de
+checked: 2026-10-26
+items:
+  - id: winterdom-2026
+    name: Hamburger Winterdom
+    from: 2026-11-06
+    to: 2026-12-06
+    street: Heiligengeistfeld
+    geo: { lat: 53.55436, lon: 9.97097 }
+    district: St. Pauli
+    kids: [rides, carousel]
+    free: true
+    website: https://www.hamburg.de/dom
+    note:
+      de: "Volksfest mit Fahrgeschäften. Mittwochs ist Familientag mit ermäßigten Preisen."
+      en: "A funfair with rides. Wednesday is family day with lower prices."
+      zh: "有游乐设施的大型游乐集市。周三是家庭日，价格优惠。"

@@ -16,7 +16,7 @@ import { townStates, type Period } from "../../lib/holidays";
 import schoolHolidays from "../../../data/school-holidays.json";
 import { liveEdition, weekendTowns } from "../../lib/weekend-data";
 import { weekendRange } from "../../lib/weekend";
-import { isMartin } from "../../lib/martin";
+import { seasonPages, seasonPath } from "../../lib/seasons";
 
 export const getStaticPaths = () => LANGS.map((lang) => ({ params: { lang } }));
 const lang = Astro.params.lang as Lang;
@@ -47,10 +47,19 @@ const holidays = {
     .map(([s, ps]) => [s, ps.filter((p) => p.end >= buildDay)])),
   label: t.group("holiday"), labelIn: t.group("holidayIn"),
 };
-// St. Martin walks: the chip shows in their season (explore.ts) when there is at least one.
-const hasMartin = listed.some((e) => isMartin(tr(e.title, "de")));
-const martin = { shareText: t("martin.shareText"), copied: t("martin.copied") };
-const pluralUi = { nEvents: t.group("nEvents"), nPlaces: t.group("nPlacesAny"), tip: t("tip"), whenIn, mapShow: t("mapShow"), mapHide: t("mapHide"), areaBack: t("mapAreaBack"), showMore: t("mapShowMore"), locNone: t("locNone"), loadFail: t("loadFail"), noneHere: t("noneHere"), holidays, martin };
+// Season chips (content/seasons.yaml) for seasons with at least one idea; explore.ts shows each in its weeks.
+// Chinese families' own occasions come first on the Chinese pages.
+const pages = seasonPages(data.seasons);
+const seasons = data.seasons.seasons
+  .filter((s) => listed.some((e) => e.seasons?.includes(s.id)))
+  .sort((a, b) => (lang === "zh" ? Number(!!b.zh_first) - Number(!!a.zh_first) : 0))
+  .map((s) => ({
+    id: s.id, chip: s.chip, label: `${s.emoji} ${tr(s.label, lang)}`,
+    add: s.add ? tr(s.add, lang) : t("season.add"), share: s.share ? tr(s.share, lang) : t("season.share"),
+    shareText: s.share_text ? tr(s.share_text, lang) : t("season.shareText"),
+    hub: s.page && pages.some((p) => p.season.id === s.id) ? { href: seasonPath(lang, s), label: tr(s.page.hub, lang) } : undefined,
+  }));
+const pluralUi = { nEvents: t.group("nEvents"), nPlaces: t.group("nPlacesAny"), tip: t("tip"), whenIn, mapShow: t("mapShow"), mapHide: t("mapHide"), areaBack: t("mapAreaBack"), showMore: t("mapShowMore"), locNone: t("locNone"), loadFail: t("loadFail"), noneHere: t("noneHere"), holidays, seasons: seasons.map(({ id, chip, shareText }) => ({ id, chip, shareText })), copied: t("season.copied") };
 const homes = region.towns;
 // Town picker rows, A–Z in the reader's language (Düsseldorf next to Dortmund, 杜塞尔多夫 by pinyin).
 // keys: every name a parent might type, lowercased and without accents (koln finds Köln, 科隆 finds it too).
@@ -63,6 +72,11 @@ const mapLabels = {
   ...(t.group("nEvents") as { one: string; other: string }), more: t("mapMore"), here: t("legend.here"),
   places: t.group("nPlacesAny") as { one?: string; other: string }, touch: t("mapTouch"), zoom: t("mapZoom"), zoomMac: t("mapZoomMac"),
   locate: t("locate"), close: t("mapClose"), save: t("save"),
+  toilets: {
+    show: t("toiletsNear.mapShow"), hide: t("toiletsNear.mapHide"), toilets: t("toiletsNear.toilets"), changing: t("toiletsNear.changing"),
+    water: t("toiletsNear.water"), table: t("toiletsNear.table"), free: t("toiletsNear.free"), paid: t("toiletsNear.paid"),
+    wheelchair: t("toiletsNear.wheelchair"), customers: t("toiletsNear.customers"), route: t("toiletsNear.route"),
+  },
 };
 // What search results and AI answers show for the home page.
 const description = t("homeDescription", { events: listed.length, places: places.length });
@@ -87,7 +101,7 @@ const weekend = weekendTowns().map((w) => ({ ...w, live: liveEdition(w.editions,
     <div class="filters" role="group">
       <button class="chip town-btn" type="button" id="home" value={region.center} aria-haspopup="dialog">📍 {t("near")} <b data-home-name>{townName(region.center, lang, homes)}</b><span class="caret" aria-hidden="true">▾</span></button>
       <button class="chip loc" type="button" data-locate aria-label={t("locate")} title={t("locate")}><Fragment set:html={svg(UI_ICON.locate, 'stroke-width="2"')} /></button>
-      {hasMartin && <button class="chip martin" type="button" data-flag="martin" aria-pressed="false" hidden>{t("filters.martin")}</button>}
+      {seasons.map((s) => <button class="chip season" type="button" data-season={s.id} aria-pressed="false" hidden>{s.label}</button>)}
       <button class="chip rain" type="button" data-flag="rain" aria-pressed="false">{t("filters.rain")}</button>
       <button class="chip" type="button" data-flag="farm" aria-pressed="false">{t("filters.farm")}</button>
       <button class="chip" type="button" data-flag="free" aria-pressed="false">{t("filters.free")}</button>
@@ -101,10 +115,13 @@ const weekend = weekendTowns().map((w) => ({ ...w, live: liveEdition(w.editions,
       </label>
     </div>
     <p class="loc-msg small" role="status" data-loc-msg hidden></p>
-    <p class="martin-bar small" data-martin-bar hidden>
-      {t("martin.add")} <a href={`/${lang}/mitmachen/#event`}>{t("martin.addLink")}</a>
-      · <button class="link-btn" type="button" data-martin-share>{t("martin.share")}</button>
-    </p>
+    {seasons.map((s) => (
+      <p class="season-bar small" data-season-bar={s.id} hidden>
+        {s.hub && <><a href={s.hub.href}>{s.hub.label} →</a><br /></>}
+        {s.add} <a href={`/${lang}/mitmachen/#event`}>{t("season.addLink")}</a>
+        · <button class="link-btn" type="button" data-season-share={s.id}>{s.share}</button>
+      </p>
+    ))}
   </section>
   <!-- The town picker: a sheet with a search box, towns A–Z in the reader's language, the current one first.
        A plain <select> can't be searched, and on phones it showed the region file's order. -->
@@ -130,7 +147,7 @@ const weekend = weekendTowns().map((w) => ({ ...w, live: liveEdition(w.editions,
     </button>
   </div>
   <div class="mapwrap explore-map" id="explore-map" hidden>
-    <OutingsMap client:only="preact" pinsUrl={`/${lang}/pins.json`} center={mapCenter(data)} towns={homes.map((x) => [x.name, x.lat, x.lon])} locale={t.locale} labels={mapLabels} />
+    <OutingsMap client:only="preact" pinsUrl={`/${lang}/pins.json`} toiletsUrl="/toilets.json" center={mapCenter(data)} towns={homes.map((x) => [x.name, x.lat, x.lon])} locale={t.locale} labels={mapLabels} />
     <!-- The two marks everyone needs stay in view; the rest fold away behind "More". -->
     <div class="legend">
       <span><i style="background:#ffcc00"></i>{t("legend.event")}</span>
@@ -169,7 +186,16 @@ const weekend = weekendTowns().map((w) => ({ ...w, live: liveEdition(w.editions,
   ))}
 
   <section class="section" aria-labelledby="ideas-h">
-    <div class="section-head"><h2 id="ideas-h">{t("ideas")}</h2><p data-count aria-live="polite"></p></div>
+    <h2 id="ideas-h" class="ideas-h">{t("ideas")}</h2>
+    <div class="ideas-meta">
+      <p data-count aria-live="polite"></p>
+      <!-- Mixed by default (shuffled once a day per town, lib/order.ts); parents can sort instead. -->
+      <label class="order-pick"><span aria-hidden="true">⇅</span>
+        <select id="order" aria-label={t("order.label")}>
+          {["mixed", "soonest", "nearest"].map((o) => <option value={o}>{t(`order.${o}`)}</option>)}
+        </select>
+      </label>
+    </div>
     <div class="filters kinds" role="group" aria-label={t("ideasKinds")}>
       <button class="chip" type="button" data-kind-chip="" aria-pressed="true">{t("allKinds")} <span class="n" data-n></span></button>
       <button class="chip" type="button" data-kind-chip="event" aria-pressed="false"><span class="dot-ev" aria-hidden="true"></span> {t("kindEvents")} <span class="n" data-n></span></button>

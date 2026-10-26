@@ -4,12 +4,16 @@ import type { APIRoute } from "astro";
 import { LANGS } from "../lib/i18n";
 import { getData, TODAY } from "../lib/data";
 import { liveEdition, weekendTowns } from "../lib/weekend-data";
+import { seasonPages } from "../lib/seasons";
 
 export const GET: APIRoute = async ({ site }) => {
   const base = site?.toString().replace(/\/$/, "") ?? "";
-  const { events, places } = await getData();
+  const { events, places, seasons } = await getData();
+  // Season pages (Christmas markets …): each overview and its town pages.
+  const seasonal = seasonPages(seasons).flatMap(({ season, file }) => [`${season.page!.slug}/`, `${season.page!.slug}/${file.slug}/`]);
   const paths = [
     "", "mitmachen/", "daten/",
+    ...new Set(seasonal),
     ...events.map((e) => `termine/${e.id}/`),
     ...places.map((p) => `orte/${p.id}/`),
   ];

@@ -1,0 +1,181 @@
+# Christmas markets in Cologne, 2026. From koeln.de's market pages (checked 2026-10-26).
+# Next year scripts/season-lists.mjs drafts this list from the same pages; approve it in the admin.
+town: Köln
+source: koeln.de
+checked: 2026-10-26
+items:
+  - id: dom
+    name: Weihnachtsmarkt am Kölner Dom
+    from: 2026-11-16
+    to: 2026-12-23
+    hours: "So–Mi 11–21, Do–Fr 11–22, Sa 10–22 Uhr; Totensonntag (22.11.) zu"
+    street: Roncalliplatz
+    geo: { lat: 50.94025, lon: 6.95799 }
+    district: Altstadt-Nord
+    kids: [carousel, crafts, stage]
+    free: true
+    website: https://www.koeln.de/weihnachten/weihnachtsmaerkte-koeln/weihnachtsmarkt-am-koelner-dom/
+    note:
+      de: "Kinder können basteln, Kasperletheater sehen, sich schminken lassen und auf dem historischen Karussell fahren."
+      en: "Children can do crafts, watch a Punch and Judy show, get their faces painted and ride the historic carousel."
+      zh: "孩子们可以做手工、看木偶剧、画脸，还能坐老式旋转木马。"
+  - id: altstadt
+    name: Heinzels Wintermärchen in der Altstadt
+    from: 2026-11-23
+    to: 2027-01-10
+    hours: "Täglich 11–22 Uhr, ab 31.12. 11–21 Uhr; 24. und 25.12. zu"
+    street: Alter Markt und Heumarkt
+    geo: { lat: 50.93918, lon: 6.96004 }
+    district: Altstadt-Nord
+    kids: [ice_rink, carousel, rides, fairy_tale]
+    free: true
+    website: https://www.koeln.de/weihnachten/weihnachtsmaerkte-koeln/weihnachtsmarkt-altstadt/
+    note:
+      de: "Eislandschaft auf dem Heumarkt, für Kinder ein kleines Riesenrad und ein historisches Karussell. Der Alter Markt schließt am 23.12., der Heumarkt bleibt bis 10.1."
+      en: "An ice rink across the Heumarkt, and a small Ferris wheel and historic carousel for children. Alter Markt closes on 23 Dec, Heumarkt stays open until 10 Jan."
+      zh: "Heumarkt广场上有溜冰场，还有给孩子的小摩天轮和老式旋转木马。Alter Markt部分12月23日结束，Heumarkt开到1月10日。"
+  - id: neumarkt
+    name: Weihnachtsmarkt auf dem Neumarkt
+    from: 2026-11-16
+    to: 2026-12-23
+    hours: "So–Do 11–21, Fr–Sa 11–22 Uhr; Totensonntag (22.11.) zu"
+    street: Neumarkt
+    geo: { lat: 50.93604, lon: 6.94766 }
+    district: Altstadt-Süd
+    kids: [fairy_tale, santa, stage]
+    free: true
+    website: https://www.koeln.de/weihnachten/weihnachtsmaerkte-koeln/weihnachtsmarkt-neumarkt/
+    note:
+      de: "Märchenfiguren zum Treffen (Elsa und Anna, Hänneschen-Figuren), Kinderschminken, Zauberei und Nikolausbesuch."
+      en: "Fairy-tale characters to meet, face painting, magic shows and visits from St. Nicholas."
+      zh: "可以见到童话人物，还有儿童画脸、魔术表演和圣尼古拉斯来访。"
+  - id: rudolfplatz
+    name: Nikolausdorf auf dem Rudolfplatz
+    from: 2026-11-16
+    to: 2026-12-23
+    hours: "So–Do 11–21, Fr–Sa 11–22 Uhr; Totensonntag (22.11.) zu"
+    street: Rudolfplatz
+    geo: { lat: 50.93660, lon: 6.94060 }
+    district: Altstadt-Süd
+    kids: [crafts, nativity, santa]
+    free: true
+    website: https://www.koeln.de/weihnachten/weihnachtsmaerkte-koeln/weihnachtsmarkt-rudolfplatz/
+    note:
+      de: "Besonders familienfreundlich: Im beheizten Nikolaushaus basteln und malen Kinder kostenlos mit Betreuern."
+      en: "Especially family-friendly: in the heated St. Nicholas house children do free crafts and painting with helpers."
+      zh: "特别适合家庭：在有暖气的圣尼古拉斯小屋里，孩子们可以在工作人员陪同下免费做手工和画画。"
+  - id: hafen
+    name: Hafen-Weihnachtsmarkt am Rheinauhafen
+    from: 2026-11-13
+    to: 2026-12-23
+    hours: "Täglich 11–21, Fr–Sa 11–22 Uhr"
+    street: Am Schokoladenmuseum
+    geo: { lat: 50.93197, lon: 6.96387 }
+    district: Altstadt-Süd
+    kids: [carousel, train, rides, stage]
+    free: true
+    website: https://www.koeln.de/weihnachten/weihnachtsmaerkte-koeln/hafen-weihnachtsmarkt/
+    note:
+      de: "Kinderkarussell, Kinderbimmelbahn und ein 50 Meter hohes Riesenrad; dienstags Kinderschminken und Schnitzeljagd. Danach Neujahrsmarkt bis 3.1."
+      en: "Children's carousel, a little train and a 50-metre Ferris wheel; face painting and a treasure hunt on Tuesdays. A New Year market follows until 3 Jan."
+      zh: "有儿童旋转木马、儿童小火车和50米高的摩天轮；每周二有画脸和寻宝游戏。之后的新年市场开到1月3日。"
+  - id: stadtgarten
+    name: Weihnachtsmarkt im Stadtgarten
+    from: 2026-11-13
+    to: 2026-12-23
+    hours: "Mo–Fr 16–21:30, Sa–So 12–21:30 Uhr"
+    street: Venloer Str. 40
+    geo: { lat: 50.94299, lon: 6.93516 }
+    district: Neustadt-Nord
+    kids: [stage]
+    free: true
+    website: https://www.koeln.de/weihnachten/weihnachtsmaerkte-koeln/weihnachtsmarkt-stadtgarten/
+    note:
+      de: "Mit einem Theater- und Kulturprogramm für Kinder."
+      en: "With a theatre and culture programme for children."
+      zh: "有儿童戏剧和文化节目。"
+  - id: koeln-west
+    name: Weihnachtsmarkt Köln-West
+    from: 2026-11-19
+    to: 2026-12-23
+    hours: "Mo–Fr 14–22:30, Sa–So 12–22:30 Uhr"
+    street: Venloer Straße 769
+    geo: { lat: 50.94811, lon: 6.92086 }
+    district: Ehrenfeld
+    kids: [carousel, ice_rink, stage]
+    free: true
+    website: https://www.koeln.de/weihnachten/weihnachtsmaerkte-koeln/weihnachtsmarkt-koeln-west/
+    note:
+      de: "Zum Teil überdachte und beheizte Winterwelt mit Kinderkarussell, dazu eine Eisbahn."
+      en: "A partly covered, heated winter hall with a children's carousel, plus an ice rink."
+      zh: "部分有顶棚和暖气的冬日市场，有儿童旋转木马和溜冰场。"
+  - id: chlodwigplatz
+    name: Weihnachtsmarkt am Chlodwigplatz
+    from: 2026-11-19
+    to: 2026-12-23
+    hours: "Täglich 12–22, Fr–Sa 12–23 Uhr; Totensonntag (22.11.) zu"
+    street: Chlodwigplatz
+    geo: { lat: 50.92156, lon: 6.95948 }
+    district: Neustadt-Süd
+    free: true
+    website: https://www.koeln.de/weihnachten/weihnachtsmaerkte-koeln/weihnachtsmarkt-chlodwigplatz/
+  - id: eigelstein
+    name: Winterzauber Eigelstein
+    from: 2026-12-02
+    to: 2026-12-06
+    hours: "Mi–Fr 15–22, Sa 14–22, So 14–21 Uhr"
+    street: Eigelsteintorburg
+    geo: { lat: 50.94931, lon: 6.95692 }
+    district: Altstadt-Nord
+    kids: [santa]
+    free: true
+    website: https://www.koeln.de/weihnachten/weihnachtsmaerkte-koeln/weihnachtsmarkt-eigelstein/
+    note:
+      de: "Täglich um 16 Uhr kommt der Nikolaus."
+      en: "St. Nicholas comes every day at 4 pm."
+      zh: "圣尼古拉斯每天下午4点来。"
+  - id: wachsfabrik
+    name: Weihnachtsmarkt in der Wachsfabrik
+    from: 2026-12-05
+    to: 2026-12-20
+    hours: "Nur Wochenenden 5./6., 12./13. und 19./20.12.: Sa 16–22, So 14–20 Uhr"
+    street: Industriestraße 170
+    geo: { lat: 50.87165, lon: 6.99910 }
+    district: Rodenkirchen
+    kids: [crafts, stage]
+    website: https://www.koeln.de/weihnachten/weihnachtsmaerkte-koeln/weihnachtsmarkt-in-der-wachsfabrik/
+    note:
+      de: "Mit Mitmach-Workshops, Familientheater und Märchenfiguren."
+      en: "With hands-on workshops, family theatre and fairy-tale characters."
+      zh: "有动手工作坊、家庭剧场和童话人物。"
+  - id: volksgarten
+    name: Kleinster Weihnachtsmarkt der Stadt
+    from: 2026-11-18
+    to: 2026-12-19
+    hours: "Mo–Fr 17–22, Sa 15–22, So 15–20 Uhr"
+    street: Volksgartenstraße 27
+    geo: { lat: 50.92246, lon: 6.94352 }
+    district: Neustadt-Süd
+    free: true
+    website: https://www.koeln.de/weihnachten/weihnachtsmaerkte-koeln/kleinster-weihnachtsmarkt-der-stadt/
+  - id: mediapark
+    name: Santas Weihnachtsmarkt im MediaPark
+    from: 2026-11-19
+    to: 2026-12-23
+    hours: "Mo–Fr 12–22, So 12–21 Uhr"
+    street: MediaPark
+    geo: { lat: 50.94807, lon: 6.94465 }
+    district: Neustadt-Nord
+    free: true
+    website: https://www.koeln.de/weihnachten/weihnachtsmaerkte-koeln/santas-weihnachtsmarkt-im-mediapark/
+  - id: heavenue
+    name: Heavenue Cologne
+    from: 2026-11-16
+    to: 2026-12-23
+    hours: "Mo–Do 14–22, Fr–Sa 12–23, So 12–22 Uhr; Totensonntag (22.11.) zu"
+    street: Friesenplatz/Ecke Limburger Straße
+    geo: { lat: 50.93980, lon: 6.94000 }
+    district: Neustadt-Nord
+    kids: [stage]
+    free: true
+    website: https://www.koeln.de/weihnachten/weihnachtsmaerkte-koeln/heavenue-cologne/

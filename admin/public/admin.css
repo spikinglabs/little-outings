@@ -172,3 +172,8 @@ dialog label { display: grid; gap: 2px; font-size: 13px; color: var(--ink-soft);
 .weekend-picks input { width: 100%; }
 .weekend-acts { display: flex; flex-wrap: wrap; gap: 8px; }
 .weekend-acts select, .weekend-town [data-add] { max-width: 100%; }
+.season-draft { border-top: 1px solid var(--line); padding: 10px 0; }
+.season-draft summary { cursor: pointer; }
+.season-rows { list-style: none; padding: 0; margin: 8px 0 12px; display: grid; gap: 8px; }
+.season-row { display: flex; gap: 10px; align-items: flex-start; }
+.season-row input { margin-top: 4px; }

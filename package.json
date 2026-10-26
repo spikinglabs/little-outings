@@ -11,6 +11,7 @@
     "build:demo": "DEMO=1 astro build && node scripts/pack-pages.mjs",
     "import:cityklub": "node scripts/import-cityklub.mjs",
     "import:places": "node scripts/import-places.mjs",
+    "import:toilets": "node scripts/import-toilets.mjs",
     "geocode:places": "node scripts/geocode-places.mjs",
     "tally:inbox": "node scripts/tally-inbox.mjs",
     "translate": "node scripts/translate.mjs",
@@ -19,6 +20,8 @@
     "weekend": "node scripts/weekend-edition.mjs",
     "post:weekend": "node scripts/post-weekend.mjs",
     "fetch:holidays": "node scripts/fetch-holidays.mjs",
+    "season:lists": "node scripts/season-lists.mjs draft",
+    "season:pins": "node scripts/season-lists.mjs geocode",
     "test": "node --test tests/*.test.mjs tests/*.test.ts"
   },
   "author": "",

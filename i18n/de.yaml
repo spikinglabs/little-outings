@@ -17,19 +17,43 @@ townPh: "Ort eintippen"
 townNone: "Kein Ort mit diesem Namen"
 search: Suche
 searchPh: Hof, Café, Spielplatz oder Fest suchen
-filters: { farm: "🚜 Bauernhof", rain: "☂ Bei Regen", free: Kostenlos, animals: Mit Tieren, changing: Wickeltisch, nogerman: Ohne Deutsch, martin: "🏮 St. Martin", radius: Umkreis }
-# St. Martin season (src/lib/martin.ts): the Discover chip and its "add yours" line, which opens the normal Add event form.
-martin:
-  add: "Euer Martinszug fehlt?"
+filters: { farm: "🚜 Bauernhof", rain: "☂ Bei Regen", free: Kostenlos, animals: Mit Tieren, changing: Wickeltisch, nogerman: Ohne Deutsch, radius: Umkreis }
+order: { label: Reihenfolge, mixed: Gemischt, soonest: Bald zuerst, nearest: Nah zuerst }
+# Season chips and pages (content/seasons.yaml, src/lib/seasons.ts). A season's own texts there win.
+season:
+  add: "Etwas fehlt?"
   addLink: In einer Minute eintragen
-  share: Link für die Kita-Gruppe teilen
-  shareText: "Wann und wo ist euer Martinszug? Tragt ihn hier in einer Minute ein, dann finden ihn alle Familien im Viertel: {url}"
+  share: Link teilen
+  shareText: "Kennt ihr etwas, das hier noch fehlt? In einer Minute eingetragen, dann finden es alle Familien: {url}"
   copied: Link kopiert
-  open: "Viele Martinszüge sind für die Familien einer Kita, Schule oder Gemeinde gedacht. Fragt beim Veranstalter nach, ob auch andere Familien mitgehen können."
+  dates: "{from} bis {to}"
+  hours: Öffnungszeiten
+  website: Website
+  lastSeason: "Letzte Saison ({year})"
+  offSeason: "Die nächste Saison ist noch nicht eingetragen. Hier stehen die Termine vom letzten Mal, damit ihr planen könnt."
+  missing: "Fehlt ein Markt oder stimmt etwas nicht?"
+  missingLink: Schreibt es uns
+  towns: Städte
+  checked: "Geprüft am {date} · Quelle: {source}"
+  showChip: "Alle auf der Karte und in der Liste"
+kids:
+  label: Für Kinder
+  carousel: Kinderkarussell
+  rides: Fahrgeschäfte
+  ice_rink: Eisbahn
+  fairy_tale: Märchen
+  crafts: Basteln und Backen
+  nativity: Krippe
+  animals: Tiere
+  train: Kindereisenbahn
+  stage: Bühne und Puppentheater
+  santa: Nikolaus
 tip: "Unser Tipp {when}"
 only: "Nur {when}"
 always: Geht immer
 ideas: Ideen in der Nähe
+runsUntil: "bis {date}"
+lastChance: Letzte Chance
 ideasKinds: Was für ein Ausflug
 kindEvents: Veranstaltungen
 eventTypes: Art der Veranstaltung
@@ -63,6 +87,22 @@ approxKm: "ca. {d} km"
 nearby: ganz in der Nähe
 thePlace: Der Ort
 forFamilies: Für Familien
+toiletsNear:
+  title: Toilette, Wickeln, Wasser in der Nähe
+  toilets: Öffentliche Toilette
+  changing: Wickeltisch
+  water: Trinkwasser
+  away: "{n} m"
+  table: mit Wickeltisch
+  tableIn: { wheelchair_toilet: "in der barrierefreien Toilette", female_toilet: in der Damentoilette, male_toilet: in der Herrentoilette, unisex_toilet: in der Unisex-Toilette, dedicated_room: im Wickelraum, room: in einem eigenen Raum, sales_area: im Laden }
+  free: kostenlos
+  paid: kostet etwas
+  wheelchair: barrierefrei
+  customers: für Gäste
+  source: "Aus OpenStreetMap, im Umkreis von {n} m. Öffnungszeiten können abweichen."
+  route: Weg
+  mapShow: Toiletten zeigen
+  mapHide: Toiletten ausblenden
 unknownNote: "? heißt: wissen wir noch nicht. Wart ihr da? Tippt drauf."
 confirmedBy: "{n}× bestätigt"
 upcomingHere: Hier demnächst

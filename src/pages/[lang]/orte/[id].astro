@@ -15,6 +15,7 @@ import { FEATURE_ICON, UI_ICON, svg } from "../../../lib/icons";
 import { askOnPage } from "../../../lib/features";
 import type { Place } from "../../../lib/types";
 import { placeLd } from "../../../lib/seo";
+import { NEAR_M, nearby, type Nearby } from "../../../lib/toilets";
 
 export async function getStaticPaths() {
   const { places } = await getData();
@@ -44,6 +45,20 @@ const facs = FEATURES.map((f) => ({ f, ...(p.facilities[f] ?? { status: "unknown
   .filter((x) => x.status !== "unknown" || ask.includes(x.f))
   .sort((a, b) => order[a.status] - order[b.status] || rank(a.f) - rank(b.f));
 const map = mapLink(p);
+// The nearest public toilet, changing table and drinking water (OpenStreetMap), only for an exact point.
+const near = p.geo.precision === "exact" ? nearby(p.geo.lat, p.geo.lon) : [];
+const nearLabel = (x: Nearby) => (x.kind === "toilets" ? t("toiletsNear.toilets") : x.kind === "water" ? t("toiletsNear.water") : t("toiletsNear.changing"));
+const nearNotes = (x: Nearby) => [
+  x.name && x.kind !== "toilets" ? x.name : "",
+  x.kind === "toilets" && x.changing_table ? t("toiletsNear.table") : "",
+  x.kind !== "water" && x.changing_table_location ? t(`toiletsNear.tableIn.${x.changing_table_location}`) : "",
+  x.free === true ? t("toiletsNear.free") : x.free === false ? t("toiletsNear.paid") : "",
+  x.wheelchair === "yes" ? t("toiletsNear.wheelchair") : "",
+  x.customers_only ? t("toiletsNear.customers") : "",
+  x.hours ?? "",
+].filter(Boolean).join(" · ");
+const nearIcon = (x: Nearby) => (x.kind === "water" ? UI_ICON.water : x.kind === "toilets" ? FEATURE_ICON.toilets : FEATURE_ICON.changing_table);
+const walkTo = (x: Nearby) => `https://www.google.com/maps/dir/?api=1&travelmode=walking&destination=${x.lat.toFixed(5)},${x.lon.toFixed(5)}`;
 // Search snippet: what it is, where, and what parents can count on there (changing table, sandpit …).
 const has = facs.filter((x) => x.status === "yes").map((x) => t(`features.${x.f}`));
 const description = [
@@ -97,6 +112,22 @@ const ld = placeLd(p, { url: `${site}${Astro.url.pathname}`, name: nameOf(p, lan
       })}
     </ul>
     <p class="small">{t("unknownNote")}</p>
+
+    {near.length > 0 && (
+      <>
+        <h2>{t("toiletsNear.title")}</h2>
+        <ul class="near">
+          {near.map((x) => (
+            <li>
+              <span class="dot" set:html={svg(nearIcon(x))} />
+              <span><b>{nearLabel(x)}</b> · {t("toiletsNear.away", { n: x.m })}{nearNotes(x) && <small>{nearNotes(x)}</small>}</span>
+              <a href={walkTo(x)} target="_blank" rel="noopener" data-count="maps">{t("toiletsNear.route")} ↗</a>
+            </li>
+          ))}
+        </ul>
+        <p class="small">{t("toiletsNear.source", { n: NEAR_M })}</p>
+      </>
+    )}
 
     {p.visits && p.visits.count > 0 && (
       <p class="went">

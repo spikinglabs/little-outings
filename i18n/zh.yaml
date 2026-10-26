@@ -17,19 +17,43 @@ townPh: "输入城镇名"
 townNone: "没有找到这个城镇"
 search: 搜索
 searchPh: 搜索农场、咖啡馆、游乐场或活动
-filters: { farm: "🚜 农场", rain: "☂ 下雨也能去", free: 免费, animals: 有动物, changing: 尿布台, nogerman: "💬 不懂德语也能玩", martin: "🏮 圣马丁灯笼游行", radius: 范围 }
-# St. Martin season (src/lib/martin.ts): the Discover chip and its "add yours" line, which opens the normal Add event form.
-martin:
-  add: 没找到你们的灯笼游行？
+filters: { farm: "🚜 农场", rain: "☂ 下雨也能去", free: 免费, animals: 有动物, changing: 尿布台, nogerman: "💬 不懂德语也能玩", radius: 范围 }
+order: { label: 排序, mixed: 随机, soonest: 时间最近, nearest: 距离最近 }
+# Season chips and pages (content/seasons.yaml, src/lib/seasons.ts). A season's own texts there win.
+season:
+  add: "还缺了什么？"
   addLink: 一分钟添加
-  share: 把链接分享到幼儿园群
-  shareText: "你们的圣马丁灯笼游行在什么时间、什么地方？一分钟就能在这里添加，附近的家庭都能找到：{url}"
+  share: 分享链接
+  shareText: "你知道这里还缺什么吗？一分钟就能添加，所有家庭都能找到：{url}"
   copied: 链接已复制
-  open: "很多灯笼游行只面向某个幼儿园、学校或教区的家庭。出发前请向主办方确认其他家庭能否参加。"
+  dates: "{from}至{to}"
+  hours: 开放时间
+  website: 网站
+  lastSeason: "上一季（{year}）"
+  offSeason: "下一季的日期还没有登记。这里是上一季的日期，方便你提前计划。"
+  missing: "缺了哪个市场，或者信息有误？"
+  missingLink: 告诉我们
+  towns: 城市
+  checked: "核对于{date} · 来源：{source}"
+  showChip: "在地图和列表中查看全部"
+kids:
+  label: 适合孩子
+  carousel: 儿童旋转木马
+  rides: 游乐设施
+  ice_rink: 溜冰场
+  fairy_tale: 童话主题
+  crafts: 手工和烘焙
+  nativity: 耶稣诞生场景
+  animals: 小动物
+  train: 儿童小火车
+  stage: 舞台和木偶剧
+  santa: 圣尼古拉斯
 tip: "{when}推荐"
 only: "仅限{when}"
 always: 随时可去
 ideas: 附近的好去处
+runsUntil: "至{date}"
+lastChance: 即将结束
 ideasKinds: 出游类型
 kindEvents: 活动
 eventTypes: 活动类型
@@ -63,6 +87,22 @@ approxKm: "约 {d} 公里"
 nearby: 就在附近
 thePlace: 活动地点
 forFamilies: 亲子设施
+toiletsNear:
+  title: 附近的厕所和尿布台
+  toilets: 公共厕所
+  changing: 尿布台
+  water: 饮用水
+  away: "{n} 米"
+  table: 有尿布台
+  tableIn: { wheelchair_toilet: 在无障碍厕所内, female_toilet: 在女厕内, male_toilet: 在男厕内, unisex_toilet: 在无性别厕所内, dedicated_room: 在母婴室, room: 在单独房间, sales_area: 在店内 }
+  free: 免费
+  paid: 收费
+  wheelchair: 无障碍
+  customers: 限顾客
+  source: "来自 OpenStreetMap，{n} 米范围内。开放时间可能有变。"
+  route: 路线
+  mapShow: 显示厕所
+  mapHide: 隐藏厕所
 unknownNote: "“?” 表示暂不确定。去过的话，点一下告诉我们。"
 confirmedBy: "{n} 位家长确认"
 upcomingHere: 近期活动
