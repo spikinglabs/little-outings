@@ -57,6 +57,8 @@ export interface Place {
   note?: Text;
   trust: Trust;
   website?: string;
+  /** Seasons whose `kinds` include this place's kind (content/seasons.yaml), e.g. "winter" for an ice rink. */
+  seasons?: string[];
 }
 
 export interface Event {

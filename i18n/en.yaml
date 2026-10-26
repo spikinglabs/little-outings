@@ -178,7 +178,7 @@ tasksAllTowns: "All towns"
 tasksLater: "Later"
 tasksCount: { one: "{n} outing", other: "{n} outings" }
 tasksNone: "Nothing matches. Try another word or show everything."
-kinds: { playground: Playground, indoor: Indoor play, park: "Parks & gardens", zoo: "Zoos & animals", farm: Farm, pool: "Pools & lakes", museum: Museum, cafe: Family café, fun: "Theme & adventure parks" }
+kinds: { playground: Playground, indoor: Indoor play, park: "Parks & gardens", zoo: "Zoos & animals", farm: Farm, pool: "Pools & lakes", museum: Museum, cafe: Family café, fun: "Theme & adventure parks", winter: "Ice rinks & sledging" }
 features: { playground: Playground, changing_table: Changing table, highchairs: High chairs, kids_menu: "Kids' menu", toys: "Toys & little gifts", animals: Animals, stroller_friendly: Pram-friendly, nursing_room: Nursing corner, indoor_play: Indoor play area, toilets: Toilets, farm_shop: Farm shop, parking: Parking, sandpit: Sandpit, water_play: Water play, swings: Swings, slides: Slides, climbing: Climbing, toddler_area: Toddler area, shade: Shade, benches: Benches, fenced: Fenced in }
 tags: { fest: Festival, animals: Animals, market: Market, diy: Hands-on, season: Seasonal, reading: Story time, music: Music, outside: Outdoors, stage: "Theatre & film", sport: "Sport & movement", tour: "Museums & tours", parents: "For parents", learn: "Courses & languages", other: Other }
 empty: Nothing listed here yet. Know something? Add it under Contribute.

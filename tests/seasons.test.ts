@@ -64,3 +64,38 @@ test("a town page exists only for seasons with a page and a file with items", ()
   const pages = seasonPages({ seasons: s, fixtures: [f("advent", "koeln", 2), f("advent", "bonn", 0), f("kirmes", "hamburg", 1)] });
   assert.deepEqual(pages.map((p) => p.file.slug), ["koeln"]);
 });
+
+test("Karneval, bazaars, Easter, autumn, winter and the kids' days by title", () => {
+  const has = (title: string, id: string) => seasonsOf(title, seasons).includes(id);
+  for (const title of ["Kindersitzung der KG Rote Funken", "Kinderkarneval im Bürgerhaus", "Veedelszoch Nippes", "Kinderfasching im Gasteig", "Fastnachtsumzug Klaa Paris"])
+    assert.ok(has(title, "karneval"), title);
+  for (const title of ["Kinderbasar der Kita Regenbogen", "Kinderkleiderbasar", "Flohmarkt rund ums Kind", "Spielzeugbörse"]) assert.ok(has(title, "basar"), title);
+  assert.ok(!has("Weihnachtsbasar im Seniorenheim", "basar"));
+  for (const title of ["Ostereiersuche im Zoo", "Ostermarkt auf dem Hof", "Ostern auf dem Bauernhof"]) assert.ok(has(title, "ostern"), title);
+  assert.ok(!has("Osterath: Spielplatzfest", "ostern"));
+  for (const title of ["Kürbisschnitzen für Kinder", "Halloween-Party im Kindermuseum", "Apfelfest auf dem Hof", "Drachenfest am Rhein"]) assert.ok(has(title, "herbst"), title);
+  for (const title of ["Eislaufen im Eisstadion", "Kindersilvester im Zoo"]) assert.ok(has(title, "winter"), title);
+  assert.ok(has("Weltkindertagsfest am Potsdamer Platz", "weltkindertag"));
+  assert.ok(has("Türöffner-Tag mit der Maus", "maus"));
+  assert.ok(has("Maibaumaufstellen in Haidhausen", "maifest"));
+  assert.ok(!has("Tanz in den Mai", "maifest"));
+  assert.ok(has("Tag des offenen Denkmals: Burg für Kinder", "denkmaltag"));
+});
+
+test("Karneval and winter windows, pull months and place kinds", () => {
+  const karneval = seasons.find((s) => s.id === "karneval")!;
+  assert.equal(inWindow(karneval.chip, "2027-02-08"), true);
+  assert.equal(inWindow(karneval.chip, "2027-02-11"), false);
+  assert.ok(seasonPages({ seasons, fixtures }).some((p) => p.season.id === "karneval" && p.file.slug === "koeln"));
+  assert.deepEqual(karneval.pull, [12, 1]);
+  assert.deepEqual(seasons.find((s) => s.id === "winter")!.kinds, ["winter"]);
+  assert.throws(() => parseSeasons([{ id: "x", emoji: "x", label: "x", sources: [{ town: "koeln", url: "https://x.de" }] }]), /pull/);
+  assert.throws(() => parseSeasons([{ id: "x", emoji: "x", label: "x", pull: [13] }]), /pull/);
+});
+
+test("fixtures take their season's tags", () => {
+  const file = fixtures.find((f) => f.season === "karneval" && f.slug === "koeln")!;
+  const karneval = seasons.find((s) => s.id === "karneval")!;
+  assert.deepEqual(fixtureEvent(file, file.items[0], karneval.fixture_tags).tags, ["fest", "outside", "season"]);
+  assert.deepEqual(fixtureEvent(file, file.items[0]).tags, ["market", "season"]);
+});
