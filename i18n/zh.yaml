@@ -268,6 +268,9 @@ visit:
 goodFor: { toddlers: 幼儿, bigKids: 大孩子, rainy: 雨天, longVisit: 玩一下午, quickHour: 玩一小时, friends: 和朋友见面 }
 tipTopic: { bring: 要带…, bestTime: 最佳时间…, parking: 停车…, ages: 最适合年龄…, other: 其他 }
 share:
+  page: 分享
+  pageCopied: 链接已复制
+  via: "来自小出游 Little Outings"
   button: 分享我的清单
   copied: 链接已复制。可以在另一部手机上打开，或发给一起计划的人。
   shared: { one: "有人和你分享了 1 个去处。", other: "有人和你分享了 {n} 个去处。" }

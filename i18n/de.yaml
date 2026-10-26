@@ -268,6 +268,9 @@ visit:
 goodFor: { toddlers: Kleinkinder, bigKids: Größere Kinder, rainy: Regentage, longVisit: Einen ganzen Nachmittag, quickHour: Eine kurze Stunde, friends: Treffen mit Freunden }
 tipTopic: { bring: Mitbringen…, bestTime: Beste Zeit…, parking: Parken…, ages: Am besten für…, other: Sonstiges }
 share:
+  page: Teilen
+  pageCopied: Link kopiert
+  via: "gefunden auf Little Outings"
   button: Liste teilen
   copied: Link kopiert. Öffnet ihn auf einem anderen Handy oder schickt ihn an jemanden, mit dem ihr plant.
   shared: { one: "1 Ausflug wurde mit euch geteilt.", other: "{n} Ausflüge wurden mit euch geteilt." }
