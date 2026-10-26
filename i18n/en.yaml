@@ -334,7 +334,7 @@ about:
   intro: Where Little Outings gets its information, and where your answers and profile are kept.
   events: { h: Events, p: "Events come from the public calendars of cities, libraries, museums and farms. We use only facts such as title, date, time and place, with a link to the original page. Check times and prices there." }
   places: { h: Places, p: "Playgrounds, pools, museums, farms and other places come from OpenStreetMap (© OpenStreetMap contributors, ODbL), refreshed weekly. Once parents add to a place, it shows how many answers they gave." }
-  translate: { h: Translations and labels, p: "Chinese names are machine-translated, with the German name underneath so you can match posters and signs. “Do you need German?” starts as a guess from the title, marked with “?”. Once parents tap an answer, the most common answer wins." }
+  translate: { h: Translations and labels, p: "Event titles in English and Chinese, and Chinese place names, are machine-translated, with the German name underneath so you can match posters and signs. “Do you need German?” starts as a guess from the title, marked with “?”. Once parents tap an answer, the most common answer wins." }
   taps: { h: Your taps, p: "Taps on facilities, “We went” and “Do you need German?” are counted anonymously on Cloudflare. Each browser has a random id, so one question counts once and changing your answer replaces the old one. IP addresses are kept only as a hash, to stop vote flooding." }
   writing: { h: What you write, p: "Tips, reports and suggested places go to us for review first and only appear once approved. An answer to “Still missing” (opening hours, time, price) goes live once two parents give the same answer, or once we've checked it. Please don't include names, phone numbers or other personal details." }
   ai: { h: Use it in your AI assistant, p: "Ask Claude, ChatGPT or another assistant for ideas from Little Outings: add {url} as a custom connector (in Claude: Settings → Connectors; in ChatGPT: Settings → Apps, developer mode). No login needed. Your assistant can then search events and places, and send a tip or a new event for you; those go to us for review like everything else. Some assistants need a paid plan for custom connectors." }
@@ -442,3 +442,23 @@ legal:
   map: { h: Map, p: "Map tiles load from OpenStreetMap (OpenStreetMap Foundation, United Kingdom, covered by an EU adequacy decision), which receives your IP address to send the tiles. Legal basis: Art. 6 (1) (f) GDPR. Your location is only used on your phone if you tap the locate button, and is never sent to us." }
   fonts: { h: Fonts, p: "All fonts are served from our own site. No font service receives your data." }
   rights: { h: Your rights, p: "You have the right to access, correction, deletion, restriction of processing, data portability and to object to processing based on legitimate interests (Art. 15–21 GDPR). Most of this you can do yourself under Mine › Profile and sync; otherwise email us. You can also complain to a data protection supervisory authority." }
+feed:
+  pick: "Do you run events for families? Send us your calendar →"
+  title: Send us your calendar
+  sub: "Museums, libraries, theatres, zoos, family centres: if your programme has a calendar link (iCal, ending in .ics, the kind Google Calendar or Outlook can subscribe to), send it here. We check it once, then your events appear on Little Outings by themselves, every day."
+  url: Calendar link
+  urlHelp: "Often called “Subscribe”, “iCal”, “Add to calendar” or “Export” on your events page. webcal:// links work too."
+  check: Check the link
+  found: "Works: {n} upcoming events. The next ones:"
+  noUpcoming: "This is a calendar, but it has no upcoming events. Is it the right one?"
+  err_badUrl: "That doesn't look like a web address. It should start with https:// or webcal://."
+  err_unreachable: "We couldn't open that link. Is it public, without a login?"
+  err_tooBig: "That calendar is too large to preview here, but you can still send it."
+  err_notCalendar: "That link opens a web page, not a calendar file. Look for a link ending in .ics."
+  org: Your organisation
+  town: Town
+  contact: Email (optional)
+  contactHelp: "Only for questions about your calendar. Never shown on the site."
+  note: Anything we should know?
+  notePh: "Which events are for children, ages, where they take place …"
+  thanks: "Thank you! We'll look at your calendar and add it soon. Changes you make to it later show up here by themselves."

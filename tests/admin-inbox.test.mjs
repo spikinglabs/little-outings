@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { reviewItem, sitePages } from "../admin/lib/inbox.js";
+import { feedSource, reviewItem, sitePages } from "../admin/lib/inbox.js";
 import { onRequestGet as list, onRequestPost as decide } from "../admin/functions/api/inbox.js";
 
 const issue = (number, label, lines, extra = {}) => ({
@@ -161,4 +161,15 @@ test("a reported invite links to its page in the list", async () => {
     assert.deepEqual(item.actions, ["remove", "reject"]);
     assert.deepEqual(item.page, { name: "A family's invite", url: "https://site.example/m/k7q2xpab3c" });
   } finally { f.restore(); }
+});
+
+test("a calendar feed becomes a cityklub ical source in the town's folder", () => {
+  const cologne = feedSource(7, { url: "https://bib.example/cal.ics", org: "Stadtbibliothek Köln", town: "Köln", check: "3 upcoming" });
+  assert.equal(cologne.path, "config/sources/de/cologne/stadtbibliothek-koeln.yaml");
+  assert.match(cologne.text, /adapter: ical/);
+  assert.match(cologne.text, /endpoint: "https:\/\/bib.example\/cal.ics"/);
+  const munich = feedSource(8, { url: "https://m.example/c.ics", org: 'Theater "x"\nadapter: evil', town: "München" });
+  assert.match(munich.path, /^config\/munich-sources\/de\/muenchen\/muenchen-theater-x/);
+  assert.doesNotMatch(munich.text, /^adapter: evil/m);
+  assert.equal(reviewItem(issue(9, "new-feed", ["kind: feed", 'url: "https://m.example/c.ics"'])).kind, "new-feed");
 });

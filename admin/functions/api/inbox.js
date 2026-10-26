@@ -1,5 +1,5 @@
 import { AUTO_GAPS, agreement } from "../../lib/answers.js";
-import { PUBLISHED, actionsOf, eventFile, github, meetupOf, placeFile, putSiteFile, reviewItem, sitePages, waiting } from "../../lib/inbox.js";
+import { PUBLISHED, actionsOf, eventFile, feedSource, github, meetupOf, placeFile, putSiteFile, reviewItem, sitePages, waiting } from "../../lib/inbox.js";
 import { json } from "../../lib/store.js";
 
 // Lists the tips, reports, suggestions and unsettled gap answers waiting for review, and approves or rejects one.
@@ -35,6 +35,7 @@ export async function onRequestGet({ env }) {
     const invite = meetupOf(item);
     if (invite) item.page = { name: "A family's invite", url: `${site}/m/${invite}` };
     else if (item.data.item) item.page = pages.get(item.data.item) || null;
+    if (item.kind === "new-feed") item.source = feedSource(item.number, item.data);
   }
   return json({ items });
 }

@@ -10,6 +10,8 @@ import { AUTO_GAPS } from "./answers.js";
 //   done    → closes a report as completed, once you've fixed what it was about
 //            (also an answer about where something is or whether it's still on, once you've fixed it)
 //   reject  → closes as "not planned", so the tally ignores it for good
+//   new-feed → an organiser's calendar link. Nothing is published: the panel shows a ready source file
+//            for spikinglabs/cityklub-event-data (feedSource); add it there, then mark the feed done.
 //   remove  → a report about a family's invite (item meetup-<id>): deletes the invite on the site
 //            (DELETE /api/meetups/<id> with MEETUP_ADMIN_KEY) and closes the report as completed
 
@@ -19,6 +21,7 @@ export const KINDS = {
   "new-event": { label: "New event", actions: ["approve", "reject"] },
   "new-place": { label: "New place", actions: ["approve", "reject"] },
   answer: { label: "Answer", actions: ["approve", "reject"] },
+  "new-feed": { label: "Calendar feed", actions: ["done", "reject"] },
 };
 
 /** The invite a report is about ("meetup-<id>"), or null. */
@@ -187,4 +190,70 @@ export function sitePages(site, places = [], events = []) {
   for (const p of places) pages.set(p.id, { name: p.name, url: `${site}/de/orte/${p.id}/` });
   for (const e of events) pages.set(e.id, { name: textOf(e.title), url: `${site}/de/termine/${e.id}/` });
   return pages;
+}
+
+// Where a city's sources live in cityklub-event-data (one folder and app config per city outside NRW).
+const CITY_SOURCES = {
+  Berlin: ["berlin", "config/berlin-sources/de/berlin", "Berlin"],
+  "München": ["muenchen", "config/munich-sources/de/muenchen", "Bayern"],
+  "Frankfurt am Main": ["frankfurt", "config/frankfurt-sources/de/frankfurt", "Hessen"],
+  Hamburg: ["hamburg", "config/hamburg-sources/de/hamburg", "Hamburg"],
+  // NRW folders are under config/sources/de/<slug>, except Cologne's English name.
+  "Köln": ["", "config/sources/de/cologne", "Nordrhein-Westfalen"],
+  "Düsseldorf": ["duesseldorf", "config/duesseldorf-sources/de/duesseldorf", "Nordrhein-Westfalen"],
+};
+
+/** "Stadtbibliothek Köln" → "stadtbibliothek-koeln". */
+export function slug(text) {
+  return String(text ?? "").toLowerCase().replace(/ä/g, "ae").replace(/ö/g, "oe").replace(/ü/g, "ue").replace(/ß/g, "ss")
+    .normalize("NFKD").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 60);
+}
+
+/**
+ * A cityklub-event-data source file for an organiser's calendar feed (its `ical` adapter), with the same
+ * private-only rights as other new sources: the organiser sent the link, but redistribution stays off
+ * until someone checks the terms. Values are JSON-quoted, so nothing an organiser typed changes the YAML.
+ */
+export function feedSource(number, d) {
+  const town = String(d?.town ?? "").trim();
+  const [prefix, dir, region] = CITY_SOURCES[town] ?? ["", `config/sources/de/${slug(town) || "unknown"}`, "Nordrhein-Westfalen"];
+  const id = [prefix, slug(d?.org) || `feed-${number}`].filter(Boolean).join("-");
+  const lines = [
+    "schema_version: 1",
+    `id: ${q(id)}`,
+    `name: ${q(d?.org)}`,
+    "desired: true",
+    "enabled: true",
+    "adapter: ical",
+    `endpoint: ${q(d?.url)}`,
+    "homepage: null",
+    "schedule: null",
+    "options:",
+    "  timezone: Europe/Berlin",
+    `  venue: ${q(d?.org)}`,
+    "coverage:",
+    "  country: DE",
+    `  region: ${q(region)}`,
+    `  city: ${q(town)}`,
+    "  categories: [family]",
+    "rights:",
+    "  review_status: pending",
+    "  collection_basis: provider_submitted",
+    "  copyright_class: unknown",
+    "  database_rights: unknown",
+    "  effective_tier: internal_only",
+    "  allowed_actions:",
+    "    discover_urls: true",
+    "    private_store: true",
+    "    normalize: true",
+    "    redistribute_facts: false",
+    "    redistribute_text: false",
+    "    redistribute_images: false",
+    "  public_fields: []",
+    `  notes: ${q(`Calendar feed sent by the organiser through Little Outings (inbox #${number}). Check: ${d?.checked ?? "not run"}.`)}`,
+    "retention:",
+    "  raw_days: 30",
+    "  normalized_days: 730",
+  ];
+  return { path: `${dir}/${id}.yaml`, text: lines.join("\n") + "\n" };
 }

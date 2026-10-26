@@ -14,12 +14,14 @@
 //   SORT_LIMIT=…                              new titles sorted per night at most (default 3000), to cap the cost
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { complete, pickLlm } from "../src/lib/llm.ts";
+import { eachLimit } from "../src/lib/pool.ts";
 import { emptyDecisions, parseJsonl, publishRows, sortKey, sourceMode, toJsonl } from "../admin/public/apply.js";
 
 const DIR = process.env.SORT_DIR || ".cache/outings";
 const PUBLISHED = process.env.OUTINGS_FILE || "data/outings.jsonl";
 const LIMIT = Number(process.env.SORT_LIMIT) || 3000; // new titles judged per night at most
 const BATCH = 50;
+const AT_ONCE = 4; // batches asked at the same time
 
 /** Bump when the rules below change: verdicts other than "yes" from an older version are asked again. */
 export const PROMPT_VERSION = 2;
@@ -76,11 +78,13 @@ export function parseAnswers(text, count) {
   return out;
 }
 
-/** Judges `items` in batches; returns the new verdicts and the first error, if any stopped it. */
+/** Judges `items` in batches, a few at a time; returns the new verdicts and the first error, if any stopped it. */
 export async function sortItems(items, llm, model, ask = complete) {
   const verdicts = {};
-  for (let at = 0; at < items.length; at += BATCH) {
-    const batch = items.slice(at, at + BATCH);
+  let error = null;
+  const batches = [];
+  for (let at = 0; at < items.length; at += BATCH) batches.push(items.slice(at, at + BATCH));
+  await eachLimit(batches, AT_ONCE, async (batch) => {
     let text;
     try {
       text = await ask(llm, model, {
@@ -89,13 +93,14 @@ export async function sortItems(items, llm, model, ask = complete) {
         maxTokens: 4000,
         json: true,
       });
-    } catch (error) {
-      return { verdicts, error };
+    } catch (e) {
+      error ??= e;
+      return false;
     }
     const answers = parseAnswers(text, batch.length);
     batch.forEach(({ key }, i) => { if (answers[i]) verdicts[key] = answers[i]; });
-  }
-  return { verdicts, error: null };
+  });
+  return { verdicts, error };
 }
 
 /** After the rules change, only "yes" stands; the rest is asked again under the new rules. */
