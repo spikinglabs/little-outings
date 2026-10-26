@@ -9,6 +9,7 @@ export const KIND_ICON: Record<string, string> = {
   indoor: '<rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/><rect x="8.5" y="4" width="7" height="7" rx="1"/>',
   fun: '<circle cx="12" cy="10" r="6"/><path d="M12 4v12M6 10h12M8 21l4-5 4 5"/>',
   zoo: '<path d="M7 20V9a5 5 0 0 1 10 0v11"/><path d="M4 20h16"/><path d="M10 9v11M14 9v11"/>',
+  winter: '<path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9"/><path d="M9.5 4.5 12 7l2.5-2.5M9.5 19.5 12 17l2.5 2.5"/>',
 };
 
 export const FEATURE_ICON: Record<string, string> = {

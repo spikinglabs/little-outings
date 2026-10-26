@@ -1,0 +1,23 @@
+# Posts the weekend edition to each town's Telegram channel on Friday morning (scripts/post-weekend.mjs),
+# after Friday's nightly run published it. 06:30 UTC is 07:30 in German winter time, 08:30 in summer.
+# Needs the repository secret TELEGRAM_BOT_TOKEN and a channel per town in src/lib/weekend.ts (TELEGRAM);
+# without them it posts nothing and stays green.
+name: Weekend post
+on:
+  schedule:
+    - cron: "30 6 * * 5"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - name: Post to Telegram
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          SITE_URL: ${{ vars.SITE_URL }}
+        run: node scripts/post-weekend.mjs

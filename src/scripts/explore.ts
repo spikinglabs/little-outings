@@ -172,7 +172,7 @@ function passes({ d, feat }: Row) {
   if (state.changing && !feat.includes("changing_table")) return false;
   // Places need no German; events only pass when they're held in English or need little talk.
   if (state.nogerman && d.type === "event" && !feat.includes("nogerman")) return false;
-  // A season (St. Martin, Advent …): only its events and fixtures, so places step aside.
+  // A season (St. Martin, Advent …): only its events and fixtures, and places of its kinds (ice rinks in winter).
   if (state.season && !feat.includes(`s-${state.season}`)) return false;
   return true;
 }
@@ -332,6 +332,8 @@ function showHome(town: string) {
   if (!b) return;
   home.value = town;
   $("[data-home-name]").textContent = b.textContent;
+  // The weekend edition's card shows for its own town only.
+  for (const a of $$<HTMLElement>("[data-weekend-town]")) a.hidden = a.dataset.weekendTown !== town;
 }
 function filterTowns() {
   const q = fold(townQ.value);
@@ -411,7 +413,7 @@ function seasonChips() {
   for (const s of ui.seasons) {
     const b = document.querySelector<HTMLButtonElement>(`[data-season="${CSS.escape(s.id)}"]`);
     if (!b) continue;
-    const on = inWindow(s.chip, today) && (state.season === s.id || all.some((r) => r.feat.includes(`s-${s.id}`) && r.d.end! >= today && r.d.start! <= last && near(r)));
+    const on = inWindow(s.chip, today) && (state.season === s.id || all.some((r) => r.feat.includes(`s-${s.id}`) && (r.d.type !== "event" || (r.d.end! >= today && r.d.start! <= last)) && near(r)));
     show(b, on);
     if (!on && state.season === s.id) state.season = "";
   }

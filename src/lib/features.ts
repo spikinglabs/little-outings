@@ -23,6 +23,7 @@ const FOR_KIND: Record<string, string[]> = {
   museum: ["changing_table", "stroller_friendly", "toilets", "nursing_room", "indoor_play", "parking"],
   cafe: ["playground", "changing_table", "highchairs", "kids_menu", "toys", "stroller_friendly", "indoor_play"],
   fun: ["playground", "changing_table", "kids_menu", "toilets", "stroller_friendly", "parking"],
+  winter: ["toilets", "changing_table", "kids_menu", "parking"],
 };
 
 /** What the "What's there for families?" form offers for this kind of place. */

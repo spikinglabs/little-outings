@@ -1,15 +1,17 @@
-// Drafts each season's fixture lists (Christmas markets, fairs …) from the city pages named under `sources`
-// in content/seasons.yaml, with AI, once a year (.github/workflows/season-lists.yml, 1 October). Nothing goes
+// Drafts each season's fixture lists (Christmas markets, Karneval parades …) from the city pages named under
+// `sources` in content/seasons.yaml, with AI, in the season's `pull` months (.github/workflows/season-lists.yml
+// runs on the 1st of every month). Nothing goes
 // live by itself: the drafts land in the admin's "Season lists" panel, and approving a town there commits
 // content/seasons/<season>/<town>.yaml. So a person checks every list, but nobody types it.
 //
-//   GEMINI_API_KEY=… node scripts/season-lists.mjs draft [season]   writes SEASON_DRAFTS (default .cache/season-drafts.json)
+//   GEMINI_API_KEY=… node scripts/season-lists.mjs draft [season]   updates SEASON_DRAFTS (default .cache/season-drafts.json)
+//                                                                   for this month's seasons, or the one named
 //   node scripts/season-lists.mjs geocode                           adds map pins to fixture files that lack them
 //
 // draft reads each list page, asks the model for the rows, then reads each row's own page on the same site
 // (up to DETAIL_LIMIT per list) for opening hours, address and what children find there, and pins the rows
 // with OpenStreetMap's Nominatim. LIST_MODEL picks the model (src/lib/llm.ts has the defaults).
-import { mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { dirname } from "node:path";
 import { load as parseYaml } from "js-yaml";
 import { complete, pickLlm } from "../src/lib/llm.ts";
@@ -45,12 +47,12 @@ async function fetchPage(url) {
 
 const KIDS_HELP = `kids: what children find there, only from this list: ${KIDS.join(", ")} (carousel = children's carousel, rides = Ferris wheel or other rides, ice_rink, fairy_tale = fairy-tale theme or characters, crafts = crafts or baking, nativity = nativity scene, animals = petting zoo or ponies, train = children's train, stage = stage, puppet or children's theatre, santa = St. Nicholas or Father Christmas visits)`;
 
-export const LIST_PROMPT = (what, year) => `You read a German city web page that lists ${what}, for the website "Little Outings" where parents find outings with children.
-Extract every one that takes place in the ${year} season. Skip anything without dates, and anything clearly from an earlier year.
+export const LIST_PROMPT = (what, today) => `You read a German city web page that lists ${what}, for the website "Little Outings" where parents find outings with children.
+Today is ${today}. Extract every one with a date on or after today. Skip anything without a date, and anything whose date is from an earlier year or season.
 Return only JSON: {"items": [{"name": "...", "from": "YYYY-MM-DD", "to": "YYYY-MM-DD", "hours": "short German opening hours or null", "street": "street or square, or null", "district": "Stadtteil or null", "website": "the link to its own page from the links list, or null", ${KIDS_HELP.replace(/^kids/, '"kids": [...]')}, "free": true/false/null for free entry, "note": {"de": "one sentence on what children find there", "en": "the same in English", "zh": "the same in Simplified Chinese"} or null}]}.
 Use only facts on the page. Keep names as the page writes them.`;
 
-export const DETAIL_PROMPT = (year) => `You read the web page of one Christmas market, fair or similar, for parents who go with children, for the ${year} season.
+export const DETAIL_PROMPT = (today) => `You read the web page of one Christmas market, parade, fair or similar, for parents who go with children. Today is ${today}; give the next dates on or after today.
 Return only JSON: {"from": "YYYY-MM-DD" or null, "to": "YYYY-MM-DD" or null, "hours": "short German opening hours, e.g. \\"So–Mi 11–21, Do–Sa 11–22 Uhr; 22.11. zu\\"" or null, "street": "street, square or address without town" or null, "district": "Stadtteil" or null, ${KIDS_HELP.replace(/^kids/, '"kids": [...]')}, "free": true/false/null for free entry, "note": {"de": "one or two short sentences on what children find there and anything families should know", "en": "...", "zh": "..."} or null}.
 Use only facts on the page; null when the page doesn't say.`;
 
@@ -78,20 +80,26 @@ async function draft(only) {
   const regions = readdirSync("content/regions").flatMap((f) => parseYaml(readFileSync(`content/regions/${f}`, "utf8")).towns);
   const today = new Date().toISOString().slice(0, 10);
   const year = Number(today.slice(0, 4));
+  const month = Number(today.slice(5, 7));
   const ask = (system, text) => complete(llm, process.env.LIST_MODEL, { system, text: text.slice(0, 60000), maxTokens: 8000, json: true });
+  // A town with several list pages (Köln's Sunday and Tuesday parades) gets one list, so approving it keeps them all.
   const drafts = [];
-  for (const s of seasons.filter((x) => x.sources?.length && (!only || x.id === only))) {
+  const due = seasons.filter((x) => x.sources?.length && (only ? x.id === only : x.pull?.includes(month)));
+  if (!due.length) console.log(`No season reads its lists in month ${month}.`);
+  for (const s of due) {
     const what = typeof s.page?.fixtures === "object" ? s.page.fixtures.de : s.id;
     for (const src of s.sources) {
       const url = src.url.replace("{year}", String(year));
       const town = src.name ?? fixtures.find((f) => f.season === s.id && f.slug === src.town)?.town
         ?? regions.find((t) => t.name.toLowerCase().replace(/ö/g, "oe").replace(/ü/g, "ue").replace(/ä/g, "ae").startsWith(src.town))?.name ?? src.town;
       const anchor = regions.find((t) => t.name === town);
-      const entry = { season: s.id, town: src.town, townName: town, source: new URL(url).hostname.replace(/^www\./, ""), url, items: [], errors: [] };
+      let entry = drafts.find((d) => d.season === s.id && d.town === src.town);
+      if (!entry) drafts.push(entry = { season: s.id, town: src.town, townName: town, source: new URL(url).hostname.replace(/^www\./, ""), url, urls: [], items: [], errors: [] });
+      entry.urls.push(url);
       try {
         const page = await fetchPage(url);
         const links = page.links.filter((l) => new URL(l.url).hostname === new URL(url).hostname).slice(0, 300);
-        const answer = parseJson(await ask(LIST_PROMPT(what, year), `${page.text}\n\nLINKS:\n${links.map((l) => `${l.text} → ${l.url}`).join("\n")}`));
+        const answer = parseJson(await ask(LIST_PROMPT(what, today), `${page.text}\n\nLINKS:\n${links.map((l) => `${l.text} → ${l.url}`).join("\n")}`));
         let items = (answer?.items ?? []).filter((it) => cleanItem(it) && it.to >= today);
         let read = 0;
         for (const [i, it] of items.entries()) {
@@ -99,7 +107,7 @@ async function draft(only) {
           read++;
           try {
             const detail = await fetchPage(it.website);
-            items[i] = mergeDetail(it, parseJson(await ask(DETAIL_PROMPT(year), detail.text)));
+            items[i] = mergeDetail(it, parseJson(await ask(DETAIL_PROMPT(today), detail.text)));
           } catch (error) { entry.errors.push(String(error.message)); }
         }
         for (const it of items) {
@@ -107,17 +115,18 @@ async function draft(only) {
           const hit = await lookup(`${it.street}, ${town}`, [anchor.lat, anchor.lon, 25]);
           if (hit) it.geo = { lat: Number(hit.lat), lon: Number(hit.lon) };
         }
-        entry.items = uniqueItems(items);
+        entry.items = uniqueItems([...entry.items, ...items]);
       } catch (error) {
         entry.errors.push(String(error.message));
       }
-      console.log(`${s.id}/${src.town}: ${entry.items.length} rows${entry.errors.length ? `, ${entry.errors.length} errors` : ""}`);
-      drafts.push(entry);
+      console.log(`${s.id}/${src.town} ${url}: ${entry.items.length} rows so far${entry.errors.length ? `, ${entry.errors.length} errors` : ""}`);
     }
   }
   saveCache();
+  // Other seasons' drafts (and what was approved of them) stay.
+  const kept = existsSync(OUT) ? (JSON.parse(readFileSync(OUT, "utf8")).drafts ?? []).filter((d) => !due.some((s) => s.id === d.season)) : [];
   mkdirSync(dirname(OUT), { recursive: true });
-  writeFileSync(OUT, JSON.stringify({ generated_at: new Date().toISOString(), drafts }, null, 1) + "\n");
+  writeFileSync(OUT, JSON.stringify({ generated_at: new Date().toISOString(), drafts: [...kept, ...drafts] }, null, 1) + "\n");
   console.log(`Drafted ${drafts.reduce((n, d) => n + d.items.length, 0)} rows for ${drafts.length} lists into ${OUT}.`);
 }
 

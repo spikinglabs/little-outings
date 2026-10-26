@@ -15,7 +15,9 @@ interface Env { DB?: D1 }
 type Ctx = { request: Request; env: Env };
 
 /** Actions the app counts; anything else is ignored. Add here and in src/lib/count.ts together. */
-export const EVENTS = ["save", "maps", "calendar", "website", "share", "install"];
+// copy: the weekend edition's chat text; from_print / from_telegram: someone arrived from the printed
+// sheet or the Telegram post (?von=…).
+export const EVENTS = ["save", "maps", "calendar", "website", "share", "install", "copy", "from_print", "from_telegram"];
 const ON = ["event", "place", "other"];
 const LANGS = ["de", "en", "zh"];
 

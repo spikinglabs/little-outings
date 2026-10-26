@@ -165,6 +165,13 @@ dialog label { display: grid; gap: 2px; font-size: 13px; color: var(--ink-soft);
   .inbox-item .event-actions { justify-items: start; grid-auto-flow: column; justify-content: start; }
 }
 
+/* Weekend panel */
+.weekend-town h3 { margin: 8px 0; }
+.weekend-picks { display: grid; gap: 10px; padding-left: 20px; margin: 0 0 10px; }
+.weekend-picks li { display: grid; gap: 6px; }
+.weekend-picks input { width: 100%; }
+.weekend-acts { display: flex; flex-wrap: wrap; gap: 8px; }
+.weekend-acts select, .weekend-town [data-add] { max-width: 100%; }
 .season-draft { border-top: 1px solid var(--line); padding: 10px 0; }
 .season-draft summary { cursor: pointer; }
 .season-rows { list-style: none; padding: 0; margin: 8px 0 12px; display: grid; gap: 8px; }

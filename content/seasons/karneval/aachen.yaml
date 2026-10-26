@@ -1,0 +1,32 @@
+# Karneval in Aachen 2027 (Öcher Fastelovvend). The parades keep their days every year; times are last year's
+# (festivalsindeutschland.de on the 2026 parades, checked 2026-10-26).
+town: Aachen
+source: AAK Festausschuss Aachener Karneval
+checked: 2026-10-26
+items:
+  - id: kinderkostuemzug
+    name: Kinderkostümzug des Märchenprinzen (Öcher Kengerzoch)
+    from: 2027-02-07
+    to: 2027-02-07
+    hours: "ab 11:11 Uhr (Stand 2026)"
+    street: Elisenbrunnen
+    geo: { lat: 50.77410, lon: 6.08686 }
+    district: Innenstadt
+    free: true
+    note:
+      de: "Rund 100 Wagen und Gruppen, angeführt vom Märchenprinzen, auf dem Weg des Rosenmontagszugs."
+      en: "Around 100 floats and groups led by the children's 'fairy-tale prince', on the Rosenmontag route."
+      zh: "约100辆花车和队伍，由“童话王子”带领，走玫瑰星期一游行路线。"
+  - id: rosenmontagszug
+    name: Aachener Rosenmontagszug
+    from: 2027-02-08
+    to: 2027-02-08
+    hours: "ab 11:11 Uhr (Stand 2026)"
+    street: Elisenbrunnen
+    geo: { lat: 50.77410, lon: 6.08686 }
+    district: Innenstadt
+    free: true
+    note:
+      de: "Über 100 Wagen und Gruppen auf rund 5 km."
+      en: "Over 100 floats and groups along about 5 km."
+      zh: "100多辆花车和队伍，全程约5公里。"

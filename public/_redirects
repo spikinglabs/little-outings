@@ -1,0 +1,4 @@
+# Short links for the weekend edition, printed on the A4 sheet and used in chat texts (src/lib/weekend.ts).
+/w/:town/en /en/wochenende/:town/ 302
+/w/:town/zh /zh/wochenende/:town/ 302
+/w/:town /de/wochenende/:town/ 302

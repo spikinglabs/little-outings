@@ -1,0 +1,24 @@
+---
+// A past edition, for the last few weekends; the RSS feed keeps all of them.
+import Base from "../../../../layouts/Base.astro";
+import WeekendEdition from "../../../../components/WeekendEdition.astro";
+import { LANGS, useT, type Lang } from "../../../../lib/i18n";
+import { getData, TODAY } from "../../../../lib/data";
+import { townName } from "../../../../lib/format";
+import { archiveOf, liveEdition, weekendTowns } from "../../../../lib/weekend-data";
+import { weekendRange, type Edition } from "../../../../lib/weekend";
+
+export const getStaticPaths = () =>
+  LANGS.flatMap((lang) => weekendTowns().flatMap((town) =>
+    archiveOf(town.editions, liveEdition(town.editions, TODAY)).map((edition) => ({ params: { lang, town: town.slug, date: edition.weekend }, props: { edition } }))));
+
+const lang = Astro.params.lang as Lang;
+const { edition } = Astro.props as { edition: Edition };
+const t = useT(lang);
+const { region } = await getData();
+const town = townName(edition.town, lang, region.towns);
+const title = `${t("weekend.title", { town })}: ${weekendRange(edition.weekend, lang)}`;
+---
+<Base lang={lang} tab="explore" title={title} description={t("weekend.how", { town })}>
+  <WeekendEdition edition={edition} t={t} archived />
+</Base>

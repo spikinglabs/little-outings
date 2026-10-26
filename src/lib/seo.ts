@@ -16,6 +16,7 @@ const PLACE_TYPE: Record<string, string> = {
   indoor: "AmusementPark",
   cafe: "CafeOrCoffeeShop",
   fun: "AmusementPark",
+  winter: "SportsActivityLocation",
 };
 
 /** Berlin's UTC offset on a given day ("+01:00" or "+02:00"). */

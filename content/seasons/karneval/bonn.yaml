@@ -1,0 +1,43 @@
+# Karneval parades in Bonn 2027. bonn.de blocks automatic reads; the parades keep their days every year
+# (Beuel on Weiberfastnacht, Bad Godesberg on Sunday, Bonn on Rosenmontag). Times are last year's.
+town: Bonn
+source: Festausschuss Bonner Karneval
+checked: 2026-10-26
+items:
+  - id: beuel-weiberfastnacht
+    name: Beueler Weiberfastnachtszug
+    from: 2027-02-04
+    to: 2027-02-04
+    street: Beuel Rathaus
+    geo: { lat: 50.73927, lon: 7.12002 }
+    district: Beuel
+    free: true
+    note:
+      de: "In Beuel hat die Weiberfastnacht ihren Ursprung: Die Wäscherinnen stürmen das Rathaus, danach zieht der Zug durch Beuel."
+      en: "Weiberfastnacht began in Beuel: the washerwomen storm the town hall, then the parade goes through Beuel."
+      zh: "女人狂欢节起源于博伊尔：洗衣妇们冲进市政厅，之后游行穿过博伊尔。"
+  - id: bad-godesberg
+    name: Bad Godesberger Karnevalszug
+    from: 2027-02-07
+    to: 2027-02-07
+    hours: "ab 13:11 Uhr (Stand 2026)"
+    street: Theaterplatz
+    geo: { lat: 50.68318, lon: 7.15303 }
+    district: Bad Godesberg
+    free: true
+    note:
+      de: "Mit Kinderprinz und Kinderprinzessin; kleiner und familiärer als der Bonner Zug."
+      en: "With the children's prince and princess; smaller and more family-like than the Bonn parade."
+      zh: "有儿童王子和公主参加，比波恩主游行小，更有家庭氛围。"
+  - id: rosenmontagszug
+    name: Bonner Rosenmontagszug
+    from: 2027-02-08
+    to: 2027-02-08
+    street: Kaiserplatz
+    geo: { lat: 50.73188, lon: 7.10092 }
+    district: Zentrum
+    free: true
+    note:
+      de: "Rund 80 Wagen durch die Innenstadt."
+      en: "Around 80 floats through the city centre."
+      zh: "约80辆花车穿过市中心。"

@@ -13,6 +13,7 @@ const ASK: Record<string, string[]> = {
   zoo: ["changing_table", "stroller_friendly", "playground"],
   indoor: ["changing_table", "highchairs", "parking"],
   fun: ["toilets", "changing_table", "parking"],
+  winter: ["toilets", "changing_table", "parking"],
 };
 
 export function gapsOf(item: Item): Gap[] {

@@ -1,0 +1,46 @@
+# Karneval in Düsseldorf 2027, from visitduesseldorf.de (checked 2026-10-26; times "ca." as the city gives them).
+town: Düsseldorf
+source: visitduesseldorf.de
+checked: 2026-10-26
+items:
+  - id: kinder-jugendumzug
+    name: Kinder- und Jugendumzug
+    from: 2027-02-06
+    to: 2027-02-06
+    hours: "ca. 14 Uhr"
+    street: Königsallee
+    geo: { lat: 51.22637, lon: 6.77930 }
+    district: Innenstadt
+    free: true
+    website: "https://www.visitduesseldorf.de/erleben/veranstaltungen/karneval"
+    note:
+      de: "Kinder- und Jugendgruppen der Karnevalsvereine ziehen durch die Innenstadt, kürzer und entspannter als der Rosenmontagszug."
+      en: "Children's and youth groups of the carnival clubs parade through the centre, shorter and more relaxed than Rosenmontag."
+      zh: "狂欢节协会的儿童和青少年队伍穿过市中心，比玫瑰星期一游行短，也更轻松。"
+  - id: koe-treiben
+    name: Kö-Treiben am Karnevalssonntag
+    from: 2027-02-07
+    to: 2027-02-07
+    hours: "ab dem Vormittag"
+    street: Königsallee
+    geo: { lat: 51.22637, lon: 6.77930 }
+    district: Innenstadt
+    free: true
+    note:
+      de: "Straßenkarneval auf der Kö mit Kostümen und kleinen selbst gebauten Wagen. Gut zum Gucken mit Kindern."
+      en: "Street carnival on the Kö with costumes and small home-made floats. Good for watching with children."
+      zh: "国王大道上的街头狂欢，有服装和自制小花车，适合带孩子观看。"
+  - id: rosenmontagszug
+    name: Düsseldorfer Rosenmontagszug
+    from: 2027-02-08
+    to: 2027-02-08
+    hours: "ca. 12:30 Uhr"
+    street: Königsallee
+    geo: { lat: 51.22637, lon: 6.77930 }
+    district: Innenstadt
+    free: true
+    website: "https://www.helau.cc/"
+    note:
+      de: "Bekannt für die politischen Wagen von Jacques Tilly. Sehr voll; mit kleinen Kindern abseits der Altstadt stehen."
+      en: "Famous for Jacques Tilly's political floats. Very crowded; with small children stand away from the Altstadt."
+      zh: "以雅克·蒂利的政治讽刺花车闻名。人很多，带小孩最好避开老城区。"

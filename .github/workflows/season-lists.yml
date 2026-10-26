@@ -1,13 +1,13 @@
-# Drafts the season lists (Christmas markets …) once a year with AI (scripts/season-lists.mjs) from the city
-# pages under `sources` in content/seasons.yaml, and puts them in the Little Outings bucket for the admin's
-# "Season lists" panel. Nothing is published here: approving a town in the admin commits its file.
+# Drafts the season lists (Christmas markets, Karneval parades …) with AI (scripts/season-lists.mjs) from the
+# city pages under `sources` in content/seasons.yaml, on the 1st of each month for the seasons whose `pull`
+# lists that month, and puts them in the Little Outings bucket for the admin's "Season lists" panel. Nothing is published here: approving a town in the admin commits its file.
 # Uses the same secrets as the nightly sort (translate.yml): GEMINI_API_KEY or ANTHROPIC_API_KEY, and a
 # Cloudflare token with "Workers R2 Storage: Edit" (R2_SORT_TOKEN or CLOUDFLARE_API_TOKEN) plus CLOUDFLARE_ACCOUNT_ID.
 # Run it by hand to draft again, or for one season only.
 name: Season lists
 on:
   schedule:
-    - cron: "0 6 1 10 *"
+    - cron: "0 6 1 * *"
   workflow_dispatch:
     inputs:
       season:
@@ -26,6 +26,14 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 22, cache: npm }
       - run: npm ci
+      - name: Read the drafts already in the admin
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.R2_SORT_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID || vars.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          mkdir -p .cache
+          npx wrangler r2 object get "$BUCKET/little-outings/season-drafts.json" --file .cache/season-drafts.json > /dev/null 2>&1 \
+            || { rm -f .cache/season-drafts.json; echo "No drafts in the bucket yet."; }
       - name: Draft the lists with AI
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
