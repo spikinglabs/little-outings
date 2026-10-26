@@ -4,7 +4,7 @@
 #   every night 02:15   → rebuild production, so "today" and "this weekend" move
 # Every build imports cityklub events first: data/outings.jsonl (published from the
 # admin) when present, otherwise the CITYKLUB_EXPORT variable. Places come from the
-# PLACES_EXPORT variable (public places bucket, filled weekly by spikinglabs/cityklub-event-data),
+# PLACES_EXPORT variable (public places bucket, filled monthly by spikinglabs/osm-family-data),
 # with data/places-osm.jsonl as the fallback; no build waits on OpenStreetMap's Overpass.
 # Needs the repository secret CLOUDFLARE_API_TOKEN (Pages: Edit) and CLOUDFLARE_ACCOUNT_ID
 # as a secret or a variable (the account ID is not sensitive).
@@ -60,6 +60,14 @@ jobs:
         run: |
           out=$(npm run --silent import:places 2>&1) || { echo "$out"; exit 1; }
           echo "$out"; echo "::notice title=Places::$(echo "$out" | tail -1)"
+      # Toilets, changing tables and drinking water: next to PLACES_EXPORT unless TOILETS_EXPORT says otherwise.
+      - name: Import toilets (OpenStreetMap)
+        env:
+          PLACES_EXPORT: ${{ vars.PLACES_EXPORT }}
+          TOILETS_EXPORT: ${{ vars.TOILETS_EXPORT }}
+        run: |
+          out=$(npm run --silent import:toilets 2>&1); echo "$out"
+          echo "::notice title=Toilets::$(echo "$out" | tail -1)"
       - name: Pin parents' places (Nominatim)
         env:
           PINS_CACHE: .cache/pins.json

@@ -55,6 +55,22 @@ approxKm: "about {d} km"
 nearby: nearby
 thePlace: The place
 forFamilies: For families
+toiletsNear:
+  title: Toilets nearby
+  toilets: Public toilet
+  changing: Changing table
+  water: Drinking water
+  away: "{n} m"
+  table: with changing table
+  tableIn: { wheelchair_toilet: in the accessible toilet, female_toilet: in the women's toilet, male_toilet: in the men's toilet, unisex_toilet: in the unisex toilet, dedicated_room: in a baby room, room: in a separate room, sales_area: in the shop }
+  free: free
+  paid: paid
+  wheelchair: wheelchair accessible
+  customers: for customers
+  source: "From OpenStreetMap, within {n} m. Opening times may differ."
+  route: Directions
+  mapShow: Show toilets
+  mapHide: Hide toilets
 unknownNote: "? means we don't know yet. Been there? Tap it."
 confirmedBy: "confirmed {n}×"
 upcomingHere: Coming up here

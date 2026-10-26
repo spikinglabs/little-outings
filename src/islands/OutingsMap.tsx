@@ -13,7 +13,7 @@ import L from "../lib/leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet-gesture-handling/dist/leaflet-gesture-handling.css";
-import { KIND_ICON, UI_ICON, icon as useIcon, svg } from "../lib/icons";
+import { FEATURE_ICON, KIND_ICON, UI_ICON, icon as useIcon, svg } from "../lib/icons";
 import { markSaved, renderKm } from "../scripts/app";
 
 export interface Pin {
@@ -34,12 +34,15 @@ export interface Pin {
 interface Props {
   /** The pins come as a separate file, fetched the first time the map is shown, to keep the page light. */
   pinsUrl: string;
+  /** Toilets, changing tables and water ([lat, lon, kind, flags, name]), fetched when the toilets button is first tapped. */
+  toiletsUrl?: string;
   center: [number, number];
   towns: [string, number, number][];
   locale: string;
   labels: {
     one: string; other: string; more: string; here: string; places: { one?: string; other: string };
     touch: string; zoom: string; zoomMac: string; locate: string; close: string; save: string;
+    toilets?: { show: string; hide: string; toilets: string; changing: string; water: string; table: string; free: string; paid: string; wheelchair: string; customers: string; route: string };
   };
 }
 
@@ -67,7 +70,10 @@ const MAX_LISTED = 8;
 
 const esc = (s: string) => s.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
 
-export default function OutingsMap({ pinsUrl, center, towns, locale, labels }: Props) {
+type ToiletRow = [number, number, "t" | "c" | "w", string, string?];
+const TOILET_COLOR = { t: "#3d6a9e", c: "#3d6a9e", w: "#2b8a7e" };
+
+export default function OutingsMap({ pinsUrl, toiletsUrl, center, towns, locale, labels }: Props) {
   const el = useRef<HTMLDivElement>(null);
   useEffect(() => {
     let stop = () => {};
@@ -304,6 +310,67 @@ export default function OutingsMap({ pinsUrl, center, towns, locale, labels }: P
       },
     });
     new Locate({ position: "topright" }).addTo(map);
+
+    // "Show toilets": public toilets, changing tables and drinking water as small blue and green dots,
+    // drawn on one canvas (thousands of them) and fetched the first time a parent asks for them.
+    const tl = labels.toilets;
+    if (toiletsUrl && tl) {
+      const dots = L.layerGroup();
+      const canvas = L.canvas({ padding: 0.3 });
+      let loaded: Promise<void> | null = null;
+      const toiletCard = (r: ToiletRow) => {
+        unselect();
+        const [lat, lon, k, f, name] = r;
+        const label = k === "t" ? tl.toilets : k === "w" ? tl.water : tl.changing;
+        const notes = [
+          k === "c" ? name : "",
+          k === "t" && f.includes("c") ? tl.table : "",
+          f.includes("f") ? tl.free : f.includes("p") ? tl.paid : "",
+          f.includes("w") ? tl.wheelchair : "",
+          f.includes("k") ? tl.customers : "",
+        ].filter(Boolean).join(" · ");
+        const route = `https://www.google.com/maps/dir/?api=1&travelmode=walking&destination=${lat.toFixed(5)},${lon.toFixed(5)}`;
+        const icon = k === "w" ? UI_ICON.water : k === "t" ? FEATURE_ICON.toilets : FEATURE_ICON.changing_table;
+        card.innerHTML = `<span class="map-card-mark wc">${svg(icon, 'stroke-width="2"')}</span>`
+          + `<div class="map-card-body" data-lat="${lat}" data-lon="${lon}" data-precision="exact"><b>${esc(label)}</b>`
+          + `<small>${esc(notes)}<span data-km></span></small><a href="${route}" target="_blank" rel="noopener" data-count="maps">${esc(tl.route)} ↗</a></div>${closeBtn}`;
+        card.hidden = false;
+        renderKm();
+      };
+      const load = () => (loaded ??= fetch(toiletsUrl).then((r) => r.json()).catch(() => []).then((rows: ToiletRow[]) => {
+        for (const r of rows) {
+          L.circleMarker([r[0], r[1]], { renderer: canvas, radius: 5, weight: 1.5, color: "#fff", fillColor: TOILET_COLOR[r[2]], fillOpacity: 1 })
+            .on("click", (e) => { L.DomEvent.stopPropagation(e); toiletCard(r); }).addTo(dots);
+        }
+      }));
+      const Toilets = L.Control.extend({
+        onAdd() {
+          const b = L.DomUtil.create("button", "map-locate map-wc");
+          b.type = "button";
+          const mark = () => {
+            const on = map.hasLayer(dots);
+            b.title = on ? tl.hide : tl.show;
+            b.setAttribute("aria-label", b.title);
+            b.setAttribute("aria-pressed", String(on));
+          };
+          b.innerHTML = svg(FEATURE_ICON.toilets, 'stroke-width="2"');
+          mark();
+          L.DomEvent.disableClickPropagation(b);
+          b.addEventListener("click", async () => {
+            if (map.hasLayer(dots)) dots.remove();
+            else {
+              await load();
+              dots.addTo(map);
+              // Across a whole region the dots only blur together; a few streets is where they help.
+              if (map.getZoom() < 14) map.setZoom(14);
+            }
+            mark();
+          });
+          return b;
+        },
+      });
+      new Toilets({ position: "topright" }).addTo(map);
+    }
     const onHere = (e: Event) => showHere((e as CustomEvent<Here | null>).detail);
     try { showHere(JSON.parse(sessionStorage.getItem("lo-here") || "null")); } catch { /* storage blocked */ }
 

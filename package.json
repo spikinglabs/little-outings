@@ -11,6 +11,7 @@
     "build:demo": "DEMO=1 astro build && node scripts/pack-pages.mjs",
     "import:cityklub": "node scripts/import-cityklub.mjs",
     "import:places": "node scripts/import-places.mjs",
+    "import:toilets": "node scripts/import-toilets.mjs",
     "geocode:places": "node scripts/geocode-places.mjs",
     "tally:inbox": "node scripts/tally-inbox.mjs",
     "translate": "node scripts/translate.mjs",

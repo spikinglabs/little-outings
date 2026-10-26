@@ -55,6 +55,22 @@ approxKm: "ca. {d} km"
 nearby: ganz in der Nähe
 thePlace: Der Ort
 forFamilies: Für Familien
+toiletsNear:
+  title: Toilette, Wickeln, Wasser in der Nähe
+  toilets: Öffentliche Toilette
+  changing: Wickeltisch
+  water: Trinkwasser
+  away: "{n} m"
+  table: mit Wickeltisch
+  tableIn: { wheelchair_toilet: "in der barrierefreien Toilette", female_toilet: in der Damentoilette, male_toilet: in der Herrentoilette, unisex_toilet: in der Unisex-Toilette, dedicated_room: im Wickelraum, room: in einem eigenen Raum, sales_area: im Laden }
+  free: kostenlos
+  paid: kostet etwas
+  wheelchair: barrierefrei
+  customers: für Gäste
+  source: "Aus OpenStreetMap, im Umkreis von {n} m. Öffnungszeiten können abweichen."
+  route: Weg
+  mapShow: Toiletten zeigen
+  mapHide: Toiletten ausblenden
 unknownNote: "? heißt: wissen wir noch nicht. Wart ihr da? Tippt drauf."
 confirmedBy: "{n}× bestätigt"
 upcomingHere: Hier demnächst
