@@ -7,6 +7,7 @@
 //   events   the gold date sign (Ortstafel) of the day it is on, or "until" its last day for long runs
 //   places   the brown tourist sign with the kind's icon ("Playground")
 //   seasons  the season's sign per town page ("Christmas markets with kids in Cologne") and overview
+//   weekend  a gold calendar sign per town's weekend edition ("This weekend with kids in Cologne") and its overview
 //   lists    a gold bookmark sign for a shared saved list (/<lang>/merkliste/#…)
 //   home     the brand sign, also for pages without their own
 // Each comes wide (1200×630, og:image) and square (600×600, WeChat's thumbnail, which crops to a square).
@@ -25,6 +26,7 @@ export const ogBase = (lang: string, key: string) => `/og/${lang}/${key}`;
 export const eventKey = (e: Pick<Event, "start" | "end">) => (runsLong(e.start, e.end) ? `u-${e.end}` : `d-${e.start}`);
 export const placeKey = (p: Pick<Place, "kind">) => `k-${p.kind in KIND_ICON ? p.kind : "park"}`;
 export const seasonKey = (season: string, town?: string) => `s-${season}${town ? `-${town}` : ""}`;
+export const weekendKey = (town?: string) => `w${town ? `-${town}` : ""}`;
 export const HOME_KEY = "home";
 export const LIST_KEY = "list";
 
