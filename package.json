@@ -20,6 +20,7 @@
     "weekend": "node scripts/weekend-edition.mjs",
     "post:weekend": "node scripts/post-weekend.mjs",
     "fetch:holidays": "node scripts/fetch-holidays.mjs",
+    "fetch:weather": "node scripts/fetch-weather.mjs",
     "season:lists": "node scripts/season-lists.mjs draft",
     "season:pins": "node scripts/season-lists.mjs geocode",
     "test": "node --test tests/*.test.mjs tests/*.test.ts"

@@ -5,6 +5,7 @@ import { applyEventTally, applyTally, applyTranslations, canonicalTown, normaliz
 import { fixtureEvent, loadSeasons, seasonsOf, type SeasonData } from "./seasons.ts";
 import { tasksOf } from "./gaps.ts";
 import type { Event, Place, Tally } from "./types.ts";
+import { pack, type Packed } from "./weather.ts";
 
 /** The build date in Germany. The site is rebuilt every night, so "upcoming" stays true. */
 export const TODAY = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Berlin" }).format(new Date());
@@ -94,6 +95,15 @@ function inboxTallies(): Record<string, Tally> {
 /** Machine translations by German text, kept up to date by scripts/translate.mjs. */
 function translations(lang: string): Record<string, string> {
   try { return JSON.parse(readFileSync(`data/translations/${lang}.json`, "utf8")); } catch { return {}; }
+}
+
+let weather: Packed | undefined | null = null;
+/** The next days' weather per town (data/weather.json, scripts/fetch-weather.mjs), from today; undefined without a forecast. */
+export async function getWeather(): Promise<Packed | undefined> {
+  if (weather !== null) return weather;
+  let file;
+  try { file = JSON.parse(readFileSync("data/weather.json", "utf8")); } catch { /* no forecast this build */ }
+  return (weather = pack(file, (await getData()).region.towns, TODAY));
 }
 
 export async function getTasks() {

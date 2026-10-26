@@ -3,6 +3,7 @@
  * its turn at the top, yet the list stays put when a parent goes to a card and back, and two parents
  * comparing on the same day see the same list. Days still follow each other (Saturday before Sunday),
  * and so do the parts of a day (morning, afternoon, evening). "soonest" and "nearest" are the plain sorts.
+ * In "mixed", `fit` (lower first; lib/weather.ts) lifts what suits the day's weather within each part of a day.
  */
 import { lastChance, runsLong } from "./running.ts";
 
@@ -39,19 +40,20 @@ const far = (d?: number | null) => d ?? 1e9;
  * Events in the chosen order. `from` is the first listed day: an event that began earlier counts from it.
  * In every order, long runs (exhibitions) come after the events that happen only then, until their last week.
  */
-export function orderEvents<R extends Ev>(rows: R[], order: Order, from: string, today: string, seed: string): R[] {
+export function orderEvents<R extends Ev>(rows: R[], order: Order, from: string, today: string, seed: string, fit: (r: R, day: string) => number = () => 0): R[] {
   const day = (r: R) => (r.start < from ? from : r.start);
+  const suits = (a: R, b: R) => fit(a, day(a)) - fit(b, day(b));
   const cmp: (a: R, b: R) => number =
     order === "nearest" ? (a, b) => far(a.dist) - far(b.dist)
     : order === "soonest" ? (a, b) => day(a).localeCompare(day(b)) || far(a.dist) - far(b.dist)
-    : (a, b) => day(a).localeCompare(day(b)) || partOfDay(a.time) - partOfDay(b.time) || rank(a.id, seed) - rank(b.id, seed);
+    : (a, b) => day(a).localeCompare(day(b)) || partOfDay(a.time) - partOfDay(b.time) || suits(a, b) || rank(a.id, seed) - rank(b.id, seed);
   const long = (r: R) => runsLong(r.start, r.end) && !lastChance(r.end, today);
   const short = rows.filter((r) => !long(r)).sort(cmp);
-  const runs = rows.filter(long).sort(order === "mixed" ? (a, b) => rank(a.id, seed) - rank(b.id, seed) : cmp);
+  const runs = rows.filter(long).sort(order === "mixed" ? (a, b) => suits(a, b) || rank(a.id, seed) - rank(b.id, seed) : cmp);
   return [...short, ...runs];
 }
 
 /** Places in the chosen order: shuffled for "mixed", nearest first otherwise (they have no time). */
-export function orderPlaces<R extends Pl>(rows: R[], order: Order, seed: string): R[] {
-  return [...rows].sort(order === "mixed" ? (a, b) => rank(a.id, seed) - rank(b.id, seed) : (a, b) => far(a.dist) - far(b.dist));
+export function orderPlaces<R extends Pl>(rows: R[], order: Order, seed: string, fit: (r: R) => number = () => 0): R[] {
+  return [...rows].sort(order === "mixed" ? (a, b) => fit(a) - fit(b) || rank(a.id, seed) - rank(b.id, seed) : (a, b) => far(a.dist) - far(b.dist));
 }
