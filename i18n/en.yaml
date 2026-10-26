@@ -2,10 +2,10 @@ locale: en-GB
 langName: English
 siteName: Little Outings
 tagline: Family outings near you
-homeDescription: "Family outings in Cologne, Bonn, Düsseldorf, Berlin, Munich, Frankfurt and Hamburg: {events} events for kids and {places} kid-friendly places like playgrounds, farms, zoos and pools. Free, no sign-up."
+homeDescription: "Family outings in Cologne, Berlin, Munich, Hamburg and more cities: {events} events for kids and {places} kid-friendly places like playgrounds, farms, zoos and pools. Free, no sign-up."
 brandAbout:
   h: About Little Outings
-  p: "Little Outings (in Chinese 小出游) is a free site for families in Germany: events for kids and kid-friendly places like playgrounds, farms, zoos, pools and family cafés in Cologne, Bonn, Düsseldorf, Berlin, Munich, Frankfurt and Hamburg, in German, English and Chinese. Updated every night, no sign-up."
+  p: "Little Outings (in Chinese 小出游) is a free site for families in Germany: events for kids and kid-friendly places like playgrounds, farms, zoos, pools and family cafés in Cologne, Berlin, Munich, Hamburg and more cities, in German, English and Chinese. Updated every night, no sign-up."
 tabs: { explore: Discover, saved: Mine, add: Add }
 when: { today: Today, tomorrow: Tomorrow, weekend: Weekend, soon: Next 2 weeks }
 whenIn: { today: today, tomorrow: tomorrow, weekend: this weekend, soon: in the next 2 weeks }
