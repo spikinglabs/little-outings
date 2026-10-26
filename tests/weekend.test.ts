@@ -134,12 +134,12 @@ const edition: Edition = {
 };
 
 test("chat texts: WhatsApp bold, WeChat brackets, the link last", () => {
-  const wa = chatText(edition, { lang: "de", style: "whatsapp", town: "Köln", url: "outings.allo.land/w/koeln" });
+  const wa = chatText(edition, { lang: "de", style: "whatsapp", town: "Köln", url: "https://outings.allo.land/w/koeln" });
   assert.match(wa, /^\*Wochenende mit Kindern in Köln\*\nSa 31\.10\. – So 1\.11\. · Sa Schauer 13°, So sonnig 11°/);
   assert.match(wa, /\*Sa 11:00–11:30\* Vorlesezeit, Bibliothek Chorweiler \(frei\)/);
   assert.match(wa, /\*Immer\* Lindenthaler Tierpark \(frei\)/); // the district is already in the name
-  assert.ok(wa.trimEnd().endsWith("👉 outings.allo.land/w/koeln"));
-  const wc = chatText(edition, { lang: "zh", style: "wechat", town: "科隆", url: "outings.allo.land/w/koeln/zh" });
+  assert.ok(wa.trimEnd().endsWith("👉 https://outings.allo.land/w/koeln"));
+  const wc = chatText(edition, { lang: "zh", style: "wechat", town: "科隆", url: "https://outings.allo.land/w/koeln/zh" });
   assert.ok(!wc.includes("*"));
   assert.match(wc, /【周日 11:00】独角兽手偶导览，Museum Schnütgen/);
   const en = chatText(edition, { lang: "en", style: "whatsapp", town: "Cologne", url: "u" });
@@ -177,6 +177,6 @@ test("the admin swaps picks only for the draft's own alternates, and a new Germa
 });
 
 test("the chat text says how much more there is", () => {
-  const wa = chatText(edition, { lang: "de", style: "whatsapp", town: "Köln", url: "outings.allo.land/w/koeln", more: 91 });
-  assert.ok(wa.trimEnd().endsWith("Und 91 weitere Termine fürs Wochenende: 👉 outings.allo.land/w/koeln"));
+  const wa = chatText(edition, { lang: "de", style: "whatsapp", town: "Köln", url: "https://outings.allo.land/w/koeln", more: 91 });
+  assert.ok(wa.trimEnd().endsWith("Und 91 weitere Termine fürs Wochenende: 👉 https://outings.allo.land/w/koeln"));
 });

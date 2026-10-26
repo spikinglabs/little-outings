@@ -31,8 +31,8 @@ const shortUrl = `${site.replace(/^https?:\/\//, "")}/w/${ed.slug}${lang === "de
 // The picks are a handful; say how much more Discover has this weekend, here and in the chat texts.
 const count = weekendCounts(events, allPlaces, ed.town, ed.weekend);
 const more = Math.max(0, count.events - picks.filter((p) => p.type === "event").length);
-const wa = chatText({ ...ed, picks }, { lang, style: "whatsapp", town, url: shortUrl, more });
-const wechat = lang === "zh" ? chatText({ ...ed, picks }, { lang, style: "wechat", town, url: shortUrl, more }) : "";
+const wa = chatText({ ...ed, picks }, { lang, style: "whatsapp", town, url: `https://${shortUrl}`, more });
+const wechat = lang === "zh" ? chatText({ ...ed, picks }, { lang, style: "wechat", town, url: `https://${shortUrl}`, more }) : "";
 const channel = telegramChannel(ed.slug);
 ---
 <section class="wk" data-weekend>
