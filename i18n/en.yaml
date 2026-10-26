@@ -17,15 +17,36 @@ townPh: "Type a town"
 townNone: "No town by that name here"
 search: Search
 searchPh: Search farms, cafés, playgrounds or festivals
-filters: { farm: "🚜 Farm", rain: "☂ Rainy day", free: Free, animals: Animals, changing: Changing table, nogerman: "💬 No German needed", martin: "🏮 St. Martin", radius: Within }
-# St. Martin season (src/lib/martin.ts): the Discover chip and its "add yours" line, which opens the normal Add event form.
-martin:
-  add: Your lantern walk missing?
+filters: { farm: "🚜 Farm", rain: "☂ Rainy day", free: Free, animals: Animals, changing: Changing table, nogerman: "💬 No German needed", radius: Within }
+# Season chips and pages (content/seasons.yaml, src/lib/seasons.ts). A season's own texts there win.
+season:
+  add: "Something missing?"
   addLink: Add it in a minute
-  share: Share the link with your Kita group
-  shareText: "When and where is your St. Martin lantern walk? Add it here in a minute so every family nearby can find it: {url}"
+  share: Share the link
+  shareText: "Know something that's missing here? Add it in a minute so every family can find it: {url}"
   copied: Link copied
-  open: "Many lantern walks are meant for the families of one Kita, school or parish. Check with the organiser that other families are welcome too."
+  dates: "{from} to {to}"
+  hours: Opening hours
+  website: Website
+  lastSeason: "Last season ({year})"
+  offSeason: "The next season isn't in yet. These are last season's dates, so you can plan ahead."
+  missing: "A market missing or something wrong?"
+  missingLink: Tell us
+  towns: Cities
+  checked: "Checked {date} · Source: {source}"
+  showChip: "All of them on the map and in the list"
+kids:
+  label: For children
+  carousel: Children's carousel
+  rides: Rides
+  ice_rink: Ice rink
+  fairy_tale: Fairy tales
+  crafts: Crafts and baking
+  nativity: Nativity scene
+  animals: Animals
+  train: Children's train
+  stage: Stage and puppet theatre
+  santa: St. Nicholas
 tip: "Our pick {when}"
 only: "Only {when}"
 always: Always a good idea

@@ -1,0 +1,106 @@
+---
+// A season's landing page for one town: "Christmas markets with kids in Cologne". Lists the hand-checked
+// fixtures (content/seasons/<season>/<town>.yaml) with what children find there, then the season's other
+// events in town. It stays online all year, so search engines keep it; off season it shows last season's dates.
+import Base from "../../../layouts/Base.astro";
+import Card from "../../../components/Card.astro";
+import { LANGS, tr, useT, type Lang } from "../../../lib/i18n";
+import { getData, TODAY } from "../../../lib/data";
+import { nameOf, pathFor, townName } from "../../../lib/format";
+import { seasonPages, seasonPath, type Fixture, type FixtureFile, type Season } from "../../../lib/seasons";
+import { eventLd } from "../../../lib/seo";
+
+export async function getStaticPaths() {
+  const { seasons } = await getData();
+  return LANGS.flatMap((lang) => seasonPages(seasons).map(({ season, file }) => ({
+    params: { lang, season: season.page!.slug, town: file.slug }, props: { seasonId: season.id, slug: file.slug },
+  })));
+}
+const { seasonId, slug } = Astro.props as { seasonId: string; slug: string };
+const lang = Astro.params.lang as Lang;
+const t = useT(lang);
+const { region, events, seasons } = await getData();
+const season = seasons.seasons.find((s) => s.id === seasonId) as Season;
+const page = season.page!;
+// Every year's file for this town is one file; past items stay in it until next year's list replaces them.
+const file = seasons.fixtures.find((f) => f.season === seasonId && f.slug === slug) as FixtureFile;
+const town = townName(file.town, lang, region.towns);
+const ids = new Set(file.items.map((f) => `season-${seasonId}-${slug}-${f.id}`));
+const current = events.filter((e) => ids.has(e.id));
+const past: Fixture[] = current.length ? [] : file.items;
+const pastYear = past.length ? past[0].from.slice(0, 4) : "";
+// The season's other events here (Nikolaus, crafts, Christmas shows), soonest first.
+const also = events.filter((e) => !ids.has(e.id) && e.town === file.town && e.seasons?.includes(seasonId) && e.geo.precision !== "unknown").slice(0, 12);
+const others = seasonPages(seasons).filter((p) => p.season.id === seasonId && p.file.slug !== slug);
+const year = (current[0]?.start ?? TODAY).slice(0, 4);
+const title = tr(page.title, lang).replace("{town}", town);
+const intro = tr(page.intro, lang).replace("{town}", town);
+const fmt = (d: string) => new Intl.DateTimeFormat(t.locale, { timeZone: "UTC", day: "numeric", month: "short" }).format(new Date(`${d}T12:00:00Z`));
+const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
+const ld = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: `${title} ${year}`,
+  url: `${site}${Astro.url.pathname}`,
+  itemListElement: current.map((e, i) => ({
+    "@type": "ListItem", position: i + 1,
+    item: eventLd(e, { url: `${site}${pathFor(lang, e)}`, name: nameOf(e, lang), description: e.time ?? "", lang }),
+  })),
+};
+---
+<Base lang={lang} title={`${title} ${year}`} description={intro} ld={ld}>
+  <div class="season-page">
+    <a class="back" href={seasonPath(lang, season)}>← {tr(page.hub, lang)}</a>
+    <p class="eyebrow">{season.emoji} {tr(season.label, lang)} {year}</p>
+    <h1 class="page-title">{title}</h1>
+    <p class="page-sub">{intro}</p>
+    {current.length > 0 && (
+      <p><a class="btn" href={`/${lang}/#${season.id}`} data-home-town={file.town}>{t("season.showChip")}</a></p>
+    )}
+
+    <section aria-labelledby="fixtures-h">
+      <h2 id="fixtures-h">{tr(page.fixtures, lang)} <span class="small">{current.length || past.length}</span></h2>
+      {current.length > 0 ? (
+        <div class="grid ideas">
+          {current.map((e) => (
+            <Card item={e} t={t}>
+              {e.kids && <div class="pills kids">{e.kids.map((k) => <span class="pill">{t(`kids.${k}`)}</span>)}</div>}
+            </Card>
+          ))}
+        </div>
+      ) : (
+        <>
+          <p class="note">{t("season.offSeason")}</p>
+          <h3>{t("season.lastSeason", { year: pastYear })}</h3>
+          <ul class="season-past">
+            {past.map((f) => (
+              <li><b>{f.name}</b> · {t("season.dates", { from: fmt(f.from), to: fmt(f.to) })}{f.district && ` · ${f.district}`}</li>
+            ))}
+          </ul>
+        </>
+      )}
+      {file.checked && <p class="small">{t("season.checked", { date: fmt(file.checked), source: file.source ?? "" })}</p>}
+    </section>
+
+    {also.length > 0 && (
+      <section aria-labelledby="also-h">
+        <h2 id="also-h">{tr(page.also, lang)}</h2>
+        <div class="grid ideas">{also.map((e) => <Card item={e} t={t} />)}</div>
+      </section>
+    )}
+
+    <p class="note">{t("season.missing")} <a href={`/${lang}/mitmachen/#event`}>{t("season.missingLink")}</a></p>
+
+    {others.length > 0 && (
+      <nav class="season-towns" aria-label={t("season.towns")}>
+        <h2>{t("season.towns")}</h2>
+        <ul>{others.map((p) => <li><a href={seasonPath(lang, season, p.file.slug)}>{townName(p.file.town, lang, region.towns)}</a></li>)}</ul>
+      </nav>
+    )}
+  </div>
+  <script>
+    // "All on the map": Discover opens around this page's town, with the season's chip on.
+    import { setHome } from "../../../scripts/app";
+    document.querySelector<HTMLAnchorElement>("[data-home-town]")?.addEventListener("click", (e) => setHome((e.currentTarget as HTMLElement).dataset.homeTown!));
+  </script>
+</Base>

@@ -1,7 +1,8 @@
 // Build-time data access for pages. Everything here runs once per build, never in the browser.
 import { getCollection } from "astro:content";
 import { readFileSync } from "node:fs";
-import { applyEventTally, applyTally, applyTranslations, canonicalTown, normalizeEvent, normalizePlace, shiftDays, townsFromPlaces, type Town } from "./merge.ts";
+import { applyEventTally, applyTally, applyTranslations, canonicalTown, normalizeEvent, normalizePlace, resolveGeo, shiftDays, townsFromPlaces, type Town } from "./merge.ts";
+import { fixtureEvent, loadSeasons, seasonsOf, type SeasonData } from "./seasons.ts";
 import { tasksOf } from "./gaps.ts";
 import type { Event, Place, Tally } from "./types.ts";
 
@@ -9,6 +10,7 @@ import type { Event, Place, Tally } from "./types.ts";
 export const TODAY = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Berlin" }).format(new Date());
 
 // The fictional demo events are dated around this day; the demo shifts them so they never expire.
+const ROOT = process.env.DEMO ? "examples" : "content";
 const DEMO_ANCHOR = "2026-10-08";
 const demoShift = process.env.DEMO ? Math.round((Date.parse(TODAY) - Date.parse(DEMO_ANCHOR)) / 864e5) : 0;
 
@@ -20,6 +22,8 @@ export interface Data {
   events: Event[];
   placeById: Map<string, Place>;
   eventById: Map<string, Event>;
+  /** Seasons and their fixtures, past ones included (landing pages show last season off season). */
+  seasons: SeasonData;
 }
 
 export const getData = () => (cache ??= load());
@@ -60,8 +64,22 @@ async function load(): Promise<Data> {
     if (demoShift) Object.assign(ev, { start: shiftDays(ev.start, demoShift), end: shiftDays(ev.end, demoShift) });
     if (ev.end >= TODAY) events.push(applyEventTally(applyTranslations(ev, zh), tallies[id]));
   }
+  // Fixtures (Christmas markets, fairs) are events too; one without a pin sits at its town's centre.
+  const seasons = loadSeasons("content/seasons.yaml", ROOT);
+  for (const file of seasons.fixtures) for (const f of file.items) {
+    const ev = fixtureEvent(file, f);
+    if (ev.end < TODAY) continue;
+    if (seen.has(ev.id)) throw new Error(`duplicate id "${ev.id}"`);
+    seen.add(ev.id);
+    events.push(applyEventTally(applyTranslations({ ...ev, geo: resolveGeo(f.geo, file.town, towns) }, zh), tallies[ev.id]));
+  }
+  for (const e of events) {
+    const found = seasonsOf(typeof e.title === "string" ? e.title : e.title.de, seasons.seasons);
+    const all = [...new Set([...(e.seasons ?? []), ...found])];
+    if (all.length) e.seasons = all;
+  }
   events.sort((a, b) => a.start.localeCompare(b.start) || a.id.localeCompare(b.id));
-  return { region, places, events, placeById, eventById: new Map(events.map((e) => [e.id, e])) };
+  return { region, places, events, placeById, eventById: new Map(events.map((e) => [e.id, e])), seasons };
 }
 
 /** Parents' votes, visits and approved tips, counted by scripts/tally-inbox.mjs before the build. */

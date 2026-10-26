@@ -1,0 +1,54 @@
+# Christmas markets in Munich, 2026, from muenchen.de (checked 2026-10-26). muenchen.de says more dates follow;
+# add Tollwood, the Chinesischer Turm and district markets when they are out.
+town: München
+source: muenchen.de
+checked: 2026-10-26
+items:
+  - id: marienplatz
+    name: Münchner Christkindlmarkt am Marienplatz
+    from: 2026-11-20
+    to: 2026-12-24
+    hours: "Mo–Sa 10–21, So 10–20 Uhr; Totensonntag (22.11.) zu; 24.12. 10–14 Uhr"
+    street: Marienplatz und Rindermarkt
+    geo: { lat: 48.13714, lon: 11.57540 }
+    district: Altstadt
+    kids: [crafts, nativity]
+    free: true
+    website: https://www.muenchen.de/veranstaltungen/muenchner-christkindlmarkt-marienplatz
+    note:
+      de: "Himmelswerkstatt im Neuen Rathaus (26.11.–13.12.): Kinder von 6 bis 12 basteln kostenlos als Weihnachtsengerl, Anmeldung beim Kindermuseum. Krampuslauf am 13.12., 15–17 Uhr."
+      en: "Himmelswerkstatt in the New Town Hall (26 Nov to 13 Dec): children aged 6 to 12 do free Christmas crafts dressed as angels; book with the Kindermuseum. Krampus parade on 13 Dec, 3 to 5 pm."
+      zh: "新市政厅的“天堂工坊”（11月26日至12月13日）：6至12岁的孩子可以扮成小天使免费做圣诞手工，需在儿童博物馆预约。12月13日15至17点有坎卜斯游行。"
+  - id: kripperlmarkt
+    name: Kripperlmarkt am Alten Peter
+    from: 2026-11-20
+    to: 2026-12-24
+    hours: "Mo–Sa 10–21, So 10–20 Uhr; Totensonntag (22.11.) zu"
+    street: Rindermarkt, vor dem Alten Peter
+    geo: { lat: 48.13663, lon: 11.57537 }
+    district: Altstadt
+    kids: [nativity]
+    free: true
+    website: https://www.muenchen.de/veranstaltungen/freizeit/weihnachtsmarkt-christkindlmarkt/kripperlmarkt-muenchner-christkindlmarkt-2026
+    note: { de: "Wohl der größte Krippenmarkt Deutschlands, mit Krippen und Figuren zum Anschauen.", en: "Probably Germany's largest nativity market, with cribs and figures to look at.", zh: "可能是德国最大的耶稣诞生场景市场，有各种马槽和人偶可看。" }
+  - id: eiszauber
+    name: Münchner Eiszauber am Stachus
+    from: 2026-11-13
+    to: 2027-01-10
+    hours: "Ab 10:30 Uhr, bis 22 Uhr"
+    street: Karlsplatz (Stachus)
+    geo: { lat: 48.13949, lon: 11.56562 }
+    district: Altstadt
+    kids: [ice_rink]
+    website: https://www.muenchen.de/veranstaltungen/weihnachtsmaerkte-christkindlmaerkte-2026
+    note: { de: "Eisbahn mitten in der Stadt.", en: "An ice rink in the middle of the city.", zh: "市中心的溜冰场。" }
+  - id: residenz
+    name: Weihnachtsdorf in der Residenz
+    from: 2026-11-16
+    to: 2026-12-22
+    hours: "11–21 Uhr"
+    street: Kaiserhof der Residenz
+    geo: { lat: 48.14150, lon: 11.57900 }
+    district: Altstadt
+    free: true
+    website: https://www.muenchen.de/veranstaltungen/weihnachtsmaerkte-christkindlmaerkte-2026
