@@ -34,7 +34,7 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID || vars.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           mkdir -p .cache/outings
-          for f in candidates.jsonl candidates.json decisions.json sorted.json; do
+          for f in candidates.jsonl candidates.json decisions.json sorted.json weekend.json; do
             if npx wrangler r2 object get "$BUCKET/little-outings/$f" --file ".cache/outings/$f.part" > /dev/null 2>&1; then
               mv ".cache/outings/$f.part" ".cache/outings/$f"
             else
@@ -89,12 +89,30 @@ jobs:
         run: |
           out=$(npm run --silent translate 2>&1) || { echo "$out"; exit 1; }
           echo "$out"; echo "::notice title=Translate::$(echo "$out" | tail -1)"
+      # Thursday: drafts this weekend's edition for the admin's Weekend panel. Friday: publishes it
+      # (data/weekend/), and the push below makes the deploy build /<lang>/wochenende/<town>/.
+      - name: Weekend edition
+        id: weekend
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          LLM_PROVIDER: ${{ vars.LLM_PROVIDER }}
+          WEEKEND_MODEL: ${{ vars.WEEKEND_MODEL }}
+        run: |
+          out=$(npm run --silent weekend 2>&1) || { echo "$out"; exit 1; }
+          echo "$out"; echo "::notice title=Weekend::$(echo "$out" | tail -1)"
+      - name: Save the weekend draft for the admin
+        if: steps.weekend.outputs.drafted == '1' && github.ref_name == 'main'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.R2_SORT_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID || vars.CLOUDFLARE_ACCOUNT_ID }}
+        run: npx wrangler r2 object put "$BUCKET/little-outings/weekend.json" --file .cache/outings/weekend.json --content-type application/json
       - name: Commit the outings, venues and translations
         run: |
-          git add data/translations/zh.json data/translations/en.json data/venues.json data/outings.jsonl
+          git add data/translations/zh.json data/translations/en.json data/venues.json data/outings.jsonl data/weekend
           if git diff --cached --quiet; then echo "No changes."; exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "Publish sorted events, venues from event pages and translated titles"
+          git commit -m "Publish sorted events, venues from event pages, translated titles and the weekend edition"
           git pull --rebase origin "$GITHUB_REF_NAME"
           git push

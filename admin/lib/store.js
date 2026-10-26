@@ -11,6 +11,8 @@ export const KEYS = {
   lastPublish: `${PREFIX}/last-publish.json`,
   // The nightly AI sorting's verdicts, written by scripts/sort-events.mjs in the site repository.
   sorted: `${PREFIX}/sorted.json`,
+  // The weekend edition's draft, written Thursday night by scripts/weekend-edition.mjs; the Weekend panel swaps picks.
+  weekend: `${PREFIX}/weekend.json`,
 };
 
 export function json(body, status = 200) {

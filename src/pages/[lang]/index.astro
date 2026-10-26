@@ -5,7 +5,7 @@
 import Base from "../../layouts/Base.astro";
 import Stamp from "../../components/Stamp.astro";
 import { LANGS, MAKER_URL, tr, useT, type Lang } from "../../lib/i18n";
-import { getData } from "../../lib/data";
+import { getData, TODAY } from "../../lib/data";
 import { pathFor, townName } from "../../lib/format";
 import { KINDS, TAGS } from "../../content.config";
 import { KIND_ICON, UI_ICON, svg } from "../../lib/icons";
@@ -14,6 +14,8 @@ import { mapCenter } from "../../lib/pins";
 import { siteLd } from "../../lib/seo";
 import { townStates, type Period } from "../../lib/holidays";
 import schoolHolidays from "../../../data/school-holidays.json";
+import { liveEdition, weekendTowns } from "../../lib/weekend-data";
+import { weekendRange } from "../../lib/weekend";
 import { seasonPages, seasonPath } from "../../lib/seasons";
 
 export const getStaticPaths = () => LANGS.map((lang) => ({ params: { lang } }));
@@ -79,6 +81,8 @@ const mapLabels = {
 // What search results and AI answers show for the home page.
 const description = t("homeDescription", { events: listed.length, places: places.length });
 const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
+// This weekend's edition, per town that has one out (Friday to Sunday); explore.ts shows the home town's.
+const weekend = weekendTowns().map((w) => ({ ...w, live: liveEdition(w.editions, TODAY) })).filter((w) => w.live);
 ---
 <Base lang={lang} tab="explore" preload={`/${lang}/ideen/`} description={description} ld={siteLd({ url: `${site}/${lang}/`, name: t("siteName"), description, lang, maker: MAKER_URL })}>
   <section class="ask">
@@ -162,6 +166,13 @@ const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
   </div>
 
   <p class="area-note" data-area-note hidden>{t("mapAreaOn")} <button type="button" class="link-btn" data-area-reset></button></p>
+
+  {weekend.map((w) => (
+    <a class="wk-banner" href={`/${lang}/wochenende/${w.slug}/`} data-weekend-town={w.name} hidden={w.name !== region.center}>
+      <span><span class="wk-kicker">{t("weekend.cardKicker")} · {weekendRange(w.live!.weekend, lang)}</span><b>{t("weekend.card", { town: townName(w.name, lang, homes) })}</b></span>
+      <span class="arrow" aria-hidden="true">→</span>
+    </a>
+  ))}
 
   {tips.map((e) => (
     <a class="tip" href={pathFor(lang, e)} data-tip={e.id} hidden>

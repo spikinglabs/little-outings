@@ -1,0 +1,31 @@
+---
+// All towns' weekend editions.
+import Base from "../../../layouts/Base.astro";
+import { LANGS, useT, type Lang } from "../../../lib/i18n";
+import { getData, TODAY } from "../../../lib/data";
+import { townName } from "../../../lib/format";
+import { liveEdition, weekendTowns } from "../../../lib/weekend-data";
+import { weekendRange } from "../../../lib/weekend";
+
+export const getStaticPaths = () => LANGS.map((lang) => ({ params: { lang } }));
+const lang = Astro.params.lang as Lang;
+const t = useT(lang);
+const { region } = await getData();
+const towns = weekendTowns().map((x) => ({ ...x, label: townName(x.name, lang, region.towns), live: liveEdition(x.editions, TODAY) }));
+---
+<Base lang={lang} tab="explore" title={t("weekend.hub")} description={t("weekend.hubSub")}>
+  <section class="wk">
+    <header class="wk-head">
+      <h1>{t("weekend.hub")}</h1>
+      <p class="page-sub">{t("weekend.hubSub")}</p>
+    </header>
+    <ul class="wk-towns">
+      {towns.map((x) => (
+        <li><a class="wk-card" href={`/${lang}/wochenende/${x.slug}/`}>
+          <span class="wk-kicker">{x.live ? weekendRange(x.live.weekend, lang) : t("weekend.cardKicker")}</span>
+          <b>{t("weekend.title", { town: x.label })}</b>
+        </a></li>
+      ))}
+    </ul>
+  </section>
+</Base>
