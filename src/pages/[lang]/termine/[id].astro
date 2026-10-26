@@ -8,7 +8,7 @@ import { LANGS, isFallback, tr, useT, type Lang } from "../../../lib/i18n";
 import { getData, getWeather, TODAY } from "../../../lib/data";
 import { dayAt, skyIcon, skyWord } from "../../../lib/weather";
 import { runsLong } from "../../../lib/running";
-import { ageText, dateRange, germanName, nameOf, pathFor, townName } from "../../../lib/format";
+import { ageText, dateRange, germanName, latinRuns, nameOf, pathFor, townName } from "../../../lib/format";
 import { mapLink } from "../../../lib/maps";
 import { FEATURE_ICON, UI_ICON, svg } from "../../../lib/icons";
 import type { Event } from "../../../lib/types";
@@ -68,7 +68,7 @@ const ld = eventLd(e, {
     <div class="lead">
       <Stamp item={e} t={t} />
       <div>
-        <h1>{title}</h1>
+        <h1>{latinRuns(title, lang).map((r) => (r.de ? <span lang="de">{r.s}</span> : r.s))}</h1>
         {isFallback(e.title, lang) && <p class="orig">{t("translated")}</p>}
         {german && <p class="orig"><span lang="de">{german}</span> · {t("machine")}</p>}
       </div>

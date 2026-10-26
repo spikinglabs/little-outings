@@ -133,7 +133,7 @@ h1, h2, h3, .meta, .de-name, .orig, .trust { overflow-wrap: anywhere; }
 .detail { max-width: 720px; }
 .back { display: inline-block; margin-top: 14px; font-weight: 700; text-decoration: none; }
 .lead { display: flex; gap: 14px; align-items: center; margin-top: 14px; }
-.lead h1 { font-size: clamp(1.6rem, 5vw, 2.2rem); font-weight: 800; line-height: 1.1; }
+.lead h1 { font-size: clamp(1.6rem, 5vw, 2.2rem); font-weight: 800; line-height: 1.1; -webkit-hyphens: auto; hyphens: auto; }
 .orig { font-size: .85rem; color: var(--ink-soft); margin: 4px 0 0; }
 .facts { display: grid; gap: 6px; margin: 16px 0; padding: 0; list-style: none; }
 .facts li { display: grid; grid-template-columns: 1.4rem 1fr; gap: 8px; }

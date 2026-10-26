@@ -10,7 +10,7 @@ import ShareButton from "../../../components/ShareButton.astro";
 import AskSheet from "../../../components/AskSheet.astro";
 import { LANGS, isFallback, tr, useT, type Lang } from "../../../lib/i18n";
 import { eventsAt, getData } from "../../../lib/data";
-import { ageText, areaName, germanName, nameOf, parentInput, townName } from "../../../lib/format";
+import { ageText, areaName, germanName, latinRuns, nameOf, parentInput, townName } from "../../../lib/format";
 import { FEATURES } from "../../../content.config";
 import { mapLink } from "../../../lib/maps";
 import { FEATURE_ICON, UI_ICON, svg } from "../../../lib/icons";
@@ -77,7 +77,7 @@ const ld = placeLd(p, { url: `${site}${Astro.url.pathname}`, name: nameOf(p, lan
     <div class="lead">
       <Stamp item={p} t={t} />
       <div>
-        <h1>{nameOf(p, lang)}</h1>
+        <h1>{latinRuns(nameOf(p, lang), lang).map((r) => (r.de ? <span lang="de">{r.s}</span> : r.s))}</h1>
         {germanName(p, lang) && <p class="orig"><span lang="de">{p.name}</span> · {t("machine")}</p>}
         <p class="orig">{t(`kinds.${p.kind}`)} · {area}<span data-km></span>{p.rating && ` · ★ ${p.rating.stars.toLocaleString(t.locale)}`}</p>
       </div>
