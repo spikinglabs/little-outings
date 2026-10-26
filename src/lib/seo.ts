@@ -141,5 +141,16 @@ export function siteLd(o: { site: string; url: string; name: string; description
   };
 }
 
+/**
+ * Whether a place page has enough of its own to be worth a search engine's visit: an OSM playground
+ * with only a name looks like a thousand others, and Google, which crawls a new site slowly, leaves
+ * all of them "discovered, not indexed". The page stays reachable; it just isn't in the sitemap.
+ */
+export function sitemapWorthy(p: Place): boolean {
+  const known = Object.values(p.facilities).filter((f) => f.status !== "unknown").length;
+  return !!(p.website || p.hours || p.note || p.rating || p.tips?.length || p.quotes.length || p.visits?.count)
+    || known >= 2 || p.trust.level !== "community";
+}
+
 /** JSON for a <script type="application/ld+json">, safe to inline (no closing tag can sneak in). */
 export const ldJson = (x: unknown) => JSON.stringify(x).replace(/</g, "\\u003c");
