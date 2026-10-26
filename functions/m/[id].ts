@@ -61,9 +61,14 @@ export async function onRequestGet({ request, env, params }: Ctx): Promise<Respo
   return new HTMLRewriter()
     .on("title", { element(el: El) { el.setInnerContent(`${title} · ${TEXT[lang].site}`); } })
     .on('meta[property="og:title"]', meta("content", title))
+    .on('meta[property="og:image:alt"]', meta("content", title))
+    .on('meta[itemprop="name"]', meta("content", title))
     .on('meta[property="og:description"]', meta("content", description))
+    .on('meta[itemprop="description"]', meta("content", description))
     .on('meta[name="description"]', meta("content", description))
     .on('meta[property="og:url"]', meta("content", `${url.origin}/m/${id}`))
     .on('meta[property="og:image"]', meta("content", `${url.origin}/images/meetup-card.png`))
+    .on('meta[name="twitter:image"]', meta("content", `${url.origin}/images/meetup-card.png`))
+    .on('meta[itemprop="image"]', meta("content", `${url.origin}/images/meetup-card.png`))
     .transform(page);
 }

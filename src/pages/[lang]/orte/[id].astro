@@ -1,5 +1,6 @@
 ---
 import Base from "../../../layouts/Base.astro";
+import { placeKey } from "../../../lib/og";
 import Card from "../../../components/Card.astro";
 import Stamp from "../../../components/Stamp.astro";
 import GapBox from "../../../components/GapBox.astro";
@@ -69,7 +70,7 @@ const description = [
 const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
 const ld = placeLd(p, { url: `${site}${Astro.url.pathname}`, name: nameOf(p, lang), description, lang, facility: (f) => t(`features.${f}`) });
 ---
-<Base lang={lang} title={nameOf(p, lang)} description={description} ld={ld}>
+<Base lang={lang} title={nameOf(p, lang)} description={description} ld={ld} og={placeKey(p)}>
   <article class="detail" data-lat={p.geo.lat} data-lon={p.geo.lon} data-precision={p.geo.precision}>
     <a class="back" href={`/${lang}/`}>← {t("back")}</a>
     <div class="lead">

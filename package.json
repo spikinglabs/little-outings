@@ -4,11 +4,11 @@
   "description": "Family outings around you: kid-friendly places and local events, in German, English and Chinese.",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && node scripts/pack-pages.mjs",
+    "build": "astro build && node scripts/pack-pages.mjs && node scripts/og-images.mjs",
     "preview": "astro preview",
     "check": "astro check",
     "demo": "DEMO=1 astro dev",
-    "build:demo": "DEMO=1 astro build && node scripts/pack-pages.mjs",
+    "build:demo": "DEMO=1 astro build && node scripts/pack-pages.mjs && node scripts/og-images.mjs",
     "import:cityklub": "node scripts/import-cityklub.mjs",
     "import:places": "node scripts/import-places.mjs",
     "import:toilets": "node scripts/import-toilets.mjs",
@@ -41,6 +41,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
+    "@resvg/resvg-js": "^2.6.2",
     "@types/js-yaml": "^4.0.9",
     "@types/leaflet": "^1.9.22",
     "@types/leaflet.markercluster": "^1.5.5",

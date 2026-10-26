@@ -53,6 +53,7 @@ only: "Nur {when}"
 always: Geht immer
 ideas: Ideen in der Nähe
 runsUntil: "bis {date}"
+og: { until: bis, list: "Ausflugsideen für Familien, gemerkt und geteilt. Öffnen und auf die eigene Liste setzen." }
 lastChance: Letzte Chance
 ideasKinds: Was für ein Ausflug
 kindEvents: Veranstaltungen

@@ -6,6 +6,7 @@ import Card from "../../components/Card.astro";
 import SentList from "../../islands/SentList";
 import { LANGS, useT, type Lang } from "../../lib/i18n";
 import { getData } from "../../lib/data";
+import { LIST_KEY } from "../../lib/og";
 
 export const getStaticPaths = () => LANGS.map((lang) => ({ params: { lang } }));
 const lang = Astro.params.lang as Lang;
@@ -13,7 +14,7 @@ const t = useT(lang);
 const m = (k: string) => t(`mine.${k}`);
 const { events, places } = await getData();
 ---
-<Base lang={lang} title={m("title")} tab="saved" noindex>
+<Base lang={lang} title={t("savedTitle")} description={t("og.list")} tab="saved" og={LIST_KEY} noindex>
   <h1 class="page-title">{m("title")}</h1>
   <p class="page-sub">{m("sub")}</p>
   <div class="shared" data-shared hidden>

@@ -9,6 +9,7 @@ import { getData, TODAY } from "../../../lib/data";
 import { nameOf, pathFor, townName } from "../../../lib/format";
 import { seasonPages, seasonPath, type Fixture, type FixtureFile, type Season } from "../../../lib/seasons";
 import { eventLd } from "../../../lib/seo";
+import { seasonKey } from "../../../lib/og";
 
 export async function getStaticPaths() {
   const { seasons } = await getData();
@@ -48,7 +49,7 @@ const ld = {
   })),
 };
 ---
-<Base lang={lang} title={`${title} ${year}`} description={intro} ld={ld}>
+<Base lang={lang} title={`${title} ${year}`} description={intro} ld={ld} og={seasonKey(seasonId, slug)}>
   <div class="season-page">
     <a class="back" href={seasonPath(lang, season)}>← {tr(page.hub, lang)}</a>
     <p class="eyebrow">{season.emoji} {tr(season.label, lang)} {year}</p>

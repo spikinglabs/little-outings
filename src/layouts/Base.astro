@@ -10,13 +10,16 @@ import { UI_ICON, sprite, svg } from "../lib/icons";
 import { FEATURES } from "../content.config";
 import { getData } from "../lib/data";
 import { ldJson } from "../lib/seo";
+import { HOME_KEY, OG, ogBase } from "../lib/og";
 
 interface Props {
   lang: Lang;
   title?: string;
   description?: string;
   tab?: "explore" | "saved" | "add";
-  /** A large preview picture for link cards in chats (functions/m/[id].ts rewrites it and og:url); the app icon otherwise. */
+  /** The link preview picture's key (src/lib/og.ts), e.g. eventKey(e); the brand picture otherwise. */
+  og?: string;
+  /** A ready picture instead, 1200×630 (meetups; functions/m/[id].ts rewrites it and og:url). */
   image?: string;
   noindex?: boolean;
   /** schema.org JSON-LD for this page (src/lib/seo.ts). */
@@ -24,7 +27,7 @@ interface Props {
   /** A file the page's script will fetch, requested together with the page instead of after it. */
   preload?: string;
 }
-const { lang, title, description, tab, image, noindex, ld, preload } = Astro.props;
+const { lang, title, description, tab, og, image, noindex, ld, preload } = Astro.props;
 const t = useT(lang);
 const { region } = await getData();
 // The "saved" tab is labelled "Mine": it holds the saved list, what was sent and the profile.
@@ -41,6 +44,12 @@ const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
 // One address per page, on the real domain, so little-outings.pages.dev never counts as a copy.
 const canonical = `${site}${Astro.url.pathname}`;
 const OG_LOCALE: Record<Lang, string> = { de: "de_DE", en: "en_GB", zh: "zh_CN" };
+// Link previews: a wide picture for WhatsApp, Signal, Telegram and social sites; a square one for
+// WeChat and QQ, which read the itemprop tags and show a small square thumbnail.
+const ogTitle = title ?? t("siteName");
+const ogDescription = description ?? t("tagline");
+const ogImage = `${site}${image ?? `${ogBase(lang, og ?? HOME_KEY)}.png`}`;
+const ogSquare = image ? ogImage : `${site}${ogBase(lang, og ?? HOME_KEY)}-sq.png`;
 // Strings the browser scripts need, in this language.
 const ui = {
   fac: FEATURES.map((f) => [f, t(`features.${f}`)]),
@@ -50,7 +59,7 @@ const ui = {
 };
 ---
 <!doctype html>
-<html lang={lang}>
+<html lang={lang} itemscope itemtype="https://schema.org/WebPage">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -60,11 +69,19 @@ const ui = {
     <meta property="og:site_name" content={t("siteName")} />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content={OG_LOCALE[lang]} />
-    <meta property="og:title" content={title ?? t("siteName")} />
-    <meta property="og:description" content={description ?? t("tagline")} />
+    <meta property="og:title" content={ogTitle} />
+    <meta property="og:description" content={ogDescription} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={`${site}${image ?? "/icons/icon-512.png"}`} />
-    <meta name="twitter:card" content={image ? "summary_large_image" : "summary"} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content={String(OG.w)} />
+    <meta property="og:image:height" content={String(OG.h)} />
+    <meta property="og:image:alt" content={ogTitle} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImage} />
+    <meta itemprop="name" content={ogTitle} />
+    <meta itemprop="description" content={ogDescription} />
+    <meta itemprop="image" content={ogSquare} />
     {ld && <script type="application/ld+json" set:html={ldJson(ld)} />}
     {preload && <link rel="preload" href={preload} as="fetch" crossorigin="anonymous" />}
     {noindex && <meta name="robots" content="noindex" />}
