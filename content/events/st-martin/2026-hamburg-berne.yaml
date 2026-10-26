@@ -1,0 +1,13 @@
+# St. Martin 2026, from hamburg.de/freizeit/jahreszeiten/herbst/laternenumzug-hamburg-22840 (checked 2026-10-26).
+# Entered by hand for the St. Martin season; delete after November.
+title: "Laternenumzug Berne"
+venue: "Berner Gutspark (Start: Kriegkamp/Saseler Straße, Busbrookhöhe 72-90 oder Roter Hahn/Kathenkoppel)"
+town: "Hamburg"
+start: "2026-11-07"
+time: "18:00"
+geo: { lat: 53.62719, lon: 10.1349, precision: exact }
+price: { free: true }
+tags: [season, outside]
+note: "TuS Berne und Freiwillige Feuerwehr Berne: drei Züge starten gleichzeitig und treffen sich im Berner Gutspark zum Feuerwerk."
+trust: { level: official, source: "hamburg.de" }
+website: "https://www.hamburg.de/freizeit/jahreszeiten/herbst/laternenumzug-hamburg-22840"
