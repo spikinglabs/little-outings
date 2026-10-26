@@ -10,8 +10,14 @@
 //   TURNSTILE_SECRET  optional; when set, requests must carry a valid `turnstile` token
 // Until GITHUB_TOKEN and INBOX_REPO are set, it answers 503 and the site says "being set up".
 //
+// A calendar feed from an organiser (kind "feed") is opened once here, and what it holds goes into
+// the issue as `checked`, so the moderator sees whether it works (see functions/api/feed.ts).
+//
 // A new event or place may carry `key`, a random secret the sender's browser keeps. Only its SHA-256
 // goes into the issue, and PUT /api/inbox with the same key changes it later (see onRequestPut).
+
+import { feedUrl, checkSummary } from "../../src/lib/feed.ts";
+import { berlinToday, checkFeed } from "./feed.ts";
 
 export interface Env { GITHUB_TOKEN?: string; INBOX_REPO?: string; TURNSTILE_SECRET?: string }
 type Ctx = { request: Request; env: Env };
@@ -108,6 +114,14 @@ export async function issueOf(body: any): Promise<{ title: string; yaml: string;
     label = "report";
     yaml = [`kind: report`, `item: ${yamlStr(body.item, 80)}`, `reason: ${yamlStr(body.reason, 20)}`,
       `note: ${yamlStr(body.note, 1000)}`, `lang: ${yamlStr(body.lang, 5)}`].join("\n");
+  } else if (body.kind === "feed" && body.feed && typeof body.feed === "object") {
+    const f = body.feed;
+    const url = feedUrl(f.url);
+    if (!url || !f.org || !f.town) return { error: "url, org and town are required" };
+    title = `feed ${clip(f.org, 80)}`;
+    label = "new-feed";
+    yaml = [`kind: feed`, `url: ${yamlStr(url, 1000)}`, ...["org", "town", "contact", "note"].map((k) =>
+      `${k}: ${yamlStr(f[k], k === "note" ? 2000 : 200)}`), `lang: ${yamlStr(body.lang, 5)}`].join("\n");
   } else {
     return { error: "unknown contribution" };
   }
@@ -141,6 +155,10 @@ export async function onRequestPost({ request, env }: Ctx) {
 
   const made = await issueOf(body);
   if ("error" in made) return json(400, { error: made.error });
+  if (made.label === "new-feed") {
+    const check = await checkFeed(body.feed.url, berlinToday());
+    made.yaml += `\nchecked: ${JSON.stringify(check.ok ? checkSummary(check) : check.reason)}`;
+  }
   const number = await fileIssue(env, made.title, [made.label], made.yaml);
   if (number === null) return json(502, { error: "inbox unavailable" });
   return json(200, { ok: true, ...(number ? { number } : {}) });

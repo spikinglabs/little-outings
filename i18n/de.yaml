@@ -424,3 +424,23 @@ legal:
   map: { h: Karte, p: "Die Kartenkacheln kommen von OpenStreetMap (OpenStreetMap Foundation, Vereinigtes Königreich, mit EU-Angemessenheitsbeschluss), die dafür deine IP-Adresse erhält. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO. Dein Standort wird nur auf deinem Handy verwendet, wenn du den Standort-Knopf antippst, und nie an uns geschickt." }
   fonts: { h: Schriften, p: "Alle Schriften werden von unserer eigenen Seite geladen. Kein Schriftendienst erhält deine Daten." }
   rights: { h: Deine Rechte, p: "Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch gegen Verarbeitungen aufgrund berechtigter Interessen (Art. 15–21 DSGVO). Das meiste kannst du selbst unter Meins › Profil und Sync erledigen, sonst schreib uns eine E-Mail. Du kannst dich außerdem bei einer Datenschutz-Aufsichtsbehörde beschweren." }
+feed:
+  pick: "Sie veranstalten etwas für Familien? Schicken Sie uns Ihren Kalender →"
+  title: Ihren Kalender einsenden
+  sub: "Museen, Bibliotheken, Theater, Zoos, Familienzentren: Wenn Ihr Programm einen Kalender-Link hat (iCal, endet auf .ics, den Google Kalender oder Outlook abonnieren können), schicken Sie ihn uns hier. Wir prüfen ihn einmal, danach erscheinen Ihre Termine jeden Tag von selbst bei Little Outings."
+  url: Kalender-Link
+  urlHelp: "Heißt auf Ihrer Terminseite oft „Abonnieren“, „iCal“, „Zum Kalender hinzufügen“ oder „Export“. webcal://-Links gehen auch."
+  check: Link prüfen
+  found: "Klappt: {n} kommende Termine. Die nächsten:"
+  noUpcoming: "Das ist ein Kalender, aber ohne kommende Termine. Ist es der richtige?"
+  err_badUrl: "Das sieht nicht wie eine Webadresse aus. Sie sollte mit https:// oder webcal:// beginnen."
+  err_unreachable: "Wir konnten den Link nicht öffnen. Ist er öffentlich, ohne Anmeldung?"
+  err_tooBig: "Dieser Kalender ist zu groß für eine Vorschau, Sie können ihn aber trotzdem senden."
+  err_notCalendar: "Der Link öffnet eine Webseite, keine Kalenderdatei. Suchen Sie einen Link, der auf .ics endet."
+  org: Ihre Einrichtung
+  town: Ort
+  contact: E-Mail (freiwillig)
+  contactHelp: "Nur für Rückfragen zu Ihrem Kalender. Wird nie auf der Seite gezeigt."
+  note: Was sollten wir wissen?
+  notePh: "Welche Termine für Kinder sind, Alter, wo sie stattfinden …"
+  thanks: "Danke! Wir schauen uns Ihren Kalender an und nehmen ihn bald auf. Spätere Änderungen erscheinen dann von selbst."

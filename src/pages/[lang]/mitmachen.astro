@@ -47,7 +47,8 @@ const placeUi = Object.fromEntries(placeKeys.map((k) => [k, t(k)]));
   <AddFlow client:load lang={lang} ui={ui} place={{ ui: placeUi,
     kinds: KINDS.map((k) => [k, t(`kinds.${k}`)]) as [string, string][],
     features: Object.fromEntries(KINDS.map((k) => [k, featuresFor(k).map((f) => [f, t(`features.${f}`)] as [string, string])])),
-    towns: suggestTowns as [string, string][] }} />
+    towns: suggestTowns as [string, string][] }}
+    feed={{ ...t.group("feed"), inboxSoon: t("inboxSoon"), send: t("send") }} />
 
   <section class="section">
     <div class="section-head"><h2>{t("tasksTitle")}</h2><p data-task-count aria-live="polite"></p></div>
