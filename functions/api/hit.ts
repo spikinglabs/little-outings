@@ -16,8 +16,8 @@ type Ctx = { request: Request; env: Env };
 
 /** Actions the app counts; anything else is ignored. Add here and in src/lib/count.ts together. */
 // copy: the weekend edition's chat text; from_print / from_telegram: someone arrived from the printed
-// sheet or the Telegram post (?von=…).
-export const EVENTS = ["save", "maps", "calendar", "website", "share", "install", "copy", "from_print", "from_telegram"];
+// sheet or the Telegram post (?von=…); from_rednote: someone typed a Rednote card's code into the search box.
+export const EVENTS = ["save", "maps", "calendar", "website", "share", "install", "copy", "from_print", "from_telegram", "from_rednote"];
 const ON = ["event", "place", "other"];
 const LANGS = ["de", "en", "zh"];
 

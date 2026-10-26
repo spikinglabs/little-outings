@@ -1,0 +1,67 @@
+# A Rednote (小红书) set explaining St. Martin's lantern walks to Chinese-speaking parents (src/lib/rednote.ts).
+# Drawn at /xhs/st-martin-<n>.png until `until`; the admin's Rednote box shows it with the caption.
+# After changing Chinese text here, rerun scripts/og-font.py so the font has every character.
+title: 圣马丁节是什么？带娃参加灯笼游行
+until: 2026-11-11
+caption: |
+  11月11日前后，德国到处都有圣马丁灯笼游行🏮 第一次参加的爸爸妈妈看这里：
+  ① 圣马丁是谁
+  ② 游行当天会发生什么
+  ③ 吃什么：Weckmann 面包小人
+  ④ 外面的家庭能不能去
+  ⑤ 出门前的清单
+
+  附近的灯笼游行：浏览器搜索「小出游」，选你的城市，点「圣马丁灯笼游行」。没找到你们的？也可以在网站上添加，附近的家庭都能看到。
+tags: [德国带娃, 圣马丁节, 灯笼游行, 德国幼儿园, 德国节日, 德国生活, 德国妈妈, 留德]
+cards:
+  - tone: gold
+    tag: 德国习俗 · 11月11日
+    title: "圣马丁节\n灯笼游行"
+    lines:
+      - 孩子提着灯笼唱着歌游行，是德国幼儿园和小学最重要的秋天活动之一。
+      - 第一次参加？这组图帮你搞懂。
+    foot: 德国带娃小知识
+  - tone: paper
+    tag: 是什么
+    title: 圣马丁是谁？
+    lines:
+      - 传说公元4世纪，罗马士兵马丁在一个雪夜遇到冻得发抖的乞丐，用剑把自己的斗篷割下一半送给了他。
+      - 后来他成了图尔的主教，11月11日是纪念他的日子。
+    note: 所以这个节日讲的是分享和帮助别人，孩子们在幼儿园也会听这个故事。
+  - tone: paper
+    tag: 怎么过
+    title: 游行当天会发生什么
+    lines:
+      - 傍晚天黑后集合，通常在17点到18点之间。
+      - 孩子提着灯笼，跟着一位骑马、披红斗篷扮演圣马丁的人慢慢走一圈。
+      - 大家边走边唱圣马丁的歌。
+      - 很多地方最后有篝火（Martinsfeuer），有时还会表演分斗篷的小剧。
+  - tone: paper
+    tag: 吃什么
+    title: 面包小人和热饮
+    lines:
+      - 科隆和莱茵地区：Weckmann，一个叼着小陶烟斗的甜面包小人，游行后常常发给孩子。
+      - 在威斯特法伦叫 Stutenkerl，有的地方吃 Martinsbrezel（扭结面包）。
+      - 孩子喝热的 Kinderpunsch，大人常喝 Glühwein。
+  - tone: paper
+    tag: 能参加吗
+    title: 外面的家庭能去吗？
+    lines:
+      - 教会、市民协会或城区组织的游行，一般所有家庭都可以去。
+      - 幼儿园和学校的游行常常只给本园本校的家庭，去之前最好问一下主办方。
+      - 一般不需要报名，也不收费。有的地方卖面包小人或热饮。
+  - tone: paper
+    tag: 准备什么
+    title: 出门前的清单
+    lines:
+      - 灯笼：用电池灯棒，比蜡烛安全。幼儿园常常会带孩子一起做。
+      - 穿暖和，给孩子带上反光条，天黑以后很冷。
+      - 提前学两首歌：Ich geh mit meiner Laterne 和 Laterne, Laterne。
+      - 路线通常不长，小一点的孩子也可以坐推车。
+  - tone: ink
+    title: "附近哪里有\n灯笼游行？"
+    lines:
+      - 持续更新中，也欢迎你添加自己知道的游行。
+    search: 小出游 Little Outings
+    note: 在浏览器里搜索小出游，选你的城市，点「圣马丁灯笼游行」，就能看到附近游行的时间和地点。
+    foot: 信息以主办方为准，出发前请再确认
