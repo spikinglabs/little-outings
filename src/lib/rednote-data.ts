@@ -9,6 +9,7 @@ import { useT } from "./i18n";
 import { codeOf } from "./rednote-code";
 import { REDNOTE_TOWNS, codesOf, fileSet, weeklySet, type SetFile, type XhsSet } from "./rednote";
 import { editionTowns, weekendCounts } from "./weekend-data";
+import type { Pick } from "./weekend";
 
 const DIR = "content/rednote";
 
@@ -34,7 +35,13 @@ export async function rednoteSets(): Promise<{ sets: BuiltSet[]; codes: Record<s
     const kept = ed.picks.map((p, i) => ({ p, code: codeOf(ed.slug, ed.weekend, i) }))
       .filter(({ p }) => (p.type === "event" ? eventById.has(p.id) : placeById.has(p.id)));
     if (!kept.length) continue;
-    const picks = kept.map((k) => k.p), codes = kept.map((k) => k.code);
+    // An edition picked by score has no Chinese names; the nightly translation of the title stands in.
+    const zhOf = (p: Pick) => {
+      const x = p.type === "event" ? eventById.get(p.id)?.title : placeById.get(p.id)?.names;
+      return typeof x === "object" ? x?.zh : undefined;
+    };
+    const picks = kept.map(({ p }) => (p.label?.zh || !zhOf(p) ? p : { ...p, label: { de: p.title, ...p.label, zh: zhOf(p)! } }));
+    const codes = kept.map((k) => k.code);
     const live = { ...ed, picks };
     const count = weekendCounts(events, places, ed.town, ed.weekend);
     const more = { events: Math.max(0, count.events - picks.filter((p) => p.type === "event").length), places: count.places };
