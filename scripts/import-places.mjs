@@ -20,7 +20,7 @@ const parse = (text) => text.split("\n").filter((l) => l.trim()).map((l) => JSON
 const jsonl = (path) => (existsSync(path) ? parse(readFileSync(path, "utf8")) : []);
 
 /** The weekly places file from the public bucket; null (with a warning) when it can't be read. */
-async function download(source) {
+export async function download(source) {
   try {
     if (!/^https?:/.test(source)) return parse(readFileSync(source, "utf8"));
     const res = await fetch(source, { signal: AbortSignal.timeout(30000) });

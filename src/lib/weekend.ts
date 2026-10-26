@@ -7,8 +7,8 @@
 export type L = "de" | "en" | "zh";
 export type Texts = { de: string; en?: string; zh?: string };
 
-/** Towns that get an edition. Cologne first; add a town here once it has enough family events. */
-export const WEEKEND_TOWNS = ["Köln"];
+/** Towns that get an edition. One with fewer than MIN_EVENTS family events that weekend skips a week. */
+export const WEEKEND_TOWNS = ["Köln", "Bonn", "Düsseldorf", "Berlin", "München", "Frankfurt am Main", "Hamburg"];
 
 /**
  * Each town's public Telegram channel, by town slug, e.g. { koeln: "@littleoutings_koeln" }. The bot behind
@@ -18,6 +18,7 @@ export const TELEGRAM: Record<string, string> = {};
 export const telegramChannel = (slug: string): string | undefined => TELEGRAM[slug] || undefined;
 
 export const PICKS = 5; // events (or places standing in for them) per edition
+export const MIN_EVENTS = 3; // fewer family events than this and the town skips a week
 export const SHORTLIST = 30; // candidates the AI chooses from
 export const LONG_RUN = 7; // days: events running longer go into "Still on" instead of a pick
 export const RECENT_EVENTS = 6; // editions: a title featured this recently scores down
@@ -97,7 +98,9 @@ export function isoWeek(d: string): number {
 }
 
 /** "koeln", "duesseldorf", "muenchen": the town's part of the address. */
-export const townSlug = (name: string) =>
+// Short names where the town's own is long: /w/frankfurt reads better than /w/frankfurt-am-main.
+const SLUGS: Record<string, string> = { "Frankfurt am Main": "frankfurt" };
+export const townSlug = (name: string) => SLUGS[name] ??
   name.toLowerCase().replace(/ä/g, "ae").replace(/ö/g, "oe").replace(/ü/g, "ue").replace(/ß/g, "ss")
     .normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
@@ -272,6 +275,10 @@ export function byWhen(a: Pick, b: Pick): number {
 const RAIN_KINDS = ["indoor", "pool", "museum", "fun", "zoo"];
 const DRY_KINDS = ["farm", "zoo", "park", "playground", "fun"];
 const ZOO_NAME = /zoo|tierpark|wildpark|tiergehege|wildgehege|vogelpark|tiergarten|aquazoo/i;
+// OSM's farms are mostly farm shops and seasonal stalls (asparagus, strawberries): only the ones
+// made for a visit with children count. Animal corners of care homes are tagged as zoos too.
+const FARM_VISIT = /kinderbauernhof|jugendfarm|kinderfarm|erlebnis|streichel|ponyhof|abenteuer|lernbauernhof/i;
+const NOT_FOR_VISITORS = /senior|pflege/i;
 
 export interface OsmRow { osm: string; kind: string; name?: string; town: string; hours?: string; free?: boolean; indoor?: boolean; facilities?: string[]; street?: string; nearby?: { road?: string; district?: string } }
 
@@ -287,6 +294,7 @@ export function placeCandidates(rows: OsmRow[], o: { town: string; month: number
     const id = `osm-${r.osm.replace("/", "-")}`;
     if (o.hidden?.has(id) || o.recent?.has(id)) continue;
     if (r.kind === "zoo" && !ZOO_NAME.test(r.name)) continue;
+    if ((r.kind === "farm" && !FARM_VISIT.test(r.name)) || NOT_FOR_VISITORS.test(r.name)) continue;
     const open = openOnWeekend(r.hours, o.month);
     const needsHours = !["park", "playground"].includes(r.kind);
     if (needsHours ? !open || !(open.sat || open.sun) : open && !(open.sat || open.sun)) continue;

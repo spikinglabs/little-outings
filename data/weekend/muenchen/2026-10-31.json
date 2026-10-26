@@ -1,0 +1,111 @@
+{
+  "town": "München",
+  "slug": "muenchen",
+  "weekend": "2026-10-31",
+  "week": 44,
+  "published_at": "2026-10-26T06:19:10.065Z",
+  "by": "score",
+  "weather": [
+    {
+      "day": "2026-10-31",
+      "code": 45,
+      "max": 8.6,
+      "rain": 23
+    },
+    {
+      "day": "2026-11-01",
+      "code": 45,
+      "max": 7.6,
+      "rain": 20
+    }
+  ],
+  "picks": [
+    {
+      "id": "ck-evt-d9c270d573aa3a88ae9d",
+      "type": "event",
+      "title": "Pettersson feiert Weihnachten",
+      "venue": "Münchner Theater für Kinder",
+      "days": [
+        "2026-10-30",
+        "2026-10-31"
+      ],
+      "time": "15:00–17:00",
+      "indoor": true,
+      "tags": [
+        "stage",
+        "fest",
+        "season"
+      ]
+    },
+    {
+      "id": "ck-evt-2d8913fe5892c19b0b1f",
+      "type": "event",
+      "title": "Bilderbuchkino",
+      "venue": "Stadtbibliothek Laim",
+      "days": [
+        "2026-10-30"
+      ],
+      "time": "16:00",
+      "indoor": true,
+      "tags": [
+        "reading",
+        "stage"
+      ]
+    },
+    {
+      "id": "ck-evt-bd1163dfaf4e84cbe20d",
+      "type": "event",
+      "title": "Pen & Paper Convention für Kinder und Jugendliche",
+      "venue": "Schauburg Labor in Ramersdorf – Rosenheimer Straße 192",
+      "days": [
+        "2026-10-31",
+        "2026-11-01"
+      ],
+      "time": "09:30",
+      "tags": []
+    },
+    {
+      "id": "ck-evt-43deabcc56e8f7d4d787",
+      "type": "event",
+      "title": "Avatar Ich bin Verwandlung Kreativ-Workshop mit Ronit Wolf für Kinder ab 6 Jahren in Begleitung eines Erwachsenen",
+      "venue": "Museum Fünf Kontinente, Maximilianstraße 42",
+      "district": "Altstadt-Lehel",
+      "days": [
+        "2026-10-31"
+      ],
+      "time": "14:00",
+      "indoor": true,
+      "tags": [
+        "diy",
+        "tour"
+      ]
+    },
+    {
+      "id": "ck-evt-ad79e6ebd99ff2ba626d",
+      "type": "event",
+      "title": "Herbstfilmtage Das grüne Wunder – Unser Wald",
+      "venue": "Gasteig HP8",
+      "days": [
+        "2026-11-01"
+      ],
+      "time": "15:00–16:30",
+      "indoor": false,
+      "tags": [
+        "stage",
+        "outside",
+        "season"
+      ]
+    },
+    {
+      "id": "osm-way-156435529",
+      "type": "place",
+      "title": "Tierpark Hellabrunn",
+      "kind": "zoo",
+      "hours": "Apr-Oct: 09:00-18:00; Nov-Mar: 09:00-17:00",
+      "free": false,
+      "district": "Harlaching",
+      "venue": "Tierparkstraße 30",
+      "days": []
+    }
+  ]
+}

@@ -18,7 +18,8 @@ test("the weekend is the coming one from Monday to Friday, and the current one o
   assert.equal(isoWeek("2026-10-31"), 44);
   assert.equal(isoWeek("2027-01-02"), 53);
   assert.equal(townSlug("Köln"), "koeln");
-  assert.equal(townSlug("Frankfurt am Main"), "frankfurt-am-main");
+  assert.equal(townSlug("Frankfurt am Main"), "frankfurt");
+  assert.equal(townSlug("München"), "muenchen");
   assert.equal(nextFriday("2026-10-26"), "2026-10-30");
 });
 
@@ -98,6 +99,16 @@ test("places: only the zoo itself, open on the weekend, not featured lately", ()
   assert.equal(ids[0], "osm-way-4", "free first");
   const later = placeCandidates(rows, { town: "Köln", month: 10, recent: new Set(["osm-way-4"]) }).map((p) => p.id);
   assert.ok(!later.includes("osm-way-4"));
+});
+
+test("places: farms only when made for a visit, no farm shops or seasonal stalls", () => {
+  const rows = [
+    { osm: "node/1", kind: "farm", name: "Spargelhof Saß", town: "Bonn", hours: "Mo-Su 10:00-18:00" },
+    { osm: "node/2", kind: "farm", name: "Erdbeeren Kiosk", town: "Bonn", hours: "Mo-Su 09:00-18:00" },
+    { osm: "node/3", kind: "farm", name: "Kinderbauernhof Pinke-Panke", town: "Bonn", hours: "Sa,Su 10:00-17:00" },
+    { osm: "node/4", kind: "zoo", name: "Mini Zoo in der Seniorenstiftung", town: "Bonn", hours: "Mo-Su 14:30-16:00" },
+  ];
+  assert.deepEqual(placeCandidates(rows, { town: "Bonn", month: 10 }).map((p) => p.id), ["osm-node-3"]);
 });
 
 test("weekend events: one pick per title and venue across days, long runs set apart, sold out dropped", () => {
