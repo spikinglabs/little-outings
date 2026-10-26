@@ -99,3 +99,11 @@ test("the last line is never one or two lone characters", () => {
   const l = lines("傍晚天黑后集合，通常在17点到18点之间。", 18);
   assert.ok([...l.at(-1)!].length > 3, l.join("|"));
 });
+
+test("captions speak to mums and dads alike", () => {
+  const weekly = weeklySet(edition, { townZh: "科隆", kindName, more: { events: 1, places: 1 } }).caption;
+  const sets = setFiles.map((f) => fileSet(f, load(readFileSync(`content/rednote/${f}`, "utf8")) as SetFile).caption);
+  for (const caption of [weekly, ...sets]) {
+    assert.equal(caption.includes("#德国妈妈"), caption.includes("#德国爸爸"), caption.slice(-80));
+  }
+});
