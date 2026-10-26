@@ -18,6 +18,7 @@ townNone: "没有找到这个城镇"
 search: 搜索
 searchPh: 搜索农场、咖啡馆、游乐场或活动
 filters: { farm: "🚜 农场", rain: "☂ 下雨也能去", free: 免费, animals: 有动物, changing: 尿布台, nogerman: "💬 不懂德语也能玩", radius: 范围 }
+order: { label: 排序, mixed: 随机, soonest: 时间最近, nearest: 距离最近 }
 # Season chips and pages (content/seasons.yaml, src/lib/seasons.ts). A season's own texts there win.
 season:
   add: "还缺了什么？"
@@ -51,6 +52,8 @@ tip: "{when}推荐"
 only: "仅限{when}"
 always: 随时可去
 ideas: 附近的好去处
+runsUntil: "至{date}"
+lastChance: 即将结束
 ideasKinds: 出游类型
 kindEvents: 活动
 eventTypes: 活动类型

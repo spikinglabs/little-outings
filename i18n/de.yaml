@@ -18,6 +18,7 @@ townNone: "Kein Ort mit diesem Namen"
 search: Suche
 searchPh: Hof, Café, Spielplatz oder Fest suchen
 filters: { farm: "🚜 Bauernhof", rain: "☂ Bei Regen", free: Kostenlos, animals: Mit Tieren, changing: Wickeltisch, nogerman: Ohne Deutsch, radius: Umkreis }
+order: { label: Reihenfolge, mixed: Gemischt, soonest: Bald zuerst, nearest: Nah zuerst }
 # Season chips and pages (content/seasons.yaml, src/lib/seasons.ts). A season's own texts there win.
 season:
   add: "Etwas fehlt?"
@@ -51,6 +52,8 @@ tip: "Unser Tipp {when}"
 only: "Nur {when}"
 always: Geht immer
 ideas: Ideen in der Nähe
+runsUntil: "bis {date}"
+lastChance: Letzte Chance
 ideasKinds: Was für ein Ausflug
 kindEvents: Veranstaltungen
 eventTypes: Art der Veranstaltung

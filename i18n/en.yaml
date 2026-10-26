@@ -18,6 +18,7 @@ townNone: "No town by that name here"
 search: Search
 searchPh: Search farms, cafés, playgrounds or festivals
 filters: { farm: "🚜 Farm", rain: "☂ Rainy day", free: Free, animals: Animals, changing: Changing table, nogerman: "💬 No German needed", radius: Within }
+order: { label: Order, mixed: Mixed, soonest: Soonest, nearest: Nearest }
 # Season chips and pages (content/seasons.yaml, src/lib/seasons.ts). A season's own texts there win.
 season:
   add: "Something missing?"
@@ -51,6 +52,8 @@ tip: "Our pick {when}"
 only: "Only {when}"
 always: Always a good idea
 ideas: Ideas nearby
+runsUntil: "until {date}"
+lastChance: Last chance
 ideasKinds: What kind of outing
 kindEvents: Events
 eventTypes: Type of event
