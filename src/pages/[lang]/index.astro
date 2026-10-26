@@ -170,13 +170,18 @@ const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
   ))}
 
   <section class="section" aria-labelledby="ideas-h">
-    <div class="section-head"><h2 id="ideas-h">{t("ideas")}</h2><p data-count aria-live="polite"></p></div>
-    <!-- Mixed by default (shuffled once a day per town, lib/order.ts); parents can sort instead. -->
-    <label class="chip order-pick">{t("order.label")}
-      <select id="order" aria-label={t("order.label")}>
-        {["mixed", "soonest", "nearest"].map((o) => <option value={o}>{t(`order.${o}`)}</option>)}
-      </select>
-    </label>
+    <div class="section-head">
+      <h2 id="ideas-h">{t("ideas")}</h2>
+      <div class="head-side">
+        <p data-count aria-live="polite"></p>
+        <!-- Mixed by default (shuffled once a day per town, lib/order.ts); parents can sort instead. -->
+        <label class="order-pick"><span aria-hidden="true">⇅</span>
+          <select id="order" aria-label={t("order.label")}>
+            {["mixed", "soonest", "nearest"].map((o) => <option value={o}>{t(`order.${o}`)}</option>)}
+          </select>
+        </label>
+      </div>
+    </div>
     <div class="filters kinds" role="group" aria-label={t("ideasKinds")}>
       <button class="chip" type="button" data-kind-chip="" aria-pressed="true">{t("allKinds")} <span class="n" data-n></span></button>
       <button class="chip" type="button" data-kind-chip="event" aria-pressed="false"><span class="dot-ev" aria-hidden="true"></span> {t("kindEvents")} <span class="n" data-n></span></button>

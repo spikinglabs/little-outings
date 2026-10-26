@@ -110,7 +110,9 @@ h1, h2, h3 { font-family: var(--display); text-wrap: balance; letter-spacing: -0
 .fi.on { color: var(--paper); background: var(--ink); border: 1px solid var(--ink); }
 .fi svg { width: 17px; height: 17px; }
 .kinds { margin-bottom: 10px; }
-.order-pick { margin: 0 0 10px; }
+.head-side { display: grid; justify-items: end; gap: 2px; text-align: right; }
+.order-pick { display: inline-flex; align-items: center; gap: 4px; color: var(--blau); font-size: .9rem; font-weight: 700; cursor: pointer; }
+.order-pick select { appearance: none; border: 0; background: none; color: inherit; font: inherit; padding: 2px 0; cursor: pointer; text-decoration: underline dotted; text-underline-offset: 3px; }
 .pill.last { background: var(--rot); color: var(--rot-ink); font-weight: 700; }
 
 /* detail pages */
