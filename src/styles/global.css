@@ -287,6 +287,9 @@ h1, h2, h3, .meta, .de-name, .orig, .trust { overflow-wrap: anywhere; }
 .area-note { margin: 0 0 20px; color: var(--ink-soft); font-size: .92rem; }
 .link-btn { border: 0; background: none; padding: 0; color: var(--blau); font-weight: 700; cursor: pointer; text-decoration: underline; }
 .explore-map .map { height: min(45vh, 380px); }
+.brand-about { margin-top: 32px; }
+.brand-about h2 { font-size: 1rem; margin-bottom: 4px; }
+.brand-about p { line-height: 1.6; color: var(--ink-soft); max-width: 62ch; }
 .more-btn { display: block; margin: 12px auto 0; border: 1px solid var(--line); background: var(--card); border-radius: 999px; padding: 8px 18px; cursor: pointer; font-weight: 600; }
 .legend { display: flex; flex-wrap: wrap; gap: 14px; padding: 10px 14px; font-size: .85rem; color: var(--ink-soft); border-top: 1px solid var(--line); }
 .legend i { display: inline-block; width: 12px; height: 12px; border-radius: 50%; vertical-align: -1px; margin-right: 5px; }

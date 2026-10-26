@@ -1,8 +1,11 @@
 locale: zh-CN
 langName: 中文
 siteName: 小出游
-tagline: 附近的亲子好去处
-homeDescription: "科隆、波恩和杜塞尔多夫周边的亲子出游：{events} 个亲子活动和 {places} 个适合孩子的地方，包括游乐场、农场、动物园和游泳池。免费，无需注册。"
+tagline: 德国带娃去哪儿 · 亲子活动和好去处
+homeDescription: "小出游（Little Outings）：德国带娃去哪儿。科隆、柏林、慕尼黑、汉堡等城市的 {events} 个亲子活动和 {places} 个适合孩子的地方，包括游乐场、农场、动物园和游泳池，都有中文介绍。免费，无需注册。"
+brandAbout:
+  h: 关于小出游
+  p: "小出游（Little Outings）是给在德国带娃的家庭做的免费网站：科隆、柏林、慕尼黑、汉堡等城市的亲子活动，还有游乐场、农场、动物园、游泳池和亲子咖啡馆等适合孩子的地方，都有中文介绍。每天晚上更新，不用注册。"
 tabs: { explore: 发现, saved: 我的, add: 添加 }
 when: { today: 今天, tomorrow: 明天, weekend: 周末, soon: 未来两周 }
 whenIn: { today: 今天, tomorrow: 明天, weekend: 这个周末, soon: 未来两周 }
