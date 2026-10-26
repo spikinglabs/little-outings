@@ -108,6 +108,14 @@ h1, h2, h3 { font-family: var(--display); text-wrap: balance; letter-spacing: -0
 .fi.on { color: var(--paper); background: var(--ink); border: 1px solid var(--ink); }
 .fi svg { width: 17px; height: 17px; }
 .kinds { margin-bottom: 10px; }
+.pill.last { background: var(--rot); color: var(--rot-ink); font-weight: 700; }
+.running { margin: 0 0 12px; border: 1px solid var(--line); border-radius: var(--r); background: var(--card); padding: 10px 14px; }
+.running summary { cursor: pointer; display: flex; gap: 8px; align-items: baseline; }
+.running summary .n { color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.running summary::after { content: "▾"; margin-left: auto; color: var(--ink-soft); }
+.running[open] summary::after { content: "▴"; }
+.running[open] summary { margin-bottom: 4px; }
+.running .small { margin: 0 0 10px; color: var(--ink-soft); }
 
 /* detail pages */
 .detail { max-width: 720px; }

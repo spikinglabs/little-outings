@@ -2,6 +2,7 @@
 // that are good any time. All cards arrive once from /<lang>/ideen/; this only hides and sorts them.
 // Distances are measured once per home town, and the list shows a page at a time.
 import { lastDay } from "../lib/horizon";
+import { lastChance, splitRunning } from "../lib/running";
 import { holidayFor, type Period } from "../lib/holidays";
 import { distanceOf, getHome, markSaved, nearestTown, renderKm, setHere, setHome } from "./app";
 import type {} from "../islands/OutingsMap";
@@ -208,8 +209,13 @@ function apply() {
   }
   // Events soonest then nearest, places nearest first but with the kinds mixed, and the two
   // alternated, so the list always has something happening and something good any time.
-  const evs = matched.filter((r) => r.d.type === "event")
+  const sorted = matched.filter((r) => r.d.type === "event")
     .sort((a, b) => (a.d.start! < from ? from : a.d.start!).localeCompare(b.d.start! < from ? from : b.d.start!) || (a.dist ?? 0) - (b.dist ?? 0));
+  // Long runs (exhibitions) fold into their own row, so the list opens with what happens only then.
+  // A search shows them in the list, where the reader is looking for them.
+  const today = ymd(new Date());
+  const split = state.q ? { main: sorted, running: [] as Row[] } : splitRunning(sorted, (r) => ({ start: r.d.start!, end: r.d.end! }), today);
+  const evs = split.main;
   const pls = mixKinds(matched.filter((r) => r.d.type !== "event").sort((a, b) => (a.dist ?? 1e9) - (b.dist ?? 1e9)));
   matched.length = 0;
   for (let i = 0; i < Math.max(evs.length, pls.length); i++) {
@@ -228,10 +234,19 @@ function apply() {
     }
   });
   const list = matched.filter((r) => r.d.id !== tip);
-  const shownIds = new Set(list.slice(0, state.limit).map((r) => r.d.id));
+  const running = split.running.filter((r) => r.d.id !== tip);
+  const shownIds = new Set([...list.slice(0, state.limit), ...running].map((r) => r.d.id));
   const frag = document.createDocumentFragment();
   list.slice(0, state.limit).forEach((r) => frag.append(r.el));
   $("#ideas").insertBefore(frag, $("#ideas").firstChild);
+  const runRow = $<HTMLDetailsElement>("[data-running]");
+  runRow.hidden = !running.length;
+  $("[data-running-n]").textContent = String(running.length);
+  $("[data-running-list]").append(...running.map((r) => r.el));
+  for (const r of [...list.slice(0, state.limit), ...running]) {
+    const last = r.el.querySelector<HTMLElement>("[data-last]");
+    if (last) last.hidden = !lastChance(r.d.end!, today);
+  }
   for (const r of all) {
     if (shownIds.has(r.d.id)) show(r.el, true);
     else if (r.el.isConnected) r.el.remove();

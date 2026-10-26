@@ -22,6 +22,10 @@ tip: "Our pick {when}"
 only: "Only {when}"
 always: Always a good idea
 ideas: Ideas nearby
+running: "Running for a while"
+runningHint: Exhibitions and more you can visit any day until they end.
+runsUntil: "until {date}"
+lastChance: Last chance
 ideasKinds: What kind of outing
 kindEvents: Events
 eventTypes: Type of event
