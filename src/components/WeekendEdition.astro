@@ -7,6 +7,8 @@ import { getData } from "../lib/data";
 import { townName } from "../lib/format";
 import { tr, type T } from "../lib/i18n";
 import { weekendCounts } from "../lib/weekend-data";
+import RednoteShare from "./RednoteShare.astro";
+import { rednoteSets } from "../lib/rednote-data";
 import { addDays, chatText, isRainy, skyWord, telegramChannel, textIn, weekendRange, type Edition, type Pick } from "../lib/weekend";
 
 interface Props { edition: Edition; t: T; archived?: boolean }
@@ -34,6 +36,8 @@ const more = Math.max(0, count.events - picks.filter((p) => p.type === "event").
 const wa = chatText({ ...ed, picks }, { lang, style: "whatsapp", town, url: `https://${shortUrl}`, more });
 const wechat = lang === "zh" ? chatText({ ...ed, picks }, { lang, style: "wechat", town, url: `https://${shortUrl}`, more }) : "";
 const channel = telegramChannel(ed.slug);
+// Chinese readers can pass the edition on to Rednote as pictures (towns in REDNOTE_TOWNS only).
+const xhs = lang === "zh" && !archived ? (await rednoteSets()).sets.find((s) => s.id === `${ed.slug}-${ed.weekend}`) : undefined;
 ---
 <section class="wk" data-weekend>
   <header class="wk-head">
@@ -110,6 +114,8 @@ const channel = telegramChannel(ed.slug);
       <p class="small" role="status" data-copy-msg></p>
     </section>
   )}
+
+  {xhs && <RednoteShare set={xhs} />}
 
   <p class="small wk-how">{t("weekend.how", { town })}{ed.weather && <> {t("weekend.weather")}</>}</p>
   <link rel="alternate" type="application/rss+xml" title={t("weekend.title", { town })} href={`${page}rss.xml`} />

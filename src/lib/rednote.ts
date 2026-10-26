@@ -145,7 +145,8 @@ export const codesOf = (ed: Edition, codes = ed.picks.map((_, i) => codeOf(ed.sl
 // ---------- hand-written sets ----------
 
 /** content/rednote/<id>.yaml */
-export interface SetFile { title: string; caption: string; tags?: string[]; until?: string; cards: Sheet[] }
+/** `season`: a season id (content/seasons.yaml); the Chinese pages of its events offer the set to share. */
+export interface SetFile { title: string; caption: string; tags?: string[]; until?: string; season?: string; cards: Sheet[] }
 
 export function fileSet(id: string, f: SetFile): XhsSet {
   return { id, title: f.title, caption: [f.caption.trim(), "", hashtags(f.tags ?? [])].join("\n").trim(), sheets: f.cards };

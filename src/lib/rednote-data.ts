@@ -13,7 +13,7 @@ import type { Pick } from "./weekend";
 
 const DIR = "content/rednote";
 
-export interface BuiltSet extends XhsSet { kind: "weekly" | "set"; town?: string; weekend?: string }
+export interface BuiltSet extends XhsSet { kind: "weekly" | "set"; town?: string; weekend?: string; season?: string }
 
 /** The hand-written sets, by file name, still before their `until` day. */
 export function setFiles(): [string, SetFile][] {
@@ -23,7 +23,11 @@ export function setFiles(): [string, SetFile][] {
     .filter(([, s]) => !s.until || String(s.until) >= TODAY);
 }
 
-export async function rednoteSets(): Promise<{ sets: BuiltSet[]; codes: Record<string, string> }> {
+let built: Promise<{ sets: BuiltSet[]; codes: Record<string, string> }> | undefined;
+/** Every set and every code; made once per build, since the home and event pages ask too. */
+export const rednoteSets = () => (built ??= buildSets());
+
+async function buildSets(): Promise<{ sets: BuiltSet[]; codes: Record<string, string> }> {
   const { events, places, region, eventById, placeById } = await getData();
   const t = useT("zh");
   const sets: BuiltSet[] = [];
@@ -48,9 +52,12 @@ export async function rednoteSets(): Promise<{ sets: BuiltSet[]; codes: Record<s
     sets.push({ kind: "weekly", town: ed.town, weekend: ed.weekend, ...weeklySet(live, { townZh: townName(ed.town, "zh", region.towns), kindName: (k) => t(`kinds.${k}`), more, codes }) });
     Object.assign(found, codesOf(live, codes));
   }
-  for (const [id, f] of setFiles()) sets.push({ kind: "set", ...fileSet(id, f) });
+  for (const [id, f] of setFiles()) sets.push({ kind: "set", ...(f.season ? { season: f.season } : {}), ...fileSet(id, f) });
   return { sets, codes: found };
 }
 
 /** The picture of card `i` (from 0) of a set: /xhs/<set id>-<n>.png. */
 export const sheetFile = (id: string, i: number) => `${id}-${i + 1}`;
+
+/** A set's pictures in order, as the site serves them. */
+export const picturesOf = (s: XhsSet) => s.sheets.map((_, i) => `/xhs/${sheetFile(s.id, i)}.png`);

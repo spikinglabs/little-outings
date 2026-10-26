@@ -1,0 +1,94 @@
+---
+// "Share to Rednote" for parents, on Chinese pages that have a Rednote set (src/lib/rednote.ts): the
+// weekend edition and St. Martin's events. Rednote has no link that opens a new note, and punishes links
+// inside notes, so the button copies the caption and hands the cards to the phone's share menu, where
+// the parent picks Rednote and pastes. Phones that can't share pictures get the cards to long-press and save.
+import { picturesOf, type BuiltSet } from "../lib/rednote-data";
+
+interface Props { set: BuiltSet }
+const { set } = Astro.props;
+const pictures = picturesOf(set);
+const text = `${set.title}\n\n${set.caption}`;
+---
+<section class="xhs" data-xhs data-pictures={JSON.stringify(pictures)} data-name={set.id} aria-labelledby={`xhs-${set.id}`}>
+  <h2 id={`xhs-${set.id}`}>分享到小红书</h2>
+  <p class="small">小红书不让放外部链接，我们把内容做成了 {pictures.length} 张图，还配好了文字。点下面的按钮，文字会先复制好，再在分享菜单里选小红书，发笔记时把文字粘贴进去就行。</p>
+  <div class="wk-btns">
+    <button type="button" class="btn primary" data-xhs-share>分享到小红书</button>
+    <button type="button" class="btn" data-xhs-save>保存图片和文字</button>
+  </div>
+  <p class="small" role="status" data-xhs-msg></p>
+  <div data-xhs-manual hidden>
+    <p class="small">长按每张图片保存到相册，再复制下面的文字。</p>
+    <div class="xhs-pics">
+      {pictures.map((p, i) => <img src={p} alt={`第 ${i + 1} 张`} width="1080" height="1440" loading="lazy" />)}
+    </div>
+    <textarea class="wk-text" readonly rows="8" aria-label="笔记文字" data-xhs-text>{text}</textarea>
+  </div>
+</section>
+
+<style>
+  .xhs { display: grid; gap: 10px; margin-top: 24px; }
+  .xhs h2 { margin: 0; }
+  .xhs-pics { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 6px; }
+  .xhs-pics img { width: 150px; height: auto; flex: none; border-radius: 8px; border: 1px solid var(--line); }
+</style>
+
+<script is:inline>
+  // Pictures are fetched once the box comes into view, so the tap goes straight to the share menu
+  // (Safari drops a share that waits on a download). Counted as a daily total, like the other buttons.
+  document.querySelectorAll("[data-xhs]").forEach(function (box) {
+    var urls = JSON.parse(box.dataset.pictures);
+    var text = box.querySelector("[data-xhs-text]").value;
+    var msg = box.querySelector("[data-xhs-msg]");
+    var manual = box.querySelector("[data-xhs-manual]");
+    var files = null;
+    var say = function (m) { msg.textContent = m; };
+    var load = function () {
+      if (files || !window.File) return;
+      files = Promise.all(urls.map(function (u, i) {
+        return fetch(u).then(function (r) { return r.blob(); }).then(function (b) {
+          return new File([b], box.dataset.name + "-" + (i + 1) + ".png", { type: "image/png" });
+        });
+      })).catch(function () { return null; });
+    };
+    var count = function () {
+      var body = JSON.stringify({ e: "rednote_share", on: location.pathname.indexOf("/termine/") >= 0 ? "event" : "other", lang: "zh" });
+      try { navigator.sendBeacon("/api/hit", body); } catch (e) {}
+    };
+    var copy = function () {
+      return navigator.clipboard && navigator.clipboard.writeText ? navigator.clipboard.writeText(text).then(function () { return true; }, function () { return false; }) : Promise.resolve(false);
+    };
+    var showManual = function (m) {
+      manual.hidden = false;
+      say(m);
+      manual.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    };
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (seen, obs) { if (seen.some(function (e) { return e.isIntersecting; })) { load(); obs.disconnect(); } }).observe(box);
+    } else load();
+
+    box.querySelector("[data-xhs-share]").addEventListener("click", function () {
+      count();
+      var copied = copy();
+      load();
+      (files || Promise.resolve(null)).then(function (list) {
+        if (list && navigator.canShare && navigator.canShare({ files: list })) {
+          return copied.then(function (ok) {
+            say(ok ? "文字已复制。在分享菜单里选小红书，发笔记时粘贴文字。" : "在分享菜单里选小红书。文字在下面，可以长按复制。");
+            if (!ok) manual.hidden = false;
+            return navigator.share({ files: list, text: text });
+          }).catch(function (e) {
+            if (e && e.name === "AbortError") return;
+            showManual("没能打开分享菜单。长按图片保存，再复制文字。");
+          });
+        }
+        showManual("这个浏览器不能直接分享图片。长按图片保存，再复制文字。");
+      });
+    });
+    box.querySelector("[data-xhs-save]").addEventListener("click", function () {
+      count();
+      copy().then(function (ok) { showManual(ok ? "文字已复制。长按图片保存到相册。" : "长按图片保存，再复制下面的文字。"); });
+    });
+  });
+</script>

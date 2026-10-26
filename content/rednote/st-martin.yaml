@@ -2,6 +2,7 @@
 # Drawn at /xhs/st-martin-<n>.png until `until`; the admin's Rednote box shows it with the caption.
 # After changing Chinese text here, rerun scripts/og-font.py so the font has every character.
 title: 圣马丁节是什么？带娃参加灯笼游行
+season: martin
 until: 2026-11-11
 caption: |
   11月11日前后，德国到处都有圣马丁灯笼游行🏮 第一次参加的爸爸妈妈看这里：
