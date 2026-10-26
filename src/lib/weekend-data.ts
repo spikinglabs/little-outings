@@ -16,9 +16,11 @@ export function editionsOf(slug: string): Edition[] {
     .map((f) => JSON.parse(readFileSync(join(dir, f), "utf8")) as Edition);
 }
 
+/** Every town the edition is made for, by slug, with or without an edition out yet. */
+export const editionTowns = () => WEEKEND_TOWNS.map((name) => ({ name, slug: townSlug(name), editions: editionsOf(townSlug(name)) }));
+
 /** Towns with an edition, by slug. */
-export const weekendTowns = () =>
-  WEEKEND_TOWNS.map((name) => ({ name, slug: townSlug(name), editions: editionsOf(townSlug(name)) })).filter((t) => t.editions.length);
+export const weekendTowns = () => editionTowns().filter((t) => t.editions.length);
 
 /**
  * The newest edition while its weekend isn't over: from Friday's publish to Sunday. From Monday to

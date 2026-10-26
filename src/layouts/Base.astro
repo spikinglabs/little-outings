@@ -5,7 +5,8 @@ import "@fontsource/barlow-semi-condensed/600.css";
 import "@fontsource/barlow-semi-condensed/700.css";
 import "@fontsource-variable/bricolage-grotesque/opsz.css";
 import "../styles/global.css";
-import { LANGS, MAKER_URL, useT, type Lang } from "../lib/i18n";
+import { LANGS, MAKER_URL, tr, useT, type Lang } from "../lib/i18n";
+import { seasonPages, seasonPath } from "../lib/seasons";
 import { UI_ICON, sprite, svg } from "../lib/icons";
 import { FEATURES } from "../content.config";
 import { getData } from "../lib/data";
@@ -29,7 +30,13 @@ interface Props {
 }
 const { lang, title, description, tab, og, image, noindex, ld, preload } = Astro.props;
 const t = useT(lang);
-const { region } = await getData();
+const { region, seasons } = await getData();
+// Always findable, whatever the season: the weekend editions and every season with its own pages.
+const pageSeasons = [...new Set(seasonPages(seasons).map((p) => p.season))];
+const footLinks = [
+  { href: `/${lang}/wochenende/`, label: `📰 ${t("weekend.nav")}` },
+  ...pageSeasons.map((s) => ({ href: seasonPath(lang, s), label: `${s.emoji} ${tr(s.page!.nav ?? s.label, lang)}` })),
+];
 // The "saved" tab is labelled "Mine": it holds the saved list, what was sent and the profile.
 const TAB_ICON: Record<string, string> = { explore: UI_ICON.explore, saved: UI_ICON.mine, add: UI_ICON.add };
 // Path without the language prefix, so the switcher keeps the reader on the same page.
@@ -156,6 +163,7 @@ const ui = {
         <slot />
       </main>
       <footer class="foot">
+        <p class="foot-links">{footLinks.map((l, i) => <>{i > 0 && " · "}<a href={l.href}>{l.label}</a></>)}</p>
         <p>{t("footer")} <a href={`/${lang}/daten`}>{t("about.link")}</a> · <a href={`/${lang}/impressum`}>{t("legal.link")}</a></p>
         <p class="maker" set:html={t("byLine", { maker: `<a href="${MAKER_URL}" target="_blank" rel="noopener">Spiking Labs</a>` })} />
         <p class="install" data-install hidden>

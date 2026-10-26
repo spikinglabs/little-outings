@@ -149,6 +149,9 @@ inboxSoon: Danke! Das Einsenden wird gerade eingerichtet. Bis dahin gern per Git
 mapShowMore: "{n} weitere zeigen"
 mapMore: "und {n} weitere"
 mapShow: "Auf der Karte zeigen"
+mapShowShort: Karte
+mapHideShort: Karte zu
+shortcuts: Abkürzungen
 mapHide: "Karte ausblenden"
 mapAreaOn: "Gezeigt wird, was im Kartenausschnitt liegt."
 mapAreaBack: "Zurück zu {r} km um {town}"
@@ -512,7 +515,8 @@ weekend:
   earlier: Frühere Ausgaben
   how: "Jeden Freitag neu: aus allen Familien-Terminen in {town} ausgesucht. Vorn liegt, was für Kinder gemacht ist, kostenlos und tagsüber, passend zum Wetter; jeder Ort nur einmal, und nichts, was in den letzten Wochen schon dabei war. Bitte vorher beim Veranstalter nachsehen."
   weather: "Wetter: Open-Meteo.com"
-  card: "Die Wochenend-Ausgabe für {town}"
+  nav: Wochenend-Tipps
+  new: neu
   cardKicker: Jeden Freitag neu
   hub: Wochenende mit Kindern
   hubSub: Jeden Freitag neue Ideen fürs Wochenende, für jede Stadt.

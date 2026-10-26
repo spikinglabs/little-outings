@@ -127,6 +127,11 @@ export function km(a: [number, number], b: [number, number]) {
   const h = Math.sin(dLa / 2) ** 2 + Math.cos(a[0] * r) * Math.cos(b[0] * r) * Math.sin(dLo / 2) ** 2;
   return 2 * R * Math.asin(Math.sqrt(h));
 }
+/** Kilometres between two of the region's towns, by name; null when one isn't known. */
+export function townKm(a: string, b: string): number | null {
+  const x = towns.get(a), y = towns.get(b);
+  return x && y ? km(x, y) : null;
+}
 export function distanceOf(el: HTMLElement): number | null {
   const lat = parseFloat(el.dataset.lat || ""), lon = parseFloat(el.dataset.lon || "");
   const home = towns.get(getHome());
