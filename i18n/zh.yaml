@@ -138,7 +138,7 @@ machine: 机器翻译
 translated: 译自德文。
 gapsTitle: 尚缺信息
 gapsSub: 你知道其中一项吗？回答一个就够了。
-gapAsk: { usual: 这个日历常用的地点，是其中一个吗？, finding: 正在查找地址…, noAddr: 这里查不到地址，可以在下面写个名称。, said: "另一位家长说（对的话点一下）：", saidMany: "家长们说（点一下正确的）：", guess: "是其中一个吗？", other: "都不对？请输入：", map: 在地图上选, mapHint: 在地图上点一下具体位置。, mapName: "这个地点的名称（可选）" }
+gapAsk: { ai: AI 猜测，是这里吗？, usual: 这个日历常用的地点，是其中一个吗？, finding: 正在查找地址…, noAddr: 这里查不到地址，可以在下面写个名称。, said: "另一位家长说（对的话点一下）：", saidMany: "家长们说（点一下正确的）：", guess: "是其中一个吗？", other: "都不对？请输入：", map: 在地图上选, mapHint: 在地图上点一下具体位置。, mapName: "这个地点的名称（可选）" }
 whereByParents: 地址由家长提供
 gapLabel: { where: 地点, time: 时间, price: 价格, fac: 设施, still: 是否照常, hours: 开放时间 }
 q: { where: 具体在哪里？, time: 几点开始？, price: 费用是多少？, hours: 什么时候开放？, fac: "那里有{f}吗？", still: 会按时举行吗？ }

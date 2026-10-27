@@ -27,9 +27,9 @@ const pick = (a: Ask) => (a.at ? { "data-lat": a.at.lat, "data-lon": a.at.lon, "
           {said.map((a) => <button class="chip pick" type="submit" name="answer" value={a.value} data-agrees={said.length === 1 ? "" : undefined} {...pick(a)}><span aria-hidden="true">✓</span> {shown(a)}</button>)}
         </div>
       )}
-      {[guesses.filter((a) => !a.usual), guesses.filter((a) => a.usual)].map((list, i) => list.length > 0 && (
+      {([["gapAsk.ai", guesses.filter((a) => a.ai)], ["gapAsk.guess", guesses.filter((a) => !a.ai && !a.usual)], ["gapAsk.usual", guesses.filter((a) => a.usual)]] as const).map(([label, list]) => list.length > 0 && (
         <div class="gap-picks">
-          <small>{t(i ? "gapAsk.usual" : "gapAsk.guess")}</small>
+          <small>{t(label)}</small>
           <div class="gap-chips">
             {list.map((a) => <button class="chip guess" type="submit" name="answer" value={a.value} title={a.value} {...pick(a)}><span aria-hidden="true">📍</span><span class="ellip">{a.value}</span></button>)}
           </div>

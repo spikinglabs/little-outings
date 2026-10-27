@@ -74,11 +74,15 @@ export function fromExport(row, { towns, today, until, venues = {}, addresses = 
   out.language = languageOf(row.title, out.tags);
   if (!out.tags.length) delete out.tags;
   for (const k of Object.keys(out)) if (out[k] === undefined) delete out[k];
+  // No venue on the page either: the AI's best guess rides along, only ever offered as a question.
+  const guess = !found?.venue && found?.guess?.venue ? found.guess : undefined;
+  if (guess) out.venue_guess = guess.street ? { name: guess.venue, street: guess.street } : { name: guess.venue };
   const venue = row.venue || found?.venue;
   // A street kept by hand in content/venue-addresses.yaml for a venue the source names without one.
   const known = addresses[town.name]?.[String(venue ?? "").trim()];
   const ask = hasPoint ? [] : pinQueries({ ...loc, street: street || found?.street || known, venue }, town);
-  return { id: `ck-${slug(row.event_id)}`, data: out, ask };
+  const guessAsk = guess ? pinQueries({ street: guess.street, venue: guess.venue, postal_code: loc.postal_code }, town).filter((q) => q.precision !== "area") : [];
+  return { id: `ck-${slug(row.event_id)}`, data: out, ask, guessAsk };
 }
 
 /**
@@ -165,6 +169,12 @@ async function main() {
         const geo = await pin(ev.ask);
         if (geo) { ev.data.geo = geo; pinned++; } else missed++;
       } catch (err) { failed = err.message; } // Nominatim down: the rest stay on the town centre
+    }
+    if (pin && ev.guessAsk.length && !failed) {
+      try {
+        const geo = await pin(ev.guessAsk);
+        if (geo) ev.data.venue_guess.geo = geo;
+      } catch (err) { failed = err.message; }
     }
     const [all, centre] = perTown.get(ev.data.town) ?? [0, 0];
     perTown.set(ev.data.town, [all + 1, centre + (ev.data.geo.lat == null ? 1 : 0)]);

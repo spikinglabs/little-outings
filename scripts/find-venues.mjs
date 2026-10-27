@@ -6,6 +6,12 @@
 // so every page is read once; pages that name no venue are cached too (venue: null).
 // import-cityklub.mjs fills an event's empty venue from the cache.
 //
+// When the page names no place, a second question asks for a best guess (`guess`): the model may
+// only pick one of the venues other events in that town use, or the organiser's own venue, and
+// must say why. A guess is never shown as fact: it becomes the first "Is it here?" chip in
+// "Still missing" (src/lib/where-guess.ts), marked as the AI's, and goes live only once two parents
+// pick it. Pages cached before guesses existed get one on a later run.
+//
 //   GEMINI_API_KEY=… npm run find:venues      (or ANTHROPIC_API_KEY; see src/lib/llm.ts for the switch)
 //   VENUE_MODEL=…                             optional; the provider's default otherwise
 // Without a key it only reports how many events lack a venue.
@@ -28,6 +34,42 @@ Return only JSON: {"venue": "...", "street": "..."}.
 - Copy the words from the page. Never guess. The address of a city hall, tourist office or organiser's office is not the venue unless the page says the event happens there.
 - On a venue's own website (a museum, theatre or zoo), an event without another place given takes place at that venue.
 - If the page names no place for this event, return {"venue": null, "street": ""}.`;
+
+export const GUESS_PROMPT = `An event page from a German city or venue website does not say where the event takes place.
+Guess the single most likely place, for parents who will check it. Return only JSON: {"pick": <number or null>, "venue": "...", "why": "..."}.
+- pick: the number of a place from the list of venues other events in this town use, when one fits clearly (e.g. a reading or "Bilderbuchkino" by the city library → the library; a workshop by a museum → that museum).
+- venue: only when pick is null and the organiser is itself a place (a museum, zoo, library or theatre running its own programme): that place's name. Otherwise "".
+- why: one short sentence in English with the clue (organiser, words in the title or text).
+- Guess only from a real clue. A city hall, tourist office or ticket shop is not a venue. Without a clear clue return {"pick": null, "venue": "", "why": ""}.`;
+
+/** Upcoming venues in a town that events name, with their street when known, most used first. */
+export function townVenues(rows, city, max = 40) {
+  const seen = new Map();
+  for (const r of rows) {
+    if (String(r.location?.city ?? "").toLowerCase() !== String(city ?? "").toLowerCase() || !r.venue) continue;
+    const street = [r.location?.street, r.location?.house_number].filter(Boolean).join(" ");
+    const k = squash(r.venue);
+    const v = seen.get(k) ?? { venue: r.venue.trim(), street: "", n: 0 };
+    v.n++;
+    if (!v.street && street) v.street = street;
+    seen.set(k, v);
+  }
+  return [...seen.values()].sort((a, b) => b.n - a.n).slice(0, max).map(({ venue, street }) => (street ? { venue, street } : { venue }));
+}
+
+/**
+ * The model's guess, kept only when it is one of the listed venues, or the organiser's own place
+ * (its name appears in the organiser's name or on the page). Anything else is no guess.
+ */
+export function parseGuess(text, { venues, organiser = "", page = "" }) {
+  const a = JSON.parse(text.slice(text.indexOf("{"), text.lastIndexOf("}") + 1));
+  const why = typeof a.why === "string" ? a.why.trim().slice(0, 200) : "";
+  const n = Number(a.pick);
+  if (Number.isInteger(n) && n >= 1 && n <= venues.length) return { ...venues[n - 1], why };
+  const venue = typeof a.venue === "string" ? a.venue.trim() : "";
+  if (venue.length >= 4 && (squash(organiser).includes(squash(venue)) || squash(page).includes(squash(venue)))) return { venue, why };
+  return null;
+}
 
 /** Events worth a lookup: still upcoming, with a source page, but no venue, street or point. */
 export function needsVenue(row, today) {
@@ -68,25 +110,45 @@ export function parseAnswer(text, page) {
   return street ? { venue, street } : { venue };
 }
 
+/** The text of an event page. Throws when it can't be read (retried next run). */
+async function readPage(url, fetch = globalThis.fetch) {
+  const res = await fetch(url, { headers: { "user-agent": "little-outings venue lookup (+https://outings.allo.land)" }, redirect: "follow" });
+  if (!res.ok) throw new Error(`find-venues: HTTP ${res.status} for ${url}`);
+  return pageText(await res.text());
+}
+
 /** Look up one page. Throws when the page can't be read or the answer can't be parsed (retried next run). */
-export async function lookup(row, { llm, model, fetch = globalThis.fetch }) {
-  const res = await fetch(row.source_url, { headers: { "user-agent": "little-outings venue lookup (+https://outings.allo.land)" }, redirect: "follow" });
-  if (!res.ok) throw new Error(`find-venues: HTTP ${res.status} for ${row.source_url}`);
-  const page = pageText(await res.text());
+export async function lookup(row, { llm, model, fetch = globalThis.fetch, rows = [] }) {
+  const page = await readPage(row.source_url, fetch);
   const ask = `Event: ${row.title}\nTown: ${row.location?.city ?? ""}\n\nPage text:\n${excerpt(page)}`;
   // Generous limit: Gemini's thinking models count their thinking against it, and a cut-off answer is invalid JSON.
-  return parseAnswer(await complete(llm, model, { system: PROMPT, text: ask, maxTokens: 4000, json: true }, fetch), page);
+  const found = parseAnswer(await complete(llm, model, { system: PROMPT, text: ask, maxTokens: 4000, json: true }, fetch), page);
+  return found.venue ? found : { ...found, guess: await guess(row, page, { llm, model, fetch, rows }) };
+}
+
+/** A best guess for a page that names no place (see GUESS_PROMPT), or null. */
+export async function guess(row, page, { llm, model, fetch = globalThis.fetch, rows = [] }) {
+  const venues = townVenues(rows, row.location?.city);
+  const organiser = row.source_name || row.provenance?.[0]?.source_name || "";
+  const list = venues.map((v, i) => `${i + 1}. ${v.venue}${v.street ? `, ${v.street}` : ""}`).join("\n") || "(none)";
+  const ask = `Event: ${row.title}\nTown: ${row.location?.city ?? ""}\nOrganiser: ${organiser}\nWebsite: ${row.source_url}\n\nVenues other events in this town use:\n${list}\n\nPage text:\n${excerpt(page).slice(0, 8000)}`;
+  return parseGuess(await complete(llm, model, { system: GUESS_PROMPT, text: ask, maxTokens: 4000, json: true }, fetch), { venues, organiser, page });
 }
 
 /** Fill the cache for the rows that need a venue and drop pages no event uses any more. */
 export async function update(rows, cache, opts) {
   const want = [...new Map(rows.filter((r) => needsVenue(r, opts.today)).map((r) => [r.source_url, r])).values()];
   const missing = want.filter((r) => !(r.source_url in cache));
+  // Pages read before guesses existed: no venue, and no guess asked yet.
+  const unguessed = want.filter((r) => cache[r.source_url] && !cache[r.source_url].venue && !("guess" in cache[r.source_url]));
   let done = 0;
   if (opts.llm) {
-    await eachLimit(missing.slice(0, PER_RUN), AT_ONCE, async (row) => {
+    const all = { ...opts, rows };
+    await eachLimit([...missing, ...unguessed].slice(0, PER_RUN), AT_ONCE, async (row) => {
       try {
-        cache[row.source_url] = await lookup(row, opts);
+        if (row.source_url in cache) {
+          cache[row.source_url] = { ...cache[row.source_url], guess: await guess(row, await readPage(row.source_url, all.fetch), all) };
+        } else cache[row.source_url] = await lookup(row, all);
         done++;
       } catch (e) {
         console.warn(String(e));
@@ -108,8 +170,9 @@ async function main() {
   mkdirSync(dirname(CACHE), { recursive: true });
   writeFileSync(CACHE, JSON.stringify(r.cache, null, 1) + "\n");
   const found = Object.values(r.cache).filter((v) => v.venue).length;
+  const guessed = Object.values(r.cache).filter((v) => v.guess).length;
   console.log(llm
-    ? `find-venues (${llm.provider}): ${r.missing} new pages, ${r.done} read, ${found} venues known`
+    ? `find-venues (${llm.provider}): ${r.missing} new pages, ${r.done} read, ${found} venues known, ${guessed} best guesses`
     : `find-venues: ${r.missing} events without a venue (set GEMINI_API_KEY or ANTHROPIC_API_KEY to look them up)`);
 }
 
