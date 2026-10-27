@@ -19,8 +19,15 @@ export type Tally = {
   /** Events: parents' answers to "How much German do you need?". */
   lang?: Partial<Record<Language, number>>;
   /** Answers to "Still missing" that two parents agreed on, or a moderator approved (admin/lib/answers.js). */
-  answers?: { hours?: string; time?: string; price?: string };
+  answers?: { hours?: string; time?: string; price?: string; where?: string; whereAt?: Spot };
+  /** Answers still waiting for a second parent, shown as "another parent said …" with a one-tap confirm. */
+  asks?: Asks;
 };
+/** A spot a "where" answer points at: picked on the map, or one of the places we know. */
+export type Spot = { lat: number; lon: number; place?: string };
+/** One answer parents can confirm or pick: the text, how many browsers sent it, and its spot. */
+export type Ask = { value: string; count?: number; at?: Spot; /** guesses: "usual" = a venue its calendar often uses, not one it names */ usual?: boolean };
+export type Asks = Partial<Record<"where" | "time" | "price" | "hours", Ask[]>>;
 export type Language = "none" | "en" | "de";
 
 export interface Geo {
@@ -44,6 +51,8 @@ export interface Place {
   district?: string;
   postcode?: string;
   geo: Geo;
+  /** Answers waiting for a second parent (Tally.asks). */
+  asks?: Asks;
   hours?: Text;
   ages?: [number, number];
   indoor?: boolean;
@@ -67,8 +76,14 @@ export interface Event {
   title: Text;
   place?: string;
   venue?: string;
+  /** Where it is, as two parents agreed (or a moderator approved) when no source said. */
+  address?: string;
   town?: string;
   geo: Geo;
+  /** Answers waiting for a second parent (Tally.asks). */
+  asks?: Asks;
+  /** Spots it may be at, when the source doesn't say (src/lib/where-guess.ts). */
+  guesses?: Ask[];
   start: string; // YYYY-MM-DD
   end: string;
   time?: string;

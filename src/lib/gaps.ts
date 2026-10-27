@@ -19,7 +19,7 @@ const ASK: Record<string, string[]> = {
 export function gapsOf(item: Item): Gap[] {
   const gaps: Gap[] = [];
   if (item.type === "event") {
-    if (item.geo.precision !== "exact") gaps.push({ type: "where" });
+    if (item.geo.precision !== "exact" && !item.address) gaps.push({ type: "where" });
     if (!item.time) gaps.push({ type: "time" });
     if (!item.price) gaps.push({ type: "price" });
     if (item.trust.level === "community") gaps.push({ type: "still" });

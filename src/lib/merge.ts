@@ -157,8 +157,9 @@ export function applyTranslations<T extends Event | Place>(item: T, caches: Part
  * Parents' answers to "How much German do you need?" replace the title guess once one answer leads.
  * A tie keeps the guess; an editor's answer is never overruled, only shown with the votes.
  */
-export function applyEventTally(e: Event, t: Tally | undefined): Event {
-  e = fillAnswers(e, t);
+export function applyEventTally(e: Event, t: Tally | undefined, places?: Map<string, Place>): Event {
+  e = fillWhere(fillAnswers(e, t), t, places);
+  if (t?.asks && Object.keys(t.asks).length) e = { ...e, asks: t.asks };
   const votes = t?.lang;
   if (!votes || !Object.values(votes).some((n) => n! > 0)) return e;
   const out = { ...e, languageVotes: votes };
@@ -176,6 +177,23 @@ function fillAnswers(e: Event, t: Tally | undefined): Event {
   if (!out.time && a.time) out.time = a.time;
   if (!out.price && a.price) out.price = a.price === "free" || /^(free|frei|kostenlos|gratis|免费)$/i.test(a.price) ? { free: true } : { free: false, text: a.price };
   return out;
+}
+
+/** A "where" answer that is only a picked point ("50.80312, 6.48211") has no words worth showing. */
+export const isPointText = (s: string) => /^\s*-?\d{1,2}\.\d+\s*,\s*-?\d{1,3}\.\d+\s*$/.test(s);
+
+/**
+ * Fills a vague location with where parents agreed it is: a place we know, a picked point, or
+ * just their words (an address the maps button can search for). A known street is never replaced.
+ */
+function fillWhere(e: Event, t: Tally | undefined, places?: Map<string, Place>): Event {
+  const a = t?.answers;
+  if (!a?.where || e.geo.precision === "exact") return e;
+  const words = isPointText(a.where) ? undefined : a.where;
+  const place = a.whereAt?.place ? places?.get(a.whereAt.place) : undefined;
+  if (place && place.geo.precision === "exact") return { ...e, place: place.id, venue: place.name, geo: place.geo };
+  if (a.whereAt) return { ...e, geo: { lat: a.whereAt.lat, lon: a.whereAt.lon, precision: "exact" }, ...(words ? { address: words } : {}) };
+  return words ? { ...e, address: words } : e;
 }
 
 /** Shift every date by `days`. Used only by the demo so its fictional events stay in the future. */
@@ -210,5 +228,8 @@ export function applyTally(p: Place, t: Tally | undefined): Place {
   }
   // Opening hours parents agreed on fill the gap; hours from a source are never replaced.
   const hours = p.hours ?? t.answers?.hours;
-  return { ...p, facilities, visits, ...(hours ? { hours } : {}), tips: [...(p.tips ?? []), ...(t.tips ?? [])] };
+  // A point parents agreed on pins a place that only had its town centre.
+  const at = t.answers?.whereAt;
+  const geo = at && p.geo.precision !== "exact" ? { lat: at.lat, lon: at.lon, precision: "exact" as const } : p.geo;
+  return { ...p, facilities, visits, geo, ...(hours ? { hours } : {}), ...(t.asks && Object.keys(t.asks).length ? { asks: t.asks } : {}), tips: [...(p.tips ?? []), ...(t.tips ?? [])] };
 }

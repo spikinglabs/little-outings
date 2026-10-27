@@ -1,4 +1,4 @@
-import { AUTO_GAPS, agreement } from "../../lib/answers.js";
+import { AUTO_GAPS, agreement, answerOf } from "../../lib/answers.js";
 import { PUBLISHED, actionsOf, eventFile, feedSource, github, meetupOf, placeFile, putSiteFile, reviewItem, sitePages, waiting } from "../../lib/inbox.js";
 import { json } from "../../lib/store.js";
 
@@ -61,7 +61,7 @@ async function withAgreement(call, items) {
     if (!item || !AUTO_GAPS.includes(item.data.gap)) continue;
     const k = `${item.data.item} ${item.data.gap}`;
     if (!groups.has(k)) groups.set(k, []);
-    groups.get(k).push({ number: item.number, value: item.data.answer, from: item.data.from, approved: item.approved });
+    groups.get(k).push(answerOf(item.data, item.number, item.approved));
   }
   const keep = items.filter((i) => {
     if (!open.includes(i)) return true;

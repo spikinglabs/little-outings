@@ -1,5 +1,8 @@
 ---
 // "Still missing": one small question per gap. Answers go to the inbox; two matching answers go live.
+// What another parent already said shows with a one-tap confirm, so the second answer is a tap.
+// On a page the box starts folded to one line naming what's missing, and opens by itself when
+// another parent's answer is waiting for a confirm (L, 2026-10-27).
 import GapForm from "./GapForm.astro";
 import { gapsOf } from "../lib/gaps";
 import type { T } from "../lib/i18n";
@@ -8,11 +11,21 @@ import type { Item } from "../lib/types";
 interface Props { item: Item; t: T; compact?: boolean; /** the place page asks about facilities on the chips instead */ skipFacilities?: boolean }
 const { item, t, compact, skipFacilities } = Astro.props;
 const gaps = gapsOf(item).filter((g) => !(skipFacilities && g.type === "fac"));
+const asksOf = (type: string) => item.asks?.[type as keyof NonNullable<Item["asks"]>];
+const waiting = gaps.some((g) => asksOf(g.type)?.length);
+const missing = [...new Set(gaps.map((g) => t(`gapLabel.${g.type}`)))].join(" · ");
+const forms = gaps.map((g) => (
+  { key: `${item.id}:${g.type}${g.feature ? `:${g.feature}` : ""}`, g, asks: asksOf(g.type), guesses: g.type === "where" && item.type === "event" ? item.guesses : undefined }
+));
 ---
-{gaps.length > 0 && (
-  <div class:list={[!compact && "help"]}>
-    {!compact && <h2>{t("gapsTitle")}</h2>}
-    {!compact && <p>{t("gapsSub")}</p>}
-    {gaps.map((g) => <GapForm t={t} gapKey={`${item.id}:${g.type}${g.feature ? `:${g.feature}` : ""}`} type={g.type} feature={g.feature} />)}
+{gaps.length > 0 && (compact ? (
+  <div>
+    {forms.map((f) => <GapForm t={t} gapKey={f.key} type={f.g.type} feature={f.g.feature} asks={f.asks} guesses={f.guesses} />)}
   </div>
-)}
+) : (
+  <details class="help gaps" open={waiting}>
+    <summary><h2>{t("gapsTitle")}</h2><span class="small">{missing}</span></summary>
+    <p>{t("gapsSub")}</p>
+    {forms.map((f) => <GapForm t={t} gapKey={f.key} type={f.g.type} feature={f.g.feature} asks={f.asks} guesses={f.guesses} />)}
+  </details>
+))}
