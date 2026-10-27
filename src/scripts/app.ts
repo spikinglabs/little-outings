@@ -204,17 +204,32 @@ document.addEventListener("submit", async (ev) => {
   ev.preventDefault();
   const submitter = (ev as SubmitEvent).submitter as HTMLButtonElement | null;
   const text = (form.querySelector<HTMLInputElement>("input[name=text]")?.value || "").trim();
-  const answer = submitter?.value || text;
-  if (!answer) { form.querySelector("input")?.focus(); return; }
-  const ok = await sendToInbox({ kind: "answer", gap: form.dataset.gap, answer, lang: body.dataset.lang, voter: voter() });
+  // A confirmed or picked answer carries its spot; a typed one the spot tapped on the map, if any.
+  const field = (n: string) => form.querySelector<HTMLInputElement>(`input[name=${n}]`)?.value || "";
+  const spot = submitter?.value
+    ? { lat: submitter.dataset.lat, lon: submitter.dataset.lon, place: submitter.dataset.place }
+    : { lat: field("lat"), lon: field("lon") };
+  const answer = submitter?.value || text || (spot.lat && spot.lon ? `${spot.lat}, ${spot.lon}` : "");
+  if (!answer) { form.querySelector<HTMLInputElement>("input[name=text]")?.focus(); return; }
+  const ok = await sendToInbox({ kind: "answer", gap: form.dataset.gap, answer, ...(spot.lat && spot.lon ? spot : {}), lang: body.dataset.lang, voter: voter() });
   const done = document.createElement("p");
   done.className = "done";
   done.setAttribute("role", "status");
   // Hours, time and price go live once two parents agree; a place or "still on?" an editor checks; chips are counted.
   const type = form.dataset.gap!.split(":")[1];
-  const thanks = type === "fac" ? ui.answeredVote : type === "where" || type === "still" ? ui.answeredCheck : ui.answered;
+  // Confirming the one answer another parent gave makes two that agree.
+  const thanks = type === "fac" ? ui.answeredVote : type === "still" ? ui.answeredCheck : submitter?.hasAttribute("data-agrees") ? ui.answeredAgreed : ui.answered;
   done.textContent = ok ? thanks : ui.inboxSoon;
   form.querySelector(".gap-form")!.replaceWith(done);
+});
+
+// "Pick on the map": Leaflet loads only when a parent asks for it.
+document.addEventListener("click", (ev) => {
+  const btn = (ev.target as Element).closest<HTMLButtonElement>("[data-map-pick]");
+  const form = btn?.closest<HTMLFormElement>("form[data-gap]");
+  if (!btn || !form) return;
+  btn.hidden = true;
+  import("./pick-spot").then((m) => m.openPicker(form));
 });
 
 /* ---------- "something wrong?" reports ---------- */

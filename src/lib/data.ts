@@ -4,6 +4,7 @@ import { readFileSync } from "node:fs";
 import { applyEventTally, applyTally, applyTranslations, canonicalTown, normalizeEvent, normalizePlace, resolveGeo, shiftDays, townsFromPlaces, type Town } from "./merge.ts";
 import { fixtureEvent, loadSeasons, seasonsOf, type SeasonData } from "./seasons.ts";
 import { tasksOf } from "./gaps.ts";
+import { whereGuesser } from "./where-guess.ts";
 import type { Event, Place, Tally } from "./types.ts";
 import { pack, type Packed } from "./weather.ts";
 
@@ -63,7 +64,7 @@ async function load(): Promise<Data> {
     const ev = normalizeEvent(id, e.data, { answer: answer.get(id), override: override.get(id) }, placeById, towns);
     if (!ev) continue;
     if (demoShift) Object.assign(ev, { start: shiftDays(ev.start, demoShift), end: shiftDays(ev.end, demoShift) });
-    if (ev.end >= TODAY) events.push(applyEventTally(applyTranslations(ev, tr), tallies[id]));
+    if (ev.end >= TODAY) events.push(applyEventTally(applyTranslations(ev, tr), tallies[id], placeById));
   }
   // Fixtures (Christmas markets, fairs) are events too; one without a pin sits at its town's centre.
   const seasons = loadSeasons("content/seasons.yaml", ROOT);
@@ -72,7 +73,7 @@ async function load(): Promise<Data> {
     if (ev.end < TODAY) continue;
     if (seen.has(ev.id)) throw new Error(`duplicate id "${ev.id}"`);
     seen.add(ev.id);
-    events.push(applyEventTally(applyTranslations({ ...ev, geo: resolveGeo(f.geo, file.town, towns) }, tr), tallies[ev.id]));
+    events.push(applyEventTally(applyTranslations({ ...ev, geo: resolveGeo(f.geo, file.town, towns) }, tr), tallies[ev.id], placeById));
   }
   for (const p of places) {
     const of = seasons.seasons.filter((s) => s.kinds?.includes(p.kind)).map((s) => s.id);
@@ -84,6 +85,12 @@ async function load(): Promise<Data> {
     if (all.length) e.seasons = all;
   }
   events.sort((a, b) => a.start.localeCompare(b.start) || a.id.localeCompare(b.id));
+  // Events without an address get a few spots to pick from in "Still missing".
+  const guessWhere = whereGuesser(events, places);
+  for (const e of events) {
+    const guesses = guessWhere(e);
+    if (guesses.length) e.guesses = guesses;
+  }
   return { region, places, events, placeById, eventById: new Map(events.map((e) => [e.id, e])), seasons };
 }
 

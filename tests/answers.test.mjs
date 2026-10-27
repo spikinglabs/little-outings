@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { agreement, sameKey } from "../admin/lib/answers.js";
+import { agreement, sameKey, showable } from "../admin/lib/answers.js";
 import { tally } from "../scripts/tally-inbox.mjs";
 import { reviewItem, actionsOf } from "../admin/lib/inbox.js";
 
@@ -34,13 +34,53 @@ test("tally publishes agreed and approved answers only", () => {
   ]);
   assert.deepEqual(t["zoo-a"].answers, { hours: "Mo-Fr 9-17" });
   assert.deepEqual(t["ev-1"].answers, { time: "15 Uhr" });
-  assert.equal(t["ev-2"], undefined);
+  // A lone answer waits, but shows for the next parent to confirm; a rejected one never counts.
+  assert.deepEqual(t["ev-1"].asks, { price: [{ value: "3 €", count: 1 }] });
+  assert.deepEqual(t["ev-2"].asks, { time: [{ value: "10", count: 1 }] });
+  assert.equal(t["ev-2"].answers, undefined);
+});
+
+const where = (n, answer, from, more = []) =>
+  issue(n, ["kind: answer", 'item: "ev-9"', 'gap: "where"', `answer: ${JSON.stringify(answer)}`, `from: "${from}"`, ...more]);
+
+test("two parents who pick the same spot agree, whatever they call it", () => {
+  const t = tally([
+    where(1, "Stadtbibliothek", "a", ["lat: 50.80310", "lon: 6.48200"]),
+    where(2, "Bücherei am Markt", "b", ["lat: 50.80350", "lon: 6.48250"]), // ~55 m away
+  ]);
+  assert.deepEqual(t["ev-9"].answers, { where: "Stadtbibliothek", whereAt: { lat: 50.8031, lon: 6.482 } });
+  // Confirming a known place is the same as picking it.
+  const p = tally([
+    where(1, "Leopold-Hoesch-Museum", "a", ["lat: 50.80", "lon: 6.48", 'place: "museum-lhm"']),
+    where(2, "Leopold-Hoesch-Museum", "b", ["lat: 50.80", "lon: 6.48", 'place: "museum-lhm"']),
+  ]);
+  assert.equal(p["ev-9"].answers.whereAt.place, "museum-lhm");
+  // Far apart: they disagree, both wait and both show to confirm.
+  const c = tally([where(1, "A", "a", ["lat: 50.80", "lon: 6.48"]), where(2, "B", "b", ["lat: 50.82", "lon: 6.48"])]);
+  assert.equal(c["ev-9"].answers, undefined);
+  assert.deepEqual(c["ev-9"].asks.where.map((a) => a.value), ["A", "B"]);
+  // Typed words agree with a picked spot of the same name.
+  const w = tally([where(1, "Stadtbibliothek", "a", ["lat: 50.80", "lon: 6.48"]), where(2, "stadtbibliothek", "b")]);
+  assert.equal(w["ev-9"].answers.where, "Stadtbibliothek");
+});
+
+test("only harmless words show before anyone checked them", () => {
+  assert.ok(showable("where", "Stadtbibliothek, Schützenstraße 3, 52349 Düren"));
+  assert.ok(!showable("where", "see https://example.com"));
+  assert.ok(!showable("where", "call 0171 2345678"));
+  assert.ok(!showable("where", "mail me a@b.de"));
+  assert.ok(!showable("price", "x".repeat(61)));
+  const t = tally([where(1, "www.spam.example", "a")]);
+  assert.equal(t["ev-9"], undefined);
 });
 
 test("the admin reviews text answers, not votes", () => {
   assert.equal(reviewItem(hours(1, "Mo-Fr 9-17", "a")).kind, "answer");
   assert.equal(reviewItem(issue(2, ["kind: answer", 'item: "x"', 'gap: "fac"', 'feature: "toilets"', 'answer: "yes"'])), null);
-  const where = reviewItem(issue(3, ["kind: answer", 'item: "x"', 'gap: "where"', 'answer: "behind the church"']));
-  assert.deepEqual(actionsOf(where), ["done", "reject"]);
+  const still = reviewItem(issue(3, ["kind: answer", 'item: "x"', 'gap: "still"', 'answer: "no"']));
+  assert.deepEqual(actionsOf(still), ["done", "reject"]);
+  // A "where" answer can be approved like hours or price: it goes live with the next deploy.
+  const where = reviewItem(issue(4, ["kind: answer", 'item: "x"', 'gap: "where"', 'answer: "behind the church"']));
+  assert.deepEqual(actionsOf(where), ["approve", "reject"]);
   assert.deepEqual(actionsOf(reviewItem(hours(1, "x", "a"))), ["approve", "reject"]);
 });

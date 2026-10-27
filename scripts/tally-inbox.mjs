@@ -2,17 +2,19 @@
 // Taps (chip votes, "We went") live in Cloudflare D1 behind /api/taps; older ones and all tips are
 // issues in INBOX_REPO. Both are summed into data/inbox-tallies.json (not committed):
 //   { "<item id>": { fac: { changing_table: { yes, no } }, visits: { count, again, good_for }, tips: [{ topic, text }],
-//                    lang: { none, en, de }, answers: { hours: "Mo-Fr 9-17" } } }
+//                    lang: { none, en, de }, answers: { hours: "Mo-Fr 9-17", where: "…", whereAt: { lat, lon, place? } },
+//                    asks: { where: [{ value, count, at? }] } } }
 // - "answer" issues about a facility count as yes/no votes ("not sure" is ignored).
-// - "answer" issues about opening hours, time or price go live once two browsers agree, or once a
-//   moderator approves one in the admin (rules in admin/lib/answers.js). The rest wait in the admin Inbox.
+// - "answer" issues about opening hours, time, price or where go live once two browsers agree, or once a
+//   moderator approves one in the admin (rules in admin/lib/answers.js). The rest wait in the admin Inbox,
+//   and show on the page as `asks` ("another parent said …", one tap to confirm) when the text is harmless.
 // - "visit" issues count as "We went" taps.
 // - "tip" issues show only once a moderator adds the `approved` label, so nothing goes public unreviewed.
 // - Issues closed as "not planned" (spam, nonsense) never count.
 // Taps need SITE_URL (the live site). Issues need INBOX_REPO and INBOX_READ_TOKEN (fine-grained,
 // Issues: read on that repo). Whatever is missing or unreachable is skipped, never fatal.
 import { mkdirSync, writeFileSync } from "node:fs";
-import { AUTO_GAPS, agreement } from "../admin/lib/answers.js";
+import { AUTO_GAPS, agreement, answerOf, showable } from "../admin/lib/answers.js";
 
 const OUT = new URL("../data/inbox-tallies.json", import.meta.url);
 const { INBOX_REPO: repo, INBOX_READ_TOKEN: token, SITE_URL: site } = process.env;
@@ -50,7 +52,7 @@ export function tally(issues) {
     } else if (d.kind === "answer" && AUTO_GAPS.includes(d.gap)) {
       const k = `${d.item} ${d.gap}`;
       if (!asked.has(k)) asked.set(k, []);
-      asked.get(k).push({ number: is.number, value: d.answer, from: d.from, approved: labels.includes("approved") });
+      asked.get(k).push(answerOf(d, is.number, labels.includes("approved")));
     } else if (d.kind === "visit") {
       const v = (of(d.item).visits ??= { count: 0, again: 0, good_for: {} });
       v.count++;
@@ -63,7 +65,15 @@ export function tally(issues) {
   for (const [k, answers] of asked) {
     const [item, gap] = k.split(" ");
     const a = agreement(gap, answers);
-    if (a.status === "agreed" || a.status === "approved") (of(item).answers ??= {})[gap] = a.value;
+    if (a.status === "agreed" || a.status === "approved") {
+      const ans = (of(item).answers ??= {});
+      ans[gap] = a.value;
+      if (a.at) ans.whereAt = a.at;
+    } else if (a.status === "single" || a.status === "conflict") {
+      const asks = a.options.filter((o) => showable(gap, o.value)).slice(0, 3)
+        .map((o) => ({ value: o.value, count: o.count, ...(o.at ? { at: o.at } : {}) }));
+      if (asks.length) (of(item).asks ??= {})[gap] = asks;
+    }
   }
   return all;
 }

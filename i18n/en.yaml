@@ -138,6 +138,8 @@ machine: machine-translated
 translated: Translated from German.
 gapsTitle: Still missing
 gapsSub: Know any of this? One answer is enough.
+gapAsk: { said: "Another parent said – tap if it's right:", saidMany: "Parents said – tap the right one:", guess: "Is it one of these?", other: "Something else? Type it:", map: Pick on the map, mapHint: Tap the map where it is., mapName: "Name of the spot (optional)" }
+whereByParents: Address from parents
 gapLabel: { where: "Where?", time: "When?", price: Price, fac: Facilities, still: "Still on?", hours: Opening hours }
 q: { where: "Where exactly is it?", time: "What time?", price: "How much does it cost?", hours: "When is it open?", fac: "Is there: {f}?", still: "Is it happening as listed?" }
 ph: { where: Address or meeting point, time: "e.g. 14:00–17:00", price: "e.g. €3 per child", hours: "e.g. Sat–Sun 10:00–18:00" }
@@ -146,6 +148,7 @@ ph: { where: Address or meeting point, time: "e.g. 14:00–17:00", price: "e.g. 
 dunno: Not sure
 send: Send
 answered: Thanks! Once two parents agree, we add it.
+answeredAgreed: Thanks! Two parents agree now, so it shows after the next nightly update.
 answeredCheck: Thanks! We'll check it and add it.
 answeredVote: Thanks! Your answer is counted.
 inboxSoon: Thanks! Sending is being set up. Until then, please report via GitHub.

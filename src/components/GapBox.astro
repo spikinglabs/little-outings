@@ -1,5 +1,6 @@
 ---
 // "Still missing": one small question per gap. Answers go to the inbox; two matching answers go live.
+// What another parent already said shows with a one-tap confirm, so the second answer is a tap.
 import GapForm from "./GapForm.astro";
 import { gapsOf } from "../lib/gaps";
 import type { T } from "../lib/i18n";
@@ -13,6 +14,9 @@ const gaps = gapsOf(item).filter((g) => !(skipFacilities && g.type === "fac"));
   <div class:list={[!compact && "help"]}>
     {!compact && <h2>{t("gapsTitle")}</h2>}
     {!compact && <p>{t("gapsSub")}</p>}
-    {gaps.map((g) => <GapForm t={t} gapKey={`${item.id}:${g.type}${g.feature ? `:${g.feature}` : ""}`} type={g.type} feature={g.feature} />)}
+    {gaps.map((g) => (
+      <GapForm t={t} gapKey={`${item.id}:${g.type}${g.feature ? `:${g.feature}` : ""}`} type={g.type} feature={g.feature}
+        asks={item.asks?.[g.type as keyof NonNullable<Item["asks"]>]} guesses={g.type === "where" && item.type === "event" ? item.guesses : undefined} />
+    ))}
   </div>
 )}

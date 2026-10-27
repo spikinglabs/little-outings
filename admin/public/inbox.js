@@ -40,7 +40,12 @@ const field = (label, value) => (value ? `<div><dt>${esc(label)}</dt><dd>${esc(v
 function details(item) {
   const d = item.data;
   if (item.kind === "tip") return `<p class="said">“${esc(d.text)}”</p><dl>${field("About", TOPIC[d.topic] || d.topic)}</dl>`;
-  if (item.kind === "answer") return `<p class="said">“${esc(d.answer)}”</p><dl>${field("Question", GAP[d.gap] || d.gap)}</dl>${agreeNote(item)}`;
+  if (item.kind === "answer") {
+    // A "where" answer picked on the map or from known places: a link to check the spot.
+    const spot = d.lat != null && d.lon != null
+      ? `<div><dt>Spot</dt><dd><a href="https://www.openstreetmap.org/?mlat=${encodeURIComponent(d.lat)}&mlon=${encodeURIComponent(d.lon)}#map=18/${encodeURIComponent(d.lat)}/${encodeURIComponent(d.lon)}" target="_blank" rel="noopener">Show on map</a>${d.place ? ` (place ${esc(d.place)})` : ""}</dd></div>` : "";
+    return `<p class="said">“${esc(d.answer)}”</p><dl>${field("Question", GAP[d.gap] || d.gap)}${spot}</dl>${agreeNote(item)}`;
+  }
   if (item.kind === "report" && item.actions.includes("remove")) {
     return `<p class="said">Reported invite</p><p class="sub">Open it to check. Removing deletes it for everyone; Reject keeps it.</p>`;
   }

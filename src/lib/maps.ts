@@ -25,7 +25,7 @@ export function mapLink(item: Place | Event, place?: Place): MapLink | undefined
   let q = "";
   if (item.type === "place") q = query([item.name, item.street, item.town]);
   else if (place) q = query([place.name, place.street, place.town ?? item.town]);
-  else if (item.venue) q = query([item.venue, item.town]);
+  else if (item.venue || item.address) q = query([item.venue, item.address, item.town]);
   // Only the town is known: the title plus the town is the best hint the map can get.
   else if (item.town) q = query([deTitle(item), item.town]);
   if (!q && !point) return undefined;

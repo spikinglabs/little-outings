@@ -1,29 +1,60 @@
 ---
 // One "still missing" question. GapBox lists them for an outing; Mitmachen clones one per kind in the browser.
+// A parent rarely has to type: what another parent already said comes first, with one tap to confirm
+// (it counts as a second, agreeing answer), then spots it may be at, then a map to tap on.
 import type { T } from "../lib/i18n";
+import type { Ask } from "../lib/types";
 
-interface Props { t: T; gapKey: string; type: string; feature?: string }
-const { t, gapKey: key, type, feature } = Astro.props;
+interface Props { t: T; gapKey: string; type: string; feature?: string; asks?: Ask[]; guesses?: Ask[] }
+const { t, gapKey: key, type, feature, asks = [], guesses = [] } = Astro.props;
 const withInput = new Set(["where", "time", "price", "hours"]);
 const q = type === "fac" ? t("q.fac", { f: t(`features.${feature}`) }) : t(`q.${type}`);
 const inputId = `g-${key.replace(/:/g, "-")}`;
+const said = asks;
+const shown = (a: Ask) => (type === "price" && /^(free|frei|kostenlos|gratis|免费)$/i.test(a.value) ? t("free") : a.value);
+const pick = (a: Ask) => (a.at ? { "data-lat": a.at.lat, "data-lon": a.at.lon, "data-place": a.at.place } : {});
+const offered = said.length + guesses.length > 0;
 ---
 <form class="gap" data-gap={key} novalidate>
   <span class="gap-tag">{t(`gapLabel.${type}`)}</span>
   {withInput.has(type) ? <label for={inputId}><b>{q}</b></label> : <b>{q}</b>}
-  <div class="gap-form">
-    {withInput.has(type) ? (
-      <>
+  {withInput.has(type) ? (
+    <div class="gap-form gap-stack">
+      {said.length > 0 && (
+        <div class="gap-picks">
+          <small>{said.length > 1 ? t("gapAsk.saidMany") : t("gapAsk.said")}</small>
+          {said.map((a) => <button class="chip pick" type="submit" name="answer" value={a.value} data-agrees={said.length === 1 ? "" : undefined} {...pick(a)}><span aria-hidden="true">✓</span> {shown(a)}</button>)}
+        </div>
+      )}
+      {guesses.length > 0 && (
+        <div class="gap-picks">
+          <small>{t("gapAsk.guess")}</small>
+          {guesses.map((a) => <button class="chip pick" type="submit" name="answer" value={a.value} {...pick(a)}><span aria-hidden="true">📍</span> {a.value}</button>)}
+        </div>
+      )}
+      {offered && <small class="gap-other">{t("gapAsk.other")}</small>}
+      <div class="gap-row">
         {type === "price" && <button class="chip" type="submit" name="answer" value="free">{t("free")}</button>}
-        <input id={inputId} name="text" placeholder={t(`ph.${type}`)} autocomplete="off" />
+        <input id={inputId} name="text" placeholder={t(`ph.${type}`)} data-ph-named={type === "where" ? t("gapAsk.mapName") : undefined} autocomplete="off" />
         <button class="btn" type="submit">{t("send")}</button>
-      </>
-    ) : (
-      <>
-        <button class="chip" type="submit" name="answer" value="yes">{t("yes")}</button>
-        <button class="chip" type="submit" name="answer" value="no">{t("no")}</button>
-        <button class="chip" type="submit" name="answer" value="unsure">{t("dunno")}</button>
-      </>
-    )}
-  </div>
+      </div>
+      {type === "where" && (
+        <>
+          <button class="chip map-pick" type="button" data-map-pick>🗺️ {t("gapAsk.map")}</button>
+          <div class="gap-map" hidden>
+            <small>{t("gapAsk.mapHint")}</small>
+            <div class="map" />
+          </div>
+          <input type="hidden" name="lat" />
+          <input type="hidden" name="lon" />
+        </>
+      )}
+    </div>
+  ) : (
+    <div class="gap-form">
+      <button class="chip" type="submit" name="answer" value="yes">{t("yes")}</button>
+      <button class="chip" type="submit" name="answer" value="no">{t("no")}</button>
+      <button class="chip" type="submit" name="answer" value="unsure">{t("dunno")}</button>
+    </div>
+  )}
 </form>

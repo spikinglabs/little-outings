@@ -6,9 +6,9 @@ import { AUTO_GAPS } from "./answers.js";
 //             also committed to the site repo as content/events/community/inbox-<number>.yaml and
 //             the issue is closed, so it goes live with the deploy that commit starts. A suggested
 //             place works the same way, as content/places/community/inbox-<number>.yaml.
-//            An approved gap answer (hours, time, price) goes live with the next deploy, even alone.
+//            An approved gap answer (hours, time, price, where) goes live with the next deploy, even alone.
 //   done    → closes a report as completed, once you've fixed what it was about
-//            (also an answer about where something is or whether it's still on, once you've fixed it)
+//            (also an answer about whether it's still on, once you've fixed it)
 //   reject  → closes as "not planned", so the tally ignores it for good
 //   new-feed → an organiser's calendar link. Nothing is published: the panel shows a ready source file
 //            for spikinglabs/cityklub-event-data (feedSource); add it there, then mark the feed done.
@@ -28,7 +28,7 @@ export const KINDS = {
 export const meetupOf = (item) => /^meetup-([a-z2-9]{10})$/.exec(item?.data?.item ?? "")?.[1] ?? null;
 
 /**
- * What can be done with an item: an answer about where or "still on?" can't be published, only fixed by hand.
+ * What can be done with an item: an answer to "still on?" can't be published, only fixed by hand.
  * A reported invite has no page to fix by hand: it is removed, or the report rejected.
  */
 export const actionsOf = (item) =>

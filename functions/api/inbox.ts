@@ -83,8 +83,13 @@ export async function issueOf(body: any): Promise<{ title: string; yaml: string;
     label = "answer";
     // `from` tells two parents apart without saying who they are: a hash of the browser's random id.
     const from = typeof body.voter === "string" && KEY.test(body.voter) ? (await sha256(`answer:${body.voter}`)).slice(0, 16) : "";
+    // A "where" answer can point somewhere: a spot picked on the map, or one of the places we know.
+    const lat = Number(body.lat), lon = Number(body.lon);
+    const at = gap === "where" && body.lat != null && body.lon != null && lat > 45 && lat < 56 && lon > 2 && lon < 17
+      ? [`lat: ${lat.toFixed(5)}`, `lon: ${lon.toFixed(5)}`] : [];
+    const place = gap === "where" && typeof body.place === "string" && /^[a-z0-9-]{1,80}$/.test(body.place) ? `place: ${JSON.stringify(body.place)}` : "";
     yaml = [`kind: answer`, `item: ${yamlStr(id, 80)}`, `gap: ${yamlStr(gap, 20)}`, feature ? `feature: ${yamlStr(feature, 40)}` : "",
-      `answer: ${yamlStr(body.answer)}`, `lang: ${yamlStr(body.lang, 5)}`, from ? `from: ${JSON.stringify(from)}` : ""].filter(Boolean).join("\n");
+      `answer: ${yamlStr(body.answer)}`, ...at, place, `lang: ${yamlStr(body.lang, 5)}`, from ? `from: ${JSON.stringify(from)}` : ""].filter(Boolean).join("\n");
   } else if (body.kind === "event" && body.draft && typeof body.draft === "object") {
     const d = body.draft;
     if (!d.title || !d.date) return { error: "title and date are required" };

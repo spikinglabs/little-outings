@@ -138,6 +138,8 @@ machine: maschinell übersetzt
 translated: ""
 gapsTitle: Fehlt noch
 gapsSub: Wisst ihr etwas davon? Eine Antwort reicht.
+gapAsk: { said: "Ein anderer Elternteil sagt – tippe, wenn es stimmt:", saidMany: "Eltern sagen – tippe auf das Richtige:", guess: "Ist es einer dieser Orte?", other: "Etwas anderes? Schreib es:", map: Auf der Karte wählen, mapHint: "Tippe auf die Karte, wo es ist.", mapName: "Name des Orts (optional)" }
+whereByParents: Adresse von Eltern
 gapLabel: { where: "Wo?", time: "Wann?", price: Preis, fac: Ausstattung, still: "Findet statt?", hours: Öffnungszeiten }
 q: { where: "Wo genau findet es statt?", time: "Um wie viel Uhr?", price: "Was kostet es?", hours: "Wann ist geöffnet?", fac: "Gibt es dort: {f}?", still: "Findet es wie angegeben statt?" }
 ph: { where: Adresse oder Treffpunkt, time: "z. B. 14:00–17:00", price: "z. B. 3 € pro Kind", hours: "z. B. Sa–So 10–18 Uhr" }
@@ -146,6 +148,7 @@ ph: { where: Adresse oder Treffpunkt, time: "z. B. 14:00–17:00", price: "z. B.
 dunno: Weiß nicht
 send: Senden
 answered: Danke! Sobald zwei Eltern übereinstimmen, übernehmen wir es.
+answeredAgreed: Danke! Jetzt stimmen zwei Eltern überein – nach dem nächsten nächtlichen Update steht es da.
 answeredCheck: Danke! Wir prüfen es und tragen es ein.
 answeredVote: Danke! Deine Antwort wird mitgezählt.
 inboxSoon: Danke! Das Einsenden wird gerade eingerichtet. Bis dahin gern per GitHub melden.
