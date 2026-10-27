@@ -52,17 +52,22 @@ const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
 const canonical = `${site}${Astro.url.pathname}`;
 const OG_LOCALE: Record<Lang, string> = { de: "de_DE", en: "en_GB", zh: "zh_CN" };
 // Link previews: a wide picture for WhatsApp, Signal, Telegram and social sites; a square one for
-// WeChat and QQ, which read the itemprop tags and show a small square thumbnail.
+// WeChat and QQ, which show a small square thumbnail. WeChat takes og:image when there is one and crops
+// the wide picture to its middle (tested 2026-10-26), so Chinese pages, shared mostly in WeChat, name the
+// square picture as og:image too. WhatsApp shows a square one as a small thumbnail beside the text.
 const ogTitle = title ?? t("siteName");
 const ogDescription = description ?? t("tagline");
-const ogImage = `${site}${image ?? `${ogBase(lang, og ?? HOME_KEY)}.png`}`;
-const ogSquare = image ? ogImage : `${site}${ogBase(lang, og ?? HOME_KEY)}-sq.png`;
+const ogWide = `${site}${image ?? `${ogBase(lang, og ?? HOME_KEY)}.png`}`;
+const ogSquare = image ? ogWide : `${site}${ogBase(lang, og ?? HOME_KEY)}-sq.png`;
+const squareFirst = lang === "zh" && !image;
+const ogImage = squareFirst ? ogSquare : ogWide;
+const ogSize = squareFirst ? { w: OG.sq, h: OG.sq } : { w: OG.w, h: OG.h };
 // Strings the browser scripts need, in this language.
 const ui = {
   fac: FEATURES.map((f) => [f, t(`features.${f}`)]),
   km: t("km"), approxKm: t("approxKm"), nearby: t("nearby"), save: t("save"), saved: t("saved"),
   answered: t("answered"), answeredCheck: t("answeredCheck"), answeredVote: t("answeredVote"), hintIos: t("install.hintIos"), installMenu: t("install.menu"), installed: t("install.installed"), inboxSoon: t("inboxSoon"), reported: t("report.thanks"), visited: t("visit.thanks"), tipThanks: t("visit.tipThanks"), wentBefore: t("visit.before"),
-  askNext: t("chipAsk.next"), askThanks: t("chipAsk.thanks"), askYou: t("chipAsk.you"), askAgain: t("chipAsk.again"), askUndone: t("chipAsk.undone"), langUndone: t("speechAsk.undone"), askVotes: t("chipAsk.votes"), langThanks: t("speechAsk.thanks"), yes: t("yes"), no: t("no"), unsure: t("dunno"),
+  wechatHint: t("share.wechatHint"), askNext: t("chipAsk.next"), askThanks: t("chipAsk.thanks"), askYou: t("chipAsk.you"), askAgain: t("chipAsk.again"), askUndone: t("chipAsk.undone"), langUndone: t("speechAsk.undone"), askVotes: t("chipAsk.votes"), langThanks: t("speechAsk.thanks"), yes: t("yes"), no: t("no"), unsure: t("dunno"),
 };
 ---
 <!doctype html>
@@ -81,10 +86,10 @@ const ui = {
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:width" content={String(OG.w)} />
-    <meta property="og:image:height" content={String(OG.h)} />
+    <meta property="og:image:width" content={String(ogSize.w)} />
+    <meta property="og:image:height" content={String(ogSize.h)} />
     <meta property="og:image:alt" content={ogTitle} />
-    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:card" content={squareFirst ? "summary" : "summary_large_image"} />
     <meta name="twitter:image" content={ogImage} />
     <meta itemprop="name" content={ogTitle} />
     <meta itemprop="description" content={ogDescription} />

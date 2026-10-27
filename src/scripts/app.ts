@@ -25,6 +25,8 @@ document.addEventListener("click", async (ev) => {
   if (!b) return;
   const url = location.origin + location.pathname;
   const text = b.dataset.text!;
+  // WeChat's own browser has no share sheet, but its ··· menu sends the page as a card with our picture.
+  if (IN_WECHAT) { wechatHint(); count("share"); return; }
   try {
     if (navigator.share) { await navigator.share({ title: b.dataset.title, text, url }); count("share"); return; }
   } catch (e) {
@@ -38,6 +40,26 @@ document.addEventListener("click", async (ev) => {
   label.textContent = b.dataset.done!;
   setTimeout(() => { label.textContent = was; }, 2500);
 });
+
+/** Inside WeChat (its in-app browser says MicroMessenger). */
+const IN_WECHAT = /MicroMessenger/i.test(navigator.userAgent);
+/** Points at WeChat's ··· menu, top right; a tap anywhere closes it. */
+function wechatHint() {
+  if (document.querySelector(".wx-hint")) return;
+  const box = document.createElement("div");
+  box.className = "wx-hint";
+  box.setAttribute("role", "status");
+  box.innerHTML = `<span class="wx-arrow" aria-hidden="true">↗</span><p></p>`;
+  box.querySelector("p")!.textContent = ui.wechatHint;
+  box.addEventListener("click", () => box.remove());
+  document.body.append(box);
+}
+// Arrivals inside WeChat, once per visit: how many people a shared link brings from there.
+if (IN_WECHAT) {
+  try {
+    if (!sessionStorage.getItem("lo-wx")) { sessionStorage.setItem("lo-wx", "1"); count("from_wechat"); }
+  } catch { /* private mode */ }
+}
 
 /* ---------- saved list (stays on this device) ---------- */
 export const saved = new Set<string>(JSON.parse(read("lo-saved") || "[]"));

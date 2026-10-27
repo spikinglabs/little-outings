@@ -12,6 +12,7 @@
   <script type="module" src="inbox.js"></script>
   <script type="module" src="weekend.js"></script>
   <script type="module" src="rednote.js"></script>
+  <script type="module" src="usage.js"></script>
   <script type="module" src="seasons.js"></script>
 </head>
 <body>
@@ -60,6 +61,22 @@
       </div>
       <div class="banner" id="rednote-banner" hidden></div>
       <div id="rednote"></div>
+    </section>
+
+    <section class="panel" id="usage-panel">
+      <div class="panel-head">
+        <h2>Usage</h2>
+        <p>What visitors did on the site, added up per week (Monday to Sunday). Only daily totals are kept, nothing about who did it. "Opened inside WeChat" counts each visit that started in WeChat once. Page views are in Cloudflare Web Analytics.</p>
+        <label for="usage-lang">Site language</label>
+        <select id="usage-lang">
+          <option value="">All</option>
+          <option value="zh">Chinese</option>
+          <option value="de">German</option>
+          <option value="en">English</option>
+        </select>
+      </div>
+      <div class="banner" id="usage-banner" hidden></div>
+      <div id="usage"></div>
     </section>
 
     <section class="panel" id="inbox-panel">

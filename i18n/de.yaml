@@ -270,6 +270,7 @@ tipTopic: { bring: Mitbringen…, bestTime: Beste Zeit…, parking: Parken…, a
 share:
   page: Teilen
   pageCopied: Link kopiert
+  wechatHint: "Tippt oben rechts auf ···, um die Seite an Freunde zu schicken oder in Moments zu teilen"
   via: "gefunden auf Little Outings"
   button: Liste teilen
   copied: Link kopiert. Öffnet ihn auf einem anderen Handy oder schickt ihn an jemanden, mit dem ihr plant.

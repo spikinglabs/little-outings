@@ -270,6 +270,7 @@ tipTopic: { bring: Bring…, bestTime: Best time…, parking: Parking…, ages: 
 share:
   page: Share
   pageCopied: Link copied
+  wechatHint: "Tap ··· at the top right to send this to a friend or post it to Moments"
   via: "found on Little Outings"
   button: Share my list
   copied: Link copied. Open it on another phone, or send it to someone you're planning with.

@@ -84,3 +84,13 @@ export function shortDate(t: T, d: string) {
   if (t.lang === "zh") return `${p.mon}${p.day}日 ${p.dow}`;
   return `${p.dow} ${p.day}${t.lang === "de" ? "." : ""} ${p.mon}`;
 }
+
+/**
+ * A heading cut into runs, with the German words in Chinese titles marked: phones then hyphenate a long
+ * name like "Krewels-hof" instead of breaking it anywhere (seen in WeChat, 2026-10-26).
+ */
+export function latinRuns(text: string, lang: Lang): { s: string; de?: true }[] {
+  if (lang !== "zh") return [{ s: text }];
+  return text.split(/([A-Za-zÀ-ÿ][A-Za-zÀ-ÿ0-9.'’&-]*(?:\s+[A-Za-zÀ-ÿ0-9][A-Za-zÀ-ÿ0-9.'’&-]*)*)/)
+    .filter(Boolean).map((s) => (/^[A-Za-zÀ-ÿ]/.test(s) ? { s, de: true as const } : { s }));
+}
