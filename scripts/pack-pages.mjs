@@ -1,7 +1,8 @@
-// Runs after `astro build` (npm run build): moves every event page, dist/<lang>/termine/<id>/index.html,
-// into a pack file, dist/packs/termine/<lang>/<n>.jsonl, and deletes the page's own file, so the deploy
-// stays under Cloudflare Pages' 20,000 files however many events there are. The Pages Function
-// functions/<lang>/termine/[[path]].ts serves each page from its pack at the same address as before.
+// Runs after `astro build` (npm run build): moves every event and place page, dist/<lang>/termine/<id>/index.html
+// and dist/<lang>/orte/<id>/index.html, into a pack file, dist/packs/<section>/<lang>/<n>.jsonl, and deletes the
+// page's own file, so the deploy stays under Cloudflare Pages' 20,000 files however many events and places there
+// are. The Pages Functions functions/<lang>/{termine,orte}/[[path]].ts serve each page from its pack at the same
+// address as before.
 // See src/lib/page-packs.ts.
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";

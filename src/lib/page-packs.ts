@@ -1,17 +1,18 @@
-// Event pages, packed: Cloudflare Pages takes at most 20,000 files per deploy, and every event used
-// to be a page per language. After `astro build`, scripts/pack-pages.mjs moves each event page into
+// Event and place pages, packed: Cloudflare Pages takes at most 20,000 files per deploy, and every
+// event and place used to be a page per language (places around 70 more cities would be ~30,000). After `astro build`, scripts/pack-pages.mjs moves each event page into
 // one of a few hundred pack files (/packs/<section>/<lang>/<n>.jsonl); the Pages Functions in
-// functions/<lang>/termine/ serve a page from its pack, and /api/ics reads calendar files from there.
-// The pages themselves are unchanged: still built by Astro, still at /<lang>/termine/<id>/.
+// functions/<lang>/termine/ and functions/<lang>/orte/ serve a page from its pack, and /api/ics reads calendar files from there.
+// The pages themselves are unchanged: still built by Astro, still at /<lang>/termine/<id>/ and /<lang>/orte/<id>/.
 // Pure code with no Astro imports: it runs at build time and inside Cloudflare Pages Functions.
 
 export type Assets = (path: string) => Promise<Response>;
 
 /** The page sections that are packed instead of deployed as one file per page and language. */
-export const PACKED = ["termine"] as const;
+export const PACKED = ["termine", "orte"] as const;
 export type Section = (typeof PACKED)[number];
 
-/** Packs per section and language. 256 keeps a pack around 200 KB at two weeks of events. */
+/** Packs per section and language. 256 keeps a pack around 200 KB at two weeks of events, and
+ * places (~13,000 with the places-only towns) at ~50 per pack. */
 export const PACKS = 256;
 
 /** Which pack a page goes in, by a hash of its id (FNV-1a: the same in Node and in Workers). */

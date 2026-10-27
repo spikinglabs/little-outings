@@ -37,8 +37,9 @@ cityklub-event-data PRs 9, 16, 17, 20). Do the steps in order: each one feeds th
 ## 2. Places: spikinglabs/osm-family-data
 
 Add the town with its centre to the places towns list (`radius_m` 10000 for a big city, otherwise the
-default). After merging, start a manual Places run with only the new area ticked. Toilets use the
-same towns.
+default). If it is already under `more_towns` (the places-only towns: every city of 100,000 or more),
+move it from there to `towns`. After merging, start a manual Places run with only the new area ticked.
+Toilets use the same towns.
 
 ## 3. Site: spikinglabs/little-outings (this repo)
 
@@ -49,8 +50,7 @@ same towns.
 4. `scripts/fetch-holidays.mjs`: add the state to `STATES` if it is new, then
    `npm run fetch:holidays` and commit `data/school-holidays.json`.
 5. Check: `npm test`, `npm run check`, `npm run build`. The deploy job's "Files" notice must stay
-   well under 20,000. Event pages don't count (they are packed, see `src/lib/page-packs.ts`), but
-   every place is a page in each language, so a big city adds about 1,000 to 3,000 files.
+   well under 20,000. Event and place pages don't count (they are packed, see `src/lib/page-packs.ts`).
 
 ## 4. First night
 

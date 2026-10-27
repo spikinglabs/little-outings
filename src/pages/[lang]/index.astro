@@ -11,6 +11,7 @@ import { KINDS, TAGS } from "../../content.config";
 import { KIND_ICON, UI_ICON, svg } from "../../lib/icons";
 import OutingsMap from "../../islands/OutingsMap";
 import { mapCenter } from "../../lib/pins";
+import { tileOf } from "../../lib/tiles";
 import { siteLd } from "../../lib/seo";
 import { townStates, type Period } from "../../lib/holidays";
 import schoolHolidays from "../../../data/school-holidays.json";
@@ -96,7 +97,7 @@ const mapLabels = {
 const description = t("homeDescription", { events: listed.length, places: places.length });
 const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
 ---
-<Base lang={lang} tab="explore" preload={`/${lang}/ideen/`} description={description} ld={siteLd({ site, url: `${site}/${lang}/`, name: t("siteName"), description, lang, maker: MAKER_URL })}>
+<Base lang={lang} tab="explore" preload={`/${lang}/ideen/${tileOf(...mapCenter(data))}/`} description={description} ld={siteLd({ site, url: `${site}/${lang}/`, name: t("siteName"), description, lang, maker: MAKER_URL })}>
   <section class="ask">
     <h1 set:html={t("ask", { when: `<span data-when-word>${whenIn.weekend}</span>` })} />
     <label class="search">
@@ -174,7 +175,7 @@ const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
     </button>
   </div>
   <div class="mapwrap explore-map" id="explore-map" hidden>
-    <OutingsMap client:only="preact" pinsUrl={`/${lang}/pins.json`} toiletsUrl="/toilets.json" center={mapCenter(data)} towns={homes.map((x) => [x.name, x.lat, x.lon])} locale={t.locale} labels={mapLabels} />
+    <OutingsMap client:only="preact" pinsBase={`/${lang}/pins/`} toiletsUrl="/toilets.json" center={mapCenter(data)} towns={homes.map((x) => [x.name, x.lat, x.lon])} locale={t.locale} labels={mapLabels} />
     <!-- The two marks everyone needs stay in view; the rest fold away behind "More". -->
     <div class="legend">
       <span><i style="background:#ffcc00"></i>{t("legend.event")}</span>
@@ -232,8 +233,9 @@ const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
       <div class="empty" data-empty-town hidden></div>
     </div>
     <!-- Every card waits here, outside the page, until the filters show it: a few thousand cards
-         in the live page made phones slow to open and to switch back to. They arrive from
-         /<lang>/ideen/ (pages/[lang]/ideen.astro) right after the page shows, so the page itself stays small. -->
+         in the live page made phones slow to open and to switch back to. They arrive a tile at a time from
+         /<lang>/ideen/<tile>/ (pages/[lang]/ideen/[tile].astro, lib/tiles.ts) right after the page shows,
+         only for the tiles around home, so the page itself stays small. -->
     <template id="ideas-pool" data-src={`/${lang}/ideen/`}></template>
     <p class="small ideas-loading" data-loading>{t("loading")}</p>
     <button class="more-btn" type="button" data-more hidden></button>

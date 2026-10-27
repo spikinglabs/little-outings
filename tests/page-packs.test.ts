@@ -33,7 +33,9 @@ function built() {
     writeFileSync(join(dist, lang, "termine", id, "index.html"), page(`${lang}:${id}`));
   }
   mkdirSync(join(dist, "de", "orte", "p1"), { recursive: true });
-  writeFileSync(join(dist, "de", "orte", "p1", "index.html"), "place");
+  writeFileSync(join(dist, "de", "orte", "p1", "index.html"), page("de:p1"));
+  mkdirSync(join(dist, "de", "mitmachen"), { recursive: true });
+  writeFileSync(join(dist, "de", "mitmachen", "index.html"), "contribute");
   writeFileSync(join(dist, "404.html"), "<html>Nicht gefunden</html>");
   const out = execFileSync(process.execPath, ["scripts/pack-pages.mjs", dist], { encoding: "utf8" });
   const assets = async (path: string) => {
@@ -43,12 +45,14 @@ function built() {
   return { dist, out, assets };
 }
 
-test("pack-pages moves event pages into packs and leaves other pages alone", () => {
+test("pack-pages moves event and place pages into packs and leaves other pages alone", () => {
   const { dist, out } = built();
-  assert.match(out, /packed 6 pages into \d+ files/);
+  assert.match(out, /packed 7 pages into \d+ files/);
   assert.equal(existsSync(join(dist, "de", "termine")), false);
-  assert.equal(readFileSync(join(dist, "de", "orte", "p1", "index.html"), "utf8"), "place");
+  assert.equal(existsSync(join(dist, "de", "orte")), false);
+  assert.equal(readFileSync(join(dist, "de", "mitmachen", "index.html"), "utf8"), "contribute");
   assert.ok(readdirSync(join(dist, "packs", "termine", "en")).length >= 1);
+  assert.equal(readdirSync(join(dist, "packs", "orte", "de")).length, 1);
 });
 
 test("the Function serves a packed page at its old address", async () => {
@@ -62,6 +66,9 @@ test("the Function serves a packed page at its old address", async () => {
   const pagesDev = await servePacked(new Request("https://little-outings.pages.dev/en/termine/spielfest-2026/"), assets, "termine");
   assert.equal(pagesDev.status, 200);
   assert.equal(pagesDev.headers.get("x-robots-tag"), "noindex");
+
+  const place = await servePacked(new Request("https://outings.allo.land/de/orte/p1/"), assets, "orte");
+  assert.equal(await place.text(), page("de:p1"));
 });
 
 test("no trailing slash redirects; unknown or odd ids get the 404 page", async () => {
