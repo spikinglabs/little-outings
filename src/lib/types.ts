@@ -26,7 +26,7 @@ export type Tally = {
 /** A spot a "where" answer points at: picked on the map, or one of the places we know. */
 export type Spot = { lat: number; lon: number; place?: string };
 /** One answer parents can confirm or pick: the text, how many browsers sent it, and its spot. */
-export type Ask = { value: string; count?: number; at?: Spot; /** guesses: "usual" = a venue its calendar often uses, not one it names */ usual?: boolean };
+export type Ask = { value: string; count?: number; at?: Spot; /** guesses: "usual" = a venue its calendar often uses, not one it names */ usual?: boolean; /** guesses: the AI's best guess */ ai?: boolean };
 export type Asks = Partial<Record<"where" | "time" | "price" | "hours", Ask[]>>;
 export type Language = "none" | "en" | "de";
 
@@ -82,6 +82,8 @@ export interface Event {
   geo: Geo;
   /** Answers waiting for a second parent (Tally.asks). */
   asks?: Asks;
+  /** The AI's best guess where it is, when the source names no place (scripts/find-venues.mjs). Never shown as fact. */
+  venueGuess?: { name: string; street?: string; geo?: Geo };
   /** Spots it may be at, when the source doesn't say (src/lib/where-guess.ts). */
   guesses?: Ask[];
   start: string; // YYYY-MM-DD

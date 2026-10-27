@@ -114,6 +114,7 @@ export function normalizeEvent(
     title: raw.title,
     place: raw.place,
     venue: raw.venue ?? place?.name,
+    ...(raw.venue_guess && !raw.venue && !place ? { venueGuess: raw.venue_guess } : {}),
     town,
     geo,
     start,

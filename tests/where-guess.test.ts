@@ -33,6 +33,16 @@ test("a known place named in the title or as the venue comes first, with its str
   assert.deepEqual(whereGuesser([...all, v], [museum])(v).map((a) => a.value), ["Stadtbibliothek"]);
 });
 
+test("the AI's best guess comes first, marked, with the spot other events give that venue", () => {
+  const e = { ...ev("ai", { title: "Bilderbuchkino" }), venueGuess: { name: "Stadtbibliothek" } };
+  const g = whereGuesser([...all, e], [museum])(e);
+  assert.deepEqual(g[0], { value: "Stadtbibliothek", at: { lat: 50.803, lon: 6.482 }, ai: true });
+  // A guess that was pinned at import keeps its own spot; one nobody can pin is still offered as words.
+  const pinned = { ...e, venueGuess: { name: "Haus der Familie", street: "Markt 1", geo: { lat: 50.8, lon: 6.47, precision: "venue" as const } } };
+  assert.deepEqual(whereGuesser(all, [museum])(pinned)[0], { value: "Haus der Familie, Markt 1", at: { lat: 50.8, lon: 6.47 }, ai: true });
+  assert.deepEqual(whereGuesser(all, [museum])({ ...e, venueGuess: { name: "Nirgendwo" } })[0], { value: "Nirgendwo", ai: true });
+});
+
 test("an event with an exact spot needs no guesses", () => {
   assert.deepEqual(whereGuesser(all, [museum])(all[0]), []);
 });

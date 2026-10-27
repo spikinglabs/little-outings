@@ -76,6 +76,8 @@ const eventFields = {
   title: text,
   place: z.string().optional(), // id of a place file; the event inherits its address, geo and facilities
   venue: z.string().optional(),
+  /** The AI's best guess where an event is that names no place (scripts/find-venues.mjs); only offered as a question. */
+  venue_guess: z.object({ name: z.string(), street: z.string().optional(), geo: geo.optional() }).optional(),
   town: z.string().optional(),
   geo: geo.optional(),
   start: z.coerce.date(),

@@ -16,6 +16,7 @@ const exact = (g: { precision: string; lat?: number; lon?: number }) => g.precis
 /**
  * Prepares the places and calendar venues of every town once, and returns the guesser for one
  * event: up to three spots, best first:
+ * 0. the AI's best guess (`ai`, scripts/find-venues.mjs), with its spot when we have one;
  * 1. a place we know in the same town whose name is the event's venue, or appears in its title;
  * 2. the event's own venue, where other events from the same calendar at that venue have a spot;
  * 3. when it names no venue: the venues its calendar uses most in that town (`usual`), but only
@@ -42,6 +43,15 @@ export function whereGuesser(events: Event[], places: Place[]): (e: Event) => As
     venuesOf.get(k)!.set(v, c);
   }
 
+  // town → venues events name with an exact spot ("Stadtbibliothek, Schützenstraße 3"), any calendar
+  const spotsIn = new Map<string, { name: string; ev: Event }[]>();
+  for (const o of events) {
+    if (!o.venue || !exact(o.geo)) continue;
+    const k = fold(o.town);
+    if (!spotsIn.has(k)) spotsIn.set(k, []);
+    spotsIn.get(k)!.push({ name: fold(o.venue).trim(), ev: o });
+  }
+
   return (e) => {
     if (exact(e.geo) || e.address || !e.town) return [];
     const out: Ask[] = [];
@@ -53,6 +63,15 @@ export function whereGuesser(events: Event[], places: Place[]): (e: Event) => As
     const town = fold(e.town);
     const venue = fold(e.venue).trim();
     const title = fold(typeof e.title === "string" ? e.title : e.title.de);
+    if (e.venueGuess) {
+      const g = e.venueGuess, name = fold(g.name).trim();
+      const pinned = g.geo?.lat != null && g.geo.lon != null && g.geo.precision !== "area" && g.geo.precision !== "unknown"
+        ? { lat: g.geo.lat, lon: g.geo.lon } : undefined;
+      const known = placesIn.get(town)?.find((x) => x.name === name)?.p;
+      const other = spotsIn.get(town)?.find((x) => x.name === name || x.name.startsWith(`${name},`))?.ev;
+      const at = known ? { lat: known.geo.lat!, lon: known.geo.lon!, place: known.id } : pinned ?? (other ? { lat: other.geo.lat!, lon: other.geo.lon! } : undefined);
+      add({ value: label(g.name, g.street ?? known?.street), ...(at ? { at } : {}), ai: true });
+    }
     for (const { name, p } of placesIn.get(town) ?? []) {
       const hit = (venue && (name === venue || (venue.length >= MIN_NAME && name.includes(venue)) || (name.length >= MIN_NAME && venue.includes(name))))
         || (name.length >= MIN_NAME && title.includes(name));
