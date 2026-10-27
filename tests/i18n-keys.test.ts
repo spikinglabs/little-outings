@@ -27,3 +27,18 @@ for (const lang of ["de", "en", "zh"]) {
     assert.deepEqual(missing, []);
   });
 }
+
+// A plural with "one" but no "other" ({ one: "1 Termin" }) broke Discover's count line and its map
+// when a merge dropped the second half (PR 104): every count but 1 reads p.other.
+for (const lang of ["de", "en", "zh"]) {
+  test(`every plural in i18n/${lang}.yaml has its "other" form`, () => {
+    const half: string[] = [];
+    const walk = (x: unknown, path: string) => {
+      if (!x || typeof x !== "object") return;
+      if ("one" in x && !("other" in x)) half.push(path);
+      for (const [k, v] of Object.entries(x)) walk(v, path ? `${path}.${k}` : k);
+    };
+    walk(dict(lang), "");
+    assert.deepEqual(half, []);
+  });
+}
