@@ -1,8 +1,10 @@
 // "Where?": type a park, playground or café we know and pick it, or keep whatever was typed.
-// The places come from the map's pin file, fetched the first time someone types here.
+// The places come from the map's pin files for the tiles within 60 km of home (lib/tiles.ts),
+// fetched the first time someone types here.
 import { useRef, useState } from "preact/hooks";
 import { matchPlaces } from "../lib/where";
 import type { Pin } from "./OutingsMap";
+import { tilesNear } from "../lib/tiles";
 
 export interface Where { place: string; town?: string; placeId?: string; lat?: number; lon?: number }
 
@@ -15,8 +17,22 @@ interface Props {
 }
 
 let pins: Promise<Pin[]> | null = null;
-const loadPins = (lang: string) =>
-  (pins ??= fetch(`/${lang}/pins.json`).then((r) => (r.ok ? r.json() : [])).then((all: Pin[]) => all.filter((p) => p.type === "place")).catch(() => []));
+const tile = (lang: string, k: string) => fetch(`/${lang}/pins/${k}.json`).then((r) => (r.ok ? r.json() : [])).catch(() => []) as Promise<Pin[]>;
+/** Home's point, from the page (as app.ts reads it; that script can't load where this renders on the server). */
+function homeAt(): [number, number] | undefined {
+  const { towns = "[]", home: fallback } = document.body.dataset;
+  let home: string | null = null;
+  try { home = localStorage.getItem("lo-home"); } catch { /* storage blocked */ }
+  const list = JSON.parse(towns) as [string, number, number][];
+  const t = list.find(([n]) => n === home) ?? list.find(([n]) => n === fallback);
+  return t && [t[1], t[2]];
+}
+const loadPins = (lang: string) => {
+  const at = homeAt();
+  const have = new Set(JSON.parse(document.body.dataset.tiles || "[]") as string[]);
+  const keys = at ? tilesNear(at[0], at[1], 60).filter((k) => have.has(k)) : [];
+  return (pins ??= Promise.all(keys.map((k) => tile(lang, k))).then((lists) => lists.flat().filter((p) => p.type === "place")));
+};
 
 /** "Spielplatz · Köln" → "Köln": the pin's sub line ends with the town. */
 const townOf = (p: Pin) => p.sub.split(" · ").pop();

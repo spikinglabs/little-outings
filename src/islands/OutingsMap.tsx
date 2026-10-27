@@ -32,8 +32,9 @@ export interface Pin {
 }
 
 interface Props {
-  /** The pins come as a separate file, fetched the first time the map is shown, to keep the page light. */
-  pinsUrl: string;
+  /** The pins come as files per tile (/<lang>/pins/<tile>.json, lib/tiles.ts), fetched once the map is
+   * shown for the tiles the list has loaded (explore.ts says which with "lo:tiles"). */
+  pinsBase: string;
   /** Toilets, changing tables and water ([lat, lon, kind, flags, name]), fetched when the toilets button is first tapped. */
   toiletsUrl?: string;
   center: [number, number];
@@ -48,7 +49,7 @@ interface Props {
 
 /** What the Discover filters currently show; also kept on window for a map that mounts later. */
 export interface Filtered { ids: string[]; home: string; radius: number; view: number }
-declare global { interface Window { loFiltered?: Filtered } }
+declare global { interface Window { loFiltered?: Filtered; loTiles?: string[] } }
 
 const pinIcon = (p: Pin) =>
   L.divIcon({
@@ -73,7 +74,7 @@ const esc = (s: string) => s.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`)
 type ToiletRow = [number, number, "t" | "c" | "w", string, string?];
 const TOILET_COLOR = { t: "#3d6a9e", c: "#3d6a9e", w: "#2b8a7e" };
 
-export default function OutingsMap({ pinsUrl, toiletsUrl, center, towns, locale, labels }: Props) {
+export default function OutingsMap({ pinsBase, toiletsUrl, center, towns, locale, labels }: Props) {
   const el = useRef<HTMLDivElement>(null);
   useEffect(() => {
     let stop = () => {};
@@ -82,8 +83,7 @@ export default function OutingsMap({ pinsUrl, toiletsUrl, center, towns, locale,
       if (started || el.current!.offsetParent === null) return;
       started = true;
       document.removeEventListener("lo:map-shown", start);
-      const pins = (await fetch(pinsUrl).then((r) => r.json()).catch(() => [])) as Pin[];
-      if (el.current) stop = mount(el.current, pins);
+      if (el.current) stop = mount(el.current);
     };
     document.addEventListener("lo:map-shown", start);
     start();
@@ -91,7 +91,17 @@ export default function OutingsMap({ pinsUrl, toiletsUrl, center, towns, locale,
   }, []);
   return <div ref={el} class="map" />;
 
-  function mount(box: HTMLDivElement, pins: Pin[]) {
+  function mount(box: HTMLDivElement) {
+    // The pins of every tile the list has loaded; more come as the reader picks another town or moves the map.
+    const pins: Pin[] = [];
+    const pinTiles = new Set<string>();
+    const loadPins = async (keys: string[]) => {
+      const want = keys.filter((k) => !pinTiles.has(k));
+      want.forEach((k) => pinTiles.add(k));
+      const lists = await Promise.all(want.map((k) => fetch(`${pinsBase}${k}.json`).then((r) => (r.ok ? r.json() : [])).catch(() => []) as Promise<Pin[]>));
+      for (const list of lists) pins.push(...list);
+      return want.length > 0;
+    };
     let home = center;
     try {
       const h = localStorage.getItem("lo-home");
@@ -189,26 +199,61 @@ export default function OutingsMap({ pinsUrl, toiletsUrl, center, towns, locale,
     box.addEventListener("keydown", (e) => { if (e.key === "Escape") unselect(); });
 
     const areas = L.layerGroup().addTo(map);
+    // Leaflet keeps every marker added to the map in the page, wherever it is, and moves each one on
+    // every zoom: so event pins and area circles go on the map only while they are in or near view
+    // (cull, after each move). Places sit in the cluster group, which already draws only what is in view.
+    type Far = { at: L.LatLng; layer: L.Layer; group: L.LayerGroup };
+    let far: Far[] = [];
+    const cull = () => {
+      const view = map.getBounds().pad(0.5);
+      for (const { at, layer, group } of far) {
+        const on = view.contains(at);
+        if (on !== group.hasLayer(layer)) {
+          if (on) group.addLayer(layer);
+          else group.removeLayer(layer);
+        }
+      }
+    };
+    // Drawing again only when the list changed: moving the map makes explore.ts filter again,
+    // and rebuilding thousands of marks on each move was what made the map slow.
+    let drawn = "";
+    const signature = (list: Pin[]) => {
+      let h = 0x811c9dc5;
+      for (const p of list) for (let i = 0; i < p.id.length; i++) h = Math.imul(h ^ p.id.charCodeAt(i), 0x01000193) >>> 0;
+      return `${list.length}:${h}`;
+    };
+    const onPlaces = new Set<L.Marker>();
     const draw = (list: Pin[]) => {
-      events.clearLayers();
-      areas.clearLayers();
-      places.clearLayers();
+      const sig = signature(list);
+      if (sig === drawn) return;
+      drawn = sig;
       const groups = new Map<string, Pin[]>();
       const venues = new Map<string, Pin[]>();
-      const spots: L.Marker[] = [];
+      const spots = new Set<L.Marker>();
       for (const p of list) {
         const key = `${p.lat.toFixed(4)},${p.lon.toFixed(4)}`;
         if (p.precision === "area") groups.set(key, [...(groups.get(key) ?? []), p]);
-        else if (p.type === "place") spots.push(markerFor(p));
+        else if (p.type === "place") spots.add(markerFor(p));
         else venues.set(key, [...(venues.get(key) ?? []), p]);
       }
-      places.addLayers(spots);
+      // Places: only the difference goes in or out, so the clusters aren't worked out from scratch.
+      const gone = [...onPlaces].filter((m) => !spots.has(m));
+      const added = [...spots].filter((m) => !onPlaces.has(m));
+      places.removeLayers(gone);
+      places.addLayers(added);
+      gone.forEach((m) => onPlaces.delete(m));
+      added.forEach((m) => onPlaces.add(m));
+
+      events.clearLayers();
+      areas.clearLayers();
+      far = [];
       // Events at the same venue (a theatre's whole season) share one pin with their count.
       for (const group of venues.values()) {
-        if (group.length === 1) { markerFor(group[0]).addTo(events); continue; }
         const { lat, lon, precision } = group[0];
+        const at = L.latLng(lat, lon);
+        if (group.length === 1) { far.push({ at, layer: markerFor(group[0]), group: events }); continue; }
         const n = group.length;
-        L.marker([lat, lon], {
+        const pin = L.marker(at, {
           icon: L.divIcon({
             className: "",
             html: `<div class="pin event${precision === "venue" ? " approx" : ""}"><b>${n}</b></div>`,
@@ -217,23 +262,28 @@ export default function OutingsMap({ pinsUrl, toiletsUrl, center, towns, locale,
           }),
           title: nEvents(n),
           zIndexOffset: 500,
-        }).on("click", () => selectGroup(group)).addTo(events);
+        }).on("click", () => selectGroup(group));
+        far.push({ at, layer: pin, group: events });
       }
       for (const group of groups.values()) {
         const { lat, lon } = group[0];
+        const at = L.latLng(lat, lon);
         const n = group.length;
-        L.circle([lat, lon], { radius: 2500, className: "area-ring", weight: 1, dashArray: "4 4", fillOpacity: 0.12 })
-          .on("click", (e) => { L.DomEvent.stopPropagation(e); selectGroup(group); }).addTo(areas);
-        L.marker([lat, lon], {
+        const ring = L.circle(at, { radius: 2500, className: "area-ring", weight: 1, dashArray: "4 4", fillOpacity: 0.12 })
+          .on("click", (e) => { L.DomEvent.stopPropagation(e); selectGroup(group); });
+        const count = L.marker(at, {
           icon: L.divIcon({ className: "", html: `<div class="area-count">${n}</div>`, iconSize: [32, 32], iconAnchor: [16, 16] }),
           title: nEvents(n),
           zIndexOffset: 1000,
-        }).on("click", () => selectGroup(group)).addTo(areas);
+        }).on("click", () => selectGroup(group));
+        far.push({ at, layer: ring, group: areas }, { at, layer: count, group: areas });
       }
+      cull();
       // The tapped mark keeps its card while it is still drawn.
       if (selected && !list.some((p) => p.id === selected!.id)) unselect();
       else selected?.m.getElement()?.classList.add("sel");
     };
+    map.on("moveend", cull);
 
     // Draw what the filters show, with the search radius around the home town.
     const ring = L.circle(home, { radius: 1, className: "radius-ring", weight: 1, dashArray: "2 6", fill: false, interactive: false }).addTo(map);
@@ -258,6 +308,9 @@ export default function OutingsMap({ pinsUrl, toiletsUrl, center, towns, locale,
     // the page sluggish. Showing the map draws the latest filters (onShown).
     const folded = () => box.offsetParent === null;
     const onFiltered = (e: Event) => { if (!folded()) update((e as CustomEvent<Filtered>).detail); };
+    const onTiles = async (e: Event) => {
+      if ((await loadPins((e as CustomEvent<string[]>).detail)) && !folded() && window.loFiltered) update(window.loFiltered);
+    };
     // The map may mount while folded (zero size); once shown, measure again and refit.
     const onShown = () => {
       map.invalidateSize();
@@ -396,9 +449,12 @@ export default function OutingsMap({ pinsUrl, toiletsUrl, center, towns, locale,
     document.addEventListener("lo:here", onHere);
     document.addEventListener("lo:filtered", onFiltered);
     document.addEventListener("lo:map-shown", onShown);
+    document.addEventListener("lo:tiles", onTiles);
     if (window.loFiltered && !folded()) update(window.loFiltered);
+    if (window.loTiles) onTiles(new CustomEvent("lo:tiles", { detail: window.loTiles }));
     return () => {
       document.removeEventListener("lo:filtered", onFiltered);
+      document.removeEventListener("lo:tiles", onTiles);
       document.removeEventListener("lo:map-shown", onShown);
       document.removeEventListener("lo:here", onHere);
       ideas?.removeEventListener("mouseover", onPoint);

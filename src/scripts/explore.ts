@@ -1,5 +1,5 @@
 // Filters on the Entdecken page: one list of ideas, events on the chosen day mixed with places
-// that are good any time. All cards arrive once from /<lang>/ideen/; this only hides and sorts them.
+// that are good any time. The cards arrive a tile at a time from /<lang>/ideen/<tile>/; this only hides and sorts them.
 // Distances are measured once per home town, and the list shows a page at a time.
 import { lastDay } from "../lib/horizon";
 import { count as countHit } from "../lib/count";
@@ -9,7 +9,8 @@ import { ORDERS, orderEvents, orderPlaces, type Order } from "../lib/order";
 import { holidayFor, type Period } from "../lib/holidays";
 import { inWindow, type Window } from "../lib/seasons-window";
 import { daysFor, fit, mood, moods, sharedMood, skyIcon, skyWord, wantsRoof, type Day, type Mood, type Packed } from "../lib/weather";
-import { distanceOf, getHome, markSaved, nearestTown, renderKm, setHere, setHome, townKm } from "./app";
+import { tilesFor, tilesNear } from "../lib/tiles";
+import { TILES, distanceOf, getHome, homeAt, markSaved, nearestTown, renderKm, setHere, setHome, townKm } from "./app";
 import type {} from "../islands/OutingsMap";
 
 type Plural = { one?: string; other: string };
@@ -105,13 +106,25 @@ function range(): [string, string] {
 // Each card's data, read once: with a few thousand cards, reading the DOM on every keystroke is too slow.
 type Row = { el: HTMLElement; d: DOMStringMap; lat: number; lon: number; feat: string[]; dist: number | null };
 // The cards wait in a <template>, outside the live page, and only the ones on screen are moved in.
-// They are fetched once after the page shows (the service worker keeps a copy for next time and offline).
+// They come a tile at a time (lib/tiles.ts): the tiles within the radius of home, or under the map once the
+// reader moves it, each fetched once (the service worker keeps a copy for next time and offline).
 const pool = $<HTMLTemplateElement>("#ideas-pool");
 let all: Row[] = [];
 let loaded = false;
-async function loadPool() {
+// A map zoomed out over half the country loads only the dozen tiles nearest its middle.
+const MAX_TILES = 12;
+const tilesDone = new Set<string>();
+let fetching = false;
+let broken = false; // the first tiles didn't come: the list says so instead of "nothing here"
+function wantedTiles(): string[] {
+  if (state.area) return tilesFor(state.area as [number, number, number, number], TILES, MAX_TILES);
+  const at = homeAt();
+  return at ? tilesNear(at[0], at[1], state.radius).filter((k) => TILES.has(k)) : [];
+}
+const missingTiles = () => wantedTiles().filter((k) => !tilesDone.has(k));
+async function loadTile(key: string): Promise<boolean> {
   try {
-    const res = await fetch(pool.dataset.src!);
+    const res = await fetch(`${pool.dataset.src}${key}/`);
     if (!res.ok || !res.body) throw new Error(String(res.status));
     // Parsed piece by piece as it downloads (like the page itself), not all at once at the end.
     const doc = document.implementation.createHTMLDocument("");
@@ -124,18 +137,35 @@ async function loadPool() {
     }
     doc.write(text.decode());
     doc.close();
+    const cards = [...doc.body.children].filter((el) => el.classList.contains("item")) as HTMLElement[];
     pool.content.append(...doc.body.children);
+    all.push(...cards.map((el) => ({
+      el, d: el.dataset, lat: parseFloat(el.dataset.lat || ""), lon: parseFloat(el.dataset.lon || ""), feat: (el.dataset.feat || "").split(" "), dist: distanceOf(el),
+    })));
+    return true;
   } catch {
-    $("[data-loading]").textContent = ui.loadFail;
-    return;
+    return false;
+  } finally {
+    tilesDone.add(key);
   }
-  all = [...pool.content.children].filter((el) => el.classList.contains("item"))
-    .map((el) => el as HTMLElement).map((el) => ({
-      el, d: el.dataset, lat: parseFloat(el.dataset.lat || ""), lon: parseFloat(el.dataset.lon || ""), feat: (el.dataset.feat || "").split(" "), dist: null,
-    }));
-  loaded = true;
-  $("[data-loading]").hidden = true;
-  apply();
+}
+/** Fetches the tiles the list needs and doesn't hold yet, then shows the list again. */
+function loadTiles() {
+  if (fetching || broken) return;
+  const want = missingTiles();
+  if (!want.length && loaded) return;
+  fetching = true;
+  $("[data-loading]").hidden = false;
+  Promise.all(want.map(loadTile)).then((ok) => {
+    fetching = false;
+    if (!loaded && want.length && !ok.some(Boolean)) { broken = true; $("[data-loading]").textContent = ui.loadFail; return; }
+    loaded = true;
+    $("[data-loading]").hidden = true;
+    // The map fetches the pins of the same tiles.
+    window.loTiles = [...tilesDone];
+    document.dispatchEvent(new CustomEvent("lo:tiles", { detail: window.loTiles }));
+    apply();
+  });
 }
 let measuredFor = "";
 /** Distances from home, recomputed only when home changes. */
@@ -247,7 +277,7 @@ function apply() {
   $$<HTMLButtonElement>('[data-wx-btn="water"]').forEach((b) => b.setAttribute("aria-pressed", String(state.kind === "pool")));
   const sky = weather(from, to, word);
   // Until the cards are here, taps only change the filters; the list follows when they arrive.
-  if (!loaded) return;
+  if (!loaded || missingTiles().length) { loadTiles(); return; }
 
   measure();
   seasonChips();
@@ -543,4 +573,4 @@ const hashSeason = location.hash.slice(1);
 if (hashSeason && seasonBtn(hashSeason)) { state.season = hashSeason; state.when = "soon"; }
 if (location.hash === "#map") showMap(true, false);
 else try { if (localStorage.getItem("lo-map") === "1") showMap(true, false); } catch { /* storage blocked */ }
-loadPool();
+loadTiles();

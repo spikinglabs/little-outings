@@ -83,9 +83,9 @@ eventTypes: Type of event
 allTypes: All types
 noIdeas: Nothing matches these filters. Try a bigger radius, another day or fewer filters.
 noneHere: "Nothing around {town} yet. Places and events are still being added here, so check back in a few days."
-nPlacesAny: { one: "1 place for any time" }
+nPlacesAny: { one: "1 place for any time", other: "{n} places for any time" }
 allKinds: All
-nEvents: { one: "1 event" }
+nEvents: { one: "1 event", other: "{n} events" }
 nPlaces: { one: "1 place within {r} km", other: "{n} places within {r} km" }
 nPlacesArea: { one: "1 place in the map area", other: "{n} places in the map area" }
 noEvents: No events match these filters. Try a bigger radius or another day.

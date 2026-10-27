@@ -130,6 +130,10 @@ export const getHome = () => {
   return h && towns.has(h) ? h : body.dataset.home!;
 };
 export const setHome = (h: string) => { write("lo-home", h); renderKm(); };
+/** Where the home town is. */
+export const homeAt = () => towns.get(getHome());
+/** The tiles with ideas on them (lib/tiles.ts): Discover and the map only ask for these. */
+export const TILES = new Set<string>(JSON.parse(body.dataset.tiles || "[]"));
 /** Further than this from every region town, the phone's location says nothing useful. */
 const NEAR_MAX_KM = 50;
 /**

@@ -10,6 +10,7 @@ import { seasonPages, seasonPath } from "../lib/seasons";
 import { UI_ICON, sprite, svg } from "../lib/icons";
 import { FEATURES } from "../content.config";
 import { getData } from "../lib/data";
+import { tileKeys } from "../lib/tiles";
 import { ldJson } from "../lib/seo";
 import { HOME_KEY, OG, ogBase } from "../lib/og";
 
@@ -30,7 +31,9 @@ interface Props {
 }
 const { lang, title, description, tab, og, image, noindex, ld, preload } = Astro.props;
 const t = useT(lang);
-const { region, seasons } = await getData();
+const { region, seasons, events, places } = await getData();
+// The tiles with ideas on them (lib/tiles.ts), for Discover, its map and the "Where?" picker.
+const tiles = tileKeys(events, places);
 // Always findable, whatever the season: the weekend editions and every season with its own pages.
 const pageSeasons = [...new Set(seasonPages(seasons).map((p) => p.season))];
 const footLinks = [
@@ -135,7 +138,7 @@ const ui = {
     <meta name="apple-mobile-web-app-title" content={t("siteName")} />
     <meta name="mobile-web-app-capable" content="yes" />
   </head>
-  <body data-ui={JSON.stringify(ui)} data-lang={lang} data-home={region.center} data-towns={JSON.stringify(region.towns.map((x) => [x.name, x.lat, x.lon]))}>
+  <body data-ui={JSON.stringify(ui)} data-lang={lang} data-home={region.center} data-towns={JSON.stringify(region.towns.map((x) => [x.name, x.lat, x.lon]))} data-tiles={tiles}>
     <Fragment set:html={sprite()} />
     <div class="flag" aria-hidden="true"></div>
     <div class="app">
