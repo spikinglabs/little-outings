@@ -1,0 +1,20 @@
+---
+// One tile's cards for the Discover list (lib/tiles.ts), fetched by explore.ts for the tiles around
+// the reader's town. Kept out of the home page itself, which was 3.5 MB with all of them inline.
+// Not a page to read on its own (noindex in _headers).
+import Card from "../../../components/Card.astro";
+import { LANGS, useT, type Lang } from "../../../lib/i18n";
+import { getData } from "../../../lib/data";
+import { byTile } from "../../../lib/tiles";
+
+export async function getStaticPaths() {
+  const { events, places } = await getData();
+  // Events first, then places, as before; events without any position are on no tile (the tasks page has them).
+  const tiles = byTile([...events, ...places]);
+  return LANGS.flatMap((lang) => [...tiles].map(([tile, items]) => ({ params: { lang, tile }, props: { items } })));
+}
+const lang = Astro.params.lang as Lang;
+const t = useT(lang);
+const { items } = Astro.props;
+---
+{items.map((x) => <Card item={x} t={t} hidden />)}

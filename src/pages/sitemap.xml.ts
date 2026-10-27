@@ -13,13 +13,16 @@ import { sitemapWorthy } from "../lib/seo";
 
 export const GET: APIRoute = async ({ site }) => {
   const base = site?.toString().replace(/\/$/, "") ?? "";
-  const { places, seasons } = await getData();
+  const { places, seasons, region } = await getData();
+  // OpenStreetMap places around towns with events only: the places-only towns (Dortmund, Leipzig …, osm-family-data's
+  // more_towns) would treble the list while Google still works through this one; their pages stay linked.
+  const ours = new Set(region.towns.map((t) => t.name));
   // Season pages (Christmas markets …): each overview and its town pages.
   const seasonal = seasonPages(seasons).flatMap(({ season, file }) => [`${season.page!.slug}/`, `${season.page!.slug}/${file.slug}/`]);
   const paths = [
     "", "mitmachen/", "daten/",
     ...new Set(seasonal),
-    ...places.filter(sitemapWorthy).map((p) => `orte/${p.id}/`),
+    ...places.filter((p) => sitemapWorthy(p) && (ours.has(p.town) || !p.id.startsWith("osm-"))).map((p) => `orte/${p.id}/`),
   ];
   // The weekend editions: one address per town that changes every Friday.
   const weekend = editionTowns();

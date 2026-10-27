@@ -93,7 +93,7 @@ jobs:
         run: |
           n=$(find dist -type f | wc -l)
           echo "::notice title=Files::$n of 20,000"
-          [ "$n" -lt 17000 ] || echo "::warning title=Files::$n files; Cloudflare Pages takes at most 20,000. Every place is a page per language (event pages are packed, see src/lib/page-packs.ts)."
+          [ "$n" -lt 17000 ] || echo "::warning title=Files::$n files; Cloudflare Pages takes at most 20,000. Event and place pages are packed (src/lib/page-packs.ts); look for another section that grew."
       - name: Check Cloudflare credentials
         id: cf
         env:

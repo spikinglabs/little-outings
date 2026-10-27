@@ -32,8 +32,9 @@ export interface Pin {
 }
 
 interface Props {
-  /** The pins come as a separate file, fetched the first time the map is shown, to keep the page light. */
-  pinsUrl: string;
+  /** The pins come as files per tile (/<lang>/pins/<tile>.json, lib/tiles.ts), fetched once the map is
+   * shown for the tiles the list has loaded (explore.ts says which with "lo:tiles"). */
+  pinsBase: string;
   /** Toilets, changing tables and water ([lat, lon, kind, flags, name]), fetched when the toilets button is first tapped. */
   toiletsUrl?: string;
   center: [number, number];
@@ -48,7 +49,7 @@ interface Props {
 
 /** What the Discover filters currently show; also kept on window for a map that mounts later. */
 export interface Filtered { ids: string[]; home: string; radius: number; view: number }
-declare global { interface Window { loFiltered?: Filtered } }
+declare global { interface Window { loFiltered?: Filtered; loTiles?: string[] } }
 
 const pinIcon = (p: Pin) =>
   L.divIcon({
@@ -73,7 +74,7 @@ const esc = (s: string) => s.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`)
 type ToiletRow = [number, number, "t" | "c" | "w", string, string?];
 const TOILET_COLOR = { t: "#3d6a9e", c: "#3d6a9e", w: "#2b8a7e" };
 
-export default function OutingsMap({ pinsUrl, toiletsUrl, center, towns, locale, labels }: Props) {
+export default function OutingsMap({ pinsBase, toiletsUrl, center, towns, locale, labels }: Props) {
   const el = useRef<HTMLDivElement>(null);
   useEffect(() => {
     let stop = () => {};
@@ -82,8 +83,7 @@ export default function OutingsMap({ pinsUrl, toiletsUrl, center, towns, locale,
       if (started || el.current!.offsetParent === null) return;
       started = true;
       document.removeEventListener("lo:map-shown", start);
-      const pins = (await fetch(pinsUrl).then((r) => r.json()).catch(() => [])) as Pin[];
-      if (el.current) stop = mount(el.current, pins);
+      if (el.current) stop = mount(el.current);
     };
     document.addEventListener("lo:map-shown", start);
     start();
@@ -91,7 +91,17 @@ export default function OutingsMap({ pinsUrl, toiletsUrl, center, towns, locale,
   }, []);
   return <div ref={el} class="map" />;
 
-  function mount(box: HTMLDivElement, pins: Pin[]) {
+  function mount(box: HTMLDivElement) {
+    // The pins of every tile the list has loaded; more come as the reader picks another town or moves the map.
+    const pins: Pin[] = [];
+    const pinTiles = new Set<string>();
+    const loadPins = async (keys: string[]) => {
+      const want = keys.filter((k) => !pinTiles.has(k));
+      want.forEach((k) => pinTiles.add(k));
+      const lists = await Promise.all(want.map((k) => fetch(`${pinsBase}${k}.json`).then((r) => (r.ok ? r.json() : [])).catch(() => []) as Promise<Pin[]>));
+      for (const list of lists) pins.push(...list);
+      return want.length > 0;
+    };
     let home = center;
     try {
       const h = localStorage.getItem("lo-home");
@@ -258,6 +268,9 @@ export default function OutingsMap({ pinsUrl, toiletsUrl, center, towns, locale,
     // the page sluggish. Showing the map draws the latest filters (onShown).
     const folded = () => box.offsetParent === null;
     const onFiltered = (e: Event) => { if (!folded()) update((e as CustomEvent<Filtered>).detail); };
+    const onTiles = async (e: Event) => {
+      if ((await loadPins((e as CustomEvent<string[]>).detail)) && !folded() && window.loFiltered) update(window.loFiltered);
+    };
     // The map may mount while folded (zero size); once shown, measure again and refit.
     const onShown = () => {
       map.invalidateSize();
@@ -396,9 +409,12 @@ export default function OutingsMap({ pinsUrl, toiletsUrl, center, towns, locale,
     document.addEventListener("lo:here", onHere);
     document.addEventListener("lo:filtered", onFiltered);
     document.addEventListener("lo:map-shown", onShown);
+    document.addEventListener("lo:tiles", onTiles);
     if (window.loFiltered && !folded()) update(window.loFiltered);
+    if (window.loTiles) onTiles(new CustomEvent("lo:tiles", { detail: window.loTiles }));
     return () => {
       document.removeEventListener("lo:filtered", onFiltered);
+      document.removeEventListener("lo:tiles", onTiles);
       document.removeEventListener("lo:map-shown", onShown);
       document.removeEventListener("lo:here", onHere);
       ideas?.removeEventListener("mouseover", onPoint);

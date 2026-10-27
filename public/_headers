@@ -6,11 +6,12 @@
 https://little-outings.pages.dev/*
   X-Robots-Tag: noindex
 
-# Discover's cards, loaded by the home page; not a page of its own.
-/:lang/ideen/
+# Discover's cards, a tile at a time, loaded by the home page; not pages of their own.
+/:lang/ideen/*
   X-Robots-Tag: noindex
 
-# Event pages packed for the Pages Functions (src/lib/page-packs.ts); the pages are at /<lang>/termine/<id>/.
+# Event and place pages packed for the Pages Functions (src/lib/page-packs.ts); the pages are at
+# /<lang>/termine/<id>/ and /<lang>/orte/<id>/.
 /packs/*
   X-Robots-Tag: noindex
 
