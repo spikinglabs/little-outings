@@ -199,26 +199,61 @@ export default function OutingsMap({ pinsBase, toiletsUrl, center, towns, locale
     box.addEventListener("keydown", (e) => { if (e.key === "Escape") unselect(); });
 
     const areas = L.layerGroup().addTo(map);
+    // Leaflet keeps every marker added to the map in the page, wherever it is, and moves each one on
+    // every zoom: so event pins and area circles go on the map only while they are in or near view
+    // (cull, after each move). Places sit in the cluster group, which already draws only what is in view.
+    type Far = { at: L.LatLng; layer: L.Layer; group: L.LayerGroup };
+    let far: Far[] = [];
+    const cull = () => {
+      const view = map.getBounds().pad(0.5);
+      for (const { at, layer, group } of far) {
+        const on = view.contains(at);
+        if (on !== group.hasLayer(layer)) {
+          if (on) group.addLayer(layer);
+          else group.removeLayer(layer);
+        }
+      }
+    };
+    // Drawing again only when the list changed: moving the map makes explore.ts filter again,
+    // and rebuilding thousands of marks on each move was what made the map slow.
+    let drawn = "";
+    const signature = (list: Pin[]) => {
+      let h = 0x811c9dc5;
+      for (const p of list) for (let i = 0; i < p.id.length; i++) h = Math.imul(h ^ p.id.charCodeAt(i), 0x01000193) >>> 0;
+      return `${list.length}:${h}`;
+    };
+    const onPlaces = new Set<L.Marker>();
     const draw = (list: Pin[]) => {
-      events.clearLayers();
-      areas.clearLayers();
-      places.clearLayers();
+      const sig = signature(list);
+      if (sig === drawn) return;
+      drawn = sig;
       const groups = new Map<string, Pin[]>();
       const venues = new Map<string, Pin[]>();
-      const spots: L.Marker[] = [];
+      const spots = new Set<L.Marker>();
       for (const p of list) {
         const key = `${p.lat.toFixed(4)},${p.lon.toFixed(4)}`;
         if (p.precision === "area") groups.set(key, [...(groups.get(key) ?? []), p]);
-        else if (p.type === "place") spots.push(markerFor(p));
+        else if (p.type === "place") spots.add(markerFor(p));
         else venues.set(key, [...(venues.get(key) ?? []), p]);
       }
-      places.addLayers(spots);
+      // Places: only the difference goes in or out, so the clusters aren't worked out from scratch.
+      const gone = [...onPlaces].filter((m) => !spots.has(m));
+      const added = [...spots].filter((m) => !onPlaces.has(m));
+      places.removeLayers(gone);
+      places.addLayers(added);
+      gone.forEach((m) => onPlaces.delete(m));
+      added.forEach((m) => onPlaces.add(m));
+
+      events.clearLayers();
+      areas.clearLayers();
+      far = [];
       // Events at the same venue (a theatre's whole season) share one pin with their count.
       for (const group of venues.values()) {
-        if (group.length === 1) { markerFor(group[0]).addTo(events); continue; }
         const { lat, lon, precision } = group[0];
+        const at = L.latLng(lat, lon);
+        if (group.length === 1) { far.push({ at, layer: markerFor(group[0]), group: events }); continue; }
         const n = group.length;
-        L.marker([lat, lon], {
+        const pin = L.marker(at, {
           icon: L.divIcon({
             className: "",
             html: `<div class="pin event${precision === "venue" ? " approx" : ""}"><b>${n}</b></div>`,
@@ -227,23 +262,28 @@ export default function OutingsMap({ pinsBase, toiletsUrl, center, towns, locale
           }),
           title: nEvents(n),
           zIndexOffset: 500,
-        }).on("click", () => selectGroup(group)).addTo(events);
+        }).on("click", () => selectGroup(group));
+        far.push({ at, layer: pin, group: events });
       }
       for (const group of groups.values()) {
         const { lat, lon } = group[0];
+        const at = L.latLng(lat, lon);
         const n = group.length;
-        L.circle([lat, lon], { radius: 2500, className: "area-ring", weight: 1, dashArray: "4 4", fillOpacity: 0.12 })
-          .on("click", (e) => { L.DomEvent.stopPropagation(e); selectGroup(group); }).addTo(areas);
-        L.marker([lat, lon], {
+        const ring = L.circle(at, { radius: 2500, className: "area-ring", weight: 1, dashArray: "4 4", fillOpacity: 0.12 })
+          .on("click", (e) => { L.DomEvent.stopPropagation(e); selectGroup(group); });
+        const count = L.marker(at, {
           icon: L.divIcon({ className: "", html: `<div class="area-count">${n}</div>`, iconSize: [32, 32], iconAnchor: [16, 16] }),
           title: nEvents(n),
           zIndexOffset: 1000,
-        }).on("click", () => selectGroup(group)).addTo(areas);
+        }).on("click", () => selectGroup(group));
+        far.push({ at, layer: ring, group: areas }, { at, layer: count, group: areas });
       }
+      cull();
       // The tapped mark keeps its card while it is still drawn.
       if (selected && !list.some((p) => p.id === selected!.id)) unselect();
       else selected?.m.getElement()?.classList.add("sel");
     };
+    map.on("moveend", cull);
 
     // Draw what the filters show, with the search radius around the home town.
     const ring = L.circle(home, { radius: 1, className: "radius-ring", weight: 1, dashArray: "2 6", fill: false, interactive: false }).addTo(map);
