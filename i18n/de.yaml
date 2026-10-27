@@ -138,7 +138,7 @@ machine: maschinell übersetzt
 translated: ""
 gapsTitle: Fehlt noch
 gapsSub: Wisst ihr etwas davon? Eine Antwort reicht.
-gapAsk: { said: "Ein anderer Elternteil sagt – tippe, wenn es stimmt:", saidMany: "Eltern sagen – tippe auf das Richtige:", guess: "Ist es einer dieser Orte?", other: "Etwas anderes? Schreib es:", map: Auf der Karte wählen, mapHint: "Tippe auf die Karte, wo es ist.", mapName: "Name des Orts (optional)" }
+gapAsk: { usual: "Orte, die dieser Kalender oft nennt – ist es einer davon?", finding: Adresse wird gesucht…, noAddr: "Hier gibt es keine Adresse. Schreib unten gern einen Namen dazu.", know: Ich weiß es, notRight: "Stimmt nicht? Ich weiß es", said: "Ein anderer Elternteil sagt – tippe, wenn es stimmt:", saidMany: "Eltern sagen – tippe auf das Richtige:", guess: "Ist es einer dieser Orte?", other: "Etwas anderes? Schreib es:", map: Auf der Karte wählen, mapHint: "Tippe auf die Karte, wo es ist.", mapName: "Name des Orts (optional)" }
 whereByParents: Adresse von Eltern
 gapLabel: { where: "Wo?", time: "Wann?", price: Preis, fac: Ausstattung, still: "Findet statt?", hours: Öffnungszeiten }
 q: { where: "Wo genau findet es statt?", time: "Um wie viel Uhr?", price: "Was kostet es?", hours: "Wann ist geöffnet?", fac: "Gibt es dort: {f}?", still: "Findet es wie angegeben statt?" }

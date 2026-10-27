@@ -26,7 +26,7 @@ export type Tally = {
 /** A spot a "where" answer points at: picked on the map, or one of the places we know. */
 export type Spot = { lat: number; lon: number; place?: string };
 /** One answer parents can confirm or pick: the text, how many browsers sent it, and its spot. */
-export type Ask = { value: string; count?: number; at?: Spot };
+export type Ask = { value: string; count?: number; at?: Spot; /** guesses: "usual" = a venue its calendar often uses, not one it names */ usual?: boolean };
 export type Asks = Partial<Record<"where" | "time" | "price" | "hours", Ask[]>>;
 export type Language = "none" | "en" | "de";
 

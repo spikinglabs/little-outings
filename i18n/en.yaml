@@ -138,7 +138,7 @@ machine: machine-translated
 translated: Translated from German.
 gapsTitle: Still missing
 gapsSub: Know any of this? One answer is enough.
-gapAsk: { said: "Another parent said – tap if it's right:", saidMany: "Parents said – tap the right one:", guess: "Is it one of these?", other: "Something else? Type it:", map: Pick on the map, mapHint: Tap the map where it is., mapName: "Name of the spot (optional)" }
+gapAsk: { usual: "Places this calendar often uses – is it one of them?", finding: Looking up the address…, noAddr: "No address here. Add a name below if you like.", know: I know, notRight: "Not right? I know", said: "Another parent said – tap if it's right:", saidMany: "Parents said – tap the right one:", guess: "Is it one of these?", other: "Something else? Type it:", map: Pick on the map, mapHint: Tap the map where it is., mapName: "Name of the spot (optional)" }
 whereByParents: Address from parents
 gapLabel: { where: "Where?", time: "When?", price: Price, fac: Facilities, still: "Still on?", hours: Opening hours }
 q: { where: "Where exactly is it?", time: "What time?", price: "How much does it cost?", hours: "When is it open?", fac: "Is there: {f}?", still: "Is it happening as listed?" }

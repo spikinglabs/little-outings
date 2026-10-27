@@ -19,10 +19,10 @@ const ev = (id: string, raw: Record<string, unknown>) =>
 const lib = (n: number) => ev(`lib-${n}`, { title: `Lesung ${n}`, venue: "Stadtbibliothek", geo: { lat: 50.803, lon: 6.482, precision: "exact" } });
 const all: Event[] = [lib(1), lib(2), ev("kino", { title: "Film", venue: "Kino", geo: { lat: 50.81, lon: 6.49, precision: "exact" } })];
 
-test("an event without a venue gets the places its calendar uses most", () => {
+test("an event without a venue gets the venues its calendar uses at least twice, marked as such", () => {
+  // A venue used once ("Kino" here; a cemetery in real life) is no guess for anything else.
   const e = ev("x", { title: "Let's Play" });
-  const g = whereGuesser([...all, e], [museum])(e);
-  assert.deepEqual(g.map((a) => a.value), ["Stadtbibliothek", "Kino"]);
+  assert.deepEqual(whereGuesser([...all, e], [museum])(e), [{ value: "Stadtbibliothek", at: { lat: 50.803, lon: 6.482 }, usual: true }]);
 });
 
 test("a known place named in the title or as the venue comes first, with its street", () => {
@@ -61,4 +61,12 @@ test("a where answer keeps its spot in the inbox issue; other answers can't carr
   assert.doesNotMatch(far.yaml, /lat:/);
   const price = await issueOf({ kind: "answer", gap: "ev-1:price", answer: "3 €", lat: 50.8, lon: 6.48 }) as { yaml: string };
   assert.doesNotMatch(price.yaml, /lat:/);
+});
+
+test("the address under a tapped spot reads like a sign: name, street and number, town", async () => {
+  const { labelOf } = await import("../functions/api/reverse.ts");
+  assert.deepEqual(labelOf({ name: "Repair Café", address: { road: "Europaring", house_number: "6", city: "Leverkusen" } }),
+    { label: "Repair Café, Europaring 6, Leverkusen", name: "Repair Café" });
+  assert.deepEqual(labelOf({ name: "Europaring", address: { road: "Europaring", town: "Leverkusen" } }), { label: "Europaring, Leverkusen" });
+  assert.deepEqual(labelOf({}), { label: "" });
 });

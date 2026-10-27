@@ -1,5 +1,7 @@
 // "Pick on the map" in a "Where exactly?" question: a small map around the outing's rough spot,
-// loaded only when a parent asks for it. A tap drops the mark and fills the form's lat/lon.
+// loaded only when a parent asks for it. A tap drops the mark, fills the form's lat/lon and shows
+// the address under it right away (/api/reverse), which also goes into the text box unless the
+// parent typed something there themselves.
 import L from "../lib/leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-gesture-handling/dist/leaflet-gesture-handling.css";
@@ -32,6 +34,27 @@ export function openPicker(form: HTMLFormElement) {
     form.querySelector<HTMLInputElement>("input[name=lon]")!.value = lng.toFixed(5);
     const input = form.querySelector<HTMLInputElement>("input[name=text]")!;
     if (input.dataset.phNamed) input.placeholder = input.dataset.phNamed;
+    showAddress(lat, lng, input);
+  });
+  const addr = wrap.querySelector<HTMLElement>(".gap-map-addr")!;
+  let asked = 0;
+  async function showAddress(lat: number, lon: number, input: HTMLInputElement) {
+    const n = ++asked;
+    addr.hidden = false;
+    addr.textContent = `📍 ${wrap.dataset.finding}`;
+    if (input.dataset.auto) input.value = "";
+    let label = "";
+    try {
+      const res = await fetch(`/api/reverse?lat=${lat.toFixed(5)}&lon=${lon.toFixed(5)}&lang=${document.body.dataset.lang ?? "de"}`);
+      if (res.ok) label = (await res.json()).label ?? "";
+    } catch { /* offline: the spot alone is still an answer */ }
+    if (n !== asked) return; // the parent tapped somewhere else meanwhile
+    addr.textContent = label ? `📍 ${label}` : wrap.dataset.noAddr ?? "";
+    // Typed words win; an address filled in by an earlier tap is replaced.
+    if (label && (!input.value || input.dataset.auto)) { input.value = label; input.dataset.auto = "1"; }
+  }
+  form.querySelector<HTMLInputElement>("input[name=text]")?.addEventListener("input", (ev) => {
+    delete (ev.target as HTMLInputElement).dataset.auto;
   });
   wrap.scrollIntoView({ block: "nearest", behavior: "smooth" });
 }

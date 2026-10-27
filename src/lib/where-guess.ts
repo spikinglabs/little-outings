@@ -8,6 +8,7 @@ import type { Ask, Event, Place } from "./types.ts";
 const MAX = 3;
 /** Place names too plain to find in a title: "Spielplatz" is in many titles and means none of them. */
 const MIN_NAME = 8;
+const USUAL_MIN = 2;
 
 const label = (name: string, street?: string) => [name, street].filter(Boolean).join(", ");
 const exact = (g: { precision: string; lat?: number; lon?: number }) => g.precision === "exact" && g.lat != null && g.lon != null;
@@ -16,8 +17,10 @@ const exact = (g: { precision: string; lat?: number; lon?: number }) => g.precis
  * Prepares the places and calendar venues of every town once, and returns the guesser for one
  * event: up to three spots, best first:
  * 1. a place we know in the same town whose name is the event's venue, or appears in its title;
- * 2. the venues the same calendar names most often in that town, where we know the address
- *    (only the one it names, when it names a venue: then the others would be wrong anyway).
+ * 2. the event's own venue, where other events from the same calendar at that venue have a spot;
+ * 3. when it names no venue: the venues its calendar uses most in that town (`usual`), but only
+ *    those with at least USUAL_MIN events. A venue used once (a cemetery for a funeral concert) was
+ *    offered for a game afternoon.
  */
 export function whereGuesser(events: Event[], places: Place[]): (e: Event) => Ask[] {
   const placesIn = new Map<string, { name: string; p: Place }[]>();
@@ -57,9 +60,9 @@ export function whereGuesser(events: Event[], places: Place[]): (e: Event) => As
     }
     if (e.origin) {
       const used = [...(venuesOf.get(`${e.origin.name}|${town}`) ?? new Map()).entries()]
-        .filter(([k]) => !venue || k === venue || k.includes(venue) || venue.includes(k))
+        .filter(([k, c]) => (venue ? k === venue || k.includes(venue) || venue.includes(k) : c.n >= USUAL_MIN))
         .sort((a, b) => b[1].n - a[1].n);
-      for (const [, { ev }] of used) add({ value: ev.venue!, at: { lat: ev.geo.lat!, lon: ev.geo.lon!, ...(ev.place ? { place: ev.place } : {}) } });
+      for (const [, { ev }] of used) add({ value: ev.venue!, at: { lat: ev.geo.lat!, lon: ev.geo.lon!, ...(ev.place ? { place: ev.place } : {}) }, ...(venue ? {} : { usual: true }) });
     }
     return out;
   };
