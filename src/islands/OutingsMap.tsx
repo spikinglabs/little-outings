@@ -413,9 +413,8 @@ export default function OutingsMap({ pinsBase, toiletsUrl, center, towns, locale
             if (map.hasLayer(dots)) dots.remove();
             else {
               await load();
+              // Leave the view alone: zooming in here made the lists jump to "what is in the map area".
               dots.addTo(map);
-              // Across a whole region the dots only blur together; a few streets is where they help.
-              if (map.getZoom() < 14) map.setZoom(14);
             }
             mark();
           });
