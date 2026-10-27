@@ -181,3 +181,22 @@ test("publishing commits the published rows to the repository", async () => {
   assert.match(commit.message, /Publish 1 outings/);
   assert.ok(OUTINGS.objects.has("little-outings/last-publish.json"));
 });
+
+test("usage adds the daily counts up per week, newest first, one language if asked", async () => {
+  const { weeklyUsage, mondayOf, ACTIONS } = await import("../admin/public/usage-table.js");
+  const { EVENTS } = await import("../functions/api/hit.ts");
+  assert.equal(mondayOf("2026-10-27"), "2026-10-26");
+  assert.equal(mondayOf("2026-10-25"), "2026-10-19");
+  const rows = [
+    { day: "2026-10-27", event: "from_wechat", kind: "other", lang: "zh", n: 3 },
+    { day: "2026-10-26", event: "from_wechat", kind: "other", lang: "de", n: 1 },
+    { day: "2026-10-20", event: "share", kind: "event", lang: "zh", n: 2 },
+    { day: "2026-10-01", event: "share", kind: "event", lang: "zh", n: 9 },
+  ];
+  const all = weeklyUsage(rows, "2026-10-27");
+  assert.deepEqual(all.weeks, ["2026-10-26", "2026-10-19", "2026-10-12", "2026-10-05"]);
+  assert.deepEqual(all.rows.map((r) => [r.event, r.counts]), [["from_wechat", [4, 0, 0, 0]], ["share", [0, 2, 0, 0]]]);
+  assert.deepEqual(weeklyUsage(rows, "2026-10-27", { lang: "zh" }).rows[0].counts, [3, 0, 0, 0]);
+  // Every action the site counts has a name in the panel.
+  assert.deepEqual(EVENTS.filter((e) => !ACTIONS.some(([a]) => a === e)), []);
+});
