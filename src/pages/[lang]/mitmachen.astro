@@ -95,7 +95,7 @@ const placeUi = Object.fromEntries(placeKeys.map((k) => [k, t(k)]));
       })}
     </template>
     <template id="gap-forms">
-      {allCodes.map((c) => { const [type, feature] = c.split(":"); return <GapForm t={t} gapKey={`@:${c}`} type={type} feature={feature} open />; })}
+      {allCodes.map((c) => { const [type, feature] = c.split(":"); return <GapForm t={t} gapKey={`@:${c}`} type={type} feature={feature} />; })}
     </template>
     <p class="empty" data-task-empty hidden>{t("tasksNone")}</p>
     <button class="more-btn" type="button" data-task-more hidden></button>

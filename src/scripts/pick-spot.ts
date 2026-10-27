@@ -13,7 +13,6 @@ export function openPicker(form: HTMLFormElement) {
   // Name and send come after the map, where the thumb is once the spot is picked.
   const row = form.querySelector<HTMLElement>(".gap-row");
   if (row) wrap.after(row);
-  form.querySelector<HTMLElement>(".gap-other")?.setAttribute("hidden", "");
   if (box.dataset.ready) return;
   box.dataset.ready = "1";
   const at = form.closest<HTMLElement>("[data-lat][data-lon]");

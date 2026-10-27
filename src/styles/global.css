@@ -179,7 +179,10 @@ h1, h2, h3, .meta, .de-name, .orig, .trust { overflow-wrap: anywhere; }
 .chip.pick { max-width: 100%; justify-content: flex-start; text-align: left; white-space: normal; border-radius: 12px; padding: 8px 12px; background: var(--card); }
 .chip.pick:hover, .chip.pick:focus-visible { border-color: var(--ink); }
 .gap-row { display: flex; gap: 6px; flex-wrap: wrap; }
-.chip.map-pick, .chip.know { justify-self: start; }
+.gap-chips { display: flex; flex-wrap: wrap; gap: 6px; max-width: 100%; }
+.chip.guess { max-width: 100%; min-width: 0; font-size: .88rem; padding: 5px 10px; }
+.chip.guess .ellip { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.chip.map-pick { padding: 6px 10px; font-size: 1.05rem; }
 .gap-map { display: grid; gap: 6px; }
 .gap-map-addr { margin: 0; font-weight: 600; }
 .gap-map .map { height: 240px; border-radius: 12px; overflow: hidden; border: 1px solid var(--line); }

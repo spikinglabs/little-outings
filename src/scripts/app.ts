@@ -223,22 +223,12 @@ document.addEventListener("submit", async (ev) => {
   form.querySelector(".gap-form")!.replaceWith(done);
 });
 
-// "I know": opens the ways to answer, and the text box once there is nothing to pick from.
-document.addEventListener("click", (ev) => {
-  const btn = (ev.target as Element).closest<HTMLButtonElement>("[data-gap-open]");
-  const more = btn?.closest("form")?.querySelector<HTMLElement>(".gap-more");
-  if (!btn || !more) return;
-  btn.hidden = true;
-  more.hidden = false;
-  if (!more.querySelector(".chip.pick")) more.querySelector<HTMLInputElement>("input[name=text]")?.focus();
-});
-
 // "Pick on the map": Leaflet loads only when a parent asks for it.
 document.addEventListener("click", (ev) => {
   const btn = (ev.target as Element).closest<HTMLButtonElement>("[data-map-pick]");
   const form = btn?.closest<HTMLFormElement>("form[data-gap]");
   if (!btn || !form) return;
-  btn.hidden = true;
+  btn.setAttribute("aria-pressed", "true");
   import("./pick-spot").then((m) => m.openPicker(form));
 });
 
