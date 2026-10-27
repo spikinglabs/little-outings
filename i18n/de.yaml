@@ -85,7 +85,7 @@ noIdeas: Dazu passt nichts. Versucht einen größeren Umkreis, einen anderen Tag
 noneHere: Rund um {town} haben wir noch nichts. Orte und Termine kommen gerade erst dazu, schaut in ein paar Tagen wieder vorbei.
 nPlacesAny: { one: "1 Ort für jederzeit" }
 allKinds: Alle
-nEvents: { one: "1 Termin", other: "{n} Termine" }
+nEvents: { one: "1 Termin" }
 nPlaces: { one: "1 Ort bis {r} km", other: "{n} Orte bis {r} km" }
 nPlacesArea: { one: "1 Ort im Kartenausschnitt", other: "{n} Orte im Kartenausschnitt" }
 noEvents: Keine Termine mit diesen Filtern. Probiert einen größeren Umkreis oder einen anderen Tag.
