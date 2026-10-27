@@ -167,6 +167,11 @@ h1, h2, h3, .meta, .de-name, .orig, .trust { overflow-wrap: anywhere; }
 .help { margin-top: 22px; background: var(--gold-bg); border-radius: 14px; padding: 14px; }
 .help h2, .help h3 { margin: 0; font-size: 1.05rem; }
 .help > p { margin: 4px 0 0; }
+.help.gaps > summary { cursor: pointer; list-style: none; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.help.gaps > summary::-webkit-details-marker { display: none; }
+.help.gaps > summary::after { content: "▸"; margin-left: auto; color: var(--ink-soft); }
+.help.gaps[open] > summary::after { content: "▾"; }
+.help.gaps > summary .small { color: var(--ink-soft); }
 .gap { display: grid; gap: 6px; padding-top: 10px; margin-top: 10px; border-top: 1px dashed var(--line); }
 .gap-tag { justify-self: start; font-family: var(--sign); text-transform: uppercase; letter-spacing: .08em; font-size: .72rem; font-weight: 700; color: var(--ink-soft); }
 .gap-form { display: flex; gap: 6px; flex-wrap: wrap; width: 100%; }
