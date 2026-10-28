@@ -1,0 +1,133 @@
+---
+// A city page: "科隆带娃去哪儿" / "Köln mit Kindern" / "Cologne with kids". What a parent who searches for
+// their town wants first: what's on soon, the best places by kind, and short answers to the questions
+// they ask (rain, free, playgrounds, this weekend), all from the same data as Discover (src/lib/city.ts).
+// The answers are plain sentences in the page, and FAQPage data, so search engines and AI assistants can quote them.
+import Base from "../../../layouts/Base.astro";
+import Card from "../../../components/Card.astro";
+import { LANGS, useT, type Lang } from "../../../lib/i18n";
+import { getData } from "../../../lib/data";
+import { nameOf, pathFor, townName } from "../../../lib/format";
+import { cityFacts, cityNames, cityPath, cityTowns, OTHERS } from "../../../lib/city";
+import { editionTowns } from "../../../lib/weekend-data";
+import { seasonPages, seasonPath } from "../../../lib/seasons";
+import { tr } from "../../../lib/i18n";
+import type { Event, Place } from "../../../lib/types";
+
+export async function getStaticPaths() {
+  const { region, events, places } = await getData();
+  return LANGS.flatMap((lang) => cityTowns(region.towns, events, places).map((c) => ({ params: { lang, town: c.slug }, props: { name: c.name } })));
+}
+const { name } = Astro.props as { name: string };
+const lang = Astro.params.lang as Lang;
+const t = useT(lang);
+const { region, events, places, seasons } = await getData();
+const names = cityNames(region.towns);
+const f = cityFacts(name, events, places);
+const town = townName(name, lang, names);
+const counts = { town, events: f.events.length, places: f.places.length };
+const weekend = editionTowns().find((w) => w.name === name);
+const weekendHref = weekend && `/${lang}/wochenende/${weekend.slug}/`;
+const seasonal = seasonPages(seasons).filter((p) => p.file.town === name);
+// The biggest other cities; the full list is one click away.
+const others = cityTowns(region.towns, events, places).filter((c) => c.name !== name).slice(0, OTHERS);
+
+type Link = { name: string; href: string };
+const links = (xs: (Event | Place)[], n = 3): Link[] => xs.slice(0, n).map((x) => ({ name: nameOf(x, lang), href: pathFor(lang, x) }));
+// Each answer: a sentence with {list} where the links go. Questions without anything to say are left out.
+const faq: { q: string; parts: { text: string; list: Link[] }[] }[] = [];
+const part = (key: string, n: number, list: Link[]) => ({ text: t(key, { town, n }), list });
+if (f.indoor.length) faq.push({ q: t("city.qRain", { town }), parts: [part("city.aRain", f.indoor.length, links(f.indoor))] });
+const free = [
+  ...(f.freeEvents.length ? [part("city.aFreeEvents", f.freeEvents.length, links(f.freeEvents))] : []),
+  ...(f.freePlaces.length ? [part("city.aFreePlaces", f.freePlaces.length, links(f.freePlaces))] : []),
+];
+if (free.length) faq.push({ q: t("city.qFree", { town }), parts: free });
+if (f.playgrounds.length) faq.push({ q: t("city.qPlay", { town }), parts: [part("city.aPlay", f.playgrounds.length, links(f.playgrounds))] });
+if (weekendHref) faq.push({ q: t("city.qWeekend", { town }), parts: [{ text: t("city.aWeekendEdition", { town }), list: [{ name: t("city.weekend", { town }), href: weekendHref }] }] });
+else if (f.soon.length) faq.push({ q: t("city.qWeekend", { town }), parts: [{ text: t("city.aWeekend", { town }), list: links(f.soon) }] });
+const sep = t("city.sep");
+const plain = (p: { text: string; list: Link[] }) => p.text.replace("{list}", p.list.map((l) => l.name).join(sep));
+
+const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
+const title = t("city.title", { town });
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage", "@id": `${site}${Astro.url.pathname}#page`, url: `${site}${Astro.url.pathname}`, name: title, inLanguage: lang,
+      about: { "@type": "City", name },
+      mainEntity: { "@type": "ItemList", itemListElement: f.kinds.flatMap((k) => k.top).map((p, i) => ({ "@type": "ListItem", position: i + 1, name: nameOf(p, lang), url: `${site}${pathFor(lang, p)}` })) },
+    },
+    ...(faq.length ? [{
+      "@type": "FAQPage", "@id": `${site}${Astro.url.pathname}#faq`,
+      mainEntity: faq.map((x) => ({ "@type": "Question", name: x.q, acceptedAnswer: { "@type": "Answer", text: x.parts.map(plain).join(" ") } })),
+    }] : []),
+  ],
+};
+---
+<Base lang={lang} tab="explore" title={title} description={t(f.events.length ? "city.description" : "city.descriptionPlaces", counts)} ld={ld}>
+  <div class="city-page season-page">
+    <a class="back" href={cityPath(lang)}>← {t("city.hubTitle")}</a>
+    <h1 class="page-title">{t("city.h1", { town })}</h1>
+    <p class="page-sub">{t(f.events.length ? "city.sub" : "city.subPlaces", counts)}</p>
+    <p class="city-actions">
+      <a class="btn primary" href={`/${lang}/`} data-home-town={name}>{t("city.showAll", { town })}</a>
+      {weekendHref && <a class="btn" href={weekendHref}>📰 {t("city.weekend", { town })}</a>}
+    </p>
+
+    {f.soon.length > 0 && (
+      <section aria-labelledby="soon-h">
+        <h2 id="soon-h">{t("city.soonH")} <span class="small">{t("city.more", { n: f.events.length })}</span></h2>
+        <div class="grid ideas">{f.soon.map((e) => <Card item={e} t={t} />)}</div>
+      </section>
+    )}
+
+    <section aria-labelledby="places-h">
+      <h2 id="places-h">{t("city.placesH")}</h2>
+      {f.kinds.map((k) => (
+        <section aria-labelledby={`k-${k.kind}`}>
+          <h3 id={`k-${k.kind}`}>{t(`kinds.${k.kind}`)} <span class="small">{t("city.more", { n: k.count })}</span></h3>
+          <div class="grid ideas">{k.top.map((p) => <Card item={p} t={t} />)}</div>
+        </section>
+      ))}
+    </section>
+
+    {faq.length > 0 && (
+      <section class="city-faq" aria-labelledby="faq-h">
+        <h2 id="faq-h">{t("city.faqH")}</h2>
+        {faq.map((x) => (
+          <>
+            <h3>{x.q}</h3>
+            <p>{x.parts.map((p) => {
+              const [before, after = ""] = p.text.split("{list}");
+              return <>{before}{p.list.map((l, i) => <>{i > 0 && sep}<a href={l.href}>{l.name}</a></>)}{after} </>;
+            })}</p>
+          </>
+        ))}
+      </section>
+    )}
+
+    {seasonal.length > 0 && (
+      <nav class="season-towns" aria-label={t("city.seasons")}>
+        <h2>{t("city.seasons")}</h2>
+        <ul>{seasonal.map((p) => <li><a href={seasonPath(lang, p.season, p.file.slug)}>{p.season.emoji} {tr(p.season.page!.title, lang).replace("{town}", town)}</a></li>)}</ul>
+      </nav>
+    )}
+
+    {others.length > 0 && (
+      <nav class="season-towns" aria-label={t("city.others")}>
+        <h2>{t("city.others")}</h2>
+        <ul>
+          {others.map((c) => <li><a href={cityPath(lang, c.slug)}>{t("city.h1", { town: townName(c.name, lang, names) })}</a></li>)}
+          <li><a href={cityPath(lang)}>{t("city.hubTitle")} →</a></li>
+        </ul>
+      </nav>
+    )}
+  </div>
+  <script>
+    // "Everything on the map": Discover opens around this town.
+    import { setHome } from "../../../scripts/app";
+    document.querySelector<HTMLAnchorElement>("[data-home-town]")?.addEventListener("click", (e) => setHome((e.currentTarget as HTMLElement).dataset.homeTown!));
+  </script>
+</Base>

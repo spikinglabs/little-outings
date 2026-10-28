@@ -38,6 +38,7 @@ const tiles = tileKeys(events, places);
 const pageSeasons = [...new Set(seasonPages(seasons).map((p) => p.season))];
 const footLinks = [
   { href: `/${lang}/wochenende/`, label: `📰 ${t("weekend.nav")}` },
+  { href: `/${lang}/stadt/`, label: `🏙 ${t("city.nav")}` },
   ...pageSeasons.map((s) => ({ href: seasonPath(lang, s), label: `${s.emoji} ${tr(s.page!.nav ?? s.label, lang)}` })),
 ];
 // The "saved" tab is labelled "Mine": it holds the saved list, what was sent and the profile.

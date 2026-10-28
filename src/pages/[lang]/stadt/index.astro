@@ -1,0 +1,29 @@
+---
+// All city pages in one list, linked from the footer, so every city page is two clicks from anywhere.
+import Base from "../../../layouts/Base.astro";
+import { LANGS, useT, type Lang } from "../../../lib/i18n";
+import { getData } from "../../../lib/data";
+import { townName } from "../../../lib/format";
+import { cityNames, cityPath, cityTowns } from "../../../lib/city";
+
+export const getStaticPaths = () => LANGS.map((lang) => ({ params: { lang } }));
+const lang = Astro.params.lang as Lang;
+const t = useT(lang);
+const { region, events, places } = await getData();
+const names = cityNames(region.towns);
+const cities = cityTowns(region.towns, events, places);
+---
+<Base lang={lang} tab="explore" title={t("city.hubTitle")} description={t("city.hubSub")}>
+  <div class="city-page season-page">
+    <h1 class="page-title">{t("city.hubTitle")}</h1>
+    <p class="page-sub">{t("city.hubSub")}</p>
+    <ul class="city-list">
+      {cities.map((c) => (
+        <li>
+          <a href={cityPath(lang, c.slug)}>{t("city.h1", { town: townName(c.name, lang, names) })}</a>
+          <span class="small">{c.events ? t("city.hubCount", { events: c.events, places: c.places }) : t("city.hubPlaces", { places: c.places })}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</Base>
