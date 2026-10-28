@@ -38,12 +38,13 @@ test("towns with too little get no page; the rest come biggest first, event town
 
 test("this weekend means events on Saturday or Sunday, including ones that run through it", () => {
   const f = cityFacts("Köln", [
+    event("Köln", { start: "2026-10-20", end: "2026-11-30", title: "Läuft" }),
     event("Köln", { start: "2026-10-29", end: "2026-10-29", title: "Donnerstag" }),
     event("Köln", { start: "2026-10-31", end: "2026-10-31", title: "Samstag" }),
-    event("Köln", { start: "2026-10-20", end: "2026-11-30", title: "Läuft" }),
     event("Köln", { start: "2026-11-07", end: "2026-11-07", title: "Nächste Woche" }),
   ], [], TODAY);
-  assert.deepEqual(f.weekend.map((e) => e.title), ["Samstag", "Läuft"]);
+  assert.deepEqual(f.weekend.map((e) => e.title), ["Läuft", "Samstag"]);
+  assert.equal(f.soon[0].title, "Donnerstag", "the picks start with what's new, not what has run for weeks");
 });
 
 test("places-only towns have Chinese and English names", () => {

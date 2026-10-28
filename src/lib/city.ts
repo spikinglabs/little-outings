@@ -54,7 +54,8 @@ export function cityFacts(town: string, allEvents: Event[], allPlaces: Place[], 
     return { kind, count: of.length, top: best(of).slice(0, PER_KIND) };
   }).filter((k) => k.count > 0);
   return {
-    events, places, soon: events.slice(0, SOON), kinds,
+        // The picks: what starts soon, before exhibitions that have run since spring.
+    events, places, soon: [...events.filter((e) => e.start >= today), ...events.filter((e) => e.start < today)].slice(0, SOON), kinds,
     indoor: best(places.filter((p) => indoorGuess(p.indoor, [p.kind]) === true)),
     freeEvents: events.filter((e) => e.price?.free),
     weekend: events.filter((e) => e.start <= sun && (e.end || e.start) >= sat),
