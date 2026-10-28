@@ -182,7 +182,7 @@ export function search(index: Index, query: Query, base: string): Result {
 
   // Pick towns, dates and kinds out of the free text; what's left is matched against titles.
   let town = query.town ? findTown(query.town, index.towns) : undefined;
-  if (query.town && !town) notes.push(`"${query.town}" isn't a town Little Outings covers. Towns: ${index.towns.map((t) => t.en ?? t.name).join(", ")}.`);
+  if (query.town && !town) notes.push(`"${query.town}" isn't a town Allo Outings covers. Towns: ${index.towns.map((t) => t.en ?? t.name).join(", ")}.`);
   let { from, to } = query;
   const raw = (query.q ?? "").toLowerCase().split(/[\s,.;!?]+/).filter(Boolean);
   const words: string[] = [];

@@ -1,5 +1,5 @@
 // Short codes on the Rednote (小红书) cards, like "K31-2": town letter, the Saturday's day of the month,
-// pick number. Rednote punishes links, so a parent searches 小出游 in the browser and types the code
+// pick number. Rednote punishes links, so a parent searches 小鹿出游 in the browser and types the code
 // into the site's search box, which opens that event (src/scripts/explore.ts). Kept apart from
 // src/lib/rednote.ts so the home page's script doesn't carry the card drawing code.
 

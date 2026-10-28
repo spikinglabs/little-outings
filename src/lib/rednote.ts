@@ -1,6 +1,6 @@
 // Rednote (小红书) picture sets, for the Chinese-speaking parents in Germany who plan outings there.
 // Rednote punishes links and QR codes (in notes, comments and the profile), so every card carries the
-// whole story: name, day, time, place, price. The bridge to the site is the name 小出游 and a short code
+// whole story: name, day, time, place, price. The bridge to the site is the name 小鹿出游 and a short code
 // per pick (src/lib/rednote-code.ts) that the site's search box opens.
 //
 // Nothing is posted from here: Rednote has no posting API, and bots that post anyway get accounts
@@ -42,8 +42,8 @@ export interface XhsSet { id: string; title: string; caption: string; sheets: Sh
 // ---------- the weekly set ----------
 
 const TAGS = (town: string) => ["德国带娃", `${town}带娃`, town, "周末去哪儿", "遛娃", "德国生活", "德国妈妈", "德国爸爸", "留德"];
-/** Our own tag leads every caption, so posts and parents' shares all gather under #小出游. */
-export const BRAND_TAG = "小出游";
+/** Our own tag leads every caption, so posts and parents' shares all gather under #小鹿出游. */
+export const BRAND_TAG = "小鹿出游";
 const hashtags = (tags: string[]) => [BRAND_TAG, ...tags.filter((t) => t !== BRAND_TAG)].map((t) => `#${t}`).join(" ");
 
 const md = (d: string) => `${Number(d.slice(5, 7))}.${Number(d.slice(8, 10))}`;
@@ -116,8 +116,8 @@ export function weeklySet(ed: Edition, o: { townZh: string; kindName: (k: string
     tone: "ink",
     title: `还有 ${o.more.events} 个活动\n和 ${o.more.places} 个好去处`,
     lines: ["游乐场、室内乐园、农场、亲子咖啡馆，都有中文介绍"],
-    search: "小出游 Little Outings",
-    note: "在浏览器里搜索小出游，再在网站的搜索框输入卡片右下角的编号，就能直接打开那个活动。",
+    search: "小鹿出游 Allo Outings",
+    note: "在浏览器里搜索小鹿出游，再在网站的搜索框输入卡片右下角的编号，就能直接打开那个活动。",
     foot: "地点数据部分来自 © OpenStreetMap 贡献者",
   };
   const caption = [
@@ -128,7 +128,7 @@ export function weeklySet(ed: Edition, o: { townZh: string; kindName: (k: string
     ...ed.picks.map((p, i) => pickLine(p, i, codes[i], o.kindName)),
     "",
     "活动信息以主办方为准，出发前请再确认～",
-    `还有 ${o.more.events} 个活动和 ${o.more.places} 个带娃好去处：浏览器搜索「小出游」，在网站搜索框输入编号就能找到对应活动。`,
+    `还有 ${o.more.events} 个活动和 ${o.more.places} 个带娃好去处：浏览器搜索「小鹿出游」，在网站搜索框输入编号就能找到对应活动。`,
     "",
     hashtags(TAGS(o.townZh)),
   ];
@@ -260,7 +260,7 @@ export function sheetSvg(s: Sheet, page?: string): string {
   if (s.foot) out.push(text(x, base - 92, s.foot, 30, c.soft));
   out.push(`<rect x="${x}" y="${base - 50}" width="60" height="60" rx="12" fill="${s.tone === "gold" ? "#ffffff" : "#ffcc00"}" stroke="#17191b" stroke-width="4"/>`);
   out.push(`<g transform="translate(${x + 11} ${base - 39}) scale(${38 / 24})" fill="none" stroke="#17191b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${UI_ICON.brand}</g>`);
-  out.push(text(x + 84, base - 4, "小出游 Little Outings", 44, c.ink, 700));
+  out.push(text(x + 84, base - 4, "小鹿出游 Allo Outings", 44, c.ink, 700));
   if (s.code) {
     const size = 56, cw = textEm(s.code) * size * 0.82 + 56;
     out.push(`<rect x="${w - x - cw}" y="${base - 66}" width="${cw}" height="88" rx="10" fill="${BLAU}"/>`);

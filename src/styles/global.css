@@ -1,4 +1,4 @@
-/* Little Outings. Phone-first: one column and a bottom tab bar; from 900px a top nav and two columns.
+/* Allo Outings. Phone-first: one column and a bottom tab bar; from 900px a top nav and two columns.
    Colours from German public signage (see design/tokens.css):
    gold = dates, braun = places, blau = indoor and links, rot = current and saved, schwarz = text and actions. */
 @import "../../design/tokens.css";

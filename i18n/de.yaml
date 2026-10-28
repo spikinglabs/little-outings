@@ -1,11 +1,11 @@
 locale: de-DE
 langName: Deutsch
-siteName: Little Outings
+siteName: Allo Outings
 tagline: Ausflüge mit Kindern in eurer Nähe
 homeDescription: "Ausflüge mit Kindern in Köln, Berlin, München, Hamburg und weiteren Städten: {events} Termine für Familien und {places} kinderfreundliche Orte wie Spielplätze, Bauernhöfe, Zoos und Schwimmbäder. Kostenlos, ohne Anmeldung."
 brandAbout:
-  h: Über Little Outings
-  p: "Little Outings (chinesisch 小出游) ist eine kostenlose Seite für Familien in Deutschland: Termine für Kinder und kinderfreundliche Orte wie Spielplätze, Bauernhöfe, Zoos, Schwimmbäder und Familiencafés in Köln, Berlin, München, Hamburg und weiteren Städten, auf Deutsch, Englisch und Chinesisch. Jede Nacht aktualisiert, ohne Anmeldung."
+  h: Über Allo Outings
+  p: "Allo Outings (chinesisch 小鹿出游) ist eine kostenlose Seite für Familien in Deutschland: Termine für Kinder und kinderfreundliche Orte wie Spielplätze, Bauernhöfe, Zoos, Schwimmbäder und Familiencafés in Köln, Berlin, München, Hamburg und weiteren Städten, auf Deutsch, Englisch und Chinesisch. Jede Nacht aktualisiert, ohne Anmeldung. Früher hieß die Seite Little Outings (小出游)."
 tabs: { explore: Entdecken, saved: Meins, add: Neu }
 when: { today: Heute, tomorrow: Morgen, weekend: Wochenende, soon: Nächste 2 Wochen }
 whenIn: { today: heute, tomorrow: morgen, weekend: am Wochenende, soon: in den nächsten 2 Wochen }
@@ -211,9 +211,9 @@ kinds: { playground: Spielplatz, indoor: Indoorspielplatz, park: "Parks & Gärte
 features: { playground: Spielplatz, changing_table: Wickeltisch, highchairs: Hochstühle, kids_menu: Kinderkarte, toys: "Spielzeug & Mitgebsel", animals: Tiere, stroller_friendly: Kinderwagen-tauglich, nursing_room: Stillecke, indoor_play: Spielecke drinnen, toilets: Toiletten, farm_shop: Hofladen, parking: Parkplatz, sandpit: Sandkasten, water_play: Wasserspiel, swings: Schaukeln, slides: Rutschen, climbing: Klettern, toddler_area: Kleinkindbereich, shade: Schatten, benches: Bänke, fenced: Eingezäunt }
 tags: { fest: Fest, animals: Tiere, market: Markt, diy: Mitmachen, season: Saison, reading: Vorlesen, music: Musik, outside: Draußen, stage: "Theater & Kino", sport: "Sport & Bewegung", tour: "Museum & Führung", parents: "Für Eltern", learn: "Kurse & Sprachen", other: Sonstiges }
 empty: Hier ist noch nichts eingetragen. Kennt ihr etwas? Unter „Mitmachen“ könnt ihr es melden.
-install: { button: "App installieren", hint: "Little Outings lässt sich wie eine App auf den Startbildschirm legen.", hintIos: "Teilen antippen, dann „Zum Home-Bildschirm“, um Little Outings wie eine App zu nutzen.", short: Installieren, dismiss: Ausblenden, menu: "Im Browser-Menü „App installieren“ oder „Zum Startbildschirm hinzufügen“ wählen.", installed: "Little Outings ist auf diesem Gerät schon installiert. Öffne es über den Startbildschirm oder die App-Liste." }
+install: { button: "App installieren", hint: "Allo Outings lässt sich wie eine App auf den Startbildschirm legen.", hintIos: "Teilen antippen, dann „Zum Home-Bildschirm“, um Allo Outings wie eine App zu nutzen.", short: Installieren, dismiss: Ausblenden, menu: "Im Browser-Menü „App installieren“ oder „Zum Startbildschirm hinzufügen“ wählen.", installed: "Allo Outings ist auf diesem Gerät schon installiert. Öffne es über den Startbildschirm oder die App-Liste." }
 footer: "Alle Angaben ohne Gewähr. Bitte vor dem Besuch beim Veranstalter prüfen."
-byLine: "Little Outings ist ein Produkt von {maker}."
+byLine: "Allo Outings ist ein Produkt von {maker}."
 dataFrom: "Daten u. a. von {sources}."
 nearStreet: "nahe {street}"
 back: Zurück
@@ -274,7 +274,7 @@ share:
   page: Teilen
   pageCopied: Link kopiert
   wechatHint: "Tippt oben rechts auf ···, um die Seite an Freunde zu schicken oder in Moments zu teilen"
-  via: "gefunden auf Little Outings"
+  via: "gefunden auf Allo Outings"
   button: Liste teilen
   copied: Link kopiert. Öffnet ihn auf einem anderen Handy oder schickt ihn an jemanden, mit dem ihr plant.
   shared: { one: "1 Ausflug wurde mit euch geteilt.", other: "{n} Ausflüge wurden mit euch geteilt." }
@@ -349,7 +349,7 @@ profile:
   passkeyTitle: Mit einem Passkey sichern
   passkeySub: "Mit einem Passkey liegt eine Kopie eures Profils bei uns. So übersteht es ein neues Handy und erscheint auf euren anderen Geräten. Keine E-Mail, kein Passwort: Das Handy entsperrt ihn mit Gesicht, Fingerabdruck oder Bildschirmsperre."
   passkeyOn: Mit einem Passkey synchronisieren
-  passkeyAsk: "Habt ihr schon einmal einen Passkey für Little Outings angelegt, auf diesem oder einem anderen Handy?"
+  passkeyAsk: "Habt ihr schon einmal einen Passkey für Allo Outings angelegt, auf diesem oder einem anderen Handy?"
   passkeyAskYes: "Ja, damit anmelden"
   passkeyAskNo: "Nein, neuen anlegen"
   passkeyOther: Mit einem anderen Passkey anmelden
@@ -390,19 +390,19 @@ profile:
 about:
   link: Daten und Datenschutz
   title: Daten und Datenschutz
-  intro: Woher Little Outings seine Angaben hat und wo deine Antworten und dein Profil liegen.
+  intro: Woher Allo Outings seine Angaben hat und wo deine Antworten und dein Profil liegen.
   events: { h: Termine, p: "Termine stammen aus den öffentlichen Kalendern von Städten, Büchereien, Museen und Höfen. Wir nutzen nur Fakten wie Titel, Datum, Uhrzeit und Ort, mit Link zur Originalseite. Zeiten und Preise bitte dort prüfen." }
   places: { h: Orte, p: "Spielplätze, Bäder, Museen, Höfe und andere Orte stammen aus OpenStreetMap (© OpenStreetMap-Mitwirkende, ODbL) und werden wöchentlich aktualisiert. Sobald Eltern etwas ergänzt haben, zeigt der Ort, wie viele Antworten es gibt." }
   translate: { h: Übersetzungen und Hinweise, p: "Chinesische Namen und englische Veranstaltungstitel sind maschinell übersetzt; der deutsche Name steht darunter. „Braucht man Deutsch?“ ist zuerst aus dem Titel geschätzt und mit „?“ markiert. Sobald Eltern antippen, gilt die häufigste Antwort." }
   taps: { h: Deine Klicks, p: "Antworten zu Ausstattung, „Wir waren da“ und „Braucht man Deutsch?“ werden anonym bei Cloudflare gezählt. Jeder Browser hat eine Zufalls-ID: Eine Frage zählt einmal, eine neue Antwort ersetzt die alte. IP-Adressen werden nur als Hash gespeichert, gegen Massenklicks." }
   writing: { h: Was du schreibst, p: "Tipps, Fehlermeldungen und vorgeschlagene Orte prüfen wir zuerst; sie erscheinen erst nach Freigabe. Antworten bei „Fehlt noch“ (Öffnungszeiten, Uhrzeit, Preis) erscheinen, sobald zwei Eltern dasselbe antworten oder wir sie geprüft haben. Bitte keine Namen, Telefonnummern oder andere persönliche Angaben." }
-  ai: { h: Mit deinem KI-Assistenten, p: "Frag Claude, ChatGPT oder einen anderen Assistenten nach Ideen von Little Outings: Füge {url} als eigenen Connector hinzu (bei Claude: Einstellungen → Konnektoren; bei ChatGPT: Einstellungen → Apps, Entwicklermodus). Ohne Anmeldung. Dein Assistent kann dann Termine und Orte suchen und für dich einen Tipp oder einen neuen Termin schicken; den prüfen wir wie alles andere zuerst. Manche Assistenten brauchen für eigene Connectoren ein Bezahl-Abo." }
+  ai: { h: Mit deinem KI-Assistenten, p: "Frag Claude, ChatGPT oder einen anderen Assistenten nach Ideen von Allo Outings: Füge {url} als eigenen Connector hinzu (bei Claude: Einstellungen → Konnektoren; bei ChatGPT: Einstellungen → Apps, Entwicklermodus). Ohne Anmeldung. Dein Assistent kann dann Termine und Orte suchen und für dich einen Tipp oder einen neuen Termin schicken; den prüfen wir wie alles andere zuerst. Manche Assistenten brauchen für eigene Connectoren ein Bezahl-Abo." }
   profile: { h: Dein Profil, p: "Merkliste, besuchte Orte und deine Antworten bleiben im Browser dieses Handys. Kein Konto, keine E-Mail. Unter „Meins“ und dann „Profil und Sync“ kannst du es herunterladen, auf ein anderes Handy umziehen oder löschen. Mit Passkey-Sync liegt eine Kopie auf dem Server, die mit dem Profil gelöscht wird." }
   location: { h: Dein Standort, p: "Neben „Rund um“ gibt es einen kleinen Standort-Knopf. Nur wenn du ihn antippst, fragt dein Handy, ob es den ungefähren Standort teilen darf, um den nächsten Ort zu wählen. Der Standort bleibt auf deinem Handy und wird nie an uns gesendet; der Ort wird gespeichert wie ein selbst gewählter Ort. Die Karte zeigt dann mit einem blauen Punkt, wo du bist, bis du den Tab schließt oder selbst einen Ort wählst. Ohne ihn startet „Rund um“ bei Köln." }
   stats: { h: Besuche zählen, p: "Seitenaufrufe zählen wir mit Cloudflare Web Analytics, ohne Cookies und ohne Besucher auseinanderzuhalten. Außerdem zählen wir ein paar Klicks wie Merken oder Route öffnen, nur als Tagessumme. Beides weiß nicht, wer du bist." }
   none: { h: Was wir nicht tun, p: "Keine Werbung, keine Cookies, kein seitenübergreifendes Tracking, kein Datenverkauf, keine Namen oder E-Mails." }
   wrong: { h: Etwas falsch?, p: "Unten auf jeder Termin- und Ortsseite steht „Stimmt etwas nicht?“. Tipp drauf und sag es uns." }
-  who: { h: Wer steckt dahinter, p: "Little Outings ist ein Produkt von Spiking Labs. Spiking Labs macht auch andere Apps für den Alltag, alle zu sehen auf der Website von Spiking Labs." }
+  who: { h: Wer steckt dahinter, p: "Allo Outings ist ein Produkt von Spiking Labs. Spiking Labs macht auch andere Apps für den Alltag, alle zu sehen auf der Website von Spiking Labs." }
 flow:
   pickEvent: Etwas findet statt
   pickEventSub: "Eine Veranstaltung von einem Plakat oder aus dem Netz, oder ein Treffen, das ihr selbst plant."
@@ -446,7 +446,7 @@ meet:
   title: Einladung
   kicker: Nur wer den Link hat, sieht das
   by: Ein Treffen von Familien
-  safety: "Little Outings weiß nicht, wer das erstellt hat. Geht nur hin, wenn es an einem öffentlichen Ort ist und ihr euch sicher fühlt. Meidet Treffen am Abend."
+  safety: "Allo Outings weiß nicht, wer das erstellt hat. Geht nur hin, wenn es an einem öffentlichen Ort ist und ihr euch sicher fühlt. Meidet Treffen am Abend."
   evening: "Dieses Treffen beginnt am Abend. Seid besonders vorsichtig und geht nur hin, wenn ihr wisst, wer es organisiert."
   going: Wir kommen
   maybe: Vielleicht
@@ -548,7 +548,7 @@ weekend:
 feed:
   pick: "Sie veranstalten etwas für Familien? Schicken Sie uns Ihren Kalender →"
   title: Ihren Kalender einsenden
-  sub: "Museen, Bibliotheken, Theater, Zoos, Familienzentren: Wenn Ihr Programm einen Kalender-Link hat (iCal, endet auf .ics, den Google Kalender oder Outlook abonnieren können), schicken Sie ihn uns hier. Wir prüfen ihn einmal, danach erscheinen Ihre Termine jeden Tag von selbst bei Little Outings."
+  sub: "Museen, Bibliotheken, Theater, Zoos, Familienzentren: Wenn Ihr Programm einen Kalender-Link hat (iCal, endet auf .ics, den Google Kalender oder Outlook abonnieren können), schicken Sie ihn uns hier. Wir prüfen ihn einmal, danach erscheinen Ihre Termine jeden Tag von selbst bei Allo Outings."
   url: Kalender-Link
   urlHelp: "Heißt auf Ihrer Terminseite oft „Abonnieren“, „iCal“, „Zum Kalender hinzufügen“ oder „Export“. webcal://-Links gehen auch."
   check: Link prüfen

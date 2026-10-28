@@ -1,4 +1,4 @@
-# Little Outings
+# Allo Outings
 
 Family outings near you: kid-friendly places (cafés, farms, playgrounds) and local
 events (Hoffeste, Martinszüge, flea markets), in German, English and Chinese.

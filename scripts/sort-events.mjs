@@ -1,7 +1,7 @@
 // Sorts new events into "for families" or not with AI, then publishes, every night before the deploy
 // (.github/workflows/translate.yml). It does what the admin's Publish button does, so nobody has to.
 //
-// Reads what the workflow downloaded from the Little Outings bucket (candidates, the admin's decisions and
+// Reads what the workflow downloaded from the Allo Outings bucket (candidates, the admin's decisions and
 // the earlier verdicts), asks the model about every title + venue it hasn't judged yet, and writes
 //   SORTED_FILE         the verdicts, uploaded back to the bucket so the admin shows them
 //   data/outings.jsonl  the published list, exactly as the admin's Publish would write it
@@ -26,7 +26,7 @@ const AT_ONCE = 4; // batches asked at the same time
 /** Bump when the rules below change: verdicts other than "yes" from an older version are asked again. */
 export const PROMPT_VERSION = 2;
 
-export const PROMPT = `You sort events for "Little Outings", a website where parents in Germany find outings to do with their children.
+export const PROMPT = `You sort events for "Allo Outings", a website where parents in Germany find outings to do with their children.
 You get a JSON list of events (title, venue, source, and hints such as "source:" for a source that only lists family events). Most are German.
 Be generous: the site wants anything a family could enjoy together, not only events made for children.
 For each event decide if it belongs on the site:

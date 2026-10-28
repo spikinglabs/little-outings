@@ -146,13 +146,13 @@ const edition: Edition = {
 
 test("chat texts: WhatsApp bold, WeChat brackets, the link last", () => {
   const wa = chatText(edition, { lang: "de", style: "whatsapp", town: "Köln", url: "https://outings.allo.land/w/koeln" });
-  assert.match(wa, /^\*Wochenende mit Kindern in Köln\* · Little Outings\nSa 31\.10\. – So 1\.11\. · Sa Schauer 13°, So sonnig 11°/);
+  assert.match(wa, /^\*Wochenende mit Kindern in Köln\* · Allo Outings\nSa 31\.10\. – So 1\.11\. · Sa Schauer 13°, So sonnig 11°/);
   assert.match(wa, /\*Sa 11:00–11:30\* Vorlesezeit, Bibliothek Chorweiler \(frei\)/);
   assert.match(wa, /\*Immer\* Lindenthaler Tierpark \(frei\)/); // the district is already in the name
   assert.ok(wa.trimEnd().endsWith("👉 https://outings.allo.land/w/koeln"));
   const wc = chatText(edition, { lang: "zh", style: "wechat", town: "科隆", url: "https://outings.allo.land/w/koeln/zh" });
   assert.ok(!wc.includes("*"));
-  assert.ok(wc.startsWith("【本周末带孩子去哪儿 · 科隆】小出游\n"), "the name travels with the text");
+  assert.ok(wc.startsWith("【本周末带孩子去哪儿 · 科隆】小鹿出游\n"), "the name travels with the text");
   assert.match(wc, /【周日 11:00】独角兽手偶导览，Museum Schnütgen/);
   const en = chatText(edition, { lang: "en", style: "whatsapp", town: "Cologne", url: "u" });
   assert.match(en, /Sat 31 Oct – Sun 1 Nov · Sat showers 13°, Sun sunny 11°/);

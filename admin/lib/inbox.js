@@ -250,7 +250,7 @@ export function feedSource(number, d) {
     "    redistribute_text: false",
     "    redistribute_images: false",
     "  public_fields: []",
-    `  notes: ${q(`Calendar feed sent by the organiser through Little Outings (inbox #${number}). Check: ${d?.checked ?? "not run"}.`)}`,
+    `  notes: ${q(`Calendar feed sent by the organiser through Allo Outings (inbox #${number}). Check: ${d?.checked ?? "not run"}.`)}`,
     "retention:",
     "  raw_days: 30",
     "  normalized_days: 730",

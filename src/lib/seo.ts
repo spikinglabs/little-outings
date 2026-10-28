@@ -108,8 +108,10 @@ export function eventLd(
   };
 }
 
-/** The site's names: Little Outings everywhere, 小出游 in Chinese. */
-export const BRAND_NAMES = ["Little Outings", "小出游"];
+/** The site's names: Allo Outings everywhere, 小鹿出游 in Chinese. */
+export const BRAND_NAMES = ["Allo Outings", "小鹿出游"];
+/** What the site was called until October 2026, kept as alternate names so old searches still find it. */
+export const FORMER_NAMES = ["Little Outings", "小出游"];
 
 /** For the home page: the site, and the brand behind it with every name a parent might search for. */
 export function siteLd(o: { site: string; url: string; name: string; description: string; lang: Lang; maker: string }) {
@@ -122,7 +124,7 @@ export function siteLd(o: { site: string; url: string; name: string; description
         "@id": `${o.url}#site`,
         url: o.url,
         name: o.name,
-        alternateName: BRAND_NAMES.filter((n) => n !== o.name),
+        alternateName: [...BRAND_NAMES.filter((n) => n !== o.name), ...FORMER_NAMES],
         description: o.description,
         inLanguage: o.lang,
         publisher: { "@id": brand },
@@ -130,8 +132,9 @@ export function siteLd(o: { site: string; url: string; name: string; description
       {
         "@type": "Organization",
         "@id": brand,
-        name: "Little Outings",
-        alternateName: ["小出游"],
+        name: "Allo Outings",
+        alternateName: ["小鹿出游", ...FORMER_NAMES],
+        areaServed: { "@type": "Country", name: "Germany" },
         url: `${o.site}/`,
         logo: `${o.site}/apple-touch-icon.png`,
         sameAs: [o.maker],

@@ -5,7 +5,7 @@
 # is used unless the variable LLM_PROVIDER says "anthropic". The variable TRANSLATE_MODEL picks the
 # model (defaults in src/lib/llm.ts), SORT_MODEL the one that sorts events, SORT_LIMIT how many new titles it sorts per night (default 3000),
 # TRANSLATE_LIMIT how many new texts it translates per language per night (default 3000). Without a key it only reports what is missing.
-# Sorting reads and writes the Little Outings bucket with wrangler: it needs a Cloudflare API token with
+# Sorting reads and writes the Allo Outings bucket with wrangler: it needs a Cloudflare API token with
 # "Workers R2 Storage: Edit", either the secret R2_SORT_TOKEN or the deploy's CLOUDFLARE_API_TOKEN with that
 # permission added, plus CLOUDFLARE_ACCOUNT_ID. Without access the step is skipped and the run stays green.
 name: Translate
@@ -42,7 +42,7 @@ jobs:
             fi
           done
           if [ -f .cache/outings/candidates.jsonl ]; then echo "ok=1" >> "$GITHUB_OUTPUT"
-          else echo "::notice title=Sort events::Could not read the Little Outings bucket (token needs Workers R2 Storage: Edit); sorting skipped."; fi
+          else echo "::notice title=Sort events::Could not read the Allo Outings bucket (token needs Workers R2 Storage: Edit); sorting skipped."; fi
       - name: Sort new events with AI and publish
         if: steps.bucket.outputs.ok == '1'
         env:

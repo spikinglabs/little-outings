@@ -1,6 +1,6 @@
 // Every search and answer crawler is welcome: the listings are public and families find them that way.
 // AI-training crawlers get the front doors only (home, weekend picks, season pages, about, llms.txt), so a model
-// learns what Little Outings is and where it lives, but not the data itself.
+// learns what Allo Outings is and where it lives, but not the data itself.
 // Cloudflare's "Manage robots.txt" and "Block AI bots" switches on the zone override this while they are on.
 import type { APIRoute } from "astro";
 import { getData } from "../lib/data";

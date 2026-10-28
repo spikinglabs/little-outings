@@ -1,4 +1,4 @@
-// Little Outings service worker: makes the site installable and keeps pages you opened readable offline.
+// Allo Outings service worker: makes the site installable and keeps pages you opened readable offline.
 //   pages        → a copy saved in the last 12 hours opens at once and is refreshed in the background;
 //                  otherwise network first, falling back after 3 s to the older copy
 //                  (the fresh one still lands in the cache for next time)
@@ -117,6 +117,6 @@ async function trim(cache) {
 }
 
 const OFFLINE = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Little Outings</title><style>body{font:1.05rem/1.5 system-ui,sans-serif;background:#f6f5f2;color:#17191b;margin:0;padding:48px 20px;text-align:center}
+<title>Allo Outings</title><style>body{font:1.05rem/1.5 system-ui,sans-serif;background:#f6f5f2;color:#17191b;margin:0;padding:48px 20px;text-align:center}
 b{display:inline-block;background:#ffcc00;padding:4px 10px;border-radius:8px;margin-bottom:12px}</style></head>
-<body><b>Little Outings · 小出游</b><p>Offline. Bitte später nochmal versuchen.<br>You're offline. Please try again later.<br>当前离线，请稍后再试。</p></body></html>`;
+<body><b>Allo Outings · 小鹿出游</b><p>Offline. Bitte später nochmal versuchen.<br>You're offline. Please try again later.<br>当前离线，请稍后再试。</p></body></html>`;

@@ -1,4 +1,4 @@
-# Little Outings admin: a separate Cloudflare Pages project behind Cloudflare Access.
+# Allo Outings admin: a separate Cloudflare Pages project behind Cloudflare Access.
 # Deployed by .github/workflows/deploy.yml (wrangler pages deploy, run from admin/).
 name = "little-outings-admin"
 pages_build_output_dir = "public"
