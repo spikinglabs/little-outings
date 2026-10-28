@@ -16,9 +16,9 @@ type Lang = "de" | "en" | "zh";
 const LANGS: Lang[] = ["de", "en", "zh"];
 
 const TEXT: Record<Lang, { locale: string; join: string; off: string; fallback: string; site: string }> = {
-  en: { locale: "en-GB", join: "Tap “We’re going” to join.", off: "Called off.", fallback: "A family meetup", site: "Little Outings" },
-  de: { locale: "de-DE", join: "Tippe auf „Wir kommen“, um dabei zu sein.", off: "Abgesagt.", fallback: "Ein Familientreffen", site: "Little Outings" },
-  zh: { locale: "zh-CN", join: "点“我们去”报名。", off: "已取消。", fallback: "家庭聚会", site: "小出游" },
+  en: { locale: "en-GB", join: "Tap “We’re going” to join.", off: "Called off.", fallback: "A family meetup", site: "Allo Outings" },
+  de: { locale: "de-DE", join: "Tippe auf „Wir kommen“, um dabei zu sein.", off: "Abgesagt.", fallback: "Ein Familientreffen", site: "Allo Outings" },
+  zh: { locale: "zh-CN", join: "点“我们去”报名。", off: "已取消。", fallback: "家庭聚会", site: "小鹿出游" },
 };
 
 export function pickLang(url: URL, acceptLanguage: string | null, meetupLang?: string): Lang {

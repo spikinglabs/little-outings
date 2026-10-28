@@ -1,11 +1,11 @@
 locale: en-GB
 langName: English
-siteName: Little Outings
+siteName: Allo Outings
 tagline: Family outings near you
 homeDescription: "Family outings in Cologne, Berlin, Munich, Hamburg and more cities: {events} events for kids and {places} kid-friendly places like playgrounds, farms, zoos and pools. Free, no sign-up."
 brandAbout:
-  h: About Little Outings
-  p: "Little Outings (in Chinese 小出游) is a free site for families in Germany: events for kids and kid-friendly places like playgrounds, farms, zoos, pools and family cafés in Cologne, Berlin, Munich, Hamburg and more cities, in German, English and Chinese. Updated every night, no sign-up."
+  h: About Allo Outings
+  p: "Allo Outings (in Chinese 小鹿出游) is a free site for families in Germany: events for kids and kid-friendly places like playgrounds, farms, zoos, pools and family cafés in Cologne, Berlin, Munich, Hamburg and more cities, in German, English and Chinese. Updated every night, no sign-up. Formerly Little Outings (小出游)."
 tabs: { explore: Discover, saved: Mine, add: Add }
 when: { today: Today, tomorrow: Tomorrow, weekend: Weekend, soon: Next 2 weeks }
 whenIn: { today: today, tomorrow: tomorrow, weekend: this weekend, soon: in the next 2 weeks }
@@ -211,9 +211,9 @@ kinds: { playground: Playground, indoor: Indoor play, park: "Parks & gardens", z
 features: { playground: Playground, changing_table: Changing table, highchairs: High chairs, kids_menu: "Kids' menu", toys: "Toys & little gifts", animals: Animals, stroller_friendly: Pram-friendly, nursing_room: Nursing corner, indoor_play: Indoor play area, toilets: Toilets, farm_shop: Farm shop, parking: Parking, sandpit: Sandpit, water_play: Water play, swings: Swings, slides: Slides, climbing: Climbing, toddler_area: Toddler area, shade: Shade, benches: Benches, fenced: Fenced in }
 tags: { fest: Festival, animals: Animals, market: Market, diy: Hands-on, season: Seasonal, reading: Story time, music: Music, outside: Outdoors, stage: "Theatre & film", sport: "Sport & movement", tour: "Museums & tours", parents: "For parents", learn: "Courses & languages", other: Other }
 empty: Nothing listed here yet. Know something? Add it under Contribute.
-install: { button: "Install the app", hint: "Add Little Outings to your home screen, it works like an app.", hintIos: "Tap Share, then “Add to Home Screen”, to use Little Outings like an app.", short: Install, dismiss: Dismiss, menu: "In your browser menu, choose “Install app” or “Add to Home screen”.", installed: "Little Outings is already installed on this device. Open it from your home screen or app list." }
+install: { button: "Install the app", hint: "Add Allo Outings to your home screen, it works like an app.", hintIos: "Tap Share, then “Add to Home Screen”, to use Allo Outings like an app.", short: Install, dismiss: Dismiss, menu: "In your browser menu, choose “Install app” or “Add to Home screen”.", installed: "Allo Outings is already installed on this device. Open it from your home screen or app list." }
 footer: "No guarantee for any listing. Please check with the organiser before you go."
-byLine: "Little Outings is a product by {maker}."
+byLine: "Allo Outings is a product by {maker}."
 dataFrom: "Data includes {sources}."
 nearStreet: "near {street}"
 back: Back
@@ -274,7 +274,7 @@ share:
   page: Share
   pageCopied: Link copied
   wechatHint: "Tap ··· at the top right to send this to a friend or post it to Moments"
-  via: "found on Little Outings"
+  via: "found on Allo Outings"
   button: Share my list
   copied: Link copied. Open it on another phone, or send it to someone you're planning with.
   shared: { one: "1 outing was shared with you.", other: "{n} outings were shared with you." }
@@ -349,7 +349,7 @@ profile:
   passkeyTitle: Keep it safe with a passkey
   passkeySub: "A passkey keeps a copy of your profile with us, so it survives a new phone and shows up on your other devices. No email, no password: your phone unlocks it with your face, fingerprint or screen lock."
   passkeyOn: Sync with a passkey
-  passkeyAsk: "Have you made a Little Outings passkey before, on this or another phone?"
+  passkeyAsk: "Have you made a Allo Outings passkey before, on this or another phone?"
   passkeyAskYes: "Yes, sign in with it"
   passkeyAskNo: "No, make a new one"
   passkeyOther: Sign in with another passkey
@@ -381,7 +381,7 @@ profile:
   download: Download my data
   load: Load from a file
   loaded: "Loaded. It's joined with what was already here."
-  loadBad: "That file isn't a Little Outings profile."
+  loadBad: "That file isn't a Allo Outings profile."
   deleteTitle: Delete my data
   deleteSub: "Removes your profile from this phone, your quick votes, and the passkey copy if you have one. Tips and reports you sent are already with our moderators; tell us if you want one taken down."
   delete: Delete everything
@@ -390,19 +390,19 @@ profile:
 about:
   link: Data and privacy
   title: Data and privacy
-  intro: Where Little Outings gets its information, and where your answers and profile are kept.
+  intro: Where Allo Outings gets its information, and where your answers and profile are kept.
   events: { h: Events, p: "Events come from the public calendars of cities, libraries, museums and farms. We use only facts such as title, date, time and place, with a link to the original page. Check times and prices there." }
   places: { h: Places, p: "Playgrounds, pools, museums, farms and other places come from OpenStreetMap (© OpenStreetMap contributors, ODbL), refreshed weekly. Once parents add to a place, it shows how many answers they gave." }
   translate: { h: Translations and labels, p: "Event titles in English and Chinese, and Chinese place names, are machine-translated, with the German name underneath so you can match posters and signs. “Do you need German?” starts as a guess from the title, marked with “?”. Once parents tap an answer, the most common answer wins." }
   taps: { h: Your taps, p: "Taps on facilities, “We went” and “Do you need German?” are counted anonymously on Cloudflare. Each browser has a random id, so one question counts once and changing your answer replaces the old one. IP addresses are kept only as a hash, to stop vote flooding." }
   writing: { h: What you write, p: "Tips, reports and suggested places go to us for review first and only appear once approved. An answer to “Still missing” (opening hours, time, price) goes live once two parents give the same answer, or once we've checked it. Please don't include names, phone numbers or other personal details." }
-  ai: { h: Use it in your AI assistant, p: "Ask Claude, ChatGPT or another assistant for ideas from Little Outings: add {url} as a custom connector (in Claude: Settings → Connectors; in ChatGPT: Settings → Apps, developer mode). No login needed. Your assistant can then search events and places, and send a tip or a new event for you; those go to us for review like everything else. Some assistants need a paid plan for custom connectors." }
+  ai: { h: Use it in your AI assistant, p: "Ask Claude, ChatGPT or another assistant for ideas from Allo Outings: add {url} as a custom connector (in Claude: Settings → Connectors; in ChatGPT: Settings → Apps, developer mode). No login needed. Your assistant can then search events and places, and send a tip or a new event for you; those go to us for review like everything else. Some assistants need a paid plan for custom connectors." }
   profile: { h: Your profile, p: "Your saved list, the places you went and your answers stay in this phone's browser. There is no account and no email. Under “Mine”, then “Profile and sync”, you can download it, move it to another phone or delete it. If you choose passkey sync, the server keeps one copy, which is deleted with your profile." }
   location: { h: Your location, p: "Next to “Around” there is a small location button. Only if you tap it does your phone ask to share its rough location, to pick the nearest town. The location stays on your phone and is never sent to us; the town is kept like a town you pick yourself. The map then shows a blue dot where you are, until you close the tab or pick a town yourself. Without it, “Around” starts at Cologne." }
   stats: { h: Counting visits, p: "We count page views with Cloudflare Web Analytics, which uses no cookies and can't tell one visitor from another. We also count a few taps, like saving or opening directions, as daily totals only. Neither knows who you are." }
   none: { h: What we don't do, p: "No ads, no cookies, no tracking across sites, no selling data, no names or emails." }
   wrong: { h: Something wrong?, p: "Every event and place page has “Something wrong?” at the bottom. Tap it and tell us." }
-  who: { h: Who makes this, p: "Little Outings is a product by Spiking Labs, which also makes other apps for everyday life. You can see them all on the Spiking Labs website." }
+  who: { h: Who makes this, p: "Allo Outings is a product by Spiking Labs, which also makes other apps for everyday life. You can see them all on the Spiking Labs website." }
 flow:
   pickEvent: Something happening
   pickEventSub: "An event you saw on a poster or online, or an outing you're organising yourself."
@@ -446,7 +446,7 @@ meet:
   title: Invite
   kicker: Only people with the link can see this
   by: "A family's own meetup"
-  safety: "Little Outings doesn't know who made this. Only join if it's in a public place and you feel safe. Avoid evening meetups."
+  safety: "Allo Outings doesn't know who made this. Only join if it's in a public place and you feel safe. Avoid evening meetups."
   evening: "This one starts in the evening. Take extra care, and only go if you know who's organising it."
   going: "We're going"
   maybe: Maybe
@@ -548,7 +548,7 @@ weekend:
 feed:
   pick: "Do you run events for families? Send us your calendar →"
   title: Send us your calendar
-  sub: "Museums, libraries, theatres, zoos, family centres: if your programme has a calendar link (iCal, ending in .ics, the kind Google Calendar or Outlook can subscribe to), send it here. We check it once, then your events appear on Little Outings by themselves, every day."
+  sub: "Museums, libraries, theatres, zoos, family centres: if your programme has a calendar link (iCal, ending in .ics, the kind Google Calendar or Outlook can subscribe to), send it here. We check it once, then your events appear on Allo Outings by themselves, every day."
   url: Calendar link
   urlHelp: "Often called “Subscribe”, “iCal”, “Add to calendar” or “Export” on your events page. webcal:// links work too."
   check: Check the link

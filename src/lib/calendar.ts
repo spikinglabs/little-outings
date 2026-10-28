@@ -59,7 +59,7 @@ export function ics(e: CalInput, stamp: string): string {
   const w = whenOf(e);
   const date = (k: string, v: string) => (w.allDay ? `${k};VALUE=DATE:${v}` : `${k};TZID=Europe/Berlin:${v}`);
   return [
-    "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Little Outings//outings.allo.land//EN", "CALSCALE:GREGORIAN", "METHOD:PUBLISH",
+    "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Allo Outings//outings.allo.land//EN", "CALSCALE:GREGORIAN", "METHOD:PUBLISH",
     // Outlook needs the time zone spelled out; others accept it too.
     ...(w.allDay ? [] : BERLIN),
     "BEGIN:VEVENT",

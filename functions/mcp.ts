@@ -1,4 +1,4 @@
-// Cloudflare Pages Function: /mcp, the Little Outings connector for AI assistants (Model Context Protocol).
+// Cloudflare Pages Function: /mcp, the Allo Outings connector for AI assistants (Model Context Protocol).
 // Parents add https://outings.allo.land/mcp as a custom connector in Claude, ChatGPT or another
 // assistant, then ask for outings in their own words. No login: it's the same public data as the site.
 //
@@ -27,7 +27,7 @@ const LANGS = ["de", "en", "zh"];
 const TIP_TOPICS = ["bring", "bestTime", "parking", "ages", "other"];
 const REASONS = ["closed", "cancelled", "where", "notKids", "outdated", "other"];
 
-const INSTRUCTIONS = `Little Outings (outings.allo.land) lists family events for children and kid-friendly places (playgrounds, pools, farms, zoos, museums, family cafés …) around Cologne, Düsseldorf, Bonn, Aachen and the Bergisches Land, and in Berlin, Munich, Frankfurt and Hamburg, Germany.
+const INSTRUCTIONS = `Allo Outings (outings.allo.land) lists family events for children and kid-friendly places (playgrounds, pools, farms, zoos, museums, family cafés …) around Cologne, Düsseldorf, Bonn, Aachen and the Bergisches Land, and in Berlin, Munich, Frankfurt and Hamburg, Germany.
 Use search to find ideas for a town and dates, then fetch for details. Always give parents the page link (url) and remind them to check with the organiser; facilities not listed are unknown, not missing.
 Parents can add what they know: suggest_event, suggest_place, add_tip and report_problem send it to a moderator for review. Only send what the parent asked you to send, and show them what you'll send first.`;
 
@@ -219,10 +219,10 @@ async function callTool(name: string, args: any, env: Env, origin: string) {
   const made = await issueOf(body);
   if ("error" in made) throw new ToolError(made.error);
   if (!env.GITHUB_TOKEN || !env.INBOX_REPO || !env.DB) return out("Sending suggestions isn't set up yet. The parent can use the site's Contribute page instead.", true);
-  if (!(await allowWrite(env.DB))) return out("Little Outings has had many suggestions from assistants in the last hour. Please try again later, or use the site's Contribute page.", true);
+  if (!(await allowWrite(env.DB))) return out("Allo Outings has had many suggestions from assistants in the last hour. Please try again later, or use the site's Contribute page.", true);
   const number = await fileIssue(env, made.title, [made.label, "via-ai"], made.yaml);
   if (number === null) return out("The inbox didn't answer. Please try again later.", true);
-  return out({ ok: true, message: "Thanks! A moderator will look at it before it appears on Little Outings.", ...(number ? { reference: number } : {}) });
+  return out({ ok: true, message: "Thanks! A moderator will look at it before it appears on Allo Outings.", ...(number ? { reference: number } : {}) });
 }
 
 async function handle(msg: Rpc, env: Env, origin: string) {
@@ -235,7 +235,7 @@ async function handle(msg: Rpc, env: Env, origin: string) {
       result = {
         protocolVersion: VERSIONS.includes(asked) ? asked : VERSIONS[0],
         capabilities: { tools: { listChanged: false } },
-        serverInfo: { name: "little-outings", title: "Little Outings", version: "1.0.0", websiteUrl: origin },
+        serverInfo: { name: "little-outings", title: "Allo Outings", version: "1.0.0", websiteUrl: origin },
         instructions: INSTRUCTIONS,
       };
       break;
@@ -248,7 +248,7 @@ async function handle(msg: Rpc, env: Env, origin: string) {
         if (result === null) return fail(msg.id, -32602, `Unknown tool: ${msg.params?.name}`);
       } catch (e) {
         if (!(e instanceof ToolError)) console.error(e);
-        result = out(e instanceof ToolError ? e.message : "Something went wrong on Little Outings' side. Please try again.", true);
+        result = out(e instanceof ToolError ? e.message : "Something went wrong on Allo Outings' side. Please try again.", true);
       }
       break;
     }
@@ -276,33 +276,33 @@ export async function onRequestPost({ request, env }: Ctx) {
 // for a server-to-client stream gets 405, since there are no streams or sessions.
 const HELP: Record<"de" | "en" | "zh", { title: string; intro: string; steps: string[]; ask: string; site: string; copy: string }> = {
   en: {
-    title: "Little Outings in your AI assistant",
+    title: "Allo Outings in your AI assistant",
     intro: "This address is for AI assistants, not for the browser. Add it to your assistant once, then ask it for family outings.",
     steps: ["Claude: Settings → Connectors → Add custom connector, and paste the address.",
       "ChatGPT: turn on developer mode in Settings, then add a connector (app) with the address.",
       "No login needed. Some assistants need a paid plan for custom connectors."],
     ask: "Then ask, for example: “Anything indoors for a 3-year-old in Cologne this Saturday?”",
-    site: "Open Little Outings",
+    site: "Open Allo Outings",
     copy: "Copy",
   },
   de: {
-    title: "Little Outings in deinem KI-Assistenten",
+    title: "Allo Outings in deinem KI-Assistenten",
     intro: "Diese Adresse ist für KI-Assistenten, nicht für den Browser. Füge sie einmal in deinem Assistenten hinzu und frag ihn dann nach Ausflügen mit Kindern.",
     steps: ["Claude: Einstellungen → Konnektoren → Eigenen Konnektor hinzufügen, Adresse einfügen.",
       "ChatGPT: In den Einstellungen den Entwicklermodus einschalten, dann einen Konnektor (App) mit der Adresse anlegen.",
       "Ohne Anmeldung. Manche Assistenten brauchen für eigene Konnektoren ein Bezahl-Abo."],
     ask: "Dann frag zum Beispiel: „Was gibt es diesen Samstag in Köln drinnen für eine Dreijährige?“",
-    site: "Little Outings öffnen",
+    site: "Allo Outings öffnen",
     copy: "Kopieren",
   },
   zh: {
-    title: "在 AI 助手里使用小出游",
+    title: "在 AI 助手里使用小鹿出游",
     intro: "这个地址是给 AI 助手用的，不是在浏览器里打开的。在助手里添加一次，之后就可以直接问它带孩子去哪儿玩。",
     steps: ["Claude：设置 → 连接器 → 添加自定义连接器，粘贴这个地址。",
       "ChatGPT：在设置里打开开发者模式，然后用这个地址添加连接器（应用）。",
       "无需登录。部分助手的自定义连接器需要付费订阅。"],
     ask: "然后可以问：“这个周六科隆有什么适合三岁孩子的室内活动？”",
-    site: "打开小出游",
+    site: "打开小鹿出游",
     copy: "复制",
   },
 };
@@ -332,7 +332,7 @@ export const onRequestGet = ({ request }: { request: Request }) => {
   if ((request.headers.get("accept") ?? "").includes("text/html")) {
     return new Response(helpPage(request), { headers: { "content-type": "text/html; charset=utf-8", "cache-control": "public, max-age=3600", vary: "accept, accept-language" } });
   }
-  return new Response("Little Outings connector for AI assistants (MCP). Add this address as a custom connector in your assistant.", {
+  return new Response("Allo Outings connector for AI assistants (MCP). Add this address as a custom connector in your assistant.", {
     status: 405, headers: { ...cors, allow: "POST, OPTIONS", "content-type": "text/plain; charset=utf-8" },
   });
 };

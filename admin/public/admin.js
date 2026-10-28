@@ -167,7 +167,7 @@ function render() {
   ].map(([n, label]) => `<div class="stat"><b>${esc(n)}</b><span>${esc(label)}</span></div>`).join("");
 
   if (!candidates.length) {
-    banner("No candidates yet. They appear after cityklub's next export run writes them to the Little Outings bucket.");
+    banner("No candidates yet. They appear after cityklub's next export run writes them to the Allo Outings bucket.");
   }
   renderCheck();
   renderKeywords();

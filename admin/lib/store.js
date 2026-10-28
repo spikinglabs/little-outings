@@ -1,4 +1,4 @@
-// Reads and writes the Little Outings bucket (R2 binding OUTINGS).
+// Reads and writes the Allo Outings bucket (R2 binding OUTINGS).
 // cityklub writes candidates; only this admin writes decisions; the nightly sort writes verdicts.
 
 import { emptyDecisions, parseJsonl } from "../public/apply.js";

@@ -1,4 +1,4 @@
-// Who runs Little Outings, for the Impressum (§ 5 DDG) and as controller in the privacy notice.
+// Who runs Allo Outings, for the Impressum (§ 5 DDG) and as controller in the privacy notice.
 // Source: Handelsregister B, Amtsgericht Köln, HRB 122682 (extract of 27.06.2026).
 export const OPERATOR = {
   name: "SL Spiking Labs UG (haftungsbeschränkt)",

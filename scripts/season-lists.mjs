@@ -47,7 +47,7 @@ async function fetchPage(url) {
 
 const KIDS_HELP = `kids: what children find there, only from this list: ${KIDS.join(", ")} (carousel = children's carousel, rides = Ferris wheel or other rides, ice_rink, fairy_tale = fairy-tale theme or characters, crafts = crafts or baking, nativity = nativity scene, animals = petting zoo or ponies, train = children's train, stage = stage, puppet or children's theatre, santa = St. Nicholas or Father Christmas visits)`;
 
-export const LIST_PROMPT = (what, today) => `You read a German city web page that lists ${what}, for the website "Little Outings" where parents find outings with children.
+export const LIST_PROMPT = (what, today) => `You read a German city web page that lists ${what}, for the website "Allo Outings" where parents find outings with children.
 Today is ${today}. Extract every one with a date on or after today. Skip anything without a date, and anything whose date is from an earlier year or season.
 Return only JSON: {"items": [{"name": "...", "from": "YYYY-MM-DD", "to": "YYYY-MM-DD", "hours": "short German opening hours or null", "street": "street or square, or null", "district": "Stadtteil or null", "website": "the link to its own page from the links list, or null", ${KIDS_HELP.replace(/^kids/, '"kids": [...]')}, "free": true/false/null for free entry, "note": {"de": "one sentence on what children find there", "en": "the same in English", "zh": "the same in Simplified Chinese"} or null}]}.
 Use only facts on the page. Keep names as the page writes them.`;

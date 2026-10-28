@@ -41,7 +41,7 @@ test("headlines wrap at spaces, Chinese anywhere, and shrink to fit", () => {
 });
 
 test("pictures escape text and size themselves for og:image and WeChat", () => {
-  const card = { sign: { type: "icon" as const, icon: "<path/>", tone: "braun" as const }, headline: "Parks & gardens", sub: "Family <outings>", brand: "Little Outings" };
+  const card = { sign: { type: "icon" as const, icon: "<path/>", tone: "braun" as const }, headline: "Parks & gardens", sub: "Family <outings>", brand: "Allo Outings" };
   const wide = wideSvg(card);
   assert.match(wide, /width="1200" height="630"/);
   assert.match(wide, /Parks &amp;/);

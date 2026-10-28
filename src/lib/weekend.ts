@@ -393,7 +393,7 @@ function pickLine(p: Pick, lang: L, style: "whatsapp" | "wechat"): string {
  * The text parents copy into a chat. WhatsApp shows *bold*; WeChat shows asterisks as they are, so
  * its version marks the days with 【】 instead. The link comes last so the chat shows its preview.
  */
-const BRAND: Record<L, string> = { de: "Little Outings", en: "Little Outings", zh: "小出游" };
+const BRAND: Record<L, string> = { de: "Allo Outings", en: "Allo Outings", zh: "小鹿出游" };
 
 export function chatText(ed: Edition, o: { lang: L; style: "whatsapp" | "wechat"; town: string; url: string; more?: number }): string {
   const w = WORDS[o.lang];
@@ -441,7 +441,7 @@ export function telegramText(ed: Edition, o: { lang: L; town: string; url: strin
 
 // ---------- the AI's choice ----------
 
-export const PICK_PROMPT = `You choose the weekly "This weekend" picks for Little Outings, a website where parents in Germany find outings with their children.
+export const PICK_PROMPT = `You choose the weekly "This weekend" picks for Allo Outings, a website where parents in Germany find outings with their children.
 You get the weekend's weather, whether it is a school holiday, and a numbered shortlist of events (German titles) with day, time, venue, district, price and hints.
 Choose exactly {n} events a family with young children would most enjoy, with a good mix:
 - made for children or families first; never grown-up concerts, talks or courses
@@ -451,7 +451,7 @@ Choose exactly {n} events a family with young children would most enjoy, with a 
 For each pick write a short name (at most 40 characters; keep German proper names, translate what the event is) and one friendly line (at most 90 characters) saying why it's a good pick, each in German (de), English (en) and Simplified Chinese (zh). Don't invent facts that aren't in the list.
 Return only JSON: {"picks": [{"i": 0, "label": {"de": "", "en": "", "zh": ""}, "why": {"de": "", "en": "", "zh": ""}}]}`;
 
-export const PLACE_PROMPT = `You write for Little Outings, a website where parents in Germany find outings with their children.
+export const PLACE_PROMPT = `You write for Allo Outings, a website where parents in Germany find outings with their children.
 For each numbered place or event, write a short name (at most 40 characters; keep German proper names) and one friendly line (at most 90 characters) on why a family might go this weekend, in German (de), English (en) and Simplified Chinese (zh). Use only the facts given. When a line ends with "say:", use that German sentence and translate it.
 Return only JSON: {"items": [{"i": 0, "label": {"de": "", "en": "", "zh": ""}, "why": {"de": "", "en": "", "zh": ""}}]}`;
 

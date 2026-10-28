@@ -156,9 +156,9 @@ export async function onRequest({ request, env, params }: Ctx): Promise<Response
   if (route === "register-options" && method === "POST") {
     const user = random(16);
     const options = await webauthn.generateRegistrationOptions({
-      rpName: "Little Outings", rpID, userID: new TextEncoder().encode(user),
+      rpName: "Allo Outings", rpID, userID: new TextEncoder().encode(user),
       // Shown in the phone's passkey list. Deliberately not a person's name; the date tells two apart.
-      userName: `Little Outings ${new Date(now).toISOString().slice(0, 10)}`, userDisplayName: `Little Outings ${new Date(now).toISOString().slice(0, 10)}`,
+      userName: `Allo Outings ${new Date(now).toISOString().slice(0, 10)}`, userDisplayName: `Allo Outings ${new Date(now).toISOString().slice(0, 10)}`,
       attestationType: "none",
       authenticatorSelection: { residentKey: "required", userVerification: "preferred" },
     });
@@ -187,7 +187,7 @@ export async function onRequest({ request, env, params }: Ctx): Promise<Response
   }
 
   if (route === "login-options" && method === "POST") {
-    // No allowCredentials: the phone offers whichever Little Outings passkey it has.
+    // No allowCredentials: the phone offers whichever Allo Outings passkey it has.
     const options = await webauthn.generateAuthenticationOptions({ rpID, userVerification: "preferred" });
     const challenge = await startChallenge(db, env, request, "login", options.challenge, null, now);
     if (!challenge) return json(429, { error: "slow down" });

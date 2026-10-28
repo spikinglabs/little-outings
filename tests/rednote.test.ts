@@ -108,11 +108,11 @@ test("captions speak to mums and dads alike", () => {
   }
 });
 
-test("every caption carries our own #小出游 tag first", () => {
+test("every caption carries our own #小鹿出游 tag first", () => {
   const weekly = weeklySet(edition, { townZh: "科隆", kindName, more: { events: 1, places: 1 } }).caption;
   const sets = setFiles.map((f) => fileSet(f, load(readFileSync(`content/rednote/${f}`, "utf8")) as SetFile).caption);
   for (const caption of [weekly, ...sets]) {
-    assert.match(caption, /\n#小出游 #/, caption.slice(-80));
-    assert.equal(caption.split("#小出游").length, 2);
+    assert.match(caption, /\n#小鹿出游 #/, caption.slice(-80));
+    assert.equal(caption.split("#小鹿出游").length, 2);
   }
 });

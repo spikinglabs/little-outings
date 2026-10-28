@@ -1,6 +1,6 @@
 # Drafts the season lists (Christmas markets, Karneval parades …) with AI (scripts/season-lists.mjs) from the
 # city pages under `sources` in content/seasons.yaml, on the 1st of each month for the seasons whose `pull`
-# lists that month, and puts them in the Little Outings bucket for the admin's "Season lists" panel. Nothing is published here: approving a town in the admin commits its file.
+# lists that month, and puts them in the Allo Outings bucket for the admin's "Season lists" panel. Nothing is published here: approving a town in the admin commits its file.
 # Uses the same secrets as the nightly sort (translate.yml): GEMINI_API_KEY or ANTHROPIC_API_KEY, and a
 # Cloudflare token with "Workers R2 Storage: Edit" (R2_SORT_TOKEN or CLOUDFLARE_API_TOKEN) plus CLOUDFLARE_ACCOUNT_ID.
 # Run it by hand to draft again, or for one season only.

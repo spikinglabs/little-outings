@@ -107,7 +107,7 @@ test("passkey sync: create, save, sign in on another phone, delete", async () =>
   const env = { DB: fakeD1() };
   const start = await (await call(env, "POST", "register-options", {})).json();
   assert.equal(start.options.rp.id, "outings.example");
-  assert.match(start.options.user.name, /^Little Outings \d{4}-\d{2}-\d{2}$/);
+  assert.match(start.options.user.name, /^Allo Outings \d{4}-\d{2}-\d{2}$/);
   const reg = await call(env, "POST", "register", { challenge: start.challenge, response: { id: "cred-1", ok: true }, profile: { saved: ["a"] } });
   assert.equal(reg.status, 200);
   const { token } = await reg.json();

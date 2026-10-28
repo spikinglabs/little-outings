@@ -10,9 +10,9 @@ export const GET: APIRoute = async ({ site }) => {
   const t = useT("en");
   const towns = region.towns.map((x) => townName(x.name, "en", region.towns)).join(", ");
   const kinds = [...new Set(places.map((p) => p.kind))].map((k) => t(`kinds.${k}`).toLowerCase()).join(", ");
-  const body = `# Little Outings
+  const body = `# Allo Outings
 
-> Family outings around ${townName(region.center, "en", region.towns)}, Germany: events for kids and kid-friendly places (${kinds}), in German, English and Chinese (小出游). Free to use, no sign-up. A product by Spiking Labs.
+> Family outings around ${townName(region.center, "en", region.towns)}, Germany: events for kids and kid-friendly places (${kinds}), in German, English and Chinese (Chinese name 小鹿出游). Free to use, no sign-up. A product by Spiking Labs. Formerly called Little Outings (小出游).
 
 Listings cover ${events.length} upcoming family events and ${places.length} places in and around ${towns}. Every page exists in German (/de/), English (/en/) and Simplified Chinese (/zh/). Pages are rebuilt every night, so past events drop off.
 
