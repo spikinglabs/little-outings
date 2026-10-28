@@ -61,6 +61,10 @@ test("a venue far down a long page still reaches the model", () => {
 const lib = (n) => ({ event_id: `l${n}`, title: `Lesung ${n}`, start_date: "2026-11-01", family: true, venue: "Stadtbibliothek Düren",
   location: { city: "Düren", street: "Schützenstraße 3" }, source_url: `https://example.org/l${n}` });
 
+test("page text spells German letters out", () => {
+  assert.equal(pageText("<p>Papiermuseum D&uuml;ren, Wallstra&szlig;e 2&ndash;8, &Ouml;ffnungszeiten</p>"), "Papiermuseum Düren, Wallstraße 2–8, Öffnungszeiten");
+});
+
 test("the guess list is the town's venues, most used first, with a street", () => {
   const rows = [lib(1), lib(2), { ...lib(3), venue: "Kino", location: { city: "Düren" } }, { ...lib(4), location: { city: "Aachen" } }];
   assert.deepEqual(townVenues(rows, "Düren"), [{ venue: "Stadtbibliothek Düren", street: "Schützenstraße 3" }, { venue: "Kino" }]);
@@ -74,9 +78,12 @@ test("a guess is kept only when it is a listed venue or the organiser's own plac
   assert.equal(parseGuess('{"pick":7,"venue":"","why":""}', { venues }), null);
   assert.equal(parseGuess('{"pick":null,"venue":"Somewhere Else","why":"?"}', { venues, organiser: "Stadt Düren" }), null);
   assert.equal(parseGuess('{"pick":null,"venue":"","why":""}', { venues }), null);
+  assert.deepEqual(parseGuess('{"pick":null,"venue":"Couven Museum","why":"the museum\'s own site"}', { venues, organiser: "Stadt Aachen", url: "https://couven-museum.de/event/x/" }),
+    { venue: "Couven Museum", why: "the museum's own site" });
+  assert.equal(parseGuess('{"pick":null,"venue":"Dom","why":"?"}', { venues, url: "https://dom.de/x" }), null);
 });
 
-test("a page that names no place gets a best guess, once; older cache entries get one later", async () => {
+test("a page that names no place gets a best guess, once; pages read by an older reader are read again", async () => {
   const asked = [];
   const fetch = async (url, init) => {
     if (url === URL1) return new Response("<h1>Into the Paperverse</h1><p>Eine Ausstellung.</p>");
@@ -88,11 +95,11 @@ test("a page that names no place gets a best guess, once; older cache entries ge
   const opts = { llm: { provider: "gemini", key: "k" }, today: "2026-10-09", fetch };
   const r = await update([row, lib(1)], {}, opts);
   assert.deepEqual(asked, ["venue", "guess"]);
-  assert.deepEqual(r.cache[URL1], { venue: null, guess: { venue: "Stadtbibliothek Düren", street: "Schützenstraße 3", why: "library" } });
+  assert.deepEqual(r.cache[URL1], { venue: null, guess: { venue: "Stadtbibliothek Düren", street: "Schützenstraße 3", why: "library" }, read: 3 });
   await update([row, lib(1)], r.cache, opts);
   assert.equal(asked.length, 2);
-  const old = await update([row, lib(1)], { [URL1]: { venue: null } }, opts);
-  assert.deepEqual(asked.slice(2), ["guess"]);
+  const old = await update([row, lib(1)], { [URL1]: { venue: null, guess: null } }, opts);
+  assert.deepEqual(asked.slice(2), ["venue", "guess"]);
   assert.equal(old.cache[URL1].guess.venue, "Stadtbibliothek Düren");
 });
 

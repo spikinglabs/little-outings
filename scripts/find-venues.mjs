@@ -10,7 +10,7 @@
 // only pick one of the venues other events in that town use, or the organiser's own venue, and
 // must say why. A guess is never shown as fact: it becomes the first "Is it here?" chip in
 // "Still missing" (src/lib/where-guess.ts), marked as the AI's, and goes live only once two parents
-// pick it. Pages cached before guesses existed get one on a later run.
+// pick it. Pages that gave no venue are read again when READ goes up.
 //
 //   GEMINI_API_KEY=… npm run find:venues      (or ANTHROPIC_API_KEY; see src/lib/llm.ts for the switch)
 //   VENUE_MODEL=…                             optional; the provider's default otherwise
@@ -22,6 +22,7 @@ import { eachLimit } from "../src/lib/pool.ts";
 
 export const CACHE = "data/venues.json";
 const PUBLISHED = process.env.OUTINGS_FILE || "data/outings.jsonl";
+const READ = 3; // bump to read pages without a venue again after the reader got better
 const PER_RUN = 150; // pages read per night at most; the rest wait for the next run
 const AT_ONCE = 6; // pages read at the same time, from many different sites
 const MAX_TEXT = 20000; // page text sent to the model; long menus can push the venue past this…
@@ -59,15 +60,18 @@ export function townVenues(rows, city, max = 40) {
 
 /**
  * The model's guess, kept only when it is one of the listed venues, or the organiser's own place
- * (its name appears in the organiser's name or on the page). Anything else is no guess.
+ * (its name appears in the organiser's name, on the page, or in the page's web address:
+ * couven-museum.de lists only "Öffentliche Führung" and a time). Anything else is no guess.
  */
-export function parseGuess(text, { venues, organiser = "", page = "" }) {
+export function parseGuess(text, { venues, organiser = "", page = "", url = "" }) {
   const a = JSON.parse(text.slice(text.indexOf("{"), text.lastIndexOf("}") + 1));
   const why = typeof a.why === "string" ? a.why.trim().slice(0, 200) : "";
   const n = Number(a.pick);
   if (Number.isInteger(n) && n >= 1 && n <= venues.length) return { ...venues[n - 1], why };
   const venue = typeof a.venue === "string" ? a.venue.trim() : "";
-  if (venue.length >= 4 && (squash(organiser).includes(squash(venue)) || squash(page).includes(squash(venue)))) return { venue, why };
+  const site = squash(hostOf(url).replace(/^www\./, "").replace(/\.[a-z]+$/, ""));
+  if (venue.length >= 4 && (squash(organiser).includes(squash(venue)) || squash(page).includes(squash(venue))
+    || (site.length >= 6 && squash(venue).includes(site)))) return { venue, why };
   return null;
 }
 
@@ -80,17 +84,20 @@ export function needsVenue(row, today) {
 
 /** Readable page text without markup, scripts or navigation noise. */
 export function pageText(html) {
-  const ent = { amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", nbsp: " " };
+  // German letters too: Düren's calendar writes "D&uuml;ren", which never matched the model's "Düren".
+  const ent = { amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", nbsp: " ", auml: "ä", ouml: "ö", uuml: "ü", szlig: "ß",
+    eacute: "é", ndash: "–", mdash: "—", bdquo: "„", ldquo: "“", rdquo: "”", hellip: "…" };
   return html
     .replace(/<(script|style|noscript|svg|head|nav|footer)\b[^>]*>[\s\S]*?<\/\1>/gi, " ")
     .replace(/<(br|\/p|\/div|\/li|\/h\d|\/dt|\/dd|\/tr)\b[^>]*>/gi, "\n")
     .replace(/<[^>]+>/g, " ")
     .replace(/&(#x?[0-9a-f]+|\w+);/gi, (m, e) => e[0] === "#"
       ? String.fromCodePoint(parseInt(e[1] === "x" || e[1] === "X" ? e.slice(2) : e.slice(1), e[1] === "x" || e[1] === "X" ? 16 : 10))
-      : ent[e.toLowerCase()] ?? m)
+      : ent[e] ?? ent[e.toLowerCase()]?.toUpperCase() ?? m)
     .replace(/[ \t]+/g, " ").replace(/\s*\n\s*/g, "\n").trim();
 }
 
+const hostOf = (u) => { try { return new URL(u).hostname; } catch { return ""; } };
 const squash = (s) => s.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, "");
 
 /** What the model reads: the start of the page, plus the passage naming the place when it comes later. */
@@ -132,23 +139,23 @@ export async function guess(row, page, { llm, model, fetch = globalThis.fetch, r
   const organiser = row.source_name || row.provenance?.[0]?.source_name || "";
   const list = venues.map((v, i) => `${i + 1}. ${v.venue}${v.street ? `, ${v.street}` : ""}`).join("\n") || "(none)";
   const ask = `Event: ${row.title}\nTown: ${row.location?.city ?? ""}\nOrganiser: ${organiser}\nWebsite: ${row.source_url}\n\nVenues other events in this town use:\n${list}\n\nPage text:\n${excerpt(page).slice(0, 8000)}`;
-  return parseGuess(await complete(llm, model, { system: GUESS_PROMPT, text: ask, maxTokens: 4000, json: true }, fetch), { venues, organiser, page });
+  return parseGuess(await complete(llm, model, { system: GUESS_PROMPT, text: ask, maxTokens: 4000, json: true }, fetch), { venues, organiser, page, url: row.source_url });
 }
 
 /** Fill the cache for the rows that need a venue and drop pages no event uses any more. */
 export async function update(rows, cache, opts) {
   const want = [...new Map(rows.filter((r) => needsVenue(r, opts.today)).map((r) => [r.source_url, r])).values()];
   const missing = want.filter((r) => !(r.source_url in cache));
-  // Pages read before guesses existed: no venue, and no guess asked yet.
-  const unguessed = want.filter((r) => cache[r.source_url] && !cache[r.source_url].venue && !("guess" in cache[r.source_url]));
+  // Pages that gave no venue under an older reader (READ) are read again, once: guesses came in 2,
+  // German letters like "&uuml;" in 3.
+  const stale = want.filter((r) => cache[r.source_url] && !cache[r.source_url].venue && (cache[r.source_url].read ?? 1) < READ);
   let done = 0;
   if (opts.llm) {
     const all = { ...opts, rows };
-    await eachLimit([...missing, ...unguessed].slice(0, PER_RUN), AT_ONCE, async (row) => {
+    await eachLimit([...missing, ...stale].slice(0, PER_RUN), AT_ONCE, async (row) => {
       try {
-        if (row.source_url in cache) {
-          cache[row.source_url] = { ...cache[row.source_url], guess: await guess(row, await readPage(row.source_url, all.fetch), all) };
-        } else cache[row.source_url] = await lookup(row, all);
+        const found = await lookup(row, all);
+        cache[row.source_url] = found.venue ? found : { ...found, read: READ };
         done++;
       } catch (e) {
         console.warn(String(e));
