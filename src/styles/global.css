@@ -185,8 +185,8 @@ h1, h2, h3, .meta, .de-name, .orig, .trust { overflow-wrap: anywhere; }
 .chip.pick:hover, .chip.pick:focus-visible { border-color: var(--ink); }
 .gap-row { display: flex; gap: 6px; flex-wrap: wrap; }
 .gap-chips { display: flex; flex-wrap: wrap; gap: 6px; max-width: 100%; }
-.chip.guess { max-width: 100%; min-width: 0; font-size: .88rem; padding: 5px 10px; }
-.chip.guess .ellip { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.chip.guess { max-width: 100%; min-width: 0; font-size: .88rem; padding: 5px 10px; text-align: left; white-space: normal; border-radius: 12px; }
+.chip.guess > span:last-child { min-width: 0; overflow-wrap: anywhere; }
 .chip.map-pick { padding: 6px 10px; font-size: 1.05rem; }
 .gap-map { display: grid; gap: 6px; }
 .gap-map-addr { margin: 0; font-weight: 600; }
