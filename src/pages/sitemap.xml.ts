@@ -10,10 +10,11 @@ import { getData, TODAY } from "../lib/data";
 import { editionTowns, liveEdition } from "../lib/weekend-data";
 import { seasonPages } from "../lib/seasons";
 import { sitemapWorthy } from "../lib/seo";
+import { cityTowns } from "../lib/city";
 
 export const GET: APIRoute = async ({ site }) => {
   const base = site?.toString().replace(/\/$/, "") ?? "";
-  const { places, seasons, region } = await getData();
+  const { places, events, seasons, region } = await getData();
   // OpenStreetMap places around towns with events only: the places-only towns (Dortmund, Leipzig …, osm-family-data's
   // more_towns) would treble the list while Google still works through this one; their pages stay linked.
   const ours = new Set(region.towns.map((t) => t.name));
@@ -21,6 +22,8 @@ export const GET: APIRoute = async ({ site }) => {
   const seasonal = seasonPages(seasons).flatMap(({ season, file }) => [`${season.page!.slug}/`, `${season.page!.slug}/${file.slug}/`]);
   const paths = [
     "", "mitmachen/", "daten/",
+    // City pages ("科隆带娃去哪儿"): what a parent new to the site searches for.
+    "stadt/", ...cityTowns(region.towns, events, places, TODAY).map((c) => `stadt/${c.slug}/`),
     ...new Set(seasonal),
     ...places.filter((p) => sitemapWorthy(p) && (ours.has(p.town) || !p.id.startsWith("osm-"))).map((p) => `orte/${p.id}/`),
   ];
@@ -33,8 +36,8 @@ export const GET: APIRoute = async ({ site }) => {
     `<xhtml:link rel="alternate" hreflang="x-default" href="${base}/${rest && `de/${rest}`}"/>`;
   const urls = paths.flatMap((rest) => {
     const links = alt(rest);
-    // The home page changes every night ("this weekend"); detail pages when their data does.
-    const extra = rest === "" ? `<lastmod>${TODAY}</lastmod><changefreq>daily</changefreq>`
+    // The home and city pages change every night ("this weekend"); detail pages when their data does.
+    const extra = rest === "" || rest.startsWith("stadt/") ? `<lastmod>${TODAY}</lastmod><changefreq>daily</changefreq>`
       : fresh.has(rest) ? `<lastmod>${fresh.get(rest)}</lastmod><changefreq>weekly</changefreq>` : "";
     return LANGS.map((l) => `<url><loc>${base}/${l}/${rest}</loc>${extra}${links}</url>`);
   });

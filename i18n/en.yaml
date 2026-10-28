@@ -565,3 +565,41 @@ feed:
   note: Anything we should know?
   notePh: "Which events are for children, ages, where they take place …"
   thanks: "Thank you! We'll look at your calendar and add it soon. Changes you make to it later show up here by themselves."
+# City pages (/en/stadt/<town>/, src/lib/city.ts): what parents search for, "Cologne with kids".
+city:
+  title: "{town} with kids: family events and places to go"
+  h1: "{town} with kids"
+  sub: "{events} family events in {town} over the next two weeks and {places} kid-friendly places: playgrounds, parks, farms, zoos, pools and family cafés. Updated every night, free, no sign-up."
+  subPlaces: "{places} kid-friendly places in {town}: playgrounds, parks, farms, zoos, pools and family cafés, with a map. Events for {town} are coming."
+  descriptionPlaces: "Where to go with kids in {town}: {places} kid-friendly places, from playgrounds and parks to farms, zoos and pools, with a map."
+  description: "Things to do with kids in {town}: {events} upcoming family events and {places} kid-friendly places, with a map."
+  allEvents: "All {n} events in {town}"
+  allPlaces: "All {n} places in {town}"
+  moreH: "This is only a small selection"
+  moreP: "{town} has {events} family events in the next two weeks and {places} places for kids. See them all on Discover, with a map and filters like “Rainy day” and “Free”."
+  morePNoEvents: "{town} has {places} places for kids. See them all on Discover, with a map and filters like “Rainy day” and “Free”."
+  morePlacesOnly: "{town} has {places} places for kids; only a few of each kind are listed here. Each one has its own page with a map."
+  allP: "All of them on Discover, with a map and filters."
+  weekend: "This weekend in {town}"
+  soonH: Coming up
+  placesH: Places to go
+  more: "{n} in all"
+  faqH: Questions parents ask
+  qRain: "Where can you go with kids in {town} when it rains?"
+  aRain: "{town} has {n} indoor places, such as {list}. In Discover, the “Rainy day” filter shows everything indoors on that day."
+  qFree: "What can you do with kids in {town} for free?"
+  aFreeEvents: "There are {n} free events in the next two weeks, such as {list}."
+  aFreePlaces: "{n} places are free to visit, such as {list}."
+  qPlay: "Where are good playgrounds in {town}?"
+  aPlay: "{town} has {n} playgrounds; we know most about {list}. Each playground page says whether it has a sandpit, swings or toilets."
+  qWeekend: "What can you do with kids in {town} this weekend?"
+  aWeekendEdition: "Every Friday we pick the best family events and places for the weekend in {town}: {list}."
+  aWeekend: "This weekend: {list}."
+  sep: ", "
+  others: Other cities
+  seasons: Seasonal
+  hubTitle: Family outings by city
+  hubSub: Pick a city to see what's on for kids there and where to go.
+  hubCount: "{events} events · {places} places"
+  hubPlaces: "{places} places"
+  nav: By city
