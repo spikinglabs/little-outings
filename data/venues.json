@@ -55,10 +55,12 @@
   "venue": "Centre Charlemagne"
  },
  "https://couven-museum.de/event/biedermeierzeit-die-familie-als-lebensmittelpunkt-3/": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://couven-museum.de/event/kreativitaet-zum-mitmachen-kreatives-schreiben/": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://gedenkort-papestrasse.de/events/oeffentliche-fuehrung-7/": {
   "venue": "Gedenkort SA-Gefängnis Papestraße",
@@ -73,49 +75,93 @@
   "street": "Werner-Voß-Damm 54 a"
  },
  "https://historisches-museum-frankfurt.de/de/aktuelles-programm": {
-  "venue": null
+  "venue": null,
+  "guess": {
+   "venue": "Junges Museum Frankfurt",
+   "why": "The event title explicitly states 'im Jungen Museum'."
+  }
  },
  "https://historisches-museum-frankfurt.ticketfritz.de/Event/Kalender/10567?Typ=Vorlage": {
   "venue": "HMF"
  },
  "https://historisches-museum-frankfurt.ticketfritz.de/Event/Kalender/10568?Typ=Vorlage": {
-  "venue": null
+  "venue": null,
+  "guess": {
+   "venue": "Historisches Museum Frankfurt",
+   "why": "The event is organised by and takes place at the Historisches Museum Frankfurt, showcasing its permanent exhibition."
+  }
  },
  "https://historisches-museum-frankfurt.ticketfritz.de/Event/Kalender/11500?Typ=Vorlage": {
-  "venue": null
+  "venue": null,
+  "guess": {
+   "venue": "Historisches Museum Frankfurt",
+   "why": "The text states the meeting point is in the foyer of the Historisches Museum Frankfurt im Saalhof."
+  }
  },
  "https://historisches-museum-frankfurt.ticketfritz.de/Event/Kalender/12196?Typ=Vorlage": {
-  "venue": null
+  "venue": null,
+  "guess": {
+   "venue": "Historisches Museum Frankfurt",
+   "why": "The event is hosted and organised by the Historisches Museum Frankfurt as part of its guided tours on city history."
+  }
  },
  "https://historisches-museum-frankfurt.ticketfritz.de/Event/Kalender/12813?Typ=Vorlage": {
-  "venue": null
+  "venue": null,
+  "guess": {
+   "venue": "Historisches Museum Frankfurt",
+   "why": "The event is organized by Historisches Museum Frankfurt as a guided tour through its permanent exhibitions."
+  }
  },
  "https://historisches-museum-frankfurt.ticketfritz.de/Event/Kalender/13116?Typ=Vorlage": {
   "venue": "Historische Museum"
  },
  "https://historisches-museum-frankfurt.ticketfritz.de/Event/Kalender/13118?Typ=Vorlage": {
-  "venue": null
+  "venue": null,
+  "guess": {
+   "venue": "Historisches Museum Frankfurt",
+   "why": "The event is a guided tour of the permanent exhibition 'Frankfurt Einst?' at the Historisches Museum Frankfurt."
+  }
  },
  "https://historisches-museum-frankfurt.ticketfritz.de/Event/Kalender/26408/52100?typ=Vorlage": {
   "venue": "Historisches Museum Frankfurt"
  },
  "https://historisches-museum-frankfurt.ticketfritz.de/Event/Kalender/26538?Typ=Vorlage": {
-  "venue": null
+  "venue": null,
+  "guess": {
+   "venue": "Historisches Museum Frankfurt",
+   "why": "The event is a guided tour of the highlights of Historisches Museum Frankfurt organised by the museum itself."
+  }
  },
  "https://historisches-museum-frankfurt.ticketfritz.de/Event/Kalender/26590?Typ=Vorlage": {
-  "venue": null
+  "venue": null,
+  "guess": {
+   "venue": "Historisches Museum Frankfurt",
+   "why": "The guided tour is organized by and starts at the ticket desk of the Historisches Museum Frankfurt."
+  }
  },
  "https://historisches-museum-frankfurt.ticketfritz.de/Event/Kalender/26591?Typ=Vorlage": {
-  "venue": null
+  "venue": null,
+  "guess": {
+   "venue": "Historisches Museum Frankfurt",
+   "why": "The event is an exhibition tour hosted and organised by the Historisches Museum Frankfurt."
+  }
  },
  "https://historisches-museum-frankfurt.ticketfritz.de/Event/Kalender/26825?Typ=Vorlage": {
   "venue": "Lichthof neben dem Rententurm"
  },
  "https://historisches-museum-frankfurt.ticketfritz.de/Event/Kalender/28938?Typ=Vorlage": {
-  "venue": null
+  "venue": null,
+  "guess": {
+   "venue": "Historisches Museum Frankfurt",
+   "why": "The event is organized and hosted by the Historisches Museum Frankfurt."
+  }
  },
  "https://historisches-museum-frankfurt.ticketfritz.de/Event/Kalender/28940?Typ=Vorlage": {
-  "venue": null
+  "venue": null,
+  "guess": {
+   "venue": "Historisches Museum Frankfurt",
+   "why": "The tour description states that it begins in the permanent exhibition of the Historisches Museum Frankfurt."
+  }
  },
  "https://historisches-museum-frankfurt.ticketfritz.de/Event/Kalender/32075?Typ=Vorlage": {
   "venue": "Historisches Museum Frankfurt",
@@ -212,14 +258,16 @@
   "street": "Heumarkt 20"
  },
  "https://koelnerkarneval.de/session/veranstaltungen/veranstaltung/koelner-rosenmontagszug-2026": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://koelnerkarneval.de/session/veranstaltungen/veranstaltung/proklamation-des-koelner-kinderdreigestirns-2026": {
   "venue": "Theater am Tanzbrunnen",
   "street": "Rheinparkweg 1"
  },
  "https://koelnerkarneval.de/session/veranstaltungen/veranstaltung/rosenmontag-die-lkw-tribuene-eurer-willi-ostermann-gesellschaft": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://koelnerkarneval.de/session/veranstaltungen/veranstaltung/rosenmontags-tribuene-1": {
   "venue": "Ecke Mühlenbach/Hohe Pforte"
@@ -249,13 +297,15 @@
   "street": "Friesenstraße 44-48"
  },
  "https://koelnerkarneval.de/session/veranstaltungen/veranstaltung/tribuenen-schull-un-veedelszoech-2026": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://koelnerkarneval.de/session/veranstaltungen/veranstaltung/veedelszog-durch-junkersdorf-1": {
   "venue": "Köln-Junkersdorf"
  },
  "https://koelnerkarneval.de/session/veranstaltungen/veranstaltung/zunft-rosenmontagszugtribuene-3": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://ludwigforum.de/event/familienbande-2/": {
   "venue": "Ludwig Forum Aachen",
@@ -361,16 +411,20 @@
   "venue": "Informationsort Schwerbelastungskörper"
  },
  "https://suermondt-ludwig-museum.de/event/an-die-farbe-fertig-los-3/": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://suermondt-ludwig-museum.de/event/ars-longa-vita-brevis/": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://suermondt-ludwig-museum.de/event/die-wunderkammer-und-highlights-der-sammlung-9-2/": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://suermondt-ludwig-museum.de/event/engelschoere-und-hoellenkrach-musik-in-der-malerei/": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://suermondt-ludwig-museum.de/event/falsch-faelscher-faelschungen-die-kunst-der-faelschung-die-faelschung-der-kunst/2026-12-03/": {
   "venue": "SLM"
@@ -379,40 +433,51 @@
   "venue": "SLM"
  },
  "https://suermondt-ludwig-museum.de/event/familienangebot-fuer-grosse-und-kleine-kuenstlerinnen-3-2-2/": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://suermondt-ludwig-museum.de/event/finderlohn-schmuck-skulptur-raum-2/": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://suermondt-ludwig-museum.de/event/kunst-croissants-und-konfituere-5-2/": {
   "venue": "Suermondt-Ludwig-Museum"
  },
  "https://suermondt-ludwig-museum.de/event/schoenheit-und-vergaenglichkeit-in-der-malerei-2-2/": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://suermondt-ludwig-museum.de/event/suermondt-museumsclub-12-2-2/2026-11-03/": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://suermondt-ludwig-museum.de/event/suermondt-museumsclub-12-2-2/2026-11-10/": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://suermondt-ludwig-museum.de/event/suermondt-museumsclub-12-2-2/2026-11-17/": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://suermondt-ludwig-museum.de/event/suermondt-museumsclub-12-2-2/2026-11-24/": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://suermondt-ludwig-museum.de/event/suermondt-museumsclub-12-2-2/2026-12-01/": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://suermondt-ludwig-museum.de/event/suermondt-museumsclub-12-2-2/2026-12-08/": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://suermondt-ludwig-museum.de/event/suermondt-museumsclub-12-2-2/2026-12-15/": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://suermondt-ludwig-museum.de/event/vorweihnachtszeit-fuer-familien-2/": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://uni-koeln.de/universitaet/aktuell/veranstaltungen/detail/arirang-echo-koeln-2026-winteredition-korea-und-tuerkiye-im-dialog-der-kulturen": {
   "venue": "Aula 2 und im Foyer Hauptgebäude",
@@ -422,14 +487,20 @@
   "venue": "Haus der Stadt",
   "street": "Stefan-Schwer-Straße 4-6"
  },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/34duerener-mundartfestival": {
+  "venue": "Willy-Brandt-Park (Stadtpark)"
+ },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/Gipsy meets Latin Jazz-06-11-2026": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/akustik-session-dren_copy_copy_copy": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/amys-men-songs-about-life": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/andantino-musikalische-entdeckerreisen-andantino-im-norden-von-lichtern-und-fjorden": {
   "venue": "Schloss Burgau",
@@ -439,7 +510,7 @@
   "venue": "Schloss Burgau",
   "street": "Von-Aue-Straße 1"
  },
- "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/andantino-musikalische-entdeckerreisen-leinen-los-auf-zur-koeniglichen-bootsfahrt-auf-der-themse-25-04-2027": {
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/andantino-musikalische-entdeckerreisen-leinen-los-auf-zur-koeniglichen-bootsfahrt-auf-der-themse-25-04-2027-1": {
   "venue": "Schloss Burgau",
   "street": "Von-Aue-Straße 1"
  },
@@ -456,10 +527,12 @@
   "street": "Von-Aue-Straße 1"
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/barockmusik-im-kerzenschein": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/beats-on-pointe": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/breakdance-und-hip-hop-workshop-fuer-kinder-von-5-7-j": {
   "venue": "Weinberghalle in Merzenich",
@@ -469,18 +542,21 @@
   "venue": "Weinberghalle in Merzenich",
   "street": "Schulstraße 18"
  },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/dancing-queens": {
+  "venue": null,
+  "guess": null
+ },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/das-18-karnevalistische-konzert-zur-sessionserffnung": {
   "venue": "Haus der Stadt",
   "street": "Stefan-Schwer-Straße 4-6"
  },
- "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/die-comiciade-dueren-hitodama-stories-schaurige-lustige-charakterdesigns-26-10-2026": {
-  "venue": null
- },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/die-comiciade-dueren-hitodama-stories-schaurige-lustige-charakterdesigns-26-10-2026_copy_copy": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/die-comiciade-dueren-hitodama-stories-schaurige-lustige-charakterdesigns-26-10-2026_copy_copy_copy": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/die-werkstatt-der-schmetterlinge": {
   "venue": "Schloss Burgau",
@@ -511,7 +587,8 @@
   "street": "Arnoldsweilerstraße 38"
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/dueren-leuchtet": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/eintrittsfreier-donnerstag-im-lhm-03-12-2026": {
   "venue": "Leopold-Hoesch-Museum",
@@ -522,26 +599,32 @@
   "street": "Hoeschplatz 1"
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/eintrittsfreier-donnerstag-im-papiermuseum-03-12-2026": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/eintrittsfreier-donnerstag-im-papiermuseum-05-11-2026": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/familienfuehrung-15-11-2026": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/familienfuehrung-20-12-2026": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
- "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/ffentlich-fuehrung-01-11-2026": {
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/ffentlich-fuehrung-06-12-2026-1": {
   "venue": "Leopold-Hoesch-Museum",
   "street": "Hoeschplatz 1"
  },
- "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/ffentliche-fuehrung-06-12-2026": {
-  "venue": null
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/ffentliche-fuehrung-01-11-2026": {
+  "venue": null,
+  "guess": null
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/ffentliche-fuehrung-im-stadtmuseum_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/filmvorfuehrung-ebenezer": {
   "venue": "Das Lumen Filmtheater",
@@ -552,25 +635,32 @@
   "street": "Fritz-Erler Straße 21"
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/groer-buecherflohmarkt-des-foerdervereins-fuer-die-stadtbuecherei-24-01-2026_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/groer-buecherflohmarkt-des-foerdervereins-fuer-die-stadtbuecherei-24-01-2026_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/groer-buecherflohmarkt-des-foerdervereins-fuer-die-stadtbuecherei-24-01-2026_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/groer-buecherflohmarkt-des-foerdervereins-fuer-die-stadtbuecherei-24-01-2026_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/herbstferienprogramm-mach-es-dir-gemuetlich-29-10-2026": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/herr-dre-diebe": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/herzfaden": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/histolab-fuer-kids_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy": {
   "venue": "Stadtmuseum",
@@ -581,10 +671,12 @@
   "street": "Arnoldsweilerstraße 38"
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/historischer-annamarkt": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/into-the-paperverse-papier-und-computerspiel": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/kraeuter-diplom-fuer-kinder-ab-6-jahren-24-03-2027": {
   "venue": "Volkshochschule Rur-Eifel",
@@ -602,17 +694,33 @@
   "venue": "Volkshochschule Rur-Eifel",
   "street": "Violengasse 2"
  },
- "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/leben-lieben-lachen-und-klauen-an-der-lagune": {
-  "venue": null
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/lange-nacht-der-museen": {
+  "venue": "Leopold-Hoesch-Museum",
+  "street": "Hoeschplatz 1"
  },
- "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/lets-play-27-10-2026": {
-  "venue": null
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/leben-lieben-lachen-und-klauen-an-der-lagune": {
+  "venue": null,
+  "guess": null
+ },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/lotta-kann-fast-alles": {
+  "venue": null,
+  "guess": null
+ },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/lotta-lotta-lotta": {
+  "venue": null,
+  "guess": null
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/lukpuppentheater-ein-olchi-unterm-graetenbaum": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
- "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/lukpuppentheater-ein-olchi-unterm-graetenbaum-07-12-2026_copy": {
-  "venue": null
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/lukpuppentheater-ein-olchi-unterm-graetenbaum-07-12-2026": {
+  "venue": null,
+  "guess": null
+ },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/martinsumzuege-stadt-dueren": {
+  "venue": null,
+  "guess": null
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/maya-schweizer-uedra": {
   "venue": "Leopold-Hoesch-Museum",
@@ -627,19 +735,23 @@
   "street": "Stefan-Schwer-Straße 4-6"
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/peace-food-oder-die-letzte-suppe-schulvorstellung": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/rundgang-gruenguertel": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/rundgang-gruenguertel-zusatztermin_copy": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/rundgang-ueber-den-neuen-friedhof-am-ende-der-friedenstrae": {
   "venue": "Rondell am Friedhofseingang"
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/rundgang-ueber-den-neuen-friedhof-am-ende-der-friedenstrae-31-10-2026": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/seife-sieden": {
   "venue": "Volkshochschule Rur-Eifel",
@@ -653,7 +765,8 @@
   "venue": "Schloss Burgau"
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/spieletauschboerse-bibliothekswoche-zeit-fuer-neue-seiten": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/stadtfuehrung-duerener-stadtrundgang-08-11-2026": {
   "venue": "iPUNKT",
@@ -672,17 +785,28 @@
   "street": "Von-Aue-Straße 1"
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/tierheimfuehrung-fuer-kinder-im-tierheim-dueren": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/udo-unsterblich-12-12-2026": {
-  "venue": null
+  "venue": null,
+  "guess": null
+ },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/vintage-wonderland": {
+  "venue": null,
+  "guess": null
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/weihnachtshaus-der-stadt": {
-  "venue": null
+  "venue": null,
+  "guess": null
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/zum-glueck-gibts-freunde": {
   "venue": "Schloss Burgau",
   "street": "Von-Aue-Straße 1"
+ },
+ "https://www.koeln.de/event/familienflohmarkt-der-kita-kartause/": {
+  "venue": "Kartäuserkirche",
+  "street": "Kartäusergasse 7b"
  },
  "https://www.koeln.de/event/heliostroedel-ehrenfeld-fuer-kinderkram-und-mehr/": {
   "venue": "Heliosschule (Sekundarstufe)",
@@ -701,7 +825,11 @@
   "street": "Junkersring 28"
  },
  "https://www.mfk-frankfurt.de/mc-events/offene-kinderwerkstatt-15/?mc_id=4147": {
-  "venue": null
+  "venue": null,
+  "guess": {
+   "venue": "Museum für Kommunikation Frankfurt am Main Schaumainkai 53 Frankfurt am Main 60596",
+   "why": "The event is organised by and held at the Museum für Kommunikation Frankfurt."
+  }
  },
  "https://www.schauburg.net/de/programm/just-listen": {
   "venue": "Musiktheater für die Turnhalle"
