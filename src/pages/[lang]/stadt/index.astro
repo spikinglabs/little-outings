@@ -2,7 +2,7 @@
 // All city pages in one list, linked from the footer, so every city page is two clicks from anywhere.
 import Base from "../../../layouts/Base.astro";
 import { LANGS, useT, type Lang } from "../../../lib/i18n";
-import { getData } from "../../../lib/data";
+import { getData, TODAY } from "../../../lib/data";
 import { townName } from "../../../lib/format";
 import { cityNames, cityPath, cityTowns } from "../../../lib/city";
 
@@ -11,7 +11,7 @@ const lang = Astro.params.lang as Lang;
 const t = useT(lang);
 const { region, events, places } = await getData();
 const names = cityNames(region.towns);
-const cities = cityTowns(region.towns, events, places);
+const cities = cityTowns(region.towns, events, places, TODAY);
 ---
 <Base lang={lang} tab="explore" title={t("city.hubTitle")} description={t("city.hubSub")}>
   <div class="city-page season-page">

@@ -588,7 +588,7 @@ city:
   aPlay: "{town} hat {n} Spielplätze; am meisten wissen wir über {list}. Auf jeder Spielplatzseite steht, ob es Sandkasten, Schaukeln oder Toiletten gibt."
   qWeekend: "Was kann man am Wochenende mit Kindern in {town} machen?"
   aWeekendEdition: "Jeden Freitag stellen wir die besten Termine und Orte fürs Wochenende in {town} zusammen: {list}."
-  aWeekend: "Die nächsten Termine sind {list}."
+  aWeekend: "Am Wochenende: {list}."
   sep: ", "
   others: Andere Städte
   seasons: Zur Jahreszeit

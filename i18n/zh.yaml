@@ -588,7 +588,7 @@ city:
   aPlay: "{town}有 {n} 个游乐场，信息最全的有{list}。每个游乐场页面上都写着有没有沙坑、秋千、厕所等设施。"
   qWeekend: "这个周末在{town}可以做什么？"
   aWeekendEdition: "我们每周五都会精选本周末{town}的活动和好去处：{list}。"
-  aWeekend: "接下来的活动有{list}。"
+  aWeekend: "这个周末有{list}。"
   sep: "、"
   others: 其他城市
   seasons: 季节专题

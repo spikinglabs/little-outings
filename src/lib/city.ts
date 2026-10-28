@@ -2,7 +2,8 @@
 // "科隆带娃去哪儿", "Köln mit Kindern", "Cologne with kids". Everything on them comes from the same
 // data as Discover, picked here so the page and its tests agree on what counts.
 import type { Event, Place } from "./types.ts";
-import { townSlug } from "./weekend.ts";
+import { addDays, townSlug, weekendOf } from "./weekend.ts";
+import { lastDay } from "./horizon.ts";
 import { indoorGuess, PLACE_KINDS } from "./search.ts";
 import { MORE_TOWN_NAMES } from "./town-names.ts";
 
@@ -24,8 +25,8 @@ export function placeScore(p: Place): number {
 }
 
 const best = (ps: Place[]) => [...ps].sort((a, b) => placeScore(b) - placeScore(a) || a.name.localeCompare(b.name));
-/** Events with a known place, soonest first. */
-const located = (es: Event[]) => es.filter((e) => e.geo.precision !== "unknown");
+/** Events with a known place, starting within Discover's two weeks from `today`, soonest first. */
+const located = (es: Event[], today: string) => { const last = lastDay(today); return es.filter((e) => e.geo.precision !== "unknown" && e.start <= last); };
 
 export interface CityFacts {
   events: Event[];
@@ -34,13 +35,16 @@ export interface CityFacts {
   kinds: { kind: string; count: number; top: Place[] }[];
   indoor: Place[];
   freeEvents: Event[];
+  /** Events on during the coming weekend (this one, from Saturday on). */
+  weekend: Event[];
   freePlaces: Place[];
   playgrounds: Place[];
 }
 
 /** What a city page shows for one town. `events` must already be upcoming and sorted by start (getData does both). */
-export function cityFacts(town: string, allEvents: Event[], allPlaces: Place[]): CityFacts {
-  const events = located(allEvents.filter((e) => e.town === town));
+export function cityFacts(town: string, allEvents: Event[], allPlaces: Place[], today: string): CityFacts {
+  const events = located(allEvents.filter((e) => e.town === town), today);
+  const sat = weekendOf(today), sun = addDays(sat, 1);
   const places = allPlaces.filter((p) => p.town === town);
   const kinds = PLACE_KINDS.map((kind) => {
     const of = places.filter((p) => p.kind === kind);
@@ -50,6 +54,7 @@ export function cityFacts(town: string, allEvents: Event[], allPlaces: Place[]):
     events, places, soon: events.slice(0, SOON), kinds,
     indoor: best(places.filter((p) => indoorGuess(p.indoor, [p.kind]) === true)),
     freeEvents: events.filter((e) => e.price?.free),
+    weekend: events.filter((e) => e.start <= sun && (e.end || e.start) >= sat),
     freePlaces: best(places.filter((p) => p.free)),
     playgrounds: best(places.filter((p) => p.kind === "playground")),
   };
@@ -65,24 +70,24 @@ export const cityNames = (towns: TownRec[]): TownRec[] =>
  * The towns that get a city page, with their slugs, biggest first: the towns with events lead, since a page with
  * this weekend's events is the better answer. A town with fewer than CITY_MIN events and places gets none.
  */
-export function cityTowns(towns: { name: string }[], events: Event[], places: Place[]) {
+export function cityTowns(towns: { name: string }[], events: Event[], places: Place[], today: string) {
   // Every page asks (footer, other cities, sitemap); the data is the same all build long.
   const hit = memo.get(places);
-  if (hit && hit.towns === towns && hit.events === events) return hit.rows;
-  const rows = listTowns(towns, events, places);
-  memo.set(places, { towns, events, rows });
+  if (hit && hit.towns === towns && hit.events === events && hit.today === today) return hit.rows;
+  const rows = listTowns(towns, events, places, today);
+  memo.set(places, { towns, events, today, rows });
   return rows;
 }
 /** How much a city page has: an upcoming event counts like ten places. */
 const size = (r: { events: number; places: number }) => r.events * 10 + r.places;
 type Row = { name: string; slug: string; events: number; places: number; more: boolean };
-const memo = new WeakMap<Place[], { towns: object; events: Event[]; rows: Row[] }>();
+const memo = new WeakMap<Place[], { towns: object; events: Event[]; today: string; rows: Row[] }>();
 
-function listTowns(towns: { name: string }[], events: Event[], places: Place[]): Row[] {
+function listTowns(towns: { name: string }[], events: Event[], places: Place[], today: string): Row[] {
   const ours = new Set(towns.map((t) => t.name));
   const more = Object.keys(MORE_TOWN_NAMES).filter((n) => !ours.has(n));
   const rows = [...towns.map((t) => t.name), ...more].map((name) => {
-    const f = cityFacts(name, events, places);
+    const f = cityFacts(name, events, places, today);
     return { name, slug: townSlug(name), events: f.events.length, places: f.places.length, more: !ours.has(name) };
   }).filter((t) => t.events + t.places >= CITY_MIN);
   return rows.sort((a, b) => size(b) - size(a));

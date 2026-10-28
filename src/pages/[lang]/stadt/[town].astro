@@ -6,7 +6,7 @@
 import Base from "../../../layouts/Base.astro";
 import Card from "../../../components/Card.astro";
 import { LANGS, useT, type Lang } from "../../../lib/i18n";
-import { getData } from "../../../lib/data";
+import { getData, TODAY } from "../../../lib/data";
 import { nameOf, pathFor, townName } from "../../../lib/format";
 import { cityFacts, cityNames, cityPath, cityTowns, OTHERS } from "../../../lib/city";
 import { editionTowns } from "../../../lib/weekend-data";
@@ -16,21 +16,23 @@ import type { Event, Place } from "../../../lib/types";
 
 export async function getStaticPaths() {
   const { region, events, places } = await getData();
-  return LANGS.flatMap((lang) => cityTowns(region.towns, events, places).map((c) => ({ params: { lang, town: c.slug }, props: { name: c.name } })));
+  return LANGS.flatMap((lang) => cityTowns(region.towns, events, places, TODAY).map((c) => ({ params: { lang, town: c.slug }, props: { name: c.name } })));
 }
 const { name } = Astro.props as { name: string };
 const lang = Astro.params.lang as Lang;
 const t = useT(lang);
 const { region, events, places, seasons } = await getData();
 const names = cityNames(region.towns);
-const f = cityFacts(name, events, places);
+const f = cityFacts(name, events, places, TODAY);
 const town = townName(name, lang, names);
 const counts = { town, events: f.events.length, places: f.places.length };
+// Discover can only open around the region's own towns; a places-only city has no "everything" button.
+const onDiscover = region.towns.some((x) => x.name === name);
 const weekend = editionTowns().find((w) => w.name === name);
 const weekendHref = weekend && `/${lang}/wochenende/${weekend.slug}/`;
 const seasonal = seasonPages(seasons).filter((p) => p.file.town === name);
 // The biggest other cities; the full list is one click away.
-const others = cityTowns(region.towns, events, places).filter((c) => c.name !== name).slice(0, OTHERS);
+const others = cityTowns(region.towns, events, places, TODAY).filter((c) => c.name !== name).slice(0, OTHERS);
 
 type Link = { name: string; href: string };
 const links = (xs: (Event | Place)[], n = 3): Link[] => xs.slice(0, n).map((x) => ({ name: nameOf(x, lang), href: pathFor(lang, x) }));
@@ -45,7 +47,7 @@ const free = [
 if (free.length) faq.push({ q: t("city.qFree", { town }), parts: free });
 if (f.playgrounds.length) faq.push({ q: t("city.qPlay", { town }), parts: [part("city.aPlay", f.playgrounds.length, links(f.playgrounds))] });
 if (weekendHref) faq.push({ q: t("city.qWeekend", { town }), parts: [{ text: t("city.aWeekendEdition", { town }), list: [{ name: t("city.weekend", { town }), href: weekendHref }] }] });
-else if (f.soon.length) faq.push({ q: t("city.qWeekend", { town }), parts: [{ text: t("city.aWeekend", { town }), list: links(f.soon) }] });
+else if (f.weekend.length) faq.push({ q: t("city.qWeekend", { town }), parts: [{ text: t("city.aWeekend", { town }), list: links(f.weekend) }] });
 const sep = t("city.sep");
 const plain = (p: { text: string; list: Link[] }) => p.text.replace("{list}", p.list.map((l) => l.name).join(sep));
 
@@ -72,7 +74,7 @@ const ld = {
     <h1 class="page-title">{t("city.h1", { town })}</h1>
     <p class="page-sub">{t(f.events.length ? "city.sub" : "city.subPlaces", counts)}</p>
     <p class="city-actions">
-      <a class="btn primary" href={`/${lang}/`} data-home-town={name}>{t("city.showAll", { town })}</a>
+      {onDiscover && <a class="btn primary" href={`/${lang}/`} data-home-town={name}>{t("city.showAll", { town })}</a>}
       {weekendHref && <a class="btn" href={weekendHref}>📰 {t("city.weekend", { town })}</a>}
     </p>
 

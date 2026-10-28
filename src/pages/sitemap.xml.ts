@@ -23,7 +23,7 @@ export const GET: APIRoute = async ({ site }) => {
   const paths = [
     "", "mitmachen/", "daten/",
     // City pages ("科隆带娃去哪儿"): what a parent new to the site searches for.
-    "stadt/", ...cityTowns(region.towns, events, places).map((c) => `stadt/${c.slug}/`),
+    "stadt/", ...cityTowns(region.towns, events, places, TODAY).map((c) => `stadt/${c.slug}/`),
     ...new Set(seasonal),
     ...places.filter((p) => sitemapWorthy(p) && (ours.has(p.town) || !p.id.startsWith("osm-"))).map((p) => `orte/${p.id}/`),
   ];
