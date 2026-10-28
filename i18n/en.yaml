@@ -573,7 +573,13 @@ city:
   subPlaces: "{places} kid-friendly places in {town}: playgrounds, parks, farms, zoos, pools and family cafés, with a map. Events for {town} are coming."
   descriptionPlaces: "Where to go with kids in {town}: {places} kid-friendly places, from playgrounds and parks to farms, zoos and pools, with a map."
   description: "Things to do with kids in {town}: {events} upcoming family events and {places} kid-friendly places, with a map."
-  showAll: "Everything in {town} on the map and list"
+  allEvents: "All {n} events in {town}"
+  allPlaces: "All {n} places in {town}"
+  moreH: "This is only a small selection"
+  moreP: "{town} has {events} family events in the next two weeks and {places} places for kids. See them all on Discover, with a map and filters like “Rainy day” and “Free”."
+  morePNoEvents: "{town} has {places} places for kids. See them all on Discover, with a map and filters like “Rainy day” and “Free”."
+  morePlacesOnly: "{town} has {places} places for kids; only a few of each kind are listed here. Each one has its own page with a map."
+  allP: "All of them on Discover, with a map and filters."
   weekend: "This weekend in {town}"
   soonH: Coming up
   placesH: Places to go

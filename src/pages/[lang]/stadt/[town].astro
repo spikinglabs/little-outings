@@ -73,15 +73,22 @@ const ld = {
     <a class="back" href={cityPath(lang)}>← {t("city.hubTitle")}</a>
     <h1 class="page-title">{t("city.h1", { town })}</h1>
     <p class="page-sub">{t(f.events.length ? "city.sub" : "city.subPlaces", counts)}</p>
-    <p class="city-actions">
-      {onDiscover && <a class="btn primary" href={`/${lang}/`} data-home-town={name}>{t("city.showAll", { town })}</a>}
-      {weekendHref && <a class="btn" href={weekendHref}>📰 {t("city.weekend", { town })}</a>}
-    </p>
+    {/* Like the weekend edition's box: the page shows a few, and must not read as all there is. */}
+    {onDiscover ? (
+      <a class="wk-more" href={`/${lang}/`} data-home-town={name}>
+        <span><b>{t("city.moreH")}</b>{t(f.events.length ? "city.moreP" : "city.morePNoEvents", counts)}</span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    ) : (
+      <p class="wk-more"><span><b>{t("city.moreH")}</b>{t("city.morePlacesOnly", counts)}</span></p>
+    )}
+    {weekendHref && <p class="city-actions"><a class="btn" href={weekendHref}>📰 {t("city.weekend", { town })}</a></p>}
 
     {f.soon.length > 0 && (
       <section aria-labelledby="soon-h">
         <h2 id="soon-h">{t("city.soonH")} <span class="small">{t("city.more", { n: f.events.length })}</span></h2>
         <div class="grid ideas">{f.soon.map((e) => <Card item={e} t={t} />)}</div>
+        {onDiscover && <a class="wk-more" href={`/${lang}/#soon`} data-home-town={name}><span><b>{t("city.allEvents", { town, n: f.events.length })}</b>{t("city.allP")}</span><span class="arrow" aria-hidden="true">→</span></a>}
       </section>
     )}
 
@@ -93,6 +100,7 @@ const ld = {
           <div class="grid ideas">{k.top.map((p) => <Card item={p} t={t} />)}</div>
         </section>
       ))}
+      {onDiscover && <a class="wk-more" href={`/${lang}/`} data-home-town={name}><span><b>{t("city.allPlaces", { town, n: f.places.length })}</b>{t("city.allP")}</span><span class="arrow" aria-hidden="true">→</span></a>}
     </section>
 
     {faq.length > 0 && (
@@ -130,6 +138,6 @@ const ld = {
   <script>
     // "Everything on the map": Discover opens around this town.
     import { setHome } from "../../../scripts/app";
-    document.querySelector<HTMLAnchorElement>("[data-home-town]")?.addEventListener("click", (e) => setHome((e.currentTarget as HTMLElement).dataset.homeTown!));
+    document.querySelectorAll<HTMLAnchorElement>("[data-home-town]").forEach((a) => a.addEventListener("click", () => setHome(a.dataset.homeTown!)));
   </script>
 </Base>

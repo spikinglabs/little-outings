@@ -9,9 +9,12 @@ import { MORE_TOWN_NAMES } from "./town-names.ts";
 
 /** A town needs this many events and places together before it gets a page; fewer would be a thin page. */
 export const CITY_MIN = 12;
-/** Cards per kind of place, and upcoming events, on a city page. */
-export const PER_KIND = 4;
-export const SOON = 6;
+/**
+ * Cards per kind of place, and upcoming events, on a city page: a taste, with big buttons to all of them on
+ * Discover, so a short list doesn't read as all there is.
+ */
+export const PER_KIND = 2;
+export const SOON = 3;
 /** Other cities linked at the foot of a city page. */
 export const OTHERS = 16;
 

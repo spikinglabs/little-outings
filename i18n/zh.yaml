@@ -573,7 +573,13 @@ city:
   subPlaces: "{town}有 {places} 个适合孩子的地方：游乐场、公园、农场、动物园、游泳池和亲子咖啡馆，都有中文介绍和地图。活动日历还在整理中。"
   descriptionPlaces: "{town}带娃去哪儿？{places} 个适合孩子的地方：游乐场、公园、农场、动物园和游泳池，有中文介绍和地图。"
   description: "{town}带娃去哪儿？{events} 个近期亲子活动和 {places} 个适合孩子的地方，有中文介绍和地图。"
-  showAll: "在地图和列表中查看{town}全部"
+  allEvents: "查看{town}全部 {n} 个活动"
+  allPlaces: "查看{town}全部 {n} 个地方"
+  moreH: "这里只是一小部分精选"
+  moreP: "{town}接下来两周有 {events} 个亲子活动和 {places} 个好去处。在“发现”页面可以看到全部，带地图和“雨天”“免费”等筛选。"
+  morePNoEvents: "{town}有 {places} 个好去处。在“发现”页面可以看到全部，带地图和“雨天”“免费”等筛选。"
+  morePlacesOnly: "{town}有 {places} 个适合孩子的地方，这里每类只列出几个。点开任意一个可以看详情和地图。"
+  allP: "在“发现”页面看全部，带地图和筛选。"
   weekend: "本周末{town}精选"
   soonH: 接下来的活动
   placesH: 好去处

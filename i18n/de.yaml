@@ -573,7 +573,13 @@ city:
   subPlaces: "{places} kinderfreundliche Orte in {town}: Spielplätze, Parks, Bauernhöfe, Zoos, Schwimmbäder und Familiencafés, mit Karte. Termine für {town} kommen noch."
   descriptionPlaces: "Wohin mit Kindern in {town}? {places} kinderfreundliche Orte: Spielplätze, Parks, Bauernhöfe, Zoos und Schwimmbäder, mit Karte."
   description: "Was mit Kindern in {town} unternehmen? {events} aktuelle Termine für Kinder und {places} kinderfreundliche Orte, mit Karte."
-  showAll: "Alles in {town} auf Karte und Liste"
+  allEvents: "Alle {n} Termine in {town}"
+  allPlaces: "Alle {n} Orte in {town}"
+  moreH: "Hier nur eine kleine Auswahl"
+  moreP: "In {town} gibt es in den nächsten zwei Wochen {events} Familien-Termine und {places} Orte für Kinder. Alle findest du auf Entdecken, mit Karte und Filtern wie „Bei Regen“ oder „Kostenlos“."
+  morePNoEvents: "In {town} gibt es {places} Orte für Kinder. Alle findest du auf Entdecken, mit Karte und Filtern wie „Bei Regen“ oder „Kostenlos“."
+  morePlacesOnly: "In {town} gibt es {places} Orte für Kinder; hier stehen nur ein paar je Art. Jeder Ort hat eine eigene Seite mit Karte."
+  allP: "Alle auf Entdecken, mit Karte und Filtern."
   weekend: "Wochenend-Tipps für {town}"
   soonH: Die nächsten Termine
   placesH: Ausflugsziele
