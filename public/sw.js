@@ -6,6 +6,9 @@
 //                  Add, Profile and invites (/m/<id>) always ask the network first: an old copy there would
 //                  send with an older build's form (before PR 40, places were sent without an edit key),
 //                  or show an invite as it was hours ago.
+//   Discover's tiles (/<lang>/ideen/<tile>/, /<lang>/pins/<tile>.json) → a copy from the last 3 days answers at
+//                  once and is refreshed in the background: they change once a night, and the list waited on
+//                  them behind "Loading" for up to 3 s per tile once the copy was 12 hours old
 //   /_astro/ (fonts included), icons → cache first (file names change when the content does). Only real
 //                  CSS/JS/images are kept: the host answers a missing old file with a 200 HTML page.
 //   /api/, /admin/ and anything not GET → straight to the network, never cached
@@ -16,6 +19,9 @@ const STATIC = `static-${VERSION}`;
 const MAX_PAGES = 80;
 // Pages whose forms send or change what a family contributed, and invites.
 const LIVE = /^\/((de|en|zh)\/(mitmachen|profil|treffen)\/?|m\/[a-z2-9]{10}\/?)$/;
+// Discover's cards and pins, a tile at a time: data, not pages, though the cards come as HTML.
+const TILE = /^\/(de|en|zh)\/(ideen\/[\d_-]+\/|pins\/[\d_-]+\.json)$/;
+const TILE_FRESH_MS = 3 * 24 * 60 * 60 * 1000;
 
 self.addEventListener("install", () => self.skipWaiting());
 
@@ -73,10 +79,11 @@ async function saveAssets(page) {
 
 async function networkFirst(req, url, event) {
   const cache = await caches.open(PAGES);
+  const tile = TILE.test(url.pathname);
   const fresh = fetch(req).then(async (res) => {
     if (res.ok && res.type === "basic") {
       await cache.put(req, res.clone());
-      if (isHtml(res)) event.waitUntil(saveAssets(res.clone()).catch(() => {}));
+      if (isHtml(res) && !tile) event.waitUntil(saveAssets(res.clone()).catch(() => {}));
       trim(cache);
     }
     return res;
@@ -85,11 +92,11 @@ async function networkFirst(req, url, event) {
     // Opening the app on a weak connection shouldn't wait on the network when a copy is at hand.
     let cached = await cache.match(req, { ignoreSearch: true });
     // A copy from an older build whose styles are gone would show up unstyled: wait for the network.
-    if (cached && isHtml(cached) && !(await complete(cached))) cached = undefined;
+    if (cached && isHtml(cached) && !tile && !(await complete(cached))) cached = undefined;
     if (!cached) return await fresh;
     // Data changes at most a few times a day, so a recent copy is good enough to show right away.
     const age = Date.now() - Date.parse(cached.headers.get("date") || "");
-    if (age < FRESH_MS && !LIVE.test(url.pathname)) {
+    if (age < (tile ? TILE_FRESH_MS : FRESH_MS) && !LIVE.test(url.pathname)) {
       event.waitUntil(fresh.catch(() => {}));
       return cached;
     }

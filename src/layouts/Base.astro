@@ -1,4 +1,5 @@
 ---
+import { TILE_LAT, TILE_LON } from "../lib/tiles";
 import "@fontsource/atkinson-hyperlegible/400.css";
 import "@fontsource/atkinson-hyperlegible/700.css";
 import "@fontsource/barlow-semi-condensed/600.css";
@@ -27,9 +28,10 @@ interface Props {
   /** schema.org JSON-LD for this page (src/lib/seo.ts). */
   ld?: unknown;
   /** A file the page's script will fetch, requested together with the page instead of after it. */
-  preload?: string;
+  /** Discover: where its card tiles are (/<lang>/ideen/); the ones around home start downloading as the page opens. */
+  earlyTiles?: string;
 }
-const { lang, title, description, tab, og, image, noindex, ld, preload } = Astro.props;
+const { lang, title, description, tab, og, image, noindex, ld, earlyTiles } = Astro.props;
 const t = useT(lang);
 const { region, seasons, events, places } = await getData();
 // The tiles with ideas on them (lib/tiles.ts), for Discover, its map and the "Where?" picker.
@@ -99,7 +101,6 @@ const ui = {
     <meta itemprop="description" content={ogDescription} />
     <meta itemprop="image" content={ogSquare} />
     {ld && <script type="application/ld+json" set:html={ldJson(ld)} />}
-    {preload && <link rel="preload" href={preload} as="fetch" crossorigin="anonymous" />}
     {noindex && <meta name="robots" content="noindex" />}
     <meta name="theme-color" content="#ffcc00" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#121314" media="(prefers-color-scheme: dark)" />
@@ -140,6 +141,26 @@ const ui = {
     <meta name="mobile-web-app-capable" content="yes" />
   </head>
   <body data-ui={JSON.stringify(ui)} data-lang={lang} data-home={region.center} data-towns={JSON.stringify(region.towns.map((x) => [x.name, x.lat, x.lon]))} data-tiles={tiles}>
+    {earlyTiles && <script is:inline define:vars={{ src: earlyTiles, TILE_LAT, TILE_LON }}>
+      // Discover's cards: ask for the tiles around home (as explore.ts will, lib/tiles.ts tilesNear) now, while the
+      // rest of the page and its scripts are still downloading, instead of after. explore.ts picks up window.loTileFetch.
+      try {
+        var d = document.body.dataset, towns = {}, have = {}, h = null, r = 30;
+        JSON.parse(d.towns || "[]").forEach(function (t) { towns[t[0]] = [t[1], t[2]]; });
+        JSON.parse(d.tiles || "[]").forEach(function (k) { have[k] = 1; });
+        try { h = localStorage.getItem("lo-home"); r = +JSON.parse(sessionStorage.getItem("lo-filters") || "{}").radius || 30; } catch (e) {}
+        var at = towns[h] || towns[d.home];
+        if (at) {
+          var dLat = r / 111, dLon = r / (111 * Math.cos(at[0] * Math.PI / 180));
+          window.loTileFetch = {};
+          for (var y = Math.floor((at[0] - dLat) / TILE_LAT); y <= Math.floor((at[0] + dLat) / TILE_LAT); y++)
+            for (var x = Math.floor((at[1] - dLon) / TILE_LON); x <= Math.floor((at[1] + dLon) / TILE_LON); x++) {
+              var k = y + "_" + x;
+              if (have[k]) window.loTileFetch[k] = fetch(src + k + "/").then(function (res) { if (!res.ok) throw new Error(res.status); return res.text(); });
+            }
+        }
+      } catch (e) { /* explore.ts fetches them itself */ }
+    </script>}
     <Fragment set:html={sprite()} />
     <div class="flag" aria-hidden="true"></div>
     <div class="app">
