@@ -67,17 +67,24 @@ export function textEm(s: string): number {
   return w;
 }
 
-/** Breaks text into lines of at most `maxEm`: at spaces, or anywhere between CJK characters. */
+/**
+ * Breaks text into lines of at most `maxEm`: at spaces, or anywhere between CJK characters. A space in the
+ * text stays where it was, also between Chinese and Latin ("小鹿出游 Allo Outings"), unless the line breaks there.
+ */
 export function wrap(text: string, maxEm: number): string[] {
-  const words = text.match(/[⺀-￯]|[^\s⺀-￯]+/g) ?? [];
+  // A no-break space (U+00A0) glues two words: "Allo Outings" never splits over two lines.
+  const words = text.match(/[ \t\n]+|[⺀-￯]|[^ \t\n⺀-￯]+/g) ?? [];
   const lines: string[] = [];
-  let line = "";
+  let line = "", space = false;
   for (const w of words) {
-    const join = line && !(isWide(w) || isWide(line.at(-1)!)) ? `${line} ${w}` : `${line}${w}`;
+    if (/^[ \t\n]/.test(w)) { space = true; continue; }
+    const join = line && space ? `${line} ${w}` : `${line}${w}`;
+    space = false;
     if (line && textEm(join) > maxEm) { lines.push(line); line = w; } else line = join;
   }
   if (line) lines.push(line);
-  return lines;
+  // Drawn as a plain space: the font cuts may not have a no-break space.
+  return lines.map((l) => l.replace(/\u00a0/g, " "));
 }
 
 /** The biggest headline size (px) that fits `width` in at most three lines, and its lines. */

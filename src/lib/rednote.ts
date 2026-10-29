@@ -117,7 +117,7 @@ export function weeklySet(ed: Edition, o: { townZh: string; kindName: (k: string
     title: `还有 ${o.more.events} 个活动\n和 ${o.more.places} 个好去处`,
     lines: ["游乐场、室内乐园、农场、亲子咖啡馆，都有中文介绍"],
     search: "小鹿出游 Allo Outings",
-    note: "在浏览器里搜索「小鹿出游 Allo Outings」，再在网站的搜索框输入卡片右下角的编号，就能直接打开那个活动。",
+    note: "在浏览器里搜索「小鹿出游 Allo Outings」，再在网站的搜索框输入卡片右下角的编号，就能直接打开那个活动。",
     foot: "地点数据部分来自 © OpenStreetMap 贡献者",
   };
   const caption = [
