@@ -5,7 +5,7 @@ import { useEffect, useState } from "preact/hooks";
 import { markReplaced, readProfile, rememberSent, updateSent } from "../lib/profile";
 import { schedulePush } from "../scripts/sync";
 import NickLine from "./NickField";
-import { firstSendHint } from "../lib/nickname";
+import { firstSendHint, myId } from "../lib/nickname";
 import { dropDraft, formValues, hasText, loadDraft, saveDraft } from "../lib/draft";
 
 interface Props {
@@ -62,18 +62,21 @@ export default function SuggestPlace({ lang, kinds, features, towns, ui }: Props
       kind: form.get("kind"), name: form.get("name"), town: form.get("town"), street: form.get("street"),
       website: form.get("website"), note: form.get("note"), features: form.getAll("features"), by: String(form.get("by") ?? ""),
     };
+    // Sent, not kept: the browser id lets the server tell same-named families apart (src/lib/credit.ts).
+    let voter = "";
+    try { voter = myId(localStorage); } catch { /* storage blocked */ }
     setBusy(true);
     let ok = false;
     try {
       if (editing) {
         const res = await fetch("/api/inbox", { method: "PUT", headers: { "content-type": "application/json" },
-          body: JSON.stringify({ number: editing.number, key: editing.key, lang, place }) });
+          body: JSON.stringify({ number: editing.number, key: editing.key, lang, place: { ...place, voter } }) });
         ok = res.ok;
         if (ok) try { updateSent(localStorage, editing.number, { place }); schedulePush(); } catch { /* storage blocked */ }
       } else {
         // A random key, kept only here, lets this browser change the place later.
         const key = crypto.randomUUID();
-        const res = await fetch("/api/inbox", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ kind: "place", lang, place, key }) });
+        const res = await fetch("/api/inbox", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ kind: "place", lang, place: { ...place, voter }, key }) });
         ok = res.ok;
         const number = ok ? ((await res.json().catch(() => ({}))) as { number?: number }).number : undefined;
         if (ok) try {

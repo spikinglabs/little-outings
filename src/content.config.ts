@@ -71,6 +71,8 @@ export const placeSchema = z.object({
   trust: trust.default({ level: "community" }),
   /** The nickname a parent who sent it chose to be credited under (never a real name). */
   by: z.string().max(30).optional(),
+  /** Short hash of the sender's browser id: tells two families with the same nickname apart (src/lib/credit.ts). */
+  by_id: z.string().regex(/^[0-9a-f]{8}$/).optional(),
   website: z.url().optional(),
 });
 
@@ -94,6 +96,8 @@ const eventFields = {
   trust: trust.default({ level: "community" }),
   /** The nickname a parent who sent it chose to be credited under (never a real name). */
   by: z.string().max(30).optional(),
+  /** Short hash of the sender's browser id: tells two families with the same nickname apart (src/lib/credit.ts). */
+  by_id: z.string().regex(/^[0-9a-f]{8}$/).optional(),
   website: z.url().optional(),
 };
 export const eventSchema = z

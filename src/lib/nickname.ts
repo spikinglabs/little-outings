@@ -54,6 +54,16 @@ export function myNick(store: Store, lang: string): string {
   return nick;
 }
 
+/**
+ * This browser's random id (lo-voter, same one the taps use), sent with a contribution so two families
+ * who picked the same nickname can be told apart. The server keeps only a short hash of it (by_id).
+ */
+export function myId(store: Store): string {
+  let v = store.getItem("lo-voter");
+  if (!v) { v = crypto.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(36).slice(2)}`; store.setItem("lo-voter", v); }
+  return v;
+}
+
 /** True once: after the first thing this family sends, so the thanks can say where to change the name. */
 export function firstSendHint(store: Store): boolean {
   if (store.getItem("lo-nick-hinted")) return false;

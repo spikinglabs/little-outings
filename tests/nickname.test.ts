@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { cleanNick, firstSendHint, myNick, randomNick } from "../src/lib/nickname.ts";
+import { cleanNick, firstSendHint, myId, myNick, randomNick } from "../src/lib/nickname.ts";
 
 const mem = () => { const m = new Map<string, string>(); return { m, getItem: (k: string) => m.get(k) ?? null, setItem: (k: string, v: string) => void m.set(k, v) }; };
 
@@ -31,4 +31,12 @@ test("the first-send hint shows once", () => {
   const s = mem();
   assert.equal(firstSendHint(s), true);
   assert.equal(firstSendHint(s), false);
+});
+
+test("the browser id is made once and shared with the taps (lo-voter)", () => {
+  const s = mem();
+  const id = myId(s);
+  assert.match(id, /^[A-Za-z0-9_-]{16,100}$/);
+  assert.equal(s.m.get("lo-voter"), id);
+  assert.equal(myId(s), id);
 });
