@@ -15,7 +15,7 @@ interface Props { title: string; lines: (string | undefined | false)[]; t: T; ca
 const { title, lines, t, card, lang, town, name } = Astro.props;
 const text = [title, ...lines.filter(Boolean), t("share.via")].join("\n");
 const zh = lang === "zh";
-const xhsText = zh ? rednoteText(title, lines, town) : "";
+const xhsText = zh ? rednoteText(title, lines, town, card.code) : "";
 ---
 <button class="btn" type="button" data-share-page data-title={title} data-text={text} data-done={t("share.pageCopied")}>
   <Fragment set:html={svg(UI_ICON.share, 'stroke-width="2" width="18" height="18"')} /><span data-share-label>{t("share.page")}</span>

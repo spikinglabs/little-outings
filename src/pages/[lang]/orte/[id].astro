@@ -8,6 +8,7 @@ import ReportBox from "../../../components/ReportBox.astro";
 import VisitBox from "../../../components/VisitBox.astro";
 import ShareButton from "../../../components/ShareButton.astro";
 import { shareCard } from "../../../lib/share-card";
+import { pageCodes } from "../../../lib/item-codes";
 import AskSheet from "../../../components/AskSheet.astro";
 import { LANGS, isFallback, tr, useT, type Lang } from "../../../lib/i18n";
 import { eventsAt, getData } from "../../../lib/data";
@@ -74,6 +75,7 @@ const card = shareCard(lang, {
   tone: "paper", tag: t(`kinds.${p.kind}`), title: nameOf(p, lang), german: germanName(p, lang),
   lines: [address || area, has.slice(0, 5).join(" · "), goodFor.length > 0 && t("visit.parentsSay", { list: goodFor.join(", ") })],
   note: p.note && tr(p.note, lang),
+  code: (await pageCodes()).get(`orte/${p.id}/`),
 }, t);
 const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
 const ld = placeLd(p, { url: `${site}${Astro.url.pathname}`, name: nameOf(p, lang), description, lang, facility: (f) => t(`features.${f}`) });

@@ -292,6 +292,7 @@ share:
   picNote: The picture comes with a short text and the link to this page.
   cardGerman: "German: {name}"
   cardFoot: Please check with the organiser before you go
+  cardCode: Type the code into the search box to open this page
   shared: { one: "1 outing was shared with you.", other: "{n} outings were shared with you." }
   add: Add to my list
 cal: { add: Add to calendar, google: Google Calendar, ics: "Apple, Outlook & others (.ics)" }

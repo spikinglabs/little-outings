@@ -292,6 +292,7 @@ share:
   picNote: Zum Bild kommt ein kurzer Text mit dem Link zu dieser Seite.
   cardGerman: "{name}"
   cardFoot: Bitte vor dem Losgehen beim Veranstalter nachfragen
+  cardCode: Code ins Suchfeld tippen, um diese Seite zu öffnen
   shared: { one: "1 Ausflug wurde mit euch geteilt.", other: "{n} Ausflüge wurden mit euch geteilt." }
   add: Zu meiner Liste hinzufügen
 cal: { add: In den Kalender, google: Google Kalender, ics: "Apple, Outlook & andere (.ics)" }

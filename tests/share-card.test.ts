@@ -40,3 +40,23 @@ test("the Rednote text has no link and leads its tags with #小鹿出游", () =>
   assert.match(text, /搜索「小鹿出游 Allo Outings」/);
   assert.match(text.split("\n").at(-1)!, /^#小鹿出游 #德国带娃 #波恩带娃/);
 });
+
+test("page codes are six safe characters, stay the same, and never repeat", async () => {
+  const { itemCodes, normItemCode, normCode } = await import("../src/lib/rednote-code.ts");
+  const paths = Array.from({ length: 20000 }, (_, i) => `termine/evt-${i}/`);
+  const a = itemCodes(paths), b = itemCodes([...paths].reverse());
+  assert.equal(new Set(a.values()).size, paths.length);
+  for (const p of paths.slice(0, 50)) {
+    assert.equal(a.get(p), b.get(p));
+    assert.match(a.get(p)!, /^[2-9A-HJKMNP-Z]{6}$/);
+    assert.equal(normItemCode(` ${a.get(p)!.toLowerCase()} `), a.get(p));
+    // Never taken for a weekly pick code ("K31-2").
+    assert.equal(normCode(a.get(p)!), null);
+  }
+  assert.equal(normItemCode("K31-2"), null);
+  assert.equal(normItemCode("Spielplatz"), null);
+});
+
+test("the Rednote text names the page's code", () => {
+  assert.match(rednoteText("灯笼游行", [], "波恩", "7KQ3MX"), /输入编号 7KQ3MX/);
+});

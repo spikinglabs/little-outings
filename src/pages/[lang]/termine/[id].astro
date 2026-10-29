@@ -20,6 +20,7 @@ import { seasonPageFor, seasonPath } from "../../../lib/seasons";
 import { eventKey } from "../../../lib/og";
 import ShareButton from "../../../components/ShareButton.astro";
 import { shareCard } from "../../../lib/share-card";
+import { pageCodes } from "../../../lib/item-codes";
 import RednoteShare from "../../../components/RednoteShare.astro";
 import { rednoteSets } from "../../../lib/rednote-data";
 
@@ -62,6 +63,7 @@ const card = shareCard(lang, {
   tone: "gold", tag: [dateRange(t, e), e.time].filter(Boolean).join(" · "), title, german,
   lines: [where, e.price && (e.price.free ? t("free") : tr(e.price.text, lang) || t("paid")), e.ages && ageText(t, e.ages), e.indoor != null && (e.indoor ? t("indoor") : t("outdoor"))],
   note: e.note && tr(e.note, lang),
+  code: (await pageCodes()).get(`termine/${e.id}/`),
 }, t);
 const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
 const ld = eventLd(e, {

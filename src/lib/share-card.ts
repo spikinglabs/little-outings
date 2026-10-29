@@ -14,6 +14,8 @@ export interface CardInput {
   german?: string;
   lines: (string | undefined | false | null | 0)[];
   note?: string;
+  /** The page's code (src/lib/rednote-code.ts), typed into the site's search box to open it. */
+  code?: string;
 }
 
 /** What the search box on the card says: the name Chinese readers search for, the address for everyone else. */
@@ -40,16 +42,20 @@ export function shareCard(lang: string, c: CardInput, t: T): Sheet {
       .filter((l): l is string => typeof l === "string" && l.trim() !== ""),
     note: c.note ? clip(c.note.replace(/\s+/g, " ").trim(), 60) : undefined,
     search: cardSearch(lang),
-    foot: t("share.cardFoot"),
+    code: c.code,
+    foot: t(c.code ? "share.cardCode" : "share.cardFoot"),
   };
 }
 
-/** The text for Rednote: no link (Rednote punishes them), the site's name to search for, our tags. */
-export function rednoteText(title: string, lines: (string | undefined | false)[], town: string): string {
+/** The text for Rednote: no link (Rednote punishes them), the site's name to search for and the page's code, our tags. */
+export function rednoteText(title: string, lines: (string | undefined | false)[], town: string, code?: string): string {
   return [
     title, ...lines.filter(Boolean), "",
     "信息以主办方为准，出发前请再确认～",
-    `更多${town}带娃活动和好去处：浏览器搜索「${cardSearch("zh")}」`, "",
+    code
+      ? `浏览器搜索「${cardSearch("zh")}」，在网站搜索框输入编号 ${code} 就能打开这一页，还有更多${town}带娃活动和好去处。`
+      : `更多${town}带娃活动和好去处：浏览器搜索「${cardSearch("zh")}」`,
+    "",
     hashtags(["德国带娃", `${town}带娃`, "遛娃", "德国生活", "德国妈妈", "德国爸爸"]),
   ].join("\n");
 }
