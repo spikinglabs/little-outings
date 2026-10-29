@@ -105,9 +105,10 @@ const ui = { ...t.group("profile"), count: t.group("profile.count") };
       <p class="done">{p("deleteWarn")}</p>
       <ul class="profile-counts" data-delete-lose></ul>
       <p class="small">{p("deleteKeep")}</p>
-      <div class="profile-actions"><button class="btn" type="button" data-delete-download>{p("deleteDownload")}</button></div>
+      <p class="done" data-delete-need>{p("deleteNeedDownload")}</p>
+      <div class="profile-actions"><button class="btn primary" type="button" data-delete-download>{p("deleteDownload")}</button></div>
       <label>{p("deleteType")} <b>{p("deleteSentence")}</b>
-        <input name="word" autocomplete="off" spellcheck="false" placeholder={p("deleteSentence")} data-delete-word />
+        <input name="word" autocomplete="off" spellcheck="false" placeholder={p("deleteSentence")} disabled data-delete-word />
       </label>
       <div class="profile-actions">
         <button class="btn danger" type="submit" disabled data-delete>{p("deleteGo")}</button>
@@ -292,6 +293,7 @@ const ui = { ...t.group("profile"), count: t.group("profile.count") };
       });
       a.click();
       setTimeout(() => URL.revokeObjectURL(a.href), 10_000);
+      document.dispatchEvent(new CustomEvent("lo:downloaded"));
     });
 
     $("[data-load-pick]").addEventListener("click", () => $("[data-load]").click());
@@ -318,14 +320,20 @@ const ui = { ...t.group("profile"), count: t.group("profile.count") };
       // What exactly goes, from what this phone holds now.
       const lose = [...countLines(local()), ...(getSync() ? [ui.deletePasskey] : []), ui.deleteVotes];
       $("[data-delete-lose]").replaceChildren(...lose.map((s) => Object.assign(document.createElement("li"), { textContent: s })));
-      ask.hidden = false; $("[data-delete-start]").hidden = true; word.focus();
+      ask.hidden = false; $("[data-delete-start]").hidden = true;
     });
+    // No deleting without a copy: the sentence box opens only once this phone has saved the download.
     $("[data-delete-download]").addEventListener("click", () => $("[data-download]").click());
-    $("[data-delete-cancel]").addEventListener("click", () => { ask.hidden = true; $("[data-delete-start]").hidden = false; word.value = ""; $<HTMLButtonElement>("[data-delete]").disabled = true; });
+    document.addEventListener("lo:downloaded", () => {
+      if (ask.hidden) return;
+      word.disabled = false; word.focus();
+      $("[data-delete-need]").textContent = ui.deleteDownloaded;
+    });
+    $("[data-delete-cancel]").addEventListener("click", () => { ask.hidden = true; $("[data-delete-start]").hidden = false; word.value = ""; word.disabled = true; $("[data-delete-need]").textContent = ui.deleteNeedDownload; $<HTMLButtonElement>("[data-delete]").disabled = true; });
     word.addEventListener("input", () => { $<HTMLButtonElement>("[data-delete]").disabled = !typed(); });
     ask.addEventListener("submit", async (e) => {
       e.preventDefault();
-      if (!typed() || !confirm(ui.deleteConfirm)) return;
+      if (word.disabled || !typed() || !confirm(ui.deleteConfirm)) return;
       const p: Profile = local();
       const s = getSync();
       // Our side first. If that fails, the phone keeps its ids so the parent can simply try again.

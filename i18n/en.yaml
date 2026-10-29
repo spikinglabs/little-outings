@@ -398,8 +398,10 @@ profile:
   delete: Delete everything
   deleteConfirm: "Delete your saved list, answers and votes? This can't be undone."
   deleteWarn: "Deleting can't be undone. This is what goes, from this phone and from us:"
-  deleteKeep: "Tips, places and events you already sent stay published (write to us to take one down). Want a copy first?"
-  deleteDownload: Download my data first
+  deleteKeep: "Tips, places and events you already sent stay published (write to us to take one down)."
+  deleteDownload: "Download your data"
+  deleteNeedDownload: "We keep no copy of your data, so once it's deleted we can't bring it back. Download it first; deleting unlocks after that."
+  deleteDownloaded: "Saved. Now type the sentence to delete."
   deleteType: "To confirm, type this sentence:"
   deleteSentence: "I want to delete all my data"
   deletePasskey: "The copy kept with your passkey, on all your devices"

@@ -398,8 +398,10 @@ profile:
   delete: Alles löschen
   deleteConfirm: "Merkliste, Antworten und Stimmen löschen? Das lässt sich nicht rückgängig machen."
   deleteWarn: "Löschen lässt sich nicht rückgängig machen. Das verschwindet, von diesem Handy und bei uns:"
-  deleteKeep: "Tipps, Orte und Termine, die du schon geschickt hast, bleiben veröffentlicht (schreib uns, wenn einer weg soll). Erst eine Kopie sichern?"
-  deleteDownload: Erst meine Daten herunterladen
+  deleteKeep: "Tipps, Orte und Termine, die du schon geschickt hast, bleiben veröffentlicht (schreib uns, wenn einer weg soll)."
+  deleteDownload: "Deine Daten herunterladen"
+  deleteNeedDownload: "Wir haben keine Kopie deiner Daten. Einmal gelöscht, können wir sie nicht wiederherstellen. Lade sie zuerst herunter; danach kannst du löschen."
+  deleteDownloaded: "Gespeichert. Tippe jetzt den Satz zum Löschen."
   deleteType: "Zur Bestätigung tippe diesen Satz:"
   deleteSentence: "Ich möchte alle meine Daten löschen"
   deletePasskey: "Die Kopie bei deinem Passkey, auf all deinen Geräten"

@@ -398,8 +398,10 @@ profile:
   delete: 全部删除
   deleteConfirm: "删除收藏、回答和投票？此操作无法撤销。"
   deleteWarn: 删除后无法恢复。以下内容会从这部手机和我们这里删除：
-  deleteKeep: 你已发送的贴士、地点和活动会保留公开（如需撤下，请联系我们）。要先保存一份副本吗？
-  deleteDownload: 先下载我的数据
+  deleteKeep: 你已发送的贴士、地点和活动会保留公开（如需撤下，请联系我们）。
+  deleteDownload: 下载你的数据
+  deleteNeedDownload: 我们不保留你数据的任何副本，删除后无法恢复。请先下载，下载后才能删除。
+  deleteDownloaded: 已保存。现在输入这句话即可删除。
   deleteType: "为确认，请输入这句话："
   deleteSentence: 我要删除我的所有数据
   deletePasskey: 通行密钥中保存的副本（所有设备上）
