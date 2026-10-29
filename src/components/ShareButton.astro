@@ -2,13 +2,40 @@
 // "Share" on event and place pages: the phone's share sheet (WhatsApp, WeChat, Signal …) with a short
 // text that names the outing and the site; browsers without one copy text and link. The link preview
 // picture comes from the page's og tags (src/lib/og.ts). The click handler is in src/scripts/app.ts.
+//
+// "Share as picture" next to it: a 3:4 card of the outing (src/lib/sheet.ts, like the Rednote sets), drawn
+// in the browser (src/scripts/share-card.ts), shared with a text. Rednote punishes links, so Chinese pages
+// offer a Rednote text without one that names the site to search for instead; every other share keeps the link.
 import type { T } from "../lib/i18n";
 import { UI_ICON, svg } from "../lib/icons";
+import type { Sheet } from "../lib/sheet";
+import { rednoteText } from "../lib/share-card";
 
-interface Props { title: string; lines: (string | undefined | false)[]; t: T }
-const { title, lines, t } = Astro.props;
+interface Props { title: string; lines: (string | undefined | false)[]; t: T; card: Sheet; lang: string; town: string; name: string }
+const { title, lines, t, card, lang, town, name } = Astro.props;
 const text = [title, ...lines.filter(Boolean), t("share.via")].join("\n");
+const zh = lang === "zh";
+const xhsText = zh ? rednoteText(title, lines, town, card.code) : "";
 ---
-<button class="btn" type="button" data-share-page data-title={title} data-text={text} data-done={t("share.pageCopied")}>
-  <Fragment set:html={svg(UI_ICON.share, 'stroke-width="2" width="18" height="18"')} /><span data-share-label>{t("share.page")}</span>
+<button class="btn icon" type="button" title={t("share.page")} data-share-page data-title={title} data-text={text} data-done={t("share.pageCopied")}>
+  <Fragment set:html={svg(UI_ICON.share, 'stroke-width="2" width="18" height="18"')} /><span class="sr-only" data-share-label>{t("share.page")}</span>
 </button>
+<button class="btn icon" type="button" title={t("share.pic")} data-share-pic>
+  <Fragment set:html={svg(UI_ICON.image, 'stroke-width="2" width="18" height="18"')} /><span class="sr-only">{t("share.pic")}</span>
+</button>
+<dialog class="sheet pic-sheet" data-pic-sheet aria-labelledby="pic-title" data-card={JSON.stringify(card)} data-name={name}
+  data-text={text} data-xhs={xhsText} data-title={title}
+  data-msg={JSON.stringify({ drawing: t("share.picDrawing"), failed: t("share.picFailed"), copied: t("share.picCopied"), hold: t("share.picHold") })}>
+  <div class="pic-head">
+    <h3 id="pic-title">{t("share.picTitle")}</h3>
+    <button type="button" class="btn" data-pic-close aria-label={t("share.close")}>✕</button>
+  </div>
+  <img data-pic alt="" width="1080" height="1440" />
+  <p class="small" role="status" data-pic-msg></p>
+  <div class="pic-btns" data-pic-btns>
+    <button type="button" class="btn primary" data-pic-share="link">{t("share.picShare")}</button>
+    {zh && <button type="button" class="btn" data-pic-share="xhs">小红书</button>}
+    <a class="btn" data-pic-save download={`${name}.png`} href="#">{t("share.picSave")}</a>
+  </div>
+  <p class="small">{t("share.picNote")}</p>
+</dialog>

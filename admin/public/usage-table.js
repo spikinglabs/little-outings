@@ -11,6 +11,7 @@ export const ACTIONS = [
   ["calendar", "Added to calendar"],
   ["website", "Opened the organiser's website"],
   ["install", "Installed the app"],
+  ["share_image", "Shared or saved a picture card"],
   ["rednote_share", "Shared to Rednote"],
   ["from_rednote", "Typed a Rednote card code"],
   ["from_telegram", "Came from Telegram"],

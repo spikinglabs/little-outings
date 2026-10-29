@@ -103,7 +103,7 @@ paid: Kostenpflichtig
 trust: { parents: { one: "1 Antwort von Eltern", other: "{n} Antworten von Eltern" }, base: "Daten: {source} & Allo-Outings-Community", verified: "✓ Geprüft", official: Offizielle Quelle, community: "Von Eltern gemeldet, noch nicht geprüft", from: "Aus {source}, noch nicht geprüft", byNick: "Eingetragen von {by}, noch nicht geprüft" }
 save: Merken
 saved: Gemerkt
-openMaps: In Karten öffnen
+openMaps: Route
 until: bis
 locPill: { venue: Ort ungefähr, area: Nur Stadt bekannt }
 locNote: { venue: "Der Ort ist nur ungefähr auf der Karte.", area: "Wir wissen nur: irgendwo in {town}.", unknown: "Der Ort fehlt noch." }
@@ -280,9 +280,22 @@ share:
   via: "gefunden auf Allo Outings"
   button: Liste teilen
   copied: Link kopiert. Öffnet ihn auf einem anderen Handy oder schickt ihn an jemanden, mit dem ihr plant.
+  pic: Poster
+  picTitle: Poster
+  picShare: Teilen
+  picSave: Speichern
+  close: Schließen
+  picDrawing: Das Poster wird erstellt…
+  picFailed: "Das Poster ließ sich hier nicht erstellen. Versucht es mit Teilen."
+  picCopied: "Text kopiert: unter dem Poster einfügen."
+  picHold: Poster gedrückt halten, um es zu speichern.
+  picNote: Geteilt mit kurzem Text und Link.
+  cardGerman: "{name}"
+  cardFoot: Bitte vor dem Losgehen beim Veranstalter nachfragen
+  cardCode: Code ins Suchfeld tippen, um diese Seite zu öffnen
   shared: { one: "1 Ausflug wurde mit euch geteilt.", other: "{n} Ausflüge wurden mit euch geteilt." }
   add: Zu meiner Liste hinzufügen
-cal: { add: In den Kalender, google: Google Kalender, ics: "Apple, Outlook & andere (.ics)" }
+cal: { add: Kalender, google: Google Kalender, ics: "Apple, Outlook & andere (.ics)" }
 chipAsk:
   still: "Stimmt das noch: {f}?"
   votes: "{y} ja · {n} nein"

@@ -3,7 +3,7 @@
 // Distances are measured once per home town, and the list shows a page at a time.
 import { lastDay } from "../lib/horizon";
 import { count as countHit } from "../lib/count";
-import { normCode } from "../lib/rednote-code";
+import { normCode, normItemCode } from "../lib/rednote-code";
 import { lastChance } from "../lib/running";
 import { ORDERS, orderEvents, orderPlaces, type Order } from "../lib/order";
 import { holidayFor, type Period } from "../lib/holidays";
@@ -450,6 +450,15 @@ $<HTMLInputElement>("#q").addEventListener("input", (e) => {
     countHit("from_rednote", xhsCodes[code].startsWith("orte/") ? "place" : "event");
     location.href = `/${document.documentElement.lang.slice(0, 2)}/${xhsCodes[code]}`;
     return;
+  }
+  // A share card's six-character code: looked up in the small file for its first character.
+  const item = normItemCode(q);
+  if (item) {
+    fetch(`/codes/${item[0]}.json`).then((r) => (r.ok ? r.json() : {})).then((codes: Record<string, string>) => {
+      if (!codes[item] || normItemCode($<HTMLInputElement>("#q").value) !== item) return;
+      countHit("from_rednote", codes[item].startsWith("orte/") ? "place" : "event");
+      location.href = `/${document.documentElement.lang.slice(0, 2)}/${codes[item]}`;
+    }).catch(() => { /* offline: the list search below still runs */ });
   }
   // The list follows once typing pauses, not on every letter.
   clearTimeout(typing);

@@ -49,8 +49,68 @@ document.addEventListener("click", async (ev) => {
   count("copy");
   const label = b.querySelector<HTMLElement>("[data-share-label]")!;
   const was = label.textContent;
+  // The icon-only button shows the word for a moment.
   label.textContent = b.dataset.done!;
-  setTimeout(() => { label.textContent = was; }, 2500);
+  label.classList.remove("sr-only");
+  setTimeout(() => { label.textContent = was; label.classList.add("sr-only"); }, 2500);
+});
+
+// "Share as picture": draws the page's card when the box opens, so the share button in it hands the phone
+// a ready file (Safari drops a share that waits). Rednote gets a text without the link; other apps get the link.
+document.addEventListener("click", async (ev) => {
+  if (!(ev.target as Element).closest("[data-share-pic]")) return;
+  const box = document.querySelector<HTMLDialogElement>("[data-pic-sheet]");
+  if (!box) return;
+  box.showModal();
+  if (box.dataset.ready) return;
+  box.dataset.ready = "1";
+  const msg = JSON.parse(box.dataset.msg!) as Record<string, string>;
+  const say = box.querySelector<HTMLElement>("[data-pic-msg]")!;
+  const btns = box.querySelector<HTMLElement>("[data-pic-btns]")!;
+  const img = box.querySelector<HTMLImageElement>("[data-pic]")!;
+  const save = box.querySelector<HTMLAnchorElement>("[data-pic-save]")!;
+  const url = location.origin + location.pathname;
+  say.textContent = msg.drawing;
+  btns.hidden = true;
+  let file: File;
+  try {
+    const { cardPng } = await import("./share-card");
+    const png = await cardPng(JSON.parse(box.dataset.card!));
+    file = new File([png], `${box.dataset.name}.png`, { type: "image/png" });
+    // A data: address, not blob:, so WeChat's long press can save it too.
+    const src = await new Promise<string>((ok) => { const r = new FileReader(); r.onload = () => ok(r.result as string); r.readAsDataURL(png); });
+    img.src = save.href = src;
+  } catch {
+    say.textContent = msg.failed;
+    delete box.dataset.ready;
+    return;
+  }
+  const canShare = !IN_WECHAT && !!navigator.canShare?.({ files: [file] });
+  say.textContent = canShare ? "" : msg.hold;
+  btns.hidden = false;
+  box.querySelectorAll<HTMLElement>("[data-pic-share]").forEach((b) => { b.hidden = !canShare; });
+  box.querySelectorAll<HTMLButtonElement>("[data-pic-share]").forEach((b) => b.addEventListener("click", async () => {
+    const xhs = b.dataset.picShare === "xhs";
+    const text = xhs ? box.dataset.xhs! : `${box.dataset.text}\n${url}`;
+    count(xhs ? "rednote_share" : "share_image");
+    // Many apps drop the text that comes with a picture, so it goes on the clipboard as well. Both start
+    // in the same tick as the tap: Safari refuses either one after a wait.
+    const copied = navigator.clipboard?.writeText(text).then(() => true, () => false) ?? Promise.resolve(false);
+    const shared = navigator.share({ files: [file], text, title: box.dataset.title }).catch(() => { /* closed the share sheet */ });
+    say.textContent = (await copied) ? msg.copied : "";
+    await shared;
+  }));
+  save.addEventListener("click", () => count("share_image"));
+});
+document.addEventListener("click", (ev) => {
+  const close = (ev.target as Element).closest("[data-pic-close]");
+  if (close) close.closest("dialog")?.close();
+  // A tap on the dimmed page around the box closes it too.
+  else if ((ev.target as Element).matches?.("dialog[data-pic-sheet]")) {
+    const box = ev.target as HTMLDialogElement, r = box.getBoundingClientRect();
+    const { clientX: x, clientY: y } = ev as MouseEvent;
+    if (x < r.left || x > r.right || y < r.top || y > r.bottom) box.close();
+  }
 });
 
 /** Inside WeChat (its in-app browser says MicroMessenger). */
