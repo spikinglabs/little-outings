@@ -33,6 +33,19 @@ h1, h2, h3, .meta, .de-name, .orig, .trust { overflow-wrap: anywhere; }
 .lang { display: flex; border: 1px solid var(--line); border-radius: 999px; background: var(--card); padding: 2px; flex: none; }
 .lang a { border-radius: 999px; padding: 5px 9px; font-size: .82rem; font-weight: 700; color: var(--ink-soft); min-width: 34px; text-align: center; text-decoration: none; }
 .lang a[aria-current="true"] { background: var(--ink); color: var(--paper); }
+/* Quick light/dark switch: shows the moon in light (tap for dark) and the sun in dark. */
+.theme-flip { flex: none; width: 34px; height: 34px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 999px; background: var(--card); color: var(--ink-soft); padding: 0; cursor: pointer; }
+.theme-flip:hover { color: var(--ink); }
+.theme-flip span { display: grid; }
+.theme-flip svg { width: 18px; height: 18px; }
+.theme-sun { display: none !important; }
+:root[data-theme="dark"] .theme-sun { display: grid !important; }
+:root[data-theme="dark"] .theme-moon { display: none !important; }
+@media (max-width: 340px) { .top { gap: 6px; } .top-right { gap: 6px; } .lang a { padding-inline: 7px; min-width: 30px; } }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-sun { display: grid !important; }
+  :root:not([data-theme="light"]) .theme-moon { display: none !important; }
+}
 
 /* hero question and filters */
 .ask { padding-block: 14px 8px; }
