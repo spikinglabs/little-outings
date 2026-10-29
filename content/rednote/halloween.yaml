@@ -1,0 +1,76 @@
+# A Rednote (小红书) set of real Halloween events for families, from the site's own listings (checked 2026-10-29).
+# Drawn at /xhs/halloween-<n>.png until `until`; the admin's Rednote box shows it with the caption.
+# After changing Chinese text here, rerun scripts/og-font.py so the font has every character.
+title: 万圣节带娃去哪｜德国6城活动
+until: 2026-10-31
+caption: |
+  游友们，这周六就是万圣节🎃 鹿小游从网站上挑了几个适合带娃的万圣节活动：
+
+  【柏林】Britzer Garten 公园万圣节（周六 16–21点）、Tierpark 惊悚动物世界（周五、周六 15点）、Wilmersdorfer Straße 万圣节庆典（到周六）
+  【汉堡】Niendorf 灯笼游行正好在万圣节（周六 16点起，可以穿万圣节装），图书馆绘本影院和万圣节手工（周五）
+  【慕尼黑】Hellabrunn 动物园万圣节家庭导览（周五 17点），Riem 图书馆万圣惊魂周（周五）
+  【法兰克福】动物园万圣节（周六 10点起），考古博物馆惊魂警报（周五）
+  【科隆 · 波恩】Mülheim 图书馆万圣节活动日（周五，免费），勒沃库森儿童万圣节派对（周六上午），波恩老市政厅前儿童万圣节（周六 19点）
+
+  小提示：德国孩子也会挨家挨户说 Süßes oder Saures!（不给糖就捣蛋），一般只敲门口有南瓜或万圣节装饰的人家。
+
+  更多活动：浏览器搜索「小鹿出游 Allo Outings」，选你的城市，点「秋天和万圣节」。活动信息以主办方为准，出发前请再确认。
+tags: [德国带娃, 万圣节, 德国万圣节, 柏林带娃, 汉堡带娃, 慕尼黑带娃, 法兰克福带娃, 科隆带娃, 德国生活, 德国妈妈, 德国爸爸, 留德]
+cards:
+  - tone: gold
+    tag: 本周四 – 周六 · 10.31 万圣节
+    title: "万圣节\n带娃去哪"
+    lines:
+      - 柏林、汉堡、慕尼黑、法兰克福、科隆、波恩，适合带娃的万圣节活动都在这里。
+      - 动物园夜游、南瓜手工、儿童派对、绘本影院。
+    foot: 游友们先收藏，周末不用愁
+  - tone: paper
+    tag: 柏林 · 万圣节
+    title: 柏林
+    lines:
+      - 【周六 16–21点】公园万圣节 Halloween im Park，Britzer Garten
+      - 【周五、周六 15–16:30】惊悚动物世界 Gruselige Tierwelt，Tierpark Berlin
+      - 【到周六 11–20点】柏林最大万圣节庆典，Wilmersdorfer Straße 步行街
+      - 【周五 10–15点】万圣节手工和解谜工作坊，Jugend Museum（室内）
+    foot: 信息以主办方为准，出发前请再确认
+  - tone: paper
+    tag: 汉堡 · 万圣节
+    title: 汉堡
+    lines:
+      - 【周六 16点起，18:30出发】Niendorf 灯笼游行，Fuhlsbütteler Weg 5，免费。正好在万圣节，可以穿万圣节装！
+      - 【周五 16点】万圣节绘本影院：达库拉伯爵，Bücherhalle Langenhorn
+      - 【周五 15–17点】万圣节折纸手工，Bücherhalle Horn
+      - 【周五 15–17点】图书馆万圣节游戏，Bücherhalle Kirchdorf
+    foot: 信息以主办方为准，出发前请再确认
+  - tone: paper
+    tag: 慕尼黑 · 万圣节
+    title: 慕尼黑
+    lines:
+      - 【周五 17点】万圣节家庭导览，Tierpark Hellabrunn 动物园
+      - 【周五 16:30】绘本时光：万圣惊魂周，Stadtbibliothek Riem
+      - 【周四 16:30】儿童影院：万圣惊魂周，Stadtbibliothek Riem
+      - 【周四 16–17点】做万圣节风灯，Stadtbibliothek Ramersdorf
+    foot: 信息以主办方为准，出发前请再确认
+  - tone: paper
+    tag: 法兰克福 · 万圣节
+    title: 法兰克福
+    lines:
+      - 【周六 10点起】动物园万圣节 Halloween im Zoo，Zoo Frankfurt
+      - 【周五】博物馆惊魂警报 Gruselalarm im Museum!，Archäologisches Museum（室内，时间看主办方）
+    note: 动物园白天就有活动，小一点的孩子也不用熬夜。
+    foot: 信息以主办方为准，出发前请再确认
+  - tone: paper
+    tag: 科隆 · 波恩 · 万圣节
+    title: 科隆和波恩
+    lines:
+      - 【周五 12–18点】万圣节活动日，科隆 Stadtteilbibliothek Mülheim，免费
+      - 【周六 10–14点】儿童万圣节派对，勒沃库森 Marimars Tanztempel
+      - 【周六 19点】波恩儿童万圣节，老市政厅前 Markt 2
+    foot: 信息以主办方为准，出发前请再确认
+  - tone: ink
+    title: "还有更多\n万圣节活动"
+    lines:
+      - 秋假活动、动物园、博物馆、亲子好去处，都有中文介绍。
+    search: 小鹿出游 Allo Outings
+    note: 在浏览器里搜索「小鹿出游 Allo Outings」，选你的城市，点「秋天和万圣节」，就能看到附近的活动。
+    foot: 信息以主办方为准，出发前请再确认

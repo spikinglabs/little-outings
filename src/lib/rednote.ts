@@ -182,7 +182,7 @@ const text = (x: number, y: number, s: string, size: number, fill: string, weigh
   `<text x="${x}" y="${y}" ${font(s)} font-size="${size}" font-weight="${weight}" fill="${fill}"${extra}>${esc(s)}</text>`;
 
 // Chinese punctuation that may not start a line: it moves to the end of the line before.
-const CLOSING = /^[，。、；：！？）」』》%]/;
+const CLOSING = /^[，。、；：！？）】」』》%]/;
 
 /** wrap() from og.ts, keeping closing punctuation off the start of a line. */
 export function lines(text: string, maxEm: number): string[] {
