@@ -103,7 +103,7 @@ paid: 收费
 trust: { parents: { other: "{n} 条家长反馈" }, base: "数据：{source} 及小鹿出游社区", verified: "✓ 已核实", official: 官方来源, community: 家长提供，尚未核实, from: "来自 {source}，尚未核实", byNick: "由 {by} 添加，尚未核实" }
 save: 收藏
 saved: 已收藏
-openMaps: 在地图应用中查看
+openMaps: 导航
 until: 至
 locPill: { venue: 大致位置, area: 仅知城市 }
 locNote: { venue: 地图上的位置只是大概。, area: "目前只知道在{town}的某处。", unknown: 地点暂缺。 }
@@ -295,7 +295,7 @@ share:
   cardCode: 在网站搜索框输入右下角的编号，就能打开这一页
   shared: { one: "有人和你分享了 1 个去处。", other: "有人和你分享了 {n} 个去处。" }
   add: 加入我的清单
-cal: { add: 加入日历, google: Google 日历, ics: "Apple、Outlook 等 (.ics)" }
+cal: { add: 日历, google: Google 日历, ics: "Apple、Outlook 等 (.ics)" }
 chipAsk:
   still: "{f}：现在还是这样吗？"
   votes: "{y} 人说有 · {n} 人说没有"

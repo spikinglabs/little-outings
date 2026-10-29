@@ -103,7 +103,7 @@ paid: Paid entry
 trust: { parents: { one: "1 answer from parents", other: "{n} answers from parents" }, base: "Data: {source} & Allo Outings community", verified: "✓ Checked", official: Official source, community: "Reported by parents, not checked yet", from: "From {source}, not checked yet", byNick: "Added by {by}, not checked yet" }
 save: Save
 saved: Saved
-openMaps: Open in Maps
+openMaps: Directions
 until: to
 locPill: { venue: Approximate location, area: Town only }
 locNote: { venue: "The pin is only approximate.", area: "All we know: somewhere in {town}.", unknown: "The location is still missing." }
@@ -295,7 +295,7 @@ share:
   cardCode: Type the code into the search box to open this page
   shared: { one: "1 outing was shared with you.", other: "{n} outings were shared with you." }
   add: Add to my list
-cal: { add: Add to calendar, google: Google Calendar, ics: "Apple, Outlook & others (.ics)" }
+cal: { add: Calendar, google: Google Calendar, ics: "Apple, Outlook & others (.ics)" }
 chipAsk:
   still: "Is this still right: {f}?"
   votes: "{y} yes · {n} no"
