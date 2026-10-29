@@ -6,6 +6,7 @@ import { markReplaced, readProfile, rememberSent, updateSent } from "../lib/prof
 import { schedulePush } from "../scripts/sync";
 import NickLine from "./NickField";
 import { firstSendHint } from "../lib/nickname";
+import { dropDraft, formValues, hasText, loadDraft, saveDraft } from "../lib/draft";
 
 interface Props {
   lang: string;
@@ -29,6 +30,8 @@ export default function SuggestPlace({ lang, kinds, features, towns, ui }: Props
   const [editing, setEditing] = useState<{ number: number; key: string; place: Record<string, any> } | null>(null);
   // ?resend=<sent at>: a place sent before edit keys existed, sent again as a new, editable copy.
   const [resend, setResend] = useState<{ at: string; place: Record<string, any> } | null>(null);
+  // A new place half typed before a trip to Profile (or a reload): it comes back filled in.
+  const [saved, setSaved] = useState<Record<string, any> | null>(null);
 
   useEffect(() => {
     const q = new URLSearchParams(location.search);
@@ -43,7 +46,7 @@ export default function SuggestPlace({ lang, kinds, features, towns, ui }: Props
         setTimeout(() => document.getElementById("suggest-place")?.scrollIntoView(), 50);
         return;
       }
-      if (!n) return;
+      if (!n) { const d = loadDraft("place"); if (d) setSaved(d); return; }
       const mine = readProfile(localStorage).sent.find((s) => s.kind === "place" && s.data.number === n && typeof s.data.key === "string");
       if (!mine) return;
       setEditing({ number: n, key: mine.data.key as string, place: (mine.data.place ?? {}) as Record<string, any> });
@@ -75,6 +78,7 @@ export default function SuggestPlace({ lang, kinds, features, towns, ui }: Props
         const number = ok ? ((await res.json().catch(() => ({}))) as { number?: number }).number : undefined;
         if (ok) try {
           if (place.by && firstSendHint(localStorage)) setHint(ui.nickFirst.replace("{nick}", place.by));
+          dropDraft("place");
           rememberSent(localStorage, { kind: "place", place, ...(number ? { number, key } : {}) });
           if (resend) markReplaced(localStorage, resend.at);
           schedulePush();
@@ -88,8 +92,14 @@ export default function SuggestPlace({ lang, kinds, features, towns, ui }: Props
   }
 
   const leaveEdit = () => { setEditing(null); setResend(null); setPicked(null); if (location.search) history.replaceState(null, "", location.pathname); };
-  const another = () => { leaveEdit(); setSent(""); setDone(null); setHint(""); setOpen(true); };
-  const p = editing?.place ?? resend?.place ?? {};
+  const another = () => { leaveEdit(); setSent(""); setDone(null); setHint(""); setSaved(null); setOpen(true); };
+  const p = editing?.place ?? resend?.place ?? saved ?? {};
+  // Only a new place is kept as a draft; a change to one already sent starts from what was sent.
+  const keep = (e: Event) => {
+    if (editing || resend) return;
+    const v = formValues(e.currentTarget as HTMLFormElement);
+    if (hasText({ name: v.name ?? "", town: v.town ?? "", street: v.street ?? "", note: v.note ?? "", website: v.website ?? "" })) saveDraft("place", v); else dropDraft("place");
+  };
   // The checkboxes follow the chosen kind; null until the parent picks one, so an edit shows its own kind.
   const [picked, setPicked] = useState<string | null>(null);
   const kind = picked ?? p.kind ?? kinds[0]?.[0];
@@ -116,7 +126,7 @@ export default function SuggestPlace({ lang, kinds, features, towns, ui }: Props
       ) : sent ? <p class="thanks" role="status">{sent}</p> : !open ? (
         <button class="btn" type="button" style="margin-top:12px" onClick={() => setOpen(true)}>{ui.placeBtn}</button>
       ) : (
-        <form class="form" onSubmit={send} key={editing?.number ?? resend?.at ?? "new"}>
+        <form class="form" onSubmit={send} onInput={keep} onChange={keep} key={editing?.number ?? resend?.at ?? (saved ? "saved" : "new")}>
           {editing && <p class="small">{ui.editNote}</p>}
           {resend && <p class="small">{ui.resendNote}</p>}
           <fieldset class="feature-picks kind-picks">

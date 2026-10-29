@@ -11,6 +11,7 @@ import { authHeaders, login, passkeysWork, register, signedIn, type PasskeyResul
 import WherePicker, { type Where } from "./WherePicker";
 import { isEvening } from "../lib/meetup";
 import NickLine from "./NickField";
+import { dropDraft, loadDraft, saveDraft } from "../lib/draft";
 import { firstSendHint } from "../lib/nickname";
 
 type Draft = { title: string; date: string; time: string; place: string; price: string; note: string };
@@ -60,6 +61,8 @@ export default function Contribute({ lang, ui }: Props) {
   const [byWas, setByWas] = useState<string | undefined>(undefined);
   // After the very first thing this family sends: where its nickname can be changed.
   const [hint, setHint] = useState("");
+  // A new event half typed before a trip to Profile (or a reload) comes back filled in; ready once it's back.
+  const [ready, setReady] = useState(false);
   const keepBy = (d: unknown) => { const b = String((d as { by?: unknown })?.by ?? ""); setByWas(b); setBy(b); };
 
   const fill = (d: Partial<Draft>, w?: Where) => { setDraft({ ...EMPTY, ...d }); setWhere(w ?? { place: d.place ?? "" }); };
@@ -91,7 +94,12 @@ export default function Contribute({ lang, ui }: Props) {
         setNote(ui.resendNote);
         return;
       }
-      if (!n) return;
+      if (!n) {
+        const d = loadDraft<{ draft: Draft; where: Where; audience: Audience | ""; way: typeof way }>("event");
+        if (d) { fill(d.draft, d.where); setAudience(d.audience); setWay(d.way); }
+        setReady(true);
+        return;
+      }
       const mine = readProfile(localStorage).sent.find((s) => s.kind === "event" && s.data.number === n && typeof s.data.key === "string");
       if (!mine) return;
       fill(mine.data.draft as Partial<Draft>);
@@ -102,7 +110,14 @@ export default function Contribute({ lang, ui }: Props) {
     } catch { /* storage blocked */ }
   }, []);
 
+  useEffect(() => {
+    if (!ready || editing || resend || meetup) return;
+    if (draft.title || draft.date || draft.time || draft.price || draft.note || where.place) saveDraft("event", { draft, where, audience, way });
+    else dropDraft("event");
+  }, [ready, draft, where, audience, way]);
+
   function reset() {
+    dropDraft("event");
     fill({}); setByWas(undefined); setHint(""); setUnsure([]); setPhoto(""); setPaste(""); setNote(""); setEditing(null); setResend(""); setMeetup("");
     setAudience(""); setWay(""); setStep("form");
     if (location.search) history.replaceState(null, "", location.pathname);
@@ -155,6 +170,7 @@ export default function Contribute({ lang, ui }: Props) {
         ok = res.ok;
         const number = ok ? ((await res.json().catch(() => ({}))) as { number?: number }).number : undefined;
         if (ok) try {
+          dropDraft("event");
           rememberSent(localStorage, { kind: "event", draft: d, ...(number ? { number, key } : {}) });
           if (resend) markReplaced(localStorage, resend);
           if (by && firstSendHint(localStorage)) setHint(ui.nickFirst.replace("{nick}", by));
@@ -177,6 +193,7 @@ export default function Contribute({ lang, ui }: Props) {
       if (res.status === 429) { setNote(f.tooMany); return; }
       if (!res.ok) { setNote(f.passFail); return; }
       const id = meetup || ((await res.json()) as { id: string }).id;
+      dropDraft("event");
       location.href = `/m/${id}${meetup ? "" : "?new=1"}`;
     } catch { setNote(ui.inboxSoon); }
   }
