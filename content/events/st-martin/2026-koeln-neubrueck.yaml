@@ -1,0 +1,13 @@
+# St. Martin 2026, from the Bürgerverein Köln-Neubrück calendar (checked 2026-10-29).
+# Entered by hand for the St. Martin season; delete after November.
+title: "Martinszug Neubrück"
+venue: "Marktplatz Neubrück"
+town: "Köln"
+start: "2026-11-12"
+time: "17:30–20:00"
+geo: { lat: 50.9447, lon: 7.0717, precision: venue }
+price: { free: true }
+tags: [season, outside]
+note: "Organisiert vom Arbeitskreis Grundschulen."
+trust: { level: community, source: "bürgerverein-neubrück.de" }
+website: "https://xn--brgerverein-neubrck-59bq.de/events/event/sankt-martin/"

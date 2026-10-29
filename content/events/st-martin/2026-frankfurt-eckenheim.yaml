@@ -1,0 +1,13 @@
+# St. Martin 2026, from frankfurter-blaeserschule.de (checked 2026-10-29).
+# Entered by hand for the St. Martin season; delete after November.
+title: "Laternenumzug St. Franziskus"
+venue: "St. Franziskus, Eckenheimer Landstraße 326, Eckenheim"
+town: "Frankfurt"
+start: "2026-11-10"
+time: "17:00"
+geo: { lat: 50.14773, lon: 8.68225, precision: exact }
+price: { free: true }
+tags: [season, outside]
+note: "Mit Bläsern der Frankfurter Bläserschule."
+trust: { level: community, source: "frankfurter-blaeserschule.de" }
+website: "https://www.frankfurter-blaeserschule.de/auftritte/laternenumzug"

@@ -1,0 +1,12 @@
+# St. Martin 2026, from frankfurter-blaeserschule.de (checked 2026-10-29).
+# Entered by hand for the St. Martin season; delete after November.
+title: "Andacht und Laternenumzug in St. Wendel"
+venue: "St. Wendel, Altes Schützenhüttengässchen 6, Sachsenhausen"
+town: "Frankfurt"
+start: "2026-11-13"
+time: "16:30"
+geo: { lat: 50.09231, lon: 8.69466, precision: exact }
+price: { free: true }
+tags: [season, outside]
+trust: { level: community, source: "frankfurter-blaeserschule.de" }
+website: "https://www.frankfurter-blaeserschule.de/auftritte/laternenumzug"

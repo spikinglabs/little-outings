@@ -1,13 +1,16 @@
-# A Rednote (小红书) set of real St. Martin lantern walks, from the site's own listings (checked 2026-10-29).
+# A Rednote (小红书) set of real St. Martin lantern walks, from the site's own listings (checked 2026-10-29;
+# Cologne and Frankfurt walks added by hand to content/events/st-martin/ the same day).
 # The explainer is st-martin.yaml; this one only lists walks, so it has no `season` (the event pages keep
 # offering the explainer).
 # Drawn at /xhs/martin-walks-<n>.png until `until`; the admin's Rednote box shows it with the caption.
 # After changing Chinese text here, rerun scripts/og-font.py so the font has every character.
-title: 圣马丁灯笼游行｜德国4城时间地点
+title: 圣马丁灯笼游行｜德国6城时间地点
 until: 2026-11-14
 caption: |
   游友们，11月11日圣马丁节快到了🏮 鹿小游整理了网站上能找到的灯笼游行，大多数免费、不用报名：
 
+  【科隆】11.6 科隆大教堂礼拜后游行到 Groß St. Martin（17点），11.6 RheinEnergieSTADION 球场游行（17:45出发，免费送灯笼和 Weckmann），11.7 Gut Leidenhausen 森林灯笼徒步，11.8 Auweiler，11.12 Neubrück
+  【法兰克福】11.11 Günthersburgpark 最大的圣马丁篝火（18点起，有皮影戏），11.11 老城 Römerberg 游行（18点），还有 Westend、Eckenheim、Praunheim、Sachsenhausen
   【汉堡】10.31 Niendorf，11.3 Wandsbek Gartenstadt，11.7 Berne、Lokstedt、Osdorf、Rissen，11.8 Harburg（19点左右有烟花），11.13 Öjendorf，11.14 Volksdorf 有骑马的圣马丁
   【柏林】Tierpark 动物园提灯游行，11.4–11.8 和 11.11，每天 15:45
   【慕尼黑】11.11 市中心 Frauenplatz 圣马丁游行 16:30，还有 Denning、Nymphenburg 的教会灯笼游行
@@ -16,32 +19,43 @@ caption: |
   幼儿园和学校的游行常常只给本园家庭，去之前最好问一下主办方。第一次参加？可以看我们之前那篇圣马丁节介绍。
 
   更多游行和时间：浏览器搜索「小鹿出游 Allo Outings」，选你的城市，点「圣马丁灯笼游行」。没找到你们的？也可以在网站上添加，附近的家庭都能看到。信息以主办方为准，出发前请再确认。
-tags: [德国带娃, 圣马丁节, 灯笼游行, 汉堡带娃, 柏林带娃, 慕尼黑带娃, 波恩, 德国节日, 德国生活, 德国妈妈, 德国爸爸, 留德]
+tags: [德国带娃, 圣马丁节, 灯笼游行, 科隆带娃, 法兰克福带娃, 汉堡带娃, 柏林带娃, 慕尼黑带娃, 波恩, 德国节日, 德国生活, 德国妈妈, 德国爸爸, 留德]
 cards:
   - tone: gold
     tag: 11月11日 · 圣马丁节
     title: "灯笼游行\n在哪里？"
     lines:
-      - 汉堡、柏林、慕尼黑、波恩，已经确定时间地点的灯笼游行。
+      - 科隆、法兰克福、汉堡、柏林、慕尼黑、波恩，已经确定时间地点的灯笼游行。
       - 大多数免费，不用报名，提着灯笼去就行。
     foot: 游友们先收藏，到时候不用找
   - tone: paper
-    tag: 汉堡 · 10月31日 – 11月7日
-    title: 汉堡（上）
+    tag: 科隆 · 11月6日 – 11月12日
+    title: 科隆
     lines:
-      - 【10.31 周六 16点起，18:30出发】Niendorf，Fuhlsbütteler Weg 5
-      - 【11.3 周二 17:30】Wandsbek Gartenstadt，Gartenstadtweg 81，有热的 Kinderpunsch
-      - 【11.7 周六 16点】Lokstedt，THW Eimsbüttel，Spritzenweg 14
-      - 【11.7 周六 17点】Osdorf，消防站 Blomkamp 11
+      - 【11.6 周五 17点】大教堂礼拜后游行到 Groß St. Martin
+      - 【11.6 周五 17:45】FC 足球场游行，送灯笼和 Weckmann
+      - 【11.7 周六 17点】Gut Leidenhausen 森林灯笼徒步
+      - 【11.8 周日 18点】Auweiler，Doktorshof 出发
+      - 【11.12 周四 17:30】Neubrück，Marktplatz 集合
     foot: 信息以主办方为准，出发前请再确认
   - tone: paper
-    tag: 汉堡 · 11月7日 – 11月14日
-    title: 汉堡（下）
+    tag: 法兰克福 · 11月10日 – 11月13日
+    title: 法兰克福
     lines:
-      - 【11.7 周六 17:30】Rissen，消防站 Rissener Landstraße 254
+      - 【11.11 周三 18点】最大的篝火和皮影戏，Günthersburgpark
+      - 【11.11 周三 18点】老城游行，Alte Nikolaikirche 出发
+      - 【11.11 周三 17点】Westend，St. Ignatius 教区
+      - 【11.10 周二 17点】Eckenheim 和 Praunheim 两个游行
+      - 【11.13 周五 16:30】Sachsenhausen，St. Wendel
+    foot: 信息以主办方为准，出发前请再确认
+  - tone: paper
+    tag: 汉堡 · 10月31日 – 11月14日
+    title: 汉堡
+    lines:
+      - 【10.31 周六 16点起，18:30出发】Niendorf，Fuhlsbütteler Weg 5
       - 【11.7 周六 18点】Berne，三支队伍在 Berner Gutspark 会合，有烟花
+      - 【11.7 周六 17点】Osdorf，消防站 Blomkamp 11
       - 【11.8 周日 17:30起】Harburg 大游行，19点左右市政厅广场有烟花
-      - 【11.13 周五 18:15】Öjendorf，之后有儿童画脸和篝火
       - 【11.14 周六 15点】Volksdorf，有骑马的圣马丁，终点 Museumsdorf
     foot: 信息以主办方为准，出发前请再确认
   - tone: paper

@@ -1,0 +1,13 @@
+# St. Martin 2026, announced on koelner-dom.de (reported 2026-10-08, checked 2026-10-29).
+# Entered by hand for the St. Martin season; delete after November.
+title: "Martinsfeier im Kölner Dom mit Martinszug"
+venue: "Kölner Dom, Domkloster 4"
+town: "Köln"
+start: "2026-11-06"
+time: "17:00"
+geo: { lat: 50.9413, lon: 6.95814, precision: exact }
+price: { free: true }
+tags: [season, outside]
+note: "Wortgottesdienst im Dom für Kinder und Eltern, danach Martinszug durch die Altstadt bis Groß St. Martin, dort Segen und Weckmänner."
+trust: { level: official, source: "koelner-dom.de" }
+website: "https://www.koelner-dom.de"

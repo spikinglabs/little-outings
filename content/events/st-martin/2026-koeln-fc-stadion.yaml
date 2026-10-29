@@ -1,0 +1,13 @@
+# St. Martin 2026, from fc.de (checked 2026-10-29).
+# Entered by hand for the St. Martin season; delete after November.
+title: "St. Martinszug am RheinEnergieSTADION (FC-Pänzclub)"
+venue: "RheinEnergieSTADION, Umlauf Nord vor dem Fanshop, Aachener Straße 999"
+town: "Köln"
+start: "2026-11-06"
+time: "ab 16:45, Zug 17:45"
+geo: { lat: 50.93351, lon: 6.87512, precision: exact }
+price: { free: true }
+tags: [season, outside]
+note: "Ohne Anmeldung. Großes Martinsfeuer, kostenlose Laternen und Weckmänner, Ende gegen 20 Uhr."
+trust: { level: official, source: "fc.de" }
+website: "https://fc.de/aktuelles/news/st-martinszug-rund-ums-rhein-energie-stadion-am-6-november"
