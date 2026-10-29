@@ -10,7 +10,8 @@ import { holidayFor, type Period } from "../lib/holidays";
 import { inWindow, type Window } from "../lib/seasons-window";
 import { daysFor, fit, mood, moods, sharedMood, skyIcon, skyWord, wantsRoof, type Day, type Mood, type Packed } from "../lib/weather";
 import { tilesFor, tilesNear } from "../lib/tiles";
-import { TILES, distanceOf, getHome, homeAt, markSaved, nearestTown, renderKm, setHere, setHome, townKm } from "./app";
+import { cardsIn, dataOf } from "../lib/tile-cards";
+import { TILES, distanceAt, getHome, homeAt, markSaved, nearestTown, renderKm, setHere, setHome, townKm } from "./app";
 import type {} from "../islands/OutingsMap";
 
 type Plural = { one?: string; other: string };
@@ -66,7 +67,8 @@ function keep() {
 }
 
 // Dates in Germany, as YYYY-MM-DD strings, so they compare with the data-start/data-end attributes.
-const ymd = (d: Date) => new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Berlin" }).format(d);
+const berlinDay = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Berlin" });
+const ymd = (d: Date) => berlinDay.format(d);
 const addDays = (s: string, n: number) => { const d = new Date(`${s}T12:00:00Z`); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); };
 // The home town's school holidays, while they are on or start within the days events are listed for.
 // The "Holidays" button carries their name (Herbstferien) and only shows then.
@@ -104,8 +106,10 @@ function range(): [string, string] {
 }
 
 // Each card's data, read once: with a few thousand cards, reading the DOM on every keystroke is too slow.
-type Row = { el: HTMLElement; d: DOMStringMap; lat: number; lon: number; feat: string[]; dist: number | null };
-// The cards wait in a <template>, outside the live page, and only the ones on screen are moved in.
+// A card is kept as its HTML and becomes an element only when it is first shown: a town's tiles hold
+// several thousand cards, and building all of them made a phone stall for a second or more.
+type Row = { html: string; el?: HTMLElement; d: Record<string, string | undefined>; lat: number; lon: number; feat: string[]; dist: number | null };
+// The cards wait as text, outside the live page, and only the ones on screen are made and moved in.
 // They come a tile at a time (lib/tiles.ts): the tiles within the radius of home, or under the map once the
 // reader moves it, each fetched once (the service worker keeps a copy for next time and offline).
 const pool = $<HTMLTemplateElement>("#ideas-pool");
@@ -121,27 +125,25 @@ function wantedTiles(): string[] {
   const at = homeAt();
   return at ? tilesNear(at[0], at[1], state.radius).filter((k) => TILES.has(k)) : [];
 }
+const madeIn = document.createElement("template");
+/** The card's element, made the first time it is shown. */
+function elOf(r: Row): HTMLElement {
+  if (!r.el) {
+    madeIn.innerHTML = r.html;
+    r.el = madeIn.content.firstElementChild as HTMLElement;
+  }
+  return r.el;
+}
 const missingTiles = () => wantedTiles().filter((k) => !tilesDone.has(k));
 async function loadTile(key: string): Promise<boolean> {
   try {
     const res = await fetch(`${pool.dataset.src}${key}/`);
-    if (!res.ok || !res.body) throw new Error(String(res.status));
-    // Parsed piece by piece as it downloads (like the page itself), not all at once at the end.
-    const doc = document.implementation.createHTMLDocument("");
-    doc.open();
-    const text = new TextDecoder();
-    for (const reader = res.body.getReader(); ;) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      doc.write(text.decode(value, { stream: true }));
+    if (!res.ok) throw new Error(String(res.status));
+    for (const html of cardsIn(await res.text())) {
+      const d = dataOf(html);
+      const lat = parseFloat(d.lat || ""), lon = parseFloat(d.lon || "");
+      all.push({ html, d, lat, lon, feat: (d.feat || "").split(" "), dist: distanceAt(lat, lon) });
     }
-    doc.write(text.decode());
-    doc.close();
-    const cards = [...doc.body.children].filter((el) => el.classList.contains("item")) as HTMLElement[];
-    pool.content.append(...doc.body.children);
-    all.push(...cards.map((el) => ({
-      el, d: el.dataset, lat: parseFloat(el.dataset.lat || ""), lon: parseFloat(el.dataset.lon || ""), feat: (el.dataset.feat || "").split(" "), dist: distanceOf(el),
-    })));
     return true;
   } catch {
     return false;
@@ -172,7 +174,7 @@ let measuredFor = "";
 function measure() {
   if (measuredFor === getHome()) return;
   measuredFor = getHome();
-  for (const r of all) r.dist = distanceOf(r.el);
+  for (const r of all) r.dist = distanceAt(r.lat, r.lon);
 }
 /** Nearest first, but a kind that just appeared counts as 3 km further for each of the last 4 cards it fills. */
 function mixKinds(sorted: Row[]): Row[] {
@@ -202,8 +204,9 @@ function near({ lat, lon, dist }: Row) {
 }
 
 /** Every filter except where: the map draws these, so moving it reveals more. */
+let words: string[] = [];
 function passes({ d, feat }: Row) {
-  if (state.q && !state.q.toLowerCase().split(/\s+/).every((w) => d.q!.includes(w))) return false;
+  if (words.length && !words.every((w) => d.q!.includes(w))) return false;
   // Under a roof as far as we know (the record, or a guess from the kind or type: Card.astro).
   if (state.rain && d.roof !== "1") return false;
   if (state.outdoor && d.roof !== "0") return false;
@@ -280,6 +283,7 @@ function apply() {
   if (!loaded || missingTiles().length) { loadTiles(); return; }
 
   measure();
+  words = state.q ? state.q.toLowerCase().split(/\s+/) : [];
   seasonChips();
   // Events count when they fall on the chosen day; places always do. Chips: "event", or a kind of
   // place (which also matches events held at such a place, and farm events for "farm").
@@ -339,13 +343,14 @@ function apply() {
   const list = matched.filter((r) => r.d.id !== tip);
   const shownIds = new Set(list.slice(0, state.limit).map((r) => r.d.id));
   const frag = document.createDocumentFragment();
-  list.slice(0, state.limit).forEach((r) => frag.append(r.el));
+  list.slice(0, state.limit).forEach((r) => frag.append(elOf(r)));
   $("#ideas").insertBefore(frag, $("#ideas").firstChild);
   for (const r of list.slice(0, state.limit)) {
-    const last = r.el.querySelector<HTMLElement>("[data-last]");
+    const last = r.el!.querySelector<HTMLElement>("[data-last]");
     if (last) last.hidden = !lastChance(r.d.end!, today);
   }
   for (const r of all) {
+    if (!r.el) continue;
     if (shownIds.has(r.d.id)) show(r.el, true);
     else if (r.el.isConnected) r.el.remove();
   }
@@ -415,6 +420,7 @@ document.addEventListener("click", (ev) => {
 });
 // A code from a Rednote card ("K31-2", src/lib/rednote-code.ts) opens that pick's page.
 const xhsCodes: Record<string, string> = JSON.parse(document.getElementById("xhs-codes")?.textContent || "{}");
+let typing: ReturnType<typeof setTimeout> | undefined;
 $<HTMLInputElement>("#q").addEventListener("input", (e) => {
   const q = (e.target as HTMLInputElement).value.trim();
   const code = normCode(q);
@@ -423,7 +429,9 @@ $<HTMLInputElement>("#q").addEventListener("input", (e) => {
     location.href = `/${document.documentElement.lang.slice(0, 2)}/${xhsCodes[code]}`;
     return;
   }
-  state.limit = PAGE; state.q = q; apply();
+  // The list follows once typing pauses, not on every letter.
+  clearTimeout(typing);
+  typing = setTimeout(() => { state.limit = PAGE; state.q = q; apply(); }, 150);
 });
 $<HTMLSelectElement>("#radius").addEventListener("change", (e) => { state.radius = +(e.target as HTMLSelectElement).value; state.area = null; apply(); });
 $<HTMLSelectElement>("#order").addEventListener("change", (e) => { state.order = (e.target as HTMLSelectElement).value as Order; state.limit = PAGE; apply(); });

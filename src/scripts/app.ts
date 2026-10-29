@@ -190,7 +190,10 @@ export function townKm(a: string, b: string): number | null {
   return x && y ? km(x, y) : null;
 }
 export function distanceOf(el: HTMLElement): number | null {
-  const lat = parseFloat(el.dataset.lat || ""), lon = parseFloat(el.dataset.lon || "");
+  return distanceAt(parseFloat(el.dataset.lat || ""), parseFloat(el.dataset.lon || ""));
+}
+/** Kilometres from home to a point, or null when either is unknown. */
+export function distanceAt(lat: number, lon: number): number | null {
   const home = towns.get(getHome());
   return home && !isNaN(lat) && !isNaN(lon) ? km(home, [lat, lon]) : null;
 }

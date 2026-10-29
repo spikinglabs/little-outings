@@ -306,8 +306,16 @@ export default function OutingsMap({ pinsBase, toiletsUrl, center, towns, locale
     };
     // While the map is folded away, skip drawing: hundreds of markers on every filter change made
     // the page sluggish. Showing the map draws the latest filters (onShown).
-    const folded = () => box.offsetParent === null;
-    const onFiltered = (e: Event) => { if (!folded()) update((e as CustomEvent<Filtered>).detail); };
+    // Read from the hidden attribute, not offsetParent: that would make the browser lay out the whole page
+    // again right after the list changed, which cost a phone a fifth of a second on every tap.
+    const folded = () => !!box.closest("[hidden]");
+    // The list shows first; the map follows in the next frame, drawing only the latest filters.
+    let queued: Filtered | null = null;
+    const onFiltered = (e: Event) => {
+      if (folded()) return;
+      if (!queued) requestAnimationFrame(() => { const f = queued!; queued = null; update(f); });
+      queued = (e as CustomEvent<Filtered>).detail;
+    };
     const onTiles = async (e: Event) => {
       if ((await loadPins((e as CustomEvent<string[]>).detail)) && !folded() && window.loFiltered) update(window.loFiltered);
     };
