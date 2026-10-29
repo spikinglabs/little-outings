@@ -83,7 +83,8 @@ test("hand-written sets are complete and carry no links", () => {
 test("the Chinese font has every character the hand-written sets show", () => {
   // design/og/zh-chars.txt lists what scripts/og-font.py put in the font; rerun it when this fails.
   const have = new Set(readFileSync("design/og/zh-chars.txt", "utf8").trim());
-  const text = setFiles.map((f) => readFileSync(`content/rednote/${f}`, "utf8")).join("");
+  // Only the cards are drawn; the caption is pasted as text, so it may carry emoji.
+  const text = setFiles.map((f) => JSON.stringify((load(readFileSync(`content/rednote/${f}`, "utf8")) as SetFile).cards)).join("");
   const missing = [...new Set([...text].filter((c) => c >= "⺀" && c <= "￯" && !have.has(c)))];
   assert.deepEqual(missing, []);
 });

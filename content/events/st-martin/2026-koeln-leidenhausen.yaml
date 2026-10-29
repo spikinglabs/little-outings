@@ -1,0 +1,13 @@
+# St. Martin 2026, from familienhopper.de (checked 2026-10-29).
+# Entered by hand for the St. Martin season; delete after November.
+title: "Laternenwanderung auf Gut Leidenhausen"
+venue: "Gut Leidenhausen, Porz-Eil"
+town: "Köln"
+start: "2026-11-07"
+time: "17:00–18:30"
+geo: { lat: 50.89701, lon: 7.09957, precision: exact }
+price: { free: true }
+tags: [season, outside]
+note: "Familienwanderung mit Laternen durch den Wald, zum Schluss wird gesungen. Nur Laternen mit Batterielicht, keine Fackeln. Bis 12 Jahre."
+trust: { level: community, source: "familienhopper.de" }
+website: "https://familienhopper.de/koeln/st-martin/"

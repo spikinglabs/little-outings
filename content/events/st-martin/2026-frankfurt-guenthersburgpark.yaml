@@ -1,0 +1,13 @@
+# St. Martin 2026, from rheinmain4family.de (checked 2026-10-29).
+# Entered by hand for the St. Martin season; delete after November.
+title: "Großes Martinsfeuer im Günthersburgpark"
+venue: "Günthersburgpark, große Wiese, Nordend"
+town: "Frankfurt"
+start: "2026-11-11"
+time: "ab 18:00"
+geo: { lat: 50.13056, lon: 8.70342, precision: exact }
+price: { free: true }
+tags: [season, outside]
+note: "Abenteuerspielplatz Riederwald: Schattenspiel der Martinsgeschichte, Bläsermusik, Kinderpunsch, Crêpes. Vorher um 17 Uhr Martinsfest an St. Bernhard."
+trust: { level: community, source: "rheinmain4family.de" }
+website: "https://www.rheinmain4family.de/landinpages/sanktmartin.html"

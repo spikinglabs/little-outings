@@ -1,0 +1,13 @@
+# St. Martin 2026, from familienhopper.de (checked 2026-10-29).
+# Entered by hand for the St. Martin season; delete after November.
+title: "Zinter-Mätes-Fest – inklusives Sankt Martinsfest"
+venue: "Erzengel-Michael-Kirche, Campus Diakonie Michaelshoven"
+town: "Köln"
+start: "2026-11-06"
+time: "17:00"
+geo: { lat: 50.87758, lon: 6.99962, precision: exact }
+price: { free: true }
+tags: [season, outside]
+note: "Inklusives Martinsfest, ohne Anmeldung."
+trust: { level: community, source: "familienhopper.de" }
+website: "https://familienhopper.de/koeln/st-martin/"
