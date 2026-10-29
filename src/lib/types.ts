@@ -15,7 +15,7 @@ export type Facility = {
 export type Tally = {
   fac?: Record<string, { yes: number; no: number }>;
   visits?: { count: number; again: number; good_for: Record<string, number> };
-  tips?: { topic: string; text: string; by?: string }[];
+  tips?: { topic: string; text: string; by?: string; byId?: string }[];
   /** Events: parents' answers to "How much German do you need?". */
   lang?: Partial<Record<Language, number>>;
   /** Answers to "Still missing" that two parents agreed on, or a moderator approved (admin/lib/answers.js). */
@@ -61,12 +61,14 @@ export interface Place {
   rating?: { stars: number; reviews: number };
   quotes: { text: Text; who: Text }[];
   /** Approved "Good to know" tips from the inbox. */
-  tips?: { topic: string; text: string; by?: string }[];
+  tips?: { topic: string; text: string; by?: string; byId?: string }[];
   visits?: { count: number; again: number; good_for: Partial<Record<string, number>> };
   note?: Text;
   trust: Trust;
-  /** The nickname the parent who sent it is credited under. */
+  /** The nickname the parent who sent it is credited under (with a short tag when another family uses it too). */
   by?: string;
+  /** Short hash of the sender's browser id (src/lib/credit.ts). */
+  byId?: string;
   website?: string;
   /** Seasons whose `kinds` include this place's kind (content/seasons.yaml), e.g. "winter" for an ice rink. */
   seasons?: string[];
@@ -104,8 +106,10 @@ export interface Event {
   machine?: ("en" | "zh")[];
   note?: Text;
   trust: Trust;
-  /** The nickname the parent who sent it is credited under. */
+  /** The nickname the parent who sent it is credited under (with a short tag when another family uses it too). */
   by?: string;
+  /** Short hash of the sender's browser id (src/lib/credit.ts). */
+  byId?: string;
   website?: string;
   /** Set for events that came from the cityklub public export. */
   origin?: { name: string; url: string };

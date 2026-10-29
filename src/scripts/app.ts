@@ -342,7 +342,7 @@ document.addEventListener("submit", async (ev) => {
   const data = new FormData(form);
   const payload = form.dataset.visit
     ? { kind: "visit", item: form.dataset.visit, again: data.get("again"), good_for: data.getAll("good_for") }
-    : { kind: "tip", item: form.dataset.tipFor, topic: data.get("topic"), text: data.get("text"), by: String(data.get("by") ?? "") };
+    : { kind: "tip", item: form.dataset.tipFor, topic: data.get("topic"), text: data.get("text"), by: String(data.get("by") ?? ""), voter: voter() };
   const ok = payload.kind === "visit"
     ? await sendTap({ kind: "visit", item: payload.item, again: payload.again, good_for: payload.good_for }, { ...payload, lang: body.dataset.lang })
     : await sendToInbox({ ...payload, lang: body.dataset.lang });

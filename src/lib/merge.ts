@@ -91,6 +91,7 @@ export function normalizePlace(id: string, raw: Raw, answer: Raw | undefined, to
     note: raw.note,
     trust: raw.trust ?? { level: "community" },
     by: raw.by,
+    byId: raw.by_id,
     website: raw.website,
   };
 }
@@ -131,6 +132,7 @@ export function normalizeEvent(
     note: raw.note,
     trust: raw.trust ?? { level: "community" },
     by: raw.by,
+    byId: raw.by_id,
     website: raw.website ?? raw.source_url ?? place?.website,
     origin: raw.origin === "cityklub" ? { name: raw.attribution ?? "cityklub", url: raw.source_url } : undefined,
   };

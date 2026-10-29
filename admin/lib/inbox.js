@@ -112,6 +112,7 @@ export function eventFile(number, d, approvedBy) {
     free ? "price: { free: true }" : price ? `price: { free: false, text: ${q(price)} }` : "",
     d.note ? `note: ${q(d.note)}` : "",
     d.by ? `by: ${q(d.by)}` : "",
+    d.by && /^[0-9a-f]{8}$/.test(d.by_id ?? "") ? `by_id: ${q(d.by_id)}` : "",
     "trust: { level: community }",
   ];
   return { path: `content/events/community/inbox-${number}.yaml`, text: lines.filter(Boolean).join("\n") + "\n" };
@@ -140,6 +141,7 @@ export function placeFile(number, d, approvedBy) {
     d.note ? `note: ${q(d.note)}` : "",
     website ? `website: ${q(website)}` : "",
     d.by ? `by: ${q(d.by)}` : "",
+    d.by && /^[0-9a-f]{8}$/.test(d.by_id ?? "") ? `by_id: ${q(d.by_id)}` : "",
     "trust: { level: community }",
   ];
   return { path: `content/places/community/inbox-${number}.yaml`, text: lines.filter(Boolean).join("\n") + "\n" };

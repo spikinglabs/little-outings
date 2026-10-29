@@ -41,26 +41,31 @@ export async function sha256(text: string) {
 }
 
 /** The issue for a suggested event; `edit` is the hash of the sender's key, kept across edits. */
-function eventIssue(d: Record<string, unknown>, lang: unknown, edit?: string) {
+function eventIssue(d: Record<string, unknown>, lang: unknown, edit?: string, byId = "") {
   return {
     title: `event ${clip(d.date, 10)} ${clip(d.title, 80)}`,
     yaml: [`kind: event`, ...EVENT_FIELDS.map((k) => `${k}: ${yamlStr(d[k], k === "note" ? 2000 : 300)}`),
-      `lang: ${yamlStr(lang, 5)}`, byLine(d.by), edit ? `edit: ${JSON.stringify(edit)}` : ""].filter(Boolean).join("\n"),
+      `lang: ${yamlStr(lang, 5)}`, byLine(d.by, byId), edit ? `edit: ${JSON.stringify(edit)}` : ""].filter(Boolean).join("\n"),
   };
 }
 
-/** The nickname a contribution is credited to, if it gave one (never a real name: see src/lib/nickname.ts). */
-const byLine = (by: unknown) => (cleanNick(by) ? `by: ${JSON.stringify(cleanNick(by))}` : "");
+/** The nickname a contribution is credited to, if it gave one (never a real name: see src/lib/nickname.ts),
+ * and `by_id`, a short hash of the sender's browser id, so two families with the same nickname stay apart. */
+const byLine = (by: unknown, byId: string) =>
+  cleanNick(by) ? [`by: ${JSON.stringify(cleanNick(by))}`, byId ? `by_id: "${byId}"` : ""].filter(Boolean).join("\n") : "";
+
+/** by_id: 8 hex of a hash of the browser id, salted apart from the answers' `from` so the two can't be matched. */
+export const byIdOf = async (voter: unknown) => (typeof voter === "string" && KEY.test(voter) ? (await sha256(`by:${voter}`)).slice(0, 8) : "");
 
 /** The issue for a suggested place, or an error. */
-function placeIssue(p: Record<string, unknown>, lang: unknown, edit?: string) {
+function placeIssue(p: Record<string, unknown>, lang: unknown, edit?: string, byId = "") {
   if (!p.name || !p.kind || !p.town) return { error: "name, kind and town are required" };
   const features = (Array.isArray(p.features) ? p.features : []).slice(0, 20).map((f: unknown) => clip(f, 40)).filter((f: string) => /^[a-z_]+$/.test(f));
   return {
     title: `place ${clip(p.kind, 20)} ${clip(p.name, 80)}`,
     yaml: [`kind: place`, ...["type", "name", "town", "street", "website", "note"].map((k) =>
       `${k}: ${yamlStr(k === "type" ? p.kind : p[k], k === "note" ? 2000 : 300)}`),
-      `features: [${features.map((f: string) => JSON.stringify(f)).join(", ")}]`, `lang: ${yamlStr(lang, 5)}`, byLine(p.by),
+      `features: [${features.map((f: string) => JSON.stringify(f)).join(", ")}]`, `lang: ${yamlStr(lang, 5)}`, byLine(p.by, byId),
       edit ? `edit: ${JSON.stringify(edit)}` : ""].filter(Boolean).join("\n"),
   };
 }
@@ -97,10 +102,10 @@ export async function issueOf(body: any): Promise<{ title: string; yaml: string;
   } else if (body.kind === "event" && body.draft && typeof body.draft === "object") {
     const d = body.draft;
     if (!d.title || !d.date) return { error: "title and date are required" };
-    ({ title, yaml } = eventIssue(d, body.lang, await keyHash(body.key)));
+    ({ title, yaml } = eventIssue(d, body.lang, await keyHash(body.key), await byIdOf(d.voter)));
     label = "new-event";
   } else if (body.kind === "place" && body.place && typeof body.place === "object") {
-    const made = placeIssue(body.place, body.lang, await keyHash(body.key));
+    const made = placeIssue(body.place, body.lang, await keyHash(body.key), await byIdOf(body.place.voter));
     if (made.error !== undefined) return { error: made.error };
     ({ title, yaml } = made);
     label = "new-place";
@@ -116,7 +121,7 @@ export async function issueOf(body: any): Promise<{ title: string; yaml: string;
     title = `tip ${body.topic} ${clip(body.item, 80)}`;
     label = "tip";
     yaml = [`kind: tip`, `item: ${yamlStr(body.item, 80)}`, `topic: ${yamlStr(body.topic, 20)}`,
-      `text: ${yamlStr(body.text.trim(), 140)}`, `lang: ${yamlStr(body.lang, 5)}`, byLine(body.by)].filter(Boolean).join("\n");
+      `text: ${yamlStr(body.text.trim(), 140)}`, `lang: ${yamlStr(body.lang, 5)}`, byLine(body.by, await byIdOf(body.voter))].filter(Boolean).join("\n");
   } else if (body.kind === "report" && typeof body.item === "string" && /^[a-z0-9-]+$/.test(body.item)
     && ["closed", "cancelled", "where", "notKids", "outdated", "other"].includes(body.reason)) {
     title = `report ${body.reason} ${clip(body.item, 80)}`;
@@ -198,7 +203,7 @@ export async function onRequestPut({ request, env }: Ctx) {
   if (!labels.includes(isPlace ? "new-place" : "new-event") || !edit || edit !== (await sha256(body.key))) return json(404, { error: "not found" });
   if (issue.state_reason === "not_planned") return json(409, { error: "rejected" });
 
-  const made = isPlace ? placeIssue(body.place, body.lang, edit) : eventIssue(d, body.lang, edit);
+  const made = isPlace ? placeIssue(body.place, body.lang, edit, await byIdOf(body.place.voter)) : eventIssue(d, body.lang, edit, await byIdOf(d.voter));
   if ("error" in made) return json(400, { error: made.error });
   const { title, yaml } = made;
   const res = await gh(env, `/issues/${number}`, {

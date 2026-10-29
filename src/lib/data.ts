@@ -1,6 +1,7 @@
 // Build-time data access for pages. Everything here runs once per build, never in the browser.
 import { getCollection } from "astro:content";
 import { readFileSync } from "node:fs";
+import { tagSharedNames } from "./credit.ts";
 import { applyEventTally, applyTally, applyTranslations, canonicalTown, normalizeEvent, normalizePlace, resolveGeo, shiftDays, townsFromPlaces, type Town } from "./merge.ts";
 import { fixtureEvent, loadSeasons, seasonsOf, type SeasonData } from "./seasons.ts";
 import { tasksOf } from "./gaps.ts";
@@ -91,6 +92,8 @@ async function load(): Promise<Data> {
     const guesses = guessWhere(e);
     if (guesses.length) e.guesses = guesses;
   }
+  // Same nickname, different families: tell them apart with a short tag.
+  tagSharedNames([...places, ...events, ...places.flatMap((p) => p.tips ?? []), ...events.flatMap((e) => e.tips ?? [])]);
   return { region, places, events, placeById, eventById: new Map(events.map((e) => [e.id, e])), seasons };
 }
 

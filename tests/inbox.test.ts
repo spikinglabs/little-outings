@@ -45,6 +45,18 @@ test("a visit and a tip become issues; unknown chips and topics are dropped or r
   assert.deepEqual(sent.labels, ["tip"]);
   res = await onRequestPost({ env, request: post({ kind: "tip", item: "osm-node-5", topic: "bring", text: "Snacks", by: "Brave Hedgehog" }) } as any);
   assert.match(sent.body, /by: "Brave Hedgehog"/);
+  assert.doesNotMatch(sent.body, /by_id:/);
+  // With the browser id, a short hash of it goes along, so same-named families can be told apart.
+  const voter = "0f8b1c2d-3e4f-4a5b-8c6d-7e8f9a0b1c2d";
+  res = await onRequestPost({ env, request: post({ kind: "tip", item: "osm-node-5", topic: "bring", text: "Snacks", by: "Brave Hedgehog", voter }) } as any);
+  const byId = /by_id: "([0-9a-f]{8})"/.exec(sent.body)?.[1];
+  assert.ok(byId);
+  assert.ok(!sent.body.includes(voter));
+  res = await onRequestPost({ env, request: post({ kind: "place", place: { kind: "playground", name: "Spielplatz", town: "Köln", by: "Brave Hedgehog", voter } }) } as any);
+  assert.match(sent.body, new RegExp(`by_id: "${byId}"`));
+  // No name, no id: anonymous stays anonymous.
+  res = await onRequestPost({ env, request: post({ kind: "tip", item: "osm-node-5", topic: "bring", text: "Snacks", voter }) } as any);
+  assert.doesNotMatch(sent.body, /by_id:/);
   // An email or a phone number is never shown as a name.
   res = await onRequestPost({ env, request: post({ kind: "tip", item: "osm-node-5", topic: "bring", text: "Snacks", by: "anna@example.com" }) } as any);
   assert.doesNotMatch(sent.body, /by:/);

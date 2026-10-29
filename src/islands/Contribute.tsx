@@ -12,7 +12,7 @@ import WherePicker, { type Where } from "./WherePicker";
 import { isEvening } from "../lib/meetup";
 import NickLine from "./NickField";
 import { dropDraft, loadDraft, saveDraft } from "../lib/draft";
-import { firstSendHint } from "../lib/nickname";
+import { firstSendHint, myId } from "../lib/nickname";
 
 type Draft = { title: string; date: string; time: string; place: string; price: string; note: string };
 type Field = keyof Draft;
@@ -157,16 +157,19 @@ export default function Contribute({ lang, ui }: Props) {
 
   async function sendPublic() {
     const d = { ...draft, place: placeLine(), by };
+    // Sent, not kept: the browser id lets the server tell same-named families apart (src/lib/credit.ts).
+    let voter = "";
+    try { voter = myId(localStorage); } catch { /* storage blocked */ }
     let ok = false;
     try {
       if (editing) {
-        const res = await fetch("/api/inbox", { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ ...editing, lang, draft: d }) });
+        const res = await fetch("/api/inbox", { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ ...editing, lang, draft: { ...d, voter } }) });
         ok = res.ok;
         if (ok) try { updateSent(localStorage, editing.number, { draft: d }); schedulePush(); } catch { /* storage blocked */ }
       } else {
         // A random key, kept only here, lets this browser change the event later.
         const key = crypto.randomUUID();
-        const res = await fetch("/api/inbox", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ kind: "event", lang, draft: d, key }) });
+        const res = await fetch("/api/inbox", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ kind: "event", lang, draft: { ...d, voter }, key }) });
         ok = res.ok;
         const number = ok ? ((await res.json().catch(() => ({}))) as { number?: number }).number : undefined;
         if (ok) try {

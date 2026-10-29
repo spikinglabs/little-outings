@@ -59,7 +59,7 @@ export function tally(issues) {
       if (d.again === "yes") v.again++;
       for (const g of Array.isArray(d.good_for) ? d.good_for : []) v.good_for[g] = (v.good_for[g] ?? 0) + 1;
     } else if (d.kind === "tip" && labels.includes("approved") && d.text) {
-      (of(d.item).tips ??= []).push({ topic: d.topic, text: d.text, ...(d.by ? { by: String(d.by) } : {}) });
+      (of(d.item).tips ??= []).push({ topic: d.topic, text: d.text, ...(d.by ? { by: String(d.by) } : {}), ...(d.by && /^[0-9a-f]{8}$/.test(d.by_id) ? { byId: d.by_id } : {}) });
     }
   }
   for (const [k, answers] of asked) {
