@@ -116,3 +116,12 @@ test("every caption carries our own #小鹿出游 tag first", () => {
     assert.equal(caption.split("#小鹿出游").length, 2);
   }
 });
+
+test("a space between Chinese and Latin stays in the wrapped lines", () => {
+  const l = lines("在浏览器里搜索「小鹿出游 Allo\u00a0Outings」，再在网站的搜索框输入卡片右下角的编号，就能直接打开那个活动。", 15.5);
+  assert.ok(l.join("").includes("小鹿出游 Allo") || l.some((x) => x.endsWith("小鹿出游")), l.join("|"));
+  assert.ok(!l.join("|").includes("小鹿出游Allo"));
+  assert.ok(l.some((x) => x.includes("Allo Outings")), "the brand stays on one line");
+  assert.deepEqual(lines("喝热的Kinderpunsch。", 40), ["喝热的Kinderpunsch。"], "no space is added where there was none");
+});
+
