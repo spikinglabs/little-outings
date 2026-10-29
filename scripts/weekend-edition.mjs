@@ -175,7 +175,7 @@ function regionTowns() {
   });
 }
 
-export async function draft({ sat, today, llm }) {
+export async function draft({ sat, today, llm, only = WEEKEND_TOWNS }) {
   const towns = regionTowns();
   const rows = jsonl(PUBLISHED);
   // The live places file (every town), else the snapshot in the repository, which has the first towns only.
@@ -184,7 +184,7 @@ export async function draft({ sat, today, llm }) {
   const hiddenFile = join(ROOT, "hidden-places.yaml");
   const hidden = new Set(existsSync(hiddenFile) ? load(readFileSync(hiddenFile, "utf8")) || [] : []);
   const out = { weekend: sat, drafted_at: new Date().toISOString(), towns: {} };
-  for (const town of WEEKEND_TOWNS) {
+  for (const town of only) {
     const rec = towns.find((t) => t.name === town);
     if (!rec) { console.log(`::warning title=Weekend::${town} is not in content/regions`); continue; }
     const weather = await forecast(rec.lat, rec.lon, sat);
@@ -202,6 +202,13 @@ export async function publish({ sat, llm, draftDoc }) {
   const towns = regionTowns();
   const holidays = readJson("data/school-holidays.json", { states: {} }).states ?? {};
   const doc = draftDoc?.weekend === sat ? draftDoc : await draft({ sat, llm });
+  // A town the Thursday draft found too few events for (its events were published after the
+  // draft, say a city whose sources were just included) is drafted again from today's events.
+  const thin = WEEKEND_TOWNS.filter((t) => (doc.towns[t]?.picks ?? []).filter((p) => p.type === "event").length < MIN_EVENTS);
+  if (doc === draftDoc && thin.length) {
+    const again = await draft({ sat, llm, only: thin });
+    doc.towns = { ...doc.towns, ...again.towns };
+  }
   const written = [];
   for (const [town, d] of Object.entries(doc.towns)) {
     const rec = towns.find((t) => t.name === town);
