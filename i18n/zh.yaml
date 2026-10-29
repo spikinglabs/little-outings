@@ -99,7 +99,7 @@ indoor: 室内，下雨也没问题
 outdoor: 户外
 free: 免费
 paid: 收费
-trust: { parents: { other: "{n} 条家长反馈" }, base: "基础信息来自 {source}", verified: "✓ 已核实", official: 官方来源, community: 家长提供，尚未核实, from: "来自 {source}，尚未核实" }
+trust: { parents: { other: "{n} 条家长反馈" }, base: "基础信息来自 {source}，并由小鹿出游社区补充", verified: "✓ 已核实", official: 官方来源, community: 家长提供，尚未核实, from: "来自 {source}，尚未核实" }
 save: 收藏
 saved: 已收藏
 openMaps: 在地图应用中查看

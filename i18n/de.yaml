@@ -99,7 +99,7 @@ indoor: Drinnen, auch bei Regen
 outdoor: Draußen
 free: Kostenlos
 paid: Kostenpflichtig
-trust: { parents: { one: "1 Antwort von Eltern", other: "{n} Antworten von Eltern" }, base: "Grunddaten: {source}", verified: "✓ Geprüft", official: Offizielle Quelle, community: "Von Eltern gemeldet, noch nicht geprüft", from: "Aus {source}, noch nicht geprüft" }
+trust: { parents: { one: "1 Antwort von Eltern", other: "{n} Antworten von Eltern" }, base: "Grunddaten: {source}, ergänzt von der Allo-Outings-Community", verified: "✓ Geprüft", official: Offizielle Quelle, community: "Von Eltern gemeldet, noch nicht geprüft", from: "Aus {source}, noch nicht geprüft" }
 save: Merken
 saved: Gemerkt
 openMaps: In Karten öffnen
