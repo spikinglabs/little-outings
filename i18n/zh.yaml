@@ -337,7 +337,7 @@ mine:
   syncOff: "只保存在这部手机上。开启通行密钥同步，可以另存一份副本。"
   syncLink: 同步、转移、下载或删除
   nickAs: "你的网名：{nick}"
-  nickNone: 还没有网名：发送第一条贴士时可以选一个
+  nickNone: 匿名发送：可以在个人资料里填一个网名
   open: 打开
   back: 我的
 profile:

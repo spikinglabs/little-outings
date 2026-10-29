@@ -375,7 +375,7 @@ document.querySelectorAll<HTMLFormElement>("form[data-visit]").forEach((form) =>
 });
 
 // The tip form's "Sent as …": this family's nickname, made up the first time and changed only in Profile.
-document.querySelectorAll<HTMLElement>("[data-nick-line]").forEach((line) => {
+document.querySelectorAll<HTMLElement>("p[data-nick-line]").forEach((line) => {
   let nick = "";
   try { nick = myNick(localStorage, body.dataset.lang ?? "en"); } catch { /* storage blocked: anonymous */ }
   line.querySelector<HTMLInputElement>("input[data-nick]")!.value = nick;
