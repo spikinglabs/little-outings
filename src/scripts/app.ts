@@ -25,6 +25,11 @@ document.addEventListener("click", (ev) => {
 // One tap flips what the page shows now; "Auto" (follow the phone) stays under Profile.
 document.querySelector("[data-theme-flip]")?.addEventListener("click", () => applyTheme(isDark() ? "light" : "dark"));
 
+// The language menu closes on a tap anywhere else, or on Escape.
+const langMenu = document.querySelector<HTMLDetailsElement>("[data-lang-menu]");
+document.addEventListener("click", (ev) => { if (langMenu?.open && !langMenu.contains(ev.target as Node)) langMenu.open = false; });
+document.addEventListener("keydown", (ev) => { if (ev.key === "Escape" && langMenu?.open) { langMenu.open = false; langMenu.querySelector("summary")?.focus(); } });
+
 /* ---------- share an event or place (src/components/ShareButton.astro) ---------- */
 document.addEventListener("click", async (ev) => {
   const b = (ev.target as Element).closest<HTMLButtonElement>("[data-share-page]");

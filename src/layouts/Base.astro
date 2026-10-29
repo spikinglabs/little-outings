@@ -157,13 +157,17 @@ const ui = {
             <span class="theme-moon" set:html={svg(UI_ICON.moon)} />
             <span class="theme-sun" set:html={svg(UI_ICON.sun)} />
           </button>
-          <nav class="lang" aria-label="Sprache · Language · 语言">
-            {LANGS.map((l) => (
-              <a href={`/${l}/${rest}`} hreflang={l} lang={l} aria-current={l === lang ? "true" : undefined} title={useT(l)("langName")}>
-                {l === "zh" ? "中" : l.toUpperCase()}
-              </a>
-            ))}
-          </nav>
+          <details class="lang" data-lang-menu>
+            <summary aria-label="Sprache · Language · 语言" title="Sprache · Language · 语言">
+              <span set:html={svg(UI_ICON.globe)} />
+              <span>{lang === "zh" ? "中" : lang.toUpperCase()}</span>
+            </summary>
+            <nav class="lang-menu" aria-label="Sprache · Language · 语言">
+              {LANGS.map((l) => (
+                <a href={`/${l}/${rest}`} hreflang={l} lang={l} aria-current={l === lang ? "true" : undefined}>{useT(l)("langName")}</a>
+              ))}
+            </nav>
+          </details>
         </div>
       </header>
       <aside class="app-hint" data-app-hint hidden>
