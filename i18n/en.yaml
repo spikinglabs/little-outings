@@ -281,15 +281,15 @@ share:
   button: Share my list
   copied: Link copied. Open it on another phone, or send it to someone you're planning with.
   pic: Poster
-  picTitle: A poster to share
-  picShare: Share poster
-  picSave: Save poster
+  picTitle: Poster
+  picShare: Share
+  picSave: Save
   close: Close
   picDrawing: Making the poster…
   picFailed: "Couldn't make the poster here. Try Share instead."
   picCopied: "Text copied: paste it under the poster."
-  picHold: Press and hold the poster to save it, then post it from your photos.
-  picNote: The poster comes with a short text and the link to this page.
+  picHold: Press and hold the poster to save it.
+  picNote: Shared with a short text and the link.
   cardGerman: "German: {name}"
   cardFoot: Please check with the organiser before you go
   cardCode: Type the code into the search box to open this page

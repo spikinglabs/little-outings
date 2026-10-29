@@ -281,15 +281,15 @@ share:
   button: Liste teilen
   copied: Link kopiert. Öffnet ihn auf einem anderen Handy oder schickt ihn an jemanden, mit dem ihr plant.
   pic: Poster
-  picTitle: Ein Poster zum Teilen
-  picShare: Poster teilen
-  picSave: Poster speichern
+  picTitle: Poster
+  picShare: Teilen
+  picSave: Speichern
   close: Schließen
   picDrawing: Das Poster wird erstellt…
   picFailed: "Das Poster ließ sich hier nicht erstellen. Versucht es mit Teilen."
   picCopied: "Text kopiert: unter dem Poster einfügen."
-  picHold: Poster gedrückt halten, um es zu speichern, und dann aus den Fotos posten.
-  picNote: Zum Poster kommt ein kurzer Text mit dem Link zu dieser Seite.
+  picHold: Poster gedrückt halten, um es zu speichern.
+  picNote: Geteilt mit kurzem Text und Link.
   cardGerman: "{name}"
   cardFoot: Bitte vor dem Losgehen beim Veranstalter nachfragen
   cardCode: Code ins Suchfeld tippen, um diese Seite zu öffnen

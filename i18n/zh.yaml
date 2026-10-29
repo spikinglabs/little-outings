@@ -280,16 +280,16 @@ share:
   via: "来自小鹿出游 Allo Outings"
   button: 分享我的清单
   copied: 链接已复制。可以在另一部手机上打开，或发给一起计划的人。
-  pic: 生成海报
-  picTitle: 分享海报
-  picShare: 分享海报
-  picSave: 保存海报
+  pic: 海报
+  picTitle: 海报
+  picShare: 分享
+  picSave: 保存
   close: 关闭
   picDrawing: 正在生成海报…
   picFailed: 这里没能生成海报，可以先用“分享”发链接。
   picCopied: 文字已复制，发布时粘贴就行。
-  picHold: 长按海报保存到相册，再从相册里发出去。
-  picNote: 小红书不让放链接，所以“分享到小红书”的文字不带链接，改成搜索「小鹿出游 Allo Outings」。分享到其他应用时文字里带链接。
+  picHold: 长按海报保存到相册。
+  picNote: 发小红书的文字不带链接，其他应用带链接。
   cardGerman: "德语原名：{name}"
   cardFoot: 信息以主办方为准，出发前请再确认
   cardCode: 在网站搜索框输入右下角的编号，就能打开这一页
