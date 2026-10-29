@@ -10,6 +10,8 @@ import { schedulePush } from "../scripts/sync";
 import { authHeaders, login, passkeysWork, register, signedIn, type PasskeyResult } from "../scripts/passkey";
 import WherePicker, { type Where } from "./WherePicker";
 import { isEvening } from "../lib/meetup";
+import NickField from "./NickField";
+import { rememberNick } from "../lib/nickname";
 
 type Draft = { title: string; date: string; time: string; place: string; price: string; note: string };
 type Field = keyof Draft;
@@ -53,6 +55,10 @@ export default function Contribute({ lang, ui }: Props) {
   const [resend, setResend] = useState("");
   // ?meetup=<id>: one of this family's invites.
   const [meetup, setMeetup] = useState("");
+  // The nickname the event is credited to, and what an event being changed was sent with.
+  const [by, setBy] = useState("");
+  const [byWas, setByWas] = useState<string | undefined>(undefined);
+  const keepBy = (d: unknown) => { const b = String((d as { by?: unknown })?.by ?? ""); setByWas(b); setBy(b); };
 
   const fill = (d: Partial<Draft>, w?: Where) => { setDraft({ ...EMPTY, ...d }); setWhere(w ?? { place: d.place ?? "" }); };
 
@@ -77,6 +83,7 @@ export default function Contribute({ lang, ui }: Props) {
         const old = readProfile(localStorage).sent.find((s) => s.kind === "event" && s.at === at && !s.data.replaced);
         if (!old) return;
         fill(old.data.draft as Partial<Draft>);
+        keepBy(old.data.draft);
         setAudience("everyone");
         setResend(at);
         setNote(ui.resendNote);
@@ -86,6 +93,7 @@ export default function Contribute({ lang, ui }: Props) {
       const mine = readProfile(localStorage).sent.find((s) => s.kind === "event" && s.data.number === n && typeof s.data.key === "string");
       if (!mine) return;
       fill(mine.data.draft as Partial<Draft>);
+      keepBy(mine.data.draft);
       setAudience("everyone");
       setEditing({ number: n, key: mine.data.key as string });
       setNote(ui.editNote);
@@ -93,7 +101,7 @@ export default function Contribute({ lang, ui }: Props) {
   }, []);
 
   function reset() {
-    fill({}); setUnsure([]); setPhoto(""); setPaste(""); setNote(""); setEditing(null); setResend(""); setMeetup("");
+    fill({}); setByWas(undefined); setUnsure([]); setPhoto(""); setPaste(""); setNote(""); setEditing(null); setResend(""); setMeetup("");
     setAudience(""); setWay(""); setStep("form");
     if (location.search) history.replaceState(null, "", location.pathname);
   }
@@ -131,7 +139,7 @@ export default function Contribute({ lang, ui }: Props) {
   const placeLine = () => (where.town && !where.place.includes(where.town) ? `${where.place}, ${where.town}` : where.place);
 
   async function sendPublic() {
-    const d = { ...draft, place: placeLine() };
+    const d = { ...draft, place: placeLine(), by };
     let ok = false;
     try {
       if (editing) {
@@ -145,6 +153,7 @@ export default function Contribute({ lang, ui }: Props) {
         ok = res.ok;
         const number = ok ? ((await res.json().catch(() => ({}))) as { number?: number }).number : undefined;
         if (ok) try {
+          rememberNick(localStorage, by);
           rememberSent(localStorage, { kind: "event", draft: d, ...(number ? { number, key } : {}) });
           if (resend) markReplaced(localStorage, resend);
           schedulePush();
@@ -272,6 +281,7 @@ export default function Contribute({ lang, ui }: Props) {
                   ))}
                 </fieldset>
               )}
+              {!invite && <NickField key={byWas ?? "new"} lang={lang} ui={ui} initial={byWas} onChange={setBy} />}
               {invite && <p class="safety" role="note">⚠️ {f.safety}{isEvening(draft.time) && <><br /><b>{f.evening}</b></>}</p>}
               <button class="btn primary" type="submit" disabled={busy || !audience}>
                 {meetup ? f.saveInvite : editing ? ui.saveEdit : invite ? f.inviteBtn : ui.send}

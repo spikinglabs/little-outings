@@ -437,6 +437,13 @@ footer.foot { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--l
 .share-done { margin: 0 0 10px; overflow-wrap: anywhere; }
 .profile-box { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 14px; }
 .profile-box h2 { margin: 0; font-size: 1.1rem; }
+.profile-door { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: inherit; text-decoration: none; }
+.profile-door-text { display: grid; gap: 2px; }
+.profile-door-text b { font-size: 1.1rem; }
+.profile-door .btn { flex: none; }
+.nick-row { display: flex; gap: 8px; }
+.nick-row input { flex: 1; min-width: 0; }
+label.nick { display: grid; gap: 4px; margin-top: 10px; }
 .profile-box > .small { margin: 4px 0 0; max-width: 60ch; }
 .profile-counts { margin: 6px 0 0; padding-left: 1.1em; }
 .profile-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }

@@ -90,6 +90,7 @@ export function normalizePlace(id: string, raw: Raw, answer: Raw | undefined, to
     visits: raw.visits,
     note: raw.note,
     trust: raw.trust ?? { level: "community" },
+    by: raw.by,
     website: raw.website,
   };
 }
@@ -129,6 +130,7 @@ export function normalizeEvent(
     languageFrom: raw.language ? (layers.override?.language || base.origin !== "cityklub" ? "editor" : "guess") : undefined,
     note: raw.note,
     trust: raw.trust ?? { level: "community" },
+    by: raw.by,
     website: raw.website ?? raw.source_url ?? place?.website,
     origin: raw.origin === "cityklub" ? { name: raw.attribution ?? "cityklub", url: raw.source_url } : undefined,
   };

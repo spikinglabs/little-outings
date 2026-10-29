@@ -1,5 +1,5 @@
 ---
-// "Mine": the saved list, what this browser sent us, and a door to the profile (sync, move, download, delete).
+// "Mine": a door to the profile (nickname, sync, move, download, delete), the saved list and what this browser sent us.
 // Every saved-list card waits in a <template>; the script moves in the saved ones.
 import Base from "../../layouts/Base.astro";
 import Card from "../../components/Card.astro";
@@ -21,6 +21,16 @@ const { events, places } = await getData();
     <p data-shared-text></p>
     <button class="btn primary" type="button" data-shared-add>{t("share.add")}</button>
   </div>
+
+  <!-- The profile up top, so families see they have one: their nickname, whether it's synced, and the way in. -->
+  <a class="section profile-box profile-door" href={`/${lang}/profil/`}>
+    <span class="profile-door-text">
+      <b>{m("profile")}</b>
+      <span data-nick-line>{m("nickNone")}</span>
+      <span class="small" data-sync-line>{m("syncOff")}</span>
+    </span>
+    <span class="btn" aria-hidden="true">{m("open")} →</span>
+  </a>
 
   <section class="section">
     <div class="section-head">
@@ -47,13 +57,7 @@ const { events, places } = await getData();
     status_waiting: t("profile.statusWaiting"), status_changed: t("profile.statusChanged"), status_published: t("profile.statusPublished"),
     status_declined: t("profile.statusDeclined"), seeIt: t("profile.seeIt") }} />
 
-  <section class="section profile-box">
-    <h2>{m("profile")}</h2>
-    <p class="small" data-sync-line>{m("syncOff")}</p>
-    <div class="profile-actions"><a class="btn" href={`/${lang}/profil/`}>{m("syncLink")} →</a></div>
-  </section>
-
-  <script is:inline type="application/json" id="share-ui" set:html={JSON.stringify({ shared: t.group("share.shared"), copied: t("share.copied"), title: t("savedTitle"), syncOn: m("syncOn"), syncOff: m("syncOff") })} />
+  <script is:inline type="application/json" id="share-ui" set:html={JSON.stringify({ shared: t.group("share.shared"), copied: t("share.copied"), title: t("savedTitle"), syncOn: m("syncOn"), syncOff: m("syncOff"), nickAs: m("nickAs") })} />
   <script>
     import { saved, markSaved, renderKm, renderSaved } from "../../scripts/app";
     import { getSync, schedulePush } from "../../scripts/sync";
@@ -85,10 +89,12 @@ const { events, places } = await getData();
     // "Share my list": a link that carries the saved ids (?add=a,b,c). Opening it offers to add them,
     // which is also how a list moves to another phone. Nothing is stored anywhere else.
     type Plural = { one?: string; other: string };
-    const sui = JSON.parse(document.getElementById("share-ui")!.textContent!) as { shared: Plural; copied: string; title: string; syncOn: string; syncOff: string };
+    const sui = JSON.parse(document.getElementById("share-ui")!.textContent!) as { shared: Plural; copied: string; title: string; syncOn: string; syncOff: string; nickAs: string };
     const syncLine = () => { document.querySelector("[data-sync-line]")!.textContent = getSync() ? sui.syncOn : sui.syncOff; };
     document.addEventListener("lo:sync", syncLine);
     syncLine();
+    // The nickname contributions go out under (src/lib/nickname.ts); none yet until the first tip.
+    try { const nick = localStorage.getItem("lo-nick"); if (nick) document.querySelector("[data-nick-line]")!.textContent = sui.nickAs.replace("{nick}", nick); } catch { /* storage blocked */ }
     const known = new Set(pools.flatMap((p) => p.cards.map((el) => el.dataset.id!)));
     const incoming = (new URLSearchParams(location.search).get("add") || "").split(",").filter((id) => known.has(id) && !saved.has(id));
     const box = document.querySelector<HTMLElement>("[data-shared]")!;

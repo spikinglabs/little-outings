@@ -1,10 +1,10 @@
 // A family's profile is what this browser remembers about them: the saved list, where they went,
-// the chips they answered, their home town, the random voter id their taps are counted under, and
+// the chips they answered, their home town, the nickname they contribute under, the random voter id their taps are counted under, and
 // what they sent us. No account and no email. It can be downloaded as one JSON file, moved to another
 // phone with a link, and optionally kept in sync with a passkey (/api/profile).
 
 /** The localStorage keys a profile is made of. Deleting a profile removes exactly these. */
-export const KEYS = { saved: "lo-saved", went: "lo-went", asked: "lo-asked", home: "lo-home", voter: "lo-voter", sent: "lo-sent" } as const;
+export const KEYS = { saved: "lo-saved", went: "lo-went", asked: "lo-asked", home: "lo-home", voter: "lo-voter", sent: "lo-sent", nick: "lo-nick" } as const;
 /** Kept apart from the profile: this device's passkey sync session. */
 export const SYNC_KEY = "lo-sync";
 
@@ -16,6 +16,8 @@ export type Profile = {
   went: string[];
   asked: Record<string, string>;
   home?: string;
+  /** The nickname contributions are shown under (src/lib/nickname.ts). */
+  nick?: string;
   voter?: string;
   sent: Sent[];
 };
@@ -41,6 +43,7 @@ export function clean(input: unknown): Profile {
       .filter(([k, v]) => str(k) && ["yes", "no", "unsure"].includes(v as string)).slice(-LIMITS.asked)) as Record<string, string>;
   }
   if (str(o.home, 100)) p.home = o.home;
+  if (str(o.nick, 30)) p.nick = o.nick;
   if (typeof o.voter === "string" && VOTER.test(o.voter)) p.voter = o.voter;
   if (Array.isArray(o.sent)) {
     p.sent = o.sent.filter((s): s is Sent => !!s && typeof s === "object" && str((s as Sent).kind, 40) && str((s as Sent).at, 40)
@@ -67,6 +70,7 @@ export function merge(mine: Profile, other: Profile): Profile {
     went: [...new Set([...other.went, ...mine.went])],
     asked: { ...other.asked, ...mine.asked },
     home: mine.home ?? other.home,
+    nick: mine.nick ?? other.nick,
     voter: other.voter ?? mine.voter,
     sent: [...sent.values()].sort((a, b) => a.at.localeCompare(b.at)),
   });
@@ -80,6 +84,7 @@ export function readProfile(store: Store): Profile {
     went: parse(store.getItem(KEYS.went), []),
     asked: parse(store.getItem(KEYS.asked), {}),
     home: store.getItem(KEYS.home) ?? undefined,
+    nick: store.getItem(KEYS.nick) ?? undefined,
     voter: store.getItem(KEYS.voter) ?? undefined,
     sent: parse(store.getItem(KEYS.sent), []),
   });
@@ -91,6 +96,7 @@ export function writeProfile(store: Store, p: Profile) {
   store.setItem(KEYS.asked, JSON.stringify(p.asked));
   store.setItem(KEYS.sent, JSON.stringify(p.sent));
   p.home ? store.setItem(KEYS.home, p.home) : store.removeItem(KEYS.home);
+  p.nick ? store.setItem(KEYS.nick, p.nick) : store.removeItem(KEYS.nick);
   p.voter ? store.setItem(KEYS.voter, p.voter) : store.removeItem(KEYS.voter);
 }
 
@@ -139,7 +145,7 @@ export const MOVE_MAX = 1800;
  */
 export async function packForMove(p: Profile): Promise<{ code: string; full: boolean }> {
   const pack = async (q: Partial<Profile>) => b64url(await pipe(new TextEncoder().encode(JSON.stringify(q)), new CompressionStream("deflate-raw")));
-  const base = { saved: p.saved, went: p.went, home: p.home, voter: p.voter };
+  const base = { saved: p.saved, went: p.went, home: p.home, nick: p.nick, voter: p.voter };
   const withAsked = await pack({ ...base, asked: p.asked });
   if (withAsked.length <= MOVE_MAX) return { code: withAsked, full: p.sent.length === 0 };
   return { code: await pack(base), full: false };

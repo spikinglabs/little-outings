@@ -86,7 +86,7 @@ const ld = eventLd(e, {
         {" "}<a class="small" href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a></span></li>}
       {e.indoor != null && <li><span>{e.indoor ? "☂" : "☀"}</span><span>{e.indoor ? t("indoor") : t("outdoor")}</span></li>}
       <li><span>✓</span><span class="small">
-        {e.trust.level === "community" ? t("trust.community") : <>{t(`trust.${e.trust.level}`)}{e.trust.source && ` · ${tr(e.trust.source, lang)}`}</>}
+        {e.trust.level === "community" ? (e.by ? t("trust.byNick", { by: e.by }) : t("trust.community")) : <>{t(`trust.${e.trust.level}`)}{e.trust.source && ` · ${tr(e.trust.source, lang)}`}</>}
       </span></li>
     </ul>
 

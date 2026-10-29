@@ -99,7 +99,7 @@ indoor: Indoors, fine when it rains
 outdoor: Outdoors
 free: Free
 paid: Paid entry
-trust: { parents: { one: "1 answer from parents", other: "{n} answers from parents" }, base: "Data: {source} & Allo Outings community", verified: "✓ Checked", official: Official source, community: "Reported by parents, not checked yet", from: "From {source}, not checked yet" }
+trust: { parents: { one: "1 answer from parents", other: "{n} answers from parents" }, base: "Data: {source} & Allo Outings community", verified: "✓ Checked", official: Official source, community: "Reported by parents, not checked yet", from: "From {source}, not checked yet", byNick: "Added by {by}, not checked yet" }
 save: Save
 saved: Saved
 openMaps: Open in Maps
@@ -212,6 +212,8 @@ features: { playground: Playground, changing_table: Changing table, highchairs: 
 tags: { fest: Festival, animals: Animals, market: Market, diy: Hands-on, season: Seasonal, reading: Story time, music: Music, outside: Outdoors, stage: "Theatre & film", sport: "Sport & movement", tour: "Museums & tours", parents: "For parents", learn: "Courses & languages", other: Other }
 empty: Nothing listed here yet. Know something? Add it under Contribute.
 install: { button: "Install the app", hint: "Add Allo Outings to your home screen, it works like an app.", hintIos: "Tap Share, then “Add to Home Screen”, to use Allo Outings like an app.", short: Install, dismiss: Dismiss, menu: "In your browser menu, choose “Install app” or “Add to Home screen”.", installed: "Allo Outings is already installed on this device. Open it from your home screen or app list." }
+addedBy: "Added by {by}"
+nick: { label: Shown as, hint: "A made-up nickname, please not your real name. Empty it to stay anonymous.", new: New nickname, profile: "It's kept in your profile." }
 footer: "No guarantee for any listing. Please check with the organiser before you go."
 byLine: "Allo Outings is a product by {maker}."
 dataFrom: "Data includes {sources}."
@@ -320,12 +322,19 @@ mine:
   syncOn: "Synced with your passkey, so it's on your other devices too."
   syncOff: "Kept on this phone only. Turn on passkey sync to keep a copy safe."
   syncLink: Sync, move, download or delete
+  nickAs: "You contribute as {nick}"
+  nickNone: "No nickname yet: pick one when you send a tip"
+  open: Open
   back: Mine
 profile:
   link: "Profile and sync"
   title: Profile and sync
   sub: "No sign-up. Your profile lives on this phone: what you saved, where you went, your answers and what you sent us. Turn on passkey sync to keep a copy safe and use it on your other devices."
   have: "On this phone"
+  nickTitle: Your nickname
+  nickSub: "Tips, places and events you send are shown under this name. Make one up, please not your real name. Leave it empty to stay anonymous."
+  nickSave: Save
+  nickSaved: "Saved."
   themeTitle: Light or dark
   themeSub: "Auto follows your phone's setting."
   themeAuto: Auto
@@ -346,6 +355,7 @@ profile:
     asked: { one: "1 answer to a quick question", other: "{n} answers to quick questions" }
     sent: { one: "1 tip, report or suggestion sent", other: "{n} tips, reports and suggestions sent" }
     home: "Home town: {town}"
+    nick: "Nickname: {nick}"
   passkeyTitle: Keep it safe with a passkey
   passkeySub: "A passkey keeps a copy of your profile with us, so it survives a new phone and shows up on your other devices. No email, no password: your phone unlocks it with your face, fingerprint or screen lock."
   passkeyOn: Sync with a passkey
@@ -386,6 +396,15 @@ profile:
   deleteSub: "Removes your profile from this phone, your quick votes, and the passkey copy if you have one. Tips and reports you sent are already with our moderators; tell us if you want one taken down."
   delete: Delete everything
   deleteConfirm: "Delete your saved list, answers and votes? This can't be undone."
+  deleteWarn: "Deleting can't be undone. This is what goes, from this phone and from us:"
+  deleteKeep: "Tips, places and events you already sent stay published (write to us to take one down). Want a copy first?"
+  deleteDownload: Download my data first
+  deleteType: "To confirm, type this sentence:"
+  deleteSentence: "I want to delete all my data"
+  deletePasskey: "The copy kept with your passkey, on all your devices"
+  deleteVotes: "Your quick votes, so they no longer count"
+  deleteGo: Delete for good
+  deleteCancel: Keep my data
   deleted: Deleted. This phone starts fresh.
 about:
   link: Data and privacy
@@ -395,7 +414,7 @@ about:
   places: { h: Places, p: "Playgrounds, pools, museums, farms and other places come from OpenStreetMap (© OpenStreetMap contributors, ODbL), refreshed weekly. Once parents add to a place, it shows how many answers they gave." }
   translate: { h: Translations and labels, p: "Event titles in English and Chinese, and Chinese place names, are machine-translated, with the German name underneath so you can match posters and signs. “Do you need German?” starts as a guess from the title, marked with “?”. Once parents tap an answer, the most common answer wins." }
   taps: { h: Your taps, p: "Taps on facilities, “We went” and “Do you need German?” are counted anonymously on Cloudflare. Each browser has a random id, so one question counts once and changing your answer replaces the old one. IP addresses are kept only as a hash, to stop vote flooding." }
-  writing: { h: What you write, p: "Tips, reports and suggested places go to us for review first and only appear once approved. An answer to “Still missing” (opening hours, time, price) goes live once two parents give the same answer, or once we've checked it. Please don't include names, phone numbers or other personal details." }
+  writing: { h: What you write, p: "Tips, reports and suggested places go to us for review first and only appear once approved. An answer to “Still missing” (opening hours, time, price) goes live once two parents give the same answer, or once we've checked it. Please don't include names, phone numbers or other personal details. You can sign them with a made-up nickname, which is shown next to them; please never use your real name. Write to us to have one removed." }
   ai: { h: Use it in your AI assistant, p: "Ask Claude, ChatGPT or another assistant for ideas from Allo Outings: add {url} as a custom connector (in Claude: Settings → Connectors; in ChatGPT: Settings → Apps, developer mode). No login needed. Your assistant can then search events and places, and send a tip or a new event for you; those go to us for review like everything else. Some assistants need a paid plan for custom connectors." }
   profile: { h: Your profile, p: "Your saved list, the places you went and your answers stay in this phone's browser. There is no account and no email. Under “Mine”, then “Profile and sync”, you can download it, move it to another phone or delete it. If you choose passkey sync, the server keeps one copy, which is deleted with your profile." }
   location: { h: Your location, p: "Next to “Around” there is a small location button. Only if you tap it does your phone ask to share its rough location, to pick the nearest town. The location stays on your phone and is never sent to us; the town is kept like a town you pick yourself. The map then shows a blue dot where you are, until you close the tab or pick a town yourself. Without it, “Around” starts at Cologne." }

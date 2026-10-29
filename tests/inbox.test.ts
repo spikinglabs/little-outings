@@ -43,6 +43,11 @@ test("a visit and a tip become issues; unknown chips and topics are dropped or r
   res = await onRequestPost({ env, request: post({ kind: "tip", item: "osm-node-5", topic: "bring", text: "Wechselkleidung!" }) } as any);
   assert.equal(res.status, 200);
   assert.deepEqual(sent.labels, ["tip"]);
+  res = await onRequestPost({ env, request: post({ kind: "tip", item: "osm-node-5", topic: "bring", text: "Snacks", by: "Brave Hedgehog" }) } as any);
+  assert.match(sent.body, /by: "Brave Hedgehog"/);
+  // An email or a phone number is never shown as a name.
+  res = await onRequestPost({ env, request: post({ kind: "tip", item: "osm-node-5", topic: "bring", text: "Snacks", by: "anna@example.com" }) } as any);
+  assert.doesNotMatch(sent.body, /by:/);
   res = await onRequestPost({ env, request: post({ kind: "tip", item: "osm-node-5", topic: "spam", text: "x" }) } as any);
   assert.equal(res.status, 400);
 });

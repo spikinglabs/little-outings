@@ -18,6 +18,7 @@
 
 import { feedUrl, checkSummary } from "../../src/lib/feed.ts";
 import { berlinToday, checkFeed } from "./feed.ts";
+import { cleanNick } from "../../src/lib/nickname.ts";
 
 export interface Env { GITHUB_TOKEN?: string; INBOX_REPO?: string; TURNSTILE_SECRET?: string }
 type Ctx = { request: Request; env: Env };
@@ -44,9 +45,12 @@ function eventIssue(d: Record<string, unknown>, lang: unknown, edit?: string) {
   return {
     title: `event ${clip(d.date, 10)} ${clip(d.title, 80)}`,
     yaml: [`kind: event`, ...EVENT_FIELDS.map((k) => `${k}: ${yamlStr(d[k], k === "note" ? 2000 : 300)}`),
-      `lang: ${yamlStr(lang, 5)}`, edit ? `edit: ${JSON.stringify(edit)}` : ""].filter(Boolean).join("\n"),
+      `lang: ${yamlStr(lang, 5)}`, byLine(d.by), edit ? `edit: ${JSON.stringify(edit)}` : ""].filter(Boolean).join("\n"),
   };
 }
+
+/** The nickname a contribution is credited to, if it gave one (never a real name: see src/lib/nickname.ts). */
+const byLine = (by: unknown) => (cleanNick(by) ? `by: ${JSON.stringify(cleanNick(by))}` : "");
 
 /** The issue for a suggested place, or an error. */
 function placeIssue(p: Record<string, unknown>, lang: unknown, edit?: string) {
@@ -56,7 +60,7 @@ function placeIssue(p: Record<string, unknown>, lang: unknown, edit?: string) {
     title: `place ${clip(p.kind, 20)} ${clip(p.name, 80)}`,
     yaml: [`kind: place`, ...["type", "name", "town", "street", "website", "note"].map((k) =>
       `${k}: ${yamlStr(k === "type" ? p.kind : p[k], k === "note" ? 2000 : 300)}`),
-      `features: [${features.map((f: string) => JSON.stringify(f)).join(", ")}]`, `lang: ${yamlStr(lang, 5)}`,
+      `features: [${features.map((f: string) => JSON.stringify(f)).join(", ")}]`, `lang: ${yamlStr(lang, 5)}`, byLine(p.by),
       edit ? `edit: ${JSON.stringify(edit)}` : ""].filter(Boolean).join("\n"),
   };
 }
@@ -112,7 +116,7 @@ export async function issueOf(body: any): Promise<{ title: string; yaml: string;
     title = `tip ${body.topic} ${clip(body.item, 80)}`;
     label = "tip";
     yaml = [`kind: tip`, `item: ${yamlStr(body.item, 80)}`, `topic: ${yamlStr(body.topic, 20)}`,
-      `text: ${yamlStr(body.text.trim(), 140)}`, `lang: ${yamlStr(body.lang, 5)}`].join("\n");
+      `text: ${yamlStr(body.text.trim(), 140)}`, `lang: ${yamlStr(body.lang, 5)}`, byLine(body.by)].filter(Boolean).join("\n");
   } else if (body.kind === "report" && typeof body.item === "string" && /^[a-z0-9-]+$/.test(body.item)
     && ["closed", "cancelled", "where", "notKids", "outdated", "other"].includes(body.reason)) {
     title = `report ${body.reason} ${clip(body.item, 80)}`;

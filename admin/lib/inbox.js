@@ -111,6 +111,7 @@ export function eventFile(number, d, approvedBy) {
     d.time ? `time: ${q(d.time)}` : "",
     free ? "price: { free: true }" : price ? `price: { free: false, text: ${q(price)} }` : "",
     d.note ? `note: ${q(d.note)}` : "",
+    d.by ? `by: ${q(d.by)}` : "",
     "trust: { level: community }",
   ];
   return { path: `content/events/community/inbox-${number}.yaml`, text: lines.filter(Boolean).join("\n") + "\n" };
@@ -138,6 +139,7 @@ export function placeFile(number, d, approvedBy) {
     features.length ? `facilities:\n${features.map((f) => `  ${f}: { status: "yes", confirmed: 1 }`).join("\n")}` : "",
     d.note ? `note: ${q(d.note)}` : "",
     website ? `website: ${q(website)}` : "",
+    d.by ? `by: ${q(d.by)}` : "",
     "trust: { level: community }",
   ];
   return { path: `content/places/community/inbox-${number}.yaml`, text: lines.filter(Boolean).join("\n") + "\n" };
