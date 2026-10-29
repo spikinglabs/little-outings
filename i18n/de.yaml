@@ -337,7 +337,7 @@ mine:
   syncOff: "Nur auf diesem Handy gespeichert. Mit Passkey-Sync bleibt eine Kopie sicher."
   syncLink: Sync, Umzug, Download oder Löschen
   nickAs: "Du trägst bei als {nick}"
-  nickNone: "Noch kein Spitzname: du wählst ihn beim ersten Tipp"
+  nickNone: "Du sendest anonym: Spitzname im Profil eintragen"
   open: Öffnen
   back: Meins
 profile:

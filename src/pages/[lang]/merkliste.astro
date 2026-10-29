@@ -26,7 +26,7 @@ const { events, places } = await getData();
   <a class="section profile-box profile-door" href={`/${lang}/profil/`}>
     <span class="profile-door-text">
       <b>{m("profile")}</b>
-      <span data-nick-line>{m("nickNone")}</span>
+      <span data-profile-nick>{m("nickNone")}</span>
       <span class="small" data-sync-line>{m("syncOff")}</span>
     </span>
     <span class="btn" aria-hidden="true">{m("open")} →</span>
@@ -61,6 +61,7 @@ const { events, places } = await getData();
   <script>
     import { saved, markSaved, renderKm, renderSaved } from "../../scripts/app";
     import { getSync, schedulePush } from "../../scripts/sync";
+    import { myNick } from "../../lib/nickname";
     // Thousands of cards in the live page made phones slow, so only the ones on the list are moved in.
     const pools = [...document.querySelectorAll<HTMLElement>("[data-saved-section]")].map((sec) => ({
       sec,
@@ -93,8 +94,9 @@ const { events, places } = await getData();
     const syncLine = () => { document.querySelector("[data-sync-line]")!.textContent = getSync() ? sui.syncOn : sui.syncOff; };
     document.addEventListener("lo:sync", syncLine);
     syncLine();
-    // The nickname contributions go out under (src/lib/nickname.ts); none yet until the first tip.
-    try { const nick = localStorage.getItem("lo-nick"); if (nick) document.querySelector("[data-nick-line]")!.textContent = sui.nickAs.replace("{nick}", nick); } catch { /* storage blocked */ }
+    // The nickname contributions go out under (src/lib/nickname.ts), made up on first use; "" means anonymous.
+    // Not [data-nick-line]: app.ts fills that one in the tip form and would throw here.
+    try { const nick = myNick(localStorage, document.body.dataset.lang ?? "en"); if (nick) document.querySelector("[data-profile-nick]")!.textContent = sui.nickAs.replace("{nick}", nick); } catch { /* storage blocked */ }
     const known = new Set(pools.flatMap((p) => p.cards.map((el) => el.dataset.id!)));
     const incoming = (new URLSearchParams(location.search).get("add") || "").split(",").filter((id) => known.has(id) && !saved.has(id));
     const box = document.querySelector<HTMLElement>("[data-shared]")!;

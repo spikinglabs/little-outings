@@ -337,7 +337,7 @@ mine:
   syncOff: "Kept on this phone only. Turn on passkey sync to keep a copy safe."
   syncLink: Sync, move, download or delete
   nickAs: "You contribute as {nick}"
-  nickNone: "No nickname yet: pick one when you send a tip"
+  nickNone: "You send anonymously: add a nickname in Profile"
   open: Open
   back: Mine
 profile:
