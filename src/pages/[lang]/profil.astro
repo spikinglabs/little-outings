@@ -13,7 +13,7 @@ const ui = { ...t.group("profile"), count: t.group("profile.count") };
 <Base lang={lang} title={p("title")} tab="saved" noindex>
   <a class="back-link" href={`/${lang}/merkliste/`}>← {t("mine.back")}</a>
   <h1 class="page-title">{p("title")}</h1>
-  <p class="page-sub">{p("sub")}</p>
+  <p class="page-sub">{p("sub")} <a href={`/${lang}/hilfe/#profile`}>{t("help.how")} →</a></p>
 
   <div class="shared" data-incoming hidden>
     <p data-incoming-text></p>
@@ -24,6 +24,19 @@ const ui = { ...t.group("profile"), count: t.group("profile.count") };
   <section class="section profile-box">
     <h2>{p("have")}</h2>
     <ul class="profile-counts" data-counts></ul>
+  </section>
+
+  <section class="section profile-box" id="nick">
+    <h2>{p("nickTitle")}</h2>
+    <p class="small">{p("nickSub")}</p>
+    <form class="profile-actions" data-nick-form>
+      <span class="nick-row">
+        <input name="by" maxlength="30" autocomplete="off" aria-label={p("nickTitle")} placeholder={p("nickPh")} data-nick-input />
+        <button class="btn" type="button" aria-label={t("nick.new")} title={t("nick.new")} data-nick-roll-p>🎲</button>
+      </span>
+      <button class="btn primary" type="submit">{p("nickSave")}</button>
+    </form>
+    <p class="small" role="status" data-nick-note hidden>{p("nickSaved")}</p>
   </section>
 
   <section class="section profile-box">
@@ -86,7 +99,22 @@ const ui = { ...t.group("profile"), count: t.group("profile.count") };
   <section class="section profile-box">
     <h2>{p("deleteTitle")}</h2>
     <p class="small">{p("deleteSub")}</p>
-    <div class="profile-actions"><button class="btn danger" type="button" data-delete>{p("delete")}</button></div>
+    <div class="profile-actions" data-delete-start><button class="btn danger" type="button" data-delete-open>{p("delete")}</button></div>
+    <!-- Three steps before anything goes: open this, type the word, then confirm once more. -->
+    <form class="profile-ask" data-delete-ask hidden>
+      <p class="done">{p("deleteWarn")}</p>
+      <ul class="profile-counts" data-delete-lose></ul>
+      <p class="small">{p("deleteKeep")}</p>
+      <p class="done" data-delete-need>{p("deleteNeedDownload")}</p>
+      <div class="profile-actions"><button class="btn primary" type="button" data-delete-download>{p("deleteDownload")}</button></div>
+      <label>{p("deleteType")} <b>{p("deleteSentence")}</b>
+        <input name="word" autocomplete="off" spellcheck="false" placeholder={p("deleteSentence")} disabled data-delete-word />
+      </label>
+      <div class="profile-actions">
+        <button class="btn danger" type="submit" disabled data-delete>{p("deleteGo")}</button>
+        <button class="btn" type="button" data-delete-cancel>{p("deleteCancel")}</button>
+      </div>
+    </form>
   </section>
 
   <script is:inline type="application/json" id="profile-ui" set:html={JSON.stringify(ui)} />
@@ -95,7 +123,8 @@ const ui = { ...t.group("profile"), count: t.group("profile.count") };
     import { login, register } from "../../scripts/passkey";
     import { renderSVG } from "uqr";
     import { clean, forget, packForMove, readProfile, unpackMove, type Profile } from "../../lib/profile";
-    import { adopt, getSync, lastSynced, push, setSync, syncNow } from "../../scripts/sync";
+    import { adopt, getSync, lastSynced, push, schedulePush, setSync, syncNow } from "../../scripts/sync";
+    import { cleanNick, randomNick, rememberNick } from "../../lib/nickname";
 
     type Plural = Record<string, string>;
     const ui = JSON.parse(document.getElementById("profile-ui")!.textContent!) as Record<string, string> & { count: Record<string, Plural | string> };
@@ -105,19 +134,32 @@ const ui = { ...t.group("profile"), count: t.group("profile.count") };
     const $ = <T extends HTMLElement = HTMLElement>(sel: string) => document.querySelector<T>(sel)!;
     const local = () => readProfile(localStorage);
 
+    /* ---------- the nickname contributions are shown under ---------- */
+    const nickInput = $<HTMLInputElement>("[data-nick-input]");
+    nickInput.value = local().nick ?? "";
+    $("[data-nick-roll-p]").addEventListener("click", () => { nickInput.value = randomNick(lang); });
+    $("[data-nick-form]").addEventListener("submit", (e) => {
+      e.preventDefault();
+      try { rememberNick(localStorage, nickInput.value); nickInput.value = cleanNick(nickInput.value); schedulePush(); } catch { /* storage blocked */ }
+      $("[data-nick-note]").hidden = false;
+    });
+
     const flash = (text: string) => { const el = $("[data-flash]"); el.textContent = text; el.hidden = false; };
 
     /* ---------- what's on this phone ---------- */
-    function renderCounts() {
-      const p = local();
+    function countLines(p: Profile) {
       const c = ui.count;
-      const lines = [
+      return [
         p.saved.length && plural(c.saved as Plural, p.saved.length),
         p.went.length && plural(c.went as Plural, p.went.length),
         Object.keys(p.asked).length && plural(c.asked as Plural, Object.keys(p.asked).length),
         p.sent.length && plural(c.sent as Plural, p.sent.length),
         p.home && (c.home as string).replace("{town}", p.home),
+        p.nick && (c.nick as string).replace("{nick}", p.nick),
       ].filter(Boolean) as string[];
+    }
+    function renderCounts() {
+      const lines = countLines(local());
       $("[data-counts]").replaceChildren(...(lines.length ? lines : ["–"]).map((s) => Object.assign(document.createElement("li"), { textContent: s })));
     }
     document.addEventListener("lo:profile", renderCounts);
@@ -251,6 +293,7 @@ const ui = { ...t.group("profile"), count: t.group("profile.count") };
       });
       a.click();
       setTimeout(() => URL.revokeObjectURL(a.href), 10_000);
+      document.dispatchEvent(new CustomEvent("lo:downloaded"));
     });
 
     $("[data-load-pick]").addEventListener("click", () => $("[data-load]").click());
@@ -268,8 +311,29 @@ const ui = { ...t.group("profile"), count: t.group("profile.count") };
     });
 
     /* ---------- delete ---------- */
-    $("[data-delete]").addEventListener("click", async () => {
-      if (!confirm(ui.deleteConfirm)) return;
+    const ask = $<HTMLFormElement>("[data-delete-ask]");
+    const word = $<HTMLInputElement>("[data-delete-word]");
+    // The whole sentence, typed out; case, spaces and punctuation don't matter.
+    const norm = (v: string) => v.toLocaleLowerCase(lang).replace(/[\s\p{P}]+/gu, "");
+    const typed = () => norm(word.value) === norm(ui.deleteSentence);
+    $("[data-delete-open]").addEventListener("click", () => {
+      // What exactly goes, from what this phone holds now.
+      const lose = [...countLines(local()), ...(getSync() ? [ui.deletePasskey] : []), ui.deleteVotes];
+      $("[data-delete-lose]").replaceChildren(...lose.map((s) => Object.assign(document.createElement("li"), { textContent: s })));
+      ask.hidden = false; $("[data-delete-start]").hidden = true;
+    });
+    // No deleting without a copy: the sentence box opens only once this phone has saved the download.
+    $("[data-delete-download]").addEventListener("click", () => $("[data-download]").click());
+    document.addEventListener("lo:downloaded", () => {
+      if (ask.hidden) return;
+      word.disabled = false; word.focus();
+      $("[data-delete-need]").textContent = ui.deleteDownloaded;
+    });
+    $("[data-delete-cancel]").addEventListener("click", () => { ask.hidden = true; $("[data-delete-start]").hidden = false; word.value = ""; word.disabled = true; $("[data-delete-need]").textContent = ui.deleteNeedDownload; $<HTMLButtonElement>("[data-delete]").disabled = true; });
+    word.addEventListener("input", () => { $<HTMLButtonElement>("[data-delete]").disabled = !typed(); });
+    ask.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (word.disabled || !typed() || !confirm(ui.deleteConfirm)) return;
       const p: Profile = local();
       const s = getSync();
       // Our side first. If that fails, the phone keeps its ids so the parent can simply try again.
@@ -283,6 +347,8 @@ const ui = { ...t.group("profile"), count: t.group("profile.count") };
       document.dispatchEvent(new CustomEvent("lo:profile"));
       document.dispatchEvent(new CustomEvent("lo:sync"));
       flash(ui.deleted);
+      $<HTMLButtonElement>("[data-delete-cancel]").click();
+      nickInput.value = "";
     });
   </script>
 </Base>

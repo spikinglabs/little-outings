@@ -15,7 +15,7 @@ export type Facility = {
 export type Tally = {
   fac?: Record<string, { yes: number; no: number }>;
   visits?: { count: number; again: number; good_for: Record<string, number> };
-  tips?: { topic: string; text: string }[];
+  tips?: { topic: string; text: string; by?: string }[];
   /** Events: parents' answers to "How much German do you need?". */
   lang?: Partial<Record<Language, number>>;
   /** Answers to "Still missing" that two parents agreed on, or a moderator approved (admin/lib/answers.js). */
@@ -61,10 +61,12 @@ export interface Place {
   rating?: { stars: number; reviews: number };
   quotes: { text: Text; who: Text }[];
   /** Approved "Good to know" tips from the inbox. */
-  tips?: { topic: string; text: string }[];
+  tips?: { topic: string; text: string; by?: string }[];
   visits?: { count: number; again: number; good_for: Partial<Record<string, number>> };
   note?: Text;
   trust: Trust;
+  /** The nickname the parent who sent it is credited under. */
+  by?: string;
   website?: string;
   /** Seasons whose `kinds` include this place's kind (content/seasons.yaml), e.g. "winter" for an ice rink. */
   seasons?: string[];
@@ -102,6 +104,8 @@ export interface Event {
   machine?: ("en" | "zh")[];
   note?: Text;
   trust: Trust;
+  /** The nickname the parent who sent it is credited under. */
+  by?: string;
   website?: string;
   /** Set for events that came from the cityklub public export. */
   origin?: { name: string; url: string };

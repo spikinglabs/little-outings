@@ -156,13 +156,13 @@ const ld = placeLd(p, { url: `${site}${Astro.url.pathname}`, name: nameOf(p, lan
       <>
         <h2>{t("visit.tipTitle")}</h2>
         {!p.rating && p.quotes.map((q) => <blockquote class="quote">{tr(q.text, lang)}<small>{tr(q.who, lang)}</small></blockquote>)}
-        {p.tips?.map((x) => <blockquote class="quote">{x.text}<small>{t(`tipTopic.${x.topic}`).replace(/…$/, "")}</small></blockquote>)}
+        {p.tips?.map((x) => <blockquote class="quote">{x.text}<small>{t(`tipTopic.${x.topic}`).replace(/…$/, "")}{x.by && ` · ${x.by}`}</small></blockquote>)}
       </>
     )}
 
-    {p.trust.source && (
+    {(p.trust.source || p.by) && (
       <p class="small">
-        {t("trust.base", { source: tr(p.trust.source, lang) })}{parentInput(p) > 0 && ` · ${t("trust.parents", { n: parentInput(p) })}`}
+        {p.trust.source ? t("trust.base", { source: tr(p.trust.source, lang) }) : t("addedBy", { by: p.by ?? "" })}{parentInput(p) > 0 && ` · ${t("trust.parents", { n: parentInput(p) })}`}
         {" · "}<a href={`/${lang}/daten`}>{t("about.link")}</a>
       </p>
     )}

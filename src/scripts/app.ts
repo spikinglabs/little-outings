@@ -2,6 +2,7 @@
 import { KEYS, rememberSent } from "../lib/profile";
 import { pullNowAndThen, schedulePush } from "./sync";
 import { count, type CountAction } from "../lib/count";
+import { randomNick, rememberNick } from "../lib/nickname";
 
 const body = document.body;
 const ui = JSON.parse(body.dataset.ui || "{}") as Record<string, string> & { fac?: [string, string][] };
@@ -258,11 +259,12 @@ document.addEventListener("submit", async (ev) => {
   const data = new FormData(form);
   const payload = form.dataset.visit
     ? { kind: "visit", item: form.dataset.visit, again: data.get("again"), good_for: data.getAll("good_for") }
-    : { kind: "tip", item: form.dataset.tipFor, topic: data.get("topic"), text: data.get("text") };
+    : { kind: "tip", item: form.dataset.tipFor, topic: data.get("topic"), text: data.get("text"), by: String(data.get("by") ?? "") };
   const ok = payload.kind === "visit"
     ? await sendTap({ kind: "visit", item: payload.item, again: payload.again, good_for: payload.good_for }, { ...payload, lang: body.dataset.lang })
     : await sendToInbox({ ...payload, lang: body.dataset.lang });
   if (ok && form.dataset.visit) wentHere(form.dataset.visit);
+  if (ok && !form.dataset.visit) try { rememberNick(localStorage, String(data.get("by") ?? "")); } catch { /* storage blocked */ }
   const done = document.createElement("p");
   done.className = "done";
   done.setAttribute("role", "status");
@@ -278,6 +280,17 @@ document.querySelectorAll<HTMLFormElement>("form[data-visit]").forEach((form) =>
   done.className = "done";
   done.textContent = ui.wentBefore;
   form.replaceWith(done);
+});
+
+// The tip form's "Shown as": this family's nickname, or a random one; 🎲 rolls another.
+document.querySelectorAll<HTMLInputElement>("input[data-nick]").forEach((input) => {
+  const saved = read("lo-nick");
+  input.value = saved ?? randomNick(body.dataset.lang ?? "en");
+});
+document.addEventListener("click", (ev) => {
+  const roll = (ev.target as Element).closest("[data-nick-roll]");
+  const input = roll?.closest("label")?.querySelector<HTMLInputElement>("input[data-nick]");
+  if (input) input.value = randomNick(body.dataset.lang ?? "en");
 });
 
 /* ---------- facility chips: one quick question, then the next "?" ---------- */

@@ -99,7 +99,7 @@ indoor: Drinnen, auch bei Regen
 outdoor: Draußen
 free: Kostenlos
 paid: Kostenpflichtig
-trust: { parents: { one: "1 Antwort von Eltern", other: "{n} Antworten von Eltern" }, base: "Grunddaten: {source}", verified: "✓ Geprüft", official: Offizielle Quelle, community: "Von Eltern gemeldet, noch nicht geprüft", from: "Aus {source}, noch nicht geprüft" }
+trust: { parents: { one: "1 Antwort von Eltern", other: "{n} Antworten von Eltern" }, base: "Daten: {source} & Allo-Outings-Community", verified: "✓ Geprüft", official: Offizielle Quelle, community: "Von Eltern gemeldet, noch nicht geprüft", from: "Aus {source}, noch nicht geprüft", byNick: "Eingetragen von {by}, noch nicht geprüft" }
 save: Merken
 saved: Gemerkt
 openMaps: In Karten öffnen
@@ -212,6 +212,8 @@ features: { playground: Spielplatz, changing_table: Wickeltisch, highchairs: Hoc
 tags: { fest: Fest, animals: Tiere, market: Markt, diy: Mitmachen, season: Saison, reading: Vorlesen, music: Musik, outside: Draußen, stage: "Theater & Kino", sport: "Sport & Bewegung", tour: "Museum & Führung", parents: "Für Eltern", learn: "Kurse & Sprachen", other: Sonstiges }
 empty: Hier ist noch nichts eingetragen. Kennt ihr etwas? Unter „Mitmachen“ könnt ihr es melden.
 install: { button: "App installieren", hint: "Allo Outings lässt sich wie eine App auf den Startbildschirm legen.", hintIos: "Teilen antippen, dann „Zum Home-Bildschirm“, um Allo Outings wie eine App zu nutzen.", short: Installieren, dismiss: Ausblenden, menu: "Im Browser-Menü „App installieren“ oder „Zum Startbildschirm hinzufügen“ wählen.", installed: "Allo Outings ist auf diesem Gerät schon installiert. Öffne es über den Startbildschirm oder die App-Liste." }
+addedBy: "Eingetragen von {by}"
+nick: { label: Dein Spitzname, hint: "Steht neben dem, was du schickst. Denk dir einen aus, nicht deinen echten Namen, oder lass es leer für anonym.", new: Neuer Spitzname, profile: "Er wird in deinem Profil gespeichert." }
 footer: "Alle Angaben ohne Gewähr. Bitte vor dem Besuch beim Veranstalter prüfen."
 byLine: "Allo Outings ist ein Produkt von {maker}."
 dataFrom: "Daten u. a. von {sources}."
@@ -320,12 +322,20 @@ mine:
   syncOn: "Mit eurem Passkey synchronisiert, also auch auf euren anderen Geräten."
   syncOff: "Nur auf diesem Handy gespeichert. Mit Passkey-Sync bleibt eine Kopie sicher."
   syncLink: Sync, Umzug, Download oder Löschen
+  nickAs: "Du trägst bei als {nick}"
+  nickNone: "Noch kein Spitzname: du wählst ihn beim ersten Tipp"
+  open: Öffnen
   back: Meins
 profile:
   link: "Profil und Sync"
   title: Profil und Sync
   sub: "Ohne Anmeldung. Euer Profil liegt auf diesem Handy: was ihr gemerkt habt, wo ihr wart, eure Antworten und was ihr uns geschickt habt. Mit Passkey-Sync bleibt eine Kopie sicher und erscheint auf euren anderen Geräten."
   have: "Auf diesem Handy"
+  nickTitle: Dein Spitzname
+  nickSub: "Tipps, Orte und Termine, die du schickst, erscheinen unter diesem Namen. Denk dir einen aus, bitte nicht deinen echten Namen. Leer lassen für anonym."
+  nickPh: "z. B. Lustiger Otter"
+  nickSave: Speichern
+  nickSaved: "Gespeichert."
   themeTitle: Hell oder dunkel
   themeSub: "Auto folgt der Einstellung deines Handys."
   themeAuto: Auto
@@ -346,6 +356,7 @@ profile:
     asked: { one: "1 Antwort auf eine kurze Frage", other: "{n} Antworten auf kurze Fragen" }
     sent: { one: "1 Tipp, Hinweis oder Vorschlag geschickt", other: "{n} Tipps, Hinweise und Vorschläge geschickt" }
     home: "Heimatort: {town}"
+    nick: "Spitzname: {nick}"
   passkeyTitle: Mit einem Passkey sichern
   passkeySub: "Mit einem Passkey liegt eine Kopie eures Profils bei uns. So übersteht es ein neues Handy und erscheint auf euren anderen Geräten. Keine E-Mail, kein Passwort: Das Handy entsperrt ihn mit Gesicht, Fingerabdruck oder Bildschirmsperre."
   passkeyOn: Mit einem Passkey synchronisieren
@@ -386,7 +397,56 @@ profile:
   deleteSub: "Löscht euer Profil auf diesem Handy, eure kurzen Stimmen und die Passkey-Kopie, falls vorhanden. Geschickte Tipps und Hinweise liegen schon bei unserer Moderation; sagt uns Bescheid, wenn einer weg soll."
   delete: Alles löschen
   deleteConfirm: "Merkliste, Antworten und Stimmen löschen? Das lässt sich nicht rückgängig machen."
+  deleteWarn: "Löschen lässt sich nicht rückgängig machen. Das verschwindet, von diesem Handy und bei uns:"
+  deleteKeep: "Tipps, Orte und Termine, die du schon geschickt hast, bleiben veröffentlicht (schreib uns, wenn einer weg soll)."
+  deleteDownload: "Deine Daten herunterladen"
+  deleteNeedDownload: "Wir haben keine Kopie deiner Daten. Einmal gelöscht, können wir sie nicht wiederherstellen. Lade sie zuerst herunter; danach kannst du löschen."
+  deleteDownloaded: "Gespeichert. Tippe jetzt den Satz zum Löschen."
+  deleteType: "Zur Bestätigung tippe diesen Satz:"
+  deleteSentence: "Mir ist klar, dass alle meine Daten weg sind, wenn meine heruntergeladene Kopie weg ist"
+  deletePasskey: "Die Kopie bei deinem Passkey, auf all deinen Geräten"
+  deleteVotes: "Deine Stimmen zu kurzen Fragen, sie zählen dann nicht mehr"
+  deleteGo: Endgültig löschen
+  deleteCancel: Daten behalten
   deleted: Gelöscht. Dieses Handy fängt neu an.
+help:
+  link: Hilfe
+  how: So funktioniert's
+  title: Hilfe
+  intro: "Kurze Antworten, wie Allo Outings funktioniert: dein Profil, dein Spitzname, was die Markierungen heißen und wie du etwas einträgst."
+  profile:
+    h: So funktioniert dein Profil
+    p: "Es gibt kein Konto, keine E-Mail und kein Passwort. Dein Profil ist einfach das, was sich der Browser auf diesem Handy merkt."
+    phone: Auf diesem Handy
+    phoneHas: "Merkliste, wo ihr wart, deine Antworten, Heimatort, Spitzname, was du geschickt hast"
+    optional: "optional: Passkey-Sync"
+    passkey: Eine Kopie mit deinem Passkey
+    passkeyHas: "Sicher bei uns und auf deinen anderen Geräten. Entsperrt mit Gesicht, Fingerabdruck oder Bildschirmsperre."
+    move: Umziehen
+    moveHow: "Auf ein neues Handy per QR-Code oder Link"
+    download: Herunterladen
+    downloadHow: "Alles in einer Datei für dich"
+    delete: Löschen
+    deleteHow: "Erst herunterladen, dann einen Satz zur Bestätigung tippen"
+    b1: "Ohne Passkey-Sync ist das Profil weg, wenn du den Browser leerst oder das Handy verlierst. Lade es ab und zu herunter oder schalte Sync ein."
+    b2: "Mit Passkey-Sync bekommt ein zweites Handy dieselbe Merkliste und denselben Spitznamen, sobald du dich mit dem Passkey anmeldest."
+    b3: "Löschen entfernt alles, auch unsere Passkey-Kopie. Eine andere Kopie haben wir nicht, es lässt sich also nicht rückgängig machen."
+  nick:
+    h: Dein Spitzname
+    p: "Tipps, Orte und Termine, die du schickst, können einen ausgedachten Spitznamen tragen, damit andere Familien sehen, dass sie vom selben Elternteil kommen. Wir schlagen einen zufälligen vor; mit 🎲 gibt's einen neuen, du kannst ihn ändern oder leeren, dann bleibst du anonym. Bitte nie deinen echten Namen."
+  marks:
+    h: Was die Markierungen heißen
+    verified: "Wir haben es selbst geprüft."
+    official: "Es stammt aus dem Programm des Veranstalters oder der Stadt."
+    parents: "Familien haben Fragen dazu beantwortet (Toiletten, Wickeltisch, Preise …)."
+    noneLabel: Ohne Markierung
+    none: "Aus öffentlichen Programmen oder OpenStreetMap gesammelt und noch nicht geprüft. Bitte vor dem Besuch beim Veranstalter nachsehen."
+  add:
+    h: Einen Termin oder Ort eintragen
+    p: "Unter „Neu“ schickst du einen Termin vom Plakat, als Link oder getippt, oder einen Ort, der sich lohnt. Wir lesen alles, bevor es erscheint. Unter „Meins“ kannst du es später ändern."
+  contact:
+    h: Noch Fragen?
+    p: "Schreib uns, wir lesen alles:"
 about:
   link: Daten und Datenschutz
   title: Daten und Datenschutz
@@ -395,7 +455,7 @@ about:
   places: { h: Orte, p: "Spielplätze, Bäder, Museen, Höfe und andere Orte stammen aus OpenStreetMap (© OpenStreetMap-Mitwirkende, ODbL) und werden wöchentlich aktualisiert. Sobald Eltern etwas ergänzt haben, zeigt der Ort, wie viele Antworten es gibt." }
   translate: { h: Übersetzungen und Hinweise, p: "Chinesische Namen und englische Veranstaltungstitel sind maschinell übersetzt; der deutsche Name steht darunter. „Braucht man Deutsch?“ ist zuerst aus dem Titel geschätzt und mit „?“ markiert. Sobald Eltern antippen, gilt die häufigste Antwort." }
   taps: { h: Deine Klicks, p: "Antworten zu Ausstattung, „Wir waren da“ und „Braucht man Deutsch?“ werden anonym bei Cloudflare gezählt. Jeder Browser hat eine Zufalls-ID: Eine Frage zählt einmal, eine neue Antwort ersetzt die alte. IP-Adressen werden nur als Hash gespeichert, gegen Massenklicks." }
-  writing: { h: Was du schreibst, p: "Tipps, Fehlermeldungen und vorgeschlagene Orte prüfen wir zuerst; sie erscheinen erst nach Freigabe. Antworten bei „Fehlt noch“ (Öffnungszeiten, Uhrzeit, Preis) erscheinen, sobald zwei Eltern dasselbe antworten oder wir sie geprüft haben. Bitte keine Namen, Telefonnummern oder andere persönliche Angaben." }
+  writing: { h: Was du schreibst, p: "Tipps, Fehlermeldungen und vorgeschlagene Orte prüfen wir zuerst; sie erscheinen erst nach Freigabe. Antworten bei „Fehlt noch“ (Öffnungszeiten, Uhrzeit, Preis) erscheinen, sobald zwei Eltern dasselbe antworten oder wir sie geprüft haben. Bitte keine Namen, Telefonnummern oder andere persönliche Angaben. Du kannst sie mit einem ausgedachten Spitznamen unterschreiben, der daneben angezeigt wird; bitte nie deinen echten Namen. Schreib uns, wenn wir einen entfernen sollen." }
   ai: { h: Mit deinem KI-Assistenten, p: "Frag Claude, ChatGPT oder einen anderen Assistenten nach Ideen von Allo Outings: Füge {url} als eigenen Connector hinzu (bei Claude: Einstellungen → Konnektoren; bei ChatGPT: Einstellungen → Apps, Entwicklermodus). Ohne Anmeldung. Dein Assistent kann dann Termine und Orte suchen und für dich einen Tipp oder einen neuen Termin schicken; den prüfen wir wie alles andere zuerst. Manche Assistenten brauchen für eigene Connectoren ein Bezahl-Abo." }
   profile: { h: Dein Profil, p: "Merkliste, besuchte Orte und deine Antworten bleiben im Browser dieses Handys. Kein Konto, keine E-Mail. Unter „Meins“ und dann „Profil und Sync“ kannst du es herunterladen, auf ein anderes Handy umziehen oder löschen. Mit Passkey-Sync liegt eine Kopie auf dem Server, die mit dem Profil gelöscht wird." }
   location: { h: Dein Standort, p: "Neben „Rund um“ gibt es einen kleinen Standort-Knopf. Nur wenn du ihn antippst, fragt dein Handy, ob es den ungefähren Standort teilen darf, um den nächsten Ort zu wählen. Der Standort bleibt auf deinem Handy und wird nie an uns gesendet; der Ort wird gespeichert wie ein selbst gewählter Ort. Die Karte zeigt dann mit einem blauen Punkt, wo du bist, bis du den Tab schließt oder selbst einen Ort wählst. Ohne ihn startet „Rund um“ bei Köln." }

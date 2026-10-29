@@ -69,6 +69,8 @@ export const placeSchema = z.object({
   }).optional(),
   note: text.optional(),
   trust: trust.default({ level: "community" }),
+  /** The nickname a parent who sent it chose to be credited under (never a real name). */
+  by: z.string().max(30).optional(),
   website: z.url().optional(),
 });
 
@@ -90,6 +92,8 @@ const eventFields = {
   language: z.enum(LANGUAGE).optional(),
   note: text.optional(),
   trust: trust.default({ level: "community" }),
+  /** The nickname a parent who sent it chose to be credited under (never a real name). */
+  by: z.string().max(30).optional(),
   website: z.url().optional(),
 };
 export const eventSchema = z

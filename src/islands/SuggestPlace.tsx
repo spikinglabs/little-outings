@@ -4,6 +4,8 @@
 import { useEffect, useState } from "preact/hooks";
 import { markReplaced, readProfile, rememberSent, updateSent } from "../lib/profile";
 import { schedulePush } from "../scripts/sync";
+import NickField from "./NickField";
+import { rememberNick } from "../lib/nickname";
 
 interface Props {
   lang: string;
@@ -53,7 +55,7 @@ export default function SuggestPlace({ lang, kinds, features, towns, ui }: Props
     const form = new FormData(e.target as HTMLFormElement);
     const place = {
       kind: form.get("kind"), name: form.get("name"), town: form.get("town"), street: form.get("street"),
-      website: form.get("website"), note: form.get("note"), features: form.getAll("features"),
+      website: form.get("website"), note: form.get("note"), features: form.getAll("features"), by: String(form.get("by") ?? ""),
     };
     setBusy(true);
     let ok = false;
@@ -70,6 +72,7 @@ export default function SuggestPlace({ lang, kinds, features, towns, ui }: Props
         ok = res.ok;
         const number = ok ? ((await res.json().catch(() => ({}))) as { number?: number }).number : undefined;
         if (ok) try {
+          rememberNick(localStorage, place.by);
           rememberSent(localStorage, { kind: "place", place, ...(number ? { number, key } : {}) });
           if (resend) markReplaced(localStorage, resend.at);
           schedulePush();
@@ -133,6 +136,7 @@ export default function SuggestPlace({ lang, kinds, features, towns, ui }: Props
           </fieldset>
           <label>{ui.placeNote}<textarea name="note" rows={3} maxLength={2000} placeholder={ui.placeNotePh} defaultValue={p.note ?? ""} /></label>
           <label>{ui.placeWebsite}<input name="website" type="url" maxLength={300} placeholder="https://" defaultValue={p.website ?? ""} /></label>
+          <NickField lang={lang} ui={ui} initial={editing || resend ? String(p.by ?? "") : undefined} />
           <button class="btn primary" type="submit" disabled={busy}>{editing ? ui.saveEdit : ui.send}</button>
           {(editing || resend) && <button class="btn" type="button" onClick={() => { leaveEdit(); setOpen(false); }}>{ui.cancelEdit}</button>}
         </form>

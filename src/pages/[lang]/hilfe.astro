@@ -1,0 +1,78 @@
+---
+// Help: short how-tos in plain words, starting with how the profile works (no account, what lives where,
+// passkey copy, move, download, delete). Keep it true with src/lib/profile.ts and the data page (/daten).
+import Base from "../../layouts/Base.astro";
+import { LANGS, useT, type Lang } from "../../lib/i18n";
+import { OPERATOR } from "../../lib/legal";
+
+export const getStaticPaths = () => LANGS.map((lang) => ({ params: { lang } }));
+const lang = Astro.params.lang as Lang;
+const t = useT(lang);
+const h = (k: string) => t(`help.${k}`);
+const TOPICS = ["profile", "nick", "marks", "add", "contact"];
+---
+<Base lang={lang} title={h("title")} description={h("intro")}>
+  <h1 class="page-title">{h("title")}</h1>
+  <p class="page-sub">{h("intro")}</p>
+  <nav class="help-toc" aria-label={h("title")}>
+    {TOPICS.map((k) => <a class="pill" href={`#${k}`}>{h(`${k}.h`)}</a>)}
+  </nav>
+
+  <div class="about help">
+    <section id="profile">
+      <h2>{h("profile.h")}</h2>
+      <p>{h("profile.p")}</p>
+      <!-- The picture: what's on the phone, the optional passkey copy, and the three ways out. -->
+      <figure class="help-flow" aria-label={h("profile.h")}>
+        <div class="help-box">
+          <b>📱 {h("profile.phone")}</b>
+          <small>{h("profile.phoneHas")}</small>
+        </div>
+        <div class="help-arrow" aria-hidden="true"><span>⇅</span><small>{h("profile.optional")}</small></div>
+        <div class="help-box dashed">
+          <b>🔑 {h("profile.passkey")}</b>
+          <small>{h("profile.passkeyHas")}</small>
+        </div>
+        <div class="help-ways">
+          <div class="help-box"><b>📲 {h("profile.move")}</b><small>{h("profile.moveHow")}</small></div>
+          <div class="help-box"><b>⬇️ {h("profile.download")}</b><small>{h("profile.downloadHow")}</small></div>
+          <div class="help-box danger"><b>🗑 {h("profile.delete")}</b><small>{h("profile.deleteHow")}</small></div>
+        </div>
+      </figure>
+      <ul>
+        <li>{h("profile.b1")}</li>
+        <li>{h("profile.b2")}</li>
+        <li>{h("profile.b3")}</li>
+      </ul>
+      <p><a href={`/${lang}/profil/`}>{t("profile.link")} →</a></p>
+    </section>
+
+    <section id="nick">
+      <h2>{h("nick.h")}</h2>
+      <p>{h("nick.p")}</p>
+      <p><a href={`/${lang}/profil/#nick`}>{t("profile.nickTitle")} →</a></p>
+    </section>
+
+    <section id="marks">
+      <h2>{h("marks.h")}</h2>
+      <dl class="help-marks">
+        <dt><b>{t("trust.verified")}</b></dt><dd>{h("marks.verified")}</dd>
+        <dt>{t("trust.official")}</dt><dd>{h("marks.official")}</dd>
+        <dt><b>{t("trust.parents", { n: 3 })}</b></dt><dd>{h("marks.parents")}</dd>
+        <dt>{h("marks.noneLabel")}</dt><dd>{h("marks.none")}</dd>
+      </dl>
+    </section>
+
+    <section id="add">
+      <h2>{h("add.h")}</h2>
+      <p>{h("add.p")}</p>
+      <p><a href={`/${lang}/mitmachen/`}>{t("tabs.add")} →</a></p>
+    </section>
+
+    <section id="contact">
+      <h2>{h("contact.h")}</h2>
+      <p>{h("contact.p")} <a href={`mailto:${OPERATOR.email}`}>{OPERATOR.email}</a></p>
+      <p><a href={`/${lang}/daten`}>{t("about.link")} →</a></p>
+    </section>
+  </div>
+</Base>

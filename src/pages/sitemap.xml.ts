@@ -21,7 +21,7 @@ export const GET: APIRoute = async ({ site }) => {
   // Season pages (Christmas markets …): each overview and its town pages.
   const seasonal = seasonPages(seasons).flatMap(({ season, file }) => [`${season.page!.slug}/`, `${season.page!.slug}/${file.slug}/`]);
   const paths = [
-    "", "mitmachen/", "daten/",
+    "", "mitmachen/", "daten/", "hilfe/",
     // City pages ("科隆带娃去哪儿"): what a parent new to the site searches for.
     "stadt/", ...cityTowns(region.towns, events, places, TODAY).map((c) => `stadt/${c.slug}/`),
     ...new Set(seasonal),
