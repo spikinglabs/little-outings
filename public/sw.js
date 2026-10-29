@@ -6,7 +6,7 @@
 //                  Add, Profile and invites (/m/<id>) always ask the network first: an old copy there would
 //                  send with an older build's form (before PR 40, places were sent without an edit key),
 //                  or show an invite as it was hours ago.
-//   Discover's tiles (/<lang>/ideen/<tile>/, /<lang>/pins/<tile>.json) → a copy from the last 3 days answers at
+//   Discover's tiles (/<lang>/ideen/<tile>/, /<lang>/pins/<tile>.json) → a copy from the last 24 hours answers at
 //                  once and is refreshed in the background: they change once a night, and the list waited on
 //                  them behind "Loading" for up to 3 s per tile once the copy was 12 hours old
 //   /_astro/ (fonts included), icons → cache first (file names change when the content does). Only real
@@ -21,7 +21,7 @@ const MAX_PAGES = 80;
 const LIVE = /^\/((de|en|zh)\/(mitmachen|profil|treffen)\/?|m\/[a-z2-9]{10}\/?)$/;
 // Discover's cards and pins, a tile at a time: data, not pages, though the cards come as HTML.
 const TILE = /^\/(de|en|zh)\/(ideen\/[\d_-]+\/|pins\/[\d_-]+\.json)$/;
-const TILE_FRESH_MS = 3 * 24 * 60 * 60 * 1000;
+const TILE_FRESH_MS = 24 * 60 * 60 * 1000;
 
 self.addEventListener("install", () => self.skipWaiting());
 
