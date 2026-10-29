@@ -14,10 +14,10 @@
 import { UI_ICON } from "./icons.ts";
 import { textEm, wrap } from "./og.ts";
 import { codeOf } from "./rednote-code.ts";
-import { addDays, textIn, weatherLine, whenShort, type Edition, type Pick } from "./weekend.ts";
+import { addDays, textIn, townSlug, weatherLine, whenShort, WEEKEND_TOWNS, type Edition, type Pick } from "./weekend.ts";
 
-/** Towns whose weekend edition gets a Rednote set, by slug. Add one when someone posts for it. */
-export const REDNOTE_TOWNS = ["koeln", "berlin"];
+/** Towns whose weekend edition gets a Rednote set, by slug: every weekend town (one without an edition yet is skipped). */
+export const REDNOTE_TOWNS = WEEKEND_TOWNS.map(townSlug);
 
 export const XHS = { w: 1080, h: 1440 } as const;
 

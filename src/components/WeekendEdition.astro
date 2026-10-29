@@ -36,7 +36,7 @@ const more = Math.max(0, count.events - picks.filter((p) => p.type === "event").
 const wa = chatText({ ...ed, picks }, { lang, style: "whatsapp", town, url: `https://${shortUrl}`, more });
 const wechat = lang === "zh" ? chatText({ ...ed, picks }, { lang, style: "wechat", town, url: `https://${shortUrl}`, more }) : "";
 const channel = telegramChannel(ed.slug);
-// Chinese readers can pass the edition on to Rednote as pictures (towns in REDNOTE_TOWNS only).
+// Chinese readers can pass the edition on to Rednote as pictures (every weekend town, REDNOTE_TOWNS).
 const xhs = lang === "zh" && !archived ? (await rednoteSets()).sets.find((s) => s.id === `${ed.slug}-${ed.weekend}`) : undefined;
 ---
 <section class="wk" data-weekend>
