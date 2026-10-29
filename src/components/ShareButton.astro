@@ -33,8 +33,8 @@ const xhsText = zh ? rednoteText(title, lines, town) : "";
   <img data-pic alt="" width="1080" height="1440" />
   <p class="small" role="status" data-pic-msg></p>
   <div class="pic-btns" data-pic-btns>
-    {zh && <button type="button" class="btn primary" data-pic-share="xhs">分享到小红书</button>}
-    <button type="button" class:list={["btn", { primary: !zh }]} data-pic-share="link">{t("share.picShare")}</button>
+    <button type="button" class="btn primary" data-pic-share="link">{t("share.picShare")}</button>
+    {zh && <button type="button" class="btn" data-pic-share="xhs">分享到小红书</button>}
     <a class="btn" data-pic-save download={`${name}.png`} href="#">{t("share.picSave")}</a>
   </div>
   <p class="small">{t("share.picNote")}</p>
