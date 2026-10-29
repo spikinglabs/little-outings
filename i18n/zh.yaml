@@ -214,8 +214,7 @@ empty: 这里还没有内容。你知道什么好去处吗？可以在“投稿�
 install: { button: "安装应用", hint: "可以把小鹿出游添加到主屏幕，像应用一样使用。", hintIos: "点“分享”，再选“添加到主屏幕”，就能像应用一样使用小鹿出游。", short: 安装, dismiss: 关闭, menu: "在浏览器菜单中选择“安装应用”或“添加到主屏幕”。", installed: "小鹿出游已经安装在这台设备上，请从主屏幕或应用列表打开。" }
 footer: 所有信息仅供参考，出发前请向主办方确认。
 byLine: "小鹿出游是 {maker} 的产品。"
-trustLegend: "只有标 ✓ 已核实 的条目经过我们核实。"
-osmCredit: "地图和地点数据 {osm} 贡献者。"
+sources: { events: "活动来自主办方自己发布的信息，并经我们审核。", places: "地点信息是大家共同完成的：数据来自 {osm} 贡献者，并由家长的反馈补充。" }
 dataFrom: "部分数据来自 {sources}。"
 nearStreet: "{street}附近"
 back: 返回

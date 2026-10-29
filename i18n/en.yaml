@@ -214,8 +214,7 @@ empty: Nothing listed here yet. Know something? Add it under Contribute.
 install: { button: "Install the app", hint: "Add Allo Outings to your home screen, it works like an app.", hintIos: "Tap Share, then “Add to Home Screen”, to use Allo Outings like an app.", short: Install, dismiss: Dismiss, menu: "In your browser menu, choose “Install app” or “Add to Home screen”.", installed: "Allo Outings is already installed on this device. Open it from your home screen or app list." }
 footer: "No guarantee for any listing. Please check with the organiser before you go."
 byLine: "Allo Outings is a product by {maker}."
-trustLegend: "Only entries marked ✓ Checked were checked by us."
-osmCredit: "Map and place data {osm} contributors."
+sources: { events: "Events come from organisers' own listings and are reviewed by us.", places: "Places are a community effort: data {osm} contributors, filled in by parents' answers." }
 dataFrom: "Data includes {sources}."
 nearStreet: "near {street}"
 back: Back
