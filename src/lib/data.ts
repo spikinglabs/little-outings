@@ -93,7 +93,7 @@ async function load(): Promise<Data> {
     if (guesses.length) e.guesses = guesses;
   }
   // Same nickname, different families: tell them apart with a short tag.
-  tagSharedNames([...places, ...events, ...places.flatMap((p) => p.tips ?? []), ...events.flatMap((e) => e.tips ?? [])]);
+  tagSharedNames([...places, ...events, ...places.flatMap((p) => p.tips ?? [])]);
   return { region, places, events, placeById, eventById: new Map(events.map((e) => [e.id, e])), seasons };
 }
 
