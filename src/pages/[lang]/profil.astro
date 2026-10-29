@@ -13,7 +13,7 @@ const ui = { ...t.group("profile"), count: t.group("profile.count") };
 <Base lang={lang} title={p("title")} tab="saved" noindex>
   <a class="back-link" href={`/${lang}/merkliste/`}>← {t("mine.back")}</a>
   <h1 class="page-title">{p("title")}</h1>
-  <p class="page-sub">{p("sub")}</p>
+  <p class="page-sub">{p("sub")} <a href={`/${lang}/hilfe/#profile`}>{t("help.how")} →</a></p>
 
   <div class="shared" data-incoming hidden>
     <p data-incoming-text></p>
@@ -313,8 +313,8 @@ const ui = { ...t.group("profile"), count: t.group("profile.count") };
     /* ---------- delete ---------- */
     const ask = $<HTMLFormElement>("[data-delete-ask]");
     const word = $<HTMLInputElement>("[data-delete-word]");
-    // The whole sentence, typed out; case, spaces and a final full stop don't matter.
-    const norm = (v: string) => v.toLocaleLowerCase(lang).replace(/[\s.。!！]+/g, " ").trim();
+    // The whole sentence, typed out; case, spaces and punctuation don't matter.
+    const norm = (v: string) => v.toLocaleLowerCase(lang).replace(/[\s\p{P}]+/gu, "");
     const typed = () => norm(word.value) === norm(ui.deleteSentence);
     $("[data-delete-open]").addEventListener("click", () => {
       // What exactly goes, from what this phone holds now.

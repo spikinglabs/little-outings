@@ -16,7 +16,7 @@ const { events, places } = await getData();
 ---
 <Base lang={lang} title={t("savedTitle")} description={t("og.list")} tab="saved" og={LIST_KEY} noindex>
   <h1 class="page-title">{m("title")}</h1>
-  <p class="page-sub">{m("sub")}</p>
+  <p class="page-sub">{m("sub")} <a href={`/${lang}/hilfe/#profile`}>{t("help.how")} →</a></p>
   <div class="shared" data-shared hidden>
     <p data-shared-text></p>
     <button class="btn primary" type="button" data-shared-add>{t("share.add")}</button>

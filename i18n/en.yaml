@@ -403,12 +403,50 @@ profile:
   deleteNeedDownload: "We keep no copy of your data, so once it's deleted we can't bring it back. Download it first; deleting unlocks after that."
   deleteDownloaded: "Saved. Now type the sentence to delete."
   deleteType: "To confirm, type this sentence:"
-  deleteSentence: "I want to delete all my data"
+  deleteSentence: "I acknowledge that all my data will be gone if my downloaded copy is gone"
   deletePasskey: "The copy kept with your passkey, on all your devices"
   deleteVotes: "Your quick votes, so they no longer count"
   deleteGo: Delete for good
   deleteCancel: Keep my data
   deleted: Deleted. This phone starts fresh.
+help:
+  link: Help
+  how: How it works
+  title: Help
+  intro: "Short answers on how Allo Outings works: your profile, your nickname, what the marks mean and how to add something."
+  profile:
+    h: How your profile works
+    p: "There is no account, no email and no password. Your profile is simply what this phone's browser remembers."
+    phone: On this phone
+    phoneHas: "Saved outings, places you went, your answers, home town, nickname, what you sent"
+    optional: "optional: passkey sync"
+    passkey: A copy with your passkey
+    passkeyHas: "Kept safe with us and shared with your other devices. Unlocked by your face, fingerprint or screen lock."
+    move: Move
+    moveHow: "To a new phone with a QR code or link"
+    download: Download
+    downloadHow: "Everything in one file you keep"
+    delete: Delete
+    deleteHow: "Download first, then type a sentence to confirm"
+    b1: "Without passkey sync, clearing your browser or losing your phone loses the profile. Download it now and then, or turn on sync."
+    b2: "With passkey sync, a second phone gets the same saved list and nickname once you sign in with the passkey."
+    b3: "Deleting removes everything, including our passkey copy. We keep no other copy, so it can't be undone."
+  nick:
+    h: Your nickname
+    p: "Tips, places and events you send can carry a made-up nickname, so other families see they come from the same parent. We fill in a random one; roll a new one with 🎲, change it, or empty it to stay anonymous. Please never use your real name."
+  marks:
+    h: What the marks mean
+    verified: "We checked it ourselves."
+    official: "It comes from the organiser's or the city's own listing."
+    parents: "Families answered questions about it (toilets, changing table, prices …)."
+    noneLabel: No mark
+    none: "Collected from public listings or OpenStreetMap and not checked yet. Please check with the organiser before you go."
+  add:
+    h: Adding an event or a place
+    p: "Under “Add” you can send an event from a poster, a link or by typing, or a place worth a visit. We read everything before it goes live. You can change what you sent later under “Mine”."
+  contact:
+    h: Still stuck?
+    p: "Write to us, we read everything:"
 about:
   link: Data and privacy
   title: Data and privacy

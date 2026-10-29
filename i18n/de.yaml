@@ -403,12 +403,50 @@ profile:
   deleteNeedDownload: "Wir haben keine Kopie deiner Daten. Einmal gelöscht, können wir sie nicht wiederherstellen. Lade sie zuerst herunter; danach kannst du löschen."
   deleteDownloaded: "Gespeichert. Tippe jetzt den Satz zum Löschen."
   deleteType: "Zur Bestätigung tippe diesen Satz:"
-  deleteSentence: "Ich möchte alle meine Daten löschen"
+  deleteSentence: "Mir ist klar, dass alle meine Daten weg sind, wenn meine heruntergeladene Kopie weg ist"
   deletePasskey: "Die Kopie bei deinem Passkey, auf all deinen Geräten"
   deleteVotes: "Deine Stimmen zu kurzen Fragen, sie zählen dann nicht mehr"
   deleteGo: Endgültig löschen
   deleteCancel: Daten behalten
   deleted: Gelöscht. Dieses Handy fängt neu an.
+help:
+  link: Hilfe
+  how: So funktioniert's
+  title: Hilfe
+  intro: "Kurze Antworten, wie Allo Outings funktioniert: dein Profil, dein Spitzname, was die Markierungen heißen und wie du etwas einträgst."
+  profile:
+    h: So funktioniert dein Profil
+    p: "Es gibt kein Konto, keine E-Mail und kein Passwort. Dein Profil ist einfach das, was sich der Browser auf diesem Handy merkt."
+    phone: Auf diesem Handy
+    phoneHas: "Merkliste, wo ihr wart, deine Antworten, Heimatort, Spitzname, was du geschickt hast"
+    optional: "optional: Passkey-Sync"
+    passkey: Eine Kopie mit deinem Passkey
+    passkeyHas: "Sicher bei uns und auf deinen anderen Geräten. Entsperrt mit Gesicht, Fingerabdruck oder Bildschirmsperre."
+    move: Umziehen
+    moveHow: "Auf ein neues Handy per QR-Code oder Link"
+    download: Herunterladen
+    downloadHow: "Alles in einer Datei für dich"
+    delete: Löschen
+    deleteHow: "Erst herunterladen, dann einen Satz zur Bestätigung tippen"
+    b1: "Ohne Passkey-Sync ist das Profil weg, wenn du den Browser leerst oder das Handy verlierst. Lade es ab und zu herunter oder schalte Sync ein."
+    b2: "Mit Passkey-Sync bekommt ein zweites Handy dieselbe Merkliste und denselben Spitznamen, sobald du dich mit dem Passkey anmeldest."
+    b3: "Löschen entfernt alles, auch unsere Passkey-Kopie. Eine andere Kopie haben wir nicht, es lässt sich also nicht rückgängig machen."
+  nick:
+    h: Dein Spitzname
+    p: "Tipps, Orte und Termine, die du schickst, können einen ausgedachten Spitznamen tragen, damit andere Familien sehen, dass sie vom selben Elternteil kommen. Wir schlagen einen zufälligen vor; mit 🎲 gibt's einen neuen, du kannst ihn ändern oder leeren, dann bleibst du anonym. Bitte nie deinen echten Namen."
+  marks:
+    h: Was die Markierungen heißen
+    verified: "Wir haben es selbst geprüft."
+    official: "Es stammt aus dem Programm des Veranstalters oder der Stadt."
+    parents: "Familien haben Fragen dazu beantwortet (Toiletten, Wickeltisch, Preise …)."
+    noneLabel: Ohne Markierung
+    none: "Aus öffentlichen Programmen oder OpenStreetMap gesammelt und noch nicht geprüft. Bitte vor dem Besuch beim Veranstalter nachsehen."
+  add:
+    h: Einen Termin oder Ort eintragen
+    p: "Unter „Neu“ schickst du einen Termin vom Plakat, als Link oder getippt, oder einen Ort, der sich lohnt. Wir lesen alles, bevor es erscheint. Unter „Meins“ kannst du es später ändern."
+  contact:
+    h: Noch Fragen?
+    p: "Schreib uns, wir lesen alles:"
 about:
   link: Daten und Datenschutz
   title: Daten und Datenschutz
