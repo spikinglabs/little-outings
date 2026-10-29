@@ -85,9 +85,9 @@ const ld = eventLd(e, {
       {wx && <li><span>{skyIcon(wx.code)}</span><span>{t("wx.forecast")}: {skyWord(wx.code, lang)}, {wx.max}° / {wx.min}°{wx.rain >= 30 && ` · ${t("wx.rainChance", { n: wx.rain })}`}
         {" "}<a class="small" href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a></span></li>}
       {e.indoor != null && <li><span>{e.indoor ? "☂" : "☀"}</span><span>{e.indoor ? t("indoor") : t("outdoor")}</span></li>}
-      {e.trust.level !== "community" && <li><span>✓</span><span class="small">
-        {t(`trust.${e.trust.level}`)}{e.trust.source && ` · ${tr(e.trust.source, lang)}`}
-      </span></li>}
+      <li><span>✓</span><span class="small">
+        {e.trust.level === "community" ? t("trust.community") : <>{t(`trust.${e.trust.level}`)}{e.trust.source && ` · ${tr(e.trust.source, lang)}`}</>}
+      </span></li>
     </ul>
 
     {/* How much German it needs: a guess from the title until parents tap one of the chips. */}

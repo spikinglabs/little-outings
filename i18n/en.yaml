@@ -99,7 +99,7 @@ indoor: Indoors, fine when it rains
 outdoor: Outdoors
 free: Free
 paid: Paid entry
-trust: { parents: { one: "1 answer from parents", other: "{n} answers from parents" }, base: "Basics from {source}", verified: "✓ Checked", official: Official source }
+trust: { parents: { one: "1 answer from parents", other: "{n} answers from parents" }, base: "Basics from {source}", verified: "✓ Checked", official: Official source, community: "Reported by parents, not checked yet", from: "From {source}, not checked yet" }
 save: Save
 saved: Saved
 openMaps: Open in Maps
@@ -122,7 +122,7 @@ toiletsNear:
   paid: paid
   wheelchair: wheelchair accessible
   customers: for customers
-  source: "Within {n} m. Opening times may differ."
+  source: "From OpenStreetMap, within {n} m. Opening times may differ."
   route: Directions
   mapShow: Show toilets
   mapHide: Hide toilets
