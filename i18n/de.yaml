@@ -99,7 +99,7 @@ indoor: Drinnen, auch bei Regen
 outdoor: Draußen
 free: Kostenlos
 paid: Kostenpflichtig
-trust: { parents: { one: "1 Antwort von Eltern", other: "{n} Antworten von Eltern" }, base: "Grunddaten: {source}", verified: "✓ Geprüft", official: Offizielle Quelle, community: "Von Eltern gemeldet, noch nicht geprüft", from: "Aus {source}, noch nicht geprüft" }
+trust: { parents: { one: "1 Antwort von Eltern", other: "{n} Antworten von Eltern" }, base: "Grunddaten: {source}", verified: "✓ Geprüft", official: Offizielle Quelle }
 save: Merken
 saved: Gemerkt
 openMaps: In Karten öffnen
@@ -122,7 +122,7 @@ toiletsNear:
   paid: kostet etwas
   wheelchair: barrierefrei
   customers: für Gäste
-  source: "Aus OpenStreetMap, im Umkreis von {n} m. Öffnungszeiten können abweichen."
+  source: "Im Umkreis von {n} m. Öffnungszeiten können abweichen."
   route: Weg
   mapShow: Toiletten zeigen
   mapHide: Toiletten ausblenden
@@ -214,6 +214,8 @@ empty: Hier ist noch nichts eingetragen. Kennt ihr etwas? Unter „Mitmachen“ 
 install: { button: "App installieren", hint: "Allo Outings lässt sich wie eine App auf den Startbildschirm legen.", hintIos: "Teilen antippen, dann „Zum Home-Bildschirm“, um Allo Outings wie eine App zu nutzen.", short: Installieren, dismiss: Ausblenden, menu: "Im Browser-Menü „App installieren“ oder „Zum Startbildschirm hinzufügen“ wählen.", installed: "Allo Outings ist auf diesem Gerät schon installiert. Öffne es über den Startbildschirm oder die App-Liste." }
 footer: "Alle Angaben ohne Gewähr. Bitte vor dem Besuch beim Veranstalter prüfen."
 byLine: "Allo Outings ist ein Produkt von {maker}."
+trustLegend: "Nur mit ✓ Geprüft markierte Einträge haben wir selbst geprüft."
+osmCredit: "Karten- und Ortsdaten {osm}-Mitwirkende."
 dataFrom: "Daten u. a. von {sources}."
 nearStreet: "nahe {street}"
 back: Zurück

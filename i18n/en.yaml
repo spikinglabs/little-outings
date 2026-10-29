@@ -99,7 +99,7 @@ indoor: Indoors, fine when it rains
 outdoor: Outdoors
 free: Free
 paid: Paid entry
-trust: { parents: { one: "1 answer from parents", other: "{n} answers from parents" }, base: "Basics from {source}", verified: "✓ Checked", official: Official source, community: "Reported by parents, not checked yet", from: "From {source}, not checked yet" }
+trust: { parents: { one: "1 answer from parents", other: "{n} answers from parents" }, base: "Basics from {source}", verified: "✓ Checked", official: Official source }
 save: Save
 saved: Saved
 openMaps: Open in Maps
@@ -122,7 +122,7 @@ toiletsNear:
   paid: paid
   wheelchair: wheelchair accessible
   customers: for customers
-  source: "From OpenStreetMap, within {n} m. Opening times may differ."
+  source: "Within {n} m. Opening times may differ."
   route: Directions
   mapShow: Show toilets
   mapHide: Hide toilets
@@ -214,6 +214,8 @@ empty: Nothing listed here yet. Know something? Add it under Contribute.
 install: { button: "Install the app", hint: "Add Allo Outings to your home screen, it works like an app.", hintIos: "Tap Share, then “Add to Home Screen”, to use Allo Outings like an app.", short: Install, dismiss: Dismiss, menu: "In your browser menu, choose “Install app” or “Add to Home screen”.", installed: "Allo Outings is already installed on this device. Open it from your home screen or app list." }
 footer: "No guarantee for any listing. Please check with the organiser before you go."
 byLine: "Allo Outings is a product by {maker}."
+trustLegend: "Only entries marked ✓ Checked were checked by us."
+osmCredit: "Map and place data {osm} contributors."
 dataFrom: "Data includes {sources}."
 nearStreet: "near {street}"
 back: Back

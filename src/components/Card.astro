@@ -32,7 +32,7 @@ const long = item.type === "event" && runsLong(item.start, item.end);
 const meta = item.type === "event"
   ? [long ? t("runsUntil", { date: shortDate(t, item.end) }) : item.end !== item.start ? dateRange(t, item) : "", item.time, where].filter(Boolean).join(" · ")
   : where;
-// Once parents have added to a place, say so instead of "not checked yet" (the source is on its page).
+// Once parents have added to a place, say so.
 const answers = parentInput(item);
 const soon = item.type === "place" ? events.filter((e) => e.place === item.id).length : 0;
 const prec = item.geo.precision;
@@ -88,14 +88,15 @@ const search = [
       {tags.slice(0, 2).map((g) => <span class="pill">{t(`tags.${g}`)}</span>)}
     </div>
     <slot />
-    <div class="trust">
-      {soon > 0 ? <b>{t("soonAt", { n: soon })}</b>
-        : answers > 0 && item.trust.level === "community" ? <b>{t("trust.parents", { n: answers })}</b>
-        : item.trust.level === "verified" ? <><b>{t("trust.verified")}</b>{item.trust.source && ` · ${tr(item.trust.source, lang)}`}</>
-        : item.trust.level === "official" ? <>{t("trust.official")}{item.trust.source && ` · ${tr(item.trust.source, lang)}`}</>
-        : item.trust.source ? t("trust.from", { source: tr(item.trust.source, lang) })
-        : t("trust.community")}
-    </div>
+    {/* Only good news shows here; an unmarked card simply isn't checked yet (the footer says so once, and credits OpenStreetMap). */}
+    {(soon > 0 || answers > 0 || item.trust.level !== "community") && (
+      <div class="trust">
+        {soon > 0 ? <b>{t("soonAt", { n: soon })}</b>
+          : answers > 0 && item.trust.level === "community" ? <b>{t("trust.parents", { n: answers })}</b>
+          : item.trust.level === "verified" ? <><b>{t("trust.verified")}</b>{item.trust.source && ` · ${tr(item.trust.source, lang)}`}</>
+          : <>{t("trust.official")}{item.trust.source && ` · ${tr(item.trust.source, lang)}`}</>}
+      </div>
+    )}
   </div>
   <button class="save" type="button" data-save={item.id} aria-pressed="false" aria-label={t("save")} set:html={icon("u", "saved")} />
 </article>

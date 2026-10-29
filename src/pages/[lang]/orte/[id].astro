@@ -160,7 +160,8 @@ const ld = placeLd(p, { url: `${site}${Astro.url.pathname}`, name: nameOf(p, lan
       </>
     )}
 
-    {p.trust.source && (
+    {/* OpenStreetMap is credited in the footer and on the data page, so only other sources are named here. */}
+    {p.trust.level !== "community" && p.trust.source && (
       <p class="small">
         {t("trust.base", { source: tr(p.trust.source, lang) })}{parentInput(p) > 0 && ` · ${t("trust.parents", { n: parentInput(p) })}`}
         {" · "}<a href={`/${lang}/daten`}>{t("about.link")}</a>

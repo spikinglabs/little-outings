@@ -99,7 +99,7 @@ indoor: 室内，下雨也没问题
 outdoor: 户外
 free: 免费
 paid: 收费
-trust: { parents: { other: "{n} 条家长反馈" }, base: "基础信息来自 {source}", verified: "✓ 已核实", official: 官方来源, community: 家长提供，尚未核实, from: "来自 {source}，尚未核实" }
+trust: { parents: { other: "{n} 条家长反馈" }, base: "基础信息来自 {source}", verified: "✓ 已核实", official: 官方来源 }
 save: 收藏
 saved: 已收藏
 openMaps: 在地图应用中查看
@@ -122,7 +122,7 @@ toiletsNear:
   paid: 收费
   wheelchair: 无障碍
   customers: 限顾客
-  source: "来自 OpenStreetMap，{n} 米范围内。开放时间可能有变。"
+  source: "{n} 米范围内。开放时间可能有变。"
   route: 路线
   mapShow: 显示厕所
   mapHide: 隐藏厕所
@@ -214,6 +214,8 @@ empty: 这里还没有内容。你知道什么好去处吗？可以在“投稿�
 install: { button: "安装应用", hint: "可以把小鹿出游添加到主屏幕，像应用一样使用。", hintIos: "点“分享”，再选“添加到主屏幕”，就能像应用一样使用小鹿出游。", short: 安装, dismiss: 关闭, menu: "在浏览器菜单中选择“安装应用”或“添加到主屏幕”。", installed: "小鹿出游已经安装在这台设备上，请从主屏幕或应用列表打开。" }
 footer: 所有信息仅供参考，出发前请向主办方确认。
 byLine: "小鹿出游是 {maker} 的产品。"
+trustLegend: "只有标 ✓ 已核实 的条目经过我们核实。"
+osmCredit: "地图和地点数据 {osm} 贡献者。"
 dataFrom: "部分数据来自 {sources}。"
 nearStreet: "{street}附近"
 back: 返回
