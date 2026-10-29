@@ -104,7 +104,7 @@ const ui = {
     <meta name="theme-color" content="#ffcc00" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#121314" media="(prefers-color-scheme: dark)" />
     <script is:inline>
-      // Light or dark as chosen under Profile (lo-theme); without a choice the phone's setting decides.
+      // Light or dark as chosen under Profile or with the header switch (lo-theme); without a choice the phone's setting decides.
       // Runs before the page paints so a chosen theme never flashes the other one first.
       (function () {
         var c; try { c = localStorage.getItem("lo-theme"); } catch (e) {}
@@ -153,13 +153,21 @@ const ui = {
           {tabs.map(([k, p]) => <a href={`/${lang}/${p}`} aria-current={tab === k ? "page" : undefined} data-tab={k}>{t(`tabs.${k}`)}</a>)}
         </nav>
         <div class="top-right">
-          <nav class="lang" aria-label="Sprache · Language · 语言">
-            {LANGS.map((l) => (
-              <a href={`/${l}/${rest}`} hreflang={l} lang={l} aria-current={l === lang ? "true" : undefined} title={useT(l)("langName")}>
-                {l === "zh" ? "中" : l.toUpperCase()}
-              </a>
-            ))}
-          </nav>
+          <button type="button" class="theme-flip" data-theme-flip aria-label={t("themeFlip")} title={t("themeFlip")}>
+            <span class="theme-moon" set:html={svg(UI_ICON.moon)} />
+            <span class="theme-sun" set:html={svg(UI_ICON.sun)} />
+          </button>
+          <details class="lang" data-lang-menu>
+            <summary aria-label="Sprache · Language · 语言" title="Sprache · Language · 语言">
+              <span set:html={svg(UI_ICON.globe)} />
+              <span>{lang === "zh" ? "中" : lang.toUpperCase()}</span>
+            </summary>
+            <nav class="lang-menu" aria-label="Sprache · Language · 语言">
+              {LANGS.map((l) => (
+                <a href={`/${l}/${rest}`} hreflang={l} lang={l} aria-current={l === lang ? "true" : undefined}>{useT(l)("langName")}</a>
+              ))}
+            </nav>
+          </details>
         </div>
       </header>
       <aside class="app-hint" data-app-hint hidden>

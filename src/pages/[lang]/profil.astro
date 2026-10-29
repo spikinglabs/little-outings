@@ -125,6 +125,7 @@ const ui = { ...t.group("profile"), count: t.group("profile.count") };
     import { clean, forget, packForMove, readProfile, unpackMove, type Profile } from "../../lib/profile";
     import { adopt, getSync, lastSynced, push, schedulePush, setSync, syncNow } from "../../scripts/sync";
     import { cleanNick, randomNick, rememberNick } from "../../lib/nickname";
+    import { applyTheme, themeChoice, type ThemeChoice } from "../../lib/theme";
 
     type Plural = Record<string, string>;
     const ui = JSON.parse(document.getElementById("profile-ui")!.textContent!) as Record<string, string> & { count: Record<string, Plural | string> };
@@ -166,23 +167,11 @@ const ui = { ...t.group("profile"), count: t.group("profile.count") };
     renderCounts();
 
     /* ---------- light or dark ---------- */
-    // Kept in this browser only (lo-theme), like a device setting; the head script in Base.astro applies it on load.
-    const LIGHT = "#ffcc00", DARK = "#121314";
-    function applyTheme(choice: string) {
-      const root = document.documentElement;
-      const metas = document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]');
-      try { choice === "auto" ? localStorage.removeItem("lo-theme") : localStorage.setItem("lo-theme", choice); } catch { /* private mode: this page only */ }
-      if (choice === "auto") {
-        delete root.dataset.theme;
-        metas.forEach((m) => (m.content = m.media.includes("dark") ? DARK : LIGHT));
-      } else {
-        root.dataset.theme = choice;
-        metas.forEach((m) => (m.content = choice === "dark" ? DARK : LIGHT));
-      }
-      document.querySelectorAll("[data-theme-set]").forEach((b) => b.setAttribute("aria-pressed", String((b as HTMLElement).dataset.themeSet === choice)));
-    }
-    document.querySelectorAll<HTMLElement>("[data-theme-set]").forEach((b) => b.addEventListener("click", () => applyTheme(b.dataset.themeSet!)));
-    applyTheme(document.documentElement.dataset.theme ?? "auto");
+    // The sun/moon button in the header flips it too, so the choice buttons follow lo:theme.
+    const markTheme = () => document.querySelectorAll("[data-theme-set]").forEach((b) => b.setAttribute("aria-pressed", String((b as HTMLElement).dataset.themeSet === themeChoice())));
+    document.querySelectorAll<HTMLElement>("[data-theme-set]").forEach((b) => b.addEventListener("click", () => applyTheme(b.dataset.themeSet as ThemeChoice)));
+    document.addEventListener("lo:theme", markTheme);
+    markTheme();
 
     /* ---------- passkey sync ---------- */
     const note = (text: string) => { const el = $("[data-passkey-note]"); el.textContent = text; el.hidden = !text; };
