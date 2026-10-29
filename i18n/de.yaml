@@ -213,7 +213,7 @@ tags: { fest: Fest, animals: Tiere, market: Markt, diy: Mitmachen, season: Saiso
 empty: Hier ist noch nichts eingetragen. Kennt ihr etwas? Unter „Mitmachen“ könnt ihr es melden.
 install: { button: "App installieren", hint: "Allo Outings lässt sich wie eine App auf den Startbildschirm legen.", hintIos: "Teilen antippen, dann „Zum Home-Bildschirm“, um Allo Outings wie eine App zu nutzen.", short: Installieren, dismiss: Ausblenden, menu: "Im Browser-Menü „App installieren“ oder „Zum Startbildschirm hinzufügen“ wählen.", installed: "Allo Outings ist auf diesem Gerät schon installiert. Öffne es über den Startbildschirm oder die App-Liste." }
 addedBy: "Eingetragen von {by}"
-nick: { label: Angezeigt als, hint: "Ein ausgedachter Spitzname, bitte nicht dein echter Name. Leer lassen für anonym.", new: Neuer Spitzname, profile: "Er wird in deinem Profil gespeichert." }
+nick: { label: Dein Spitzname, hint: "Steht neben dem, was du schickst. Denk dir einen aus, nicht deinen echten Namen, oder lass es leer für anonym.", new: Neuer Spitzname, profile: "Er wird in deinem Profil gespeichert." }
 footer: "Alle Angaben ohne Gewähr. Bitte vor dem Besuch beim Veranstalter prüfen."
 byLine: "Allo Outings ist ein Produkt von {maker}."
 dataFrom: "Daten u. a. von {sources}."
@@ -333,6 +333,7 @@ profile:
   have: "Auf diesem Handy"
   nickTitle: Dein Spitzname
   nickSub: "Tipps, Orte und Termine, die du schickst, erscheinen unter diesem Namen. Denk dir einen aus, bitte nicht deinen echten Namen. Leer lassen für anonym."
+  nickPh: "z. B. Lustiger Otter"
   nickSave: Speichern
   nickSaved: "Gespeichert."
   themeTitle: Hell oder dunkel

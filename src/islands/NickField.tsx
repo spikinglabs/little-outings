@@ -20,7 +20,7 @@ export default function NickField({ lang, ui, initial, onChange }: Props) {
         <input name="by" maxLength={NICK_MAX} value={nick} onInput={(e) => setNick((e.target as HTMLInputElement).value)} autocomplete="off" />
         <button class="btn" type="button" aria-label={ui.nickNew} title={ui.nickNew} onClick={() => setNick(randomNick(lang))}>🎲</button>
       </span>
-      <small>{ui.nickHint} <a href={`/${lang}/profil/#nick`}>{ui.nickProfile}</a></small>
+      <small class="nick-hint">{ui.nickHint} <a href={`/${lang}/profil/#nick`}>{ui.nickProfile}</a></small>
     </label>
   );
 }

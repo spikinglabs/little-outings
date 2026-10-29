@@ -213,7 +213,7 @@ tags: { fest: Festival, animals: Animals, market: Market, diy: Hands-on, season:
 empty: Nothing listed here yet. Know something? Add it under Contribute.
 install: { button: "Install the app", hint: "Add Allo Outings to your home screen, it works like an app.", hintIos: "Tap Share, then “Add to Home Screen”, to use Allo Outings like an app.", short: Install, dismiss: Dismiss, menu: "In your browser menu, choose “Install app” or “Add to Home screen”.", installed: "Allo Outings is already installed on this device. Open it from your home screen or app list." }
 addedBy: "Added by {by}"
-nick: { label: Shown as, hint: "A made-up nickname, please not your real name. Empty it to stay anonymous.", new: New nickname, profile: "It's kept in your profile." }
+nick: { label: Your nickname, hint: "Shown next to what you send. Make one up, not your real name, or leave it empty to stay anonymous.", new: New nickname, profile: "It's kept in your profile." }
 footer: "No guarantee for any listing. Please check with the organiser before you go."
 byLine: "Allo Outings is a product by {maker}."
 dataFrom: "Data includes {sources}."
@@ -333,6 +333,7 @@ profile:
   have: "On this phone"
   nickTitle: Your nickname
   nickSub: "Tips, places and events you send are shown under this name. Make one up, please not your real name. Leave it empty to stay anonymous."
+  nickPh: "e.g. Jolly Otter"
   nickSave: Save
   nickSaved: "Saved."
   themeTitle: Light or dark

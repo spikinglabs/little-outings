@@ -213,7 +213,7 @@ tags: { fest: 节庆, animals: 动物, market: 市集, diy: 动手体验, season
 empty: 这里还没有内容。你知道什么好去处吗？可以在“投稿”中告诉我们。
 install: { button: "安装应用", hint: "可以把小鹿出游添加到主屏幕，像应用一样使用。", hintIos: "点“分享”，再选“添加到主屏幕”，就能像应用一样使用小鹿出游。", short: 安装, dismiss: 关闭, menu: "在浏览器菜单中选择“安装应用”或“添加到主屏幕”。", installed: "小鹿出游已经安装在这台设备上，请从主屏幕或应用列表打开。" }
 addedBy: "由 {by} 添加"
-nick: { label: 显示名称, hint: 请用一个网名，不要用真实姓名。清空即可匿名。, new: 换一个网名, profile: 网名会保存在你的个人资料里。 }
+nick: { label: 你的网名, hint: 显示在你发来的内容旁边。请编一个，不要用真实姓名；留空即为匿名。, new: 换一个网名, profile: 网名会保存在你的个人资料里。 }
 footer: 所有信息仅供参考，出发前请向主办方确认。
 byLine: "小鹿出游是 {maker} 的产品。"
 dataFrom: "部分数据来自 {sources}。"
@@ -333,6 +333,7 @@ profile:
   have: "这部手机上"
   nickTitle: 你的网名
   nickSub: 你发来的贴士、地点和活动会以这个名字显示。请编一个网名，不要用真实姓名。留空即为匿名。
+  nickPh: 例如：开心的小水獭
   nickSave: 保存
   nickSaved: 已保存。
   themeTitle: 浅色或深色
