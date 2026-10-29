@@ -280,16 +280,16 @@ share:
   via: "found on Allo Outings"
   button: Share my list
   copied: Link copied. Open it on another phone, or send it to someone you're planning with.
-  pic: Share picture
-  picTitle: A picture to share
-  picShare: Share picture
-  picSave: Save picture
+  pic: Poster
+  picTitle: A poster to share
+  picShare: Share poster
+  picSave: Save poster
   close: Close
-  picDrawing: Drawing the picture…
-  picFailed: "Couldn't draw the picture here. Try Share instead."
-  picCopied: "Text copied: paste it under the picture."
-  picHold: Press and hold the picture to save it, then post it from your photos.
-  picNote: The picture comes with a short text and the link to this page.
+  picDrawing: Making the poster…
+  picFailed: "Couldn't make the poster here. Try Share instead."
+  picCopied: "Text copied: paste it under the poster."
+  picHold: Press and hold the poster to save it, then post it from your photos.
+  picNote: The poster comes with a short text and the link to this page.
   cardGerman: "German: {name}"
   cardFoot: Please check with the organiser before you go
   cardCode: Type the code into the search box to open this page
