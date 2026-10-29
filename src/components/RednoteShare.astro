@@ -1,6 +1,7 @@
 ---
 // "Share to Rednote" for parents, on Chinese pages that have a Rednote set (src/lib/rednote.ts): the
-// weekend edition and St. Martin's events. Rednote has no link that opens a new note, and punishes links
+// weekend edition; event and place pages have their own poster (src/components/ShareButton.astro).
+// Rednote has no link that opens a new note, and punishes links
 // inside notes, so the button copies the caption and hands the cards to the phone's share menu, where
 // the parent picks Rednote and pastes. Phones that can't share pictures get the cards to long-press and save.
 import { picturesOf, type BuiltSet } from "../lib/rednote-data";
