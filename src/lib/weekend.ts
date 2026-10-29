@@ -8,7 +8,7 @@ export type L = "de" | "en" | "zh";
 export type Texts = { de: string; en?: string; zh?: string };
 
 /** Towns that get an edition. One with fewer than MIN_EVENTS family events that weekend skips a week. */
-export const WEEKEND_TOWNS = ["Köln", "Bonn", "Düsseldorf", "Berlin", "München", "Frankfurt am Main", "Hamburg"];
+export const WEEKEND_TOWNS = ["Köln", "Bonn", "Düsseldorf", "Berlin", "München", "Frankfurt am Main", "Hamburg", "Essen", "Aachen"];
 
 /**
  * Each town's public Telegram channel, by town slug, e.g. { koeln: "@littleoutings_koeln" }. The bot behind

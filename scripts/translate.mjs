@@ -20,16 +20,16 @@ export const CACHE = "data/translations/zh.json";
 const BATCH = 60;
 const LIMIT = 3000;
 
-export const PROMPT = `You translate German names of family events and kid-friendly places in Germany (Köln, Bonn, Aachen, Bergisches Land, Wuppertal area, Berlin, München, Frankfurt am Main, Hamburg) into Simplified Chinese, for Chinese-speaking parents who live there and read little German.
+export const PROMPT = `You translate German names of family events and kid-friendly places in Germany (Köln, Bonn, Aachen, Essen, Bergisches Land, Wuppertal area, Berlin, München, Frankfurt am Main, Hamburg) into Simplified Chinese, for Chinese-speaking parents who live there and read little German.
 - Say plainly what it is, short like a title: "Regelmäßige Vorlesestunde" → "定期亲子读书会"; "Sonntagsmalerei" → "周日绘画活动".
 - Never add facts that are not in the original (no ages, prices, places that aren't there).
-- Towns use their standard Chinese names: Köln 科隆, Bonn 波恩, Aachen 亚琛, Düsseldorf 杜塞尔多夫, Wuppertal 伍珀塔尔.
+- Towns use their standard Chinese names: Köln 科隆, Bonn 波恩, Aachen 亚琛, Düsseldorf 杜塞尔多夫, Essen 埃森, Wuppertal 伍珀塔尔.
 - Street names, people's names, brand names and proper names without an established Chinese form stay in Latin letters, with the descriptive part translated: "Spielplatz Weegen" → "Weegen 游乐场"; "Käthe-Kollwitz-Weg (KSP)" → "Käthe-Kollwitz-Weg 儿童游乐场" (KSP = Kinderspielplatz).
 - A place name that is only a street or area gets its kind added: playground "Schanzenweg" → "Schanzenweg 游乐场".
 - Well-known institutions may use their Chinese name: "Kölnisches Stadtmuseum" → "科隆城市博物馆".
 You get a JSON array of {"text", "kind"} objects (kind is "event" or the kind of place). Return only a JSON array of the same length with the translations in the same order.`;
 
-export const PROMPT_EN = `You translate German titles of family events in Germany (Köln, Bonn, Aachen, Düsseldorf, Bergisches Land, Berlin, München, Frankfurt am Main, Hamburg) into English, for English-speaking parents who live there and read little German.
+export const PROMPT_EN = `You translate German titles of family events in Germany (Köln, Bonn, Aachen, Düsseldorf, Essen, Bergisches Land, Berlin, München, Frankfurt am Main, Hamburg) into English, for English-speaking parents who live there and read little German.
 - Say plainly what it is, short like a title: "Regelmäßige Vorlesestunde" → "Regular story time"; "Sonntagsmalerei" → "Sunday painting"; "Laternenbasteln für Kinder ab 4 J." → "Lantern making for kids 4+".
 - Never add facts that are not in the original (no ages, prices, places that aren't there).
 - Towns use their English names where one exists: Köln Cologne, München Munich; others stay as they are.
