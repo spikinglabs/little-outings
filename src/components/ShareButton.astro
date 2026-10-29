@@ -17,11 +17,11 @@ const text = [title, ...lines.filter(Boolean), t("share.via")].join("\n");
 const zh = lang === "zh";
 const xhsText = zh ? rednoteText(title, lines, town, card.code) : "";
 ---
-<button class="btn" type="button" data-share-page data-title={title} data-text={text} data-done={t("share.pageCopied")}>
-  <Fragment set:html={svg(UI_ICON.share, 'stroke-width="2" width="18" height="18"')} /><span data-share-label>{t("share.page")}</span>
+<button class="btn icon" type="button" title={t("share.page")} data-share-page data-title={title} data-text={text} data-done={t("share.pageCopied")}>
+  <Fragment set:html={svg(UI_ICON.share, 'stroke-width="2" width="18" height="18"')} /><span class="sr-only" data-share-label>{t("share.page")}</span>
 </button>
-<button class="btn" type="button" data-share-pic>
-  <Fragment set:html={svg(UI_ICON.image, 'stroke-width="2" width="18" height="18"')} />{t("share.pic")}
+<button class="btn icon" type="button" title={t("share.pic")} data-share-pic>
+  <Fragment set:html={svg(UI_ICON.image, 'stroke-width="2" width="18" height="18"')} /><span class="sr-only">{t("share.pic")}</span>
 </button>
 <dialog class="sheet pic-sheet" data-pic-sheet aria-labelledby="pic-title" data-card={JSON.stringify(card)} data-name={name}
   data-text={text} data-xhs={xhsText} data-title={title}

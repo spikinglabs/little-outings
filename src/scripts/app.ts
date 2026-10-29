@@ -49,8 +49,10 @@ document.addEventListener("click", async (ev) => {
   count("copy");
   const label = b.querySelector<HTMLElement>("[data-share-label]")!;
   const was = label.textContent;
+  // The icon-only button shows the word for a moment.
   label.textContent = b.dataset.done!;
-  setTimeout(() => { label.textContent = was; }, 2500);
+  label.classList.remove("sr-only");
+  setTimeout(() => { label.textContent = was; label.classList.add("sr-only"); }, 2500);
 });
 
 // "Share as picture": draws the page's card when the box opens, so the share button in it hands the phone

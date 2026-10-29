@@ -180,6 +180,8 @@ h1, h2, h3, .meta, .de-name, .orig, .trust { overflow-wrap: anywhere; }
 .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border-radius: 12px; padding: 11px 16px; font-weight: 700; cursor: pointer; border: 1.5px solid var(--ink); background: transparent; text-decoration: none; color: var(--ink); }
 .btn.primary { background: var(--ink); color: var(--paper); }
+/* Icon-only buttons (save, share, poster, calendar): the word is for screen readers and the tooltip. */
+.btn.icon { padding: 0 14px; min-width: 48px; min-height: 48px; box-sizing: border-box; }
 .btn[data-save][aria-pressed="true"] { background: var(--rot); border-color: var(--rot); color: var(--rot-ink); }
 .btn[data-save][aria-pressed="true"] svg { fill: currentColor; }
 
