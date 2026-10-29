@@ -35,13 +35,12 @@ const { item, t } = Astro.props;
       </select>
       <input id={`tip-${item.id}`} name="text" maxlength="140" required placeholder={t("visit.tipPh")} autocomplete="off" />
     </div>
-    <label class="nick">{t("nick.label")}
-      <span class="nick-row">
-        <input name="by" maxlength="30" autocomplete="off" data-nick />
-        <button class="btn" type="button" data-nick-roll aria-label={t("nick.new")} title={t("nick.new")}>🎲</button>
-      </span>
-      <small>{t("nick.hint")} <a href={`/${t.lang}/profil/#nick`}>{t("nick.profile")}</a></small>
-    </label>
+    <!-- Filled in by app.ts with this family's nickname (src/lib/nickname.ts); changed only in Profile. -->
+    <p class="small nick-line" data-nick-line hidden>
+      <span data-nick-as>{t("nick.sentAs")} <b data-nick-name></b></span><span data-nick-anon hidden>{t("nick.anon")}</span>
+      {" · "}<a href={`/${t.lang}/profil/#nick`}>{t("nick.change")}</a>
+      <input type="hidden" name="by" data-nick />
+    </p>
     <button class="btn" type="submit">{t("send")}</button>
   </form>
 </section>

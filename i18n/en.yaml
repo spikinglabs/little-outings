@@ -213,7 +213,7 @@ tags: { fest: Festival, animals: Animals, market: Market, diy: Hands-on, season:
 empty: Nothing listed here yet. Know something? Add it under Contribute.
 install: { button: "Install the app", hint: "Add Allo Outings to your home screen, it works like an app.", hintIos: "Tap Share, then “Add to Home Screen”, to use Allo Outings like an app.", short: Install, dismiss: Dismiss, menu: "In your browser menu, choose “Install app” or “Add to Home screen”.", installed: "Allo Outings is already installed on this device. Open it from your home screen or app list." }
 addedBy: "Added by {by}"
-nick: { label: Your nickname, hint: "Shown next to what you send. Make one up, not your real name, or leave it empty to stay anonymous.", new: New nickname, profile: "It's kept in your profile." }
+nick: { sentAs: "Sent as", anon: Sent anonymously, change: change in Profile, first: "You're shown as {nick}, a made-up nickname.", new: New nickname }
 footer: "No guarantee for any listing. Please check with the organiser before you go."
 byLine: "Allo Outings is a product by {maker}."
 dataFrom: "Data includes {sources}."
@@ -433,7 +433,7 @@ help:
     b3: "Deleting removes everything, including our passkey copy. We keep no other copy, so it can't be undone."
   nick:
     h: Your nickname
-    p: "Tips, places and events you send can carry a made-up nickname, so other families see they come from the same parent. We fill in a random one; roll a new one with 🎲, change it, or empty it to stay anonymous. Please never use your real name."
+    p: "Tips, places and events you send carry a made-up nickname, so other families see they come from the same parent. We make one up for you the first time; change it, roll a new one with 🎲 or empty it (anonymous) in Profile. Please never use your real name."
   marks:
     h: What the marks mean
     verified: "We checked it ourselves."

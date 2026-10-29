@@ -10,8 +10,8 @@ import { schedulePush } from "../scripts/sync";
 import { authHeaders, login, passkeysWork, register, signedIn, type PasskeyResult } from "../scripts/passkey";
 import WherePicker, { type Where } from "./WherePicker";
 import { isEvening } from "../lib/meetup";
-import NickField from "./NickField";
-import { rememberNick } from "../lib/nickname";
+import NickLine from "./NickField";
+import { firstSendHint } from "../lib/nickname";
 
 type Draft = { title: string; date: string; time: string; place: string; price: string; note: string };
 type Field = keyof Draft;
@@ -58,6 +58,8 @@ export default function Contribute({ lang, ui }: Props) {
   // The nickname the event is credited to, and what an event being changed was sent with.
   const [by, setBy] = useState("");
   const [byWas, setByWas] = useState<string | undefined>(undefined);
+  // After the very first thing this family sends: where its nickname can be changed.
+  const [hint, setHint] = useState("");
   const keepBy = (d: unknown) => { const b = String((d as { by?: unknown })?.by ?? ""); setByWas(b); setBy(b); };
 
   const fill = (d: Partial<Draft>, w?: Where) => { setDraft({ ...EMPTY, ...d }); setWhere(w ?? { place: d.place ?? "" }); };
@@ -101,7 +103,7 @@ export default function Contribute({ lang, ui }: Props) {
   }, []);
 
   function reset() {
-    fill({}); setByWas(undefined); setUnsure([]); setPhoto(""); setPaste(""); setNote(""); setEditing(null); setResend(""); setMeetup("");
+    fill({}); setByWas(undefined); setHint(""); setUnsure([]); setPhoto(""); setPaste(""); setNote(""); setEditing(null); setResend(""); setMeetup("");
     setAudience(""); setWay(""); setStep("form");
     if (location.search) history.replaceState(null, "", location.pathname);
   }
@@ -153,9 +155,9 @@ export default function Contribute({ lang, ui }: Props) {
         ok = res.ok;
         const number = ok ? ((await res.json().catch(() => ({}))) as { number?: number }).number : undefined;
         if (ok) try {
-          rememberNick(localStorage, by);
           rememberSent(localStorage, { kind: "event", draft: d, ...(number ? { number, key } : {}) });
           if (resend) markReplaced(localStorage, resend);
+          if (by && firstSendHint(localStorage)) setHint(ui.nickFirst.replace("{nick}", by));
           schedulePush();
         } catch { /* storage blocked */ }
       }
@@ -212,6 +214,7 @@ export default function Contribute({ lang, ui }: Props) {
             {(draft.date || draft.time) && <><dt>{ui.field.date}</dt><dd>{[draft.date, draft.time].filter(Boolean).join(" · ")}</dd></>}
             {draft.place && <><dt>{ui.field.place}</dt><dd>{draft.place}</dd></>}
           </dl>
+          {hint && <p class="small nick-line">{hint} <a href={`/${lang}/profil/#nick`}>{ui.nickChange}</a></p>}
           <button class="btn" type="button" onClick={reset}>{ui.sendAnother}</button>
         </div>
       ) : step === "auth" ? (
@@ -281,7 +284,7 @@ export default function Contribute({ lang, ui }: Props) {
                   ))}
                 </fieldset>
               )}
-              {!invite && <NickField key={byWas ?? "new"} lang={lang} ui={ui} initial={byWas} onChange={setBy} />}
+              {!invite && <NickLine lang={lang} ui={ui} fixed={byWas} onNick={setBy} />}
               {invite && <p class="safety" role="note">⚠️ {f.safety}{isEvening(draft.time) && <><br /><b>{f.evening}</b></>}</p>}
               <button class="btn primary" type="submit" disabled={busy || !audience}>
                 {meetup ? f.saveInvite : editing ? ui.saveEdit : invite ? f.inviteBtn : ui.send}

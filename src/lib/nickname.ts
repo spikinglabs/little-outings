@@ -1,6 +1,6 @@
-// The name a contribution is shown under ("Tip from Brave Hedgehog"). The form fills in a random nickname
-// that people can re-roll or change; the hint asks for a nickname, never a real name. Kept in the profile
-// (lo-nick), so one family's tips all carry the same name.
+// The name a contribution is shown under ("Tip from Brave Hedgehog"). It's made up for the family the first
+// time it's needed and kept in the profile (lo-nick), so all their tips carry the same name; forms only say
+// "Sent as …" with a link to Profile, where it can be changed, re-rolled or emptied (anonymous).
 
 const WORDS: Record<string, { adj: string[]; animal: string[]; join: (a: string, b: string) => string }> = {
   en: {
@@ -38,7 +38,25 @@ export function cleanNick(v: unknown): string {
   return s;
 }
 
-/** Remembers the nickname for next time; an emptied field means "stay anonymous", remembered as "". */
+type Store = Pick<Storage, "getItem" | "setItem">;
+
+/** Saves the nickname; an emptied field means "stay anonymous", remembered as "". */
 export function rememberNick(store: Pick<Storage, "setItem">, nick: string) {
   store.setItem("lo-nick", cleanNick(nick));
+}
+
+/** This family's nickname, made up and saved the first time it's asked for. "" means anonymous. */
+export function myNick(store: Store, lang: string): string {
+  const saved = store.getItem("lo-nick");
+  if (saved !== null) return cleanNick(saved);
+  const nick = randomNick(lang);
+  rememberNick(store, nick);
+  return nick;
+}
+
+/** True once: after the first thing this family sends, so the thanks can say where to change the name. */
+export function firstSendHint(store: Store): boolean {
+  if (store.getItem("lo-nick-hinted")) return false;
+  store.setItem("lo-nick-hinted", "1");
+  return true;
 }

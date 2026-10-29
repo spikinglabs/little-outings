@@ -213,7 +213,7 @@ tags: { fest: Fest, animals: Tiere, market: Markt, diy: Mitmachen, season: Saiso
 empty: Hier ist noch nichts eingetragen. Kennt ihr etwas? Unter „Mitmachen“ könnt ihr es melden.
 install: { button: "App installieren", hint: "Allo Outings lässt sich wie eine App auf den Startbildschirm legen.", hintIos: "Teilen antippen, dann „Zum Home-Bildschirm“, um Allo Outings wie eine App zu nutzen.", short: Installieren, dismiss: Ausblenden, menu: "Im Browser-Menü „App installieren“ oder „Zum Startbildschirm hinzufügen“ wählen.", installed: "Allo Outings ist auf diesem Gerät schon installiert. Öffne es über den Startbildschirm oder die App-Liste." }
 addedBy: "Eingetragen von {by}"
-nick: { label: Dein Spitzname, hint: "Steht neben dem, was du schickst. Denk dir einen aus, nicht deinen echten Namen, oder lass es leer für anonym.", new: Neuer Spitzname, profile: "Er wird in deinem Profil gespeichert." }
+nick: { sentAs: "Gesendet als", anon: Anonym gesendet, change: im Profil ändern, first: "Du erscheinst als {nick}, ein ausgedachter Spitzname.", new: Neuer Spitzname }
 footer: "Alle Angaben ohne Gewähr. Bitte vor dem Besuch beim Veranstalter prüfen."
 byLine: "Allo Outings ist ein Produkt von {maker}."
 dataFrom: "Daten u. a. von {sources}."
@@ -433,7 +433,7 @@ help:
     b3: "Löschen entfernt alles, auch unsere Passkey-Kopie. Eine andere Kopie haben wir nicht, es lässt sich also nicht rückgängig machen."
   nick:
     h: Dein Spitzname
-    p: "Tipps, Orte und Termine, die du schickst, können einen ausgedachten Spitznamen tragen, damit andere Familien sehen, dass sie vom selben Elternteil kommen. Wir schlagen einen zufälligen vor; mit 🎲 gibt's einen neuen, du kannst ihn ändern oder leeren, dann bleibst du anonym. Bitte nie deinen echten Namen."
+    p: "Tipps, Orte und Termine, die du schickst, tragen einen ausgedachten Spitznamen, damit andere Familien sehen, dass sie vom selben Elternteil kommen. Beim ersten Mal denken wir uns einen aus; im Profil kannst du ihn ändern, mit 🎲 neu würfeln oder leeren (anonym). Bitte nie deinen echten Namen."
   marks:
     h: Was die Markierungen heißen
     verified: "Wir haben es selbst geprüft."

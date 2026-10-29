@@ -4,7 +4,7 @@
 // phone with a link, and optionally kept in sync with a passkey (/api/profile).
 
 /** The localStorage keys a profile is made of. Deleting a profile removes exactly these. */
-export const KEYS = { saved: "lo-saved", went: "lo-went", asked: "lo-asked", home: "lo-home", voter: "lo-voter", sent: "lo-sent", nick: "lo-nick" } as const;
+export const KEYS = { saved: "lo-saved", went: "lo-went", asked: "lo-asked", home: "lo-home", voter: "lo-voter", sent: "lo-sent", nick: "lo-nick", nickHinted: "lo-nick-hinted" } as const;
 /** Kept apart from the profile: this device's passkey sync session. */
 export const SYNC_KEY = "lo-sync";
 
