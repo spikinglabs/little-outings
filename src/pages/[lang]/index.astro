@@ -11,7 +11,6 @@ import { KINDS, TAGS } from "../../content.config";
 import { KIND_ICON, UI_ICON, svg } from "../../lib/icons";
 import OutingsMap from "../../islands/OutingsMap";
 import { mapCenter } from "../../lib/pins";
-import { tileOf } from "../../lib/tiles";
 import { siteLd } from "../../lib/seo";
 import { townStates, type Period } from "../../lib/holidays";
 import schoolHolidays from "../../../data/school-holidays.json";
@@ -97,7 +96,7 @@ const mapLabels = {
 const description = t("homeDescription", { events: listed.length, places: places.length });
 const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
 ---
-<Base lang={lang} tab="explore" preload={`/${lang}/ideen/${tileOf(...mapCenter(data))}/`} description={description} ld={siteLd({ site, url: `${site}/${lang}/`, name: t("siteName"), description, lang, maker: MAKER_URL })}>
+<Base lang={lang} tab="explore" earlyTiles={`/${lang}/ideen/`} description={description} ld={siteLd({ site, url: `${site}/${lang}/`, name: t("siteName"), description, lang, maker: MAKER_URL })}>
   <section class="ask">
     <h1 set:html={t("ask", { when: `<span data-when-word>${whenIn.weekend}</span>` })} />
     <label class="search">

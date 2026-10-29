@@ -9,10 +9,12 @@ import { ORDERS, orderEvents, orderPlaces, type Order } from "../lib/order";
 import { holidayFor, type Period } from "../lib/holidays";
 import { inWindow, type Window } from "../lib/seasons-window";
 import { daysFor, fit, mood, moods, sharedMood, skyIcon, skyWord, wantsRoof, type Day, type Mood, type Packed } from "../lib/weather";
-import { tilesFor, tilesNear } from "../lib/tiles";
+import { tileOf, tilesFor, tilesNear } from "../lib/tiles";
 import { cardsIn, dataOf } from "../lib/tile-cards";
 import { TILES, distanceAt, getHome, homeAt, markSaved, nearestTown, renderKm, setHere, setHome, townKm } from "./app";
 import type {} from "../islands/OutingsMap";
+
+declare global { interface Window { loTileFetch?: Record<string, Promise<string>> } }
 
 type Plural = { one?: string; other: string };
 const ui = JSON.parse(document.getElementById("explore-ui")!.textContent!) as {
@@ -137,9 +139,16 @@ function elOf(r: Row): HTMLElement {
 const missingTiles = () => wantedTiles().filter((k) => !tilesDone.has(k));
 async function loadTile(key: string): Promise<boolean> {
   try {
-    const res = await fetch(`${pool.dataset.src}${key}/`);
-    if (!res.ok) throw new Error(String(res.status));
-    for (const html of cardsIn(await res.text())) {
+    // The page itself may have asked for it already (layouts/Base.astro, earlyTiles).
+    const early = window.loTileFetch?.[key];
+    if (early) delete window.loTileFetch![key];
+    const get = async () => {
+      const res = await fetch(`${pool.dataset.src}${key}/`);
+      if (!res.ok) throw new Error(String(res.status));
+      return res.text();
+    };
+    const text = early ? await early.catch(get) : await get();
+    for (const html of cardsIn(text)) {
       const d = dataOf(html);
       const lat = parseFloat(d.lat || ""), lon = parseFloat(d.lon || "");
       all.push({ html, d, lat, lon, feat: (d.feat || "").split(" "), dist: distanceAt(lat, lon) });
@@ -151,21 +160,33 @@ async function loadTile(key: string): Promise<boolean> {
     tilesDone.add(key);
   }
 }
-/** Fetches the tiles the list needs and doesn't hold yet, then shows the list again. */
+/** The list has cards to show: hide "Loading", and let the map fetch the pins of the same tiles. */
+function shown() {
+  loaded = true;
+  $("[data-loading]").hidden = true;
+  window.loTiles = [...tilesDone];
+  document.dispatchEvent(new CustomEvent("lo:tiles", { detail: window.loTiles }));
+}
+/**
+ * Fetches the tiles the list needs and doesn't hold yet, then shows the list again. On the first load the
+ * list shows as soon as the tile home is on arrives (or, with the map moved, the one nearest its middle),
+ * and fills in when the others are here, rather than "Loading" until the slowest one comes.
+ */
 function loadTiles() {
   if (fetching || broken) return;
   const want = missingTiles();
   if (!want.length && loaded) return;
   fetching = true;
-  $("[data-loading]").hidden = false;
-  Promise.all(want.map(loadTile)).then((ok) => {
+  if (!loaded) $("[data-loading]").hidden = false;
+  const at = homeAt();
+  const first = !state.area && at && want.includes(tileOf(at[0], at[1])) ? tileOf(at[0], at[1]) : want[0];
+  Promise.all(want.map((k) => loadTile(k).then((ok) => {
+    if (ok && !loaded && k === first && want.length > 1) { shown(); apply(); }
+    return ok;
+  }))).then((ok) => {
     fetching = false;
     if (!loaded && want.length && !ok.some(Boolean)) { broken = true; $("[data-loading]").textContent = ui.loadFail; return; }
-    loaded = true;
-    $("[data-loading]").hidden = true;
-    // The map fetches the pins of the same tiles.
-    window.loTiles = [...tilesDone];
-    document.dispatchEvent(new CustomEvent("lo:tiles", { detail: window.loTiles }));
+    shown();
     apply();
   });
 }
@@ -279,8 +300,9 @@ function apply() {
   $$<HTMLButtonElement>("[data-flag]").forEach((b) => b.setAttribute("aria-pressed", String(state[b.dataset.flag as Flag])));
   $$<HTMLButtonElement>('[data-wx-btn="water"]').forEach((b) => b.setAttribute("aria-pressed", String(state.kind === "pool")));
   const sky = weather(from, to, word);
-  // Until the cards are here, taps only change the filters; the list follows when they arrive.
-  if (!loaded || missingTiles().length) { loadTiles(); return; }
+  // Until the first cards are here, taps only change the filters; the list follows when they arrive.
+  if (missingTiles().length) loadTiles();
+  if (!loaded) return;
 
   measure();
   words = state.q ? state.q.toLowerCase().split(/\s+/) : [];
