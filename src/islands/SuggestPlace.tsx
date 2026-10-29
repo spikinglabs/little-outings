@@ -4,8 +4,9 @@
 import { useEffect, useState } from "preact/hooks";
 import { markReplaced, readProfile, rememberSent, updateSent } from "../lib/profile";
 import { schedulePush } from "../scripts/sync";
-import NickField from "./NickField";
-import { rememberNick } from "../lib/nickname";
+import NickLine from "./NickField";
+import { firstSendHint } from "../lib/nickname";
+import { dropDraft, formValues, hasText, loadDraft, saveDraft } from "../lib/draft";
 
 interface Props {
   lang: string;
@@ -23,10 +24,14 @@ export default function SuggestPlace({ lang, kinds, features, towns, ui }: Props
   // What was sent, shown back in the confirmation.
   const [done, setDone] = useState<{ kind: string; name: string; town: string; street: string } | null>(null);
   const [busy, setBusy] = useState(false);
+  // After the very first thing this family sends: where its nickname can be changed.
+  const [hint, setHint] = useState("");
   // The place being changed: its inbox number, the key only this browser knows, and what was sent.
   const [editing, setEditing] = useState<{ number: number; key: string; place: Record<string, any> } | null>(null);
   // ?resend=<sent at>: a place sent before edit keys existed, sent again as a new, editable copy.
   const [resend, setResend] = useState<{ at: string; place: Record<string, any> } | null>(null);
+  // A new place half typed before a trip to Profile (or a reload): it comes back filled in.
+  const [saved, setSaved] = useState<Record<string, any> | null>(null);
 
   useEffect(() => {
     const q = new URLSearchParams(location.search);
@@ -41,7 +46,7 @@ export default function SuggestPlace({ lang, kinds, features, towns, ui }: Props
         setTimeout(() => document.getElementById("suggest-place")?.scrollIntoView(), 50);
         return;
       }
-      if (!n) return;
+      if (!n) { const d = loadDraft("place"); if (d) setSaved(d); return; }
       const mine = readProfile(localStorage).sent.find((s) => s.kind === "place" && s.data.number === n && typeof s.data.key === "string");
       if (!mine) return;
       setEditing({ number: n, key: mine.data.key as string, place: (mine.data.place ?? {}) as Record<string, any> });
@@ -72,7 +77,8 @@ export default function SuggestPlace({ lang, kinds, features, towns, ui }: Props
         ok = res.ok;
         const number = ok ? ((await res.json().catch(() => ({}))) as { number?: number }).number : undefined;
         if (ok) try {
-          rememberNick(localStorage, place.by);
+          if (place.by && firstSendHint(localStorage)) setHint(ui.nickFirst.replace("{nick}", place.by));
+          dropDraft("place");
           rememberSent(localStorage, { kind: "place", place, ...(number ? { number, key } : {}) });
           if (resend) markReplaced(localStorage, resend.at);
           schedulePush();
@@ -86,8 +92,14 @@ export default function SuggestPlace({ lang, kinds, features, towns, ui }: Props
   }
 
   const leaveEdit = () => { setEditing(null); setResend(null); setPicked(null); if (location.search) history.replaceState(null, "", location.pathname); };
-  const another = () => { leaveEdit(); setSent(""); setDone(null); setOpen(true); };
-  const p = editing?.place ?? resend?.place ?? {};
+  const another = () => { leaveEdit(); setSent(""); setDone(null); setHint(""); setSaved(null); setOpen(true); };
+  const p = editing?.place ?? resend?.place ?? saved ?? {};
+  // Only a new place is kept as a draft; a change to one already sent starts from what was sent.
+  const keep = (e: Event) => {
+    if (editing || resend) return;
+    const v = formValues(e.currentTarget as HTMLFormElement);
+    if (hasText({ name: v.name ?? "", town: v.town ?? "", street: v.street ?? "", note: v.note ?? "", website: v.website ?? "" })) saveDraft("place", v); else dropDraft("place");
+  };
   // The checkboxes follow the chosen kind; null until the parent picks one, so an edit shows its own kind.
   const [picked, setPicked] = useState<string | null>(null);
   const kind = picked ?? p.kind ?? kinds[0]?.[0];
@@ -108,12 +120,13 @@ export default function SuggestPlace({ lang, kinds, features, towns, ui }: Props
             <dt>{ui.placeSentKind}</dt><dd>{done.kind}</dd>
             <dt>{ui.placeSentWhere}</dt><dd>{[done.street, done.town].filter(Boolean).join(", ")}</dd>
           </dl>
+          {hint && <p class="small nick-line">{hint} <a href={`/${lang}/profil/#nick`}>{ui.nickChange}</a></p>}
           <button class="btn" type="button" onClick={another}>{ui.placeAnother}</button>
         </div>
       ) : sent ? <p class="thanks" role="status">{sent}</p> : !open ? (
         <button class="btn" type="button" style="margin-top:12px" onClick={() => setOpen(true)}>{ui.placeBtn}</button>
       ) : (
-        <form class="form" onSubmit={send} key={editing?.number ?? resend?.at ?? "new"}>
+        <form class="form" onSubmit={send} onInput={keep} onChange={keep} key={editing?.number ?? resend?.at ?? (saved ? "saved" : "new")}>
           {editing && <p class="small">{ui.editNote}</p>}
           {resend && <p class="small">{ui.resendNote}</p>}
           <fieldset class="feature-picks kind-picks">
@@ -136,7 +149,7 @@ export default function SuggestPlace({ lang, kinds, features, towns, ui }: Props
           </fieldset>
           <label>{ui.placeNote}<textarea name="note" rows={3} maxLength={2000} placeholder={ui.placeNotePh} defaultValue={p.note ?? ""} /></label>
           <label>{ui.placeWebsite}<input name="website" type="url" maxLength={300} placeholder="https://" defaultValue={p.website ?? ""} /></label>
-          <NickField lang={lang} ui={ui} initial={editing || resend ? String(p.by ?? "") : undefined} />
+          <NickLine lang={lang} ui={ui} fixed={editing || resend ? String(p.by ?? "") : undefined} />
           <button class="btn primary" type="submit" disabled={busy}>{editing ? ui.saveEdit : ui.send}</button>
           {(editing || resend) && <button class="btn" type="button" onClick={() => { leaveEdit(); setOpen(false); }}>{ui.cancelEdit}</button>}
         </form>

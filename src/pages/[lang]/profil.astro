@@ -124,7 +124,7 @@ const ui = { ...t.group("profile"), count: t.group("profile.count") };
     import { renderSVG } from "uqr";
     import { clean, forget, packForMove, readProfile, unpackMove, type Profile } from "../../lib/profile";
     import { adopt, getSync, lastSynced, push, schedulePush, setSync, syncNow } from "../../scripts/sync";
-    import { cleanNick, randomNick, rememberNick } from "../../lib/nickname";
+    import { cleanNick, myNick, randomNick, rememberNick } from "../../lib/nickname";
     import { applyTheme, themeChoice, type ThemeChoice } from "../../lib/theme";
 
     type Plural = Record<string, string>;
@@ -137,7 +137,7 @@ const ui = { ...t.group("profile"), count: t.group("profile.count") };
 
     /* ---------- the nickname contributions are shown under ---------- */
     const nickInput = $<HTMLInputElement>("[data-nick-input]");
-    nickInput.value = local().nick ?? "";
+    try { nickInput.value = myNick(localStorage, lang); } catch { /* storage blocked */ }
     $("[data-nick-roll-p]").addEventListener("click", () => { nickInput.value = randomNick(lang); });
     $("[data-nick-form]").addEventListener("submit", (e) => {
       e.preventDefault();

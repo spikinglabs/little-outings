@@ -468,8 +468,8 @@ footer.foot { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--l
 .nick-row { display: flex; gap: 8px; width: 100%; }
 .nick-row input { flex: 1; min-width: 0; border: 1px solid var(--line); background: var(--paper); color: var(--ink); border-radius: 10px; padding: 10px 12px; font: inherit; font-weight: 400; }
 .nick-row .btn { flex: none; }
-label.nick { display: grid; gap: 4px; margin-top: 10px; font-weight: 700; font-size: .92rem; }
-label.nick small, .form label small.nick-hint { font-weight: 400; color: var(--ink-soft); line-height: 1.45; }
+.nick-line { margin: 8px 0 0; color: var(--ink-soft); font-weight: 400; }
+.nick-line b { color: var(--ink); }
 .profile-box > .small { margin: 4px 0 0; max-width: 60ch; }
 .profile-counts { margin: 6px 0 0; padding-left: 1.1em; }
 .profile-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }

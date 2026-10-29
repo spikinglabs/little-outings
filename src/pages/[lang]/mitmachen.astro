@@ -36,8 +36,8 @@ const whenChips = [["", t("allKinds")], ["soon", t("when.soon")], ["later", t("t
   ...(tasks.some((task) => task.type === "place") ? [["place", t("places")]] : [])];
 const keys = ["posterTitle", "posterSub", "posterBtn", "posterPick", "orPaste", "pastePh", "pasteBtn", "posterNote", "reading",
   "draftTitle", "pleaseCheck", "send", "answered", "answeredCheck", "answeredVote", "inboxSoon", "parseSoon", "parseFail", "sentEvent", "sendAnother", "editTitle", "editNote", "saveEdit", "cancelEdit", "sentEdit", "resendNote", "typeIt"];
-// The "Shown as" nickname field (src/islands/NickField.tsx) in both forms.
-const nickUi = { nickLabel: t("nick.label"), nickHint: t("nick.hint"), nickNew: t("nick.new"), nickProfile: t("nick.profile") };
+// The "Sent as …" nickname line (src/islands/NickField.tsx) in both forms, and the hint after a first send.
+const nickUi = { nickSentAs: t("nick.sentAs"), nickAnon: t("nick.anon"), nickChange: t("nick.change"), nickFirst: t("nick.first") };
 const ui = { ...Object.fromEntries(keys.map((k) => [k, t(k)])), ...nickUi, field: t.group("field"), flow: t.group("flow") } as any;
 const placeKeys = ["placeTitle", "placeSub", "placeBtn", "placeKind", "placeTown", "placeTownPh", "placeName", "placeStreet",
   "placeFeatures", "placeNote", "placeNotePh", "placeWebsite", "placeThanks", "placeAnother", "placeSentKind", "placeSentWhere", "placeEditTitle", "editNote", "saveEdit", "cancelEdit", "sentEdit", "resendNote", "send", "inboxSoon"];

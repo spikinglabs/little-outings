@@ -2,7 +2,8 @@
 import { KEYS, rememberSent } from "../lib/profile";
 import { pullNowAndThen, schedulePush } from "./sync";
 import { count, type CountAction } from "../lib/count";
-import { randomNick, rememberNick } from "../lib/nickname";
+import { firstSendHint, myNick } from "../lib/nickname";
+import { dropDraft, fillForm, formValues, hasText, loadDraft, saveDraft } from "../lib/draft";
 import { applyTheme, isDark } from "../lib/theme";
 
 const body = document.body;
@@ -262,6 +263,15 @@ document.addEventListener("submit", async (ev) => {
 });
 
 /* ---------- "been here?": we went, good to know ---------- */
+// What's typed stays for this tab, so a trip to Profile (to change the nickname) doesn't lose it.
+const visitDraftKey = (form: HTMLFormElement) => form.dataset.visit ? `visit-${form.dataset.visit}` : `tip-${form.dataset.tipFor}`;
+document.querySelectorAll<HTMLFormElement>("form[data-visit], form[data-tip-for]").forEach((form) => {
+  const saved = loadDraft(visitDraftKey(form));
+  if (saved) fillForm(form, saved);
+  const keep = () => { const v = formValues(form); if (hasText(v)) saveDraft(visitDraftKey(form), v); else dropDraft(visitDraftKey(form)); };
+  form.addEventListener("input", keep);
+  form.addEventListener("change", keep);
+});
 document.addEventListener("submit", async (ev) => {
   const form = (ev.target as Element).closest<HTMLFormElement>("form[data-visit], form[data-tip-for]");
   if (!form) return;
@@ -274,11 +284,20 @@ document.addEventListener("submit", async (ev) => {
     ? await sendTap({ kind: "visit", item: payload.item, again: payload.again, good_for: payload.good_for }, { ...payload, lang: body.dataset.lang })
     : await sendToInbox({ ...payload, lang: body.dataset.lang });
   if (ok && form.dataset.visit) wentHere(form.dataset.visit);
-  if (ok && !form.dataset.visit) try { rememberNick(localStorage, String(data.get("by") ?? "")); } catch { /* storage blocked */ }
+  if (ok) dropDraft(visitDraftKey(form));
   const done = document.createElement("p");
   done.className = "done";
   done.setAttribute("role", "status");
   done.textContent = ok ? (form.dataset.visit ? ui.visited : ui.tipThanks) : ui.inboxSoon;
+  // The first tip this family sends: say which name it went out under, and where to change it.
+  const by = String(data.get("by") ?? "");
+  let first = false;
+  if (ok && !form.dataset.visit && by) try { first = firstSendHint(localStorage); } catch { /* storage blocked */ }
+  if (first) {
+    const hint = Object.assign(document.createElement("small"), { className: "nick-line", textContent: `${ui.nickFirst.replace("{nick}", by)} ` });
+    hint.append(Object.assign(document.createElement("a"), { href: `/${body.dataset.lang}/profil/#nick`, textContent: ui.nickChange }));
+    done.append(document.createElement("br"), hint);
+  }
   form.replaceWith(done);
 });
 // This browser remembers where it already said "We went", so a family taps once per place.
@@ -292,15 +311,15 @@ document.querySelectorAll<HTMLFormElement>("form[data-visit]").forEach((form) =>
   form.replaceWith(done);
 });
 
-// The tip form's "Shown as": this family's nickname, or a random one; 🎲 rolls another.
-document.querySelectorAll<HTMLInputElement>("input[data-nick]").forEach((input) => {
-  const saved = read("lo-nick");
-  input.value = saved ?? randomNick(body.dataset.lang ?? "en");
-});
-document.addEventListener("click", (ev) => {
-  const roll = (ev.target as Element).closest("[data-nick-roll]");
-  const input = roll?.closest("label")?.querySelector<HTMLInputElement>("input[data-nick]");
-  if (input) input.value = randomNick(body.dataset.lang ?? "en");
+// The tip form's "Sent as …": this family's nickname, made up the first time and changed only in Profile.
+document.querySelectorAll<HTMLElement>("[data-nick-line]").forEach((line) => {
+  let nick = "";
+  try { nick = myNick(localStorage, body.dataset.lang ?? "en"); } catch { /* storage blocked: anonymous */ }
+  line.querySelector<HTMLInputElement>("input[data-nick]")!.value = nick;
+  line.querySelector("[data-nick-name]")!.textContent = nick;
+  line.querySelector<HTMLElement>("[data-nick-as]")!.hidden = !nick;
+  line.querySelector<HTMLElement>("[data-nick-anon]")!.hidden = !!nick;
+  line.hidden = false;
 });
 
 /* ---------- facility chips: one quick question, then the next "?" ---------- */

@@ -1,26 +1,24 @@
-// "Shown as": the nickname a contribution is credited to. Starts with this family's last nickname or a
-// random one; 🎲 rolls a new one, and it can be typed over or emptied (then it says "community").
+// "Sent as Sleepy Deer · change in Profile": the nickname a contribution is credited to. It's made up and
+// saved the first time (src/lib/nickname.ts) and only changed in Profile, so forms just say what it is.
+// An edit keeps the name it was first sent with (`fixed`).
 import { useEffect, useState } from "preact/hooks";
-import { NICK_MAX, randomNick } from "../lib/nickname";
+import { myNick } from "../lib/nickname";
 
-interface Props { lang: string; ui: Record<string, string>; initial?: string; onChange?: (nick: string) => void }
+interface Props { lang: string; ui: Record<string, string>; fixed?: string; onNick?: (nick: string) => void }
 
-export default function NickField({ lang, ui, initial, onChange }: Props) {
-  const [nick, set] = useState(initial ?? "");
-  const setNick = (n: string) => { set(n); onChange?.(n); };
+export default function NickLine({ lang, ui, fixed, onNick }: Props) {
+  const [nick, setNick] = useState(fixed ?? "");
   useEffect(() => {
-    if (initial !== undefined) return;
-    let saved: string | null = null;
-    try { saved = localStorage.getItem("lo-nick"); } catch { /* storage blocked */ }
-    setNick(saved ?? randomNick(lang));
-  }, []);
+    let n = fixed ?? "";
+    if (fixed === undefined) try { n = myNick(localStorage, lang); } catch { /* storage blocked: anonymous */ }
+    setNick(n);
+    onNick?.(n);
+  }, [fixed]);
   return (
-    <label>{ui.nickLabel}
-      <span class="nick-row">
-        <input name="by" maxLength={NICK_MAX} value={nick} onInput={(e) => setNick((e.target as HTMLInputElement).value)} autocomplete="off" />
-        <button class="btn" type="button" aria-label={ui.nickNew} title={ui.nickNew} onClick={() => setNick(randomNick(lang))}>🎲</button>
-      </span>
-      <small class="nick-hint">{ui.nickHint} <a href={`/${lang}/profil/#nick`}>{ui.nickProfile}</a></small>
-    </label>
+    <p class="small nick-line">
+      {nick ? <>{ui.nickSentAs} <b>{nick}</b></> : ui.nickAnon}
+      {" · "}<a href={`/${lang}/profil/#nick`}>{ui.nickChange}</a>
+      <input type="hidden" name="by" value={nick} />
+    </p>
   );
 }
