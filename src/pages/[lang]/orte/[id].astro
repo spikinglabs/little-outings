@@ -7,6 +7,7 @@ import GapBox from "../../../components/GapBox.astro";
 import ReportBox from "../../../components/ReportBox.astro";
 import VisitBox from "../../../components/VisitBox.astro";
 import ShareButton from "../../../components/ShareButton.astro";
+import { shareCard } from "../../../lib/share-card";
 import AskSheet from "../../../components/AskSheet.astro";
 import { LANGS, isFallback, tr, useT, type Lang } from "../../../lib/i18n";
 import { eventsAt, getData } from "../../../lib/data";
@@ -68,6 +69,12 @@ const description = [
   has.join(", "),
   p.note && tr(p.note, lang),
 ].filter(Boolean).join(". ").slice(0, 300);
+// The "share as picture" card (src/lib/share-card.ts): what it is, where, and what parents can count on there.
+const card = shareCard(lang, {
+  tone: "paper", tag: t(`kinds.${p.kind}`), title: nameOf(p, lang), german: germanName(p, lang),
+  lines: [address || area, has.slice(0, 5).join(" · "), goodFor.length > 0 && t("visit.parentsSay", { list: goodFor.join(", ") })],
+  note: p.note && tr(p.note, lang),
+}, t);
 const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
 const ld = placeLd(p, { url: `${site}${Astro.url.pathname}`, name: nameOf(p, lang), description, lang, facility: (f) => t(`features.${f}`) });
 ---
@@ -148,7 +155,7 @@ const ld = placeLd(p, { url: `${site}${Astro.url.pathname}`, name: nameOf(p, lan
     <div class="actions">
       {map && <a class="btn primary" href={map.google} data-apple-maps={map.apple} data-count="maps" target="_blank" rel="noopener">{t("openMaps")}</a>}
       <button class="btn" type="button" data-save={p.id} aria-pressed="false"><Fragment set:html={svg(UI_ICON.saved, 'stroke-width="2" width="18" height="18"')} /><span data-save-label>{t("save")}</span></button>
-      <ShareButton t={t} title={nameOf(p, lang)} lines={[t(`kinds.${p.kind}`), address]} />
+      <ShareButton t={t} title={nameOf(p, lang)} lines={[t(`kinds.${p.kind}`), address]} card={card} lang={lang} town={town} name={p.id} />
       {p.website && !p.website.startsWith("https://www.openstreetmap.org/") && <a class="btn" href={p.website} data-count="website" target="_blank" rel="noopener">{t("website")} ↗</a>}
     </div>
 

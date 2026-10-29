@@ -425,6 +425,13 @@ footer.foot { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--l
 .sheet .row { display: flex; flex-wrap: wrap; gap: 8px; }
 .sheet .row .chip { font-size: 1rem; padding: 10px 16px; }
 .sheet [data-ask-close] { justify-self: end; }
+.pic-sheet { display: none; gap: 12px; max-height: calc(100dvh - 32px); overflow-y: auto; }
+.pic-sheet[open] { display: grid; }
+.pic-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.pic-head .btn { padding: 6px 12px; border: 0; font-size: 1.1rem; }
+.pic-sheet img { width: 100%; max-width: 300px; height: auto; justify-self: center; border-radius: 10px; border: 1px solid var(--line); background: var(--card); aspect-ratio: 3 / 4; }
+.pic-btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.pic-btns[hidden], .pic-btns [hidden] { display: none; }
 /* Town picker ("Around"): search on top, towns below; the list scrolls, the search stays put. */
 .town-btn b { font-weight: 600; }
 .town-btn .caret { font-size: .75rem; opacity: .6; }

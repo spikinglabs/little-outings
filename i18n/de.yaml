@@ -280,6 +280,18 @@ share:
   via: "gefunden auf Allo Outings"
   button: Liste teilen
   copied: Link kopiert. Öffnet ihn auf einem anderen Handy oder schickt ihn an jemanden, mit dem ihr plant.
+  pic: Als Bild teilen
+  picTitle: Ein Bild zum Teilen
+  picShare: Bild teilen
+  picSave: Bild speichern
+  close: Schließen
+  picDrawing: Das Bild wird gemalt…
+  picFailed: "Das Bild ließ sich hier nicht erstellen. Versucht es mit Teilen."
+  picCopied: "Text kopiert: unter dem Bild einfügen."
+  picHold: Bild gedrückt halten, um es zu speichern, und dann aus den Fotos posten.
+  picNote: Zum Bild kommt ein kurzer Text mit dem Link zu dieser Seite.
+  cardGerman: "{name}"
+  cardFoot: Bitte vor dem Losgehen beim Veranstalter nachfragen
   shared: { one: "1 Ausflug wurde mit euch geteilt.", other: "{n} Ausflüge wurden mit euch geteilt." }
   add: Zu meiner Liste hinzufügen
 cal: { add: In den Kalender, google: Google Kalender, ics: "Apple, Outlook & andere (.ics)" }
