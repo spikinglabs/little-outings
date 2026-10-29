@@ -1,6 +1,7 @@
 locale: en-GB
 langName: English
 siteName: Allo Outings
+themeFlip: "Switch light / dark"
 tagline: Family outings near you
 homeDescription: "Family outings in Cologne, Berlin, Munich, Hamburg and more cities: {events} events for kids and {places} kid-friendly places like playgrounds, farms, zoos and pools. Free, no sign-up."
 brandAbout:

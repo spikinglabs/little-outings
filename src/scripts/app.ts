@@ -3,6 +3,7 @@ import { KEYS, rememberSent } from "../lib/profile";
 import { pullNowAndThen, schedulePush } from "./sync";
 import { count, type CountAction } from "../lib/count";
 import { firstSendHint, myNick } from "../lib/nickname";
+import { applyTheme, isDark } from "../lib/theme";
 
 const body = document.body;
 const ui = JSON.parse(body.dataset.ui || "{}") as Record<string, string> & { fac?: [string, string][] };
@@ -19,6 +20,15 @@ document.addEventListener("click", (ev) => {
   const el = (ev.target as Element).closest<HTMLElement>("[data-count]");
   if (el) count(el.dataset.count as CountAction);
 });
+
+/* ---------- quick light/dark switch in the header ---------- */
+// One tap flips what the page shows now; "Auto" (follow the phone) stays under Profile.
+document.querySelector("[data-theme-flip]")?.addEventListener("click", () => applyTheme(isDark() ? "light" : "dark"));
+
+// The language menu closes on a tap anywhere else, or on Escape.
+const langMenu = document.querySelector<HTMLDetailsElement>("[data-lang-menu]");
+document.addEventListener("click", (ev) => { if (langMenu?.open && !langMenu.contains(ev.target as Node)) langMenu.open = false; });
+document.addEventListener("keydown", (ev) => { if (ev.key === "Escape" && langMenu?.open) { langMenu.open = false; langMenu.querySelector("summary")?.focus(); } });
 
 /* ---------- share an event or place (src/components/ShareButton.astro) ---------- */
 document.addEventListener("click", async (ev) => {
