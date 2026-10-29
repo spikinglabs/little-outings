@@ -42,18 +42,32 @@ const far = (d?: number | null) => d ?? 1e9;
  */
 export function orderEvents<R extends Ev>(rows: R[], order: Order, from: string, today: string, seed: string, fit: (r: R, day: string) => number = () => 0): R[] {
   const day = (r: R) => (r.start < from ? from : r.start);
-  const suits = (a: R, b: R) => fit(a, day(a)) - fit(b, day(b));
-  const cmp: (a: R, b: R) => number =
-    order === "nearest" ? (a, b) => far(a.dist) - far(b.dist)
-    : order === "soonest" ? (a, b) => day(a).localeCompare(day(b)) || far(a.dist) - far(b.dist)
-    : (a, b) => day(a).localeCompare(day(b)) || partOfDay(a.time) - partOfDay(b.time) || suits(a, b) || rank(a.id, seed) - rank(b.id, seed);
+  // Each row's keys are worked out once, not in every comparison: Discover sorts thousands of rows on each tap.
+  const keyed = rows.map((r) => ({ r, day: day(r), dist: far(r.dist), part: 0, fit: 0, rank: 0 }));
+  if (order === "mixed") for (const k of keyed) { k.part = partOfDay(k.r.time); k.fit = fit(k.r, k.day); k.rank = rankOf(k.r.id, seed); }
+  type K = (typeof keyed)[number];
+  const cmp: (a: K, b: K) => number =
+    order === "nearest" ? (a, b) => a.dist - b.dist
+    : order === "soonest" ? (a, b) => (a.day < b.day ? -1 : a.day > b.day ? 1 : 0) || a.dist - b.dist
+    : (a, b) => (a.day < b.day ? -1 : a.day > b.day ? 1 : 0) || a.part - b.part || a.fit - b.fit || a.rank - b.rank;
   const long = (r: R) => runsLong(r.start, r.end) && !lastChance(r.end, today);
-  const short = rows.filter((r) => !long(r)).sort(cmp);
-  const runs = rows.filter(long).sort(order === "mixed" ? (a, b) => suits(a, b) || rank(a.id, seed) - rank(b.id, seed) : cmp);
-  return [...short, ...runs];
+  const short = keyed.filter((k) => !long(k.r)).sort(cmp);
+  const runs = keyed.filter((k) => long(k.r)).sort(order === "mixed" ? (a, b) => a.fit - b.fit || a.rank - b.rank : cmp);
+  return [...short, ...runs].map((k) => k.r);
 }
 
 /** Places in the chosen order: shuffled for "mixed", nearest first otherwise (they have no time). */
 export function orderPlaces<R extends Pl>(rows: R[], order: Order, seed: string, fit: (r: R) => number = () => 0): R[] {
-  return [...rows].sort(order === "mixed" ? (a, b) => fit(a) - fit(b) || rank(a.id, seed) - rank(b.id, seed) : (a, b) => far(a.dist) - far(b.dist));
+  const keyed = rows.map((r) => (order === "mixed" ? { r, a: fit(r), b: rankOf(r.id, seed) } : { r, a: far(r.dist), b: 0 }));
+  return keyed.sort((x, y) => x.a - y.a || x.b - y.b).map((k) => k.r);
+}
+
+// rank() for the day's seed, remembered: the seed changes once a day or when the town does.
+let rankSeed = "";
+const ranks = new Map<string, number>();
+function rankOf(id: string, seed: string): number {
+  if (seed !== rankSeed) { rankSeed = seed; ranks.clear(); }
+  let r = ranks.get(id);
+  if (r == null) ranks.set(id, (r = rank(id, seed)));
+  return r;
 }
