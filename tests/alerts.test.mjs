@@ -100,3 +100,44 @@ test("old items leave the store; after the rules change only decided ones stay",
   assert.deepEqual(Object.keys(prune(items, TODAY)).sort(), ["a", "b", "c", "d"]);
   assert.deepEqual(Object.keys(keepDecided(items, { alerts: { a: { status: "confirmed" } } })), ["a"]);
 });
+
+test("the detail step keeps type, size, route, lines, background and key points, and drops what is out of shape", () => {
+  const answer = {
+    relevant: "yes", type: "march", day: "2026-10-31", from: "14:00", expected: 15000, route: "Deutzer Brücke – Heumarkt – Rheinufer",
+    lines: ["KVB 1", "KVB 7", ""], where: "Konrad-Adenauer-Ufer", line: lines,
+    about: { de: "Demo der Initiative X für bessere Schulen.", en: "Demo by Initiative X for better schools.", zh: "X 倡议组织的游行，要求改善学校。" },
+    points: { de: ["Rheinufer gesperrt"], en: ["Rhine bank closed"], zh: ["莱茵河岸封闭"] },
+  };
+  const found = parseDetail(JSON.stringify(answer));
+  assert.equal(found.type, "march");
+  assert.equal(found.expected, 15000);
+  assert.deepEqual(found.lines, ["KVB 1", "KVB 7"]);
+  assert.equal(found.route, "Deutzer Brücke – Heumarkt – Rheinufer");
+  assert.deepEqual(found.points.zh, ["莱茵河岸封闭"]);
+  const odd = parseDetail(JSON.stringify({ ...answer, type: "riot", expected: "many", about: { de: "x" }, points: { de: ["a"], en: [], zh: ["b"] } }));
+  assert.equal(odd.type, undefined);
+  assert.equal(odd.expected, undefined);
+  assert.equal(odd.about, undefined); // all three languages or none
+  assert.equal(odd.points, undefined);
+  const item = itemOf(demo, "yes", found, "t");
+  assert.equal(item.expected, 15000);
+  assert.deepEqual(item.about, answer.about);
+});
+
+test("the site gets the facts, and your edits to them win", () => {
+  const rich = { items: { a: { ...store.items.a, type: "march", expected: 15000, route: "A – B", lines: ["KVB 1"],
+    about: { de: "Worum es geht.", en: "What it is about.", zh: "背景。" }, points: { de: ["P1"], en: ["P1"], zh: ["要点1"] } } } };
+  const decisions = applyAlertDecision(rich, null, {
+    id: "a", status: "confirmed", expected: "20000", lines: ["KVB 1", "KVB 9"], route: "A – B",
+    about: { zh: "新的背景。" }, points: { zh: ["要点1", "要点2", " "] },
+  }, user, "t");
+  assert.deepEqual(decisions.alerts.a.lines, ["KVB 1", "KVB 9"]);
+  assert.equal(decisions.alerts.a.route, undefined); // unchanged, so not stored
+  const [shown] = confirmedAlerts(rich, decisions, TODAY);
+  assert.equal(shown.expected, 20000);
+  assert.equal(shown.type, "march");
+  assert.deepEqual(shown.about, { de: "Worum es geht.", en: "What it is about.", zh: "新的背景。" });
+  assert.deepEqual(shown.points.zh, ["要点1", "要点2"]);
+  assert.deepEqual(shown.points.de, ["P1"]);
+  assert.throws(() => applyAlertDecision(rich, null, { id: "a", status: "confirmed", expected: "lots" }, user), /whole number/);
+});

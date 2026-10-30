@@ -145,6 +145,14 @@ test("a confirmed city alert becomes a set: facts, what to watch for, an invitat
   assert.doesNotMatch(s.caption + JSON.stringify(s.sheets), /不用紧张|不用担心|https?:|allo\.land/);
   assert.deepEqual(checkSetFile({ title: s.title, caption: s.caption, cards: s.sheets }), []);
   for (const sheet of s.sheets) assert.match(sheetSvg(sheet), /^<svg/);
+  // With the facts from the page: a type in the title, a card with place, route, size and lines, the key points.
+  const rich = alertSet({ ...alert, type: "march", expected: 15000, route: "Deutzer Brücke – Heumarkt", lines: ["KVB 1", "KVB 7"],
+    about: { zh: "X 倡议组织的游行。" }, points: { zh: ["莱茵河岸封闭"] } }, "科隆");
+  assert.equal(rich.title, "科隆游行出行提醒｜10月31日周六");
+  assert.equal(rich.sheets.length, 4);
+  assert.deepEqual(rich.sheets[2].lines, ["路线：Deutzer Brücke – Heumarkt", "预计人数：约1.5万人", "受影响线路：KVB 1、KVB 7", "莱茵河岸封闭"]);
+  assert.match(rich.caption, /X 倡议组织的游行。/);
+  assert.match(rich.caption, /📍预计人数：约1\.5万人/);
   // A transit strike gets transit advice.
   assert.match(alertSet({ ...alert, kind: "strike" }, "科隆").caption, /交通 App/);
 });
@@ -153,6 +161,8 @@ test("the Chinese font has every character the alert cards always show", () => {
   const have = new Set(readFileSync("design/og/zh-chars.txt", "utf8").trim());
   const s = alertSet({ id: "x", city: "Köln", day: "2026-11-02", kind: "assembly", line: { zh: "" } }, "科隆");
   const fixed = alertSet({ id: "x", city: "Köln", day: "2026-11-02", kind: "strike", line: { zh: "" } }, "科隆");
-  const missing = [...new Set([...(JSON.stringify(s.sheets) + JSON.stringify(fixed.sheets))].filter((c) => c.charCodeAt(0) >= 0x2e80 && !have.has(c)))];
+  const typed = ["demonstration", "march", "police_operation", "closure", "strike", "evacuation", "crowd_event", "other"]
+    .map((type) => alertSet({ id: "x", city: "Köln", day: "2026-11-02", kind: "police_notice", type, expected: 15000, where: "-", route: "-", lines: ["1"], line: { zh: "" } }, "科隆"));
+  const missing = [...new Set([...(JSON.stringify(s.sheets) + JSON.stringify(fixed.sheets) + JSON.stringify(typed.map((x) => x.sheets)))].filter((c) => c.charCodeAt(0) >= 0x2e80 && !have.has(c)))];
   assert.deepEqual(missing, []);
 });

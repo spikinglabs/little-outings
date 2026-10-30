@@ -27,6 +27,20 @@ order: { label: Reihenfolge, mixed: Gemischt, soonest: Bald zuerst, nearest: Nah
 alerts:
   title: "Gut zu wissen"
   source: "Quelle"
+  more: "Mehr dazu"
+  expected: "Erwartet: etwa {n} Menschen"
+  where: "Ort"
+  route: "Route"
+  lines: "Betroffene Linien"
+  type:
+    demonstration: "Demonstration"
+    march: "Demonstrationszug"
+    police_operation: "Polizeieinsatz"
+    closure: "Sperrung"
+    strike: "Streik"
+    evacuation: "Evakuierung"
+    crowd_event: "Großveranstaltung"
+    other: "Hinweis"
 wx:
   rain: "Regen wahrscheinlich {when}."
   snow: "Schnee wahrscheinlich {when}: warm anziehen."

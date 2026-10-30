@@ -14,7 +14,20 @@ export interface Alert {
   from?: string;
   to?: string;
   kind: string;
+  /** demonstration, march, police_operation, closure, strike, evacuation, crowd_event, other */
+  type?: string;
+  /** People the organisers registered or the police expect. */
+  expected?: number;
+  where?: string;
+  /** A march's streets in order (German names). */
+  route?: string;
+  /** Bus, tram and train lines named as affected. */
+  lines?: string[];
   line: Record<Lang, string>;
+  /** What it is about and who organises it, as the official page says. */
+  about?: Record<Lang, string>;
+  /** The concrete facts: closures, diversions, when it ends. */
+  points?: Record<Lang, string[]>;
   url: string;
 }
 

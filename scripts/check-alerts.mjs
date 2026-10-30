@@ -4,8 +4,8 @@
 // Reads spikinglabs/city-anomalies' public export (facts only: title, city, day, time, place, link), plus
 // the earlier verdicts the workflow downloaded from the Allo Outings bucket. Two steps per new alert:
 //   1. screen: the model reads the facts of many at once and keeps the few that could matter to families;
-//   2. detail: for each kept one it reads the official page (a police release) and writes the day, times
-//      and one short line per language.
+//   2. detail: for each kept one it reads the official page (a police release) and writes the day, times,
+//      type, expected size, route, affected lines, and per language a short line, the background and the key points.
 // Writes
 //   ALERTS_DIR/alerts.json  every verdict, uploaded back to the bucket so the admin's "City alerts" panel lists them
 //   data/alerts.json        the alerts someone confirmed in the admin (alert-decisions.json) that are not over yet
@@ -32,7 +32,7 @@ const RECENT = 10; // days: a release without a date counts while it is this fre
 const PAGE_MAX = 6000; // characters of the official page the model reads
 
 /** Bump when the rules below change: open verdicts from an older version are asked again. */
-export const PROMPT_VERSION = 1;
+export const PROMPT_VERSION = 2;
 
 export const SCREEN = `You help "Allo Outings", a website where parents in Germany find outings with their children.
 You get a JSON list of city notices from official sources: police press releases, the list of registered assemblies, transit notices. Most are German.
@@ -42,15 +42,25 @@ Decide for each if parents going out with children in that city should know abou
 - "unsure": only when you really can't tell.
 Return only JSON: {"answers": [{"i": 0, "f": "yes"}, ...]} with one answer per notice, f being "yes", "no" or "unsure".`;
 
-export const DETAIL = `You write short notices for "Allo Outings", a website where parents in Germany find outings with their children.
+export const DETAIL = `You write notices for "Allo Outings", a website where parents in Germany find outings with their children.
 You get one city notice (facts from an official source) and, when there is one, the text of the official page.
 Answer with only JSON:
-{"relevant": "yes" | "no" | "unsure", "day": "YYYY-MM-DD", "until": "YYYY-MM-DD" (only if it lasts several days), "from": "HH:MM", "to": "HH:MM", "where": "short place or route", "line": {"de": "…", "en": "…", "zh": "…"}}
+{"relevant": "yes" | "no" | "unsure",
+ "type": "demonstration" | "march" | "police_operation" | "closure" | "strike" | "evacuation" | "crowd_event" | "other",
+ "day": "YYYY-MM-DD", "until": "YYYY-MM-DD" (only if it lasts several days), "from": "HH:MM", "to": "HH:MM",
+ "where": "meeting point or place", "route": "the march route, streets in order", "expected": 15000,
+ "lines": ["KVB 1", "KVB 7"],
+ "line": {"de": "…", "en": "…", "zh": "…"},
+ "about": {"de": "…", "en": "…", "zh": "…"},
+ "points": {"de": ["…"], "en": ["…"], "zh": ["…"]}}
 - "relevant": "yes" if parents out with children that day should know (crowds, closures, diverted trams and buses, police operations), "no" if not after all.
-- day, from, to, where: only what the notice or page says; leave a key out when it doesn't say.
-- line: one sentence per language, at most 140 characters: what happens, where, and what it means for getting around (closures, detours, crowds). Facts only, from the notice and page.
-  No reassurance ("no need to worry", "the police expect it to stay peaceful"), no advice on how to plan the day, no opinion on the cause, no names of private persons.
-  German for "de", English for "en", Simplified Chinese for "zh" (keep German street and place names as they are).`;
+- "type": a march moves along a route; a demonstration or rally stays in one place.
+- day, from, to, where, route, expected (the number of people the organisers registered or the police expect), lines (bus, tram and train lines named as affected): only what the notice or page says; leave a key out when it doesn't say. Never guess a number.
+- line: one sentence, at most 140 characters: what happens, where, and what it means for getting around.
+- about: one or two sentences, at most 240 characters, on the background: what the event is about or why it happens, and who organises it when the page names an organisation (never private persons), as the page states it.
+- points: up to 4 short items, at most 140 characters each, with the concrete facts a parent needs: closed streets, squares and bridges, diverted or stopped lines and stops, other events the same day that the police mention, when it is expected to end. Only what the page says.
+- Facts only, from the notice and page. No reassurance ("no need to worry", "the police expect it to stay peaceful"), no advice on how to plan the day, no opinion on the cause.
+- German for "de", English for "en", Simplified Chinese for "zh" (keep German street, place and line names as they are).`;
 
 const iso = (d) => d.toISOString().slice(0, 10);
 const addDays = (day, n) => iso(new Date(Date.parse(`${day}T12:00:00Z`) + n * 864e5));
@@ -102,20 +112,43 @@ const DAY = /^\d{4}-\d{2}-\d{2}$/;
 const TIME = /^([01]\d|2[0-3]):[0-5]\d$/;
 const clip = (s, n) => (typeof s === "string" ? s.trim().slice(0, n) : "");
 
-/** The detail answer, checked: dates and times in shape, all three lines present. Null when it is unusable. */
+const TYPES = ["demonstration", "march", "police_operation", "closure", "strike", "evacuation", "crowd_event", "other"];
+const LANGS = ["de", "en", "zh"];
+/** One text per language, each clipped; null unless all three are there. */
+const perLang = (v, n) => {
+  const out = Object.fromEntries(LANGS.map((l) => [l, clip(v?.[l], n)]));
+  return LANGS.every((l) => out[l]) ? out : null;
+};
+/** Up to `max` short items per language; languages may differ in count but none may be empty. */
+const listPerLang = (v, max, n) => {
+  const out = Object.fromEntries(LANGS.map((l) => [l, (Array.isArray(v?.[l]) ? v[l] : []).map((x) => clip(x, n)).filter(Boolean).slice(0, max)]));
+  return LANGS.every((l) => out[l].length) ? out : null;
+};
+
+/** The detail answer, checked: dates, times and numbers in shape, all three lines present. Null when it is unusable. */
 export function parseDetail(text) {
   const a = jsonOf(text);
   if (!a || !["yes", "no", "unsure"].includes(a.relevant)) return null;
   const line = { de: clip(a.line?.de, 160), en: clip(a.line?.en, 160), zh: clip(a.line?.zh, 160) };
   if (a.relevant !== "no" && !(line.de && line.en && line.zh)) return null;
+  const about = perLang(a.about, 240);
+  const points = listPerLang(a.points, 4, 160);
+  const lines = (Array.isArray(a.lines) ? a.lines : []).map((x) => clip(x, 30)).filter(Boolean).slice(0, 12);
+  const expected = Number.isInteger(a.expected) && a.expected > 0 && a.expected < 5_000_000 ? a.expected : null;
   return {
     relevant: a.relevant,
+    ...(TYPES.includes(a.type) ? { type: a.type } : {}),
     ...(DAY.test(a.day) ? { day: a.day } : {}),
     ...(DAY.test(a.until) && (!DAY.test(a.day) || a.until > a.day) ? { until: a.until } : {}),
     ...(TIME.test(a.from) ? { from: a.from } : {}),
     ...(TIME.test(a.to) ? { to: a.to } : {}),
     ...(clip(a.where, 120) ? { where: clip(a.where, 120) } : {}),
+    ...(clip(a.route, 300) ? { route: clip(a.route, 300) } : {}),
+    ...(expected ? { expected } : {}),
+    ...(lines.length ? { lines } : {}),
     line,
+    ...(about ? { about } : {}),
+    ...(points ? { points } : {}),
   };
 }
 
@@ -163,7 +196,7 @@ export async function detail(rec, records, llm, model, { ask = complete, fetchFn
   const { i: _, ...facts } = describe(rec, 0);
   const text = JSON.stringify({ notice: facts }) + (page ? `\n\nOfficial page:\n${page}` : "");
   try {
-    return parseDetail(await ask(llm, model, { system: DETAIL, text, maxTokens: 1200, json: true }));
+    return parseDetail(await ask(llm, model, { system: DETAIL, text, maxTokens: 3000, json: true }));
   } catch {
     return null;
   }
@@ -183,8 +216,14 @@ export function itemOf(rec, verdict, found, now) {
     ...((found?.from || rec.start_time) && (found?.from || rec.start_time) !== "00:00" ? { from: found?.from || rec.start_time } : {}),
     ...((found?.to || rec.end_time) && (found?.to || rec.end_time) !== "23:59" ? { to: found?.to || rec.end_time } : {}),
     ...(found?.where || rec.place ? { where: found?.where || rec.place } : {}),
+    ...(found?.route || rec.route ? { route: found?.route || rec.route } : {}),
+    ...(found?.type ? { type: found.type } : {}),
+    ...(found?.expected ? { expected: found.expected } : {}),
+    ...(found?.lines ? { lines: found.lines } : {}),
     verdict: found ? found.relevant : verdict,
     ...(found?.line ? { line: found.line } : {}),
+    ...(found?.about ? { about: found.about } : {}),
+    ...(found?.points ? { points: found.points } : {}),
     checked_at: now,
   };
 }

@@ -6,16 +6,19 @@
 // Like candidates and decisions, each file has one writer, so the nightly run never undoes a click.
 // Plain JS: the admin, the script and the tests share it.
 
+/** A per-language field with your changes laid over the AI's, or nothing when neither has it. */
+const lang = (it, d, key) => (it[key] || d[key] ? { [key]: { ...it[key], ...d[key] } } : {});
+
 /** Each item with your decision laid over the AI's: status, and any line, day or time you changed. */
 export function mergedAlerts(store, decisions) {
   return Object.values(store?.items || {}).map((it) => {
     const d = decisions?.alerts?.[it.id];
     if (!d) return { ...it, status: "new" };
-    return { ...it, ...d, line: { ...it.line, ...d.line } };
+    return { ...it, ...d, line: { ...it.line, ...d.line }, ...lang(it, d, "about"), ...lang(it, d, "points") };
   });
 }
 
-/** What the site shows of a confirmed alert: our own short lines and facts, plus the official link. */
+/** What the site shows of a confirmed alert: our own lines, background and key points, the facts, and the official link. */
 export function publicAlert(item) {
   return {
     id: item.id,
@@ -25,7 +28,14 @@ export function publicAlert(item) {
     ...(item.from ? { from: item.from } : {}),
     ...(item.to ? { to: item.to } : {}),
     kind: item.kind,
+    ...(item.type ? { type: item.type } : {}),
+    ...(item.expected ? { expected: item.expected } : {}),
+    ...(item.where ? { where: item.where } : {}),
+    ...(item.route ? { route: item.route } : {}),
+    ...(item.lines?.length ? { lines: item.lines } : {}),
     line: item.line,
+    ...(item.about?.de && item.about?.en && item.about?.zh ? { about: item.about } : {}),
+    ...(item.points?.de?.length && item.points?.en?.length && item.points?.zh?.length ? { points: item.points } : {}),
     url: item.url,
   };
 }
@@ -47,6 +57,7 @@ export function alertsToCheck(store, decisions, today) {
 }
 
 const LINE_MAX = 160;
+const ABOUT_MAX = 300;
 const DAY = /^\d{4}-\d{2}-\d{2}$/;
 const TIME = /^([01]\d|2[0-3]):[0-5]\d$/;
 
@@ -71,6 +82,48 @@ export function applyAlertDecision(store, decisions, body, user, now = new Date(
     }
     if (Object.keys(line).length) d.line = line;
     else delete d.line;
+  }
+  if (body.about) {
+    const about = { ...before.about };
+    for (const l of ["de", "en", "zh"]) {
+      if (typeof body.about[l] !== "string") continue;
+      const text = body.about[l].trim();
+      if (text.length > ABOUT_MAX) throw new Error(`The ${l} background must be at most ${ABOUT_MAX} characters.`);
+      if (text === (item.about?.[l] ?? "")) delete about[l];
+      else about[l] = text;
+    }
+    if (Object.keys(about).length) d.about = about;
+    else delete d.about;
+  }
+  if (body.points) {
+    const points = { ...before.points };
+    for (const l of ["de", "en", "zh"]) {
+      if (!Array.isArray(body.points[l])) continue;
+      const list = body.points[l].map((x) => String(x).trim()).filter(Boolean);
+      if (list.length > 6 || list.some((x) => x.length > LINE_MAX)) throw new Error(`The ${l} points must be at most 6, each at most ${LINE_MAX} characters.`);
+      if (JSON.stringify(list) === JSON.stringify(item.points?.[l] ?? [])) delete points[l];
+      else points[l] = list;
+    }
+    if (Object.keys(points).length) d.points = points;
+    else delete d.points;
+  }
+  if ("expected" in body) {
+    const n = body.expected === "" || body.expected === null ? null : Number(body.expected);
+    if (n !== null && !(Number.isInteger(n) && n > 0)) throw new Error("expected must be a whole number of people.");
+    if (n && n !== item.expected) d.expected = n;
+    else delete d.expected;
+  }
+  for (const key of ["route", "where"]) {
+    if (typeof body[key] !== "string") continue;
+    const text = body[key].trim();
+    if (text.length > 300) throw new Error(`${key} must be at most 300 characters.`);
+    if (text && text !== item[key]) d[key] = text;
+    else delete d[key];
+  }
+  if (Array.isArray(body.lines)) {
+    const list = body.lines.map((x) => String(x).trim()).filter(Boolean).slice(0, 12);
+    if (JSON.stringify(list) !== JSON.stringify(item.lines ?? [])) d.lines = list;
+    else delete d.lines;
   }
   for (const [key, re] of [["day", DAY], ["until", DAY], ["from", TIME], ["to", TIME]]) {
     if (!(key in body)) continue;

@@ -155,7 +155,18 @@ export function checkSetFile(f: SetFile): string[] {
 // ---------- city alerts ----------
 
 /** One confirmed city alert (src/lib/alerts.ts) as the Rednote set the admin offers: facts and what to watch for, no reassurance. */
-export interface AlertFacts { id: string; city: string; day: string; until?: string; from?: string; to?: string; kind: string; line: { zh: string } }
+export interface AlertFacts {
+  id: string; city: string; day: string; until?: string; from?: string; to?: string; kind: string;
+  type?: string; expected?: number; where?: string; route?: string; lines?: string[];
+  line: { zh: string }; about?: { zh: string }; points?: { zh: string[] };
+}
+
+const TYPE_ZH: Record<string, string> = {
+  demonstration: "集会", march: "游行", police_operation: "警方行动", closure: "封路",
+  strike: "罢工", evacuation: "疏散", crowd_event: "大型活动", other: "出行提醒",
+};
+/** "约1.5万人", "约800人" */
+export const peopleZh = (n: number) => `约${n >= 10000 ? `${Number((n / 10000).toFixed(1))}万` : n}人`;
 
 const WEEKDAY_ZH = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
 const dayZh = (d: string) => `${Number(d.slice(5, 7))}月${Number(d.slice(8, 10))}日${WEEKDAY_ZH[new Date(`${d}T12:00:00Z`).getUTCDay()]}`;
@@ -173,19 +184,33 @@ export const alertWhen = (a: AlertFacts) =>
   [a.until ? `${dayZh(a.day)}–${dayZh(a.until)}` : dayZh(a.day), a.from ? (a.to ? `${a.from}–${a.to}` : `${a.from}起`) : ""].filter(Boolean).join(" ");
 
 export function alertSet(a: AlertFacts, townZh: string): XhsSet {
-  const watch = WATCH_ZH[a.kind] ?? WATCH_ZH.default;
+  const watch = WATCH_ZH[a.kind === "police_notice" || a.kind === "assembly" ? (a.type === "strike" ? "strike" : "default") : a.kind] ?? WATCH_ZH.default;
   const source = SOURCE_ZH[a.kind] ?? "官方通知";
   const when = alertWhen(a);
+  const typeZh = TYPE_ZH[a.type ?? ""] ?? "出行提醒";
+  // The facts a parent checks first, each on its own line, with German names kept as they are.
+  const facts = [
+    a.where ? `地点：${a.where}` : "",
+    a.route ? `路线：${a.route}` : "",
+    a.expected ? `预计人数：${peopleZh(a.expected)}` : "",
+    a.lines?.length ? `受影响线路：${a.lines.join("、")}` : "",
+  ].filter(Boolean);
+  const points = a.points?.zh ?? [];
   const sheets: Sheet[] = [
-    { tone: "ink", tag: `${townZh} · 出行提醒`, title: `${townZh}\n出行提醒`, big: true, lines: [when], foot: `信息来自${source}` },
-    { tone: "paper", tag: when, title: "发生什么", lines: [a.line.zh], foot: `信息以${source}为准` },
+    { tone: "ink", tag: `${townZh} · 出行提醒`, title: `${townZh}\n${typeZh}`, big: true,
+      lines: [when, ...(a.expected ? [`预计${peopleZh(a.expected)}`] : [])], foot: `信息来自${source}` },
+    { tone: "paper", tag: when, title: "发生什么", lines: [a.line.zh, ...(a.about?.zh ? [a.about.zh] : [])], foot: `信息以${source}为准` },
+    ...(facts.length || points.length ? [{ tone: "paper" as const, tag: `${townZh} · ${typeZh}`, title: "具体信息", lines: [...facts, ...points] }] : []),
     { tone: "gold", tag: "注意事项", title: "带娃出门前", lines: [...watch, "有更多消息，欢迎在评论区补充"] },
   ];
   const caption = [
-    `⚠️ ${townZh}出行提醒`,
+    `⚠️ ${townZh}${typeZh === "出行提醒" ? "" : typeZh}出行提醒`,
     `🕑 ${when}`,
+    ...facts.map((f) => `📍${f}`),
     "",
     a.line.zh,
+    ...(a.about?.zh ? ["", a.about.zh] : []),
+    ...(points.length ? ["", "具体信息：", ...points.map((p) => `· ${p}`)] : []),
     "",
     "注意事项：",
     ...watch.map((w) => `· ${w}`),
@@ -194,5 +219,5 @@ export function alertSet(a: AlertFacts, townZh: string): XhsSet {
     "",
     hashtags(["德国带娃", `${townZh}带娃`, townZh, "出行提醒", "德国生活", "德国妈妈", "德国爸爸"]),
   ].join("\n");
-  return { id: `alert-${townSlug(a.city)}-${a.day}-${a.id.slice(-6)}`, title: `${townZh}出行提醒｜${dayZh(a.day)}`, caption, sheets };
+  return { id: `alert-${townSlug(a.city)}-${a.day}-${a.id.slice(-6)}`, title: `${townZh}${typeZh === "出行提醒" ? "" : typeZh}出行提醒｜${dayZh(a.day)}`.slice(0, 20), caption, sheets };
 }
