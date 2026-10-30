@@ -3,7 +3,7 @@
 // into the site's search box, which opens that event (src/scripts/explore.ts). Kept apart from
 // src/lib/rednote.ts so the home page's script doesn't carry the card drawing code.
 
-const LETTER: Record<string, string> = { koeln: "K", bonn: "BN", duesseldorf: "D", berlin: "B", muenchen: "M", frankfurt: "F", hamburg: "H" };
+const LETTER: Record<string, string> = { koeln: "K", bonn: "BN", duesseldorf: "D", berlin: "B", muenchen: "M", frankfurt: "F", hamburg: "H", essen: "E", aachen: "A" };
 
 /** The code of pick `i` (from 0) in a town's edition for the weekend starting `saturday` (YYYY-MM-DD). */
 export const codeOf = (slug: string, saturday: string, i: number) =>
