@@ -31,7 +31,7 @@ const AHEAD = 14; // days: alerts further out wait for a later night
 const RECENT = 10; // days: a release without a date counts while it is this fresh
 const PAGE_MAX = 6000; // characters of the official page the model reads
 
-/** Bump when the rules below change: open verdicts from an older version are asked again. */
+/** Bump when the rules below change: every stored alert from an older version is asked again (your decisions stay). */
 export const PROMPT_VERSION = 2;
 
 export const SCREEN = `You help "Allo Outings", a website where parents in Germany find outings with their children.
@@ -73,7 +73,7 @@ export function toCheck(records, items, today) {
   const last = addDays(today, AHEAD);
   const oldest = addDays(today, -RECENT);
   return records.filter((rec) => {
-    if (!rec?.id || !rec.title || items[rec.id]) return false;
+    if (!rec?.id || !rec.title || items[rec.id]?.v === PROMPT_VERSION) return false;
     if (rec.start_date) return rec.start_date >= today && rec.start_date <= last;
     const day = dayOf(rec);
     return !!day && day >= oldest && day <= last;
@@ -225,6 +225,7 @@ export function itemOf(rec, verdict, found, now) {
     ...(found?.about ? { about: found.about } : {}),
     ...(found?.points ? { points: found.points } : {}),
     checked_at: now,
+    v: PROMPT_VERSION,
   };
 }
 
@@ -234,11 +235,6 @@ export function prune(items, today) {
   const oldest = addDays(today, -RECENT);
   return Object.fromEntries(Object.entries(items).filter(([, it]) =>
     it.day ? (it.until || it.day) >= keepFrom : (it.checked_at || "").slice(0, 10) >= oldest));
-}
-
-/** After the rules change, items you decided on stay; open ones are asked again. */
-export function keepDecided(items, decisions) {
-  return Object.fromEntries(Object.entries(items).filter(([id]) => decisions?.alerts?.[id]));
 }
 
 export function parseRecords(text) {
@@ -269,10 +265,6 @@ async function main() {
   const today = process.env.ALERTS_TODAY || iso(new Date());
   const store = readJson(`${DIR}/alerts.json`, { schema_version: 1, items: {} });
   const decisions = readJson(`${DIR}/alert-decisions.json`, null);
-  if (store.prompt_version !== PROMPT_VERSION) {
-    store.items = keepDecided(store.items, decisions);
-    store.prompt_version = PROMPT_VERSION;
-  }
   store.items = prune(store.items, today);
 
   let text;
@@ -291,7 +283,8 @@ async function main() {
     const now = new Date().toISOString();
     const { verdicts, error } = await screen(todo, llm, model);
     if (error) console.log(`::warning title=City alerts::screening stopped early: ${error.message}`);
-    const kept = todo.filter((rec) => verdicts[rec.id] && verdicts[rec.id] !== "no");
+    // One you already decided on, asked again for a new prompt, always gets the full read, so it keeps its lines.
+    const kept = todo.filter((rec) => verdicts[rec.id] && (verdicts[rec.id] !== "no" || decisions?.alerts?.[rec.id]));
     const found = {};
     await eachLimit(kept, AT_ONCE, async (rec) => { found[rec.id] = await detail(rec, records, llm, model); });
     let flagged = 0;
@@ -302,7 +295,7 @@ async function main() {
       store.items[rec.id] = item;
       if (item.verdict !== "no") flagged++;
     }
-    note = `checked ${Object.keys(verdicts).length} of ${todo.length} new alerts; ${flagged} for the admin to confirm`;
+    note = `checked ${Object.keys(verdicts).length} of ${todo.length} new or older-prompt alerts; ${flagged} for the admin to confirm`;
   }
   store.updated_at = new Date().toISOString();
   writeFileSync(`${DIR}/alerts.json`, JSON.stringify(store));

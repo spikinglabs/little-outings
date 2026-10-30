@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { alertsToCheck, applyAlertDecision, confirmedAlerts } from "../admin/lib/alerts.js";
-import { detail, describe, itemOf, keepDecided, ownPage, parseDetail, parseScreen, prune, screen, toCheck } from "../scripts/check-alerts.mjs";
+import { detail, describe, itemOf, ownPage, PROMPT_VERSION, parseDetail, parseScreen, prune, screen, toCheck } from "../scripts/check-alerts.mjs";
 
 const TODAY = "2026-10-30";
 const LIST = "https://www.berlin.de/polizei/service/versammlungsbehoerde/versammlungen-aufzuege/";
@@ -16,7 +16,9 @@ const lines = { de: "Großdemo am Rheinufer, Straßen gesperrt.", en: "Big demo 
 
 test("only alerts in the next two weeks, or fresh releases without a date, not asked yet", () => {
   assert.deepEqual(toCheck(records, {}, TODAY).map((r) => r.id), ["rec_demo", "rec_vigil", "rec_march"]);
-  assert.deepEqual(toCheck(records, { rec_demo: {} }, TODAY).map((r) => r.id), ["rec_vigil", "rec_march"]);
+  assert.deepEqual(toCheck(records, { rec_demo: { v: PROMPT_VERSION } }, TODAY).map((r) => r.id), ["rec_vigil", "rec_march"]);
+  assert.deepEqual(toCheck(records, { rec_demo: { v: PROMPT_VERSION - 1 } }, TODAY).map((r) => r.id), ["rec_demo", "rec_vigil", "rec_march"], "checked with older rules: asked again");
+  assert.deepEqual(toCheck(records, { rec_demo: {} }, TODAY).map((r) => r.id), ["rec_demo", "rec_vigil", "rec_march"]);
 });
 
 test("the model reads facts only, and a release gets its page read but a shared list does not", () => {
@@ -95,10 +97,9 @@ test("an alert without a day or a line can't be confirmed, and bad input is refu
   assert.throws(() => applyAlertDecision(store, null, { id: "a", status: "publish" }, user), /status must be/);
 });
 
-test("old items leave the store; after the rules change only decided ones stay", () => {
+test("old items leave the store", () => {
   const items = { ...store.items, e: { ...store.items.a, id: "e", day: "2026-10-28" }, f: { ...store.items.d, id: "f", checked_at: "2026-10-10T02:00:00Z" } };
   assert.deepEqual(Object.keys(prune(items, TODAY)).sort(), ["a", "b", "c", "d"]);
-  assert.deepEqual(Object.keys(keepDecided(items, { alerts: { a: { status: "confirmed" } } })), ["a"]);
 });
 
 test("the detail step keeps type, size, route, lines, background and key points, and drops what is out of shape", () => {
