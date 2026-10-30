@@ -1,6 +1,7 @@
 # Deploys the site and the admin to Cloudflare Pages.
 #   push to main        → production (site and admin)
-#   pull request        → site preview URL (job summary, and a comment on the PR)
+#   pull request        → site preview URL (job summary, and a comment on the PR);
+#                         not for changes to docs, Markdown or tests alone
 #   every night 02:15   → rebuild production, so "today" and "this weekend" move
 # Every build imports cityklub events first: data/outings.jsonl (published from the
 # admin) when present, otherwise the CITYKLUB_EXPORT variable. Places come from the
@@ -16,6 +17,8 @@ on:
   push:
     branches: [main]
   pull_request:
+    # Nothing on the site changes, so no preview (Actions minutes).
+    paths-ignore: ["docs/**", "**/*.md", "tests/**"]
   schedule:
     - cron: "15 2 * * *"
   workflow_dispatch:

@@ -25,10 +25,10 @@ export async function onRequestPost({ request, env, data }) {
   try { path = fixturePath(draft.season, draft.town); } catch (error) { return json({ error: error.message }, 400); }
   const today = new Date().toISOString().slice(0, 10);
   const text = fixtureYaml({
-    comment: `${draft.season} in ${draft.townName}, drafted by AI from ${draft.url}\nand approved in the admin by ${data.user.email} on ${today}.`,
+    comment: `${draft.season} in ${draft.townName}, drafted by AI from ${draft.url}\nand approved in the admin on ${today}.`,
     town: draft.townName, source: draft.source, checked: today, items,
   });
-  const put = await putSiteFile(env, path, text, `Season list ${draft.season}/${draft.town}: ${items.length} rows\n\nApproved in the admin by ${data.user.email}.`);
+  const put = await putSiteFile(env, path, text, `Season list ${draft.season}/${draft.town}: ${items.length} rows\n\nApproved in the admin.`);
   if (!put.ok) return json({ error: `GitHub refused the commit (${put.status}).` }, 502);
 
   Object.assign(draft, { approved_at: new Date().toISOString(), approved_by: data.user.email, approved_count: items.length });

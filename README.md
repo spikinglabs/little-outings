@@ -67,11 +67,11 @@ Built with the site, for the future spikinglabs app and other tools:
 ## Deploy (Cloudflare Pages)
 
 `.github/workflows/deploy.yml` deploys with Wrangler: every push to `main` goes
-to production, every pull request gets a preview URL (in the run summary), and
+to production, every pull request that touches the site gets a preview URL (in the run summary), and
 every night at 02:15 UTC it rebuilds, because "today" and "this weekend" move.
 Every build first imports cityklub events: `data/outings.jsonl` (published from
-the admin) when it exists, otherwise the `CITYKLUB_EXPORT` variable. `ci.yml` runs tests, type check and both builds
-on every PR.
+the admin) when it exists, otherwise the `CITYKLUB_EXPORT` variable. `ci.yml` runs tests, type check and the demo build
+on every PR (the preview deploy builds the real site; main is not tested again after merge).
 
 One-time setup, in GitHub → Settings → Secrets and variables → Actions:
 - Secrets `CLOUDFLARE_API_TOKEN` (a token with *Cloudflare Pages: Edit*) and

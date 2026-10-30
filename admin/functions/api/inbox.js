@@ -106,10 +106,10 @@ export async function onRequestPost({ request, env, data }) {
   if (publish) {
     if (!env.GITHUB_TOKEN) return json({ error: "GITHUB_TOKEN is not set for the admin site." }, 500);
     const isEvent = item.kind === "new-event";
-    const file = (isEvent ? eventFile : placeFile)(number, item.data, data.user.email);
+    const file = (isEvent ? eventFile : placeFile)(number, item.data);
     if (file.error) return json({ error: file.error }, 400);
     const what = isEvent ? `event: ${String(item.data.title).slice(0, 60)}` : `place: ${String(item.data.name).slice(0, 60)}`;
-    const put = await putSiteFile(env, file.path, file.text, `Add a parent's ${what}\n\nInbox #${number}, approved by ${data.user.email}.`);
+    const put = await putSiteFile(env, file.path, file.text, `Add a parent's ${what}\n\nInbox #${number}, approved in the admin.`);
     if (!put.ok) return json({ error: `GitHub refused to publish it (${put.status}).` }, 502);
   }
 

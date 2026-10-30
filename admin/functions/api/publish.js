@@ -42,7 +42,7 @@ export async function onRequestPost({ env, data }) {
     method: "PUT",
     headers: { ...headers, "content-type": "application/json" },
     body: JSON.stringify({
-      message: `Publish ${rows.length} outings from the admin\n\nPublished by ${data.user.email}.`,
+      message: `Publish ${rows.length} outings from the admin`,
       content: base64(toJsonl(rows)),
       branch,
       ...(sha ? { sha } : {}),
