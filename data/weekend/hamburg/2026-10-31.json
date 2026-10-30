@@ -3,52 +3,73 @@
   "slug": "hamburg",
   "weekend": "2026-10-31",
   "week": 44,
-  "published_at": "2026-10-26T06:19:10.131Z",
+  "published_at": "2026-10-30T07:48:38.168Z",
   "by": "score",
   "weather": [
     {
       "day": "2026-10-31",
-      "code": 45,
-      "max": 11,
-      "rain": 3
+      "code": 3,
+      "max": 11.8,
+      "rain": 0
     },
     {
       "day": "2026-11-01",
-      "code": 45,
-      "max": 8.9,
-      "rain": 5
+      "code": 61,
+      "max": 10.2,
+      "rain": 22
     }
   ],
   "picks": [
     {
-      "id": "ck-evt-168adb05f266caff3b72",
+      "id": "ck-evt-6f16078279b6701e0c05",
       "type": "event",
-      "title": "Bilderbuchkino: Der Blätterdieb",
-      "venue": "Bücherhalle Osdorfer Born",
+      "title": "Bilderbuchkino",
+      "venue": "Bücherhalle Holstenstraße",
       "days": [
         "2026-10-30"
       ],
-      "time": "16:00–16:30",
-      "indoor": false,
+      "time": "16:00",
+      "indoor": true,
       "tags": [
         "reading",
-        "stage",
-        "outside"
-      ]
+        "stage"
+      ],
+      "label": {
+        "de": "Bilderbuchkino",
+        "en": "Bilderbuchkino",
+        "zh": "Bilderbuchkino 图画书影院"
+      },
+      "why": {
+        "de": "Freitag um 16:00 Uhr drinnen in der Bücherhalle Holstenstraße Geschichten erleben.",
+        "en": "Enjoy an indoor story session at Bücherhalle Holstenstraße this Friday at 16:00.",
+        "zh": "周五16:00在Bücherhalle Holstenstraße室内看图画书影院。"
+      }
     },
     {
-      "id": "ck-evt-4cb54dda219ca66be01c",
+      "id": "ck-evt-a1e87dcb548ccbcf65cf",
       "type": "event",
-      "title": "Aktionstag zum Welt-Lemuren-Tag",
-      "venue": "Tierpark Hagenbeck, Lokstedter Grenzstraße 2",
-      "district": "Stellingen",
+      "title": "Parkomania. Unerzählte Geschichten aus dem Jenischpark (Öffentliche Führung)",
+      "venue": "Jenisch Haus",
       "days": [
-        "2026-10-31"
+        "2026-10-31",
+        "2026-11-01"
       ],
-      "indoor": false,
+      "time": "15:00",
+      "indoor": true,
       "tags": [
-        "animals"
-      ]
+        "reading",
+        "tour"
+      ],
+      "label": {
+        "de": "Parkomania im Jenisch Haus",
+        "en": "Parkomania at Jenisch Haus",
+        "zh": "Jenisch Haus 的 Parkomania 导览"
+      },
+      "why": {
+        "de": "Am Wochenende um 15:00 Uhr bei der Führung drinnen im Jenisch Haus Neues erfahren.",
+        "en": "Join an indoor guided tour at Jenisch Haus this Saturday or Sunday at 15:00.",
+        "zh": "周六或周日15:00在Jenisch Haus参加室内公开导览。"
+      }
     },
     {
       "id": "ck-evt-1ab98252cdd6a42c277e",
@@ -63,7 +84,17 @@
       "tags": [
         "diy",
         "tour"
-      ]
+      ],
+      "label": {
+        "de": "Kreativ-Werkstatt (ab 8 Jahre)",
+        "en": "Kreativ-Werkstatt (ages 8+)",
+        "zh": "Kreativ-Werkstatt 创意工坊（8岁起）"
+      },
+      "why": {
+        "de": "Sonntag um 14:00 Uhr drinnen im Archäologischen Museum Hamburg kreativ sein (ab 8).",
+        "en": "Indoor creative workshop for kids 8+ at Archäologisches Museum Hamburg on Sunday.",
+        "zh": "周日14:00在Archäologisches Museum Hamburg室内做创意手工（8岁起）。"
+      }
     },
     {
       "id": "ck-evt-b3a922fe47d5f6292c54",
@@ -77,7 +108,17 @@
       "indoor": true,
       "tags": [
         "diy"
-      ]
+      ],
+      "label": {
+        "de": "Wildes Basteln",
+        "en": "Wildes Basteln",
+        "zh": "Wildes Basteln 手工活动"
+      },
+      "why": {
+        "de": "Diesen Sonntag von 14:00 bis 17:00 Uhr drinnen in der Zentralbibliothek basteln.",
+        "en": "Enjoy indoor crafting at Zentralbibliothek this Sunday from 14:00 to 17:00.",
+        "zh": "周日14:00至17:00在Zentralbibliothek室内尽情做手工。"
+      }
     },
     {
       "id": "ck-evt-a972411dfdeb11bff785",
@@ -92,7 +133,17 @@
       "tags": [
         "reading",
         "tour"
-      ]
+      ],
+      "label": {
+        "de": "Sonntagsmärchen",
+        "en": "Sonntagsmärchen",
+        "zh": "Sonntagsmärchen 周日童话"
+      },
+      "why": {
+        "de": "Sonntag von 15:00 bis 16:00 Uhr drinnen im Altonaer Museum Märchen lauschen.",
+        "en": "Indoor fairy-tale time at Altonaer Museum this Sunday from 15:00 to 16:00.",
+        "zh": "周日15:00至16:00在Altonaer Museum室内聆听童话故事。"
+      }
     },
     {
       "id": "osm-way-20790727",
@@ -103,7 +154,17 @@
       "free": true,
       "district": "Eimsbüttel",
       "venue": "Bondenwald",
-      "days": []
+      "days": [],
+      "label": {
+        "de": "Wildgehege Niendorf",
+        "en": "Wildgehege Niendorf",
+        "zh": "Wildgehege Niendorf 野生动物园"
+      },
+      "why": {
+        "de": "Kostenloser Tierpark-Besuch im Bondenwald in Eimsbüttel, rund um die Uhr geöffnet.",
+        "en": "Free zoo visit in Bondenwald, Eimsbüttel, open 24/7 for a family walk anytime.",
+        "zh": "位于Eimsbüttel Bondenwald的动物园，全天免费开放。"
+      }
     }
   ],
   "still": [

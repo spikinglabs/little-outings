@@ -3,20 +3,20 @@
   "slug": "muenchen",
   "weekend": "2026-10-31",
   "week": 44,
-  "published_at": "2026-10-26T06:19:10.065Z",
+  "published_at": "2026-10-30T07:48:37.831Z",
   "by": "score",
   "weather": [
     {
       "day": "2026-10-31",
-      "code": 45,
-      "max": 8.6,
-      "rain": 23
+      "code": 3,
+      "max": 10.1,
+      "rain": 20
     },
     {
       "day": "2026-11-01",
-      "code": 45,
-      "max": 7.6,
-      "rain": 20
+      "code": 80,
+      "max": 8.1,
+      "rain": 55
     }
   ],
   "picks": [
@@ -81,18 +81,17 @@
       ]
     },
     {
-      "id": "ck-evt-ad79e6ebd99ff2ba626d",
+      "id": "ck-evt-f602c4ce85085cdffb17",
       "type": "event",
-      "title": "Herbstfilmtage Das grüne Wunder – Unser Wald",
+      "title": "Herbstfilmtage Tafiti – Ab durch die Wüste",
       "venue": "Gasteig HP8",
       "days": [
-        "2026-11-01"
+        "2026-10-31"
       ],
       "time": "15:00–16:30",
-      "indoor": false,
+      "indoor": true,
       "tags": [
         "stage",
-        "outside",
         "season"
       ]
     },

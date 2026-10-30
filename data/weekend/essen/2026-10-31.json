@@ -1,0 +1,111 @@
+{
+  "town": "Essen",
+  "slug": "essen",
+  "weekend": "2026-10-31",
+  "week": 44,
+  "published_at": "2026-10-30T07:48:38.827Z",
+  "by": "score",
+  "weather": [
+    {
+      "day": "2026-10-31",
+      "code": 3,
+      "max": 11.2,
+      "rain": 0
+    },
+    {
+      "day": "2026-11-01",
+      "code": 51,
+      "max": 11.1,
+      "rain": 4
+    }
+  ],
+  "holiday": {
+    "name": "Herbstferien",
+    "last": true
+  },
+  "picks": [
+    {
+      "id": "ck-evt-0ecf3370ca83c84551c0",
+      "type": "event",
+      "title": "Radtour rund um Zollverein",
+      "venue": "Kokskohlenbunker, Gelsenkirchener Straße 181",
+      "district": "Stoppenberg",
+      "days": [
+        "2026-10-31"
+      ],
+      "time": "10:30",
+      "indoor": true,
+      "tags": []
+    },
+    {
+      "id": "ck-evt-26ab34f35d1cd6bf99cd",
+      "type": "event",
+      "title": "Familienschicht in der Mitmachzeche",
+      "venue": "Denkmalpfad Zollverein, Gelsenkirchener Straße 181",
+      "district": "Stoppenberg",
+      "days": [
+        "2026-10-31",
+        "2026-11-01"
+      ],
+      "time": "11:00",
+      "indoor": true,
+      "tags": [
+        "diy"
+      ]
+    },
+    {
+      "id": "ck-evt-7d384988eb98dd1916a4",
+      "type": "event",
+      "title": "VIVE LA LANDSCHAFT! – Workshop für Familien mit Kindern ab 5 Jahren",
+      "venue": "Museum Folkwang, Museumsplatz 1",
+      "district": "Südviertel",
+      "days": [
+        "2026-10-31"
+      ],
+      "time": "12:00–13:30",
+      "indoor": true,
+      "tags": [
+        "diy",
+        "tour"
+      ]
+    },
+    {
+      "id": "ck-evt-12fddb3a21710a16919d",
+      "type": "event",
+      "title": "Geschichte des Ruhrgebiets",
+      "venue": "Ruhr Museum",
+      "days": [
+        "2026-10-31"
+      ],
+      "time": "14:00–15:30",
+      "indoor": true,
+      "tags": [
+        "reading",
+        "tour"
+      ]
+    },
+    {
+      "id": "ck-evt-1d9dbc75d0db3e8b7a90",
+      "type": "event",
+      "title": "NOW! \"Silkroad Kids\"",
+      "venue": "Philharmonie Essen, Huyssenallee 53",
+      "days": [
+        "2026-11-01"
+      ],
+      "time": "10:00",
+      "tags": []
+    },
+    {
+      "id": "osm-node-3550477993",
+      "type": "place",
+      "title": "Jump House",
+      "kind": "indoor",
+      "hours": "Mo off, Tu-Fr 15:00-20:00; Sa,Su 10:00-20:00",
+      "free": false,
+      "indoor": true,
+      "district": "Kray",
+      "venue": "Am Zehnthof 194",
+      "days": []
+    }
+  ]
+}

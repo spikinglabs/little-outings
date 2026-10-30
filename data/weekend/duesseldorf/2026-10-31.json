@@ -1,0 +1,138 @@
+{
+  "town": "Düsseldorf",
+  "slug": "duesseldorf",
+  "weekend": "2026-10-31",
+  "week": 44,
+  "published_at": "2026-10-30T07:48:37.366Z",
+  "by": "score",
+  "weather": [
+    {
+      "day": "2026-10-31",
+      "code": 3,
+      "max": 12.6,
+      "rain": 0
+    },
+    {
+      "day": "2026-11-01",
+      "code": 51,
+      "max": 12.2,
+      "rain": 5
+    }
+  ],
+  "holiday": {
+    "name": "Herbstferien",
+    "last": true
+  },
+  "picks": [
+    {
+      "id": "ck-evt-d21a583b978badf225d1",
+      "type": "event",
+      "title": "Eltern-Kind-Workshop: Kürbis schnitzen Für Eltern und Kinder von 3 bis 10 Jahren",
+      "venue": "Caritas Stadtteilladen Wersten, Liebfrauenstraße 30",
+      "days": [
+        "2026-10-30"
+      ],
+      "time": "16:00",
+      "price": "5,00 €",
+      "book": true,
+      "tags": [
+        "diy",
+        "season"
+      ]
+    },
+    {
+      "id": "ck-evt-1b434f78762429f9543c",
+      "type": "event",
+      "title": "Eltern-Kind-Workshop: Kürbis schnitzen für Eltern und Kinder ab 4 Jahren",
+      "venue": "Familienzentrum Papst Johannes, Auf der Reide 2",
+      "days": [
+        "2026-10-31"
+      ],
+      "time": "10:00",
+      "price": "5,00 €",
+      "book": true,
+      "indoor": true,
+      "tags": [
+        "diy",
+        "season"
+      ]
+    },
+    {
+      "id": "ck-evt-5693329dcaa3c7b7af78",
+      "type": "event",
+      "title": "Eltern-Kind-Workshop: Waldscouts auf Entdeckertour Für Eltern und Kinder ab 4 Jahren",
+      "venue": "Müllers Wiese - Waldspielplatz",
+      "days": [
+        "2026-10-31"
+      ],
+      "time": "10:00",
+      "book": true,
+      "indoor": false,
+      "tags": [
+        "diy",
+        "outside"
+      ]
+    },
+    {
+      "id": "ck-evt-a2d82ee60bd350b9d7fe",
+      "type": "event",
+      "title": "Die Zauberflöte",
+      "venue": "Deutsche Oper am Rhein",
+      "days": [
+        "2026-10-31"
+      ],
+      "time": "18:00:00",
+      "indoor": true,
+      "tags": [
+        "stage"
+      ]
+    },
+    {
+      "id": "ck-evt-3e2d567a16f7db35b5df",
+      "type": "event",
+      "title": "Das Tier in Dir!",
+      "venue": "Aquazoo Löbbecke Museum, Kaiserswerther Straße 380",
+      "district": "Stockum",
+      "days": [
+        "2026-11-01"
+      ],
+      "time": "15 Uhr",
+      "indoor": true,
+      "tags": [
+        "animals",
+        "tour"
+      ]
+    },
+    {
+      "id": "osm-node-11609642569",
+      "type": "place",
+      "title": "Superfly Air Sports",
+      "kind": "indoor",
+      "hours": "Tu-Th 14:00-19:00; Fr 13:00-20:00; Sa 10:00-21:00; Su 10:00-20:00",
+      "indoor": true,
+      "district": "Reisholz",
+      "venue": "Kappeler Str. 126\t\n40599 Düsseldorf",
+      "days": []
+    }
+  ],
+  "still": [
+    {
+      "id": "ck-evt-3157d2e0ec93aeccc761",
+      "title": "Farbenzauber und Klangreise für Eltern und Kinder ab 2 Jahren",
+      "venue": "Stadtmitte, Hohenzollernstr. 24, efa, Hohenzollernstr. 24",
+      "end": "2026-12-16"
+    },
+    {
+      "id": "ck-evt-6d24c5dbc157d2edc7f5",
+      "title": "Kreativer Kindertanz für Kinder von 3-4 Jahren",
+      "venue": "FZ Pusteblume Bewegungs- und Spielraum, Liststr. 2",
+      "end": "2026-12-09"
+    },
+    {
+      "id": "ck-evt-443a17caaf9f2228cfdb",
+      "title": "Kreativer Kindertanz für Kinder von 5-6 Jahren",
+      "venue": "FZ Pusteblume Bewegungs- und Spielraum, Liststr. 2",
+      "end": "2026-12-09"
+    }
+  ]
+}

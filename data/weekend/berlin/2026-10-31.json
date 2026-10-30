@@ -3,20 +3,20 @@
   "slug": "berlin",
   "weekend": "2026-10-31",
   "week": 44,
-  "published_at": "2026-10-26T06:19:10.033Z",
+  "published_at": "2026-10-30T07:48:37.545Z",
   "by": "score",
   "weather": [
     {
       "day": "2026-10-31",
-      "code": 3,
-      "max": 11.1,
+      "code": 61,
+      "max": 11.4,
       "rain": 5
     },
     {
       "day": "2026-11-01",
       "code": 3,
-      "max": 9.8,
-      "rain": 12
+      "max": 9.7,
+      "rain": 2
     }
   ],
   "holiday": {

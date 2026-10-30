@@ -3,20 +3,20 @@
   "slug": "bonn",
   "weekend": "2026-10-31",
   "week": 44,
-  "published_at": "2026-10-26T06:19:09.991Z",
+  "published_at": "2026-10-30T07:48:37.205Z",
   "by": "score",
   "weather": [
     {
       "day": "2026-10-31",
-      "code": 45,
-      "max": 11.7,
-      "rain": 6
+      "code": 3,
+      "max": 12.1,
+      "rain": 0
     },
     {
       "day": "2026-11-01",
-      "code": 2,
-      "max": 10.2,
-      "rain": 4
+      "code": 3,
+      "max": 10.8,
+      "rain": 2
     }
   ],
   "holiday": {
@@ -53,9 +53,9 @@
       ]
     },
     {
-      "id": "ck-evt-132c5f1e4103d1ea90c7",
+      "id": "ck-evt-9abac74732336b655c47",
       "type": "event",
-      "title": "Versammlung der Tiere",
+      "title": "Menschen und Geschichten",
       "venue": "Kunstmuseum Bonn, Helmut-Kohl-Allee 2",
       "days": [
         "2026-10-31",
@@ -64,7 +64,7 @@
       "time": "11:00",
       "indoor": true,
       "tags": [
-        "animals",
+        "reading",
         "tour"
       ]
     },

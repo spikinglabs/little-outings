@@ -1,0 +1,115 @@
+{
+  "town": "Aachen",
+  "slug": "aachen",
+  "weekend": "2026-10-31",
+  "week": 44,
+  "published_at": "2026-10-30T07:48:38.978Z",
+  "by": "score",
+  "weather": [
+    {
+      "day": "2026-10-31",
+      "code": 3,
+      "max": 11,
+      "rain": 0
+    },
+    {
+      "day": "2026-11-01",
+      "code": 51,
+      "max": 9.9,
+      "rain": 4
+    }
+  ],
+  "holiday": {
+    "name": "Herbstferien",
+    "last": true
+  },
+  "picks": [
+    {
+      "id": "ck-evt-a5861ea08952d9c8d29b",
+      "type": "event",
+      "title": "Kinderchor in Aachen: Singen? Nix wie hin!",
+      "venue": "Annaschule Aachen, Jesuitenstr. 18-20",
+      "days": [
+        "2026-10-30"
+      ],
+      "time": "14:30",
+      "indoor": true,
+      "tags": [
+        "music"
+      ]
+    },
+    {
+      "id": "ck-evt-7005e2ab0d128f8cf804",
+      "type": "event",
+      "title": "aachen tourist service e.v.: Stadtrundfahrt",
+      "venue": "Elisenbrunnen, Elisenbrunnen",
+      "days": [
+        "2026-10-31"
+      ],
+      "time": "14:30",
+      "tags": []
+    },
+    {
+      "id": "ck-evt-31ddc2fc014b17f95af5",
+      "type": "event",
+      "title": "Puppenspiel “Drei kleine Schweinchen”",
+      "venue": "Die Kleine Theaterfabrik, Strüverweg 116",
+      "days": [
+        "2026-10-31"
+      ],
+      "time": "15:00",
+      "indoor": true,
+      "tags": [
+        "stage"
+      ]
+    },
+    {
+      "id": "ck-evt-57b8044585e20e23b430",
+      "type": "event",
+      "title": "Halloween: Alkoholfreie Undergroundparty im Apollo-Kino",
+      "venue": "Apollo, Pontstr. 141-149",
+      "days": [
+        "2026-10-31"
+      ],
+      "time": "17:00",
+      "indoor": true,
+      "tags": [
+        "stage",
+        "fest",
+        "season"
+      ]
+    },
+    {
+      "id": "ck-evt-1b09cd6fa415e18f7959",
+      "type": "event",
+      "title": "Regelmäßige Vorlesestunde",
+      "venue": "Stadtbibliothek – Kinderbibliothek",
+      "days": [
+        "2026-11-01"
+      ],
+      "time": "15:00–15:30",
+      "indoor": true,
+      "tags": [
+        "reading"
+      ]
+    },
+    {
+      "id": "osm-node-12749679551",
+      "type": "place",
+      "title": "Shervins Spieleparadies",
+      "kind": "indoor",
+      "hours": "Mo off; Tu-Th 10:00-13:00,14:00-18:00; Fr-Su 12:00-19:00",
+      "indoor": true,
+      "district": "Burtscheid",
+      "venue": "Dahmengraben 3-5",
+      "days": []
+    }
+  ],
+  "still": [
+    {
+      "id": "ck-evt-0aa38aa2734f98414230",
+      "title": "Herbstferien",
+      "end": "2026-10-30"
+    }
+  ]
+}
