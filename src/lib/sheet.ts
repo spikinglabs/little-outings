@@ -1,10 +1,13 @@
 // One 1080×1440 picture card as SVG: the Rednote sets (src/lib/rednote.ts, PNG at build) and the
 // "share as picture" card of event and place pages (src/scripts/share-card.ts draws it in the browser).
+// The Instagram cards (src/lib/instagram.ts) are the same cards at 1080×1350.
 // Plain TypeScript with no Node or DOM, so it runs in tests, at build and in the page.
 import { UI_ICON } from "./icons.ts";
 import { textEm, wrap } from "./og.ts";
 
 export const XHS = { w: 1080, h: 1440 } as const;
+/** Instagram's tallest feed picture, 4:5. */
+export const IG = { w: 1080, h: 1350 } as const;
 
 /** One card. `title` may hold "\n" to break it on purpose. */
 export interface Sheet {
@@ -21,6 +24,10 @@ export interface Sheet {
   foot?: string;
   /** The big cover title; by default gold cards without a code have it. */
   big?: boolean;
+  /** A short list in two columns under the title: "Sat 10:00" | the name, which may take two rows. */
+  rows?: { when: string; name: string }[];
+  /** The name next to the logo; "小鹿出游 Allo Outings" by default. */
+  brand?: string;
 }
 
 // ---------- drawing ----------
@@ -95,9 +102,9 @@ export function pageLines(items: string[]): string[][] {
 }
 
 /** One card as SVG; `page` is "2/7". */
-export function sheetSvg(s: Sheet, page?: string): string {
+export function sheetSvg(s: Sheet, page?: string, size: { w: number; h: number } = XHS): string {
   const c = C[s.tone];
-  const { w, h } = XHS;
+  const { w, h } = size;
   const x = 96, width = w - 2 * x;
   const out: string[] = [];
   let y = 150;
@@ -123,6 +130,25 @@ export function sheetSvg(s: Sheet, page?: string): string {
       y += lh; out.push(text(x, y, l, small, c.soft));
     }
     y += 10;
+  }
+  if (s.rows?.length) {
+    // A row that doesn't fit whole is left out, and the last line says how many more there are.
+    const size = 38, rh = size * 1.3, whenW = 290, nameEm = ((width - whenW - 24) / size) * 0.96;
+    const two = (all: string[]) => (all.length > 2 ? [all[0], `${all[1].replace(/[,.;:\s]+$/, "")}…`] : all);
+    const shown: string[] = [];
+    let i = 0;
+    for (const r of s.rows) {
+      const when = lines(r.when, (whenW / size) * 0.9).slice(0, 2), name = two(lines(r.name, nameEm));
+      const n = Math.max(when.length, name.length);
+      if (y + 16 + n * rh > floor - (i < s.rows.length - 1 ? rh + 16 : 0)) break;
+      y += 16;
+      when.forEach((l, k) => shown.push(text(x, y + (k + 1) * rh, l, size, c.ink, 700)));
+      name.forEach((l, k) => shown.push(text(x + whenW + 24, y + (k + 1) * rh, l, size, c.soft)));
+      y += n * rh;
+      i++;
+    }
+    out.push(...shown);
+    if (i < s.rows.length) { y += 16 + rh; out.push(text(x, y, `+ ${s.rows.length - i} more`, size, c.soft, 700)); }
   }
   if (s.search) {
     y += 50;
@@ -150,7 +176,7 @@ export function sheetSvg(s: Sheet, page?: string): string {
   if (s.foot) out.push(text(x, base - 92, s.foot, 30, c.soft));
   out.push(`<rect x="${x}" y="${base - 50}" width="60" height="60" rx="12" fill="${s.tone === "gold" ? "#ffffff" : "#ffcc00"}" stroke="#17191b" stroke-width="4"/>`);
   out.push(`<g transform="translate(${x + 11} ${base - 39}) scale(${38 / 24})" fill="none" stroke="#17191b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${UI_ICON.brand}</g>`);
-  out.push(text(x + 84, base - 4, "小鹿出游 Allo Outings", 44, c.ink, 700));
+  out.push(text(x + 84, base - 4, s.brand ?? "小鹿出游 Allo Outings", 44, c.ink, 700));
   if (s.code) {
     const size = 56, cw = textEm(s.code) * size * 0.82 + 56;
     out.push(`<rect x="${w - x - cw}" y="${base - 66}" width="${cw}" height="88" rx="10" fill="${BLAU}"/>`);

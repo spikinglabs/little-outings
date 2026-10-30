@@ -42,3 +42,20 @@ test("the card pass-through only serves /xhs/ pictures", async () => {
     globalThis.fetch = real;
   }
 });
+
+test("the Instagram pass-through only serves /ig/ JPEGs", async () => {
+  const { onRequestGet: instagram } = await import("../admin/functions/api/instagram.js");
+  const env = { SITE_URL: "https://site.example" };
+  const real = globalThis.fetch;
+  globalThis.fetch = async () => new Response(new Uint8Array([1]), { status: 200 });
+  try {
+    const ok = await instagram({ env, request: new Request("https://admin.example/api/instagram?pic=/ig/weekend-2026-10-31-1.jpg") });
+    assert.equal(ok.headers.get("content-type"), "image/jpeg");
+    for (const bad of ["/xhs/bonn-2026-10-31-1.png", "/ig/x.png", "/ig/../a.jpg"]) {
+      const res = await instagram({ env, request: new Request(`https://admin.example/api/instagram?pic=${encodeURIComponent(bad)}`) });
+      assert.equal(res.status, 400, bad);
+    }
+  } finally {
+    globalThis.fetch = real;
+  }
+});
