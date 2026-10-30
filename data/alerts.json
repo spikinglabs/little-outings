@@ -1,6 +1,18 @@
 {
   "alerts": [
     {
+      "id": "rec_446524d203c58c07a501",
+      "city": "Hamburg",
+      "day": "2026-10-31",
+      "kind": "police_notice",
+      "line": {
+        "de": "Mehrere Aufzüge in Neustadt, Altstadt, St. Georg und Altona führen am Samstag zu temporären Straßensperrungen und Verkehrsbehinderungen.",
+        "en": "Several demonstrations in Neustadt, Altstadt, St. Georg, and Altona on Saturday will cause temporary road closures and traffic delays.",
+        "zh": "周六Neustadt、Altstadt、St. Georg和Altona等地有多起游行，将造成临时封路和交通拥堵。"
+      },
+      "url": "https://www.presseportal.de/blaulicht/pm/6337/6380582"
+    },
+    {
       "id": "rec_9aaa900a8d5247bfe6a6",
       "city": "Düsseldorf",
       "day": "2026-10-31",
