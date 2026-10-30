@@ -5,7 +5,8 @@ const esc = (value) =>
   String(value ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 const dateFmt = new Intl.DateTimeFormat("de-DE", { dateStyle: "medium", timeStyle: "short", timeZone: "Europe/Berlin" });
 const dayFmt = new Intl.DateTimeFormat("en-GB", { weekday: "short", day: "numeric", month: "short", timeZone: "UTC" });
-const LANGS = { de: "German", en: "English", zh: "Chinese" };
+const LANGS = { zh: "Chinese", de: "German", en: "English" };
+const TYPES = { demonstration: "Demonstration", march: "March", police_operation: "Police operation", closure: "Closure", strike: "Strike", evacuation: "Evacuation", crowd_event: "Big crowd event", other: "Other" };
 
 let items = [], etag = null;
 
@@ -43,6 +44,7 @@ function render() {
   box.innerHTML = items.map((it) => `
     <li class="alert-item" data-id="${esc(it.id)}">
       <div><b>${esc(it.city)} · ${esc(when(it))}</b>
+        ${it.type ? `<span class="badge edited">${esc(TYPES[it.type] ?? it.type)}</span>` : ""}
         <span class="badge ${it.status === "confirmed" ? "cleared" : "out"}">${it.status === "confirmed" ? "on the site" : `AI: ${esc(it.verdict)}`}</span></div>
       <div class="sub"><a href="${esc(it.url)}" target="_blank" rel="noopener">${esc(it.title)}</a>${it.where ? ` · ${esc(it.where)}` : ""}</div>
       <div class="alert-when">
@@ -50,10 +52,18 @@ function render() {
         <label>Until <input type="date" data-k="until" value="${esc(it.until ?? "")}"></label>
         <label>From <input type="time" data-k="from" value="${esc(it.from ?? "")}"></label>
         <label>To <input type="time" data-k="to" value="${esc(it.to ?? "")}"></label>
+        <label>People expected <input type="number" min="1" inputmode="numeric" data-k="expected" value="${esc(it.expected ?? "")}"></label>
+        <label>Lines affected <input data-k="lines" value="${esc((it.lines ?? []).join(", "))}" placeholder="KVB 1, KVB 7"></label>
+        <label class="wide">Where <input data-k="where" maxlength="300" value="${esc(it.where ?? "")}"></label>
+        <label class="wide">Route <input data-k="route" maxlength="300" value="${esc(it.route ?? "")}" placeholder="for a march: streets in order"></label>
       </div>
-      ${Object.entries(LANGS).map(([l, name]) => `
-        <label class="visually-hidden" for="al-${esc(it.id)}-${l}">${name} line</label>
-        <textarea id="al-${esc(it.id)}-${l}" data-line="${l}" maxlength="160" rows="2" placeholder="${name} line">${esc(it.line?.[l] ?? "")}</textarea>`).join("")}
+      ${Object.entries(LANGS).map(([l, name], n) => `
+        <details class="alert-lang" ${n === 0 ? "open" : ""}>
+          <summary>${name}</summary>
+          <label>Line <textarea data-line="${l}" maxlength="160" rows="2">${esc(it.line?.[l] ?? "")}</textarea></label>
+          <label>Background <textarea data-about="${l}" maxlength="300" rows="3" placeholder="What it is about, who organises it">${esc(it.about?.[l] ?? "")}</textarea></label>
+          <label>Key points, one per line <textarea data-points="${l}" rows="4" placeholder="Closed streets, diverted lines, when it ends">${esc((it.points?.[l] ?? []).join("\n"))}</textarea></label>
+        </details>`).join("")}
       <div class="weekend-acts">
         ${it.status === "confirmed"
           ? `<button class="primary" data-act="confirmed">Save changes</button><button class="ghost" data-act="new">Take off the site</button>`
@@ -63,9 +73,12 @@ function render() {
 }
 
 async function decide(li, status) {
-  const body = { etag, id: li.dataset.id, status, line: {} };
+  const body = { etag, id: li.dataset.id, status, line: {}, about: {}, points: {} };
   li.querySelectorAll("[data-line]").forEach((input) => { body.line[input.dataset.line] = input.value; });
+  li.querySelectorAll("[data-about]").forEach((input) => { body.about[input.dataset.about] = input.value; });
+  li.querySelectorAll("[data-points]").forEach((input) => { body.points[input.dataset.points] = input.value.split("\n"); });
   li.querySelectorAll("[data-k]").forEach((input) => { body[input.dataset.k] = input.value; });
+  body.lines = body.lines.split(",");
   note("Saving…");
   try {
     const res = await fetch("/api/alerts", { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });

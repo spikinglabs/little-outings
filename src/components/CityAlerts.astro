@@ -3,12 +3,14 @@
 // official source. With `town`, only that town's; without, every town's, hidden, and scripts/alerts.ts shows
 // the home town's. The same script hides an alert once its last day is over, before the next build.
 import { getAlerts } from "../lib/data";
-import { whenText } from "../lib/alerts";
+import { whenText, type Alert } from "../lib/alerts";
 import type { Lang, T } from "../lib/i18n";
 
 interface Props { lang: Lang; t: T; town?: string }
 const { lang, t, town } = Astro.props;
 const alerts = getAlerts().filter((a) => !town || a.city === town);
+const num = new Intl.NumberFormat(t.locale);
+const hasMore = (a: Alert) => !!(a.about || a.expected || a.where || a.route || a.lines?.length || a.points);
 ---
 {alerts.length > 0 && (
   <aside class="alerts" data-alerts data-alerts-town={town} hidden={!town} aria-label={t("alerts.title")}>
@@ -16,7 +18,20 @@ const alerts = getAlerts().filter((a) => !town || a.city === town);
     <ul>
       {alerts.map((a) => (
         <li data-alert-city={a.city} data-alert-end={a.until || a.day} hidden={!town}>
-          <b>{whenText(a, t.locale)}</b> · {a.line[lang]} <a href={a.url} target="_blank" rel="noopener nofollow">{t("alerts.source")} ↗</a>
+          {a.type && <span class="alert-type">{t(`alerts.type.${a.type}`)}</span>} <b>{whenText(a, t.locale)}</b> · {a.line[lang]} <a href={a.url} target="_blank" rel="noopener nofollow">{t("alerts.source")} ↗</a>
+          {hasMore(a) && (
+            <details class="alert-more">
+              <summary>{t("alerts.more")}</summary>
+              {a.about && <p>{a.about[lang]}</p>}
+              {a.expected && <p>{t("alerts.expected", { n: num.format(a.expected) })}</p>}
+              <dl>
+                {a.where && <div><dt>{t("alerts.where")}</dt><dd>{a.where}</dd></div>}
+                {a.route && <div><dt>{t("alerts.route")}</dt><dd>{a.route}</dd></div>}
+                {a.lines?.length && <div><dt>{t("alerts.lines")}</dt><dd>{a.lines.join(", ")}</dd></div>}
+              </dl>
+              {a.points && <ul>{a.points[lang].map((p) => <li>{p}</li>)}</ul>}
+            </details>
+          )}
         </li>
       ))}
     </ul>

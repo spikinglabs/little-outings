@@ -80,6 +80,15 @@ h1, h2, h3, .meta, .de-name, .orig, .trust { overflow-wrap: anywhere; }
 .alerts ul { margin: 4px 0 0; padding: 0; list-style: none; }
 .alerts li { margin: 2px 0 0; overflow-wrap: anywhere; }
 .alerts a { white-space: nowrap; font-size: .85rem; }
+.alert-type { display: inline-block; padding: 0 6px; border-radius: 6px; background: var(--rot); color: var(--rot-ink); font-size: .78rem; font-weight: 700; }
+.alert-more { margin-top: 4px; }
+.alert-more summary { cursor: pointer; color: var(--ink-soft); font-size: .9rem; }
+.alert-more p, .alert-more dl, .alert-more ul { margin: 4px 0 0; }
+.alert-more dl div { display: flex; gap: 6px; }
+.alert-more dt { color: var(--ink-soft); }
+.alert-more dt::after { content: ":"; }
+.alert-more dd { margin: 0; }
+.alert-more ul { padding-left: 1.2em; list-style: disc; }
 .alerts[data-alerts-town] { margin-bottom: 12px; }
 .wx { margin-top: 10px; padding: 8px 12px; border-radius: 12px; background: var(--card); border: 1px solid var(--line); }
 .wx p { margin: 0; }

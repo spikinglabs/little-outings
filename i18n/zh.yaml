@@ -27,6 +27,20 @@ order: { label: 排序, mixed: 随机, soonest: 时间最近, nearest: 距离最
 alerts:
   title: "出行提醒"
   source: "来源"
+  more: "详情"
+  expected: "预计人数：约 {n} 人"
+  where: "地点"
+  route: "路线"
+  lines: "受影响线路"
+  type:
+    demonstration: "集会"
+    march: "游行"
+    police_operation: "警方行动"
+    closure: "封路"
+    strike: "罢工"
+    evacuation: "疏散"
+    crowd_event: "大型活动"
+    other: "提醒"
 wx:
   rain: "{when}可能下雨。"
   snow: "{when}可能下雪，注意保暖。"

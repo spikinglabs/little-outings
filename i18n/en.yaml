@@ -27,6 +27,20 @@ order: { label: Order, mixed: Mixed, soonest: Soonest, nearest: Nearest }
 alerts:
   title: "Good to know"
   source: "Source"
+  more: "More about it"
+  expected: "Expected: about {n} people"
+  where: "Where"
+  route: "Route"
+  lines: "Lines affected"
+  type:
+    demonstration: "Demonstration"
+    march: "March"
+    police_operation: "Police operation"
+    closure: "Closure"
+    strike: "Strike"
+    evacuation: "Evacuation"
+    crowd_event: "Big crowd event"
+    other: "Notice"
 wx:
   rain: "Rain likely {when}."
   snow: "Snow likely {when}: wrap up warm."
