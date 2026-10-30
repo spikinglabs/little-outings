@@ -153,6 +153,15 @@ test("a confirmed city alert becomes a set: facts, what to watch for, an invitat
   assert.deepEqual(rich.sheets[2].lines, ["路线：Deutzer Brücke – Heumarkt", "预计人数：约1.5万人", "受影响线路：KVB 1、KVB 7", "莱茵河岸封闭"]);
   assert.match(rich.caption, /X 倡议组织的游行。/);
   assert.match(rich.caption, /📍预计人数：约1\.5万人/);
+  // Long background and many points go on to further cards, whole; a point with a web address stays off Rednote.
+  const long = "警方表示，集会的主题是教育、义务兵役和可负担的生活，组织者预计会有很多年轻人参加，集会结束后可能转为游行。";
+  const big = alertSet({ ...alert, type: "demonstration", where: "Konrad-Adenauer-Ufer", about: { zh: long.repeat(6) },
+    points: { zh: [long, long, long, long, long, "更多交通信息：hamburg.de/verkehr/polizeimeldungen"] } }, "科隆");
+  const titles = big.sheets.map((sh) => sh.title);
+  assert.deepEqual(titles.slice(1, -1).map((t) => t.slice(0, 2)), ["发生", "发生", "具体", "具体"]);
+  assert.equal(big.sheets.filter((sh) => sh.title === "发生什么").flatMap((sh) => sh.lines).join("").includes(long.repeat(6)), true, "nothing lost");
+  for (const sh of big.sheets) for (const l of sh.lines ?? []) assert.ok(lines(l, 18.4).length <= 3, l);
+  assert.doesNotMatch(big.sheets.map((sh) => sheetSvg(sh)).join("") + big.caption, /…|hamburg\.de/);
   // A transit strike gets transit advice.
   assert.match(alertSet({ ...alert, kind: "strike" }, "科隆").caption, /交通 App/);
 });

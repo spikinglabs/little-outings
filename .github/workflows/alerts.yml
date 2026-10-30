@@ -6,6 +6,7 @@ on:
   workflow_dispatch:
 permissions:
   contents: write
+  actions: write
 concurrency:
   group: translate
 env:
@@ -56,3 +57,8 @@ jobs:
           git commit -m "Update city alerts"
           git pull --rebase origin "$GITHUB_REF_NAME"
           git push
+          # A push made with this job's token starts no workflow, so ask for the site build here:
+          # the alert box and the Rednote posters come from data/alerts.json.
+          gh workflow run deploy.yml --ref "$GITHUB_REF_NAME"
+        env:
+          GH_TOKEN: ${{ github.token }}
