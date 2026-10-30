@@ -24,6 +24,9 @@ searchPh: Hof, Café, Spielplatz oder Fest suchen
 filters: { farm: "🚜 Bauernhof", rain: "☂ Bei Regen", free: Kostenlos, animals: Mit Tieren, changing: Wickeltisch, nogerman: Ohne Deutsch, radius: Umkreis }
 order: { label: Reihenfolge, mixed: Gemischt, soonest: Bald zuerst, nearest: Nah zuerst }
 # Wetter auf Entdecken und Terminseiten (src/lib/weather.ts). {when}: heute, am Wochenende, am Samstag; {t}: °C.
+alerts:
+  title: "Gut zu wissen"
+  source: "Quelle"
 wx:
   rain: "Regen wahrscheinlich {when}."
   snow: "Schnee wahrscheinlich {when}: warm anziehen."

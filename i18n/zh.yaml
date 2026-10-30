@@ -24,6 +24,9 @@ searchPh: 搜索农场、咖啡馆、游乐场或活动
 filters: { farm: "🚜 农场", rain: "☂ 下雨也能去", free: 免费, animals: 有动物, changing: 尿布台, nogerman: "💬 不懂德语也能玩", radius: 范围 }
 order: { label: 排序, mixed: 随机, soonest: 时间最近, nearest: 距离最近 }
 # 发现页和活动页上的天气（src/lib/weather.ts）。{when}：今天、本周末、周六；{t}：摄氏度。
+alerts:
+  title: "出行提醒"
+  source: "来源"
 wx:
   rain: "{when}可能下雨。"
   snow: "{when}可能下雪，注意保暖。"

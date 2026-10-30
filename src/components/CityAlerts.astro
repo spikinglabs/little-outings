@@ -1,0 +1,31 @@
+---
+// "Good to know": confirmed city alerts (a big demo, a strike, an evacuation), one short line each with the
+// official source. With `town`, only that town's; without, every town's, hidden, and scripts/alerts.ts shows
+// the home town's. The same script hides an alert once its last day is over, before the next build.
+import { getAlerts } from "../lib/data";
+import { whenText } from "../lib/alerts";
+import type { Lang, T } from "../lib/i18n";
+
+interface Props { lang: Lang; t: T; town?: string }
+const { lang, t, town } = Astro.props;
+const alerts = getAlerts().filter((a) => !town || a.city === town);
+---
+{alerts.length > 0 && (
+  <aside class="alerts" data-alerts data-alerts-town={town} hidden={!town} aria-label={t("alerts.title")}>
+    <p class="alerts-title">⚠ {t("alerts.title")}</p>
+    <ul>
+      {alerts.map((a) => (
+        <li data-alert-city={a.city} data-alert-end={a.until || a.day} hidden={!town}>
+          <b>{whenText(a, t.locale)}</b> · {a.line[lang]} <a href={a.url} target="_blank" rel="noopener nofollow">{t("alerts.source")} ↗</a>
+        </li>
+      ))}
+    </ul>
+  </aside>
+)}
+
+<script>
+  // On a town's own page (the weekend edition): hide what is over. Discover calls showAlerts itself.
+  import { showAlerts } from "../scripts/alerts";
+  const box = document.querySelector<HTMLElement>("[data-alerts][data-alerts-town]");
+  if (box) showAlerts(box.dataset.alertsTown);
+</script>

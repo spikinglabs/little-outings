@@ -5,6 +5,7 @@
 import Base from "../../../../layouts/Base.astro";
 import WeekendEdition from "../../../../components/WeekendEdition.astro";
 import Card from "../../../../components/Card.astro";
+import CityAlerts from "../../../../components/CityAlerts.astro";
 import { LANGS, useT, type Lang } from "../../../../lib/i18n";
 import { getData, TODAY } from "../../../../lib/data";
 import { townName } from "../../../../lib/format";
@@ -40,6 +41,7 @@ const ld = live && {
 };
 ---
 <Base lang={lang} tab="explore" title={title} description={description} ld={ld || undefined} og={weekendKey(Astro.params.town)}>
+  <CityAlerts lang={lang} t={t} town={name} />
   {live ? <WeekendEdition edition={live} t={t} /> : (
     <section class="wk">
       <header class="wk-head">

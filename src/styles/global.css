@@ -75,6 +75,12 @@ h1, h2, h3, .meta, .de-name, .orig, .trust { overflow-wrap: anywhere; }
 .chip.none:not([aria-pressed="true"]) { opacity: .5; }
 .chip.rain[aria-pressed="true"] { border-color: var(--blau); background: var(--blau); color: var(--paper); }
 /* The chosen days' weather and its nudge, under the When buttons (explore.ts). */
+.alerts { margin-top: 10px; padding: 8px 12px; border-radius: 12px; background: var(--card); border: 1px solid var(--rot); border-left-width: 4px; }
+.alerts-title { margin: 0; font-weight: 700; color: var(--rot); }
+.alerts ul { margin: 4px 0 0; padding: 0; list-style: none; }
+.alerts li { margin: 2px 0 0; overflow-wrap: anywhere; }
+.alerts a { white-space: nowrap; font-size: .85rem; }
+.alerts[data-alerts-town] { margin-bottom: 12px; }
 .wx { margin-top: 10px; padding: 8px 12px; border-radius: 12px; background: var(--card); border: 1px solid var(--line); }
 .wx p { margin: 0; }
 .wx-days { font-weight: 700; }

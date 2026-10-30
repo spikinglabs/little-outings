@@ -11,6 +11,7 @@
   <script type="module" src="admin.js"></script>
   <script type="module" src="inbox.js"></script>
   <script type="module" src="weekend.js"></script>
+  <script type="module" src="alerts.js"></script>
   <script type="module" src="rednote.js"></script>
   <script type="module" src="usage.js"></script>
   <script type="module" src="seasons.js"></script>
@@ -52,6 +53,15 @@
       </div>
       <div class="banner" id="weekend-banner" hidden></div>
       <div id="weekend"></div>
+    </section>
+
+    <section class="panel" id="alerts-panel">
+      <div class="panel-head">
+        <h2>City alerts <span class="badge out" id="alerts-count"></span></h2>
+        <p>Rare things in a big city that parents should know before they go out: big demos and marches, evacuations, transit strikes. Every night the AI reads the official notices collected by city-anomalies and keeps the ones that could matter to families. Check the line in each language (facts only, no reassurance), fix the day or time if needed, and press Confirm: it shows as "Good to know" on that town's Discover and weekend pages a few minutes later, until its day is over. <span id="alerts-when"></span></p>
+      </div>
+      <div class="banner" id="alerts-banner" hidden></div>
+      <ol class="alerts-list" id="alerts"></ol>
     </section>
 
     <section class="panel" id="rednote-panel">
