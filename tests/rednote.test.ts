@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { readdirSync, readFileSync } from "node:fs";
 import { load } from "js-yaml";
 import { codeOf, normCode } from "../src/lib/rednote-code.ts";
-import { checkSetFile, codesOf, fileSet, fitTitle, lines, sheetSvg, weeklySet, weeklyTitle, type SetFile } from "../src/lib/rednote.ts";
+import { alertSet, alertWhen, checkSetFile, codesOf, fileSet, fitTitle, lines, sheetSvg, weeklySet, weeklyTitle, type SetFile } from "../src/lib/rednote.ts";
 import type { Edition } from "../src/lib/weekend.ts";
 
 const edition: Edition = {
@@ -128,3 +128,31 @@ test("a space between Chinese and Latin stays in the wrapped lines", () => {
   assert.deepEqual(lines("喝热的Kinderpunsch。", 40), ["喝热的Kinderpunsch。"], "no space is added where there was none");
 });
 
+
+test("a confirmed city alert becomes a set: facts, what to watch for, an invitation to add more, no link", () => {
+  const alert = { id: "rec_abc123def456", city: "Köln", day: "2026-10-31", from: "14:00", to: "18:00", kind: "police_notice", line: { zh: "莱茵河岸大型游行，道路封闭，电车改道。" } };
+  const s = alertSet(alert, "科隆");
+  assert.equal(s.id, "alert-koeln-2026-10-31-def456");
+  assert.equal(s.title, "科隆出行提醒｜10月31日周六");
+  assert.ok([...s.title].length <= 20);
+  assert.equal(alertWhen(alert), "10月31日周六 14:00–18:00");
+  assert.equal(alertWhen({ ...alert, until: "2026-11-01", from: undefined }), "10月31日周六–11月1日周日");
+  assert.equal(s.sheets.length, 3);
+  assert.ok(s.sheets[1].lines?.includes(alert.line.zh));
+  assert.match(s.caption, /评论区补充/);
+  assert.ok(s.caption.includes(alert.line.zh));
+  assert.ok(s.caption.split("\n").at(-1)!.startsWith("#小鹿出游 "));
+  assert.doesNotMatch(s.caption + JSON.stringify(s.sheets), /不用紧张|不用担心|https?:|allo\.land/);
+  assert.deepEqual(checkSetFile({ title: s.title, caption: s.caption, cards: s.sheets }), []);
+  for (const sheet of s.sheets) assert.match(sheetSvg(sheet), /^<svg/);
+  // A transit strike gets transit advice.
+  assert.match(alertSet({ ...alert, kind: "strike" }, "科隆").caption, /交通 App/);
+});
+
+test("the Chinese font has every character the alert cards always show", () => {
+  const have = new Set(readFileSync("design/og/zh-chars.txt", "utf8").trim());
+  const s = alertSet({ id: "x", city: "Köln", day: "2026-11-02", kind: "assembly", line: { zh: "" } }, "科隆");
+  const fixed = alertSet({ id: "x", city: "Köln", day: "2026-11-02", kind: "strike", line: { zh: "" } }, "科隆");
+  const missing = [...new Set([...(JSON.stringify(s.sheets) + JSON.stringify(fixed.sheets))].filter((c) => c.charCodeAt(0) >= 0x2e80 && !have.has(c)))];
+  assert.deepEqual(missing, []);
+});

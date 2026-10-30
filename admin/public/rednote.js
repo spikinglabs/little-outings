@@ -36,7 +36,7 @@ function render() {
   }
   box.innerHTML = sets.map((s, i) => `
     <section class="rednote-set">
-      <h3>${esc(s.kind === "weekly" ? `${s.town}, weekend of ${s.weekend}` : s.id)}</h3>
+      <h3>${esc(s.kind === "weekly" ? `${s.town}, weekend of ${s.weekend}` : s.kind === "alert" ? `⚠ City alert: ${s.town}, ${s.day}` : s.id)}</h3>
       <div class="rednote-pics">
         ${s.pictures.map((p, n) => `<a href="${esc(p)}" target="_blank" rel="noopener"><img src="${esc(p)}" alt="Card ${n + 1}" loading="lazy" width="135" height="180"></a>`).join("")}
       </div>

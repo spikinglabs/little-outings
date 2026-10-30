@@ -151,3 +151,48 @@ export function checkSetFile(f: SetFile): string[] {
   }
   return out;
 }
+
+// ---------- city alerts ----------
+
+/** One confirmed city alert (src/lib/alerts.ts) as the Rednote set the admin offers: facts and what to watch for, no reassurance. */
+export interface AlertFacts { id: string; city: string; day: string; until?: string; from?: string; to?: string; kind: string; line: { zh: string } }
+
+const WEEKDAY_ZH = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
+const dayZh = (d: string) => `${Number(d.slice(5, 7))}月${Number(d.slice(8, 10))}日${WEEKDAY_ZH[new Date(`${d}T12:00:00Z`).getUTCDay()]}`;
+/** Where the facts come from, as a parent would say it. */
+const SOURCE_ZH: Record<string, string> = { police_notice: "警方通告", assembly: "警方集会登记", transit: "交通公司通知", strike: "官方通知" };
+/** What to watch for, by kind. Plain advice, never "no need to worry". */
+const WATCH_ZH: Record<string, string[]> = {
+  transit: ["出门前在交通 App 里查一下线路和时刻", "预留更多时间，或者换个出行方式"],
+  strike: ["出门前在交通 App 里查一下线路和时刻", "幼儿园、学校是否受影响，请看各自的通知"],
+  default: ["附近道路可能封闭，电车和公交可能改道，出门前查一下交通 App", "人多的地方看好孩子，约好走散后在哪里碰头"],
+};
+
+/** "10月31日周六 14:00–18:00", or the days when it lasts several. */
+export const alertWhen = (a: AlertFacts) =>
+  [a.until ? `${dayZh(a.day)}–${dayZh(a.until)}` : dayZh(a.day), a.from ? (a.to ? `${a.from}–${a.to}` : `${a.from}起`) : ""].filter(Boolean).join(" ");
+
+export function alertSet(a: AlertFacts, townZh: string): XhsSet {
+  const watch = WATCH_ZH[a.kind] ?? WATCH_ZH.default;
+  const source = SOURCE_ZH[a.kind] ?? "官方通知";
+  const when = alertWhen(a);
+  const sheets: Sheet[] = [
+    { tone: "ink", tag: `${townZh} · 出行提醒`, title: `${townZh}\n出行提醒`, big: true, lines: [when], foot: `信息来自${source}` },
+    { tone: "paper", tag: when, title: "发生什么", lines: [a.line.zh], foot: `信息以${source}为准` },
+    { tone: "gold", tag: "注意事项", title: "带娃出门前", lines: [...watch, "有更多消息，欢迎在评论区补充"] },
+  ];
+  const caption = [
+    `⚠️ ${townZh}出行提醒`,
+    `🕑 ${when}`,
+    "",
+    a.line.zh,
+    "",
+    "注意事项：",
+    ...watch.map((w) => `· ${w}`),
+    "",
+    `信息来自${source}，以官方最新消息为准。有更多消息，欢迎在评论区补充👇`,
+    "",
+    hashtags(["德国带娃", `${townZh}带娃`, townZh, "出行提醒", "德国生活", "德国妈妈", "德国爸爸"]),
+  ].join("\n");
+  return { id: `alert-${townSlug(a.city)}-${a.day}-${a.id.slice(-6)}`, title: `${townZh}出行提醒｜${dayZh(a.day)}`, caption, sheets };
+}

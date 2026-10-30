@@ -53,11 +53,11 @@ function render() {
       </div>
       ${Object.entries(LANGS).map(([l, name]) => `
         <label class="visually-hidden" for="al-${esc(it.id)}-${l}">${name} line</label>
-        <input id="al-${esc(it.id)}-${l}" data-line="${l}" maxlength="160" value="${esc(it.line?.[l] ?? "")}" placeholder="${name} line">`).join("")}
+        <textarea id="al-${esc(it.id)}-${l}" data-line="${l}" maxlength="160" rows="2" placeholder="${name} line">${esc(it.line?.[l] ?? "")}</textarea>`).join("")}
       <div class="weekend-acts">
         ${it.status === "confirmed"
-          ? `<button data-act="confirmed">Save changes</button><button class="ghost" data-act="new">Take off the site</button>`
-          : `<button data-act="confirmed">Confirm</button><button class="ghost" data-act="dropped">Drop</button>`}
+          ? `<button class="primary" data-act="confirmed">Save changes</button><button class="ghost" data-act="new">Take off the site</button>`
+          : `<button class="primary" data-act="confirmed">Confirm</button><button class="ghost" data-act="dropped">Drop</button>`}
       </div>
     </li>`).join("");
 }
@@ -72,7 +72,7 @@ async function decide(li, status) {
     const reply = await res.json().catch(() => ({}));
     if (!res.ok) throw new Error(reply.error || `Request failed (${res.status})`);
     ({ items, etag } = reply);
-    note(reply.warning || (status === "confirmed" ? "Saved. It is on the site after the deploy (a few minutes)." : status === "new" ? "Taken off the site." : "Dropped."), !!reply.warning);
+    note(reply.warning || (status === "confirmed" ? "Saved. It is on the site after the deploy (a few minutes), and its Rednote poster set shows up in the Rednote panel then." : status === "new" ? "Taken off the site." : "Dropped."), !!reply.warning);
   } catch (error) {
     note(`Not saved: ${error.message}`, true);
   }
