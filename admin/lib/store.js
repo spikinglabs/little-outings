@@ -17,6 +17,11 @@ export const KEYS = {
   alerts: `${PREFIX}/alerts.json`,
   // Your Confirm / Drop on those, written only by the admin.
   alertDecisions: `${PREFIX}/alert-decisions.json`,
+  // Instagram: your Approve per set (only this admin writes it), what the posting job published, and the
+  // account's access token (the admin saves it, the job renews it). The token never leaves the bucket.
+  igApprovals: `${PREFIX}/instagram-approvals.json`,
+  igPosted: `${PREFIX}/instagram-posted.json`,
+  igToken: `${PREFIX}/instagram-token.json`,
 };
 
 export function json(body, status = 200) {

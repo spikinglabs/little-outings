@@ -1,0 +1,51 @@
+# Posts the Instagram sets approved in the admin (scripts/post-instagram.mjs), hourly on Friday and Saturday
+# from 06:30 to 18:30 UTC (7:30 to 19:30 in German winter time), and renews the account's access token
+# once it is a week old. Nothing posts without an Approve in the admin's Instagram box, and nothing at
+# all before a token is saved there. Needs a Cloudflare token with "Workers R2 Storage: Edit"
+# (R2_SORT_TOKEN or CLOUDFLARE_API_TOKEN) plus CLOUDFLARE_ACCOUNT_ID, like the other bucket jobs.
+name: Instagram post
+on:
+  schedule:
+    - cron: "30 6-18 * * 5,6"
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: instagram-post
+env:
+  BUCKET: spikinglabs-little-outings
+  FILES: instagram-approvals.json instagram-posted.json instagram-token.json
+jobs:
+  post:
+    if: github.ref_name == 'main'
+    runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.R2_SORT_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID || vars.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - name: Download approvals, posts and token
+        run: |
+          mkdir -p .cache/outings
+          for f in $FILES; do
+            if npx wrangler r2 object get "$BUCKET/little-outings/$f" --file ".cache/outings/$f" > /dev/null 2>&1; then
+              cp ".cache/outings/$f" ".cache/outings/$f.before"
+            else
+              rm -f ".cache/outings/$f"; echo "No $f in the bucket."
+            fi
+          done
+      - name: Post approved sets
+        env:
+          SITE_URL: ${{ vars.SITE_URL }}
+        run: node scripts/post-instagram.mjs
+      - name: Save what changed
+        if: always()
+        run: |
+          for f in instagram-posted.json instagram-token.json; do
+            [ -f ".cache/outings/$f" ] || continue
+            cmp -s ".cache/outings/$f" ".cache/outings/$f.before" && continue
+            npx wrangler r2 object put "$BUCKET/little-outings/$f" --file ".cache/outings/$f" --content-type application/json
+          done

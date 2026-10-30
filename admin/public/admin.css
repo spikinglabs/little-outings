@@ -187,6 +187,8 @@ dialog label { display: grid; gap: 2px; font-size: 13px; color: var(--ink-soft);
 .rednote-save { display: flex; gap: 8px; flex-wrap: wrap; margin: 2px 0 6px; }
 .rednote-copy { display: flex; gap: 8px; align-items: flex-start; }
 .rednote-copy input, .rednote-copy textarea { flex: 1; min-width: 0; }
+.ig-status { margin: 0 0 4px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.ig-status.ok { color: var(--ink); font-weight: 600; }
 
 .usage-wrap { overflow-x: auto; }
 .usage { border-collapse: collapse; width: 100%; font-size: 14px; font-variant-numeric: tabular-nums; }
