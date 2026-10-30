@@ -3,8 +3,9 @@
 // make links in captions clickable, so each town card and the caption give the town's short address
 // (outings.allo.land/w/<town>/en) and the profile links the site.
 //
-// Nothing is posted from here yet. The build draws the cards as JPEG (src/pages/ig/, scripts/og-images.mjs),
-// the admin's Instagram box shows them with the caption, and someone posts them by hand.
+// The build draws the cards as JPEG (src/pages/ig/, scripts/og-images.mjs) and the admin's Instagram box
+// shows them with the caption. Nothing posts until someone presses Approve there; then
+// scripts/post-instagram.mjs publishes the set through Instagram's API. Posting by hand still works.
 //
 // Cards are 1080×1350 (4:5, the tallest Instagram takes; it refuses Rednote's 3:4), drawn by src/lib/sheet.ts.
 // Plain TypeScript, so tests run it in Node.
