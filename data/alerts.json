@@ -5,6 +5,7 @@
       "city": "Hamburg",
       "day": "2026-10-31",
       "kind": "police_notice",
+      "where": "Neustadt, Altstadt, St. Georg, St. Pauli und Altona-Altstadt",
       "line": {
         "de": "Mehrere Aufzüge in Neustadt, Altstadt, St. Georg und Altona führen am Samstag zu temporären Straßensperrungen und Verkehrsbehinderungen.",
         "en": "Several demonstrations in Neustadt, Altstadt, St. Georg, and Altona on Saturday will cause temporary road closures and traffic delays.",
@@ -17,6 +18,7 @@
       "city": "Düsseldorf",
       "day": "2026-10-31",
       "kind": "police_notice",
+      "where": "Düsseldorfer Innenstadt",
       "line": {
         "de": "Wegen Demonstrationen kommt es ab Samstagmittag in der Düsseldorfer Innenstadt zu starken Verkehrsbehinderungen und Polizeieinsätzen.",
         "en": "Demonstrations in Düsseldorf's city centre will cause heavy traffic disruptions and a large police presence from Saturday midday.",
@@ -30,6 +32,7 @@
       "day": "2026-10-31",
       "from": "14:00",
       "kind": "police_notice",
+      "where": "Konrad-Adenauer-Ufer und Innenstadt",
       "line": {
         "de": "Großdemo ab Konrad-Adenauer-Ufer mit rund 15.000 Teilnehmenden und starker Polizeieinsatz sorgen für Andrang in der Innenstadt.",
         "en": "Major protest from Konrad-Adenauer-Ufer with 15,000 attendees and large police operation will lead to crowds in the city centre.",
