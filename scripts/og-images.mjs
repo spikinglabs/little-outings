@@ -1,6 +1,7 @@
 // Runs after `astro build` (npm run build): turns the link preview pictures, dist/og/<lang>/*.svg
 // (src/pages/og/[lang]/[file].ts), into PNG, which is what WhatsApp and WeChat show, and removes the SVG.
-// The Rednote cards, dist/xhs/*.svg (src/pages/xhs/), go the same way.
+// The Rednote cards, dist/xhs/*.svg (src/pages/xhs/), go the same way; the Instagram cards,
+// dist/ig/*.svg (src/pages/ig/), become JPEG, the only picture type Instagram's API takes.
 // Fonts: the site's own Atkinson Hyperlegible and Barlow Semi Condensed from @fontsource (WOFF, unpacked
 // here to TrueType, since resvg reads no WOFF) and Noto Sans SC cut to the Chinese the pictures use
 // (design/og/, scripts/og-font.py). No system fonts, so a picture looks the same on every machine.
@@ -10,6 +11,7 @@ import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync
 import { join } from "node:path";
 import { inflateSync } from "node:zlib";
 import { Resvg } from "@resvg/resvg-js";
+import jpeg from "jpeg-js";
 
 const dist = process.argv[2] ?? "dist";
 
@@ -67,15 +69,21 @@ export function fontFiles(dir = ".cache/og-fonts") {
 export const renderPng = (svg, fontFiles) =>
   new Resvg(svg, { font: { fontFiles, loadSystemFonts: false, defaultFontFamily: "Atkinson Hyperlegible" } }).render().asPng();
 
+/** The same picture as JPEG: the cards have no transparency, so the pixels go straight in. */
+export function renderJpeg(svg, fontFiles, quality = 90) {
+  const img = new Resvg(svg, { font: { fontFiles, loadSystemFonts: false, defaultFontFamily: "Atkinson Hyperlegible" } }).render();
+  return jpeg.encode({ data: img.pixels, width: img.width, height: img.height }, quality).data;
+}
+
 if (import.meta.url === `file://${process.argv[1]}`) {
   const root = join(dist, "og");
   const fonts = fontFiles();
-  const draw = (dir) => {
+  const draw = (dir, type = "png") => {
     let n = 0, bytes = 0;
     for (const file of existsSync(dir) ? readdirSync(dir).filter((f) => f.endsWith(".svg")) : []) {
       const svg = join(dir, file);
-      const png = renderPng(readFileSync(svg, "utf8"), fonts);
-      writeFileSync(svg.replace(/\.svg$/, ".png"), png);
+      const png = (type === "jpg" ? renderJpeg : renderPng)(readFileSync(svg, "utf8"), fonts);
+      writeFileSync(svg.replace(/\.svg$/, `.${type}`), png);
       rmSync(svg);
       n++;
       bytes += png.length;
@@ -93,6 +101,8 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   // The Rednote cards (src/pages/xhs/), drawn the same way.
   const [cards, cardBytes] = draw(join(dist, "xhs"));
   console.log(`drew ${cards} Rednote cards (${Math.round(cardBytes / 1024)} KB)`);
+  const [ig, igBytes] = draw(join(dist, "ig"), "jpg");
+  console.log(`drew ${ig} Instagram cards (${Math.round(igBytes / 1024)} KB)`);
 
   // Every picture a page names must be there: a missing one shows no preview at all.
   const missing = new Set();
