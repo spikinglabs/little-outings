@@ -1,3 +1,17 @@
 {
-  "alerts": []
+  "alerts": [
+    {
+      "id": "rec_c379c394859a5f7f7724",
+      "city": "Köln",
+      "day": "2026-10-31",
+      "from": "14:00",
+      "kind": "police_notice",
+      "line": {
+        "de": "Großdemo ab Konrad-Adenauer-Ufer mit rund 15.000 Teilnehmenden und starker Polizeieinsatz sorgen für Andrang in der Innenstadt.",
+        "en": "Major protest from Konrad-Adenauer-Ufer with 15,000 attendees and large police operation will lead to crowds in the city centre.",
+        "zh": "Konrad-Adenauer-Ufer将举行约1.5万人示威并有警方行动，市中心预计人流密集。"
+      },
+      "url": "https://www.presseportal.de/blaulicht/pm/12415/6380349"
+    }
+  ]
 }
