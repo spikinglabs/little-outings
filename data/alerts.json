@@ -1,6 +1,18 @@
 {
   "alerts": [
     {
+      "id": "rec_9aaa900a8d5247bfe6a6",
+      "city": "Düsseldorf",
+      "day": "2026-10-31",
+      "kind": "police_notice",
+      "line": {
+        "de": "Wegen Demonstrationen kommt es ab Samstagmittag in der Düsseldorfer Innenstadt zu starken Verkehrsbehinderungen und Polizeieinsätzen.",
+        "en": "Demonstrations in Düsseldorf's city centre will cause heavy traffic disruptions and a large police presence from Saturday midday.",
+        "zh": "周六中午起杜塞尔多夫市中心举行示威游行，将出现严重交通受阻和大量警力巡逻。"
+      },
+      "url": "https://www.presseportal.de/blaulicht/pm/13248/6380409"
+    },
+    {
       "id": "rec_c379c394859a5f7f7724",
       "city": "Köln",
       "day": "2026-10-31",
