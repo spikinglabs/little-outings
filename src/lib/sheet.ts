@@ -69,6 +69,31 @@ export function fitTitle(title: string, width: number, sizes: [number, number][]
   return { size, lines: l.length > max ? [...l.slice(0, max - 1), `${l[max - 1]}…`] : l };
 }
 
+// Where the lines of a paper card with a tag and a one-line title start, and where they must stop (as in sheetSvg).
+const SMALL = 46, LH = SMALL * 1.45, TOP = 150 + 74 + 70 + 96 * 1.22 + 40, FLOOR = XHS.h - 96 - 92 - 60;
+
+/**
+ * `items` spread over as many cards (tag, one-line title) as they need, so nothing is cut: sheetSvg shows at
+ * most 3 rows of each line, so a longer one is split into pieces of 3 rows first.
+ */
+export function pageLines(items: string[]): string[][] {
+  const maxEm = ((XHS.w - 192) / SMALL) * 0.96;
+  const glue = (a: string, b: string) => a + (/[A-Za-z0-9.,;:)]$/.test(a) && /^[A-Za-z0-9(]/.test(b) ? " " : "") + b;
+  const pages: string[][] = [[]];
+  let y = TOP;
+  for (const item of items) {
+    const rows = lines(item, maxEm);
+    for (let at = 0; at < rows.length; at += 3) {
+      const piece = rows.slice(at, at + 3);
+      const height = piece.length * LH + 10;
+      if (y + height > FLOOR && pages[pages.length - 1].length) { pages.push([]); y = TOP; }
+      pages[pages.length - 1].push(piece.reduce(glue));
+      y += height;
+    }
+  }
+  return pages;
+}
+
 /** One card as SVG; `page` is "2/7". */
 export function sheetSvg(s: Sheet, page?: string): string {
   const c = C[s.tone];

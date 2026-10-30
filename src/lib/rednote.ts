@@ -11,7 +11,7 @@
 //   sets     hand-written explainers in content/rednote/<id>.yaml (St. Martin …), drawn until their `until` day
 //
 // Cards are 1080×1440 (3:4, what Rednote shows uncropped), drawn by src/lib/sheet.ts. Plain TypeScript, so tests run it in Node.
-import type { Sheet } from "./sheet.ts";
+import { pageLines, type Sheet } from "./sheet.ts";
 import { codeOf } from "./rednote-code.ts";
 import { addDays, textIn, townSlug, weatherLine, whenShort, WEEKEND_TOWNS, type Edition, type Pick } from "./weekend.ts";
 
@@ -183,6 +183,8 @@ const WATCH_ZH: Record<string, string[]> = {
 export const alertWhen = (a: AlertFacts) =>
   [a.until ? `${dayZh(a.day)}–${dayZh(a.until)}` : dayZh(a.day), a.from ? (a.to ? `${a.from}–${a.to}` : `${a.from}起`) : ""].filter(Boolean).join(" ");
 
+const LINKISH = /https?:|www\.|\b[\w-]+\.(de|com|org|net|eu|info)\b/i;
+
 export function alertSet(a: AlertFacts, townZh: string): XhsSet {
   const watch = WATCH_ZH[a.kind === "police_notice" || a.kind === "assembly" ? (a.type === "strike" ? "strike" : "default") : a.kind] ?? WATCH_ZH.default;
   const source = SOURCE_ZH[a.kind] ?? "官方通知";
@@ -195,12 +197,16 @@ export function alertSet(a: AlertFacts, townZh: string): XhsSet {
     a.expected ? `预计人数：${peopleZh(a.expected)}` : "",
     a.lines?.length ? `受影响线路：${a.lines.join("、")}` : "",
   ].filter(Boolean);
-  const points = a.points?.zh ?? [];
+  // Rednote punishes links, so a key point that carries a web address stays on the site only.
+  const points = (a.points?.zh ?? []).filter((p) => !LINKISH.test(p));
   const sheets: Sheet[] = [
     { tone: "ink", tag: `${townZh} · 出行提醒`, title: `${townZh}\n${typeZh}`, big: true,
       lines: [when, ...(a.expected ? [`预计${peopleZh(a.expected)}`] : [])], foot: `信息来自${source}` },
-    { tone: "paper", tag: when, title: "发生什么", lines: [a.line.zh, ...(a.about?.zh ? [a.about.zh] : [])], foot: `信息以${source}为准` },
-    ...(facts.length || points.length ? [{ tone: "paper" as const, tag: `${townZh} · ${typeZh}`, title: "具体信息", lines: [...facts, ...points] }] : []),
+    // Long background or many key points go on to a further card rather than being cut off.
+    ...pageLines([a.line.zh, ...(a.about?.zh ? [a.about.zh] : [])])
+      .map((lines): Sheet => ({ tone: "paper", tag: when, title: "发生什么", lines, foot: `信息以${source}为准` })),
+    ...(facts.length || points.length ? pageLines([...facts, ...points]) : [])
+      .map((lines): Sheet => ({ tone: "paper", tag: `${townZh} · ${typeZh}`, title: "具体信息", lines })),
     { tone: "gold", tag: "注意事项", title: "带娃出门前", lines: [...watch, "有更多消息，欢迎在评论区补充"] },
   ];
   const caption = [
