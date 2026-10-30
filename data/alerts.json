@@ -5,11 +5,39 @@
       "city": "Hamburg",
       "day": "2026-10-31",
       "kind": "police_notice",
-      "where": "Neustadt, Altstadt, St. Georg, St. Pauli und Altona-Altstadt",
+      "type": "march",
+      "expected": 2000,
+      "where": "Hamburger Stadtgebiet, Neustadt, Altstadt und St. Georg",
+      "route": "Abendaufzug: Neustadt, St. Pauli, Altona-Altstadt",
       "line": {
-        "de": "Mehrere Aufzüge in Neustadt, Altstadt, St. Georg und Altona führen am Samstag zu temporären Straßensperrungen und Verkehrsbehinderungen.",
-        "en": "Several demonstrations in Neustadt, Altstadt, St. Georg, and Altona on Saturday will cause temporary road closures and traffic delays.",
-        "zh": "周六Neustadt、Altstadt、St. Georg和Altona等地有多起游行，将造成临时封路和交通拥堵。"
+        "de": "Am Samstag, 31.10.2026, gibt es in Hamburg mehrere angemeldete Aufzüge, dazu temporäre Straßensperrungen und Verkehrsbeeinträchtigungen.",
+        "en": "On Saturday 31 October 2026, several registered marches take place in Hamburg, with temporary road closures and traffic disruption.",
+        "zh": "2026年10月31日（周六），汉堡有多场已登记的游行，将出现临时道路封闭和交通受阻。"
+      },
+      "about": {
+        "de": "Die Polizei Hamburg hat mehrere Aufzüge und Versammlungen angemeldet. Die Meldung nennt weder Thema noch Veranstalter.",
+        "en": "Hamburg police report that several marches and assemblies have been registered. The notice names neither the subject nor the organisers.",
+        "zh": "汉堡警方通报已登记多场游行和集会。通报未说明主题，也未列明主办方。"
+      },
+      "points": {
+        "de": [
+          "Nachmittag: Aufzug mit bis zu 2.000 Teilnehmenden in Neustadt, Altstadt und St. Georg",
+          "Abend: Aufzug mit 300 angemeldeten Teilnehmenden von der Neustadt über St. Pauli nach Altona-Altstadt",
+          "Kurzfristige Verkehrsmaßnahmen und temporäre Straßensperrungen",
+          "Weitere Infos: hamburg.de/verkehr/stau-und-baustellen/polizeimeldungen-414586"
+        ],
+        "en": [
+          "Afternoon: march of up to 2,000 people in Neustadt, Altstadt and St. Georg",
+          "Evening: march of 300 registered participants from Neustadt via St. Pauli to Altona-Altstadt",
+          "Short-notice traffic measures and temporary road closures",
+          "More traffic information: hamburg.de/verkehr/stau-und-baustellen/polizeimeldungen-414586"
+        ],
+        "zh": [
+          "下午：约2000人的游行，经过新城区、老城区和圣格奥尔格区",
+          "晚上：300名登记参加者从新城区经圣保利前往阿尔托纳-老城区",
+          "将实施临时交通措施和临时道路封闭",
+          "更多交通信息：hamburg.de/verkehr/stau-und-baustellen/polizeimeldungen-414586"
+        ]
       },
       "url": "https://www.presseportal.de/blaulicht/pm/6337/6380582"
     },
@@ -18,11 +46,37 @@
       "city": "Düsseldorf",
       "day": "2026-10-31",
       "kind": "police_notice",
+      "type": "demonstration",
       "where": "Düsseldorfer Innenstadt",
       "line": {
-        "de": "Wegen Demonstrationen kommt es ab Samstagmittag in der Düsseldorfer Innenstadt zu starken Verkehrsbehinderungen und Polizeieinsätzen.",
-        "en": "Demonstrations in Düsseldorf's city centre will cause heavy traffic disruptions and a large police presence from Saturday midday.",
-        "zh": "周六中午起杜塞尔多夫市中心举行示威游行，将出现严重交通受阻和大量警力巡逻。"
+        "de": "Am Samstag, 31. Oktober, mehrere angemeldete Versammlungen in der Innenstadt. Ab Mittag stärkere Verkehrsbeeinträchtigungen, die Polizei empfiehlt die U-Bahnen.",
+        "en": "Saturday 31 October: several registered assemblies in Düsseldorf's city centre. Heavier traffic disruption from midday; police recommend U-Bahn trains.",
+        "zh": "10月31日（周六）杜塞尔多夫市中心有多场已登记的集会。中午起交通受到较大影响，警方建议乘坐地铁（U-Bahn）。"
+      },
+      "about": {
+        "de": "Die Polizei Düsseldorf hat mehrere Versammlungen in der Innenstadt angezeigt. Die Meldung nennt weder Thema noch Veranstalter. Die Polizei ist mit zahlreichen Kräften im Einsatz.",
+        "en": "Düsseldorf police have been notified of several assemblies in the city centre. The notice does not name their subject or organisers. Police are deploying numerous officers.",
+        "zh": "杜塞尔多夫警方已接到市中心多场集会的申报。通知未说明集会主题或主办方。警方派出大量警力执勤。"
+      },
+      "points": {
+        "de": [
+          "Mehrere angezeigte Versammlungen in der Innenstadt, Verkehrsbeeinträchtigungen ab dem Mittag",
+          "Polizei will Beeinträchtigungen so gering wie möglich halten",
+          "Besucher werden gebeten, für An- und Abreise den ÖPNV, insbesondere die U-Bahnen, zu nutzen",
+          "Am selben Tag (Samstag, 31.10.): erhöhte Polizeipräsenz an Halloween in der Landeshauptstadt"
+        ],
+        "en": [
+          "Several registered assemblies in the city centre, traffic disruption from midday",
+          "Police aim to keep traffic disruption as low as possible",
+          "Visitors are asked to use public transport, especially U-Bahn trains, for arriving and leaving",
+          "Same day (Saturday 31.10.): increased police presence in the city for Halloween"
+        ],
+        "zh": [
+          "市中心多场已申报的集会，中午起交通受影响",
+          "警方力求将交通影响降到最低",
+          "请来访者乘坐公共交通出行，尤其是地铁（U-Bahn）",
+          "同日（10月31日周六）：全市为万圣节增派警力"
+        ]
       },
       "url": "https://www.presseportal.de/blaulicht/pm/13248/6380409"
     },
@@ -32,11 +86,38 @@
       "day": "2026-10-31",
       "from": "14:00",
       "kind": "police_notice",
-      "where": "Konrad-Adenauer-Ufer und Innenstadt",
+      "type": "demonstration",
+      "expected": 15000,
+      "where": "Konrad-Adenauer-Ufer, Höhe Bastei",
       "line": {
-        "de": "Großdemo ab Konrad-Adenauer-Ufer mit rund 15.000 Teilnehmenden und starker Polizeieinsatz sorgen für Andrang in der Innenstadt.",
-        "en": "Major protest from Konrad-Adenauer-Ufer with 15,000 attendees and large police operation will lead to crowds in the city centre.",
-        "zh": "Konrad-Adenauer-Ufer将举行约1.5万人示威并有警方行动，市中心预计人流密集。"
+        "de": "Am Samstag ab ca. 14 Uhr Versammlung am Konrad-Adenauer-Ufer, Höhe Bastei, mit etwa 15.000 erwarteten Teilnehmenden; ein Zug Richtung Innenstadt ist möglich.",
+        "en": "On Saturday from about 14:00, an assembly at Konrad-Adenauer-Ufer near the Bastei with about 15,000 expected; a march towards the city centre is possible.",
+        "zh": "周六约14点起，在Konrad-Adenauer-Ufer的Bastei附近举行集会，预计约15,000人；可能随后向市中心游行。"
+      },
+      "about": {
+        "de": "Eine Privatperson hat die Versammlung zum Thema \"Bildung / Wehrpflicht / Bezahlbares Leben\" angemeldet. Die Teilnehmenden wollen ihren Sorgen und Nöten Ausdruck verleihen. Die Polizei beobachtet die Mobilisierung der Gruppierung \"GenZ regel",
+        "en": "A private individual registered the assembly on \"Education / conscription / affordable living\". Participants want to voice their worries and concerns. The police are monitoring the mobilisation by the group \"GenZ regelt\".",
+        "zh": "一名私人报名了以“教育 / 义务兵役 / 可负担的生活”为主题的集会，参与者希望借此表达他们的担忧和困境。警方正在关注“GenZ regelt”团体的动员情况。"
+      },
+      "points": {
+        "de": [
+          "Schon vor Beginn ab ca. 14 Uhr größere Ansammlungen am Konrad-Adenauer-Ufer, Höhe Bastei, erwartet",
+          "Ob nur Kundgebung oder anschließend Aufzug Richtung Innenstadt, ist noch offen",
+          "Versammlung voraussichtlich mindestens bis in den frühen Abend",
+          "Polizeieinsatz unabhängig von der Versammlung bis in die frühen Morgenstunden; Bürgertelefon 0221 229-7777 am 31.10. von 10 bis 21 Uhr"
+        ],
+        "en": [
+          "Larger gatherings expected at Konrad-Adenauer-Ufer near the Bastei from about 14:00, before the assembly starts",
+          "Unclear whether it stays a rally or continues as a march towards the city centre",
+          "Assembly expected to last at least until early evening",
+          "Police operation continues independently into the early morning hours; citizen hotline 0221 229-7777 on 31 Oct, 10:00 to 21:00"
+        ],
+        "zh": [
+          "14点左右起，预计在Bastei附近的Konrad-Adenauer-Ufer出现较大人群聚集，集会开始前即已开始",
+          "是仅作为集会进行，还是随后转为游行前往市中心，尚未确定",
+          "集会预计至少持续到傍晚",
+          "警方行动独立于集会，持续至凌晨；市民热线0221 229-7777，10月31日10点至21点"
+        ]
       },
       "url": "https://www.presseportal.de/blaulicht/pm/12415/6380349"
     }
