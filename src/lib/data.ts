@@ -1,6 +1,7 @@
 // Build-time data access for pages. Everything here runs once per build, never in the browser.
 import { getCollection } from "astro:content";
 import { readFileSync } from "node:fs";
+import { current, type Alert } from "./alerts.ts";
 import { tagSharedNames } from "./credit.ts";
 import { applyEventTally, applyTally, applyTranslations, canonicalTown, normalizeEvent, normalizePlace, resolveGeo, shiftDays, townsFromPlaces, type Town } from "./merge.ts";
 import { fixtureEvent, loadSeasons, seasonsOf, type SeasonData } from "./seasons.ts";
@@ -114,6 +115,11 @@ export async function getWeather(): Promise<Packed | undefined> {
   let file;
   try { file = JSON.parse(readFileSync("data/weather.json", "utf8")); } catch { /* no forecast this build */ }
   return (weather = pack(file, (await getData()).region.towns, TODAY));
+}
+
+/** Confirmed city alerts still on or coming soon (lib/alerts.ts); none without the file. */
+export function getAlerts(): Alert[] {
+  try { return current(JSON.parse(readFileSync("data/alerts.json", "utf8")).alerts ?? [], TODAY); } catch { return []; }
 }
 
 export async function getTasks() {

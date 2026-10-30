@@ -17,6 +17,7 @@
     "translate": "node scripts/translate.mjs",
     "find:venues": "node scripts/find-venues.mjs",
     "sort:events": "node scripts/sort-events.mjs",
+    "check:alerts": "node scripts/check-alerts.mjs",
     "weekend": "node scripts/weekend-edition.mjs",
     "post:weekend": "node scripts/post-weekend.mjs",
     "fetch:holidays": "node scripts/fetch-holidays.mjs",

@@ -24,6 +24,9 @@ searchPh: Search farms, cafés, playgrounds or festivals
 filters: { farm: "🚜 Farm", rain: "☂ Rainy day", free: Free, animals: Animals, changing: Changing table, nogerman: "💬 No German needed", radius: Within }
 order: { label: Order, mixed: Mixed, soonest: Soonest, nearest: Nearest }
 # Weather on Discover and event pages (src/lib/weather.ts). {when}: today, this weekend, on Saturday; {t}: °C.
+alerts:
+  title: "Good to know"
+  source: "Source"
 wx:
   rain: "Rain likely {when}."
   snow: "Snow likely {when}: wrap up warm."

@@ -13,6 +13,10 @@ export const KEYS = {
   sorted: `${PREFIX}/sorted.json`,
   // The weekend edition's draft, written Thursday night by scripts/weekend-edition.mjs; the Weekend panel swaps picks.
   weekend: `${PREFIX}/weekend.json`,
+  // City alerts with the AI's verdicts, written nightly by scripts/check-alerts.mjs; the City alerts panel confirms them.
+  alerts: `${PREFIX}/alerts.json`,
+  // Your Confirm / Drop on those, written only by the admin.
+  alertDecisions: `${PREFIX}/alert-decisions.json`,
 };
 
 export function json(body, status = 200) {

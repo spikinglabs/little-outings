@@ -11,6 +11,7 @@ import { inWindow, type Window } from "../lib/seasons-window";
 import { daysFor, fit, mood, moods, sharedMood, skyIcon, skyWord, wantsRoof, type Day, type Mood, type Packed } from "../lib/weather";
 import { tileOf, tilesFor, tilesNear } from "../lib/tiles";
 import { cardsIn, dataOf } from "../lib/tile-cards";
+import { showAlerts } from "./alerts";
 import { TILES, distanceAt, getHome, homeAt, markSaved, nearestTown, renderKm, setHere, setHome, townKm } from "./app";
 import type {} from "../islands/OutingsMap";
 
@@ -34,6 +35,7 @@ const count = (p: Plural, n: number, r?: number) =>
   ((pr.select(n) === "one" && p.one) || p.other).replace("{n}", String(n)).replace("{r}", String(r ?? ""));
 
 // area: the map's bounds [south, west, north, east] once the reader moves the map; it replaces the radius.
+const ALERT_KM = 15; // a city alert also shows in towns this close (Köln's in Hürth)
 const PAGE = 24; // cards shown at once; OpenStreetMap brings in more than a thousand places
 const state = { limit: PAGE, area: null as number[] | null, view: 0, when: "weekend", q: "", rain: false, farm: false, free: false, animals: false, changing: false, nogerman: false, outdoor: false, season: "", radius: 30, kind: "", tag: "", order: "mixed" as Order };
 const $ = <T extends Element = HTMLElement>(s: string) => document.querySelector<T>(s)!;
@@ -478,6 +480,7 @@ function showHome(town: string) {
   home.value = town;
   $("[data-home-name]").textContent = b.textContent;
   shortcuts(town);
+  showAlerts(town, (city) => (townKm(town, city) ?? 99) <= ALERT_KM);
 }
 /** A season page within reach of the town: its own, else the nearest within 40 km (Hürth gets Köln's markets). */
 function seasonPageNear(towns: Record<string, string>, town: string): string | undefined {
