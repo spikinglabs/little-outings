@@ -2,7 +2,7 @@
 # translates new event titles and place names into Chinese, and event titles into English, every night, before the deploy
 # (02:15) builds the site, and commits data/translations/zh.json and en.json. Each text is translated once per language.
 # Needs a repository secret GEMINI_API_KEY (Gemini) or ANTHROPIC_API_KEY (Claude); with both, Gemini
-# is used unless the variable LLM_PROVIDER says "anthropic". The variable TRANSLATE_MODEL picks the
+# is used first and Claude takes over when Gemini runs out of credits, unless the variable LLM_PROVIDER names one. The variable TRANSLATE_MODEL picks the
 # model (defaults in src/lib/llm.ts), SORT_MODEL the one that sorts events, SORT_LIMIT how many new titles it sorts per night (default 3000),
 # TRANSLATE_LIMIT how many new texts it translates per language per night (default 3000). Without a key it only reports what is missing.
 # Sorting reads and writes the Allo Outings bucket with wrangler: it needs a Cloudflare API token with
