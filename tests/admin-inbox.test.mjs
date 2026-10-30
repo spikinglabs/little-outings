@@ -120,7 +120,9 @@ test("approving a suggested event commits it as a content file and closes the is
 
 test("an approved place becomes a place file with only known features", async () => {
   const { placeFile } = await import("../admin/lib/inbox.js");
-  const f = placeFile(9, { type: "farm", name: 'Hof "Sonne"', town: "Düren", street: "Weg 1", features: ["animals", "bogus"], website: "javascript:x", note: "" }, "l@x");
+  const f = placeFile(9, { type: "farm", name: 'Hof "Sonne"', town: "Düren", street: "Weg 1", features: ["animals", "bogus"], website: "javascript:x", note: "" });
+  assert.match(f.text, /^# Suggested by a parent \(inbox #9\), approved in the admin\.$/m);
+  assert.ok(!f.text.includes("@"));
   assert.equal(f.path, "content/places/community/inbox-9.yaml");
   assert.match(f.text, /^kind: farm$/m);
   assert.match(f.text, /^address: \{ street: "Weg 1", town: "Düren" \}$/m);

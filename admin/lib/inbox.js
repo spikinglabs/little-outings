@@ -92,7 +92,7 @@ export function townOf(place) {
  * The content file for an approved event suggestion, or an error message. Values are JSON-quoted,
  * which is valid YAML, so nothing a parent typed can change the file's structure.
  */
-export function eventFile(number, d, approvedBy) {
+export function eventFile(number, d) {
   if (!d?.title) return { error: "This event has no title." };
   if (!/^\d{4}-\d{2}-\d{2}$/.test(String(d.date ?? ""))) return { error: `The date "${d.date ?? ""}" isn't YYYY-MM-DD; fix it before approving.` };
   const place = String(d.place ?? "").trim();
@@ -102,7 +102,7 @@ export function eventFile(number, d, approvedBy) {
   const price = String(d.price ?? "").trim();
   const free = /^(kostenlos|frei|eintritt frei|gratis|free|0 ?€?|免费)$/i.test(price);
   const lines = [
-    `# Suggested by a parent (inbox #${number}), approved in the admin by ${String(approvedBy).replace(/\s+/g, " ")}.`,
+    `# Suggested by a parent (inbox #${number}), approved in the admin.`,
     `# Edit here to fix it. If the sender edits it, approving again replaces this file.`,
     `title: ${q(d.title)}`,
     venue && venue !== town ? `venue: ${q(venue)}` : "",
@@ -125,14 +125,14 @@ const FEATURES = ["playground", "changing_table", "highchairs", "kids_menu", "to
   "sandpit", "water_play", "swings", "slides", "climbing", "toddler_area", "shade", "benches", "fenced"];
 
 /** The content file for an approved place suggestion, or an error message. */
-export function placeFile(number, d, approvedBy) {
+export function placeFile(number, d) {
   if (!d?.name) return { error: "This place has no name." };
   if (!PLACE_KINDS.includes(d.type)) return { error: `"${d.type ?? ""}" isn't a kind of place the site knows.` };
   if (!String(d.town ?? "").trim()) return { error: "This place has no town; add one before approving." };
   const features = (Array.isArray(d.features) ? d.features : []).filter((f) => FEATURES.includes(f));
   const website = /^https?:\/\/[^\s]+\.[^\s]+$/.test(String(d.website ?? "").trim()) ? String(d.website).trim() : "";
   const lines = [
-    `# Suggested by a parent (inbox #${number}), approved in the admin by ${String(approvedBy).replace(/\s+/g, " ")}.`,
+    `# Suggested by a parent (inbox #${number}), approved in the admin.`,
     `# Edit here to fix it.`,
     `kind: ${d.type}`,
     `name: ${q(d.name)}`,
