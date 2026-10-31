@@ -1,19 +1,19 @@
 // Build-time Rednote sets (src/lib/rednote.ts): each REDNOTE_TOWNS town's newest weekend edition, each
-// confirmed city alert still to come, and the hand-written sets in content/rednote/ until their `until` day. Drawn by src/pages/xhs/[file].ts,
+// confirmed city alert still to come, each confirmed recall still shown, and the hand-written sets in content/rednote/ until their `until` day. Drawn by src/pages/xhs/[file].ts,
 // listed with their captions in /xhs/index.json for the admin's Rednote box.
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { load as parseYaml } from "js-yaml";
-import { getAlerts, getData, TODAY } from "./data";
+import { getAlerts, getData, getRecalls, TODAY } from "./data";
 import { townName } from "./format";
 import { useT } from "./i18n";
 import { codeOf } from "./rednote-code";
-import { REDNOTE_TOWNS, alertSet, codesOf, fileSet, weeklySet, type SetFile, type XhsSet } from "./rednote";
+import { REDNOTE_TOWNS, alertSet, codesOf, recallSet, fileSet, weeklySet, type SetFile, type XhsSet } from "./rednote";
 import { editionTowns, weekendCounts } from "./weekend-data";
 import type { Pick } from "./weekend";
 
 const DIR = "content/rednote";
 
-export interface BuiltSet extends XhsSet { kind: "weekly" | "set" | "alert"; town?: string; weekend?: string; season?: string; day?: string }
+export interface BuiltSet extends XhsSet { kind: "weekly" | "set" | "alert" | "recall"; town?: string; weekend?: string; season?: string; day?: string }
 
 /** The hand-written sets, by file name, still before their `until` day. */
 export function setFiles(): [string, SetFile][] {
@@ -52,6 +52,8 @@ async function buildSets(): Promise<{ sets: BuiltSet[]; codes: Record<string, st
     sets.push({ kind: "weekly", town: ed.town, weekend: ed.weekend, ...weeklySet(live, { townZh: townName(ed.town, "zh", region.towns), kindName: (k) => t(`kinds.${k}`), more, codes }) });
     Object.assign(found, codesOf(live, codes));
   }
+  // Confirmed product recalls still shown (data/recalls.json), newest first, then the alerts above them.
+  for (const r of getRecalls().reverse()) sets.unshift({ kind: "recall", day: r.published, ...recallSet(r) });
   // Confirmed city alerts (data/alerts.json) get a set of their own, listed first, ready as soon as the admin confirms one.
   for (const a of getAlerts().reverse()) sets.unshift({ kind: "alert", town: a.city, day: a.day, ...alertSet(a, townName(a.city, "zh", region.towns)) });
   for (const [id, f] of setFiles()) sets.push({ kind: "set", ...(f.season ? { season: f.season } : {}), ...fileSet(id, f) });

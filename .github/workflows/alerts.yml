@@ -1,7 +1,7 @@
-# Checks city alerts on demand (scripts/check-alerts.mjs), without the rest of the nightly Translate job:
+# Checks city alerts and product recalls on demand (scripts/check-alerts.mjs, scripts/check-recalls.mjs), without the rest of the nightly Translate job:
 # no event sorting, no translation, and above all no weekend edition, which a Friday run would publish again.
 # The nightly Translate job does the same step every night; run this one when an alert can't wait.
-name: City alerts
+name: City alerts and recalls
 on:
   workflow_dispatch:
 permissions:
@@ -25,7 +25,7 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID || vars.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           mkdir -p .cache/outings
-          for f in alerts.json alert-decisions.json; do
+          for f in alerts.json alert-decisions.json recalls.json recall-decisions.json; do
             if npx wrangler r2 object get "$BUCKET/little-outings/$f" --file ".cache/outings/$f.part" > /dev/null 2>&1; then
               mv ".cache/outings/$f.part" ".cache/outings/$f"
             else
@@ -48,13 +48,31 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.R2_SORT_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID || vars.CLOUDFLARE_ACCOUNT_ID }}
         run: npx wrangler r2 object put "$BUCKET/little-outings/alerts.json" --file .cache/outings/alerts.json --content-type application/json
+      # Product recalls from spikinglabs/recall-tracker (lebensmittelwarnung.de): the AI writes up the German ones for
+      # families, the admin's Recalls panel confirms, and confirmed ones go to data/recalls.json (the Recalls page).
+      - name: Check product recalls with AI
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          LLM_PROVIDER: ${{ vars.LLM_PROVIDER }}
+          RECALLS_MODEL: ${{ vars.RECALLS_MODEL }}
+          RECALLS_EXPORT: ${{ vars.RECALLS_EXPORT }}
+        run: |
+          out=$(npm run --silent check:recalls 2>&1) || { echo "$out"; exit 1; }
+          echo "$out"; echo "::notice title=Recalls::$(echo "$out" | tail -1)"
+      - name: Save the recall verdicts for the admin
+        if: github.ref_name == 'main'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.R2_SORT_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID || vars.CLOUDFLARE_ACCOUNT_ID }}
+        run: npx wrangler r2 object put "$BUCKET/little-outings/recalls.json" --file .cache/outings/recalls.json --content-type application/json
       - name: Commit the confirmed alerts
         run: |
-          git add data/alerts.json
+          git add data/alerts.json data/recalls.json
           if git diff --cached --quiet; then echo "No changes."; exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "Update city alerts"
+          git commit -m "Update city alerts and recalls"
           git pull --rebase origin "$GITHUB_REF_NAME"
           git push
           # A push made with this job's token starts no workflow, so ask for the site build here:
