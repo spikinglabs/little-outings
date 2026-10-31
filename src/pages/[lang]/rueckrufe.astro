@@ -1,0 +1,41 @@
+---
+// Product recalls: the official German recalls of children's products someone confirmed in the admin, newest
+// first, each with what it is, why, where it was sold, how to tell if yours is affected and what to do.
+// Discover and the weekend pages link here (components/RecallLine.astro). Built nightly and after each Confirm.
+import Base from "../../layouts/Base.astro";
+import { getRecalls } from "../../lib/data";
+import { LANGS, useT, type Lang } from "../../lib/i18n";
+import type { Recall } from "../../lib/recalls";
+
+export const getStaticPaths = () => LANGS.map((lang) => ({ params: { lang } }));
+const lang = Astro.params.lang as Lang;
+const t = useT(lang);
+const recalls = getRecalls();
+const day = (d: string) => new Intl.DateTimeFormat(t.locale, { timeZone: "UTC", day: "numeric", month: "long", year: "numeric" }).format(new Date(`${d}T12:00:00Z`));
+const where = (r: Recall) => (r.states === "all" ? t("recalls.all") : r.states?.join(", "));
+---
+<Base lang={lang} title={t("recalls.title")} description={t("recalls.intro")}>
+  <h1 class="page-title">{t("recalls.title")}</h1>
+  <p class="page-sub">{t("recalls.intro")}</p>
+
+  {recalls.length === 0 && <p class="recall-none">{t("recalls.none")}</p>}
+  <ol class="recalls">
+    {recalls.map((r) => (
+      <li class="recall" id={`r-${r.id.split("/").at(-1)?.replace(/\.html$/, "")}`}>
+        <p class="recall-meta"><span class="alert-type">{t(`recalls.kind.${r.kind}`)}</span> {t("recalls.published", { date: day(r.published) })}</p>
+        <h2>{r.product[lang]}</h2>
+        <p class="recall-reason">{r.reason[lang]}</p>
+        <p>{r.line[lang]}</p>
+        <dl>
+          {r.stores?.length && <div><dt>{t("recalls.stores")}</dt><dd>{r.stores.join(", ")}</dd></div>}
+          {r.states && <div><dt>{t("recalls.states")}</dt><dd>{where(r)}</dd></div>}
+          {r.company && <div><dt>{t("recalls.company")}</dt><dd>{r.company}</dd></div>}
+        </dl>
+        {r.check && <><h3>{t("recalls.check")}</h3><ul>{r.check[lang].map((x) => <li>{x}</li>)}</ul></>}
+        {r.todo && <><h3>{t("recalls.todo")}</h3><ul>{r.todo[lang].map((x) => <li>{x}</li>)}</ul></>}
+        <p><a href={r.url} target="_blank" rel="noopener nofollow">{t("recalls.source")} ↗</a></p>
+      </li>
+    ))}
+  </ol>
+  <p class="small recall-from">{t("recalls.from")}</p>
+</Base>

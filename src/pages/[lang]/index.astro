@@ -5,6 +5,7 @@
 import Base from "../../layouts/Base.astro";
 import Stamp from "../../components/Stamp.astro";
 import CityAlerts from "../../components/CityAlerts.astro";
+import RecallLine from "../../components/RecallLine.astro";
 import { LANGS, MAKER_URL, tr, useT, type Lang } from "../../lib/i18n";
 import { getData, getWeather, TODAY } from "../../lib/data";
 import { pathFor, townName } from "../../lib/format";
@@ -113,6 +114,8 @@ const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
     </div>
     <!-- Confirmed city alerts for the home town (a big demo, a strike); explore.ts shows them. -->
     <CityAlerts lang={lang} t={t} />
+    <!-- Current recalls of children's products, one line to the Recalls page. -->
+    <RecallLine lang={lang} t={t} />
     <!-- The chosen days' weather, and a nudge toward ideas that suit it (explore.ts). Hidden without a forecast. -->
     <div class="wx" data-wx hidden>
       <p class="wx-days" data-wx-days></p>

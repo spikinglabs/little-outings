@@ -17,6 +17,10 @@ export const KEYS = {
   alerts: `${PREFIX}/alerts.json`,
   // Your Confirm / Drop on those, written only by the admin.
   alertDecisions: `${PREFIX}/alert-decisions.json`,
+  // Product recalls with the AI's write-up, written nightly by scripts/check-recalls.mjs; the Recalls panel confirms them.
+  recalls: `${PREFIX}/recalls.json`,
+  // Your Confirm / Drop on those, written only by the admin.
+  recallDecisions: `${PREFIX}/recall-decisions.json`,
 };
 
 export function json(body, status = 200) {

@@ -85,6 +85,24 @@ h1, h2, h3, .meta, .de-name, .orig, .trust { overflow-wrap: anywhere; }
 .alert-more summary { cursor: pointer; color: var(--ink-soft); font-size: .9rem; }
 .alert-more p, .alert-more dl, .alert-more ul { margin: 4px 0 0; }
 .alert-more dl div { display: flex; gap: 6px; }
+/* Recalls (components/RecallLine.astro, pages/[lang]/rueckrufe.astro) */
+.recall-line { display: flex; flex-wrap: wrap; gap: 2px 8px; align-items: baseline; margin-top: 10px; padding: 8px 12px; border-radius: 12px; background: var(--card); border: 1px solid var(--rot); border-left-width: 4px; color: var(--ink); text-decoration: none; }
+.recall-line b { color: var(--rot); }
+.recall-line span { color: var(--ink-soft); overflow-wrap: anywhere; }
+.recalls { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 14px; }
+.recall { padding: 12px 14px; border-radius: 12px; background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--rot); overflow-wrap: anywhere; }
+.recall h2 { margin: 4px 0 2px; font-size: 1.15rem; }
+.recall h3 { margin: 10px 0 2px; font-size: .95rem; }
+.recall p, .recall ul, .recall dl { margin: 4px 0 0; }
+.recall ul { padding-left: 1.2em; }
+.recall dl div { display: flex; gap: 6px; }
+.recall dt { color: var(--ink-soft); }
+.recall dt::after { content: ":"; }
+.recall dd { margin: 0; }
+.recall-meta { color: var(--ink-soft); font-size: .9rem; }
+.recall-reason { font-weight: 700; color: var(--rot); }
+.recall-none { margin-top: 16px; }
+.recall-from { margin-top: 18px; color: var(--ink-soft); }
 .alert-more dt { color: var(--ink-soft); }
 .alert-more dt::after { content: ":"; }
 .alert-more dd { margin: 0; }

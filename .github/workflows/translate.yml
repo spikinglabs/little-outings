@@ -34,7 +34,7 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID || vars.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           mkdir -p .cache/outings
-          for f in candidates.jsonl candidates.json decisions.json sorted.json weekend.json alerts.json alert-decisions.json; do
+          for f in candidates.jsonl candidates.json decisions.json sorted.json weekend.json alerts.json alert-decisions.json recalls.json recall-decisions.json; do
             if npx wrangler r2 object get "$BUCKET/little-outings/$f" --file ".cache/outings/$f.part" > /dev/null 2>&1; then
               mv ".cache/outings/$f.part" ".cache/outings/$f"
             else
@@ -84,6 +84,25 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.R2_SORT_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID || vars.CLOUDFLARE_ACCOUNT_ID }}
         run: npx wrangler r2 object put "$BUCKET/little-outings/alerts.json" --file .cache/outings/alerts.json --content-type application/json
+      # Product recalls from spikinglabs/recall-tracker (lebensmittelwarnung.de): the AI writes up the German ones for
+      # families, the admin's Recalls panel confirms, and confirmed ones go to data/recalls.json (the Recalls page).
+      - name: Check product recalls with AI
+        if: steps.bucket.outputs.ok == '1'
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          LLM_PROVIDER: ${{ vars.LLM_PROVIDER }}
+          RECALLS_MODEL: ${{ vars.RECALLS_MODEL }}
+          RECALLS_EXPORT: ${{ vars.RECALLS_EXPORT }}
+        run: |
+          out=$(npm run --silent check:recalls 2>&1) || { echo "$out"; exit 1; }
+          echo "$out"; echo "::notice title=Recalls::$(echo "$out" | tail -1)"
+      - name: Save the recall verdicts for the admin
+        if: steps.bucket.outputs.ok == '1' && github.ref_name == 'main'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.R2_SORT_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID || vars.CLOUDFLARE_ACCOUNT_ID }}
+        run: npx wrangler r2 object put "$BUCKET/little-outings/recalls.json" --file .cache/outings/recalls.json --content-type application/json
       - name: Find venues on event pages
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -129,10 +148,10 @@ jobs:
         run: npx wrangler r2 object put "$BUCKET/little-outings/weekend.json" --file .cache/outings/weekend.json --content-type application/json
       - name: Commit the outings, venues and translations
         run: |
-          git add data/translations/zh.json data/translations/en.json data/venues.json data/outings.jsonl data/weekend data/alerts.json
+          git add data/translations/zh.json data/translations/en.json data/venues.json data/outings.jsonl data/weekend data/alerts.json data/recalls.json
           if git diff --cached --quiet; then echo "No changes."; exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "Publish sorted events, venues from event pages, translated titles, the weekend edition and city alerts"
+          git commit -m "Publish sorted events, venues from event pages, translated titles, the weekend edition, city alerts and recalls"
           git pull --rebase origin "$GITHUB_REF_NAME"
           git push

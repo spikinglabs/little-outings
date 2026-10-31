@@ -1,0 +1,18 @@
+---
+// One line on Discover and the weekend pages: how many recalls of children's products are current, and the
+// newest product, linking to the Recalls page (src/pages/[lang]/rueckrufe.astro). Recalls cover all of Germany,
+// so every town sees the same line. Nothing without a confirmed recall.
+import { getRecalls } from "../lib/data";
+import type { Lang, T } from "../lib/i18n";
+
+interface Props { lang: Lang; t: T }
+const { lang, t } = Astro.props;
+const recalls = getRecalls();
+---
+{recalls.length > 0 && (
+  <a class="recall-line" href={`/${lang}/rueckrufe/`}>
+    <b>⚠ {t("recalls.line", { n: recalls.length })}</b>
+    <span>{recalls[0].product[lang]}{recalls.length > 1 ? " …" : ""}</span>
+    <span aria-hidden="true">→</span>
+  </a>
+)}

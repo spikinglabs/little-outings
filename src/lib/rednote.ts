@@ -227,3 +227,72 @@ export function alertSet(a: AlertFacts, townZh: string): XhsSet {
   ].join("\n");
   return { id: `alert-${townSlug(a.city)}-${a.day}-${a.id.slice(-6)}`, title: `${townZh}${typeZh === "出行提醒" ? "" : typeZh}出行提醒｜${dayZh(a.day)}`.slice(0, 20), caption, sheets };
 }
+
+// ---------- product recalls ----------
+
+/** One confirmed recall (src/lib/recalls.ts) as a Rednote set: what it is, how to tell, what to do. Facts only, no link. */
+export interface RecallFacts {
+  id: string; published: string; kind: string; stores?: string[]; states?: "all" | string[]; company?: string;
+  product: { zh: string }; reason: { zh: string }; line: { zh: string }; check?: { zh: string[] }; todo?: { zh: string[] };
+}
+
+export const RECALL_KIND_ZH: Record<string, string> = {
+  baby_food: "婴儿食品", food: "儿童食品", toy: "玩具", kids_product: "儿童用品", cosmetics: "化妆品", other: "儿童产品",
+};
+/** What to do at home, by kind, when the notice itself says little. Plain advice. */
+const RECALL_TIPS_ZH: Record<string, string[]> = {
+  baby_food: ["对照批次号和保质期（MHD），对上的先别给宝宝吃", "宝宝吃过后不舒服，联系儿科医生"],
+  food: ["对照批次号和保质期（MHD），对上的先别给孩子吃"],
+  toy: ["对照包装上的型号和条形码，对上的先收起来别给孩子玩"],
+  default: ["对照包装上的保质期（MHD）、批次号和条形码，对上的先别给孩子用"],
+};
+const STATE_ZH: Record<string, string> = {
+  "Baden-Württemberg": "巴登-符腾堡", Bayern: "巴伐利亚", Berlin: "柏林", Brandenburg: "勃兰登堡", Bremen: "不来梅",
+  Hamburg: "汉堡", Hessen: "黑森", "Mecklenburg-Vorpommern": "梅克伦堡-前波莫瑞", Niedersachsen: "下萨克森",
+  "Nordrhein-Westfalen": "北威州", "Rheinland-Pfalz": "莱茵兰-普法尔茨", Saarland: "萨尔", Sachsen: "萨克森",
+  "Sachsen-Anhalt": "萨克森-安哈尔特", "Schleswig-Holstein": "石勒苏益格-荷尔斯泰因", Thüringen: "图林根",
+};
+export const statesZh = (s?: "all" | string[]) => (!s ? "" : s === "all" ? "全德国" : s.map((x) => STATE_ZH[x] ?? x).join("、"));
+const dateZh = (d: string) => `${Number(d.slice(5, 7))}月${Number(d.slice(8, 10))}日`;
+
+export function recallSet(r: RecallFacts): XhsSet {
+  const kindZh = RECALL_KIND_ZH[r.kind] ?? RECALL_KIND_ZH.other;
+  const where = statesZh(r.states);
+  const clean = (xs?: string[]) => (xs ?? []).filter((x) => !LINKISH.test(x));
+  const check = clean(r.check?.zh), todo = clean(r.todo?.zh);
+  const tips = RECALL_TIPS_ZH[r.kind] ?? RECALL_TIPS_ZH.default;
+  const facts = [
+    `产品：${r.product.zh}`,
+    `原因：${r.reason.zh}`,
+    ...(r.stores?.length ? [`销售商店：${r.stores.join("、")}`] : []),
+    ...(where ? [`地区：${where}`] : []),
+    ...(r.company ? [`厂家：${r.company}`] : []),
+  ];
+  const sheets: Sheet[] = [
+    { tone: "ink", tag: `召回提醒 · ${kindZh}`, title: `${r.product.zh}\n召回`, big: true,
+      lines: [r.line.zh, [where, `${dateZh(r.published)}发布`].filter(Boolean).join(" · ")], foot: "信息来自德国官方食品警告网站" },
+    ...pageLines([...facts, ...check.map((x) => `· ${x}`)]).map((lines): Sheet => ({ tone: "paper", tag: `${dateZh(r.published)} · ${kindZh}`, title: "具体信息", lines, foot: "信息以官方公告为准" })),
+    { tone: "gold", tag: "注意事项", title: "家里有这个？", lines: [...[...todo, ...tips].slice(0, 4).map((x) => `· ${x}`), "有更多消息，欢迎在评论区补充"] },
+  ];
+  const caption = [
+    `⚠️ ${kindZh}召回｜${r.product.zh}`,
+    `🗓 ${dateZh(r.published)}发布${where ? ` · ${where}` : ""}`,
+    ...(r.stores?.length ? [`🛒 ${r.stores.join("、")}`] : []),
+    "",
+    r.line.zh,
+    "",
+    `原因：${r.reason.zh}`,
+    ...(check.length ? ["", "怎么看是不是：", ...check.map((x) => `· ${x}`)] : []),
+    "",
+    "怎么办：",
+    ...[...todo, ...tips].map((x) => `· ${x}`),
+    "",
+    "信息来自德国官方食品警告网站，以官方公告为准。有更多消息，欢迎在评论区补充👇",
+    "",
+    hashtags(["德国带娃", "产品召回", kindZh, "德国生活", "德国妈妈", "德国爸爸"]),
+  ].join("\n");
+  const slug = r.id.split("/").at(-1)!.replace(/(_Meldung)?\.html$/i, "").replace(/[^\w-]/g, "").slice(-24).toLowerCase();
+  // Rednote titles hold 20 characters: the product when it fits, the kind and day otherwise.
+  const title = [`${kindZh}召回｜${r.product.zh}`, `${r.product.zh}召回`].find((x) => [...x].length <= 20) ?? `${kindZh}召回提醒｜${dateZh(r.published)}`;
+  return { id: `recall-${r.published}-${slug}`, title, caption, sheets };
+}

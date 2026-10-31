@@ -175,3 +175,19 @@ test("the Chinese font has every character the alert cards always show", () => {
   const missing = [...new Set([...(JSON.stringify(s.sheets) + JSON.stringify(fixed.sheets) + JSON.stringify(typed.map((x) => x.sheets)))].filter((c) => c.charCodeAt(0) >= 0x2e80 && !have.has(c)))];
   assert.deepEqual(missing, []);
 });
+
+test("a recall set: cover, facts, what to do; no link, title within 20 characters", async () => {
+  const { recallSet } = await import("../src/lib/rednote.ts");
+  const set = recallSet({
+    id: "https://www.lebensmittelwarnung.de/x/261002_02_NW_Fruchtgummi_Meldung.html", published: "2026-10-02", kind: "food", stores: ["Action"], states: "all",
+    product: { zh: "Cokoc 煎蛋造型软糖 80 克" }, reason: { zh: "可能发霉" }, line: { zh: "Action 卖的软糖可能发霉。" },
+    check: { zh: ["保质期 2027年10月24日", "详见 www.example.de"] }, todo: { zh: ["退回 Action，无需小票即可退款"] },
+  });
+  assert.ok([...set.title].length <= 20);
+  assert.equal(set.sheets[0].tone, "ink");
+  assert.equal(set.sheets.at(-1)!.title, "家里有这个？");
+  assert.ok(!/www\.|https?:/.test(set.caption + JSON.stringify(set.sheets)), "no link on Rednote");
+  assert.match(set.caption, /^⚠️ 儿童食品召回/);
+  assert.match(set.caption, /#小鹿出游/);
+  assert.match(set.id, /^recall-2026-10-02-/);
+});

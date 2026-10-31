@@ -12,6 +12,7 @@
   <script type="module" src="inbox.js"></script>
   <script type="module" src="weekend.js"></script>
   <script type="module" src="alerts.js"></script>
+  <script type="module" src="recalls.js"></script>
   <script type="module" src="rednote.js"></script>
   <script type="module" src="instagram.js"></script>
   <script type="module" src="usage.js"></script>
@@ -66,6 +67,15 @@
       </div>
       <div class="banner" id="alerts-banner" hidden></div>
       <ol class="alerts-list" id="alerts"></ol>
+    </section>
+
+    <section class="panel" id="recalls-panel">
+      <div class="panel-head">
+        <h2>Recalls <span class="badge out" id="recalls-count"></span></h2>
+        <p>Official German recalls of baby food, children's food, toys and children's products, collected daily by recall-tracker from lebensmittelwarnung.de. Every night the AI reads each new recall page and writes what the product is, why it was recalled, where it was sold, what to check at home and what to do. Check the texts (facts only) and press Confirm: it shows on Discover, on the weekend pages and on the Recalls page a few minutes later, for 30 days unless you set another last day, and a Rednote poster set for it appears in the Rednote panel. <span id="recalls-when"></span></p>
+      </div>
+      <div class="banner" id="recalls-banner" hidden></div>
+      <ol class="alerts-list" id="recalls"></ol>
     </section>
 
     <section class="panel" id="rednote-panel">

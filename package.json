@@ -18,6 +18,7 @@
     "find:venues": "node scripts/find-venues.mjs",
     "sort:events": "node scripts/sort-events.mjs",
     "check:alerts": "node scripts/check-alerts.mjs",
+    "check:recalls": "node scripts/check-recalls.mjs",
     "weekend": "node scripts/weekend-edition.mjs",
     "post:weekend": "node scripts/post-weekend.mjs",
     "fetch:holidays": "node scripts/fetch-holidays.mjs",
