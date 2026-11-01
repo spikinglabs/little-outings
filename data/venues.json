@@ -45,9 +45,6 @@
  "https://centre-charlemagne.eu/termin/baden-pilgern-printen-2000-jahre-kulturgeschichte-11/": {
   "venue": "Centre Charlemagne"
  },
- "https://centre-charlemagne.eu/termin/leben-um-800-15/": {
-  "venue": "Centre Charlemagne"
- },
  "https://centre-charlemagne.eu/termin/noblesse-oblige-so-prachtvoll-glaenzte-aachen-6/": {
   "venue": "Centre Charlemagne"
  },
@@ -86,11 +83,6 @@
   "read": 3
  },
  "https://events.timely.fun/ewx8j2kb/event/78461299/20261118100000": {
-  "venue": null,
-  "guess": null,
-  "read": 3
- },
- "https://events.timely.fun/ewx8j2kb/event/78461301/20261021150000": {
   "venue": null,
   "guess": null,
   "read": 3
@@ -491,9 +483,6 @@
  "https://museen-tempelhof-schoeneberg.de/events/eroeffnung-crosskultur-2026/": {
   "venue": "Willy-Brandt-Saal im Rathaus Schöneberg",
   "street": "John-F.-Kennedy-Platz 1"
- },
- "https://schwerbelastungskoerper.de/events/saisonende/": {
-  "venue": "Informationsort Schwerbelastungskörper"
  },
  "https://suermondt-ludwig-museum.de/event/ars-longa-vita-brevis/": {
   "venue": null,
@@ -983,11 +972,6 @@
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/rundgang-ueber-den-neuen-friedhof-am-ende-der-friedenstrae": {
   "venue": "Rondell am Friedhofseingang"
  },
- "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/rundgang-ueber-den-neuen-friedhof-am-ende-der-friedenstrae-31-10-2026": {
-  "venue": null,
-  "guess": null,
-  "read": 3
- },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/seeraeuber-susi-sucht-ws-suesses": {
   "venue": "Theater Düren im Haus der Stadt",
   "street": "Stefan-Schwer-Straße 4-6"
@@ -1026,10 +1010,6 @@
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/stadtfuehrung-duerener-stadtrundgang-08-11-2026": {
   "venue": "iPUNKT",
   "street": "Markt 6"
- },
- "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/stadtfuehrung-evangelischer-friedhof": {
-  "venue": "Evangelischer Friedhof",
-  "street": "Kölnstraße 100"
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/tag-der-offenen-tuer-am-burgau-gymnasium": {
   "venue": "Burgau Gymnasium",
@@ -1092,10 +1072,6 @@
  },
  "https://www.schauburg.net/de/programm/just-listen": {
   "venue": "Musiktheater für die Turnhalle"
- },
- "https://www.visitduesseldorf.de/redirect/event/01a0f12a-dcea-7251-9fb6-d203682b75e7/de": {
-  "venue": "Rheinkirche Düsseldorf",
-  "street": "Luisenstr. 51"
  },
  "https://www.visitduesseldorf.de/redirect/event/01a157f4-5e8c-7323-8858-f322ffed3103/de": {
   "venue": "Gustav-Adolf-Kirche"
