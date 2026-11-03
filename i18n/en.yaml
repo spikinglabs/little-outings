@@ -234,6 +234,11 @@ addedBy: "Added by {by}"
 nick: { sentAs: "Sent as", anon: Sent anonymously, change: change in Profile, first: "You're shown as {nick}, a made-up nickname.", new: New nickname }
 footer: "No guarantee for any listing. Please check with the organiser before you go."
 byLine: "Allo Outings is a product by {maker}."
+allo:
+  more: More from Allo
+  recalls: { name: Allo Recalls, blurb: "Recalls of baby and kids' products, from official sources" }
+  auri: { name: Allo Auri, blurb: A private baby log for parents }
+  land: { name: Alloland, blurb: Settle into life in Germany }
 dataFrom: "Data includes {sources}."
 nearStreet: "near {street}"
 back: Back
