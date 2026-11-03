@@ -1,12 +1,19 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
-import { cpSync, existsSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
+import { cpSync, existsSync, mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { applyWeekendEdit } from "../admin/lib/weekend.js";
 import { onRequestGet, onRequestPost } from "../admin/functions/api/weekend-now.js";
 import { comingWeekend } from "../admin/public/weekend-now.js";
+
+// The tests publish the weekend of 7 Nov 2026 themselves, so the copy of data/weekend must not have it yet
+// (the live site publishes it too, which made these tests fail once it was committed).
+const copyWeekend = (out) => {
+  cpSync("data/weekend", out, { recursive: true });
+  for (const town of readdirSync(out)) rmSync(join(out, town, "2026-11-07.json"), { force: true });
+};
 
 const run = (env) => execFileSync("node", ["scripts/weekend-edition.mjs"], {
   env: { PATH: process.env.PATH, HOME: process.env.HOME, ...env }, encoding: "utf8",
@@ -15,7 +22,7 @@ const run = (env) => execFileSync("node", ["scripts/weekend-edition.mjs"], {
 test("early publishes the coming weekend once; later runs keep its picks", () => {
   const dir = mkdtempSync(join(tmpdir(), "weekend-now-"));
   const out = join(dir, "out"), draft = join(dir, "draft.json");
-  cpSync("data/weekend", out, { recursive: true });
+  copyWeekend(out);
   const env = { WEEKEND_DIR: out, DRAFT_FILE: draft };
   run({ ...env, WEEKEND_TODAY: "2026-11-03", WEEKEND_MODE: "early" });
   const file = join(out, "koeln", "2026-11-07.json");
@@ -44,7 +51,7 @@ test("early publishes the coming weekend once; later runs keep its picks", () =>
 test("Monday publishes the coming weekend, Friday refreshes it and keeps the codes", () => {
   const dir = mkdtempSync(join(tmpdir(), "weekend-mon-fri-"));
   const out = join(dir, "out"), draft = join(dir, "draft.json"), outings = join(dir, "outings.jsonl");
-  cpSync("data/weekend", out, { recursive: true });
+  copyWeekend(out);
   cpSync("data/outings.jsonl", outings);
   const env = { WEEKEND_DIR: out, DRAFT_FILE: draft, OUTINGS_FILE: outings };
   assert.match(run({ ...env, WEEKEND_TODAY: "2026-11-02" }), /published \d+ edition/);
