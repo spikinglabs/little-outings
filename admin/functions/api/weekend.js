@@ -15,7 +15,7 @@ export async function onRequestPut({ request, env, data }) {
   let body;
   try { body = await request.json(); } catch { return json({ error: "Expected JSON." }, 400); }
   const object = await env.OUTINGS.get(KEYS.weekend);
-  if (!object) return json({ error: "There is no weekend draft yet; it comes on Thursday night." }, 404);
+  if (!object) return json({ error: "There is no weekend draft yet; it comes early on Monday." }, 404);
   if (body.etag && body.etag !== object.etag) return json({ error: "The draft changed since you loaded it. Reload to see it." }, 409);
   let draft;
   try { draft = applyWeekendEdit(await object.json(), body, data.user); } catch (error) { return json({ error: error.message }, 400); }

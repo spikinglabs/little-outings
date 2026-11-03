@@ -109,8 +109,9 @@ jobs:
         run: |
           out=$(npm run --silent translate 2>&1) || { echo "$out"; exit 1; }
           echo "$out"; echo "::notice title=Translate::$(echo "$out" | tail -1)"
-      # Thursday: drafts this weekend's edition for the admin's Weekend panel. Friday: publishes it
-      # (data/weekend/), and the push below makes the deploy build /<lang>/wochenende/<town>/.
+      # Monday: picks and publishes the coming weekend's edition (data/weekend/). Friday: refreshes it
+      # (weather, a cancelled pick replaced at the end). The push below makes the deploy build
+      # /<lang>/wochenende/<town>/ and the Rednote and Instagram cards.
       - name: Weekend edition
         id: weekend
         env:

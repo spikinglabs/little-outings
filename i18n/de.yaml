@@ -607,7 +607,7 @@ weekend:
   h1: "Dieses <em>Wochenende</em> mit Kindern in {town}"
   kicker: "Ausgabe KW {week} · {town}"
   sub: "{range} · ausgesucht für Familien"
-  description: "Was tun mit Kindern am Wochenende in {town}? {list} und mehr: Ideen für {range}, jeden Freitag neu."
+  description: "Was tun mit Kindern am Wochenende in {town}? {list} und mehr: Ideen für {range}, jeden Montag neu, freitags aktualisiert."
   always: Immer offen
   still: Läuft noch
   until: "bis {date}"
@@ -624,19 +624,19 @@ weekend:
   telegram: Telegram-Kanal
   print: Zum Aushängen (A4)
   rss: RSS-Feed
-  next: "Die nächste Ausgabe kommt am Freitag, {date}, früh am Morgen."
+  next: "Die nächste Ausgabe kommt am {date}, früh am Morgen."
   meanwhile: Alles fürs Wochenende auf Entdecken
   lastEdition: "Letzte Ausgabe: {range}"
   archiveNote: "Diese Ausgabe war für {range}."
   current: Zur aktuellen Ausgabe
   earlier: Frühere Ausgaben
-  how: "Jeden Freitag neu: aus allen Familien-Terminen in {town} ausgesucht. Vorn liegt, was für Kinder gemacht ist, kostenlos und tagsüber, passend zum Wetter; jeder Ort nur einmal, und nichts, was in den letzten Wochen schon dabei war. Bitte vorher beim Veranstalter nachsehen."
+  how: "Jeden Montag neu und freitags aktualisiert: aus allen Familien-Terminen in {town} ausgesucht. Vorn liegt, was für Kinder gemacht ist, kostenlos und tagsüber, passend zum Wetter; jeder Ort nur einmal, und nichts, was in den letzten Wochen schon dabei war. Bitte vorher beim Veranstalter nachsehen."
   weather: "Wetter: Open-Meteo.com"
   nav: Wochenend-Tipps
   new: neu
-  cardKicker: Jeden Freitag neu
+  cardKicker: Jeden Montag neu
   hub: Wochenende mit Kindern
-  hubSub: Jeden Freitag neue Ideen fürs Wochenende, für jede Stadt.
+  hubSub: Jeden Montag neue Ideen fürs Wochenende, freitags aktualisiert, für jede Stadt.
   printWeekly: "Jede Woche neu: {url}"
   printFoot: "Ideen für Familien, auf Deutsch, Englisch und Chinesisch. Ohne Anmeldung, ohne Werbung. Bitte vorher beim Veranstalter nachsehen."
   printHint: "Zum Drucken Strg+P oder ⌘P drücken, A4 hochkant. Diese Zeile wird nicht mitgedruckt."
@@ -689,7 +689,7 @@ city:
   qPlay: "Wo gibt es gute Spielplätze in {town}?"
   aPlay: "{town} hat {n} Spielplätze; am meisten wissen wir über {list}. Auf jeder Spielplatzseite steht, ob es Sandkasten, Schaukeln oder Toiletten gibt."
   qWeekend: "Was kann man am Wochenende mit Kindern in {town} machen?"
-  aWeekendEdition: "Jeden Freitag stellen wir die besten Termine und Orte fürs Wochenende in {town} zusammen: {list}."
+  aWeekendEdition: "Jeden Montag stellen wir die besten Termine und Orte fürs Wochenende in {town} zusammen: {list}."
   aWeekend: "Am Wochenende: {list}."
   sep: ", "
   others: Andere Städte

@@ -35,7 +35,7 @@ async function buildSets(): Promise<{ sets: BuiltSet[]; codes: Record<string, st
   for (const town of editionTowns().filter((w) => REDNOTE_TOWNS.includes(w.slug))) {
     const ed = town.editions[0];
     if (!ed) continue;
-    // A pick cancelled since Friday drops out, as on the weekend page; the others keep their codes.
+    // A pick cancelled since it came out drops out, as on the weekend page; the others keep their codes.
     const kept = ed.picks.map((p, i) => ({ p, code: codeOf(ed.slug, ed.weekend, i) }))
       .filter(({ p }) => (p.type === "event" ? eventById.has(p.id) : placeById.has(p.id)));
     if (!kept.length) continue;

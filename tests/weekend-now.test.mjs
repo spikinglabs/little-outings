@@ -12,7 +12,7 @@ const run = (env) => execFileSync("node", ["scripts/weekend-edition.mjs"], {
   env: { PATH: process.env.PATH, HOME: process.env.HOME, ...env }, encoding: "utf8",
 });
 
-test("early publishes the coming weekend once; Thursday and Friday keep it", () => {
+test("early publishes the coming weekend once; later runs keep its picks", () => {
   const dir = mkdtempSync(join(tmpdir(), "weekend-now-"));
   const out = join(dir, "out"), draft = join(dir, "draft.json");
   cpSync("data/weekend", out, { recursive: true });
@@ -25,15 +25,51 @@ test("early publishes the coming weekend once; Thursday and Friday keep it", () 
   assert.equal(doc.weekend, "2026-11-07");
   assert.ok(doc.published_at);
 
-  // Thursday's draft keeps the published one; Friday publishes nothing new over it.
-  assert.match(run({ ...env, WEEKEND_TODAY: "2026-11-05" }), /published early from the admin; kept/);
+  // Thursday leaves it alone; Friday's refresh keeps its picks in order.
+  assert.match(run({ ...env, WEEKEND_TODAY: "2026-11-05" }), /nothing to do/);
   assert.equal(JSON.parse(readFileSync(draft, "utf8")).published_at, doc.published_at);
+  assert.match(run({ ...env, WEEKEND_TODAY: "2026-11-06" }), /Köln 2026-11-07 refreshed/);
+  const picks = (f) => JSON.parse(f).picks.map((p) => p.id);
+  assert.deepEqual(picks(readFileSync(file, "utf8")).slice(0, picks(first).length), picks(first));
+  // Publishing again (by hand, a Saturday catch-up) never writes over it.
+  const fri = readFileSync(file, "utf8");
   writeFileSync(draft, JSON.stringify({ ...doc, published_at: undefined }));
-  assert.match(run({ ...env, WEEKEND_TODAY: "2026-11-06" }), /Köln 2026-11-07 is already published; kept/);
-  assert.equal(readFileSync(file, "utf8"), first);
+  assert.match(run({ ...env, WEEKEND_TODAY: "2026-11-06", WEEKEND_MODE: "publish" }), /Köln 2026-11-07 is already published; kept/);
+  assert.equal(readFileSync(file, "utf8"), fri);
   // Pressing the button again changes nothing either.
   assert.match(run({ ...env, WEEKEND_TODAY: "2026-11-04", WEEKEND_MODE: "early" }), /published 0 edition/);
-  assert.equal(readFileSync(file, "utf8"), first);
+  assert.equal(readFileSync(file, "utf8"), fri);
+});
+
+test("Monday publishes the coming weekend, Friday refreshes it and keeps the codes", () => {
+  const dir = mkdtempSync(join(tmpdir(), "weekend-mon-fri-"));
+  const out = join(dir, "out"), draft = join(dir, "draft.json"), outings = join(dir, "outings.jsonl");
+  cpSync("data/weekend", out, { recursive: true });
+  cpSync("data/outings.jsonl", outings);
+  const env = { WEEKEND_DIR: out, DRAFT_FILE: draft, OUTINGS_FILE: outings };
+  assert.match(run({ ...env, WEEKEND_TODAY: "2026-11-02" }), /published \d+ edition/);
+  const file = join(out, "koeln", "2026-11-07.json");
+  const monday = JSON.parse(readFileSync(file, "utf8"));
+  assert.ok(JSON.parse(readFileSync(draft, "utf8")).published_at);
+  // Tuesday to Thursday: nothing.
+  assert.match(run({ ...env, WEEKEND_TODAY: "2026-11-05" }), /nothing to do/);
+  assert.equal(JSON.stringify(JSON.parse(readFileSync(file, "utf8"))), JSON.stringify(monday));
+
+  // The first Köln event sells out during the week.
+  const gone = monday.picks.find((p) => p.type === "event");
+  const rows = readFileSync(outings, "utf8").split("\n").filter(Boolean).map((l) => JSON.parse(l));
+  for (const r of rows) if (`ck-${r.event_id.replace(/_/g, "-")}` === gone.id) r.sold_out = true;
+  writeFileSync(outings, rows.map((r) => JSON.stringify(r)).join("\n") + "\n");
+
+  assert.match(run({ ...env, WEEKEND_TODAY: "2026-11-06" }), /Köln 2026-11-07 refreshed: 1 pick\(s\) no longer on, 1 new/);
+  const friday = JSON.parse(readFileSync(file, "utf8"));
+  assert.ok(friday.refreshed_at);
+  assert.equal(friday.published_at, monday.published_at);
+  // Monday's picks keep their places (and so their codes); the new one comes at the end.
+  assert.deepEqual(friday.picks.slice(0, monday.picks.length).map((p) => p.id), monday.picks.map((p) => p.id));
+  assert.equal(friday.picks.length, monday.picks.length + 1);
+  assert.equal(friday.picks.at(-1).type, "event");
+  assert.ok(!monday.picks.some((p) => p.id === friday.picks.at(-1).id));
 });
 
 test("a published draft takes no more swaps", () => {

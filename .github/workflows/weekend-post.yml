@@ -1,5 +1,5 @@
 # Posts the weekend edition to each town's Telegram channel on Friday morning (scripts/post-weekend.mjs),
-# after Friday's nightly run published it. 06:30 UTC is 07:30 in German winter time, 08:30 in summer.
+# after Friday's nightly run refreshed it. 06:30 UTC is 07:30 in German winter time, 08:30 in summer.
 # Needs the repository secret TELEGRAM_BOT_TOKEN and a channel per town in src/lib/weekend.ts (TELEGRAM);
 # without them it posts nothing and stays green.
 name: Weekend post

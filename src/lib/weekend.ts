@@ -1,5 +1,5 @@
-// The weekly "This weekend" edition: five events and one place per town, picked every Thursday night by
-// scripts/weekend-edition.mjs, published Friday, and shown at /<lang>/wochenende/<town>/.
+// The weekly "This weekend" edition: five events and one place per town, picked and published early every Monday by
+// scripts/weekend-edition.mjs, refreshed on Friday, and shown at /<lang>/wochenende/<town>/.
 // Everything here is plain logic (no files, no network), shared by the script, the pages and the
 // Telegram post, so the page, the copy texts and the post always say the same thing.
 // Plain TypeScript without enums or other non-erasable syntax, so Node runs it directly.

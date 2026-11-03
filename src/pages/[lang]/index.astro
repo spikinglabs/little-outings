@@ -62,7 +62,7 @@ const seasons = data.seasons.seasons
     hub: s.page && pages.some((p) => p.season.id === s.id) ? { href: seasonPath(lang, s), label: tr(s.page.hub, lang) } : undefined,
   }));
 // Shortcuts next to "Show on map", for the home town (explore.ts picks it): the weekend edition every
-// day, marked new from Friday to Sunday, and a season's page in its weeks (Christmas markets, Karneval).
+// day, marked new from Monday to Sunday, and a season's page in its weeks (Christmas markets, Karneval).
 // Every edition town has its page, even before its first edition, so the link always leads somewhere.
 const weekendLinks = Object.fromEntries(editionTowns().map((w) => {
   const live = liveEdition(w.editions, TODAY);

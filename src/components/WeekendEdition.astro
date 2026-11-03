@@ -19,7 +19,7 @@ const town = townName(ed.town, lang, region.towns);
 const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
 const page = `${site}/${lang}/wochenende/${ed.slug}/`;
 const itemOf = (p: Pick) => (p.type === "event" ? eventById.get(p.id) : placeById.get(p.id));
-// Picks whose event or place is still on the site; one that was cancelled since Friday drops out.
+// Picks whose event or place is still on the site; one that was cancelled since it came out drops out.
 const picks = ed.picks.filter((p) => itemOf(p));
 const dayName = (d: string, opts: Intl.DateTimeFormatOptions) => new Intl.DateTimeFormat(t.locale, { timeZone: "UTC", ...opts }).format(new Date(`${d}T12:00:00Z`));
 const days = [addDays(ed.weekend, -1), ed.weekend, addDays(ed.weekend, 1)]
