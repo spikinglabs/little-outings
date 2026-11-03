@@ -1,5 +1,5 @@
 // Build-time access to the weekend editions in data/weekend/<town>/<saturday>.json
-// (written by scripts/weekend-edition.mjs every Friday).
+// (written by scripts/weekend-edition.mjs every Monday, refreshed on Friday).
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { addDays, dow, WEEKEND_TOWNS, townSlug, type Edition } from "./weekend.ts";
@@ -23,8 +23,8 @@ export const editionTowns = () => WEEKEND_TOWNS.map((name) => ({ name, slug: tow
 export const weekendTowns = () => editionTowns().filter((t) => t.editions.length);
 
 /**
- * The newest edition while its weekend isn't over: from Friday's publish to Sunday. From Monday to
- * Thursday there is none, and the page says the next one comes on Friday.
+ * The newest edition while its weekend isn't over: from Monday's publish to Sunday. A town that
+ * skipped a week has none, and the page says when the next one comes.
  */
 export function liveEdition(editions: Edition[], today: string): Edition | undefined {
   const e = editions[0];
@@ -34,10 +34,10 @@ export function liveEdition(editions: Edition[], today: string): Edition | undef
 /** The archive: the latest editions except the live one. */
 export const archiveOf = (editions: Edition[], live?: Edition) => editions.filter((e) => e !== live).slice(0, ARCHIVE);
 
-/** The Friday the next edition comes out. */
-export function nextFriday(today: string): string {
+/** The next Monday or Friday after today: an edition comes out on Monday, and a town that skipped Monday gets another try on Friday. */
+export function nextEditionDay(today: string): string {
   const w = dow(today);
-  return addDays(today, (5 - w + 7) % 7 || 7);
+  return addDays(today, Math.min((1 - w + 7) % 7 || 7, (5 - w + 7) % 7 || 7));
 }
 
 /** How many family events (Saturday or Sunday) and places a town has, for "There's much more" under the picks. */

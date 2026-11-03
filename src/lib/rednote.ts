@@ -94,7 +94,7 @@ export function weeklySet(ed: Edition, o: { townZh: string; kindName: (k: string
       holiday,
       [events ? `${events} 个活动` : "", places ? `${places} 个好去处` : ""].filter(Boolean).join("，"),
     ].filter(Boolean),
-    foot: "每周五更新",
+    foot: "每周一、五更新",
   };
   const end: Sheet = {
     tone: "ink",

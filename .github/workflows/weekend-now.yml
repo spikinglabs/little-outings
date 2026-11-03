@@ -1,9 +1,9 @@
-# Publishes the coming weekend's edition now instead of on Friday, for the admin's "Make next weekend's
+# Publishes the coming weekend's edition now instead of on Monday, for the admin's "Make next weekend's
 # sets now" button in the Rednote panel (admin/functions/api/weekend-now.js), so the Rednote and Instagram
 # cards can be posted early in the week. Runs scripts/weekend-edition.mjs with WEEKEND_MODE=early: the
 # draft from the admin's Weekend panel when there is one for that weekend (with its swaps), else a fresh
-# one from the events published so far. Towns already out for that weekend are left alone, and Thursday's
-# draft and Friday's publish keep what this made, so the codes on cards already posted stay right.
+# one from the events published so far. Towns already out for that weekend are left alone, and Friday's
+# refresh keeps the picks in order, so the codes on cards already posted stay right.
 # Uses the same secrets as the nightly Translate job. Can also be run by hand from the Actions tab.
 name: Weekend edition now
 on:

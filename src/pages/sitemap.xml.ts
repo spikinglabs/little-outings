@@ -27,7 +27,7 @@ export const GET: APIRoute = async ({ site }) => {
     ...new Set(seasonal),
     ...places.filter((p) => sitemapWorthy(p) && (ours.has(p.town) || !p.id.startsWith("osm-"))).map((p) => `orte/${p.id}/`),
   ];
-  // The weekend editions: one address per town that changes every Friday.
+  // The weekend editions: one address per town that changes every Monday (refreshed on Friday).
   const weekend = editionTowns();
   if (weekend.length) paths.push("wochenende/", ...weekend.map((w) => `wochenende/${w.slug}/`));
   const fresh = new Map(weekend.filter((w) => w.editions.length).map((w) => [`wochenende/${w.slug}/`, (liveEdition(w.editions, TODAY) ?? w.editions[0]).published_at.slice(0, 10)]));

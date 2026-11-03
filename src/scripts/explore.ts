@@ -494,7 +494,7 @@ function seasonPageNear(towns: Record<string, string>, town: string): string | u
 }
 /**
  * The links next to "Show on map": the town's weekend edition every day (its page says when the next
- * comes out), marked new from Friday to Sunday, and a season's page in its weeks when there's one near.
+ * comes out), marked new from Monday to Sunday, and a season's page in its weeks when there's one near.
  * The line under a pressed season chip points at the same town page. With a link showing, phones get
  * the map button's short label so everything stays on one row.
  */

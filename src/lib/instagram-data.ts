@@ -17,7 +17,7 @@ async function buildSets(): Promise<XhsSet[]> {
   const bySlug = new Map(editionTowns().map((t) => [t.slug, t]));
   const towns = IG_TOWNS.flatMap((slug) => {
     const ed = bySlug.get(slug)?.editions[0];
-    // A pick cancelled since Friday drops out, as on the weekend page.
+    // A pick cancelled since it came out drops out, as on the weekend page.
     // An edition picked by score has no English names; the nightly translation of the title stands in.
     const enOf = (p: Pick) => {
       const x = p.type === "event" ? eventById.get(p.id)?.title : placeById.get(p.id)?.names;

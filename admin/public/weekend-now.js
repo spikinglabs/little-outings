@@ -1,5 +1,5 @@
 // The Rednote panel's "Make sets for <next weekend> now" button. It publishes the coming weekend's edition
-// at once instead of on Friday (the "Weekend edition now" workflow, through /api/weekend-now); the site
+// at once instead of on Monday (the "Weekend edition now" workflow, through /api/weekend-now); the site
 // build that follows draws the Rednote and Instagram cards. Towns already out for that weekend stay as they are.
 const $ = (id) => document.getElementById(id);
 const esc = (value) =>
@@ -49,7 +49,7 @@ async function refresh() {
 
 async function start() {
   const { label } = comingWeekend();
-  if (!confirm(`Publish the weekend edition for ${label} now, for every town?\n\nIt goes on the weekend pages too. Thursday and Friday won't change it afterwards, so the codes on the cards stay right.`)) return;
+  if (!confirm(`Publish the weekend edition for ${label} now, for every town?\n\nIt goes on the weekend pages too. Friday's refresh keeps its picks in order, so the codes on the cards stay right.`)) return;
   $("weekend-now-btn").disabled = true;
   try {
     const res = await fetch("/api/weekend-now", { method: "POST" });
