@@ -1,0 +1,169 @@
+{
+  "town": "Berlin",
+  "slug": "berlin",
+  "weekend": "2026-11-07",
+  "week": 45,
+  "published_at": "2026-11-03T23:22:05.480Z",
+  "by": "ai",
+  "weather": [
+    {
+      "day": "2026-11-07",
+      "code": 3,
+      "max": 7.5,
+      "rain": 3
+    },
+    {
+      "day": "2026-11-08",
+      "code": 3,
+      "max": 8.3,
+      "rain": 3
+    }
+  ],
+  "picks": [
+    {
+      "id": "ck-evt-f1817816e9054d26bb71",
+      "type": "event",
+      "title": "Laternenlauf",
+      "venue": "Tierpark Berlin, Am Tierpark 125",
+      "district": "Lichtenberg",
+      "days": [
+        "2026-11-06",
+        "2026-11-07",
+        "2026-11-08"
+      ],
+      "time": "15:45–17:00",
+      "indoor": false,
+      "tags": [
+        "animals",
+        "season"
+      ],
+      "label": {
+        "de": "Laternenlauf im Tierpark",
+        "en": "Lantern walk at the Tierpark",
+        "zh": "动物园提灯漫步"
+      },
+      "why": {
+        "de": "Ein Laternenlauf draußen im Tierpark, am Samstag und Sonntag – schön, wenn das Wetter mitspielt.",
+        "en": "A lantern walk outdoors at the Tierpark, on both Saturday and Sunday. Lovely if the weather holds.",
+        "zh": "周六和周日都有，在动物园户外打着灯笼散步，适合天气好的时候。"
+      }
+    },
+    {
+      "id": "ck-evt-0238fb521b8e1a174f18",
+      "type": "event",
+      "title": "Der Regenbogenfisch und seine Freunde",
+      "venue": "Zeiss-Großplanetarium",
+      "days": [
+        "2026-11-07"
+      ],
+      "time": "11:00",
+      "indoor": true,
+      "tags": [],
+      "label": {
+        "de": "Der Regenbogenfisch und seine Freunde",
+        "en": "The Rainbow Fish and friends",
+        "zh": "彩虹鱼和他的朋友们"
+      },
+      "why": {
+        "de": "Eine Planetariumsvorstellung am Samstagvormittag, ein sanfter Start auch für die Allerkleinsten.",
+        "en": "A planetarium show on Saturday morning, a gentle start for the littlest ones.",
+        "zh": "周六上午的天象剧场，适合年纪最小的孩子。"
+      }
+    },
+    {
+      "id": "ck-evt-1de4955331a53fca2480",
+      "type": "event",
+      "title": "Lotta zieht um",
+      "venue": "ATZE Musiktheater, Luxemburger Straße 20",
+      "district": "Mitte",
+      "days": [
+        "2026-11-07",
+        "2026-11-08"
+      ],
+      "time": "15:00",
+      "indoor": true,
+      "tags": [
+        "stage"
+      ],
+      "label": {
+        "de": "Lotta zieht um",
+        "en": "Lotta Moves House",
+        "zh": "Lotta搬家了"
+      },
+      "why": {
+        "de": "Theater für Kleine im ATZE, am Samstag und Sonntag jeweils um 15:00 Uhr.",
+        "en": "Theatre for little ones at ATZE, on both Saturday and Sunday at 15:00.",
+        "zh": "ATZE剧院的儿童剧，周六和周日都是15:00开演。"
+      }
+    },
+    {
+      "id": "ck-evt-c4f7a2b75fc451d732c2",
+      "type": "event",
+      "title": "Wir bauen einen Mars-Rover",
+      "venue": "Archenhold-Sternwarte",
+      "days": [
+        "2026-11-07",
+        "2026-11-08"
+      ],
+      "time": "15:30",
+      "tags": [],
+      "label": {
+        "de": "Wir bauen einen Mars-Rover",
+        "en": "Let's build a Mars rover",
+        "zh": "我们来造一辆火星车"
+      },
+      "why": {
+        "de": "Bauen und Basteln rund um den Mars in der Archenhold-Sternwarte, an beiden Tagen.",
+        "en": "Hands-on building fun about Mars at the Archenhold Observatory, on both days.",
+        "zh": "在阿伦霍尔德天文台动手搭建火星车，周六和周日都有。"
+      }
+    },
+    {
+      "id": "ck-evt-1bd3590d07e216fbab52",
+      "type": "event",
+      "title": "Familienführung \"DINOSAURIER!\"",
+      "venue": "Museum für Naturkunde, Invalidenstraße 43",
+      "district": "Mitte",
+      "days": [
+        "2026-11-08"
+      ],
+      "time": "12:30 bis 13:15",
+      "price": "Erwachsene 5€, Ermäßigt 2€, zzgl. Museumseintritt",
+      "indoor": true,
+      "tags": [
+        "tour"
+      ],
+      "label": {
+        "de": "Familienführung „DINOSAURIER!“",
+        "en": "Family tour: DINOSAURS!",
+        "zh": "亲子导览：恐龙！"
+      },
+      "why": {
+        "de": "Familienführung zu Dinosauriern am Sonntagmittag; Museumseintritt kommt extra dazu.",
+        "en": "A family dinosaur tour on Sunday lunchtime; museum admission is extra.",
+        "zh": "周日中午的恐龙亲子导览，需另付博物馆门票。"
+      }
+    },
+    {
+      "id": "osm-way-1262109180",
+      "type": "place",
+      "title": "Wildgehege im Spandauer Forst",
+      "kind": "zoo",
+      "hours": "24/7",
+      "free": true,
+      "district": "Hakenfelde",
+      "venue": "Schönwalder Allee",
+      "days": [],
+      "label": {
+        "de": "Wildgehege im Spandauer Forst",
+        "en": "Wildgehege im Spandauer Forst",
+        "zh": "Wildgehege im Spandauer Forst"
+      },
+      "why": {
+        "de": "Kostenlos und rund um die Uhr geöffnet, ideal für einen spontanen Tierbeobachtungs-Ausflug in Hakenfelde.",
+        "en": "Free and open 24/7, so you can spot wildlife in Hakenfelde on a spontaneous weekend outing.",
+        "zh": "免费且全天24小时开放，周末可以随时带孩子到Hakenfelde观察野生动物。"
+      }
+    }
+  ]
+}

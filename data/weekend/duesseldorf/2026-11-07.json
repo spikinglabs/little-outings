@@ -1,0 +1,193 @@
+{
+  "town": "Düsseldorf",
+  "slug": "duesseldorf",
+  "weekend": "2026-11-07",
+  "week": 45,
+  "published_at": "2026-11-03T23:22:05.450Z",
+  "by": "ai",
+  "weather": [
+    {
+      "day": "2026-11-07",
+      "code": 3,
+      "max": 9.1,
+      "rain": 6
+    },
+    {
+      "day": "2026-11-08",
+      "code": 51,
+      "max": 10.5,
+      "rain": 13
+    }
+  ],
+  "picks": [
+    {
+      "id": "ck-evt-2660124b3dd8ef30619a",
+      "type": "event",
+      "title": "Eltern-Kind-Workshop: Der Herbst kommt zu Besuch Für Eltern und Kinder von 3 bis 4 Jahren",
+      "venue": "Städtisches Familienzentrum Sankt-Franziskus-Straße, Sankt-Franziskus-Straße 157",
+      "days": [
+        "2026-11-07"
+      ],
+      "time": "10:00",
+      "price": "5,00 €",
+      "book": true,
+      "indoor": true,
+      "tags": [
+        "diy",
+        "season"
+      ],
+      "label": {
+        "de": "Der Herbst kommt zu Besuch",
+        "en": "Autumn Comes to Visit",
+        "zh": "秋天来做客"
+      },
+      "why": {
+        "de": "Speziell für 3–4-Jährige mit Eltern: Herbst zum Anfassen am Samstagmorgen.",
+        "en": "Made for 3–4-year-olds with a parent: hands-on autumn on Saturday morning.",
+        "zh": "专为3–4岁幼儿和家长设计，周六上午的秋日体验。"
+      }
+    },
+    {
+      "id": "ck-evt-9b6da57d28dbba6ea56e",
+      "type": "event",
+      "title": "Familienausflug in den Park für Eltern und Kinder ab 1,5 Jahren",
+      "venue": "Volksgarten, Eingang Auf`m Hennekamp An den Uhren",
+      "days": [
+        "2026-11-07"
+      ],
+      "time": "10:00",
+      "price": "15,10 €",
+      "book": true,
+      "indoor": false,
+      "tags": [],
+      "label": {
+        "de": "Familienausflug in den Volksgarten",
+        "en": "Family outing to Volksgarten park",
+        "zh": "前往Volksgarten公园的亲子郊游"
+      },
+      "why": {
+        "de": "Ab 1,5 Jahren: Parkausflug für die Kleinsten, falls es trocken bleibt.",
+        "en": "From 1.5 years: a park outing for the little ones if it stays dry.",
+        "zh": "适合1.5岁起的幼儿，若天气干燥可去公园玩。"
+      }
+    },
+    {
+      "id": "ck-evt-124e5752d3a4f236b328",
+      "type": "event",
+      "title": "Offener Familienworkshop im Playground",
+      "venue": "K20 Grabbeplatz, Grabbeplatz 5",
+      "district": "Altstadt",
+      "days": [
+        "2026-11-07"
+      ],
+      "time": "12:00–13:00",
+      "tags": [
+        "diy"
+      ],
+      "label": {
+        "de": "Offener Familienworkshop im Playground",
+        "en": "Open family workshop at the Playground",
+        "zh": "Playground 开放亲子工作坊"
+      },
+      "why": {
+        "de": "Spontan vorbeikommen und mitmachen, ein Mittagsangebot im K20.",
+        "en": "Drop in and join in: a midday open workshop at K20.",
+        "zh": "随时过来参与，K20的午间开放工作坊。"
+      }
+    },
+    {
+      "id": "ck-evt-b03319069d9c4ed5254d",
+      "type": "event",
+      "title": "Familienfrühstück mit musikalischer Begleitung im Bürgerhaus Salzmannbau",
+      "venue": "Bürgerhaus Salzmannbau, Himmelgeister Straße 107H",
+      "days": [
+        "2026-11-08"
+      ],
+      "time": "10:30",
+      "free": true,
+      "price": "Kostenbeitrag 8 Euro pro Person, Kinder ab 12 Jahren 6 Euro, jüngere Kinder in Begleitung Erwachsener gratis.",
+      "book": true,
+      "indoor": true,
+      "tags": [
+        "music"
+      ],
+      "label": {
+        "de": "Familienfrühstück mit Musik",
+        "en": "Family breakfast with live music",
+        "zh": "亲子早餐与现场音乐"
+      },
+      "why": {
+        "de": "Kostenlos und gemütlich: Sonntagsfrühstück mit musikalischer Begleitung.",
+        "en": "Free and cozy: Sunday breakfast with live music for the whole family.",
+        "zh": "免费又温馨：周日亲子早餐，伴有现场音乐。"
+      }
+    },
+    {
+      "id": "ck-evt-0314a3994e5fc467e0d6",
+      "type": "event",
+      "title": "FAMILIENFÜHRUNG | Super-Tiere",
+      "venue": "Schloss Benrath, Benrather Schlossallee 100-108",
+      "district": "Benrath",
+      "days": [
+        "2026-11-08"
+      ],
+      "time": "15:00",
+      "indoor": true,
+      "tags": [
+        "animals",
+        "tour"
+      ],
+      "label": {
+        "de": "Familienführung: Super-Tiere",
+        "en": "Family tour: Super Animals",
+        "zh": "亲子导览：超级动物"
+      },
+      "why": {
+        "de": "Sonntagnachmittag im Schloss Benrath: Tiere entdecken, drinnen bleiben.",
+        "en": "Sunday afternoon at Schloss Benrath: discover animals, stay indoors.",
+        "zh": "周日下午在贝恩拉特宫探索动物，室内进行。"
+      }
+    },
+    {
+      "id": "osm-way-1144768918",
+      "type": "place",
+      "title": "Spielplatz Naturpark Flingern - Standort 9777",
+      "kind": "playground",
+      "hours": "24/7",
+      "free": true,
+      "district": "Flingern Nord",
+      "venue": "Schlüterstraße",
+      "days": [],
+      "label": {
+        "de": "Spielplatz Naturpark Flingern",
+        "en": "Spielplatz Naturpark Flingern",
+        "zh": "Spielplatz Naturpark Flingern"
+      },
+      "why": {
+        "de": "Kostenlos, rund um die Uhr offen – perfekt für einen spontanen Spielnachmittag!",
+        "en": "Free and open 24/7 in Flingern Nord, perfect for a spontaneous playtime outing.",
+        "zh": "免费，全天24小时开放，随时来弗林格恩北区玩一下吧！"
+      }
+    }
+  ],
+  "still": [
+    {
+      "id": "ck-evt-3157d2e0ec93aeccc761",
+      "title": "Farbenzauber und Klangreise für Eltern und Kinder ab 2 Jahren",
+      "venue": "Stadtmitte, Hohenzollernstr. 24, efa, Hohenzollernstr. 24",
+      "end": "2026-12-16"
+    },
+    {
+      "id": "ck-evt-bf5a3f4efa0505f5b9a6",
+      "title": "Natürlich bunt! Malen & Matschen mit essbaren Farben Für Eltern und Kinder von 1,5 bis 2 Jahren",
+      "venue": "Familientreff Oberkassel, Wildenbruchstraße 27",
+      "end": "2026-12-02"
+    },
+    {
+      "id": "ck-evt-6d24c5dbc157d2edc7f5",
+      "title": "Kreativer Kindertanz für Kinder von 3-4 Jahren",
+      "venue": "FZ Pusteblume Bewegungs- und Spielraum, Liststr. 2",
+      "end": "2026-12-09"
+    }
+  ]
+}

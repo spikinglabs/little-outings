@@ -1,0 +1,171 @@
+{
+  "town": "Köln",
+  "slug": "koeln",
+  "weekend": "2026-11-07",
+  "week": 45,
+  "published_at": "2026-11-03T23:22:05.290Z",
+  "by": "ai",
+  "weather": [
+    {
+      "day": "2026-11-07",
+      "code": 3,
+      "max": 9.6,
+      "rain": 10
+    },
+    {
+      "day": "2026-11-08",
+      "code": 3,
+      "max": 11.2,
+      "rain": 10
+    }
+  ],
+  "picks": [
+    {
+      "id": "ck-evt-88620bb35acfe0d6f03b",
+      "type": "event",
+      "title": "Neue Tricks für NAO",
+      "venue": "Interim Zentralbibliothek, Hohe Straße 68-82",
+      "days": [
+        "2026-11-07"
+      ],
+      "time": "10:30 bis 13:30 Uhr",
+      "free": true,
+      "price": "Die Teilnahme ist kostenlos.",
+      "indoor": true,
+      "tags": [],
+      "label": {
+        "de": "Neue Tricks für NAO",
+        "en": "New Tricks for NAO (robot)",
+        "zh": "NAO机器人的新把戏"
+      },
+      "why": {
+        "de": "Kostenlos drinnen den Roboter NAO erleben – Samstagvormittag bis 13:30 Uhr.",
+        "en": "Free indoor robot fun with NAO on Saturday morning until 1:30 pm.",
+        "zh": "周六上午至下午1:30，免费在室内与机器人NAO互动。"
+      }
+    },
+    {
+      "id": "ck-evt-39b7755d5fea158878d1",
+      "type": "event",
+      "title": "Vorlesezeit",
+      "venue": "Stadtteilbibliothek Chorweiler, Pariser Platz 1",
+      "district": "Chorweiler",
+      "days": [
+        "2026-11-07"
+      ],
+      "time": "11 bis 11:30 Uhr",
+      "free": true,
+      "price": "Die Teilnahme ist kostenlos.",
+      "indoor": true,
+      "tags": [
+        "reading"
+      ],
+      "label": {
+        "de": "Vorlesezeit in Chorweiler",
+        "en": "Story time in Chorweiler",
+        "zh": "Chorweiler 故事时间"
+      },
+      "why": {
+        "de": "Kurze Vorlesezeit, kostenlos und drinnen – schön für die Kleinsten.",
+        "en": "Short, free story time indoors – lovely for the youngest children.",
+        "zh": "免费的室内短时间故事时光，很适合最小的孩子。"
+      }
+    },
+    {
+      "id": "ck-evt-4e160558eeeb828abd15",
+      "type": "event",
+      "title": "Familieklaaf zum 20. Jubiläum",
+      "days": [
+        "2026-11-07"
+      ],
+      "time": "13:45",
+      "indoor": false,
+      "tags": [
+        "fest"
+      ],
+      "label": {
+        "de": "Familienklaaf zum 20. Jubiläum",
+        "en": "Family Klaaf for 20th anniversary",
+        "zh": "Familien-Klaaf 20周年庆"
+      },
+      "why": {
+        "de": "Samstagnachmittag draußen mit der ganzen Familie, es wird das Jubiläum gefeiert.",
+        "en": "Saturday afternoon outdoors with the whole family as the anniversary is celebrated.",
+        "zh": "周六下午全家户外同乐，庆祝20周年。"
+      }
+    },
+    {
+      "id": "ck-evt-9e88fbfcd8dd273cbf74",
+      "type": "event",
+      "title": "Kinderflohmarkt in Ehrenfeld",
+      "venue": "Tante Astrid e.V., Vogelsanger Str. 282",
+      "days": [
+        "2026-11-08"
+      ],
+      "time": "11:00",
+      "free": true,
+      "price": "Kostenlos",
+      "indoor": false,
+      "tags": [
+        "market"
+      ],
+      "label": {
+        "de": "Kinderflohmarkt in Ehrenfeld",
+        "en": "Children's flea market in Ehrenfeld",
+        "zh": "Ehrenfeld儿童跳蚤市场"
+      },
+      "why": {
+        "de": "Kostenlos draußen stöbern und tauschen, an einem Sonntagvormittag an der frischen Luft.",
+        "en": "Free outdoor browsing and swapping on a Sunday morning in fresh air.",
+        "zh": "周日上午免费户外逛逛、交换物品，呼吸新鲜空气。"
+      }
+    },
+    {
+      "id": "ck-evt-17ca6464c9ce11343935",
+      "type": "event",
+      "title": "PhilharmonieVeedel: Pänz »Der blaue Gartenzaun« – für Kinder ab 2 Jahren",
+      "venue": "Comedia Theater, Vondelstraße 4-8",
+      "days": [
+        "2026-11-08"
+      ],
+      "time": "14:00",
+      "price": "4.00€",
+      "indoor": false,
+      "tags": [
+        "stage",
+        "outside"
+      ],
+      "label": {
+        "de": "Der blaue Gartenzaun (ab 2 Jahren)",
+        "en": "The Blue Garden Fence (ages 2+)",
+        "zh": "《蓝色花园栅栏》（2岁起）"
+      },
+      "why": {
+        "de": "Ein Konzert für Kleine ab 2 Jahren im Comedia Theater – für 4 € Eintritt.",
+        "en": "A concert for toddlers aged 2+ at Comedia Theater for just €4.",
+        "zh": "专为2岁以上幼儿打造的音乐演出，在Comedia剧院只需4欧元。"
+      }
+    },
+    {
+      "id": "osm-way-1382858399",
+      "type": "place",
+      "title": "Forstbotanischer Garten",
+      "kind": "park",
+      "hours": "Nov-Feb: Mo-Su 09:00-16:00; Mar,Sep-Oct: Mo-Su 09:00-18:00; Apr-Aug: Mo-Su 09:00-20:00",
+      "free": true,
+      "district": "Rodenkirchen",
+      "venue": "Zum Forstbotanischen Garten",
+      "days": [],
+      "label": {
+        "de": "Forstbotanischer Garten",
+        "en": "Forstbotanischer Garten",
+        "zh": "Forstbotanischer Garten（森林植物园）"
+      },
+      "why": {
+        "de": "Kostenlos und jeden Tag geöffnet, im Sommer sogar bis 20 Uhr. Ideal für Familien.",
+        "en": "Free entry and open every day, until 8 pm in summer. Perfect for a family outing.",
+        "zh": "免费入园，每天开放，夏季营业至晚上8点，非常适合家庭周末出游。"
+      }
+    }
+  ]
+}

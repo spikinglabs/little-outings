@@ -1,0 +1,181 @@
+{
+  "town": "München",
+  "slug": "muenchen",
+  "weekend": "2026-11-07",
+  "week": 45,
+  "published_at": "2026-11-03T23:22:05.512Z",
+  "by": "ai",
+  "weather": [
+    {
+      "day": "2026-11-07",
+      "code": 61,
+      "max": 9.4,
+      "rain": 13
+    },
+    {
+      "day": "2026-11-08",
+      "code": 45,
+      "max": 10.2,
+      "rain": 17
+    }
+  ],
+  "picks": [
+    {
+      "id": "ck-evt-59ae04e3a0c935c3b7e3",
+      "type": "event",
+      "title": "Tabaluga – Es lebe die Freundschaft",
+      "venue": "Münchner Marionettentheater, Blumenstraße 32",
+      "district": "Altstadt-Lehel",
+      "days": [
+        "2026-11-06",
+        "2026-11-07",
+        "2026-11-08"
+      ],
+      "time": "15:00",
+      "indoor": true,
+      "tags": [
+        "stage"
+      ],
+      "label": {
+        "de": "Tabaluga – Es lebe die Freundschaft",
+        "en": "Tabaluga – Long Live Friendship",
+        "zh": "Tabaluga – 友谊万岁"
+      },
+      "why": {
+        "de": "Marionettentheater am Samstag um 15 Uhr, gemütlich drinnen und ideal für kleine Zuschauer.",
+        "en": "Puppet theatre on Saturday at 3 pm, cosy indoors and great for small audiences.",
+        "zh": "周六下午3点的木偶剧，室内舒适，很适合小朋友观看。"
+      }
+    },
+    {
+      "id": "ck-evt-e81ef1fdd32a107a1c75",
+      "type": "event",
+      "title": "\"Hellabrunn unter der Lupe\" – Natur entdecken mit dem Binokular",
+      "venue": "Tierpark Hellabrunn, Tierparkstraße 30",
+      "district": "Untergiesing-Harlaching",
+      "days": [
+        "2026-11-07"
+      ],
+      "time": "10:00",
+      "indoor": false,
+      "tags": [
+        "animals",
+        "outside"
+      ],
+      "label": {
+        "de": "Hellabrunn unter der Lupe",
+        "en": "Hellabrunn Under the Magnifier",
+        "zh": "放大镜下的海勒布伦动物园"
+      },
+      "why": {
+        "de": "Samstagvormittag draußen im Tierpark: Natur entdecken mit dem Binokular, bei trockenem Wetter.",
+        "en": "Saturday morning outdoors at the zoo: explore nature with binoculars while it stays dry.",
+        "zh": "周六上午在动物园户外用双筒望远镜观察自然，天气干燥很合适。"
+      }
+    },
+    {
+      "id": "ck-evt-f349c7ab7374a925b514",
+      "type": "event",
+      "title": "Peter Pan",
+      "venue": "Münchner Theater für Kinder",
+      "days": [
+        "2026-11-08"
+      ],
+      "time": "10:00–12:00",
+      "indoor": true,
+      "tags": [
+        "stage"
+      ],
+      "label": {
+        "de": "Peter Pan",
+        "en": "Peter Pan",
+        "zh": "彼得·潘"
+      },
+      "why": {
+        "de": "Sonntagvormittag im Theater für Kinder, eine klassische Geschichte für den Familienausflug.",
+        "en": "Sunday morning at the children's theatre, a classic story for a family outing.",
+        "zh": "周日上午在儿童剧院观看经典故事，非常适合全家出游。"
+      }
+    },
+    {
+      "id": "ck-evt-51411142b6b1260abd86",
+      "type": "event",
+      "title": "Herzlmarkt",
+      "venue": "Deutsches Museum München",
+      "days": [
+        "2026-11-08"
+      ],
+      "time": "11:00–18:00",
+      "indoor": false,
+      "tags": [
+        "tour",
+        "market"
+      ],
+      "label": {
+        "de": "Herzlmarkt",
+        "en": "Herzl Market",
+        "zh": "心形集市"
+      },
+      "why": {
+        "de": "Sonntag draußen am Deutschen Museum, Markttreiben bei milden 10 °C und wenig Regen.",
+        "en": "Outdoors at the Deutsches Museum on Sunday, market bustle with mild 10 °C and little rain.",
+        "zh": "周日在德意志博物馆户外的集市，气温10°C，降雨概率低。"
+      }
+    },
+    {
+      "id": "ck-evt-274f865778f38f705007",
+      "type": "event",
+      "title": "Der kleine Muck",
+      "venue": "Galli Theater München, Türkenstraße 86",
+      "district": "Maxvorstadt",
+      "days": [
+        "2026-11-08"
+      ],
+      "time": "16:00",
+      "indoor": true,
+      "tags": [
+        "stage"
+      ],
+      "label": {
+        "de": "Der kleine Muck",
+        "en": "Little Muck",
+        "zh": "小穆克"
+      },
+      "why": {
+        "de": "Sonntag um 16 Uhr im Galli Theater in der Maxvorstadt, ein Märchen für kleine Zuschauer.",
+        "en": "Sunday at 4 pm at the Galli Theater in Maxvorstadt, a fairy tale for little audiences.",
+        "zh": "周日下午4点在马克西米利安区的加利剧院，一部适合小观众的童话剧。"
+      }
+    },
+    {
+      "id": "osm-node-1611861447",
+      "type": "place",
+      "title": "Wellenbad Planegg",
+      "kind": "pool",
+      "hours": "Mo-Su 08:00-22:00",
+      "free": true,
+      "indoor": true,
+      "district": "Steinkirchen",
+      "venue": "Bahnhofstraße",
+      "days": [],
+      "label": {
+        "de": "Wellenbad Planegg",
+        "en": "Wellenbad Planegg",
+        "zh": "Wellenbad Planegg"
+      },
+      "why": {
+        "de": "Drinnen planschen, Eintritt frei, täglich 8–22 Uhr geöffnet – perfekt für Regentage.",
+        "en": "Indoor pool with free entry, open daily 8:00–22:00, handy for a rainy weekend.",
+        "zh": "室内泳池，免费入场，每天8:00至22:00开放，适合雨天的周末带孩子去玩水。"
+      }
+    }
+  ],
+  "still": [
+    {
+      "id": "ck-evt-2182f27f2bacceec4538",
+      "title": "KinderUni-Kongress beim Tag der offenen Tür auf dem Forschungscampus Garching",
+      "venue": "TUM Campus Garching @ Boltzmannstraße 15, Garching bei München, 85748",
+      "end": "2027-02-05"
+    }
+  ]
+}
