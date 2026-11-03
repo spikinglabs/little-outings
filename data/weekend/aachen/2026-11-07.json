@@ -1,0 +1,171 @@
+{
+  "town": "Aachen",
+  "slug": "aachen",
+  "weekend": "2026-11-07",
+  "week": 45,
+  "published_at": "2026-11-03T23:22:05.644Z",
+  "by": "ai",
+  "weather": [
+    {
+      "day": "2026-11-07",
+      "code": 3,
+      "max": 10.5,
+      "rain": 10
+    },
+    {
+      "day": "2026-11-08",
+      "code": 3,
+      "max": 10.1,
+      "rain": 10
+    }
+  ],
+  "picks": [
+    {
+      "id": "ck-evt-35ba3164971b16276ed0",
+      "type": "event",
+      "title": "Bio- und Regionalmarkt",
+      "venue": "Münsterplatz",
+      "days": [
+        "2026-11-07"
+      ],
+      "time": "09:00–14:00",
+      "indoor": false,
+      "tags": [
+        "market"
+      ],
+      "label": {
+        "de": "Bio- und Regionalmarkt",
+        "en": "Organic and regional market",
+        "zh": "有机与本地农产品市场"
+      },
+      "why": {
+        "de": "Samstag bis 14 Uhr auf dem Münsterplatz – frische Sachen unter freiem Himmel.",
+        "en": "Saturday until 2pm on Münsterplatz, fresh produce under the open sky.",
+        "zh": "周六至下午2点在明斯特广场，户外逛逛新鲜农产品。"
+      }
+    },
+    {
+      "id": "ck-evt-7c3e3d9595935ba7c9a1",
+      "type": "event",
+      "title": "Kindersachenflohmarkt bei Mamma Mia",
+      "venue": "Mütterzentrum Mamma Mia e. V., Vaalser Strasse 547",
+      "days": [
+        "2026-11-07"
+      ],
+      "time": "11:00",
+      "indoor": false,
+      "tags": [
+        "market"
+      ],
+      "label": {
+        "de": "Kindersachenflohmarkt bei Mamma Mia",
+        "en": "Kids' clothing flea market at Mamma Mia",
+        "zh": "Mamma Mia 儿童用品跳蚤市场"
+      },
+      "why": {
+        "de": "Samstagvormittag draußen stöbern – ein entspannter Start ins Wochenende.",
+        "en": "Saturday morning browsing outdoors, a relaxed start to the weekend.",
+        "zh": "周六上午在户外逛逛儿童用品，轻松开启周末。"
+      }
+    },
+    {
+      "id": "ck-evt-c5e9c1934123bdba1536",
+      "type": "event",
+      "title": "2. Familienkonzert: Peter gegen den Wolf",
+      "venue": "Stadttheater Aachen, Theaterplatz 1",
+      "days": [
+        "2026-11-08"
+      ],
+      "time": "11:00",
+      "indoor": true,
+      "tags": [
+        "stage",
+        "music"
+      ],
+      "label": {
+        "de": "Familienkonzert: Peter gegen den Wolf",
+        "en": "Family concert: Peter and the Wolf",
+        "zh": "家庭音乐会：《彼得与狼》"
+      },
+      "why": {
+        "de": "Sonntag 11 Uhr im Stadttheater – ein Familienkonzert, drinnen und gut bei Regen.",
+        "en": "Sunday 11am at the city theatre, a family concert indoors that works well in rain.",
+        "zh": "周日上午11点在市立剧院，室内家庭音乐会，雨天也合适。"
+      }
+    },
+    {
+      "id": "ck-evt-f82e14aaec15036e8264",
+      "type": "event",
+      "title": "Sonntagsmalerei",
+      "days": [
+        "2026-11-08"
+      ],
+      "time": "14:00–16:00",
+      "tags": [
+        "diy"
+      ],
+      "label": {
+        "de": "Sonntagsmalerei",
+        "en": "Sunday painting",
+        "zh": "周日绘画"
+      },
+      "why": {
+        "de": "Sonntag 14–16 Uhr zum Malen – ein ruhiger Nachmittag für kleine Kreative.",
+        "en": "Sunday 2–4pm painting session, a calm afternoon for little creatives.",
+        "zh": "周日14至16点绘画活动，适合小小创意达人。"
+      }
+    },
+    {
+      "id": "ck-evt-e2f8dcace9ac89f7354f",
+      "type": "event",
+      "title": "Regelmäßige Vorlesestunde",
+      "venue": "Stadtbibliothek – Kinderbibliothek",
+      "days": [
+        "2026-11-08"
+      ],
+      "time": "15:00–15:30",
+      "indoor": true,
+      "tags": [
+        "reading"
+      ],
+      "label": {
+        "de": "Regelmäßige Vorlesestunde",
+        "en": "Regular storytime",
+        "zh": "定期故事时间"
+      },
+      "why": {
+        "de": "Sonntag 15 Uhr in der Kinderbibliothek – gemütliches Vorlesen, drinnen.",
+        "en": "Sunday 3pm in the children's library, cosy story time indoors.",
+        "zh": "周日下午3点在儿童图书馆，室内听故事，气氛温馨。"
+      }
+    },
+    {
+      "id": "osm-way-4443742",
+      "type": "place",
+      "title": "Aachener Tierpark Euregiozoo",
+      "kind": "zoo",
+      "hours": "Feb 16-Oct 15: 09:00-18:30; Oct 16-Nov 15: 09:00-17:30; Nov 16-Feb 15: 09:00-16:30",
+      "free": false,
+      "district": "Beverau",
+      "venue": "Obere Drimbornstraße 44",
+      "days": [],
+      "label": {
+        "de": "Aachener Tierpark Euregiozoo",
+        "en": "Aachener Tierpark Euregiozoo",
+        "zh": "亚琛Euregiozoo动物园"
+      },
+      "why": {
+        "de": "Tierisch schöner Ausflug in Beverau, im Sommer bis 18:30 Uhr geöffnet!",
+        "en": "A zoo outing in Beverau, open until 18:30 in summer, perfect for a family day out.",
+        "zh": "贝维劳的动物园之旅，夏季营业至18:30，适合全家一起度过周末。"
+      }
+    }
+  ],
+  "still": [
+    {
+      "id": "ck-evt-2c4ff94b78c4d713a95e",
+      "title": "Lufonauten - Museumsclub für Kinder",
+      "end": "2026-12-16"
+    }
+  ]
+}

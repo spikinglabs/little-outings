@@ -1,0 +1,163 @@
+{
+  "town": "Hamburg",
+  "slug": "hamburg",
+  "weekend": "2026-11-07",
+  "week": 45,
+  "published_at": "2026-11-03T23:22:05.574Z",
+  "by": "ai",
+  "weather": [
+    {
+      "day": "2026-11-07",
+      "code": 45,
+      "max": 5.5,
+      "rain": 2
+    },
+    {
+      "day": "2026-11-08",
+      "code": 45,
+      "max": 7.5,
+      "rain": 3
+    }
+  ],
+  "picks": [
+    {
+      "id": "ck-evt-b9cc58e8c05cd43d5a74",
+      "type": "event",
+      "title": "Mit LEGO® Steinen bauen",
+      "venue": "Bücherhalle Billstedt",
+      "days": [
+        "2026-11-07"
+      ],
+      "time": "10:00–12:30",
+      "indoor": true,
+      "tags": [
+        "diy"
+      ],
+      "label": {
+        "de": "Mit LEGO® Steinen bauen",
+        "en": "Building with LEGO® bricks",
+        "zh": "用乐高积木搭建"
+      },
+      "why": {
+        "de": "Freies Bauen mit LEGO® für kleine Hände, Samstagvormittag in Billstedt.",
+        "en": "Free-form LEGO® building for little hands, Saturday morning in Billstedt.",
+        "zh": "周六上午在Billstedt，适合小手的自由乐高搭建。"
+      }
+    },
+    {
+      "id": "ck-evt-90af4238e6e80bbbb6c5",
+      "type": "event",
+      "title": "Familiensamstag mit Kinderschminken",
+      "venue": "Bücherhalle Wilhelmsburg",
+      "days": [
+        "2026-11-07"
+      ],
+      "time": "10:30",
+      "indoor": true,
+      "tags": [],
+      "label": {
+        "de": "Familiensamstag mit Kinderschminken",
+        "en": "Family Saturday with face painting",
+        "zh": "家庭周六：儿童彩绘"
+      },
+      "why": {
+        "de": "Kinderschminken am Vormittag, ideal für einen entspannten Familienstart.",
+        "en": "Face painting on Saturday morning, a relaxed start to the family weekend.",
+        "zh": "周六上午的儿童彩绘，轻松开启家庭周末。"
+      }
+    },
+    {
+      "id": "ck-evt-82f040fbba086a0205a1",
+      "type": "event",
+      "title": "Bilderbuchkino mit Lady Sasha",
+      "venue": "Bücherhalle Altona",
+      "days": [
+        "2026-11-07"
+      ],
+      "time": "14:00–15:00",
+      "indoor": true,
+      "tags": [
+        "reading",
+        "stage"
+      ],
+      "label": {
+        "de": "Bilderbuchkino mit Lady Sasha",
+        "en": "Picture book cinema with Lady Sasha",
+        "zh": "与Lady Sasha一起的绘本电影"
+      },
+      "why": {
+        "de": "Gemütliches Bilderbuchkino am Samstagnachmittag, ideal für die Kleinsten.",
+        "en": "A cosy picture-book cinema on Saturday afternoon, ideal for the youngest.",
+        "zh": "周六下午温馨的绘本电影，非常适合最小的孩子。"
+      }
+    },
+    {
+      "id": "ck-evt-0d5f9847a9d756f4bb94",
+      "type": "event",
+      "title": "Fredrik Vahle – Kinderkonzert",
+      "venue": "FABRIK Hamburg",
+      "days": [
+        "2026-11-08"
+      ],
+      "time": "11:30",
+      "tags": [
+        "music"
+      ],
+      "label": {
+        "de": "Fredrik Vahle – Kinderkonzert",
+        "en": "Fredrik Vahle – children's concert",
+        "zh": "Fredrik Vahle 儿童音乐会"
+      },
+      "why": {
+        "de": "Fredrik Vahle singt live für Kinder, Sonntagvormittag im FABRIK.",
+        "en": "Fredrik Vahle sings live for children on Sunday morning at FABRIK.",
+        "zh": "周日上午在FABRIK现场为孩子们演唱。"
+      }
+    },
+    {
+      "id": "ck-evt-18a034fa678a93593de9",
+      "type": "event",
+      "title": "Märchen aus aller Welt",
+      "venue": "Zentralbibliothek",
+      "days": [
+        "2026-11-08"
+      ],
+      "time": "14:00–15:00",
+      "indoor": true,
+      "tags": [
+        "reading"
+      ],
+      "label": {
+        "de": "Märchen aus aller Welt",
+        "en": "Fairy tales from around the world",
+        "zh": "世界各地的童话故事"
+      },
+      "why": {
+        "de": "Märchen aus aller Welt am Sonntagnachmittag in der Zentralbibliothek.",
+        "en": "Fairy tales from around the world on Sunday afternoon at the Zentralbibliothek.",
+        "zh": "周日下午在中央图书馆聆听来自世界各地的童话。"
+      }
+    },
+    {
+      "id": "osm-way-177002329",
+      "type": "place",
+      "title": "Wildpark Schwarze Berge",
+      "kind": "zoo",
+      "hours": "Apr-Oct 08:00-20:00; Nov-Mar 09:00-sunset",
+      "free": false,
+      "district": "Ehestorf",
+      "venue": "Am Wildpark 1",
+      "days": [],
+      "label": {
+        "de": "Wildpark Schwarze Berge",
+        "en": "Wildpark Schwarze Berge",
+        "zh": "Wildpark Schwarze Berge"
+      },
+      "why": {
+        "de": "Tiere aus nächster Nähe erleben – am Wochenende im Wildpark Ehestorf.",
+        "en": "See animals up close at the Ehestorf wildlife park this weekend.",
+        "zh": "周末到埃斯托夫野生动物园，近距离观察各种动物。"
+      }
+    }
+  ]
+}
