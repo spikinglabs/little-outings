@@ -234,6 +234,11 @@ addedBy: "Eingetragen von {by}"
 nick: { sentAs: "Gesendet als", anon: Anonym gesendet, change: im Profil ändern, first: "Du erscheinst als {nick}, ein ausgedachter Spitzname.", new: Neuer Spitzname }
 footer: "Alle Angaben ohne Gewähr. Bitte vor dem Besuch beim Veranstalter prüfen."
 byLine: "Allo Outings ist ein Produkt von {maker}."
+allo:
+  more: Mehr von Allo
+  recalls: { name: Allo Recalls, blurb: "Rückrufe von Baby- und Kinderprodukten, aus amtlichen Quellen" }
+  auri: { name: Allo Auri, blurb: Ein privates Baby-Tagebuch für Eltern }
+  land: { name: Alloland, blurb: Ankommen im Leben in Deutschland }
 dataFrom: "Daten u. a. von {sources}."
 nearStreet: "nahe {street}"
 back: Zurück
