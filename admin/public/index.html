@@ -13,6 +13,7 @@
   <script type="module" src="weekend.js"></script>
   <script type="module" src="alerts.js"></script>
   <script type="module" src="rednote.js"></script>
+  <script type="module" src="weekend-now.js"></script>
   <script type="module" src="instagram.js"></script>
   <script type="module" src="usage.js"></script>
   <script type="module" src="seasons.js"></script>
@@ -72,6 +73,11 @@
       <div class="panel-head">
         <h2>Rednote</h2>
         <p>Picture sets for 小红书, drawn when the weekend edition comes out on Friday (every weekend town), plus explainers like St. Martin. "Save all" puts a set's pictures on your phone in one go: pick Photos, Files or Rednote in the share menu, and the caption is copied too. On a computer it downloads them as one ZIP. Post them in this order with the title and caption. No links or QR codes anywhere: Rednote punishes them. Parents find the site by searching 小鹿出游 and typing a card's code (like K31-2) into the search box.</p>
+        <p>The button makes next weekend's sets now instead of Friday, from the events published so far (with any swaps from the Weekend panel); they show here about 15 minutes later, in the Instagram box too. Thursday and Friday then leave that weekend alone, so the codes on cards you posted stay right.</p>
+      </div>
+      <div class="weekend-now">
+        <button class="primary" id="weekend-now-btn">Make next weekend's sets now</button>
+        <span class="sub" id="weekend-now-note" aria-live="polite"></span>
       </div>
       <div class="banner" id="rednote-banner" hidden></div>
       <div id="rednote"></div>
