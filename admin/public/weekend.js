@@ -39,7 +39,8 @@ function render() {
     return;
   }
   $("weekend-when").textContent = `Weekend of ${draft.weekend}, drafted ${dateFmt.format(new Date(draft.drafted_at))}${
-    draft.edited_at ? `, changed ${dateFmt.format(new Date(draft.edited_at))} by ${draft.edited_by}` : ""}.`;
+    draft.edited_at ? `, changed ${dateFmt.format(new Date(draft.edited_at))} by ${draft.edited_by}` : ""}${
+    draft.published_at ? `, published early ${dateFmt.format(new Date(draft.published_at))}: these picks went out and can't change now` : ""}.`;
   box.innerHTML = Object.entries(draft.towns).map(([town, d]) => `
     <section class="weekend-town" data-town="${esc(town)}">
       <h3>${esc(town)} <span class="badge out">${d.by === "ai" ? "picked by AI" : "picked by score"}</span></h3>
