@@ -28,3 +28,37 @@ export async function commitFile(env, path, text, message) {
   if (!put.ok) throw new Error(`GitHub refused the commit (${put.status}).`);
   return (await put.json()).commit?.html_url || null;
 }
+
+const WORKFLOW = "weekend-now.yml";
+
+/** One call to the site repository's Actions API. */
+async function actions(env, path, init = {}) {
+  if (!env.GITHUB_TOKEN) throw new Error("GITHUB_TOKEN is not set for the admin site.");
+  const repo = env.GITHUB_REPO || "spikinglabs/little-outings";
+  return fetch(`https://api.github.com/repos/${repo}/actions/workflows/${WORKFLOW}${path}`, {
+    ...init,
+    headers: { authorization: `Bearer ${env.GITHUB_TOKEN}`, accept: "application/vnd.github+json", "user-agent": "little-outings-admin", ...init.headers },
+  });
+}
+
+const NEEDS_ACTIONS = "The admin's GITHUB_TOKEN may not start workflows yet: give it \"Actions: Read and write\" on the site repository.";
+
+/** Starts the "Weekend edition now" workflow on the site's branch. */
+export async function startWeekendNow(env) {
+  const res = await actions(env, "/dispatches", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ ref: env.GITHUB_BRANCH || "main" }),
+  });
+  if (res.status === 403 || res.status === 404) throw new Error(NEEDS_ACTIONS);
+  if (!res.ok) throw new Error(`GitHub refused to start the workflow (${res.status}).`);
+}
+
+/** The newest run of that workflow: { status, conclusion, started, url }, or null. */
+export async function lastWeekendNow(env) {
+  const res = await actions(env, `/runs?per_page=1&branch=${encodeURIComponent(env.GITHUB_BRANCH || "main")}`);
+  if (res.status === 403 || res.status === 404) throw new Error(NEEDS_ACTIONS);
+  if (!res.ok) throw new Error(`GitHub refused to list the runs (${res.status}).`);
+  const run = (await res.json()).workflow_runs?.[0];
+  return run ? { status: run.status, conclusion: run.conclusion, started: run.created_at, url: run.html_url } : null;
+}

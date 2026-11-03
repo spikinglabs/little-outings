@@ -42,28 +42,10 @@ alerts:
     crowd_event: "大型活动"
     other: "提醒"
 recalls:
-  title: "产品召回"
-  link: "召回"
-  intro: "最近几周德国官方发布的婴儿食品、儿童食品、玩具和其他儿童用品召回。每一条我们都先读过再放上来。"
   line:
-    other: "{n} 条儿童产品召回"
-  none: "目前没有儿童产品召回。"
-  published: "{date} 召回"
-  stores: "销售商店"
-  states: "地区"
-  all: "全德国"
-  check: "家里的是不是？"
-  todo: "怎么办"
-  company: "厂家"
-  source: "官方公告"
-  from: "信息来自 lebensmittelwarnung.de，德国各联邦州和联邦消费者保护局（BVL）的官方食品警告网站，以官方公告为准。"
-  kind:
-    baby_food: "婴儿食品"
-    food: "食品"
-    toy: "玩具"
-    kids_product: "儿童用品"
-    cosmetics: "化妆品"
-    other: "产品"
+    other: "近一个月德国 {n} 条儿童产品召回"
+  from: "来自官方公告，小鹿召回每天更新。"
+  all: "查看全部召回"
 wx:
   rain: "{when}可能下雨。"
   snow: "{when}可能下雪，注意保暖。"
@@ -257,6 +239,11 @@ addedBy: "由 {by} 添加"
 nick: { sentAs: 署名, anon: 匿名发送, change: 在个人资料里修改, first: "你显示为“{nick}”，这是随机起的网名。", new: 换一个网名 }
 footer: 所有信息仅供参考，出发前请向主办方确认。
 byLine: "小鹿出游是 {maker} 的产品。"
+allo:
+  more: 更多 Allo 工具
+  recalls: { name: 小鹿召回 Allo Recalls, blurb: 婴幼儿和儿童产品召回，来自官方通告 }
+  auri: { name: Allo Auri, blurb: 给父母的私密宝宝日志 }
+  land: { name: Alloland, blurb: 融入德国生活 }
 dataFrom: "部分数据来自 {sources}。"
 nearStreet: "{street}附近"
 back: 返回
@@ -625,7 +612,7 @@ weekend:
   h1: "<em>本周末</em>带孩子在{town}去哪儿"
   kicker: "第{week}周 · {town}"
   sub: "{range} · 为家庭精选"
-  description: "本周末带孩子在{town}做什么？{list}等：{range}的出游推荐，每周五更新。"
+  description: "本周末带孩子在{town}做什么？{list}等：{range}的出游推荐，每周一发布、周五更新。"
   always: 随时可去
   still: 仍在进行
   until: "至{date}"
@@ -642,19 +629,19 @@ weekend:
   telegram: Telegram频道
   print: 打印张贴（A4）
   rss: RSS订阅
-  next: "下一期将于{date}（周五）早上发布。"
+  next: "下一期将于{date}早上发布。"
   meanwhile: 在“发现”查看本周末全部活动
   lastEdition: "上一期：{range}"
   archiveNote: "本期为{range}。"
   current: 查看最新一期
   earlier: 往期
-  how: "每周五更新，从{town}所有亲子活动中精选：优先为孩子设计、免费、白天的活动，并结合天气；同一地点只选一次，近几周推荐过的不再重复。出发前请向主办方确认。"
+  how: "每周一发布、周五更新，从{town}所有亲子活动中精选：优先为孩子设计、免费、白天的活动，并结合天气；同一地点只选一次，近几周推荐过的不再重复。出发前请向主办方确认。"
   weather: "天气：Open-Meteo.com"
   nav: 周末精选
   new: 新
-  cardKicker: 每周五更新
+  cardKicker: 每周一更新
   hub: 周末带孩子去哪儿
-  hubSub: 每周五为每个城市推荐周末好去处。
+  hubSub: 每周一为每个城市推荐周末好去处，周五更新。
   printWeekly: "每周更新：{url}"
   printFoot: "亲子出游推荐，提供德文、英文和中文。无需注册，没有广告。出发前请向主办方确认。"
   printHint: "按 Ctrl+P 或 ⌘P 打印，A4 纵向。此行不会被打印。"
@@ -707,7 +694,7 @@ city:
   qPlay: "{town}哪里有好的游乐场？"
   aPlay: "{town}有 {n} 个游乐场，信息最全的有{list}。每个游乐场页面上都写着有没有沙坑、秋千、厕所等设施。"
   qWeekend: "这个周末在{town}可以做什么？"
-  aWeekendEdition: "我们每周五都会精选本周末{town}的活动和好去处：{list}。"
+  aWeekendEdition: "我们每周一都会精选本周末{town}的活动和好去处：{list}。"
   aWeekend: "这个周末有{list}。"
   sep: "、"
   others: 其他城市

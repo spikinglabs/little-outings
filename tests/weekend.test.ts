@@ -4,7 +4,7 @@ import {
   chatText, clockText, isoWeek, openOnWeekend, parsePicks, pickMix, placeCandidates, scoreEvent, telegramText, townSlug, weekendOf,
   type Edition, type Pick,
 } from "../src/lib/weekend.ts";
-import { liveEdition, nextFriday } from "../src/lib/weekend-data.ts";
+import { liveEdition, nextEditionDay } from "../src/lib/weekend-data.ts";
 import { holidayOn, weekendEvents } from "../scripts/weekend-edition.mjs";
 import { applyWeekendEdit } from "../admin/lib/weekend.js";
 
@@ -20,7 +20,10 @@ test("the weekend is the coming one from Monday to Friday, and the current one o
   assert.equal(townSlug("Köln"), "koeln");
   assert.equal(townSlug("Frankfurt am Main"), "frankfurt");
   assert.equal(townSlug("München"), "muenchen");
-  assert.equal(nextFriday("2026-10-26"), "2026-10-30");
+  assert.equal(nextEditionDay("2026-10-26"), "2026-10-30"); // Monday: Friday next
+  assert.equal(nextEditionDay("2026-10-28"), "2026-10-30"); // Wednesday
+  assert.equal(nextEditionDay("2026-10-30"), "2026-11-02"); // Friday: Monday next
+  assert.equal(nextEditionDay("2026-11-01"), "2026-11-02"); // Sunday
 });
 
 test("an edition is live from its publish until its Sunday", () => {

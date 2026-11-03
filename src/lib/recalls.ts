@@ -1,32 +1,27 @@
-// Product recalls: official German recalls of baby food, children's food, toys and children's products that
-// someone confirmed in the admin's "Recalls" panel (see scripts/check-recalls.mjs and admin/lib/recalls.js).
-// Each has our own texts per language and a link to the official notice on lebensmittelwarnung.de.
-// Plain logic here; the file is read in lib/data.ts.
+// Recent recalls of children's products sold in Germany, from Allo Recalls (recalls.allo.land), fetched before
+// each build by scripts/fetch-recalls.mjs into data/recalls.json. Each links to its page there.
 import type { Lang } from "./i18n";
 
 export interface Recall {
   id: string;
-  /** YYYY-MM-DD: the day of the official notice. */
+  /** YYYY-MM-DD */
   published: string;
-  /** YYYY-MM-DD: the last day it shows. */
-  until: string;
-  /** baby_food, food, toy, kids_product, cosmetics, other */
-  kind: string;
-  product: Record<Lang, string>;
-  reason: Record<Lang, string>;
-  line: Record<Lang, string>;
-  stores?: string[];
-  /** "all" for all of Germany, or the states. */
-  states?: "all" | string[];
-  company?: string;
-  /** How to tell if the one at home is affected: best-before dates, lots, barcodes. */
-  check?: Record<Lang, string[]>;
-  /** What the official notice says to do. */
-  todo?: Record<Lang, string[]>;
-  url: string;
+  category?: string;
+  title: Record<Lang, string>;
 }
 
-/** Recalls still to show on `today`, newest first. */
-export const currentRecalls = (recalls: Recall[], today: string): Recall[] =>
-  recalls.filter((r) => r.until >= today && r.published <= today)
-    .sort((a, b) => b.published.localeCompare(a.published) || a.id.localeCompare(b.id));
+const SITE = "https://recalls.allo.land";
+const DIR: Record<Lang, string> = { de: "/de/", en: "/", zh: "/zh/" };
+const ALPHABET = "23456789ABCDEFGHJKMNPQRSTUVWXYZ";
+
+/** Allo Recalls' six-character code for a recall (FNV-1a of its id, as recall-tracker's web/src/share.js). */
+export function recallCode(id: string): string {
+  let h = 0x811c9dc5;
+  for (const ch of String(id)) { h ^= ch.codePointAt(0)!; h = Math.imul(h, 0x01000193) >>> 0; }
+  let out = "";
+  for (let i = 0; i < 6; i++) { out += ALPHABET[h % ALPHABET.length]; h = Math.floor(h / ALPHABET.length); }
+  return out;
+}
+
+export const recallsHome = (lang: Lang) => `${SITE}${DIR[lang]}`;
+export const recallUrl = (r: Recall, lang: Lang) => `${SITE}${DIR[lang]}r/${recallCode(r.id)}/`;

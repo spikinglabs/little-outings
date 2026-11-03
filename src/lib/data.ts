@@ -2,7 +2,7 @@
 import { getCollection } from "astro:content";
 import { readFileSync } from "node:fs";
 import { current, type Alert } from "./alerts.ts";
-import { currentRecalls, type Recall } from "./recalls.ts";
+import type { Recall } from "./recalls.ts";
 import { tagSharedNames } from "./credit.ts";
 import { applyEventTally, applyTally, applyTranslations, canonicalTown, normalizeEvent, normalizePlace, resolveGeo, shiftDays, townsFromPlaces, type Town } from "./merge.ts";
 import { fixtureEvent, loadSeasons, seasonsOf, type SeasonData } from "./seasons.ts";
@@ -123,9 +123,9 @@ export function getAlerts(): Alert[] {
   try { return current(JSON.parse(readFileSync("data/alerts.json", "utf8")).alerts ?? [], TODAY); } catch { return []; }
 }
 
-/** Confirmed product recalls still shown (lib/recalls.ts), newest first; none without the file. */
+/** Recent recalls of children's products in Germany (lib/recalls.ts), newest first; none without the file. */
 export function getRecalls(): Recall[] {
-  try { return currentRecalls(JSON.parse(readFileSync("data/recalls.json", "utf8")).recalls ?? [], TODAY); } catch { return []; }
+  try { return JSON.parse(readFileSync("data/recalls.json", "utf8")).recalls ?? []; } catch { return []; }
 }
 
 export async function getTasks() {

@@ -1,6 +1,6 @@
 ---
 // This weekend's edition for one town, at the same address every week so links, QR codes and
-// search results keep pointing at the current one. From Monday to Thursday it says when the next comes;
+// search results keep pointing at the current one. In a week it skipped it says when the next comes;
 // a town whose first edition isn't out yet has the page too, so Discover's link never leads nowhere.
 import Base from "../../../../layouts/Base.astro";
 import WeekendEdition from "../../../../components/WeekendEdition.astro";
@@ -10,7 +10,7 @@ import RecallLine from "../../../../components/RecallLine.astro";
 import { LANGS, useT, type Lang } from "../../../../lib/i18n";
 import { getData, TODAY } from "../../../../lib/data";
 import { townName } from "../../../../lib/format";
-import { archiveOf, editionTowns, liveEdition, nextFriday } from "../../../../lib/weekend-data";
+import { archiveOf, editionTowns, liveEdition, nextEditionDay } from "../../../../lib/weekend-data";
 import { textIn, weekendRange, type Edition } from "../../../../lib/weekend";
 import { weekendKey } from "../../../../lib/og";
 
@@ -30,8 +30,8 @@ const range = live ? weekendRange(live.weekend, lang) : "";
 const title = live ? `${t("weekend.title", { town })}: ${range}` : t("weekend.title", { town });
 const list = live ? live.picks.filter((p) => p.type === "event").slice(0, 3).map((p) => textIn(p.label, lang, p.title)).join(", ") : "";
 const description = live ? t("weekend.description", { town, list, range }) : t("weekend.how", { town });
-const nextDay = new Intl.DateTimeFormat(t.locale, { timeZone: "UTC", day: "numeric", month: "long" }).format(new Date(`${nextFriday(TODAY)}T12:00:00Z`));
-// Mon–Thu: the place from the last edition is still a good idea.
+const nextDay = new Intl.DateTimeFormat(t.locale, { timeZone: "UTC", weekday: "long", day: "numeric", month: "long" }).format(new Date(`${nextEditionDay(TODAY)}T12:00:00Z`));
+// No edition this week: the place from the last edition is still a good idea.
 const keep = !live && last ? last.picks.filter((p) => p.type === "place" && placeById.has(p.id)) : [];
 const ld = live && {
   "@context": "https://schema.org", "@type": "ItemList", name: title, url: `${site}/${lang}/wochenende/${live.slug}/`,

@@ -21,13 +21,13 @@ export const GET: APIRoute = async ({ site }) => {
   // Season pages (Christmas markets …): each overview and its town pages.
   const seasonal = seasonPages(seasons).flatMap(({ season, file }) => [`${season.page!.slug}/`, `${season.page!.slug}/${file.slug}/`]);
   const paths = [
-    "", "mitmachen/", "daten/", "hilfe/", "rueckrufe/",
+    "", "mitmachen/", "daten/", "hilfe/",
     // City pages ("科隆带娃去哪儿"): what a parent new to the site searches for.
     "stadt/", ...cityTowns(region.towns, events, places, TODAY).map((c) => `stadt/${c.slug}/`),
     ...new Set(seasonal),
     ...places.filter((p) => sitemapWorthy(p) && (ours.has(p.town) || !p.id.startsWith("osm-"))).map((p) => `orte/${p.id}/`),
   ];
-  // The weekend editions: one address per town that changes every Friday.
+  // The weekend editions: one address per town that changes every Monday (refreshed on Friday).
   const weekend = editionTowns();
   if (weekend.length) paths.push("wochenende/", ...weekend.map((w) => `wochenende/${w.slug}/`));
   const fresh = new Map(weekend.filter((w) => w.editions.length).map((w) => [`wochenende/${w.slug}/`, (liveEdition(w.editions, TODAY) ?? w.editions[0]).published_at.slice(0, 10)]));

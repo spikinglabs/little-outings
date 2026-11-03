@@ -1,5 +1,5 @@
-// Weekend panel: the draft of this weekend's edition per town, from Thursday night until Friday's
-// publish. Swap a pick for one of the alternates, drop one, or change its German line. Talks to /api/weekend.
+// Weekend panel: the coming weekend's edition per town. It is drafted and published early on Monday, so
+// the panel mostly shows what went out; a draft made by hand (WEEKEND_MODE=draft) can still be edited before it publishes. Swap a pick for one of the alternates, drop one, or change its German line. Talks to /api/weekend.
 const $ = (id) => document.getElementById(id);
 const esc = (value) =>
   String(value ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
@@ -35,11 +35,12 @@ function render() {
   const box = $("weekend");
   if (!draft) {
     $("weekend-when").textContent = "";
-    box.innerHTML = `<p class="sub">No draft yet. The next one is made on Thursday night.</p>`;
+    box.innerHTML = `<p class="sub">No edition yet. The next one is made early on Monday.</p>`;
     return;
   }
   $("weekend-when").textContent = `Weekend of ${draft.weekend}, drafted ${dateFmt.format(new Date(draft.drafted_at))}${
-    draft.edited_at ? `, changed ${dateFmt.format(new Date(draft.edited_at))} by ${draft.edited_by}` : ""}.`;
+    draft.edited_at ? `, changed ${dateFmt.format(new Date(draft.edited_at))} by ${draft.edited_by}` : ""}${
+    draft.published_at ? `, published early ${dateFmt.format(new Date(draft.published_at))}: these picks went out and can't change now` : ""}.`;
   box.innerHTML = Object.entries(draft.towns).map(([town, d]) => `
     <section class="weekend-town" data-town="${esc(town)}">
       <h3>${esc(town)} <span class="badge out">${d.by === "ai" ? "picked by AI" : "picked by score"}</span></h3>
@@ -73,7 +74,7 @@ async function save(town, picks) {
     const body = await res.json().catch(() => ({}));
     if (!res.ok) throw new Error(body.error || `Request failed (${res.status})`);
     ({ draft, etag } = body);
-    note("Saved. It publishes on Friday morning as shown here.");
+    note("Saved. It publishes as shown here.");
   } catch (error) {
     note(`Not saved: ${error.message}`, true);
   }

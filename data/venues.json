@@ -11,10 +11,6 @@
   "venue": "Klangbrücke Altes Kurhaus",
   "street": "Kurhausstraße 2"
  },
- "https://altes-kurhaus-aachen.de/veranstaltung/weltklassik-am-klavier-ueberraschung-sturmsonate-carnaval-und-appassionata/": {
-  "venue": "Klangbrücke Altes Kurhaus",
-  "street": "Kurhausstraße 2"
- },
  "https://centre-charlemagne.eu/termin/25-km-industriegeschiche-die-juelicher-strasse-10/": {
   "venue": "Centre Charlemagne"
  },
@@ -22,9 +18,6 @@
   "venue": "Centre Charlemagne"
  },
  "https://centre-charlemagne.eu/termin/25-km-industriegeschiche-die-juelicher-strasse-4/": {
-  "venue": "Centre Charlemagne"
- },
- "https://centre-charlemagne.eu/termin/25-km-industriegeschiche-die-juelicher-strasse-6/2026-11-01/": {
   "venue": "Centre Charlemagne"
  },
  "https://centre-charlemagne.eu/termin/25-km-industriegeschiche-die-juelicher-strasse-6/2026-11-08/": {
@@ -43,9 +36,6 @@
   "venue": "Centre Charlemagne"
  },
  "https://centre-charlemagne.eu/termin/baden-pilgern-printen-2000-jahre-kulturgeschichte-11/": {
-  "venue": "Centre Charlemagne"
- },
- "https://centre-charlemagne.eu/termin/leben-um-800-15/": {
   "venue": "Centre Charlemagne"
  },
  "https://centre-charlemagne.eu/termin/noblesse-oblige-so-prachtvoll-glaenzte-aachen-6/": {
@@ -86,11 +76,6 @@
   "read": 3
  },
  "https://events.timely.fun/ewx8j2kb/event/78461299/20261118100000": {
-  "venue": null,
-  "guess": null,
-  "read": 3
- },
- "https://events.timely.fun/ewx8j2kb/event/78461301/20261021150000": {
   "venue": null,
   "guess": null,
   "read": 3
@@ -155,10 +140,6 @@
    "why": "The event title specifies Pasing and the organiser Kultur & Spielraum e.V. operates the Kinder- und Jugendkulturwerkstatt (KJW) Pasinger Fabrik."
   },
   "read": 3
- },
- "https://gedenkort-papestrasse.de/events/oeffentliche-fuehrung-7/": {
-  "venue": "Gedenkort SA-Gefängnis Papestraße",
-  "street": "Werner-Voß-Damm 54 a"
  },
  "https://gedenkort-papestrasse.de/events/oeffentliche-fuehrung-8/": {
   "venue": "Gedenkort SA-Gefängnis Papestraße",
@@ -492,22 +473,11 @@
   "venue": "Willy-Brandt-Saal im Rathaus Schöneberg",
   "street": "John-F.-Kennedy-Platz 1"
  },
- "https://schwerbelastungskoerper.de/events/saisonende/": {
-  "venue": "Informationsort Schwerbelastungskörper"
- },
  "https://suermondt-ludwig-museum.de/event/ars-longa-vita-brevis/": {
   "venue": null,
   "guess": {
    "venue": "Suermondt-Ludwig-Museum",
    "why": "The event page is hosted on the Suermondt-Ludwig-Museum website and mentions meeting at the museum ticket desk."
-  },
-  "read": 3
- },
- "https://suermondt-ludwig-museum.de/event/die-wunderkammer-und-highlights-der-sammlung-9-2/": {
-  "venue": null,
-  "guess": {
-   "venue": "Suermondt-Ludwig-Museum",
-   "why": "The event is published on the Suermondt-Ludwig-Museum website and is a guided tour of its permanent collection."
   },
   "read": 3
  },
@@ -628,6 +598,10 @@
   "venue": "Hauptcampus der Universität zu Köln",
   "street": "Albertus-Magnus-Platz"
  },
+ "https://uni-koeln.de/universitaet/aktuell/veranstaltungen/detail/universitaetskonzerte-a-story-a-space-a-dance": {
+  "venue": "Aula, Hauptgebäude",
+  "street": "Albertus-Magnus-Platz"
+ },
  "https://uni-koeln.de/universitaet/aktuell/veranstaltungen/detail/universitaetskonzerte-fanny-klavierabend": {
   "venue": "Aula, Hauptgebäude",
   "street": "Albertus-Magnus-Platz"
@@ -716,6 +690,10 @@
   "venue": "Theater Düren im Haus der Stadt",
   "street": "Stefan-Schwer-Straße 4-6"
  },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/der-achtsame-tiger-so-ein-kuddelmuddel-bundesweiter-vorlesetag-lesung-fuer-kinder": {
+  "venue": "Stadtbücherei Düren",
+  "street": "Stefan-Schwer-Straße 4-6"
+ },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/die-schneekoenigin": {
   "venue": "Theater Düren im Haus der Stadt",
   "street": "Stefan-Schwer-Straße 4-6"
@@ -759,6 +737,10 @@
   "venue": "Marktplatz",
   "street": "Markt"
  },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/ein-abend-voller-geschichten-bundesweiter-vorlesetag": {
+  "venue": "Stadtbücherei Düren",
+  "street": "Stefan-Schwer-Straße 4-6"
+ },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/eintrittsfreier-donnerstag-im-lhm-03-12-2026": {
   "venue": "Leopold-Hoesch-Museum",
   "street": "Hoeschplatz 1"
@@ -790,10 +772,6 @@
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/ffentlich-fuehrung-06-12-2026-1": {
   "venue": "Leopold-Hoesch-Museum",
   "street": "Hoeschplatz 1"
- },
- "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/ffentliche-fuehrung-01-11-2026": {
-  "venue": "Papiermuseum Düren",
-  "street": "Wallstraße 2-8"
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/ffentliche-fuehrung-im-stadtmuseum": {
   "venue": "Stadtmuseum Düren",
@@ -902,7 +880,7 @@
   "venue": "Papiermuseum Düren",
   "street": "Wallstraße 2-8"
  },
- "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/komm-mit-ins-vorleseland": {
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/jim-will-nur-spielen-bundesweiter-vorlesetag-lesung-fuer-kinder": {
   "venue": "Stadtbücherei Düren",
   "street": "Stefan-Schwer-Straße 4-6"
  },
@@ -968,6 +946,10 @@
   "venue": "Haus der Stadt",
   "street": "Stefan-Schwer-Straße 4-6"
  },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/papafant-angst-im-dunkeln-ich-doch-nicht-bundesweiter-vorlesetag-lesung-fuer-kinder": {
+  "venue": "Stadtbücherei Düren",
+  "street": "Stefan-Schwer-Straße 4-6"
+ },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/peace-food-oder-die-letzte-suppe-schulvorstellung": {
   "venue": "KOMM – Kulturzentrum Pleußmühle",
   "street": "August-Klotz Straße 21"
@@ -982,11 +964,6 @@
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/rundgang-ueber-den-neuen-friedhof-am-ende-der-friedenstrae": {
   "venue": "Rondell am Friedhofseingang"
- },
- "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/rundgang-ueber-den-neuen-friedhof-am-ende-der-friedenstrae-31-10-2026": {
-  "venue": null,
-  "guess": null,
-  "read": 3
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/seeraeuber-susi-sucht-ws-suesses": {
   "venue": "Theater Düren im Haus der Stadt",
@@ -1026,10 +1003,6 @@
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/stadtfuehrung-duerener-stadtrundgang-08-11-2026": {
   "venue": "iPUNKT",
   "street": "Markt 6"
- },
- "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/stadtfuehrung-evangelischer-friedhof": {
-  "venue": "Evangelischer Friedhof",
-  "street": "Kölnstraße 100"
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/tag-der-offenen-tuer-am-burgau-gymnasium": {
   "venue": "Burgau Gymnasium",
@@ -1090,12 +1063,16 @@
   },
   "read": 3
  },
+ "https://www.mfk-frankfurt.de/mc-events/offene-kinderwerkstatt-15/?mc_id=4151": {
+  "venue": null,
+  "guess": {
+   "venue": "Museum für Kommunikation Frankfurt am Main Schaumainkai 53 Frankfurt am Main 60596",
+   "why": "The organiser is the Museum für Kommunikation Frankfurt, so the workshop most likely takes place in that museum."
+  },
+  "read": 3
+ },
  "https://www.schauburg.net/de/programm/just-listen": {
   "venue": "Musiktheater für die Turnhalle"
- },
- "https://www.visitduesseldorf.de/redirect/event/01a0f12a-dcea-7251-9fb6-d203682b75e7/de": {
-  "venue": "Rheinkirche Düsseldorf",
-  "street": "Luisenstr. 51"
  },
  "https://www.visitduesseldorf.de/redirect/event/01a157f4-5e8c-7323-8858-f322ffed3103/de": {
   "venue": "Gustav-Adolf-Kirche"

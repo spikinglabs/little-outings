@@ -6,7 +6,7 @@ import "@fontsource/barlow-semi-condensed/600.css";
 import "@fontsource/barlow-semi-condensed/700.css";
 import "@fontsource-variable/bricolage-grotesque/opsz.css";
 import "../styles/global.css";
-import { LANGS, MAKER_URL, tr, useT, type Lang } from "../lib/i18n";
+import { LANGS, MAKER_URL, alloSites, tr, useT, type Lang } from "../lib/i18n";
 import { seasonPages, seasonPath } from "../lib/seasons";
 import { UI_ICON, sprite, svg } from "../lib/icons";
 import { FEATURES } from "../content.config";
@@ -202,7 +202,15 @@ const ui = {
       </main>
       <footer class="foot">
         <p class="foot-links">{footLinks.map((l, i) => <>{i > 0 && " · "}<a href={l.href}>{l.label}</a></>)}</p>
-        <p>{t("footer")} <a href={`/${lang}/hilfe/`}>{t("help.link")}</a> · <a href={`/${lang}/rueckrufe/`}>{t("recalls.link")}</a> · <a href={`/${lang}/daten`}>{t("about.link")}</a> · <a href={`/${lang}/impressum`}>{t("legal.link")}</a></p>
+        <p>{t("footer")} <a href={`/${lang}/hilfe/`}>{t("help.link")}</a> · <a href={`/${lang}/daten`}>{t("about.link")}</a> · <a href={`/${lang}/impressum`}>{t("legal.link")}</a></p>
+        <nav class="family" aria-labelledby="family-h">
+          <h2 id="family-h">{t("allo.more")}</h2>
+          <ul>
+            {alloSites(lang).map((site) => (
+              <li><a href={site.url}><b>{t(`allo.${site.id}.name`)}</b><span>{t(`allo.${site.id}.blurb`)}</span></a></li>
+            ))}
+          </ul>
+        </nav>
         <p class="maker" set:html={t("byLine", { maker: `<a href="${MAKER_URL}" target="_blank" rel="noopener">Spiking Labs</a>` })} />
         <p class="install" data-install hidden>
           <button type="button" class="btn install-btn" data-install-btn>{t("install.button")}</button>

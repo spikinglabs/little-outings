@@ -12,8 +12,8 @@
   <script type="module" src="inbox.js"></script>
   <script type="module" src="weekend.js"></script>
   <script type="module" src="alerts.js"></script>
-  <script type="module" src="recalls.js"></script>
   <script type="module" src="rednote.js"></script>
+  <script type="module" src="weekend-now.js"></script>
   <script type="module" src="instagram.js"></script>
   <script type="module" src="usage.js"></script>
   <script type="module" src="seasons.js"></script>
@@ -54,7 +54,7 @@
     <section class="panel" id="weekend-panel">
       <div class="panel-head">
         <h2>Weekend</h2>
-        <p>This weekend's edition per town, drafted on Thursday night and published on Friday morning at /de/wochenende/&lt;town&gt;/. Swap a pick, drop one, or change its German line; the English and Chinese lines are written again when it publishes. If you do nothing, it goes out as drafted. <span id="weekend-when"></span></p>
+        <p>This weekend's edition per town, picked and published early on Monday at /de/wochenende/&lt;town&gt;/ and refreshed on Friday (new weather, and a cancelled pick is replaced by a new event at the end, so the codes stay right). Once published, picks can't be swapped. <span id="weekend-when"></span></p>
       </div>
       <div class="banner" id="weekend-banner" hidden></div>
       <div id="weekend"></div>
@@ -69,19 +69,15 @@
       <ol class="alerts-list" id="alerts"></ol>
     </section>
 
-    <section class="panel" id="recalls-panel">
-      <div class="panel-head">
-        <h2>Recalls <span class="badge out" id="recalls-count"></span></h2>
-        <p>Official German recalls of baby food, children's food, toys and children's products, collected daily by recall-tracker from lebensmittelwarnung.de. Every night the AI reads each new recall page and writes what the product is, why it was recalled, where it was sold, what to check at home and what to do. Check the texts (facts only) and press Confirm: it shows on Discover, on the weekend pages and on the Recalls page a few minutes later, for 30 days unless you set another last day, and a Rednote poster set for it appears in the Rednote panel. <span id="recalls-when"></span></p>
-      </div>
-      <div class="banner" id="recalls-banner" hidden></div>
-      <ol class="alerts-list" id="recalls"></ol>
-    </section>
-
     <section class="panel" id="rednote-panel">
       <div class="panel-head">
         <h2>Rednote</h2>
-        <p>Picture sets for 小红书, drawn when the weekend edition comes out on Friday (every weekend town), plus explainers like St. Martin. "Save all" puts a set's pictures on your phone in one go: pick Photos, Files or Rednote in the share menu, and the caption is copied too. On a computer it downloads them as one ZIP. Post them in this order with the title and caption. No links or QR codes anywhere: Rednote punishes them. Parents find the site by searching 小鹿出游 and typing a card's code (like K31-2) into the search box.</p>
+        <p>Picture sets for 小红书, drawn when the weekend edition comes out on Monday and redrawn after Friday's refresh (every weekend town), plus explainers like St. Martin. "Save all" puts a set's pictures on your phone in one go: pick Photos, Files or Rednote in the share menu, and the caption is copied too. On a computer it downloads them as one ZIP. Post them in this order with the title and caption. No links or QR codes anywhere: Rednote punishes them. Parents find the site by searching 小鹿出游 and typing a card's code (like K31-2) into the search box.</p>
+        <p>The button makes next weekend's sets now instead of waiting for Monday, from the events published so far (with any swaps from the Weekend panel); they show here about 15 minutes later, in the Instagram box too. Friday's refresh then keeps its picks in order, so the codes on cards you posted stay right.</p>
+      </div>
+      <div class="weekend-now">
+        <button class="primary" id="weekend-now-btn">Make next weekend's sets now</button>
+        <span class="sub" id="weekend-now-note" aria-live="polite"></span>
       </div>
       <div class="banner" id="rednote-banner" hidden></div>
       <div id="rednote"></div>
@@ -90,7 +86,7 @@
     <section class="panel" id="instagram-panel">
       <div class="panel-head">
         <h2>Instagram</h2>
-        <p>This weekend's carousel for Instagram, in English for expat parents: a cover, one card per town (Berlin, Munich, Frankfurt, Hamburg, Cologne, Düsseldorf) and a closing card, drawn when the weekend edition comes out on Friday. "Save all" puts the pictures on your phone in one go and copies the caption; pick Instagram or Photos in the share menu. On a computer it downloads them as one ZIP. Post them in this order with the caption. Links in Instagram captions don't click, so the cards and caption give each town's short address and the profile's bio links the site. Nothing is posted automatically.</p>
+        <p>This weekend's carousel for Instagram, in English for expat parents: a cover, one card per town (Berlin, Munich, Frankfurt, Hamburg, Cologne, Düsseldorf) and a closing card, drawn when the weekend edition comes out on Monday and redrawn after Friday's refresh. "Save all" puts the pictures on your phone in one go and copies the caption; pick Instagram or Photos in the share menu. On a computer it downloads them as one ZIP. Post them in this order with the caption. Links in Instagram captions don't click, so the cards and caption give each town's short address and the profile's bio links the site. Nothing is posted automatically.</p>
       </div>
       <div class="banner" id="instagram-banner" hidden></div>
       <div id="instagram"></div>
