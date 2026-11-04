@@ -85,6 +85,15 @@ h1, h2, h3, .meta, .de-name, .orig, .trust { overflow-wrap: anywhere; }
 .alert-more summary { cursor: pointer; color: var(--ink-soft); font-size: .9rem; }
 .alert-more p, .alert-more dl, .alert-more ul { margin: 4px 0 0; }
 .alert-more dl div { display: flex; gap: 6px; }
+/* Recent recalls (components/RecallLine.astro) */
+.recall-line { margin-top: 10px; padding: 8px 12px; border-radius: 12px; background: var(--card); border: 1px solid var(--rot); border-left-width: 4px; overflow-wrap: anywhere; }
+.recall-line summary { cursor: pointer; }
+.recall-line summary b { color: var(--rot); }
+.recall-line summary span { color: var(--ink-soft); }
+.recall-line ul { margin: 6px 0 0; padding-left: 1.2em; }
+.recall-line li { margin: 2px 0; }
+.recall-line small, .recall-line .small { color: var(--ink-soft); }
+.recall-line p { margin: 6px 0 0; }
 .alert-more dt { color: var(--ink-soft); }
 .alert-more dt::after { content: ":"; }
 .alert-more dd { margin: 0; }

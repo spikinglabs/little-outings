@@ -41,6 +41,12 @@ alerts:
     evacuation: "Evacuation"
     crowd_event: "Big crowd event"
     other: "Notice"
+recalls:
+  line:
+    one: "{n} recall of a kids' product in Germany this month"
+    other: "{n} recalls of kids' products in Germany this month"
+  from: "From official notices, checked daily by Allo Recalls."
+  all: "All recalls"
 wx:
   rain: "Rain likely {when}."
   snow: "Snow likely {when}: wrap up warm."

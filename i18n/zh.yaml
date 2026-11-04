@@ -41,6 +41,11 @@ alerts:
     evacuation: "疏散"
     crowd_event: "大型活动"
     other: "提醒"
+recalls:
+  line:
+    other: "近一个月德国 {n} 条儿童产品召回"
+  from: "来自官方公告，小鹿召回每天更新。"
+  all: "查看全部召回"
 wx:
   rain: "{when}可能下雨。"
   snow: "{when}可能下雪，注意保暖。"

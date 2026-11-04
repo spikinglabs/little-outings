@@ -41,6 +41,12 @@ alerts:
     evacuation: "Evakuierung"
     crowd_event: "Großveranstaltung"
     other: "Hinweis"
+recalls:
+  line:
+    one: "{n} Rückruf eines Kinderprodukts in Deutschland diesen Monat"
+    other: "{n} Rückrufe von Kinderprodukten in Deutschland diesen Monat"
+  from: "Aus amtlichen Meldungen, täglich geprüft von Allo Recalls."
+  all: "Alle Rückrufe"
 wx:
   rain: "Regen wahrscheinlich {when}."
   snow: "Schnee wahrscheinlich {when}: warm anziehen."

@@ -76,6 +76,11 @@ jobs:
         run: |
           out=$(npm run --silent fetch:weather 2>&1); echo "$out"
           echo "::notice title=Weather::$(echo "$out" | tail -1)"
+      # Recent recalls of children's products in Germany from Allo Recalls, for the line on Discover. Never fails the build.
+      - name: Fetch recent recalls (Allo Recalls)
+        run: |
+          out=$(npm run --silent fetch:recalls 2>&1); echo "$out"
+          echo "::notice title=Recalls::$(echo "$out" | tail -1)"
       - name: Pin parents' places (Nominatim)
         env:
           PINS_CACHE: .cache/pins.json
