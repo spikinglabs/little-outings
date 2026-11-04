@@ -59,3 +59,11 @@ test("without a key, or with a broken answer, nothing new is written", async () 
   assert.deepEqual(r.cache, {});
   assert.equal(r.missing, 1);
 });
+
+test("takes Claude's answer in the shape it was sent, objects carrying the translation", async () => {
+  const items = [{ text: "Martinszug", kind: "event" }, { text: "Hoffest", kind: "event" }];
+  const claude = async () => ({ ok: true, json: async () => ({ content: [{ type: "text", text: 'Here you go:\n[{"text":"圣马丁灯笼游行","kind":"event"},{"translation":"农场节"}]' }] }) });
+  const r = await update(items, {}, { llm: { provider: "anthropic", key: "a" }, fetch: claude });
+  assert.deepEqual(r.cache, { Hoffest: "农场节", Martinszug: "圣马丁灯笼游行" });
+  assert.equal(r.done, 2);
+});

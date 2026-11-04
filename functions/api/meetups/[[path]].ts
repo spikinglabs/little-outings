@@ -18,6 +18,7 @@
 
 import type { D1 } from "../taps.ts";
 import { sessionUser } from "../profile/[[path]].ts";
+import { isAdmin } from "../../../src/lib/admin-key.ts";
 
 interface Env { DB?: D1; MEETUP_ADMIN_KEY?: string }
 type Ctx = { request: Request; env: Env; params: { path?: string[] } };
@@ -35,15 +36,6 @@ const ALPHABET = "abcdefghijkmnpqrstuvwxyz23456789";
 export function newId() {
   const b = crypto.getRandomValues(new Uint8Array(10));
   return [...b].map((x) => ALPHABET[x % ALPHABET.length]).join("");
-}
-
-const digest = async (s: string) => new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s)));
-/** The admin's key, compared as hashes so the time taken says nothing about how much matched. */
-export async function isAdmin(request: Request, env: Env) {
-  const given = request.headers.get("x-admin-key");
-  if (!env.MEETUP_ADMIN_KEY || env.MEETUP_ADMIN_KEY.length < 32 || !given) return false;
-  const [a, b] = await Promise.all([digest(given), digest(env.MEETUP_ADMIN_KEY)]);
-  return a.reduce((diff, x, i) => diff | (x ^ b[i]), 0) === 0;
 }
 
 const json = (status: number, body: unknown) =>
