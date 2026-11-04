@@ -78,7 +78,11 @@ async function ask1(llm: Llm, model: string | undefined, ask: Ask, fetchFn: type
     });
     if (!res.ok) throw new Error(`gemini: HTTP ${res.status} ${(await res.text()).slice(0, 300)}`);
     const out: any = await res.json();
-    return (out.candidates?.[0]?.content?.parts ?? []).map((p: any) => p.text ?? "").join("");
+    const text = (out.candidates?.[0]?.content?.parts ?? []).map((p: any) => p.text ?? "").join("");
+    // An empty answer is a failure with a cause worth seeing (MAX_TOKENS when thinking used up the budget,
+    // SAFETY, a blocked prompt), not an empty string for the caller to puzzle over.
+    if (!text.trim()) throw new Error(`gemini: empty answer (${out.candidates?.[0]?.finishReason ?? out.promptFeedback?.blockReason ?? "no candidate"})`);
+    return text;
   }
   const content: unknown[] = [];
   if (ask.image) content.push({ type: "image", source: { type: "base64", media_type: ask.image.mediaType, data: ask.image.data } });
