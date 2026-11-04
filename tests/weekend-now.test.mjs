@@ -8,6 +8,10 @@ import { applyWeekendEdit } from "../admin/lib/weekend.js";
 import { onRequestGet, onRequestPost } from "../admin/functions/api/weekend-now.js";
 import { comingWeekend } from "../admin/public/weekend-now.js";
 
+// The published editions before the weekend a test makes, so it doesn't meet the real one once main has it.
+const pastEditions = (out, before) =>
+  cpSync("data/weekend", out, { recursive: true, filter: (src) => !/\d{4}-\d\d-\d\d\.json$/.test(src) || src.slice(-15, -5) < before });
+
 const run = (env) => execFileSync("node", ["scripts/weekend-edition.mjs"], {
   env: { PATH: process.env.PATH, HOME: process.env.HOME, ...env }, encoding: "utf8",
 });
@@ -15,7 +19,7 @@ const run = (env) => execFileSync("node", ["scripts/weekend-edition.mjs"], {
 test("early publishes the coming weekend once; later runs keep its picks", () => {
   const dir = mkdtempSync(join(tmpdir(), "weekend-now-"));
   const out = join(dir, "out"), draft = join(dir, "draft.json");
-  cpSync("data/weekend", out, { recursive: true });
+  pastEditions(out, "2026-11-07");
   const env = { WEEKEND_DIR: out, DRAFT_FILE: draft };
   run({ ...env, WEEKEND_TODAY: "2026-11-03", WEEKEND_MODE: "early" });
   const file = join(out, "koeln", "2026-11-07.json");
@@ -44,7 +48,7 @@ test("early publishes the coming weekend once; later runs keep its picks", () =>
 test("Monday publishes the coming weekend, Friday refreshes it and keeps the codes", () => {
   const dir = mkdtempSync(join(tmpdir(), "weekend-mon-fri-"));
   const out = join(dir, "out"), draft = join(dir, "draft.json"), outings = join(dir, "outings.jsonl");
-  cpSync("data/weekend", out, { recursive: true });
+  pastEditions(out, "2026-11-07");
   cpSync("data/outings.jsonl", outings);
   const env = { WEEKEND_DIR: out, DRAFT_FILE: draft, OUTINGS_FILE: outings };
   assert.match(run({ ...env, WEEKEND_TODAY: "2026-11-02" }), /published \d+ edition/);
