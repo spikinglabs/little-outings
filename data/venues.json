@@ -207,9 +207,6 @@
   },
   "read": 3
  },
- "https://historisches-museum-frankfurt.ticketfritz.de/Event/Kalender/26408/52100?typ=Vorlage": {
-  "venue": "Historisches Museum Frankfurt"
- },
  "https://historisches-museum-frankfurt.ticketfritz.de/Event/Kalender/26538?Typ=Vorlage": {
   "venue": null,
   "guess": {
@@ -409,10 +406,6 @@
   "venue": "Kunstwerkstatt des Ludwig Forum",
   "street": "Jülicher Straße 97–109"
  },
- "https://ludwigforum.de/event/mit-baby-ins-museum-2/": {
-  "venue": "Ludwig Forum",
-  "street": "Jülicher Straße 97–109"
- },
  "https://ludwigforum.de/event/play-with-clay-2/": {
   "venue": "Ludwig Forum Aachen",
   "street": "Jülicher Straße 97–109"
@@ -601,6 +594,10 @@
  "https://uni-koeln.de/universitaet/aktuell/veranstaltungen/detail/universitaetskonzerte-fanny-klavierabend": {
   "venue": "Aula, Hauptgebäude",
   "street": "Albertus-Magnus-Platz"
+ },
+ "https://uni-koeln.de/universitaet/aktuell/veranstaltungen/detail/universitaetskonzerte-hear-the-merry-bells-musik-zu-advent-und-weihnachten": {
+  "venue": "Basilika St. Aposteln",
+  "street": "Neumarkt 30"
  },
  "https://uni-koeln.de/universitaet/aktuell/veranstaltungen/detail/universitaetskonzerte-machet-die-tore-weit-musik-zur-advents-und-weihnachtszeit": {
   "venue": "Historisches Rathaus zu Köln (Piazzetta)",
@@ -1080,6 +1077,9 @@
  },
  "https://www.visitduesseldorf.de/redirect/event/01a157f4-5e8c-7323-8858-f322ffed3103/de": {
   "venue": "Gustav-Adolf-Kirche"
+ },
+ "https://www.visitduesseldorf.de/redirect/event/01a1a54c-6944-7127-8f69-192a5b63354e/de": {
+  "venue": "Schloss Eller"
  },
  "https://www.visitduesseldorf.de/redirect/event/aaaa5662-47b5-43d7-905c-fdcd1ed28fec/de": {
   "venue": null,
