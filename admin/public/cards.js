@@ -10,9 +10,10 @@ const esc = (value) =>
 /**
  * id: "rednote" or "instagram" (the box #<id>, its banner #<id>-banner, the API /api/<id>); label: the
  * app's name in messages; type: the cards' picture type; size: a thumbnail's [width, height]; title: show
- * the set's title as a field to copy (Rednote notes have one, Instagram posts don't).
+ * the set's title as a field to copy (Rednote notes have one, Instagram posts don't). Optional: onLoad(body)
+ * gets the API's whole answer, decorate(set) adds HTML under a set's heading. Returns { load, render }.
  */
-export function cardBox({ id, label, type, size, title }) {
+export function cardBox({ id, label, type, size, title, onLoad, decorate }) {
   let sets = [];
 
   async function load() {
@@ -21,6 +22,7 @@ export function cardBox({ id, label, type, size, title }) {
       const body = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(body.error || `Request failed (${res.status})`);
       sets = body.sets.map((s) => ({ ...s, paths: s.pictures, pictures: s.pictures.map((p) => body.site + p) }));
+      onLoad?.(body);
       note("");
     } catch (error) {
       note(`Could not load the ${label} cards: ${error.message}`, true);
@@ -43,6 +45,7 @@ export function cardBox({ id, label, type, size, title }) {
     box.innerHTML = sets.map((s, i) => `
       <section class="rednote-set">
         <h3>${esc(s.kind === "weekly" ? `${s.town}, weekend of ${s.weekend}` : s.kind === "alert" ? `⚠ City alert: ${s.town}, ${s.day}` : s.kind === "set" ? s.id : s.title)}</h3>
+        ${decorate ? decorate(s) : ""}
         <div class="rednote-pics">
           ${s.pictures.map((p, n) => `<a href="${esc(p)}" target="_blank" rel="noopener"><img src="${esc(p)}" alt="Card ${n + 1}" loading="lazy" width="${size[0]}" height="${size[1]}"></a>`).join("")}
         </div>
@@ -138,4 +141,5 @@ export function cardBox({ id, label, type, size, title }) {
   });
 
   load();
+  return { load, render, note };
 }
