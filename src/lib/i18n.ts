@@ -6,6 +6,15 @@ export type Lang = (typeof LANGS)[number];
 // Allo Outings is a Spiking Labs product; footer and data page link to its catalog entry.
 export const MAKER_URL = "https://spikinglabs.com/products/allo-outings";
 
+// The other Allo sites, linked from every page's foot (each of them links back here).
+// Names and one-line blurbs are in i18n/<lang>.yaml under "allo".
+const RECALLS_DIR: Record<Lang, string> = { de: "de/", en: "", zh: "zh/" };
+export const alloSites = (lang: Lang) => [
+  { id: "recalls", url: `https://recalls.allo.land/${RECALLS_DIR[lang]}` },
+  { id: "auri", url: "https://auri.allo.land/" },
+  { id: "land", url: "https://allo.land/" },
+] as const;
+
 // UI strings live in i18n/<lang>.yaml so translators never touch code.
 const files = import.meta.glob("/i18n/*.yaml", { query: "?raw", import: "default", eager: true }) as Record<string, string>;
 const dicts = Object.fromEntries(

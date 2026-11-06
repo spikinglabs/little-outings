@@ -41,6 +41,12 @@ alerts:
     evacuation: "Evakuierung"
     crowd_event: "Großveranstaltung"
     other: "Hinweis"
+recalls:
+  line:
+    one: "{n} Rückruf eines Kinderprodukts in Deutschland diesen Monat"
+    other: "{n} Rückrufe von Kinderprodukten in Deutschland diesen Monat"
+  from: "Aus amtlichen Meldungen, täglich geprüft von Allo Recalls."
+  all: "Alle Rückrufe"
 wx:
   rain: "Regen wahrscheinlich {when}."
   snow: "Schnee wahrscheinlich {when}: warm anziehen."
@@ -234,6 +240,11 @@ addedBy: "Eingetragen von {by}"
 nick: { sentAs: "Gesendet als", anon: Anonym gesendet, change: im Profil ändern, first: "Du erscheinst als {nick}, ein ausgedachter Spitzname.", new: Neuer Spitzname }
 footer: "Alle Angaben ohne Gewähr. Bitte vor dem Besuch beim Veranstalter prüfen."
 byLine: "Allo Outings ist ein Produkt von {maker}."
+allo:
+  more: Mehr von Allo
+  recalls: { name: Allo Recalls, blurb: "Rückrufe von Baby- und Kinderprodukten, aus amtlichen Quellen" }
+  auri: { name: Allo Auri, blurb: Ein privates Baby-Tagebuch für Eltern }
+  land: { name: Alloland, blurb: Ankommen im Leben in Deutschland }
 dataFrom: "Daten u. a. von {sources}."
 nearStreet: "nahe {street}"
 back: Zurück
@@ -602,7 +613,7 @@ weekend:
   h1: "Dieses <em>Wochenende</em> mit Kindern in {town}"
   kicker: "Ausgabe KW {week} · {town}"
   sub: "{range} · ausgesucht für Familien"
-  description: "Was tun mit Kindern am Wochenende in {town}? {list} und mehr: Ideen für {range}, jeden Freitag neu."
+  description: "Was tun mit Kindern am Wochenende in {town}? {list} und mehr: Ideen für {range}, jeden Montag neu, freitags aktualisiert."
   always: Immer offen
   still: Läuft noch
   until: "bis {date}"
@@ -619,19 +630,19 @@ weekend:
   telegram: Telegram-Kanal
   print: Zum Aushängen (A4)
   rss: RSS-Feed
-  next: "Die nächste Ausgabe kommt am Freitag, {date}, früh am Morgen."
+  next: "Die nächste Ausgabe kommt am {date}, früh am Morgen."
   meanwhile: Alles fürs Wochenende auf Entdecken
   lastEdition: "Letzte Ausgabe: {range}"
   archiveNote: "Diese Ausgabe war für {range}."
   current: Zur aktuellen Ausgabe
   earlier: Frühere Ausgaben
-  how: "Jeden Freitag neu: aus allen Familien-Terminen in {town} ausgesucht. Vorn liegt, was für Kinder gemacht ist, kostenlos und tagsüber, passend zum Wetter; jeder Ort nur einmal, und nichts, was in den letzten Wochen schon dabei war. Bitte vorher beim Veranstalter nachsehen."
+  how: "Jeden Montag neu und freitags aktualisiert: aus allen Familien-Terminen in {town} ausgesucht. Vorn liegt, was für Kinder gemacht ist, kostenlos und tagsüber, passend zum Wetter; jeder Ort nur einmal, und nichts, was in den letzten Wochen schon dabei war. Bitte vorher beim Veranstalter nachsehen."
   weather: "Wetter: Open-Meteo.com"
   nav: Wochenend-Tipps
   new: neu
-  cardKicker: Jeden Freitag neu
+  cardKicker: Jeden Montag neu
   hub: Wochenende mit Kindern
-  hubSub: Jeden Freitag neue Ideen fürs Wochenende, für jede Stadt.
+  hubSub: Jeden Montag neue Ideen fürs Wochenende, freitags aktualisiert, für jede Stadt.
   printWeekly: "Jede Woche neu: {url}"
   printFoot: "Ideen für Familien, auf Deutsch, Englisch und Chinesisch. Ohne Anmeldung, ohne Werbung. Bitte vorher beim Veranstalter nachsehen."
   printHint: "Zum Drucken Strg+P oder ⌘P drücken, A4 hochkant. Diese Zeile wird nicht mitgedruckt."
@@ -684,7 +695,7 @@ city:
   qPlay: "Wo gibt es gute Spielplätze in {town}?"
   aPlay: "{town} hat {n} Spielplätze; am meisten wissen wir über {list}. Auf jeder Spielplatzseite steht, ob es Sandkasten, Schaukeln oder Toiletten gibt."
   qWeekend: "Was kann man am Wochenende mit Kindern in {town} machen?"
-  aWeekendEdition: "Jeden Freitag stellen wir die besten Termine und Orte fürs Wochenende in {town} zusammen: {list}."
+  aWeekendEdition: "Jeden Montag stellen wir die besten Termine und Orte fürs Wochenende in {town} zusammen: {list}."
   aWeekend: "Am Wochenende: {list}."
   sep: ", "
   others: Andere Städte

@@ -1,4 +1,8 @@
 {
+ "https://altes-kurhaus-aachen.de/veranstaltung/filippo-bianchini-quartet/": {
+  "venue": "Klangbrücke Altes Kurhaus",
+  "street": "Kurhausstraße 2"
+ },
  "https://altes-kurhaus-aachen.de/veranstaltung/in-front-festival-2026-8164-emma-rawicz-new-quartett/": {
   "venue": "Klangbrücke Altes Kurhaus",
   "street": "Kurhausstraße 2"
@@ -11,20 +15,10 @@
   "venue": "Klangbrücke Altes Kurhaus",
   "street": "Kurhausstraße 2"
  },
- "https://altes-kurhaus-aachen.de/veranstaltung/weltklassik-am-klavier-ueberraschung-sturmsonate-carnaval-und-appassionata/": {
-  "venue": "Klangbrücke Altes Kurhaus",
-  "street": "Kurhausstraße 2"
- },
- "https://centre-charlemagne.eu/termin/25-km-industriegeschiche-die-juelicher-strasse-10/": {
-  "venue": "Centre Charlemagne"
- },
  "https://centre-charlemagne.eu/termin/25-km-industriegeschiche-die-juelicher-strasse-3/": {
   "venue": "Centre Charlemagne"
  },
  "https://centre-charlemagne.eu/termin/25-km-industriegeschiche-die-juelicher-strasse-4/": {
-  "venue": "Centre Charlemagne"
- },
- "https://centre-charlemagne.eu/termin/25-km-industriegeschiche-die-juelicher-strasse-6/2026-11-01/": {
   "venue": "Centre Charlemagne"
  },
  "https://centre-charlemagne.eu/termin/25-km-industriegeschiche-die-juelicher-strasse-6/2026-11-08/": {
@@ -43,9 +37,6 @@
   "venue": "Centre Charlemagne"
  },
  "https://centre-charlemagne.eu/termin/baden-pilgern-printen-2000-jahre-kulturgeschichte-11/": {
-  "venue": "Centre Charlemagne"
- },
- "https://centre-charlemagne.eu/termin/leben-um-800-15/": {
   "venue": "Centre Charlemagne"
  },
  "https://centre-charlemagne.eu/termin/noblesse-oblige-so-prachtvoll-glaenzte-aachen-6/": {
@@ -86,11 +77,6 @@
   "read": 3
  },
  "https://events.timely.fun/ewx8j2kb/event/78461299/20261118100000": {
-  "venue": null,
-  "guess": null,
-  "read": 3
- },
- "https://events.timely.fun/ewx8j2kb/event/78461301/20261021150000": {
   "venue": null,
   "guess": null,
   "read": 3
@@ -156,10 +142,6 @@
   },
   "read": 3
  },
- "https://gedenkort-papestrasse.de/events/oeffentliche-fuehrung-7/": {
-  "venue": "Gedenkort SA-Gefängnis Papestraße",
-  "street": "Werner-Voß-Damm 54 a"
- },
  "https://gedenkort-papestrasse.de/events/oeffentliche-fuehrung-8/": {
   "venue": "Gedenkort SA-Gefängnis Papestraße",
   "street": "Werner-Voß-Damm 54 a"
@@ -221,9 +203,6 @@
    "why": "The event is a family tour through the permanent exhibition 'Frankfurt Einst?' at the Historisches Museum Frankfurt."
   },
   "read": 3
- },
- "https://historisches-museum-frankfurt.ticketfritz.de/Event/Kalender/26408/52100?typ=Vorlage": {
-  "venue": "Historisches Museum Frankfurt"
  },
  "https://historisches-museum-frankfurt.ticketfritz.de/Event/Kalender/26538?Typ=Vorlage": {
   "venue": null,
@@ -420,27 +399,11 @@
   "venue": "Ludwig Forum Aachen",
   "street": "Jülicher Straße 97–109"
  },
- "https://ludwigforum.de/event/herbstferien/": {
-  "venue": "Ludwig Forum Aachen",
-  "street": "Jülicher Straße 97–109"
- },
  "https://ludwigforum.de/event/lufonauten-museumsclub-fuer-kinder/": {
   "venue": "Kunstwerkstatt des Ludwig Forum",
   "street": "Jülicher Straße 97–109"
  },
- "https://ludwigforum.de/event/mein-starkes-ich/": {
-  "venue": "Ludwig Forum Aachen",
-  "street": "Jülicher Straße 97–109"
- },
- "https://ludwigforum.de/event/mit-baby-ins-museum-2/": {
-  "venue": "Ludwig Forum",
-  "street": "Jülicher Straße 97–109"
- },
  "https://ludwigforum.de/event/play-with-clay-2/": {
-  "venue": "Ludwig Forum Aachen",
-  "street": "Jülicher Straße 97–109"
- },
- "https://ludwigforum.de/event/siebdruck-5/": {
   "venue": "Ludwig Forum Aachen",
   "street": "Jülicher Straße 97–109"
  },
@@ -496,30 +459,15 @@
   "venue": "Marlene-Dietrich-Kinosaal im Rathaus Schöneberg",
   "street": "John-F.-Kennedy-Platz 1"
  },
- "https://museen-tempelhof-schoeneberg.de/events/basteln-raetseln-gruseln-halloween-workshop-in-den-herbstferien/": {
-  "venue": "Jugend Museum",
-  "street": "Hauptstr. 40-42"
- },
  "https://museen-tempelhof-schoeneberg.de/events/eroeffnung-crosskultur-2026/": {
   "venue": "Willy-Brandt-Saal im Rathaus Schöneberg",
   "street": "John-F.-Kennedy-Platz 1"
- },
- "https://schwerbelastungskoerper.de/events/saisonende/": {
-  "venue": "Informationsort Schwerbelastungskörper"
  },
  "https://suermondt-ludwig-museum.de/event/ars-longa-vita-brevis/": {
   "venue": null,
   "guess": {
    "venue": "Suermondt-Ludwig-Museum",
    "why": "The event page is hosted on the Suermondt-Ludwig-Museum website and mentions meeting at the museum ticket desk."
-  },
-  "read": 3
- },
- "https://suermondt-ludwig-museum.de/event/die-wunderkammer-und-highlights-der-sammlung-9-2/": {
-  "venue": null,
-  "guess": {
-   "venue": "Suermondt-Ludwig-Museum",
-   "why": "The event is published on the Suermondt-Ludwig-Museum website and is a guided tour of its permanent collection."
   },
   "read": 3
  },
@@ -561,14 +509,6 @@
   "guess": {
    "venue": "Suermondt-Ludwig-Museum",
    "why": "The event is hosted on the Suermondt-Ludwig-Museum website and meets at the museum ticket desk."
-  },
-  "read": 3
- },
- "https://suermondt-ludwig-museum.de/event/suermondt-museumsclub-12-2-2/2026-11-03/": {
-  "venue": null,
-  "guess": {
-   "venue": "Suermondt-Ludwig-Museum",
-   "why": "The event title, website domain, and mention of Café Wunderkammer indicate it takes place at the Suermondt-Ludwig-Museum."
   },
   "read": 3
  },
@@ -632,13 +572,25 @@
   "venue": "Aula 2 und im Foyer Hauptgebäude",
   "street": "Albertus-Magnus-Platz"
  },
+ "https://uni-koeln.de/universitaet/aktuell/veranstaltungen/detail/collegium-musicum-campus-jazz-zu-koeln": {
+  "venue": "Aula, Hauptgebäude",
+  "street": "Albertus-Magnus-Platz"
+ },
  "https://uni-koeln.de/universitaet/aktuell/veranstaltungen/detail/opencampus-2026": {
   "venue": "Hauptcampus der Universität zu Köln",
+  "street": "Albertus-Magnus-Platz"
+ },
+ "https://uni-koeln.de/universitaet/aktuell/veranstaltungen/detail/universitaetskonzerte-a-story-a-space-a-dance": {
+  "venue": "Aula, Hauptgebäude",
   "street": "Albertus-Magnus-Platz"
  },
  "https://uni-koeln.de/universitaet/aktuell/veranstaltungen/detail/universitaetskonzerte-fanny-klavierabend": {
   "venue": "Aula, Hauptgebäude",
   "street": "Albertus-Magnus-Platz"
+ },
+ "https://uni-koeln.de/universitaet/aktuell/veranstaltungen/detail/universitaetskonzerte-hear-the-merry-bells-musik-zu-advent-und-weihnachten": {
+  "venue": "Basilika St. Aposteln",
+  "street": "Neumarkt 30"
  },
  "https://uni-koeln.de/universitaet/aktuell/veranstaltungen/detail/universitaetskonzerte-machet-die-tore-weit-musik-zur-advents-und-weihnachtszeit": {
   "venue": "Historisches Rathaus zu Köln (Piazzetta)",
@@ -696,6 +648,14 @@
   "venue": "Schloss Burgau",
   "street": "Von-Aue-Straße 1"
  },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/ausstellung-kontraste-im-komm-mit-dem-kuenstlerstammtisch-kunstrukt": {
+  "venue": "KOMM – Kulturzentrum Pleußmühle",
+  "street": "August-Klotz Straße 21"
+ },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/bad-sign": {
+  "venue": "KOMM – Kulturzentrum Pleußmühle",
+  "street": "August-Klotz Straße 21"
+ },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/barockmusik-im-kerzenschein": {
   "venue": "Kirche St. Mariä Heimsuchung",
   "street": "Brigidastraße"
@@ -724,7 +684,7 @@
   "venue": "Theater Düren im Haus der Stadt",
   "street": "Stefan-Schwer-Straße 4-6"
  },
- "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/die-comiciade-dueren-hitodama-stories-schaurige-lustige-charakterdesigns-26-10-2026_copy_copy_copy": {
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/der-achtsame-tiger-so-ein-kuddelmuddel-bundesweiter-vorlesetag-lesung-fuer-kinder": {
   "venue": "Stadtbücherei Düren",
   "street": "Stefan-Schwer-Straße 4-6"
  },
@@ -767,19 +727,19 @@
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/dueren-leuchtet": {
   "venue": "Innenstadt Düren"
  },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/duerener-weihnachtsmarkt": {
+  "venue": "Marktplatz",
+  "street": "Markt"
+ },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/ein-abend-voller-geschichten-bundesweiter-vorlesetag": {
+  "venue": "Stadtbücherei Düren",
+  "street": "Stefan-Schwer-Straße 4-6"
+ },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/eintrittsfreier-donnerstag-im-lhm-03-12-2026": {
   "venue": "Leopold-Hoesch-Museum",
   "street": "Hoeschplatz 1"
  },
- "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/eintrittsfreier-donnerstag-im-lhm-05-11-2026": {
-  "venue": "Leopold-Hoesch-Museum",
-  "street": "Hoeschplatz 1"
- },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/eintrittsfreier-donnerstag-im-papiermuseum-03-12-2026": {
-  "venue": "Papiermuseum Düren",
-  "street": "Wallstraße 2-8"
- },
- "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/eintrittsfreier-donnerstag-im-papiermuseum-05-11-2026": {
   "venue": "Papiermuseum Düren",
   "street": "Wallstraße 2-8"
  },
@@ -798,10 +758,6 @@
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/ffentlich-fuehrung-06-12-2026-1": {
   "venue": "Leopold-Hoesch-Museum",
   "street": "Hoeschplatz 1"
- },
- "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/ffentliche-fuehrung-01-11-2026": {
-  "venue": "Papiermuseum Düren",
-  "street": "Wallstraße 2-8"
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/ffentliche-fuehrung-im-stadtmuseum": {
   "venue": "Stadtmuseum Düren",
@@ -851,6 +807,10 @@
   "venue": "Stadtmuseum Düren",
   "street": "Arnoldsweilerstraße 38"
  },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/filmabend-9-leben": {
+  "venue": "Stadtmuseum Düren",
+  "street": "Arnoldsweilerstraße 38"
+ },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/filmvorfuehrung-ebenezer": {
   "venue": "Das Lumen Filmtheater",
   "street": "Fritz-Erler Straße 21"
@@ -858,6 +818,10 @@
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/filmvorfuehrung-mission-maeusejagd-chaos-unterm-weihnachtsbaum": {
   "venue": "Das Lumen Filmtheater",
   "street": "Fritz-Erler Straße 21"
+ },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/formfragen-papierkunst-aus-der-sammlung": {
+  "venue": "Papiermuseum Düren",
+  "street": "Wallstraße 2-8"
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/groer-buecherflohmarkt-des-foerdervereins-fuer-die-stadtbuecherei-24-01-2026_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy": {
   "venue": "Stadtbücherei Düren",
@@ -906,7 +870,7 @@
   "venue": "Papiermuseum Düren",
   "street": "Wallstraße 2-8"
  },
- "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/komm-mit-ins-vorleseland": {
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/jim-will-nur-spielen-bundesweiter-vorlesetag-lesung-fuer-kinder": {
   "venue": "Stadtbücherei Düren",
   "street": "Stefan-Schwer-Straße 4-6"
  },
@@ -934,10 +898,6 @@
   "venue": "Theater Düren im Haus der Stadt",
   "street": "Stefan-Schwer-Straße 4-6"
  },
- "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/lets-play": {
-  "venue": "Stadtbücherei Düren",
-  "street": "Stefan-Schwer-Straße 4-6"
- },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/lotta-kann-fast-alles": {
   "venue": "Theater Düren im Haus der Stadt",
   "street": "Stefan-Schwer-Straße 4-6"
@@ -954,6 +914,9 @@
   "venue": "KOMM – Kulturzentrum Pleußmühle",
   "street": "August-Klotz Straße 21"
  },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/martinsumzuege": {
+  "venue": "verschiedene Orte in Düren"
+ },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/martinsumzuege-stadt-dueren": {
   "venue": "verschiedene Orte in Düren"
  },
@@ -967,6 +930,10 @@
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/musik-im-foyer": {
   "venue": "Haus der Stadt",
+  "street": "Stefan-Schwer-Straße 4-6"
+ },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/papafant-angst-im-dunkeln-ich-doch-nicht-bundesweiter-vorlesetag-lesung-fuer-kinder": {
+  "venue": "Stadtbücherei Düren",
   "street": "Stefan-Schwer-Straße 4-6"
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/peace-food-oder-die-letzte-suppe-schulvorstellung": {
@@ -983,11 +950,6 @@
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/rundgang-ueber-den-neuen-friedhof-am-ende-der-friedenstrae": {
   "venue": "Rondell am Friedhofseingang"
- },
- "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/rundgang-ueber-den-neuen-friedhof-am-ende-der-friedenstrae-31-10-2026": {
-  "venue": null,
-  "guess": null,
-  "read": 3
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/seeraeuber-susi-sucht-ws-suesses": {
   "venue": "Theater Düren im Haus der Stadt",
@@ -1027,10 +989,6 @@
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/stadtfuehrung-duerener-stadtrundgang-08-11-2026": {
   "venue": "iPUNKT",
   "street": "Markt 6"
- },
- "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/stadtfuehrung-evangelischer-friedhof": {
-  "venue": "Evangelischer Friedhof",
-  "street": "Kölnstraße 100"
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/tag-der-offenen-tuer-am-burgau-gymnasium": {
   "venue": "Burgau Gymnasium",
@@ -1075,6 +1033,10 @@
   "venue": "Ditib Chorweiler",
   "street": "Morsestraße 9a"
  },
+ "https://www.koeln.de/event/kindertroedel-in-sinnersdorf/": {
+  "venue": "mykidsplace",
+  "street": "Stommelner Str. 100"
+ },
  "https://www.koeln.de/event/nikolaus-kinder-disco/": {
   "venue": "SPRUNG.RAUM",
   "street": "Junkersring 28"
@@ -1091,11 +1053,22 @@
   },
   "read": 3
  },
+ "https://www.mfk-frankfurt.de/mc-events/offene-kinderwerkstatt-15/?mc_id=4151": {
+  "venue": null,
+  "guess": {
+   "venue": "Museum für Kommunikation Frankfurt am Main Schaumainkai 53 Frankfurt am Main 60596",
+   "why": "The organiser is the Museum für Kommunikation Frankfurt, so the workshop most likely takes place in that museum."
+  },
+  "read": 3
+ },
  "https://www.schauburg.net/de/programm/just-listen": {
   "venue": "Musiktheater für die Turnhalle"
  },
  "https://www.visitduesseldorf.de/redirect/event/01a157f4-5e8c-7323-8858-f322ffed3103/de": {
   "venue": "Gustav-Adolf-Kirche"
+ },
+ "https://www.visitduesseldorf.de/redirect/event/01a1a54c-6944-7127-8f69-192a5b63354e/de": {
+  "venue": "Schloss Eller"
  },
  "https://www.visitduesseldorf.de/redirect/event/aaaa5662-47b5-43d7-905c-fdcd1ed28fec/de": {
   "venue": null,

@@ -39,7 +39,7 @@ export function cardBox({ id, label, type, size, title, onLoad, decorate }) {
   function render() {
     const box = $(id);
     if (!sets.length) {
-      box.innerHTML = `<p class="sub">No cards yet. They are drawn when the weekend edition is published on Friday.</p>`;
+      box.innerHTML = `<p class="sub">No cards yet. They are drawn when the weekend edition is published early on Monday.</p>`;
       return;
     }
     box.innerHTML = sets.map((s, i) => `

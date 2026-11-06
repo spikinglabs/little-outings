@@ -1,17 +1,24 @@
 // The weekly "This weekend" edition (src/lib/weekend.ts), run every night in the Translate workflow
 // after the events are sorted. What it does depends on the day in Germany:
-//   Thursday              drafts the coming weekend's picks per town into DRAFT_FILE, which the workflow
-//                         uploads to the bucket; the admin's "Weekend" panel shows it and can swap picks
-//   Friday                publishes: takes the draft (with your swaps), writes the lines for swapped-in
-//                         picks, adds the forecast and commits data/weekend/<town>/<saturday>.json,
-//                         which the 02:15 deploy turns into /<lang>/wochenende/<town>/
-//   Saturday, Sunday      publishes only if Friday's run didn't
-//   Monday to Wednesday   nothing
-// WEEKEND_MODE=draft|publish runs that step on any day (for a first edition or a test).
+//   Monday                publishes the coming weekend: drafts the picks per town (the AI picks, or the
+//                         plain score), writes their lines, adds the forecast and commits
+//                         data/weekend/<town>/<saturday>.json, so the pages and the Rednote and Instagram
+//                         cards are there from Monday morning; the draft goes to the admin marked published
+//   Friday                refreshes it: the picks and their order stay (cards posted since Monday carry
+//                         their codes), a pick cancelled or sold out since Monday is replaced at the end
+//                         by the best new event, and the forecast, holidays and "Still on" are redone; a
+//                         town that had too few events on Monday is published now
+//   Saturday, Sunday      publishes only if neither run did
+//   Tuesday to Thursday   nothing
+// WEEKEND_MODE=draft|publish|refresh runs that step on any day (for a first edition or a test).
+// WEEKEND_MODE=early is the admin's "Make next weekend's sets now" button (weekend-now.yml): it publishes
+// the coming weekend straight away, from the draft if there is one, and marks the draft published.
+// A town whose edition for that weekend is already out is never published again (FORCE=1 overrides):
+// its Rednote cards may be posted already, and their codes (K07-2 …) count the picks in order.
 // Without an AI key the plain score picks and the titles stand in for the AI's lines.
 //
 //   GEMINI_API_KEY=… npm run weekend        (or ANTHROPIC_API_KEY; WEEKEND_MODEL picks the model)
-//   WEEKEND_TODAY=2026-10-29 WEEKEND_MODE=draft npm run weekend
+//   WEEKEND_TODAY=2026-11-06 npm run weekend        (a Friday: the refresh)
 import { appendFileSync, readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { load } from "js-yaml";
@@ -198,13 +205,15 @@ export async function draft({ sat, today, llm, only = WEEKEND_TOWNS }) {
 }
 
 /** Friday: the draft (with any swaps from the admin) becomes the published edition. */
-export async function publish({ sat, llm, draftDoc }) {
+export async function publish({ sat, llm, draftDoc, force = !!process.env.FORCE }) {
   const towns = regionTowns();
   const holidays = readJson("data/school-holidays.json", { states: {} }).states ?? {};
-  const doc = draftDoc?.weekend === sat ? draftDoc : await draft({ sat, llm });
+  const out = (town) => join(OUT, townSlug(town), `${sat}.json`);
+  const open = WEEKEND_TOWNS.filter((t) => force || !existsSync(out(t)));
+  const doc = draftDoc?.weekend === sat ? draftDoc : await draft({ sat, llm, only: open });
   // A town the Thursday draft found too few events for (its events were published after the
   // draft, say a city whose sources were just included) is drafted again from today's events.
-  const thin = WEEKEND_TOWNS.filter((t) => (doc.towns[t]?.picks ?? []).filter((p) => p.type === "event").length < MIN_EVENTS);
+  const thin = open.filter((t) => (doc.towns[t]?.picks ?? []).filter((p) => p.type === "event").length < MIN_EVENTS);
   if (doc === draftDoc && thin.length) {
     const again = await draft({ sat, llm, only: thin });
     doc.towns = { ...doc.towns, ...again.towns };
@@ -213,6 +222,8 @@ export async function publish({ sat, llm, draftDoc }) {
   for (const [town, d] of Object.entries(doc.towns)) {
     const rec = towns.find((t) => t.name === town);
     if (!rec || !d.picks?.length) continue;
+    // Published already (early from the admin, or on Friday): its cards may be out with these codes.
+    if (!force && existsSync(out(town))) { console.log(`weekend: ${town} ${sat} is already published; kept`); continue; }
     // A town with too few family events this weekend (say its collection stopped) skips a week
     // rather than going out as a list of farm shops; the page then points to next Friday.
     const events = d.picks.filter((p) => p.type === "event").length;
@@ -232,6 +243,63 @@ export async function publish({ sat, llm, draftDoc }) {
     const file = join(OUT, slug, `${sat}.json`);
     writeFileSync(file, JSON.stringify(edition, null, 2) + "\n");
     written.push(file);
+    d.published_at = edition.published_at;
+  }
+  return { files: written, doc };
+}
+
+/**
+ * Friday: the edition published on Monday, brought up to date. Its picks keep their places, since cards
+ * posted during the week count them in order (K07-2 …); a pick that is no longer on (cancelled, sold out)
+ * stays in the file, where the build leaves it out, and the best event not in the edition yet comes in
+ * at the end, one for each. The forecast, the school holidays and "Still on" are redone.
+ */
+export async function refresh({ sat, llm }) {
+  const towns = regionTowns();
+  const rows = jsonl(PUBLISHED);
+  const holidays = readJson("data/school-holidays.json", { states: {} }).states ?? {};
+  const written = [];
+  for (const town of WEEKEND_TOWNS) {
+    const rec = towns.find((t) => t.name === town);
+    const file = join(OUT, townSlug(town), `${sat}.json`);
+    const ed = rec && readJson(file, null);
+    if (!ed?.picks) continue;
+    const weather = (await forecast(rec.lat, rec.lon, sat)) ?? ed.weather;
+    const rain = isRainy(weather?.[0]) || isRainy(weather?.[1]);
+    const dry = !rain && isDry(weather?.[0]) && isDry(weather?.[1]);
+    const past = pastEditions(OUT, townSlug(town), sat);
+    const recent = new Set(past.slice(0, RECENT_EVENTS).flatMap((e) => e.picks.map(recentKey)));
+    const { events, still } = weekendEvents(rows, { town, towns, sat });
+    const on = new Set(events.map((e) => e.id));
+    const gone = ed.picks.filter((p) => p.type === "event" && !on.has(p.id)).length;
+    // Something new, clearly for families, at a venue the edition doesn't have yet.
+    const taken = new Set(ed.picks.map(recentKey));
+    const venues = new Set(ed.picks.map((p) => (p.venue ?? "").toLowerCase()).filter(Boolean));
+    const added = [];
+    for (const e of events.map((e) => ({ ...e, score: scoreEvent(e, { source: e.source, rain, dry, recent }) })).sort((a, b) => b.score - a.score)) {
+      if (added.length >= gone || e.score < 2) break;
+      const venue = (e.venue ?? "").toLowerCase();
+      if (ed.picks.some((p) => p.id === e.id) || taken.has(recentKey(e)) || (venue && venues.has(venue))) continue;
+      if (venue) venues.add(venue);
+      added.push(e);
+    }
+    await addLines(llm, added);
+    const stillOn = still.map((x) => ({ ...x, score: scoreEvent(x, { source: x.source }) })).filter((x) => x.score >= 2 && madeForKids(x.title))
+      .sort((a, b) => b.score - a.score || a.end.localeCompare(b.end)).slice(0, 3)
+      .map(({ id, title, venue, end }) => ({ id, title, venue, end }));
+    const holiday = holidayOn(holidays[rec.state], sat);
+    const { weather: _w, holiday: _h, still: _s, ...rest } = ed;
+    const next = {
+      ...rest,
+      refreshed_at: new Date().toISOString(),
+      ...(weather && { weather }),
+      ...(holiday && { holiday }),
+      picks: [...ed.picks, ...added.map(({ score, source, ...p }) => p)],
+      ...(stillOn.length && { still: stillOn }),
+    };
+    writeFileSync(file, JSON.stringify(next, null, 2) + "\n");
+    written.push(file);
+    console.log(`weekend: ${town} ${sat} refreshed: ${gone} pick(s) no longer on, ${added.length} new${weather ? "" : ", no forecast"}`);
   }
   return written;
 }
@@ -240,25 +308,46 @@ async function main() {
   const today = process.env.WEEKEND_TODAY || new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Berlin" }).format(new Date());
   const sat = weekendOf(today);
   const day = dow(today);
-  const mode = process.env.WEEKEND_MODE || (day === 4 ? "draft" : day === 5 ? "publish" : day === 6 || day === 0 ? "catch-up" : "rest");
+  const mode = process.env.WEEKEND_MODE || (day === 1 ? "early" : day === 5 ? "refresh" : day === 6 || day === 0 ? "catch-up" : "rest");
   const llm = pickLlm(process.env);
   if (!llm) console.log("weekend: no AI key; the plain score picks and titles stand in for the AI's lines");
   const existing = readJson(DRAFT, null);
 
-  if (mode === "rest") return console.log(`weekend: nothing to do on ${today} (drafts Thursday, publishes Friday)`);
+  if (mode === "rest") return console.log(`weekend: nothing to do on ${today} (publishes Monday, refreshes Friday)`);
   if (mode === "draft") {
-    // Keep a draft for the same weekend that someone already edited in the admin.
+    // Keep a draft for the same weekend that someone already edited in the admin, or published early.
+    if (existing?.weekend === sat && existing.published_at && !process.env.FORCE) return console.log(`weekend: ${sat} was published early from the admin; kept`);
     if (existing?.weekend === sat && existing.edited_at && !process.env.FORCE) return console.log(`weekend: the draft for ${sat} was edited in the admin; kept`);
     mkdirSync(join(DRAFT, ".."), { recursive: true });
     writeFileSync(DRAFT, JSON.stringify(await draft({ sat, today, llm }), null, 2) + "\n");
     if (process.env.GITHUB_OUTPUT) appendFileSync(process.env.GITHUB_OUTPUT, "drafted=1\n");
     return console.log(`weekend: drafted ${sat} → ${DRAFT}`);
   }
+  if (mode === "refresh") {
+    // Towns already out are brought up to date; the others (too few events on Monday) are published now.
+    const refreshed = await refresh({ sat, llm });
+    const missing = WEEKEND_TOWNS.some((t) => !existsSync(join(OUT, townSlug(t), `${sat}.json`)));
+    const { files } = missing ? await publish({ sat, llm, draftDoc: existing }) : { files: [] };
+    const all = [...refreshed, ...files];
+    if (process.env.GITHUB_OUTPUT) appendFileSync(process.env.GITHUB_OUTPUT, `published=${all.length}\n`);
+    return console.log(`weekend: refreshed ${refreshed.length}, published ${files.length} edition(s) for ${sat}`);
+  }
   if (mode === "catch-up" && WEEKEND_TOWNS.every((t) => existsSync(join(OUT, townSlug(t), `${sat}.json`)))) {
     return console.log(`weekend: ${sat} is already published`);
   }
-  const files = await publish({ sat, llm, draftDoc: existing });
-  console.log(`weekend: published ${files.length} edition(s) for ${sat}: ${files.join(", ")}`);
+  const { files, doc } = await publish({ sat, llm, draftDoc: existing });
+  if (mode === "early") {
+    // The draft goes back to the admin marked published, so the Weekend panel shows what went out
+    // and Thursday's run leaves it alone.
+    if (files.length) {
+      doc.published_at = new Date().toISOString();
+      mkdirSync(join(DRAFT, ".."), { recursive: true });
+      writeFileSync(DRAFT, JSON.stringify(doc, null, 2) + "\n");
+      if (process.env.GITHUB_OUTPUT) appendFileSync(process.env.GITHUB_OUTPUT, "drafted=1\n");
+    }
+    if (process.env.GITHUB_OUTPUT) appendFileSync(process.env.GITHUB_OUTPUT, `published=${files.length}\n`);
+  } else if (process.env.GITHUB_OUTPUT) appendFileSync(process.env.GITHUB_OUTPUT, `published=${files.length}\n`);
+  console.log(`weekend: published ${files.length} edition(s) for ${sat}${files.length ? `: ${files.join(", ")}` : ""}`);
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) await main();

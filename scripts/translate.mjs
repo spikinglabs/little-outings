@@ -27,7 +27,7 @@ export const PROMPT = `You translate German names of family events and kid-frien
 - Street names, people's names, brand names and proper names without an established Chinese form stay in Latin letters, with the descriptive part translated: "Spielplatz Weegen" → "Weegen 游乐场"; "Käthe-Kollwitz-Weg (KSP)" → "Käthe-Kollwitz-Weg 儿童游乐场" (KSP = Kinderspielplatz).
 - A place name that is only a street or area gets its kind added: playground "Schanzenweg" → "Schanzenweg 游乐场".
 - Well-known institutions may use their Chinese name: "Kölnisches Stadtmuseum" → "科隆城市博物馆".
-You get a JSON array of {"text", "kind"} objects (kind is "event" or the kind of place). Return only a JSON array of the same length with the translations in the same order.`;
+You get a JSON array of {"text", "kind"} objects (kind is "event" or the kind of place). Return only a JSON array of strings, one translation per object, the same length and in the same order: ["…", "…"].`;
 
 export const PROMPT_EN = `You translate German titles of family events in Germany (Köln, Bonn, Aachen, Düsseldorf, Essen, Bergisches Land, Berlin, München, Frankfurt am Main, Hamburg) into English, for English-speaking parents who live there and read little German.
 - Say plainly what it is, short like a title: "Regelmäßige Vorlesestunde" → "Regular story time"; "Sonntagsmalerei" → "Sunday painting"; "Laternenbasteln für Kinder ab 4 J." → "Lantern making for kids 4+".
@@ -37,7 +37,7 @@ export const PROMPT_EN = `You translate German titles of family events in German
 - German traditions keep their name with a hint when it helps: "Martinszug" → "St. Martin's lantern walk"; "Weihnachtsmarkt" → "Christmas market".
 - A title that is already English, or only a name, comes back unchanged.
 - No ALL CAPS: "KINDERFLOHMARKT" → "Kids' flea market".
-You get a JSON array of {"text", "kind"} objects. Return only a JSON array of the same length with the translations in the same order.`;
+You get a JSON array of {"text", "kind"} objects. Return only a JSON array of strings, one translation per object, the same length and in the same order: ["…", "…"].`;
 
 /** Each language's cache, prompt and which texts it covers: Chinese everything, English event titles (places keep their German names). */
 export const LANGUAGES = [
@@ -69,10 +69,20 @@ export function textsIn(root) {
 /** One request for up to BATCH { text, kind } items. Returns the translations, or throws when the answer doesn't line up. */
 export async function translateBatch(texts, { llm, model, prompt = PROMPT, fetch = globalThis.fetch }) {
   const text = await complete(llm, model, { system: prompt, text: JSON.stringify(texts), maxTokens: 8000, json: true }, fetch);
-  const list = JSON.parse(text.slice(text.indexOf("["), text.lastIndexOf("]") + 1));
-  if (!Array.isArray(list) || list.length !== texts.length || list.some((s) => typeof s !== "string" || !s.trim()))
-    throw new Error("translate: the answer does not match the batch");
-  return list.map((s) => s.trim());
+  const raw = JSON.parse(text.slice(text.indexOf("["), text.lastIndexOf("]") + 1));
+  // Claude often answers in the shape it was given, [{ "text": "<translation>", "kind": … }], where Gemini
+  // gives plain strings; take either.
+  const list = Array.isArray(raw) ? raw.map(asText) : null;
+  if (!list || list.length !== texts.length || list.some((s) => !s))
+    throw new Error(`translate: the answer does not match the batch (${list ? `${list.length} of ${texts.length}, ${list.filter((s) => !s).length} empty` : "no array"}): ${text.slice(0, 160)}`);
+  return list;
+}
+
+/** One translation from an answer item: a string, or an object carrying it. */
+function asText(item) {
+  const s = typeof item === "string" ? item
+    : item && typeof item === "object" ? item.translation ?? item.zh ?? item.en ?? item.text : undefined;
+  return typeof s === "string" ? s.trim() : "";
 }
 
 /**

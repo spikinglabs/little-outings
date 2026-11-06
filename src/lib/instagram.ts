@@ -55,7 +55,7 @@ export function igWeeklySet(towns: IgTown[]): XhsSet | null {
     tag: weekendRange(sat, "en"),
     title: "This weekend\nwith kids",
     lines: [names.join(" · "), "Swipe to your city"],
-    foot: "New every Friday",
+    foot: "New every Monday",
     brand: "Allo Outings",
   };
   const end: Sheet = {

@@ -15,6 +15,7 @@ on:
   workflow_dispatch:
 permissions:
   contents: write
+  actions: write
 concurrency:
   group: translate
 env:
@@ -108,8 +109,9 @@ jobs:
         run: |
           out=$(npm run --silent translate 2>&1) || { echo "$out"; exit 1; }
           echo "$out"; echo "::notice title=Translate::$(echo "$out" | tail -1)"
-      # Thursday: drafts this weekend's edition for the admin's Weekend panel. Friday: publishes it
-      # (data/weekend/), and the push below makes the deploy build /<lang>/wochenende/<town>/.
+      # Monday: picks and publishes the coming weekend's edition (data/weekend/). Friday: refreshes it
+      # (weather, a cancelled pick replaced at the end). The push below makes the deploy build
+      # /<lang>/wochenende/<town>/ and the Rednote and Instagram cards.
       - name: Weekend edition
         id: weekend
         env:
@@ -136,3 +138,11 @@ jobs:
           git commit -m "Publish sorted events, venues from event pages, translated titles, the weekend edition and city alerts"
           git pull --rebase origin "$GITHUB_REF_NAME"
           git push
+          # A push made with this job's token starts no workflow. On the night a weekend edition comes
+          # out, ask for the site build here, so the weekend pages and the Rednote and Instagram cards
+          # don't wait for the next night's 02:15 build when this job finishes after it.
+          if [ "${{ steps.weekend.outputs.published }}" != "" ] && [ "${{ steps.weekend.outputs.published }}" != "0" ]; then
+            gh workflow run deploy.yml --ref "$GITHUB_REF_NAME"
+          fi
+        env:
+          GH_TOKEN: ${{ github.token }}

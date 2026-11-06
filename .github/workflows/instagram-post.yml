@@ -1,12 +1,12 @@
-# Posts the Instagram sets approved in the admin (scripts/post-instagram.mjs), hourly on Friday and Saturday
-# from 06:30 to 18:30 UTC (7:30 to 19:30 in German winter time), and renews the account's access token
+# Posts the Instagram sets approved in the admin (scripts/post-instagram.mjs), hourly every day from
+# 06:30 to 18:30 UTC (7:30 to 19:30 in German winter time), and renews the account's access token
 # once it is a week old. Nothing posts without an Approve in the admin's Instagram box, and nothing at
 # all before a token is saved there. Needs a Cloudflare token with "Workers R2 Storage: Edit"
 # (R2_SORT_TOKEN or CLOUDFLARE_API_TOKEN) plus CLOUDFLARE_ACCOUNT_ID, like the other bucket jobs.
 name: Instagram post
 on:
   schedule:
-    - cron: "30 6-18 * * 5,6"
+    - cron: "30 6-18 * * *"
   workflow_dispatch:
 permissions:
   contents: read

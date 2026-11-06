@@ -1,6 +1,6 @@
 // Instagram box: the week's carousel (cover, a card per town, closing card) with its English caption,
 // drawn by the site's build (src/lib/instagram.ts). Nothing posts until you press Approve; then the
-// posting job (scripts/post-instagram.mjs, hourly on Friday and Saturday daytime) publishes it to the
+// posting job (scripts/post-instagram.mjs, hourly in the daytime) publishes it to the
 // account whose token is saved below. You can still save the pictures and post by hand instead.
 import { cardBox } from "./cards.js";
 const $ = (id) => document.getElementById(id);
@@ -13,7 +13,7 @@ let state = { approvals: {}, posted: {}, token: { connected: false } };
 function status(s) {
   const posted = state.posted[s.id], ok = state.approvals[s.id];
   if (posted) return `<p class="ig-status ok">Posted ${esc(when(posted.at))}${posted.permalink ? ` · <a href="${esc(posted.permalink)}" target="_blank" rel="noopener">open on Instagram</a>` : ""}</p>`;
-  if (ok) return `<p class="ig-status">Approved by ${esc(ok.by)}, ${esc(when(ok.at))}. ${state.token.connected ? "Posts at the next half hour (Fri and Sat, 7:30 to 19:30)." : "It posts once the account is connected below."}
+  if (ok) return `<p class="ig-status">Approved by ${esc(ok.by)}, ${esc(when(ok.at))}. ${state.token.connected ? "Posts at the next half hour (7:30 to 19:30)." : "It posts once the account is connected below."}
     <button class="ghost" data-ig="unapprove" data-id="${esc(s.id)}">Take back</button></p>`;
   return `<p class="ig-status"><button class="primary" data-ig="approve" data-id="${esc(s.id)}">Approve for posting</button>
     <span class="sub">Check the cards and caption first; nothing posts without this.</span></p>`;

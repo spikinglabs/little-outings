@@ -1,0 +1,191 @@
+{
+  "town": "Essen",
+  "slug": "essen",
+  "weekend": "2026-11-07",
+  "week": 45,
+  "published_at": "2026-11-03T23:22:05.606Z",
+  "by": "score",
+  "picks": [
+    {
+      "id": "ck-evt-54e61a2b03a6d9dad39a",
+      "type": "event",
+      "title": "Das Kind und das Ding",
+      "venue": "Aalto-Foyer, Opernplatz 10",
+      "days": [
+        "2026-11-07"
+      ],
+      "time": "11:15–12:00",
+      "tags": [],
+      "label": {
+        "de": "Das Kind und das Ding",
+        "en": "The Child and the Thing",
+        "zh": "Das Kind und das Ding"
+      },
+      "why": {
+        "de": "Sa, 11:15–12:00 Uhr im Aalto-Foyer: eine kurze Auszeit für kleine Entdecker.",
+        "en": "Sat 11:15–12:00 at the Aalto-Foyer: a short, cosy outing for little explorers.",
+        "zh": "周六11:15–12:00在Aalto-Foyer，适合小小探索者的短暂外出时光。"
+      }
+    },
+    {
+      "id": "ck-evt-5d3eba6d9487bca7e5f9",
+      "type": "event",
+      "title": "VIVE LA LANDSCHAFT! – Workshop für Familien mit Kindern ab 5 Jahren",
+      "venue": "Museum Folkwang, Museumsplatz 1",
+      "district": "Südviertel",
+      "days": [
+        "2026-11-07"
+      ],
+      "time": "12:00–13:30",
+      "indoor": true,
+      "tags": [
+        "diy",
+        "tour"
+      ],
+      "label": {
+        "de": "VIVE LA LANDSCHAFT!",
+        "en": "VIVE LA LANDSCHAFT!",
+        "zh": "VIVE LA LANDSCHAFT!"
+      },
+      "why": {
+        "de": "Workshop ab 5 Jahren, Sa 12:00–13:30 im Museum Folkwang – drinnen und kreativ.",
+        "en": "Workshop for ages 5+, Sat 12:00–13:30 at Museum Folkwang – indoors and creative.",
+        "zh": "适合5岁以上儿童的工作坊，周六12:00–13:30在福尔克旺博物馆，室内进行，富有创意。"
+      }
+    },
+    {
+      "id": "ck-evt-341bb0ae6b1ad6504734",
+      "type": "event",
+      "title": "Familienschicht in der Mitmachzeche",
+      "venue": "Besucherzentrum Ruhr, UNESCO-Welterbe Zollverein",
+      "days": [
+        "2026-11-08"
+      ],
+      "time": "13:00–15:00",
+      "indoor": true,
+      "tags": [
+        "diy"
+      ],
+      "label": {
+        "de": "Familienschicht in der Mitmachzeche",
+        "en": "Family Shift at the Mitmachzeche",
+        "zh": "Mitmachzeche家庭体验班"
+      },
+      "why": {
+        "de": "So, 13:00–15:00 Uhr im Besucherzentrum Ruhr auf Zollverein – drinnen mitmachen!",
+        "en": "Sun 13:00–15:00 at the Zollverein visitor centre – hands-on fun indoors.",
+        "zh": "周日13:00–15:00在Zollverein游客中心，室内动手体验，乐趣十足。"
+      }
+    },
+    {
+      "id": "ck-evt-3a21d123ddcab1cc79d3",
+      "type": "event",
+      "title": "Martins-Theater",
+      "venue": "Grugapark Essen, Virchowstraße 167a",
+      "district": "Rüttenscheid",
+      "days": [
+        "2026-11-08"
+      ],
+      "time": "16:30",
+      "indoor": true,
+      "tags": [
+        "stage",
+        "season"
+      ],
+      "label": {
+        "de": "Martins-Theater",
+        "en": "Martins Theatre",
+        "zh": "Martins-Theater"
+      },
+      "why": {
+        "de": "So, 16:30 Uhr im Grugapark Essen – ein Theaterbesuch in Rüttenscheid.",
+        "en": "Sun 16:30 at Grugapark Essen – a theatre visit in Rüttenscheid, indoors.",
+        "zh": "周日16:30在埃森Grugapark公园观看演出，位于吕滕舍伊德，室内进行。"
+      }
+    },
+    {
+      "id": "ck-evt-914f4d754c85e805e619",
+      "type": "event",
+      "title": "St. Martinszug in Kettwig",
+      "venue": "Kettwig Innenstadt",
+      "days": [
+        "2026-11-08"
+      ],
+      "time": "17:30–19:30",
+      "tags": [
+        "season"
+      ],
+      "label": {
+        "de": "St. Martinszug in Kettwig",
+        "en": "St. Martin's Parade in Kettwig",
+        "zh": "凯特维希圣马丁游行"
+      },
+      "why": {
+        "de": "So, 17:30–19:30 Uhr in der Kettwiger Innenstadt – ein Martinszug zum Mitgehen.",
+        "en": "Sun 17:30–19:30 in Kettwig's town centre – join the St. Martin's procession.",
+        "zh": "周日17:30–19:30在凯特维希市中心，一起参加圣马丁游行。"
+      }
+    },
+    {
+      "id": "osm-node-4826750367",
+      "type": "place",
+      "title": "Salznest Salzspielraum",
+      "kind": "indoor",
+      "hours": "Mo-Fr 09:00-12:00,14:45-18:00; Sa 10:00-12:00, 14:45-18:00",
+      "indoor": true,
+      "district": "Stadtkern",
+      "venue": "Lindenallee 80",
+      "days": [],
+      "label": {
+        "de": "Salznest Salzspielraum",
+        "en": "Salznest Salzspielraum",
+        "zh": "Salznest Salzspielraum"
+      },
+      "why": {
+        "de": "Sa 10–12 und 14:45–18 Uhr in der Lindenallee 80 – drinnen im Salzspielraum spielen.",
+        "en": "Sat 10:00–12:00 and 14:45–18:00 at Lindenallee 80 – an indoor salt play room.",
+        "zh": "周六10:00–12:00及14:45–18:00在Lindenallee 80，室内盐游戏空间。"
+      }
+    },
+    {
+      "id": "ck-evt-3136909ab802d90bc8ae",
+      "type": "event",
+      "title": "Familienschicht in der Mitmachzeche",
+      "venue": "Denkmalpfad Zollverein, Gelsenkirchener Straße 181",
+      "district": "Stoppenberg",
+      "days": [
+        "2026-11-07"
+      ],
+      "time": "13:00",
+      "indoor": true,
+      "tags": [
+        "diy"
+      ],
+      "label": {
+        "de": "Familienschicht in der Mitmachzeche",
+        "en": "Familienschicht in der Mitmachzeche",
+        "zh": "Familienschicht in der Mitmachzeche"
+      },
+      "why": {
+        "de": "Erlebt Samstag um 13 Uhr die überdachte Familienschicht im Denkmalpfad Zollverein.",
+        "en": "Join the indoor Familienschicht this Saturday at 13:00 at Denkmalpfad Zollverein.",
+        "zh": "周六13:00可前往Denkmalpfad Zollverein，体验室内Familienschicht活动。"
+      }
+    }
+  ],
+  "refreshed_at": "2026-11-06T08:33:38.881Z",
+  "weather": [
+    {
+      "day": "2026-11-07",
+      "code": 3,
+      "max": 9.4,
+      "rain": 1
+    },
+    {
+      "day": "2026-11-08",
+      "code": 53,
+      "max": 8.8,
+      "rain": 6
+    }
+  ]
+}

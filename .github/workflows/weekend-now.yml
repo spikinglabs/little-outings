@@ -1,0 +1,68 @@
+# Publishes the coming weekend's edition now instead of on Monday, for the admin's "Make next weekend's
+# sets now" button in the Rednote panel (admin/functions/api/weekend-now.js), so the Rednote and Instagram
+# cards can be posted early in the week. Runs scripts/weekend-edition.mjs with WEEKEND_MODE=early: the
+# draft from the admin's Weekend panel when there is one for that weekend (with its swaps), else a fresh
+# one from the events published so far. Towns already out for that weekend are left alone, and Friday's
+# refresh keeps the picks in order, so the codes on cards already posted stay right.
+# Uses the same secrets as the nightly Translate job. Can also be run by hand from the Actions tab.
+name: Weekend edition now
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: translate
+env:
+  BUCKET: spikinglabs-little-outings
+jobs:
+  weekend:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - name: Download the weekend draft
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.R2_SORT_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID || vars.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          mkdir -p .cache/outings
+          npx wrangler r2 object get "$BUCKET/little-outings/weekend.json" --file .cache/outings/weekend.json.part > /dev/null 2>&1 \
+            && mv .cache/outings/weekend.json.part .cache/outings/weekend.json \
+            || { rm -f .cache/outings/weekend.json.part; echo "No weekend draft in the bucket."; }
+      - name: Publish the coming weekend
+        id: weekend
+        env:
+          WEEKEND_MODE: early
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          LLM_PROVIDER: ${{ vars.LLM_PROVIDER }}
+          WEEKEND_MODEL: ${{ vars.WEEKEND_MODEL }}
+          PLACES_EXPORT: ${{ vars.PLACES_EXPORT }}
+        run: |
+          out=$(npm run --silent weekend 2>&1) || { echo "$out"; exit 1; }
+          echo "$out"; echo "::notice title=Weekend::$(echo "$out" | tail -1)"
+      - name: Save the published draft for the admin
+        if: steps.weekend.outputs.drafted == '1' && github.ref_name == 'main'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.R2_SORT_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID || vars.CLOUDFLARE_ACCOUNT_ID }}
+        run: npx wrangler r2 object put "$BUCKET/little-outings/weekend.json" --file .cache/outings/weekend.json --content-type application/json
+      - name: Commit the edition and build the site
+        if: steps.weekend.outputs.published != '0'
+        run: |
+          git add data/weekend
+          if git diff --cached --quiet; then echo "No changes."; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Publish next weekend's edition early from the admin"
+          git pull --rebase origin "$GITHUB_REF_NAME"
+          git push
+          # A push made with this job's token starts no workflow, so ask for the site build here:
+          # the weekend pages and the Rednote and Instagram cards come from data/weekend/.
+          gh workflow run deploy.yml --ref "$GITHUB_REF_NAME"
+        env:
+          GH_TOKEN: ${{ github.token }}

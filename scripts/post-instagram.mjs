@@ -1,6 +1,6 @@
 // Posts the Instagram sets you approved in the admin (Instagram box) to the account whose token the admin
 // saved, through Instagram's own API: one container per picture, a carousel container, then publish.
-// Run by .github/workflows/instagram-post.yml hourly on Friday and Saturday daytime. It also renews the token
+// Run by .github/workflows/instagram-post.yml hourly in the daytime. It also renews the token
 // once it is a week old, so it never runs out while the job runs. Nothing is posted without an approval.
 //
 // Reads (downloaded from the bucket by the workflow) and writes back when changed:

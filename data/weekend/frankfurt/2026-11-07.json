@@ -1,0 +1,170 @@
+{
+  "town": "Frankfurt am Main",
+  "slug": "frankfurt",
+  "weekend": "2026-11-07",
+  "week": 45,
+  "published_at": "2026-11-03T23:22:05.541Z",
+  "by": "ai",
+  "picks": [
+    {
+      "id": "ck-evt-43d9b9c326cf2d207895",
+      "type": "event",
+      "title": "Atelierkurse für Kinder & Jugendliche",
+      "venue": "Städel Museum",
+      "days": [
+        "2026-11-07"
+      ],
+      "time": "14:00",
+      "indoor": true,
+      "tags": [
+        "tour"
+      ],
+      "label": {
+        "de": "Atelierkurse für Kinder & Jugendliche",
+        "en": "Art studio courses for kids & teens",
+        "zh": "儿童与青少年美术工作坊"
+      },
+      "why": {
+        "de": "Kreatives Malen und Gestalten im Städel am Samstagnachmittag.",
+        "en": "Creative art-making at the Städel on Saturday afternoon.",
+        "zh": "周六下午在施德尔博物馆进行创意绘画和手工。"
+      }
+    },
+    {
+      "id": "ck-evt-c0c806bc35360ca29f73",
+      "type": "event",
+      "title": "Offene Werkstatt \"Design auf Pappgeschirr\"",
+      "venue": "Junges Museum Frankfurt",
+      "days": [
+        "2026-11-07"
+      ],
+      "time": "14:00–17:00",
+      "indoor": true,
+      "tags": [
+        "diy",
+        "tour"
+      ],
+      "label": {
+        "de": "Werkstatt „Design auf Pappgeschirr“",
+        "en": "Paper plate design workshop",
+        "zh": "纸盘设计工作坊"
+      },
+      "why": {
+        "de": "Samstag 14–17 Uhr im Jungen Museum: Pappteller kreativ gestalten.",
+        "en": "Saturday 14–17h at Junges Museum: decorate paper plates creatively.",
+        "zh": "周六14–17点在青年博物馆，发挥创意装饰纸盘。"
+      }
+    },
+    {
+      "id": "ck-evt-067978e383154a72eb8d",
+      "type": "event",
+      "title": "Offene Kinderwerkstatt",
+      "venue": "Museum für Kommunikation Frankfurt am Main Schaumainkai 53 Frankfurt am Main 60596",
+      "days": [
+        "2026-11-07",
+        "2026-11-08"
+      ],
+      "time": "All day",
+      "indoor": true,
+      "tags": [
+        "diy",
+        "tour"
+      ],
+      "label": {
+        "de": "Offene Kinderwerkstatt",
+        "en": "Open children's workshop",
+        "zh": "开放式儿童工作坊"
+      },
+      "why": {
+        "de": "Basteln im Museum für Kommunikation, offen am Samstag und Sonntag.",
+        "en": "Drop-in crafting at the Museum für Kommunikation, Saturday and Sunday.",
+        "zh": "周六和周日在传播博物馆随时参加的手工活动。"
+      }
+    },
+    {
+      "id": "ck-evt-1edca28a5908781a63c6",
+      "type": "event",
+      "title": "Märchenkarussell",
+      "venue": "Galli Theater Frankfurt",
+      "days": [
+        "2026-11-08"
+      ],
+      "time": "11:00",
+      "indoor": true,
+      "tags": [
+        "reading",
+        "stage"
+      ],
+      "label": {
+        "de": "Märchenkarussell",
+        "en": "Fairy-tale carousel",
+        "zh": "童话旋转木马"
+      },
+      "why": {
+        "de": "Märchen im Galli Theater am Sonntagvormittag, ideal für kleine Zuschauer.",
+        "en": "Fairy tales at Galli Theater on Sunday morning, great for little audiences.",
+        "zh": "周日上午在Galli剧院看童话剧，很适合小观众。"
+      }
+    },
+    {
+      "id": "ck-evt-e6ae307679782c226246",
+      "type": "event",
+      "title": "Frau Holle",
+      "venue": "Papageno Musiktheater",
+      "days": [
+        "2026-11-08"
+      ],
+      "time": "16:00",
+      "indoor": true,
+      "tags": [
+        "stage"
+      ],
+      "label": {
+        "de": "Frau Holle",
+        "en": "Mother Holle",
+        "zh": "霍勒夫人"
+      },
+      "why": {
+        "de": "Märchentheater im Papageno Musiktheater am Sonntag um 16 Uhr.",
+        "en": "Fairy-tale theatre at Papageno Musiktheater, Sunday 4 pm.",
+        "zh": "周日下午4点在Papageno音乐剧院观看童话剧。"
+      }
+    },
+    {
+      "id": "osm-way-24856100",
+      "type": "place",
+      "title": "Zoo Frankfurt",
+      "kind": "zoo",
+      "hours": "Apr-Oct Mo-Su 09:00-19:00; Nov-Mar Mo-Su 09:00-17:00",
+      "free": false,
+      "district": "Ostend",
+      "venue": "Bernhard-Grzimek-Allee 1",
+      "days": [],
+      "label": {
+        "de": "Zoo Frankfurt",
+        "en": "Zoo Frankfurt",
+        "zh": "法兰克福动物园"
+      },
+      "why": {
+        "de": "Täglich geöffnet, im Sommer bis 19 Uhr – ideal für einen entspannten Familienausflug in Ostend.",
+        "en": "Open daily, until 7 pm in summer – perfect for a relaxed family outing in Ostend.",
+        "zh": "每天开放，夏季营业至晚上7点，非常适合全家在东区悠闲游玩。"
+      }
+    }
+  ],
+  "refreshed_at": "2026-11-06T08:33:29.862Z",
+  "weather": [
+    {
+      "day": "2026-11-07",
+      "code": 45,
+      "max": 7.7,
+      "rain": 3
+    },
+    {
+      "day": "2026-11-08",
+      "code": 45,
+      "max": 10.3,
+      "rain": 5
+    }
+  ]
+}

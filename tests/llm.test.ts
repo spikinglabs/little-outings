@@ -77,3 +77,49 @@ test("the poster parser answers 503 without a key and reads Gemini's answer with
     assert.deepEqual(out.unsure, ["time"]);
   } finally { globalThis.fetch = real; }
 });
+
+test("the poster parser asks Claude when Gemini fails, notes each try, and shows the notes to the admin only", async () => {
+  const { fakeD1 } = await import("./fake-d1.ts");
+  const { onRequestGet } = await import("../functions/api/parse.ts");
+  const DB = fakeD1();
+  const KEY = "k".repeat(40);
+  const req = () => new Request("https://x/api/parse", { method: "POST", body: JSON.stringify({ text: "Martinszug 11.11. 17:30" }) });
+  const real = globalThis.fetch;
+  const realErr = console.error;
+  console.error = () => {};
+  let claude = 200;
+  globalThis.fetch = (async (url: string) => {
+    if (String(url).includes("generativelanguage")) return new Response("model overloaded", { status: 503 });
+    if (claude !== 200) return new Response("nope", { status: claude });
+    return new Response(JSON.stringify({ content: [{ type: "text", text: '{"draft":{"title":"Martinszug"},"unsure":[]}' }] }));
+  }) as typeof fetch;
+  try {
+    const env = { GEMINI_API_KEY: "g", ANTHROPIC_API_KEY: "a", DB, MEETUP_ADMIN_KEY: KEY };
+    const ok = await onRequestPost({ request: req(), env });
+    assert.equal(ok.status, 200);
+    assert.equal(((await ok.json()) as any).draft.title, "Martinszug");
+
+    claude = 402;
+    const bad = await onRequestPost({ request: req(), env });
+    assert.equal(bad.status, 500, "not 502, whose body Cloudflare replaces");
+    assert.equal(((await bad.json()) as any).reason, "no_credits");
+
+    const onlyGemini = await onRequestPost({ request: req(), env: { GEMINI_API_KEY: "g", DB } });
+    assert.equal(((await onlyGemini.json()) as any).reason, "provider_error");
+
+    const get = (key?: string) => onRequestGet({ request: new Request("https://x/api/parse?days=7", { headers: key ? { "x-admin-key": key } : {} }), env });
+    assert.equal((await get()).status, 403);
+    assert.equal((await get("wrong")).status, 403);
+    const log: any = await (await get(KEY)).json();
+    assert.equal(log.failures.length, 2);
+    assert.equal(log.failures.find((f: any) => f.provider === "gemini+anthropic").reason, "no_credits");
+    assert.match(log.failures.find((f: any) => f.provider === "gemini").detail, /HTTP 503 model overloaded/);
+    assert.deepEqual(log.counts.find((c: any) => c.ok === 1), { day: log.counts[0].day, input: "text", ok: 1, provider: "anthropic", n: 1 });
+    assert.ok(!JSON.stringify(log).includes("Martinszug"), "the text sent is never kept");
+  } finally { globalThis.fetch = real; console.error = realErr; }
+});
+
+test("an empty Gemini answer is an error that says why", async () => {
+  const fake = (async () => new Response(JSON.stringify({ candidates: [{ finishReason: "MAX_TOKENS", content: { parts: [] } }] }))) as unknown as typeof fetch;
+  await assert.rejects(complete({ provider: "gemini", key: "g" }, "", { system: "S", text: "T", maxTokens: 10 }, fake), /empty answer \(MAX_TOKENS\)/);
+});

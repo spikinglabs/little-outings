@@ -6,7 +6,9 @@ const MAX_PICKS = 8;
 
 /** The draft with a town's picks replaced by `wanted` ([{ id, why_de? }]). Throws on anything else. */
 export function applyWeekendEdit(draft, input, user) {
-  if (!draft?.towns) throw new Error("There is no weekend draft yet; it comes on Thursday night.");
+  if (!draft?.towns) throw new Error("There is no weekend draft yet; it comes early on Monday.");
+  // Published early from the Rednote panel: its cards may be posted, and swaps would shift their codes.
+  if (draft.published_at) throw new Error("This weekend's edition is already published, so its picks can't change any more.");
   if (!input || typeof input.towns !== "object") throw new Error("Expected { towns }.");
   const out = structuredClone(draft);
   for (const [town, change] of Object.entries(input.towns)) {

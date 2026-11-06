@@ -1,0 +1,163 @@
+{
+  "town": "Bonn",
+  "slug": "bonn",
+  "weekend": "2026-11-07",
+  "week": 45,
+  "published_at": "2026-11-03T23:22:05.420Z",
+  "by": "ai",
+  "picks": [
+    {
+      "id": "ck-evt-87127f24d8d496ceb0b9",
+      "type": "event",
+      "title": "Bücherkunstpause für Kinder - Einkaufspause für Eltern.",
+      "venue": "Pavilion des Innenstadtmanangement Bonn, Budapester Straße 7",
+      "days": [
+        "2026-11-07"
+      ],
+      "time": "14:00",
+      "indoor": true,
+      "tags": [
+        "reading"
+      ],
+      "label": {
+        "de": "Bücherkunstpause für Kinder",
+        "en": "Book-art break for kids",
+        "zh": "儿童书艺休息时间"
+      },
+      "why": {
+        "de": "Samstag 14:00 im Pavillon in der Innenstadt: Kinder basteln, Eltern shoppen.",
+        "en": "Saturday 2 pm at the city-centre pavilion: kids make book art while parents shop.",
+        "zh": "周六 14:00 在市中心展亭：孩子做书艺手工，家长去购物。"
+      }
+    },
+    {
+      "id": "ck-evt-990dc1710fabc1e2b842",
+      "type": "event",
+      "title": "Martinszug Ippendorf II",
+      "venue": "Apfelallee",
+      "days": [
+        "2026-11-07"
+      ],
+      "time": "17:30",
+      "tags": [
+        "season"
+      ],
+      "label": {
+        "de": "Martinszug Ippendorf II",
+        "en": "St. Martin's procession Ippendorf II",
+        "zh": "圣马丁游行 伊彭多夫 II"
+      },
+      "why": {
+        "de": "Laternenzug am Samstagabend in Ippendorf, Start 17:30 an der Apfelallee.",
+        "en": "Lantern procession on Saturday evening in Ippendorf, starting 5:30 pm at Apfelallee.",
+        "zh": "周六晚上在伊彭多夫的提灯游行，17:30 从苹果大道出发。"
+      }
+    },
+    {
+      "id": "ck-evt-1680fab6d1eaffdf1043",
+      "type": "event",
+      "title": "Aktionstag für Familien",
+      "venue": "LVR-Landesmuseum Bonn, Colmantstraße 14-16",
+      "days": [
+        "2026-11-08"
+      ],
+      "time": "11:00",
+      "indoor": true,
+      "tags": [
+        "tour"
+      ],
+      "label": {
+        "de": "Aktionstag für Familien",
+        "en": "Family action day",
+        "zh": "家庭活动日"
+      },
+      "why": {
+        "de": "Sonntag 11:00 im LVR-Landesmuseum, ein Familienprogramm drinnen bei Regen.",
+        "en": "Sunday 11 am at the LVR-Landesmuseum, a family programme indoors in case of rain.",
+        "zh": "周日 11:00 在 LVR 州立博物馆举行，室内家庭活动，适合下雨时参加。"
+      }
+    },
+    {
+      "id": "ck-evt-bf90e3f1c7a00afd4e24",
+      "type": "event",
+      "title": "Martinslieder singen mit St. Martin",
+      "venue": "Tisch der Vielfalt, Josefplatz",
+      "days": [
+        "2026-11-08"
+      ],
+      "time": "12:15",
+      "tags": [
+        "music",
+        "season"
+      ],
+      "label": {
+        "de": "Martinslieder singen mit St. Martin",
+        "en": "Singing St. Martin's songs",
+        "zh": "与圣马丁一起唱圣马丁之歌"
+      },
+      "why": {
+        "de": "Sonntagmittag auf dem Josefplatz, gemeinsames Singen mit St. Martin.",
+        "en": "Sunday midday on Josefplatz, singing together with St. Martin.",
+        "zh": "周日中午在约瑟夫广场，和圣马丁一起唱歌。"
+      }
+    },
+    {
+      "id": "ck-evt-fbe20b3f29b6dc969997",
+      "type": "event",
+      "title": "Martinszug Auerberg",
+      "venue": "Schulhof der Hedwigschule",
+      "days": [
+        "2026-11-08"
+      ],
+      "time": "17:00",
+      "indoor": false,
+      "tags": [
+        "season"
+      ],
+      "label": {
+        "de": "Martinszug Auerberg",
+        "en": "St. Martin's procession Auerberg",
+        "zh": "圣马丁游行 奥尔贝格"
+      },
+      "why": {
+        "de": "Sonntagabend-Laternenzug ab 17:00 auf dem Schulhof der Hedwigschule.",
+        "en": "Sunday evening lantern procession from 5 pm on the Hedwigschule schoolyard.",
+        "zh": "周日傍晚 17:00 起在赫德维希学校的操场举行提灯游行。"
+      }
+    },
+    {
+      "id": "osm-way-102199952",
+      "type": "place",
+      "title": "Hofgarten",
+      "kind": "park",
+      "district": "Stadtbezirk Bonn",
+      "venue": "Stockenstraße",
+      "days": [],
+      "label": {
+        "de": "Hofgarten",
+        "en": "Hofgarten",
+        "zh": "Hofgarten（霍夫花园）"
+      },
+      "why": {
+        "de": "Ein grüner Park in Bonn, ideal für einen entspannten Spaziergang mit den Kindern am Wochenende.",
+        "en": "A green park in Bonn, perfect for a relaxed weekend stroll with the kids.",
+        "zh": "波恩的一座绿色公园，适合周末带孩子悠闲散步。"
+      }
+    }
+  ],
+  "refreshed_at": "2026-11-06T08:33:29.306Z",
+  "weather": [
+    {
+      "day": "2026-11-07",
+      "code": 3,
+      "max": 10.5,
+      "rain": 2
+    },
+    {
+      "day": "2026-11-08",
+      "code": 61,
+      "max": 10.4,
+      "rain": 14
+    }
+  ]
+}

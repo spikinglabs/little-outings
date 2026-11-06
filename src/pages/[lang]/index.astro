@@ -5,6 +5,7 @@
 import Base from "../../layouts/Base.astro";
 import Stamp from "../../components/Stamp.astro";
 import CityAlerts from "../../components/CityAlerts.astro";
+import RecallLine from "../../components/RecallLine.astro";
 import { LANGS, MAKER_URL, tr, useT, type Lang } from "../../lib/i18n";
 import { getData, getWeather, TODAY } from "../../lib/data";
 import { pathFor, townName } from "../../lib/format";
@@ -62,7 +63,7 @@ const seasons = data.seasons.seasons
     hub: s.page && pages.some((p) => p.season.id === s.id) ? { href: seasonPath(lang, s), label: tr(s.page.hub, lang) } : undefined,
   }));
 // Shortcuts next to "Show on map", for the home town (explore.ts picks it): the weekend edition every
-// day, marked new from Friday to Sunday, and a season's page in its weeks (Christmas markets, Karneval).
+// day, marked new from Monday to Sunday, and a season's page in its weeks (Christmas markets, Karneval).
 // Every edition town has its page, even before its first edition, so the link always leads somewhere.
 const weekendLinks = Object.fromEntries(editionTowns().map((w) => {
   const live = liveEdition(w.editions, TODAY);
@@ -113,6 +114,8 @@ const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
     </div>
     <!-- Confirmed city alerts for the home town (a big demo, a strike); explore.ts shows them. -->
     <CityAlerts lang={lang} t={t} />
+    <!-- Recent recalls of kids' products in Germany, from Allo Recalls. -->
+    <RecallLine lang={lang} t={t} />
     <!-- The chosen days' weather, and a nudge toward ideas that suit it (explore.ts). Hidden without a forecast. -->
     <div class="wx" data-wx hidden>
       <p class="wx-days" data-wx-days></p>

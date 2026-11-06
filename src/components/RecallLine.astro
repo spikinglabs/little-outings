@@ -1,0 +1,24 @@
+---
+// One folded line on Discover and the weekend pages: recalls of children's products sold in Germany from the
+// last 30 days (data/recalls.json, from Allo Recalls). Open, it lists the newest, each linking to its page on
+// recalls.allo.land. Recalls cover all of Germany, so every town sees the same line. Nothing without the file.
+import { getRecalls } from "../lib/data";
+import { recallsHome, recallUrl } from "../lib/recalls";
+import type { Lang, T } from "../lib/i18n";
+
+interface Props { lang: Lang; t: T }
+const { lang, t } = Astro.props;
+const recalls = getRecalls();
+const day = (d: string) => new Intl.DateTimeFormat(t.locale, { timeZone: "UTC", day: "numeric", month: "short" }).format(new Date(`${d}T12:00:00Z`));
+---
+{recalls.length > 0 && (
+  <details class="recall-line">
+    <summary><b>⚠ {t("recalls.line", { n: recalls.length })}</b> <span>{recalls[0].title[lang]}</span></summary>
+    <ul>
+      {recalls.slice(0, 6).map((r) => (
+        <li><a href={recallUrl(r, lang)} target="_blank" rel="noopener">{r.title[lang]}</a> <small>{day(r.published)}</small></li>
+      ))}
+    </ul>
+    <p class="small">{t("recalls.from")} <a href={recallsHome(lang)} target="_blank" rel="noopener">{t("recalls.all")} ↗</a></p>
+  </details>
+)}

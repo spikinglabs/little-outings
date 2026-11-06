@@ -9,3 +9,4 @@ data/inbox-tallies.json
 .cache/
 data/toilets.jsonl
 data/weather.json
+data/recalls.json
