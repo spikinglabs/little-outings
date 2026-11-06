@@ -585,6 +585,53 @@ meet:
   mineSub: "Ones you made and ones you answered."
   mineYours: Yours
   mineSignIn: "Sign in with your passkey to see your invites."
+# The connector page /<lang>/ki/ (src/pages/[lang]/ki.astro): docs for using Allo Outings in Claude,
+# ChatGPT and other AI assistants. Keep it true with functions/mcp.ts.
+assistant:
+  link: Use it in your AI assistant
+  title: Allo Outings in Claude and other AI assistants
+  intro: "Ask your AI assistant for family outings in your own words. It searches Allo Outings' events and places for you and gives you the page links."
+  add:
+    h: How to add it
+    copy: Copy
+    address: "The connector's address:"
+    claude: "Claude: Settings → Connectors → “Add custom connector”, then paste the address."
+    chatgpt: "ChatGPT: Settings → Apps, turn on developer mode, then create an app with the address."
+    other: "Other assistants that support MCP connectors (remote, Streamable HTTP): add the address as a server."
+    login: "No login and no account. Some assistants need a paid plan for custom connectors."
+  examples:
+    h: Things to ask
+    e1: "Anything indoors for a 3-year-old in Cologne this Saturday?"
+    e2: "Find a playground with a sandpit and toilets near Bonn."
+    e3: "Which free family events are on in Düsseldorf this weekend? Show me the details of the first one."
+    e4: "I saw this poster for a lantern walk, can you suggest it to Allo Outings?"
+  tools:
+    h: What it can do
+    read: "Only reads, runs without asking:"
+    write: "Sends to our moderators, your assistant asks you first:"
+    search: "search: events and places near a town, for given dates, kinds (playground, museum, theatre …), indoor or free."
+    fetch: "fetch: the full details of one: dates, time, address, price, opening hours, facilities parents confirmed, tips and the page link."
+    suggest_event: "suggest_event: an event that isn't listed yet."
+    suggest_place: "suggest_place: a kid-friendly place that isn't listed yet."
+    add_tip: "add_tip: a short tip from your own visit (at most 140 characters)."
+    report_problem: "report_problem: a listing that's closed, cancelled, in the wrong place or out of date."
+    review: "Nothing you send appears until we've checked it."
+  covers:
+    h: What's covered
+    p: "Events for the next two weeks around Cologne, Düsseldorf, Bonn, Aachen, Essen and the Bergisches Land, and in Berlin, Munich, Frankfurt and Hamburg, plus places like playgrounds, pools, farms, zoos and museums there. It's the same information as on the site, in German, English or Chinese. Times and prices come from the organisers and can change, so check the page before you go."
+  trouble:
+    h: If something doesn't work
+    t1: "The assistant doesn't use it: check the connector is switched on for the chat, or mention “Allo Outings” in your question."
+    t2: "Adding fails: check the address ends in /mcp and starts with https://. Opening it in a browser only shows a short help page; that's expected."
+    t3: "“Not a town Allo Outings covers”: try the nearest bigger town, or a place name the assistant can turn into a town from the list above."
+    t4: "An id isn't found: past events drop off every night, so search again."
+    t5: "“Many suggestions in the last hour”: all assistants share one limit for suggestions. Try again later, or use “Add” on the site."
+  privacy:
+    h: Privacy
+    p: "We only receive what the assistant sends for each search or suggestion, never your conversation, name or account. Searches aren't stored. Details are in the privacy notice."
+  contact:
+    h: Questions or problems
+    p: "Write to us:"
 legal:
   link: Imprint
   title: Imprint and privacy notice
@@ -602,6 +649,7 @@ legal:
   device: { h: Stored on your device, p: "Your saved list, the town you picked, your answers, a random browser id and your settings are kept in your browser's local storage, only because you use those functions (§ 25 (2) no. 2 TDDDG). We do not use cookies. You can delete everything under Mine › Profile and sync, or by clearing the site data in your browser." }
   taps: { h: Taps and votes, p: "Taps on facilities, “We went” and “Do you need German?” are stored in a Cloudflare D1 database together with a hash of your random browser id and a hash of your IP address, which we use only to stop vote flooding. They stay until you delete your profile. Legal basis: Art. 6 (1) (f) GDPR." }
   sent: { h: What you send us, p: "Tips, reports and suggested events or places are stored as entries in a private GitHub repository (GitHub, Inc., USA; EU-US Data Privacy Framework) so we can review them. Approved text is published without your name. Please don't include personal details. Legal basis: Art. 6 (1) (f) GDPR." }
+  assistant: { h: AI assistants (connector), p: "If you add Allo Outings to an AI assistant such as Claude or ChatGPT, the assistant's provider calls our address outings.allo.land/mcp from its own servers. We receive only what the assistant sends for the tool it uses: search words, a town, dates and filters, an id, or the text of a tip, report or suggestion. We don't receive your conversation, your name or your account, and we don't build profiles. Searches are answered and not stored; Cloudflare keeps short-lived technical request logs as described under Hosting. Tips, reports and suggestions are stored like those sent from the site (see What you send us). To cap how many suggestions all assistants can send, we keep only the time of each one, for 24 hours. What you write to the assistant is processed by its provider under its own privacy policy. Legal basis: Art. 6 (1) (b) GDPR, because you asked for it." }
   parse: { h: Reading posters and links, p: "If you add an event from a photo, link or pasted text, that content is sent once to an AI service (Google Gemini or Anthropic Claude, both USA, EU-US Data Privacy Framework) to fill in the form for you. The photo is not stored. Legal basis: Art. 6 (1) (b) GDPR, because you asked for it." }
   sync: { h: Passkey sync and invites, p: "If you turn on passkey sync or make an invite, we store your profile or invite and your passkey's public key in Cloudflare D1. There is no name or email. Deleting your profile deletes them. Legal basis: Art. 6 (1) (b) GDPR." }
   map: { h: Map, p: "Map tiles load from OpenStreetMap (OpenStreetMap Foundation, United Kingdom, covered by an EU adequacy decision), which receives your IP address to send the tiles. Legal basis: Art. 6 (1) (f) GDPR. Your location is only used on your phone if you tap the locate button, and is never sent to us." }

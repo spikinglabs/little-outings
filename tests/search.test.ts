@@ -66,6 +66,8 @@ test("filters: kinds, indoor, facilities, what, dates, radius", () => {
   assert.match(far.notes[0], /up to 2026-10-27/);
   const unknown = search(index, { town: "Berlin" }, "https://x");
   assert.match(unknown.notes[0], /isn't a town/);
+  assert.equal(unknown.total, 0, "an unknown town gives no results, not everything");
+  assert.equal(unknown.results.length, 0);
 });
 
 test("past dates are moved to today, and results are capped", () => {

@@ -210,6 +210,8 @@ export function search(index: Index, query: Query, base: string): Result {
     ? { lat: +query.lat, lon: +query.lon } : town;
   const radius = Math.min(Math.max(Number(query.radius_km) || 10, 1), 100);
   const what = query.what === "events" || query.what === "places" ? query.what : "all";
+  // A town we don't cover gets no results rather than a list from all over Germany.
+  if (query.town && !center) return { today: index.today, ...(what !== "places" ? { from, to } : {}), total: 0, results: [], notes };
 
   const matches = (x: Entry) => {
     if (what === "events" && x.t !== "e") return false;

@@ -656,3 +656,8 @@ footer.foot { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--l
 .wx-hint { position: fixed; inset: 0; z-index: 2000; background: rgb(0 0 0 / .55); color: #fff; display: flex; flex-direction: column; align-items: flex-end; padding: calc(8px + env(safe-area-inset-top, 0px)) max(18px, env(safe-area-inset-right, 0px)) 0 max(18px, env(safe-area-inset-left, 0px)); }
 .wx-hint .wx-arrow { font-size: 2.6rem; line-height: 1; margin-right: 6px; }
 .wx-hint p { margin: 8px 0 0; max-width: 16em; text-align: right; font-size: 1.05rem; font-weight: 700; }
+
+/* The connector page /<lang>/ki/ */
+.ki-addr { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.ki-addr code { overflow-wrap: anywhere; background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; }
+.ki-examples li { font-style: italic; }
