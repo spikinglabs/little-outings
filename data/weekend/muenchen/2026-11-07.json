@@ -5,20 +5,6 @@
   "week": 45,
   "published_at": "2026-11-03T23:22:05.512Z",
   "by": "ai",
-  "weather": [
-    {
-      "day": "2026-11-07",
-      "code": 61,
-      "max": 9.4,
-      "rain": 13
-    },
-    {
-      "day": "2026-11-08",
-      "code": 45,
-      "max": 10.2,
-      "rain": 17
-    }
-  ],
   "picks": [
     {
       "id": "ck-evt-59ae04e3a0c935c3b7e3",
@@ -168,6 +154,21 @@
         "en": "Indoor pool with free entry, open daily 8:00–22:00, handy for a rainy weekend.",
         "zh": "室内泳池，免费入场，每天8:00至22:00开放，适合雨天的周末带孩子去玩水。"
       }
+    }
+  ],
+  "refreshed_at": "2026-11-06T08:33:29.724Z",
+  "weather": [
+    {
+      "day": "2026-11-07",
+      "code": 45,
+      "max": 8.9,
+      "rain": 30
+    },
+    {
+      "day": "2026-11-08",
+      "code": 45,
+      "max": 8.4,
+      "rain": 10
     }
   ],
   "still": [

@@ -5,20 +5,6 @@
   "week": 45,
   "published_at": "2026-11-03T23:22:05.290Z",
   "by": "ai",
-  "weather": [
-    {
-      "day": "2026-11-07",
-      "code": 3,
-      "max": 9.6,
-      "rain": 10
-    },
-    {
-      "day": "2026-11-08",
-      "code": 3,
-      "max": 11.2,
-      "rain": 10
-    }
-  ],
   "picks": [
     {
       "id": "ck-evt-88620bb35acfe0d6f03b",
@@ -166,6 +152,21 @@
         "en": "Free entry and open every day, until 8 pm in summer. Perfect for a family outing.",
         "zh": "免费入园，每天开放，夏季营业至晚上8点，非常适合家庭周末出游。"
       }
+    }
+  ],
+  "refreshed_at": "2026-11-06T08:33:29.161Z",
+  "weather": [
+    {
+      "day": "2026-11-07",
+      "code": 3,
+      "max": 10.5,
+      "rain": 2
+    },
+    {
+      "day": "2026-11-08",
+      "code": 63,
+      "max": 10,
+      "rain": 20
     }
   ]
 }

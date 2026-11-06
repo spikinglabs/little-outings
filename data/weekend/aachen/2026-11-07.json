@@ -5,20 +5,6 @@
   "week": 45,
   "published_at": "2026-11-03T23:22:05.644Z",
   "by": "ai",
-  "weather": [
-    {
-      "day": "2026-11-07",
-      "code": 3,
-      "max": 10.5,
-      "rain": 10
-    },
-    {
-      "day": "2026-11-08",
-      "code": 3,
-      "max": 10.1,
-      "rain": 10
-    }
-  ],
   "picks": [
     {
       "id": "ck-evt-35ba3164971b16276ed0",
@@ -159,6 +145,21 @@
         "en": "A zoo outing in Beverau, open until 18:30 in summer, perfect for a family day out.",
         "zh": "贝维劳的动物园之旅，夏季营业至18:30，适合全家一起度过周末。"
       }
+    }
+  ],
+  "refreshed_at": "2026-11-06T08:33:39.468Z",
+  "weather": [
+    {
+      "day": "2026-11-07",
+      "code": 3,
+      "max": 9.4,
+      "rain": 6
+    },
+    {
+      "day": "2026-11-08",
+      "code": 53,
+      "max": 9.9,
+      "rain": 10
     }
   ],
   "still": [

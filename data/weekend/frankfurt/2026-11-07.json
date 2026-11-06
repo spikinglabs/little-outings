@@ -5,20 +5,6 @@
   "week": 45,
   "published_at": "2026-11-03T23:22:05.541Z",
   "by": "ai",
-  "weather": [
-    {
-      "day": "2026-11-07",
-      "code": 3,
-      "max": 7,
-      "rain": 5
-    },
-    {
-      "day": "2026-11-08",
-      "code": 3,
-      "max": 10.3,
-      "rain": 12
-    }
-  ],
   "picks": [
     {
       "id": "ck-evt-43d9b9c326cf2d207895",
@@ -164,6 +150,21 @@
         "en": "Open daily, until 7 pm in summer – perfect for a relaxed family outing in Ostend.",
         "zh": "每天开放，夏季营业至晚上7点，非常适合全家在东区悠闲游玩。"
       }
+    }
+  ],
+  "refreshed_at": "2026-11-06T08:33:29.862Z",
+  "weather": [
+    {
+      "day": "2026-11-07",
+      "code": 45,
+      "max": 7.7,
+      "rain": 3
+    },
+    {
+      "day": "2026-11-08",
+      "code": 45,
+      "max": 10.3,
+      "rain": 5
     }
   ]
 }

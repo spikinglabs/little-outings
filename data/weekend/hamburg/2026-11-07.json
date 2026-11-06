@@ -5,20 +5,6 @@
   "week": 45,
   "published_at": "2026-11-03T23:22:05.574Z",
   "by": "ai",
-  "weather": [
-    {
-      "day": "2026-11-07",
-      "code": 45,
-      "max": 5.5,
-      "rain": 2
-    },
-    {
-      "day": "2026-11-08",
-      "code": 45,
-      "max": 7.5,
-      "rain": 3
-    }
-  ],
   "picks": [
     {
       "id": "ck-evt-b9cc58e8c05cd43d5a74",
@@ -158,6 +144,21 @@
         "en": "See animals up close at the Ehestorf wildlife park this weekend.",
         "zh": "周末到埃斯托夫野生动物园，近距离观察各种动物。"
       }
+    }
+  ],
+  "refreshed_at": "2026-11-06T08:33:29.995Z",
+  "weather": [
+    {
+      "day": "2026-11-07",
+      "code": 3,
+      "max": 5.4,
+      "rain": 0
+    },
+    {
+      "day": "2026-11-08",
+      "code": 45,
+      "max": 7.2,
+      "rain": 3
     }
   ]
 }

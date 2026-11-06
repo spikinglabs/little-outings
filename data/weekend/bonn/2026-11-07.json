@@ -5,20 +5,6 @@
   "week": 45,
   "published_at": "2026-11-03T23:22:05.420Z",
   "by": "ai",
-  "weather": [
-    {
-      "day": "2026-11-07",
-      "code": 3,
-      "max": 9.9,
-      "rain": 6
-    },
-    {
-      "day": "2026-11-08",
-      "code": 3,
-      "max": 11,
-      "rain": 12
-    }
-  ],
   "picks": [
     {
       "id": "ck-evt-87127f24d8d496ceb0b9",
@@ -157,6 +143,21 @@
         "en": "A green park in Bonn, perfect for a relaxed weekend stroll with the kids.",
         "zh": "波恩的一座绿色公园，适合周末带孩子悠闲散步。"
       }
+    }
+  ],
+  "refreshed_at": "2026-11-06T08:33:29.306Z",
+  "weather": [
+    {
+      "day": "2026-11-07",
+      "code": 3,
+      "max": 10.5,
+      "rain": 2
+    },
+    {
+      "day": "2026-11-08",
+      "code": 61,
+      "max": 10.4,
+      "rain": 14
     }
   ]
 }
