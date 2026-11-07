@@ -17,7 +17,7 @@ import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet-gesture-handling/dist/leaflet-gesture-handling.css";
 import { FEATURE_ICON, KIND_ICON, UI_ICON, icon as useIcon, svg } from "../lib/icons";
 import { markSaved, renderKm } from "../scripts/app";
-import { CHARGERS_DATA, CHARGER_ZOOM, FLAG, dotRadius, POWER_STYLE, carsMapUrl, cellsIn, parseCell, plugNames, powerClass, type Charger, type ChargerCell } from "../lib/chargers";
+import { CARS, CHARGERS_DATA, CHARGER_ZOOM, FLAG, dotRadius, POWER_STYLE, carsMapUrl, cellsIn, parseCell, plugNames, powerClass, type Charger, type ChargerCell } from "../lib/chargers";
 import type { Lang } from "../lib/i18n";
 
 export interface Pin {
@@ -448,6 +448,8 @@ export default function OutingsMap({ pinsBase, toiletsUrl, lang = "de", center, 
       const cells = new Map<string, Promise<void>>();
       let known: Promise<Set<string>> | null = null;
       const chargerDots: [L.CircleMarker, number][] = [];
+      // The register's licence (CC BY 4.0) asks for the credit "Bundesnetzagentur.de" wherever it is shown.
+      const CREDIT = `<a href="${CARS}/open-data/#chargers">Bundesnetzagentur.de</a> (CC BY 4.0) via Allo Cars`;
       map.on("zoomend", () => { const z = map.getZoom(); for (const [d, kw] of chargerDots) d.setRadius(dotRadius(z, kw)); });
       const chargerCard = (c: Charger) => {
         unselect();
@@ -504,8 +506,8 @@ export default function OutingsMap({ pinsBase, toiletsUrl, lang = "de", center, 
           map.on("zoomend", mark);
           L.DomEvent.disableClickPropagation(b);
           b.addEventListener("click", () => {
-            if (map.hasLayer(plugs)) plugs.remove();
-            else { plugs.addTo(map); loadView(); }
+            if (map.hasLayer(plugs)) { plugs.remove(); map.attributionControl.removeAttribution(CREDIT); }
+            else { plugs.addTo(map); map.attributionControl.addAttribution(CREDIT); loadView(); }
             mark();
           });
           return b;
