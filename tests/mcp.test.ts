@@ -25,7 +25,7 @@ const call = async (env: any, name: string, args: unknown) => (await rpc(env, "t
 test("initialize agrees a protocol version and explains the server", async () => {
   const { body } = await rpc({ ASSETS }, "initialize", { protocolVersion: "2025-06-18", capabilities: {}, clientInfo: { name: "t", version: "1" } });
   assert.equal(body.result.protocolVersion, "2025-06-18");
-  assert.equal(body.result.serverInfo.name, "little-outings");
+  assert.equal(body.result.serverInfo.name, "allo-outings");
   assert.match(body.result.instructions, /reviewed|review/);
   const old = await rpc({ ASSETS }, "initialize", { protocolVersion: "1999-01-01" });
   assert.equal(old.body.result.protocolVersion, "2025-11-25");

@@ -117,6 +117,7 @@ const ui = {
     {!noindex && LANGS.map((l) => <link rel="alternate" hreflang={l === "zh" ? "zh-Hans" : l} href={`${site}/${l}/${rest}`} />)}
     {/* Readers with another language land on German; on the home page the root picks one from the browser. */}
     {!noindex && <link rel="alternate" hreflang="x-default" href={rest ? `${site}/de/${rest}` : `${site}/`} />}
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="manifest" href={`/${lang}/manifest.webmanifest`} />
     <script is:inline>
