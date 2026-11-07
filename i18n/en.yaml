@@ -588,6 +588,7 @@ meet:
 # The connector page /<lang>/ki/ (src/pages/[lang]/ki.astro): docs for using Allo Outings in Claude,
 # ChatGPT and other AI assistants. Keep it true with functions/mcp.ts.
 assistant:
+  footer: AI assistants
   link: Use it in your AI assistant
   title: Allo Outings in Claude and other AI assistants
   intro: "Ask your AI assistant for family outings in your own words. It searches Allo Outings' events and places for you and gives you the page links."
