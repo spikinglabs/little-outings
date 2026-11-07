@@ -119,11 +119,6 @@
   },
   "read": 3
  },
- "https://events.timely.fun/ewx8j2kb/event/78461368/20261106150000": {
-  "venue": null,
-  "guess": null,
-  "read": 3
- },
  "https://events.timely.fun/ewx8j2kb/event/78461369/20261204150000": {
   "venue": null,
   "guess": null,
@@ -254,10 +249,6 @@
  "https://koelnerkarneval.de/session/veranstaltungen/veranstaltung/40-kinderkostuemfest": {
   "venue": "Aula Dechenstr. (Neu-Ehrenfeld)",
   "street": "Dechenstr."
- },
- "https://koelnerkarneval.de/session/veranstaltungen/veranstaltung/aehzezupp-klaaf-und-fastelovend": {
-  "venue": "Stadthalle Mülheim",
-  "street": "Jan-Wellem-Straße 2"
  },
  "https://koelnerkarneval.de/session/veranstaltungen/veranstaltung/bellejeckzug-1": {
   "venue": "Hauptbahnhof Köln, Bahnhofsvorplatz",
@@ -463,6 +454,9 @@
   "venue": "Willy-Brandt-Saal im Rathaus Schöneberg",
   "street": "John-F.-Kennedy-Platz 1"
  },
+ "https://suermondt-ludwig-museum.de/event/abenteuer-wunderkammer-2/": {
+  "venue": "Suermondt-Ludwig-Museum"
+ },
  "https://suermondt-ludwig-museum.de/event/ars-longa-vita-brevis/": {
   "venue": null,
   "guess": {
@@ -500,6 +494,9 @@
    "why": "The event is hosted on the Suermondt-Ludwig-Museum website and features works from its museum collection."
   },
   "read": 3
+ },
+ "https://suermondt-ludwig-museum.de/event/kunst-croissants-und-konfituere-5-2-2/": {
+  "venue": "Suermondt-Ludwig-Museum"
  },
  "https://suermondt-ludwig-museum.de/event/kunst-croissants-und-konfituere-5-2/": {
   "venue": "Suermondt-Ludwig-Museum"
@@ -560,6 +557,30 @@
   },
   "read": 3
  },
+ "https://suermondt-ludwig-museum.de/event/vorweihnachtszeit-fuer-familie-baumschmuck/": {
+  "venue": null,
+  "guess": {
+   "venue": "Suermondt-Ludwig-Museum",
+   "why": "The event URL and text reference the museum admission fee, indicating it takes place at Suermondt-Ludwig-Museum."
+  },
+  "read": 3
+ },
+ "https://suermondt-ludwig-museum.de/event/vorweihnachtszeit-fuer-familie-weihnachtskarten-und-geschenkanhaenger-2/": {
+  "venue": null,
+  "guess": {
+   "venue": "Suermondt-Ludwig-Museum",
+   "why": "The event is hosted on the Suermondt-Ludwig-Museum website and requires only museum admission."
+  },
+  "read": 3
+ },
+ "https://suermondt-ludwig-museum.de/event/vorweihnachtszeit-fuer-familie-weihnachtskarten-und-geschenkanhaenger/": {
+  "venue": null,
+  "guess": {
+   "venue": "Suermondt-Ludwig-Museum",
+   "why": "The event is hosted on the Suermondt-Ludwig-Museum website and requires only museum admission."
+  },
+  "read": 3
+ },
  "https://suermondt-ludwig-museum.de/event/vorweihnachtszeit-fuer-familien-2/": {
   "venue": null,
   "guess": {
@@ -570,10 +591,6 @@
  },
  "https://uni-koeln.de/universitaet/aktuell/veranstaltungen/detail/arirang-echo-koeln-2026-winteredition-korea-und-tuerkiye-im-dialog-der-kulturen": {
   "venue": "Aula 2 und im Foyer Hauptgebäude",
-  "street": "Albertus-Magnus-Platz"
- },
- "https://uni-koeln.de/universitaet/aktuell/veranstaltungen/detail/collegium-musicum-campus-jazz-zu-koeln": {
-  "venue": "Aula, Hauptgebäude",
   "street": "Albertus-Magnus-Platz"
  },
  "https://uni-koeln.de/universitaet/aktuell/veranstaltungen/detail/opencampus-2026": {
@@ -606,11 +623,6 @@
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/34duerener-mundartfestival": {
   "venue": "Willy-Brandt-Park (Stadtpark)"
- },
- "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/Gipsy meets Latin Jazz-06-11-2026": {
-  "venue": null,
-  "guess": null,
-  "read": 3
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/ahoi-und-hallo-drei-segel-im-wind": {
   "venue": "Theater Düren im Haus der Stadt",
@@ -645,6 +657,10 @@
   "street": "Von-Aue-Straße 1"
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/andantino-musikalische-entdeckerreisen-sagenhaft-von-drachen-rittern-burgen-22-02-2027-1": {
+  "venue": "Schloss Burgau",
+  "street": "Von-Aue-Straße 1"
+ },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/ausstellung-geheimnis-papier": {
   "venue": "Schloss Burgau",
   "street": "Von-Aue-Straße 1"
  },
