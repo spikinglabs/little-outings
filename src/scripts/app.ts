@@ -1,7 +1,7 @@
 // Runs on every page: the saved list, the "near" town and distances, and gap answers.
 import { KEYS, rememberSent } from "../lib/profile";
 import { pullNowAndThen, schedulePush } from "./sync";
-import { count, type CountAction } from "../lib/count";
+import { count, track, type CountAction } from "../lib/count";
 import { firstSendHint, myNick } from "../lib/nickname";
 import { dropDraft, fillForm, formValues, hasText, loadDraft, saveDraft } from "../lib/draft";
 import { applyTheme, isDark } from "../lib/theme";
@@ -15,6 +15,9 @@ const towns = new Map<string, [number, number]>(
 const read = (k: string) => { try { return localStorage.getItem(k); } catch { return null; } };
 // Every change to the profile also goes to passkey sync, when the family turned it on.
 const write = (k: string, v: string) => { try { localStorage.setItem(k, v); schedulePush(); } catch { /* private mode */ } };
+
+// One page view for the shared Allo usage counter (src/lib/count.ts).
+track("open");
 
 // Anonymous daily totals for marked links and buttons (directions, calendar, website, share).
 document.addEventListener("click", (ev) => {
