@@ -2,7 +2,7 @@
 // that are good any time. The cards arrive a tile at a time from /<lang>/ideen/<tile>/; this only hides and sorts them.
 // Distances are measured once per home town, and the list shows a page at a time.
 import { lastDay } from "../lib/horizon";
-import { count as countHit } from "../lib/count";
+import { count as countHit, track } from "../lib/count";
 import { normCode, normItemCode } from "../lib/rednote-code";
 import { lastChance } from "../lib/running";
 import { ORDERS, orderEvents, orderPlaces, type Order } from "../lib/order";
@@ -434,17 +434,18 @@ document.addEventListener("click", (ev) => {
   }
   if (t.closest("[data-area-reset]")) { state.area = null; state.view++; apply(); }
   const m = t.closest<HTMLButtonElement>("[data-map-toggle]");
-  if (m) showMap(m.getAttribute("aria-expanded") !== "true");
+  if (m) { const on = m.getAttribute("aria-expanded") !== "true"; if (on) track("map"); showMap(on); }
   // "Pools & lakes" in the weather line: on and off again, unlike the kind chips below.
   if (t.closest('[data-wx-btn="water"]')) { state.kind = state.kind === "pool" ? "" : "pool"; state.tag = ""; state.limit = PAGE; apply(); }
   const k = t.closest<HTMLButtonElement>("[data-kind-chip]");
-  if (k) { state.kind = k.dataset.kindChip!; state.tag = ""; apply(); }
+  if (k) { track("filter_kind"); state.kind = k.dataset.kindChip!; state.tag = ""; apply(); }
   const g = t.closest<HTMLButtonElement>("[data-tag-chip]");
-  if (g) { state.tag = g.dataset.tagChip!; state.limit = PAGE; apply(); }
+  if (g) { track("filter_tag"); state.tag = g.dataset.tagChip!; state.limit = PAGE; apply(); }
 });
 // A code from a Rednote card ("K31-2", src/lib/rednote-code.ts) opens that pick's page.
 const xhsCodes: Record<string, string> = JSON.parse(document.getElementById("xhs-codes")?.textContent || "{}");
 let typing: ReturnType<typeof setTimeout> | undefined;
+let searched: ReturnType<typeof setTimeout> | undefined;
 $<HTMLInputElement>("#q").addEventListener("input", (e) => {
   const q = (e.target as HTMLInputElement).value.trim();
   const code = normCode(q);
@@ -465,9 +466,12 @@ $<HTMLInputElement>("#q").addEventListener("input", (e) => {
   // The list follows once typing pauses, not on every letter.
   clearTimeout(typing);
   typing = setTimeout(() => { state.limit = PAGE; state.q = q; apply(); }, 150);
+  // Counted once the search has settled for 2 s; the words are never sent.
+  clearTimeout(searched);
+  if (q) searched = setTimeout(() => track("search"), 2000);
 });
-$<HTMLSelectElement>("#radius").addEventListener("change", (e) => { state.radius = +(e.target as HTMLSelectElement).value; state.area = null; apply(); });
-$<HTMLSelectElement>("#order").addEventListener("change", (e) => { state.order = (e.target as HTMLSelectElement).value as Order; state.limit = PAGE; apply(); });
+$<HTMLSelectElement>("#radius").addEventListener("change", (e) => { track("radius"); state.radius = +(e.target as HTMLSelectElement).value; state.area = null; apply(); });
+$<HTMLSelectElement>("#order").addEventListener("change", (e) => { track("order"); state.order = (e.target as HTMLSelectElement).value as Order; state.limit = PAGE; apply(); });
 // "Around" opens the town picker. Typing narrows the list; Enter takes the first town left.
 const sheet = $<HTMLDialogElement>("[data-town-sheet]");
 const townQ = $<HTMLInputElement>("[data-town-q]");
@@ -525,6 +529,7 @@ function filterTowns() {
   $("[data-town-none]").hidden = shown > 0;
 }
 function pickTown(town: string) {
+  track("town");
   setHere(null); // a town picked by hand replaces the phone's location, and its dot goes away
   showHome(town);
   setHome(town); state.area = null; renderKm(); apply();
@@ -559,6 +564,7 @@ sheet.addEventListener("click", (e) => { if (e.target === sheet) sheet.close(); 
 const locMsg = $("[data-loc-msg]");
 $<HTMLButtonElement>("[data-locate]").addEventListener("click", async (e) => {
   const b = e.currentTarget as HTMLButtonElement;
+  track("locate");
   b.disabled = true;
   const town = await nearestTown();
   b.disabled = false;
