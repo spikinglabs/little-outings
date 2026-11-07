@@ -323,6 +323,13 @@ h1, h2, h3, .meta, .de-name, .orig, .trust { overflow-wrap: anywhere; }
 .map-card-mark.ev { background: var(--gold); color: var(--gold-ink); }
 .map-card-mark.wc { background: #3d6a9e; }
 .map-wc[aria-pressed="true"] { background: #3d6a9e; color: #fff; border-color: #3d6a9e; }
+/* EV chargers from Allo Cars, in its colours: blue up to 49 kW, yellow 50 to 149 kW, black 150 kW and more. */
+.map-ev[aria-pressed="true"] { background: #17191b; color: #ffcc00; border-color: #17191b; }
+.map-card-mark.ev-ac { background: #1d4f91; }
+.map-card-mark.ev-fast { background: #ffcc00; color: #17191b; }
+.map-card-mark.ev-hpc { background: #17191b; color: #ffcc00; }
+.map-card-links { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 2px; }
+.map.leaflet-container .map-card-links a { color: var(--blau); font-weight: 600; }
 .map-card-mark svg { width: 22px; height: 22px; }
 .map-card-body { flex: 1; min-width: 0; font-size: .9rem; }
 .map.leaflet-container .map-card-body > a { display: block; font-weight: 700; font-size: 1rem; color: var(--ink); text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
