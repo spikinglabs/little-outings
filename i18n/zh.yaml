@@ -243,6 +243,7 @@ allo:
   more: 更多 Allo 工具
   recalls: { name: 小鹿召回 Allo Recalls, blurb: 婴幼儿和儿童产品召回，来自官方通告 }
   auri: { name: Allo Auri, blurb: 给父母的私密宝宝日志 }
+  cars: { name: Allo Cars, blurb: 电动车充电成本与开放汽车数据 }
   land: { name: Alloland, blurb: 融入德国生活 }
 dataFrom: "部分数据来自 {sources}。"
 nearStreet: "{street}附近"
