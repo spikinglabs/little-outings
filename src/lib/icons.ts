@@ -53,6 +53,7 @@ export const UI_ICON: Record<string, string> = {
   globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/>',
   image: '<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m21 17-5-5-9 8"/>',
   brand: '<path d="M4 18c3-6 6-9 8-9s5 3 8 9"/><circle cx="12" cy="5" r="2"/><path d="M2 20h20"/>',
+  charger: '<path d="M5 21V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v16M3 21h14M15 9h2a2 2 0 0 1 2 2v5a1.5 1.5 0 0 0 3 0V8l-3-3"/><path d="m10.5 7-2.5 4h3l-2 4"/>',
 };
 
 export const svg = (body: string, extra = "") =>

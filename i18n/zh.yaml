@@ -149,6 +149,18 @@ toiletsNear:
   route: 路线
   mapShow: 显示厕所
   mapHide: 隐藏厕所
+chargersMap:
+  show: 显示电动车充电桩
+  hide: 隐藏电动车充电桩
+  zoom: 放大地图即可看到充电桩。
+  points: "{n} 个充电点"
+  point: "1 个充电点"
+  open247: 24 小时
+  card: 可刷卡
+  free: 免费
+  customers: 仅限顾客
+  route: 路线
+  more: 在 Allo Cars 查看
 unknownNote: "“?” 表示暂不确定。去过的话，点一下告诉我们。"
 confirmedBy: "{n} 位家长确认"
 upcomingHere: 近期活动

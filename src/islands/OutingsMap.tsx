@@ -8,6 +8,8 @@
 // card at the bottom of the map and outlines the same idea in the list; pointing at a list card lights up
 // its mark. On phones one finger scrolls the page and two move the map. After the reader taps a location
 // button (and only then), a blue dot with an accuracy halo shows where the phone is ("lo:here").
+// Two buttons add layers on request: toilets (with changing tables and water) and public EV chargers,
+// the latter read from Allo Cars' open charger data in the squares on screen (lib/chargers.ts).
 import { useEffect, useRef } from "preact/hooks";
 import L from "../lib/leaflet";
 import "leaflet/dist/leaflet.css";
@@ -15,6 +17,8 @@ import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet-gesture-handling/dist/leaflet-gesture-handling.css";
 import { FEATURE_ICON, KIND_ICON, UI_ICON, icon as useIcon, svg } from "../lib/icons";
 import { markSaved, renderKm } from "../scripts/app";
+import { CARS, CHARGERS_DATA, CHARGER_ZOOM, FLAG, dotRadius, POWER_STYLE, carsMapUrl, cellsIn, parseCell, plugNames, powerClass, type Charger, type ChargerCell } from "../lib/chargers";
+import type { Lang } from "../lib/i18n";
 
 export interface Pin {
   id: string;
@@ -37,6 +41,8 @@ interface Props {
   pinsBase: string;
   /** Toilets, changing tables and water ([lat, lon, kind, flags, name]), fetched when the toilets button is first tapped. */
   toiletsUrl?: string;
+  /** The page's language, for the link to the same spot on Allo Cars' charger map. */
+  lang?: Lang;
   center: [number, number];
   towns: [string, number, number][];
   locale: string;
@@ -44,6 +50,7 @@ interface Props {
     one: string; other: string; more: string; here: string; places: { one?: string; other: string };
     touch: string; zoom: string; zoomMac: string; locate: string; close: string; save: string;
     toilets?: { show: string; hide: string; toilets: string; changing: string; water: string; table: string; free: string; paid: string; wheelchair: string; customers: string; route: string };
+    chargers?: { show: string; hide: string; zoom: string; points: string; point: string; open247: string; card: string; free: string; customers: string; route: string; more: string };
   };
 }
 
@@ -74,7 +81,7 @@ const esc = (s: string) => s.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`)
 type ToiletRow = [number, number, "t" | "c" | "w", string, string?];
 const TOILET_COLOR = { t: "#3d6a9e", c: "#3d6a9e", w: "#2b8a7e" };
 
-export default function OutingsMap({ pinsBase, toiletsUrl, center, towns, locale, labels }: Props) {
+export default function OutingsMap({ pinsBase, toiletsUrl, lang = "de", center, towns, locale, labels }: Props) {
   const el = useRef<HTMLDivElement>(null);
   useEffect(() => {
     let stop = () => {};
@@ -430,6 +437,83 @@ export default function OutingsMap({ pinsBase, toiletsUrl, center, towns, locale
         },
       });
       new Toilets({ position: "topright" }).addTo(map);
+    }
+    // "Show EV chargers": public chargers from Allo Cars (Bundesnetzagentur register) as small dots in
+    // Allo Cars' colours: blue up to 49 kW, yellow 50 to 149 kW, black 150 kW and more. The squares on
+    // screen are fetched from cars.allo.land while the layer is on, and each only once.
+    const cl = labels.chargers;
+    if (cl) {
+      const plugs = L.layerGroup();
+      const canvas = L.canvas({ padding: 0.3 });
+      const cells = new Map<string, Promise<void>>();
+      let known: Promise<Set<string>> | null = null;
+      const chargerDots: [L.CircleMarker, number][] = [];
+      // The register's licence (CC BY 4.0) asks for the credit "Bundesnetzagentur.de" wherever it is shown.
+      const CREDIT = `<a href="${CARS}/open-data/#chargers">Bundesnetzagentur.de</a> (CC BY 4.0) via Allo Cars`;
+      map.on("zoomend", () => { const z = map.getZoom(); for (const [d, kw] of chargerDots) d.setRadius(dotRadius(z, kw)); });
+      const chargerCard = (c: Charger) => {
+        unselect();
+        const tags = [
+          c.points === 1 ? cl.point : fill(cl.points, c.points),
+          plugNames(c.plugs).join(", "),
+          c.flags & FLAG.open247 ? cl.open247 : "",
+          c.flags & FLAG.card ? cl.card : "",
+          c.flags & FLAG.free ? cl.free : "",
+          c.flags & FLAG.customers ? cl.customers : "",
+        ].filter(Boolean).join(" · ");
+        const route = `https://www.google.com/maps/dir/?api=1&destination=${c.lat.toFixed(5)},${c.lon.toFixed(5)}`;
+        card.innerHTML = `<span class="map-card-mark ev-${powerClass(c.kw)}">${svg(UI_ICON.charger, 'stroke-width="2"')}</span>`
+          + `<div class="map-card-body" data-lat="${c.lat}" data-lon="${c.lon}" data-precision="exact"><b>${c.kw.toLocaleString(locale)} kW · ${esc(c.operator)}</b>`
+          + `<small>${esc(tags)}</small><small>${esc(c.address)}<span data-km></span></small>`
+          + `<span class="map-card-links"><a href="${route}" target="_blank" rel="noopener" data-count="maps">${esc(cl.route)} ↗</a>`
+          + `<a href="${carsMapUrl(lang, c.lat, c.lon)}" target="_blank" rel="noopener">${esc(cl.more)} ↗</a></span></div>${closeBtn}`;
+        card.hidden = false;
+        renderKm();
+      };
+      const loadCell = (id: string) => {
+        if (!cells.has(id)) cells.set(id, fetch(`${CHARGERS_DATA}cells/${id}.json`).then((r) => (r.ok ? r.json() : null)).then((cell: ChargerCell | null) => {
+          if (!cell) return;
+          // Slowest first, so the fast chargers are drawn on top.
+          for (const c of parseCell(cell).sort((a, b) => a.kw - b.kw)) {
+            const dot = L.circleMarker([c.lat, c.lon], { renderer: canvas, radius: dotRadius(map.getZoom(), c.kw), weight: 1.5, fillOpacity: 1, ...POWER_STYLE[powerClass(c.kw)] })
+              .on("click", (e) => { L.DomEvent.stopPropagation(e); chargerCard(c); }).addTo(plugs);
+            chargerDots.push([dot, c.kw]);
+          }
+        }).catch(() => { cells.delete(id); }));
+        return cells.get(id)!;
+      };
+      // Allo Cars lists the squares that have chargers, so empty ones (the sea, the border) aren't fetched.
+      const loadView = async () => {
+        if (!map.hasLayer(plugs) || map.getZoom() < CHARGER_ZOOM) return;
+        known ??= fetch(`${CHARGERS_DATA}latest.json`).then((r) => r.json()).then((l: { cells?: string[] }) => new Set(l.cells ?? [])).catch(() => { known = null; return new Set<string>(); });
+        const have = await known;
+        const b = map.getBounds().pad(0.2);
+        await Promise.all(cellsIn(b.getSouth(), b.getWest(), b.getNorth(), b.getEast()).filter((id) => have.has(id)).map(loadCell));
+      };
+      map.on("moveend", loadView);
+      const Chargers = L.Control.extend({
+        onAdd() {
+          const b = L.DomUtil.create("button", "map-locate map-ev");
+          b.type = "button";
+          const mark = () => {
+            const on = map.hasLayer(plugs);
+            b.title = on ? cl.hide : map.getZoom() < CHARGER_ZOOM ? `${cl.show}. ${cl.zoom}` : cl.show;
+            b.setAttribute("aria-label", b.title);
+            b.setAttribute("aria-pressed", String(on));
+          };
+          b.innerHTML = svg(UI_ICON.charger, 'stroke-width="2"');
+          mark();
+          map.on("zoomend", mark);
+          L.DomEvent.disableClickPropagation(b);
+          b.addEventListener("click", () => {
+            if (map.hasLayer(plugs)) { plugs.remove(); map.attributionControl.removeAttribution(CREDIT); }
+            else { plugs.addTo(map); map.attributionControl.addAttribution(CREDIT); loadView(); }
+            mark();
+          });
+          return b;
+        },
+      });
+      new Chargers({ position: "topright" }).addTo(map);
     }
     const onHere = (e: Event) => showHere((e as CustomEvent<Here | null>).detail);
     try { showHere(JSON.parse(sessionStorage.getItem("lo-here") || "null")); } catch { /* storage blocked */ }

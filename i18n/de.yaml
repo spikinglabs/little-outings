@@ -150,6 +150,18 @@ toiletsNear:
   route: Weg
   mapShow: Toiletten zeigen
   mapHide: Toiletten ausblenden
+chargersMap:
+  show: Ladesäulen zeigen
+  hide: Ladesäulen ausblenden
+  zoom: Für Ladesäulen hineinzoomen.
+  points: "{n} Ladepunkte"
+  point: "1 Ladepunkt"
+  open247: rund um die Uhr
+  card: Kartenzahlung
+  free: kostenlos
+  customers: nur für Kunden
+  route: Route
+  more: Bei Allo Cars
 unknownNote: "? heißt: wissen wir noch nicht. Wart ihr da? Tippt drauf."
 confirmedBy: "{n}× bestätigt"
 upcomingHere: Hier demnächst

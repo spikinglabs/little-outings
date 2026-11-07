@@ -150,6 +150,18 @@ toiletsNear:
   route: Directions
   mapShow: Show toilets
   mapHide: Hide toilets
+chargersMap:
+  show: Show EV chargers
+  hide: Hide EV chargers
+  zoom: Zoom in to see chargers.
+  points: "{n} charge points"
+  point: "1 charge point"
+  open247: open 24/7
+  card: card payment
+  free: free
+  customers: customers only
+  route: Directions
+  more: On Allo Cars
 unknownNote: "? means we don't know yet. Been there? Tap it."
 confirmedBy: "confirmed {n}×"
 upcomingHere: Coming up here

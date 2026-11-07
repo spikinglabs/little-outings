@@ -93,6 +93,11 @@ const mapLabels = {
     water: t("toiletsNear.water"), table: t("toiletsNear.table"), free: t("toiletsNear.free"), paid: t("toiletsNear.paid"),
     wheelchair: t("toiletsNear.wheelchair"), customers: t("toiletsNear.customers"), route: t("toiletsNear.route"),
   },
+  chargers: {
+    show: t("chargersMap.show"), hide: t("chargersMap.hide"), zoom: t("chargersMap.zoom"), points: t("chargersMap.points"), point: t("chargersMap.point"),
+    open247: t("chargersMap.open247"), card: t("chargersMap.card"), free: t("chargersMap.free"), customers: t("chargersMap.customers"),
+    route: t("chargersMap.route"), more: t("chargersMap.more"),
+  },
 };
 // What search results and AI answers show for the home page.
 const description = t("homeDescription", { events: listed.length, places: places.length });
@@ -180,7 +185,7 @@ const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
     </button>
   </div>
   <div class="mapwrap explore-map" id="explore-map" hidden>
-    <OutingsMap client:only="preact" pinsBase={`/${lang}/pins/`} toiletsUrl="/toilets.json" center={mapCenter(data)} towns={homes.map((x) => [x.name, x.lat, x.lon])} locale={t.locale} labels={mapLabels} />
+    <OutingsMap client:only="preact" pinsBase={`/${lang}/pins/`} toiletsUrl="/toilets.json" lang={lang} center={mapCenter(data)} towns={homes.map((x) => [x.name, x.lat, x.lon])} locale={t.locale} labels={mapLabels} />
     <!-- The two marks everyone needs stay in view; the rest fold away behind "More". -->
     <div class="legend">
       <span><i style="background:#ffcc00"></i>{t("legend.event")}</span>
