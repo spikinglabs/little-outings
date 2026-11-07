@@ -236,7 +236,7 @@ async function handle(msg: Rpc, env: Env, origin: string) {
       result = {
         protocolVersion: VERSIONS.includes(asked) ? asked : VERSIONS[0],
         capabilities: { tools: { listChanged: false } },
-        serverInfo: { name: "little-outings", title: "Allo Outings", version: "1.1.0", websiteUrl: origin },
+        serverInfo: { name: "allo-outings", title: "Allo Outings", version: "1.1.0", websiteUrl: origin },
         instructions: INSTRUCTIONS,
       };
       break;
