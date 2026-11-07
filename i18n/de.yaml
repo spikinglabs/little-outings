@@ -244,6 +244,7 @@ allo:
   more: Mehr von Allo
   recalls: { name: Allo Recalls, blurb: "Rückrufe von Baby- und Kinderprodukten, aus amtlichen Quellen" }
   auri: { name: Allo Auri, blurb: Ein privates Baby-Tagebuch für Eltern }
+  cars: { name: Allo Cars, blurb: Ladekosten fürs E-Auto und offene Autodaten }
   land: { name: Alloland, blurb: Ankommen im Leben in Deutschland }
 dataFrom: "Daten u. a. von {sources}."
 nearStreet: "nahe {street}"

@@ -9,9 +9,11 @@ export const MAKER_URL = "https://spikinglabs.com/products/allo-outings";
 // The other Allo sites, linked from every page's foot (each of them links back here).
 // Names and one-line blurbs are in i18n/<lang>.yaml under "allo".
 const RECALLS_DIR: Record<Lang, string> = { de: "de/", en: "", zh: "zh/" };
+const CARS_DIR: Record<Lang, string> = { de: "de/", en: "", zh: "" };
 export const alloSites = (lang: Lang) => [
   { id: "recalls", url: `https://recalls.allo.land/${RECALLS_DIR[lang]}` },
   { id: "auri", url: "https://auri.allo.land/" },
+  { id: "cars", url: `https://cars.allo.land/${CARS_DIR[lang]}` },
   { id: "land", url: "https://allo.land/" },
 ] as const;
 
