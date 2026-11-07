@@ -1,7 +1,7 @@
 ---
 // Impressum and privacy notice (Datenschutzerklärung). The plain-words version is /<lang>/daten.
 // Keep it true: when a service the site uses changes (hosting, analytics, map tiles, AI parsing,
-// the GitHub inbox, D1 tables), change the matching section here and on the data page.
+// the GitHub inbox, D1 tables, the /mcp connector), change the matching section here and on the data page.
 import Base from "../../layouts/Base.astro";
 import { LANGS, useT, type Lang } from "../../lib/i18n";
 import { OPERATOR } from "../../lib/legal";
@@ -9,7 +9,7 @@ import { OPERATOR } from "../../lib/legal";
 export const getStaticPaths = () => LANGS.map((lang) => ({ params: { lang } }));
 const lang = Astro.params.lang as Lang;
 const t = useT(lang);
-const SECTIONS = ["hosting", "stats", "device", "taps", "sent", "parse", "sync", "map", "fonts", "rights"];
+const SECTIONS = ["hosting", "stats", "device", "taps", "sent", "assistant", "parse", "sync", "map", "fonts", "rights"];
 const contact = [OPERATOR.name, ...OPERATOR.address];
 ---
 <Base lang={lang} title={t("legal.title")}>
@@ -31,7 +31,7 @@ const contact = [OPERATOR.name, ...OPERATOR.address];
       <p>{contact.join(", ")} · <a href={`mailto:${OPERATOR.email}`}>{OPERATOR.email}</a></p>
     </section>
     {SECTIONS.map((k) => (
-      <section>
+      <section id={k}>
         <h2>{t(`legal.${k}.h`)}</h2>
         <p>{t(`legal.${k}.p`)}</p>
       </section>

@@ -18,6 +18,7 @@ const SECTIONS = ["events", "places", "translate", "taps", "stats", "writing", "
       <section>
         <h2>{t(`about.${k}.h`)}</h2>
         <p>{t(`about.${k}.p`, k === "ai" ? { url: mcp } : undefined)}</p>
+        {k === "ai" && <p><a href={`/${lang}/ki/`}>{t("assistant.link")} →</a></p>}
         {k === "profile" && <p><a href={`/${lang}/profil/`}>{t("profile.link")} →</a></p>}
         {k === "who" && <p><a href={`/${lang}/impressum`}>{t("legal.link")} →</a></p>}
         {k === "who" && <p><a href={MAKER_URL} target="_blank" rel="noopener">spikinglabs.com ↗</a></p>}

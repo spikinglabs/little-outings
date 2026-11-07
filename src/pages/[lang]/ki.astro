@@ -1,0 +1,80 @@
+---
+// The connector's documentation: how to add Allo Outings to Claude, ChatGPT or another AI assistant,
+// what its tools do, example prompts, troubleshooting, privacy and contact. Linked from the /mcp help
+// page, the data page and llms.txt, and given as the docs URL in Claude's connector directory.
+// Keep it true with functions/mcp.ts (tools, limits) and the privacy notice's "assistant" section.
+import Base from "../../layouts/Base.astro";
+import { LANGS, useT, type Lang } from "../../lib/i18n";
+import { OPERATOR } from "../../lib/legal";
+
+export const getStaticPaths = () => LANGS.map((lang) => ({ params: { lang } }));
+const lang = Astro.params.lang as Lang;
+const t = useT(lang);
+const a = (k: string) => t(`assistant.${k}`);
+const address = `${(Astro.site?.toString() ?? "https://outings.allo.land/").replace(/\/$/, "")}/mcp`;
+const READ = ["search", "fetch"];
+const WRITE = ["suggest_event", "suggest_place", "add_tip", "report_problem"];
+// "search: what it does" → the tool name in code, the rest as text.
+const tool = (k: string) => { const [name, ...rest] = a(`tools.${k}`).split(/[:：]\s*/); return { name, text: rest.join(": ") }; };
+---
+<Base lang={lang} title={a("title")} description={a("intro")}>
+  <h1 class="page-title">{a("title")}</h1>
+  <p class="page-sub">{a("intro")}</p>
+
+  <div class="about help">
+    <section id="add">
+      <h2>{a("add.h")}</h2>
+      <p>{a("add.address")}</p>
+      <p class="ki-addr"><code id="ki-address">{address}</code> <button type="button" class="pill" data-copy="ki-address">{a("add.copy")}</button></p>
+      <ul>
+        <li>{a("add.claude")}</li>
+        <li>{a("add.chatgpt")}</li>
+        <li>{a("add.other")}</li>
+      </ul>
+      <p>{a("add.login")}</p>
+    </section>
+
+    <section id="examples">
+      <h2>{a("examples.h")}</h2>
+      <ul class="ki-examples">
+        {["e1", "e2", "e3", "e4"].map((k) => <li>“{a(`examples.${k}`)}”</li>)}
+      </ul>
+    </section>
+
+    <section id="tools">
+      <h2>{a("tools.h")}</h2>
+      <p>{a("tools.read")}</p>
+      <ul>{READ.map((k) => { const x = tool(k); return <li><code>{x.name}</code> {x.text}</li>; })}</ul>
+      <p>{a("tools.write")}</p>
+      <ul>{WRITE.map((k) => { const x = tool(k); return <li><code>{x.name}</code> {x.text}</li>; })}</ul>
+      <p>{a("tools.review")}</p>
+    </section>
+
+    <section id="covers">
+      <h2>{a("covers.h")}</h2>
+      <p>{a("covers.p")}</p>
+    </section>
+
+    <section id="trouble">
+      <h2>{a("trouble.h")}</h2>
+      <ul>{["t1", "t2", "t3", "t4", "t5"].map((k) => <li>{a(`trouble.${k}`)}</li>)}</ul>
+    </section>
+
+    <section id="privacy">
+      <h2>{a("privacy.h")}</h2>
+      <p>{a("privacy.p")}</p>
+      <p><a href={`/${lang}/impressum#assistant`}>{t("legal.privacy")} →</a></p>
+    </section>
+
+    <section id="contact">
+      <h2>{a("contact.h")}</h2>
+      <p>{a("contact.p")} <a href={`mailto:${OPERATOR.email}`}>{OPERATOR.email}</a></p>
+    </section>
+  </div>
+  <script>
+    document.querySelectorAll<HTMLButtonElement>("[data-copy]").forEach((b) => b.addEventListener("click", () => {
+      const text = document.getElementById(b.dataset.copy!)?.textContent ?? "";
+      navigator.clipboard?.writeText(text).then(() => { b.textContent = "✓"; });
+    }));
+  </script>
+</Base>

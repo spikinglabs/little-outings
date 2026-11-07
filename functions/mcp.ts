@@ -28,29 +28,30 @@ const TIP_TOPICS = ["bring", "bestTime", "parking", "ages", "other"];
 const REASONS = ["closed", "cancelled", "where", "notKids", "outdated", "other"];
 
 const INSTRUCTIONS = `Allo Outings (outings.allo.land) lists family events for children and kid-friendly places (playgrounds, pools, farms, zoos, museums, family cafés …) around Cologne, Düsseldorf, Bonn, Aachen, Essen and the Bergisches Land, and in Berlin, Munich, Frankfurt and Hamburg, Germany.
-Use search to find ideas for a town and dates, then fetch for details. Always give parents the page link (url) and remind them to check with the organiser; facilities not listed are unknown, not missing.
-Parents can add what they know: suggest_event, suggest_place, add_tip and report_problem send it to a moderator for review. Only send what the parent asked you to send, and show them what you'll send first.`;
+search finds ideas for a town and dates; fetch gives the details of one. Every result has a page link (url). Times and prices come from organisers' public listings and can change, and a facility that isn't listed is unknown, not missing.
+suggest_event, suggest_place, add_tip and report_problem send what a parent knows to a moderator, who reviews it before anything appears. They are meant for things the parent asked to send, after the parent has seen the details.
+Docs: https://outings.allo.land/en/ki/ · Privacy: https://outings.allo.land/en/impressum#assistant`;
 
 const lang = { type: "string", enum: LANGS, description: "Language for titles and links: de, en or zh. Default en." };
 const TOOLS = [
   {
     name: "search",
     title: "Find family outings",
-    description: `Find events for kids and kid-friendly places near a town in western Germany. Returns up to 50 short results with an id (for fetch) and a link.
+    description: `Find events for kids and kid-friendly places near a town in Germany (Cologne, Düsseldorf, Bonn, Aachen, Essen and the towns around them, Berlin, Munich, Frankfurt, Hamburg). Returns up to 50 short results with an id (for fetch) and a link.
 Events are filtered to the dates given (default: today and the next 6 days); places are always open-ended. Results include "today", so you can work out dates like "this Saturday".
 Place kinds: ${PLACE_KINDS.join(", ")}. Event kinds: ${EVENT_TAGS.join(", ")}.`,
     inputSchema: {
       type: "object",
       properties: {
         query: { type: "string", description: "Free text, e.g. \"puppet theatre\" or \"playground with sandpit in Cologne this weekend\". Town names, today/tomorrow/weekend and kind words are understood." },
-        town: { type: "string", description: "A town such as Köln (Cologne), Düsseldorf, Bonn, Aachen, Wuppertal, Leverkusen, Essen." },
+        town: { type: "string", description: "A town such as Köln (Cologne), Düsseldorf, Bonn, Aachen, Essen, Wuppertal, Berlin, München (Munich), Frankfurt, Hamburg." },
         lat: { type: "number" }, lon: { type: "number" },
         radius_km: { type: "number", description: "Around the town or point, default 10, at most 100." },
         from: { type: "string", description: "First day, YYYY-MM-DD." },
         to: { type: "string", description: "Last day, YYYY-MM-DD." },
         what: { type: "string", enum: ["events", "places", "all"], description: "Default all." },
         kinds: { type: "array", items: { type: "string" }, description: "Place kinds and/or event kinds to keep." },
-        indoor: { type: "boolean", description: "true for rainy-day ideas. Mostly a guess from the kind (museum, theatre …), so mention that." },
+        indoor: { type: "boolean", description: "true for rainy-day ideas. Mostly a guess from the kind (museum, theatre …), not checked." },
         free: { type: "boolean", description: "Only free ones." },
         needs: { type: "array", items: { type: "string", enum: FACILITIES }, description: "Places only: facilities parents confirmed, e.g. changing_table, highchairs, sandpit." },
         lang,
@@ -146,7 +147,7 @@ const reply = (body: unknown, status = 200) =>
 type Rpc = { jsonrpc?: string; id?: string | number | null; method?: string; params?: any };
 const ok = (id: Rpc["id"], result: unknown) => ({ jsonrpc: "2.0", id, result });
 const fail = (id: Rpc["id"], code: number, message: string) => ({ jsonrpc: "2.0", id: id ?? null, error: { code, message } });
-const out = (value: unknown, isError = false) => ({ content: [{ type: "text", text: typeof value === "string" ? value : JSON.stringify(value, null, 1) }], ...(isError ? { isError } : {}) });
+const out = (value: unknown, isError = false) => ({ content: [{ type: "text", text: typeof value === "string" ? value : JSON.stringify(value) }], ...(isError ? { isError } : {}) });
 
 class ToolError extends Error {}
 const str = (v: unknown, name: string, required = false) => {
@@ -235,7 +236,7 @@ async function handle(msg: Rpc, env: Env, origin: string) {
       result = {
         protocolVersion: VERSIONS.includes(asked) ? asked : VERSIONS[0],
         capabilities: { tools: { listChanged: false } },
-        serverInfo: { name: "little-outings", title: "Allo Outings", version: "1.0.0", websiteUrl: origin },
+        serverInfo: { name: "little-outings", title: "Allo Outings", version: "1.1.0", websiteUrl: origin },
         instructions: INSTRUCTIONS,
       };
       break;
@@ -274,7 +275,7 @@ export async function onRequestPost({ request, env }: Ctx) {
 
 // A person who opens the address in a browser gets a short page on how to add it; an MCP client asking
 // for a server-to-client stream gets 405, since there are no streams or sessions.
-const HELP: Record<"de" | "en" | "zh", { title: string; intro: string; steps: string[]; ask: string; site: string; copy: string }> = {
+const HELP: Record<"de" | "en" | "zh", { title: string; intro: string; steps: string[]; ask: string; docs: string; site: string; copy: string }> = {
   en: {
     title: "Allo Outings in your AI assistant",
     intro: "This address is for AI assistants, not for the browser. Add it to your assistant once, then ask it for family outings.",
@@ -282,6 +283,7 @@ const HELP: Record<"de" | "en" | "zh", { title: string; intro: string; steps: st
       "ChatGPT: turn on developer mode in Settings, then add a connector (app) with the address.",
       "No login needed. Some assistants need a paid plan for custom connectors."],
     ask: "Then ask, for example: “Anything indoors for a 3-year-old in Cologne this Saturday?”",
+    docs: "What it can do, more examples and privacy",
     site: "Open Allo Outings",
     copy: "Copy",
   },
@@ -292,6 +294,7 @@ const HELP: Record<"de" | "en" | "zh", { title: string; intro: string; steps: st
       "ChatGPT: In den Einstellungen den Entwicklermodus einschalten, dann einen Konnektor (App) mit der Adresse anlegen.",
       "Ohne Anmeldung. Manche Assistenten brauchen für eigene Konnektoren ein Bezahl-Abo."],
     ask: "Dann frag zum Beispiel: „Was gibt es diesen Samstag in Köln drinnen für eine Dreijährige?“",
+    docs: "Was er kann, mehr Beispiele und Datenschutz",
     site: "Allo Outings öffnen",
     copy: "Kopieren",
   },
@@ -302,6 +305,7 @@ const HELP: Record<"de" | "en" | "zh", { title: string; intro: string; steps: st
       "ChatGPT：在设置里打开开发者模式，然后用这个地址添加连接器（应用）。",
       "无需登录。部分助手的自定义连接器需要付费订阅。"],
     ask: "然后可以问：“这个周六科隆有什么适合三岁孩子的室内活动？”",
+    docs: "功能、更多示例和隐私",
     site: "打开小鹿出游",
     copy: "复制",
   },
@@ -325,7 +329,7 @@ li{margin:.4rem 0}a{color:inherit}.soft{color:var(--soft)}</style></head><body><
 <h1>${h.title}</h1><p>${h.intro}</p>
 <div class="addr"><code id="a">${address}</code><button type="button" onclick="navigator.clipboard&&navigator.clipboard.writeText(document.getElementById('a').textContent).then(()=>{this.textContent='✓'})">${h.copy}</button></div>
 <ol>${h.steps.map((s) => `<li>${s}</li>`).join("")}</ol><p>${h.ask}</p>
-<p><a href="/${lang}/">${h.site} →</a></p></main></body></html>`;
+<p><a href="/${lang}/ki/">${h.docs} →</a></p><p><a href="/${lang}/">${h.site} →</a></p></main></body></html>`;
 }
 
 export const onRequestGet = ({ request }: { request: Request }) => {

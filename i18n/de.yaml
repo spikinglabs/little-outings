@@ -586,6 +586,54 @@ meet:
   mineSub: "Eure eigenen und die, auf die ihr geantwortet habt."
   mineYours: Eure
   mineSignIn: "Meldet euch mit eurem Passkey an, um eure Einladungen zu sehen."
+# The connector page /<lang>/ki/ (src/pages/[lang]/ki.astro): docs for using Allo Outings in Claude,
+# ChatGPT and other AI assistants. Keep it true with functions/mcp.ts.
+assistant:
+  footer: KI-Assistenten
+  link: Im KI-Assistenten nutzen
+  title: Allo Outings in Claude und anderen KI-Assistenten
+  intro: "Frag deinen KI-Assistenten in eigenen Worten nach Ausflügen mit Kindern. Er sucht für dich in den Terminen und Orten von Allo Outings und gibt dir die Links zu den Seiten."
+  add:
+    h: So fügst du es hinzu
+    copy: Kopieren
+    address: "Die Adresse des Connectors:"
+    claude: "Claude: Einstellungen → Konnektoren → „Eigenen Konnektor hinzufügen“, dann die Adresse einfügen."
+    chatgpt: "ChatGPT: Einstellungen → Apps, Entwicklermodus einschalten, dann eine App mit der Adresse anlegen."
+    other: "Andere Assistenten mit MCP-Connectoren (remote, Streamable HTTP): die Adresse als Server eintragen."
+    login: "Ohne Anmeldung und ohne Konto. Manche Assistenten brauchen für eigene Connectoren ein Bezahl-Abo."
+  examples:
+    h: Was du fragen kannst
+    e1: "Was gibt es diesen Samstag in Köln drinnen für eine Dreijährige?"
+    e2: "Finde einen Spielplatz mit Sandkasten und Toiletten bei Bonn."
+    e3: "Welche kostenlosen Familientermine gibt es dieses Wochenende in Düsseldorf? Zeig mir die Details zum ersten."
+    e4: "Ich habe dieses Plakat für einen Laternenumzug gesehen, kannst du es Allo Outings vorschlagen?"
+  tools:
+    h: Was er damit kann
+    read: "Liest nur, läuft ohne Nachfrage:"
+    write: "Geht an unsere Moderation, dein Assistent fragt dich vorher:"
+    search: "search: Termine und Orte bei einem Ort, für bestimmte Tage, Arten (Spielplatz, Museum, Theater …), drinnen oder kostenlos."
+    fetch: "fetch: alle Details zu einem Eintrag: Daten, Uhrzeit, Adresse, Preis, Öffnungszeiten, von Eltern bestätigte Ausstattung, Tipps und der Link zur Seite."
+    suggest_event: "suggest_event: ein Termin, der noch fehlt."
+    suggest_place: "suggest_place: ein kinderfreundlicher Ort, der noch fehlt."
+    add_tip: "add_tip: ein kurzer Tipp von deinem eigenen Besuch (höchstens 140 Zeichen)."
+    report_problem: "report_problem: ein Eintrag, der geschlossen, abgesagt, am falschen Ort oder veraltet ist."
+    review: "Was du schickst, erscheint erst, wenn wir es geprüft haben."
+  covers:
+    h: Was drin ist
+    p: "Termine für die nächsten zwei Wochen rund um Köln, Düsseldorf, Bonn, Aachen, Essen und im Bergischen Land sowie in Berlin, München, Frankfurt und Hamburg, dazu Orte wie Spielplätze, Bäder, Höfe, Zoos und Museen dort. Es sind dieselben Infos wie auf der Seite, auf Deutsch, Englisch oder Chinesisch. Zeiten und Preise kommen von den Veranstaltern und können sich ändern, schau also vorher auf die Seite."
+  trouble:
+    h: Wenn etwas nicht klappt
+    t1: "Der Assistent nutzt es nicht: Prüf, ob der Connector für den Chat eingeschaltet ist, oder nenne „Allo Outings“ in deiner Frage."
+    t2: "Hinzufügen klappt nicht: Die Adresse muss mit https:// beginnen und auf /mcp enden. Im Browser zeigt sie nur eine kurze Hilfeseite, das ist richtig so."
+    t3: "„Kein Ort, den Allo Outings abdeckt“: Versuch die nächste größere Stadt aus der Liste oben."
+    t4: "Eine ID wird nicht gefunden: Vergangene Termine fallen jede Nacht weg, also neu suchen."
+    t5: "„Viele Vorschläge in der letzten Stunde“: Alle Assistenten teilen sich ein Limit für Vorschläge. Versuch es später, oder nutze „Hinzufügen“ auf der Seite."
+  privacy:
+    h: Datenschutz
+    p: "Wir bekommen nur, was der Assistent für eine Suche oder einen Vorschlag schickt, nie dein Gespräch, deinen Namen oder dein Konto. Suchen werden nicht gespeichert. Mehr steht in der Datenschutzerklärung."
+  contact:
+    h: Fragen oder Probleme
+    p: "Schreib uns:"
 legal:
   link: Impressum
   title: Impressum und Datenschutzerklärung
@@ -603,6 +651,7 @@ legal:
   device: { h: Auf deinem Gerät gespeichert, p: "Deine Merkliste, der gewählte Ort, deine Antworten, eine zufällige Browser-ID und deine Einstellungen liegen im lokalen Speicher deines Browsers, nur weil du diese Funktionen nutzt (§ 25 Abs. 2 Nr. 2 TDDDG). Wir verwenden keine Cookies. Du kannst alles unter Meins › Profil und Sync löschen oder indem du die Websitedaten in deinem Browser löschst." }
   taps: { h: Klicks und Abstimmungen, p: "Antworten zu Ausstattung, „Wir waren da“ und „Braucht man Deutsch?“ werden in einer Cloudflare-D1-Datenbank gespeichert, zusammen mit einem Hash deiner zufälligen Browser-ID und einem Hash deiner IP-Adresse, den wir nur gegen Massenklicks nutzen. Sie bleiben, bis du dein Profil löschst. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO." }
   sent: { h: Was du uns schickst, p: "Tipps, Meldungen sowie vorgeschlagene Termine oder Orte werden als Einträge in einem privaten GitHub-Repository gespeichert (GitHub, Inc., USA; EU-US Data Privacy Framework), damit wir sie prüfen können. Freigegebener Text erscheint ohne deinen Namen. Bitte keine persönlichen Daten angeben. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO." }
+  assistant: { h: KI-Assistenten (Connector), p: "Wenn du Allo Outings in einem KI-Assistenten wie Claude oder ChatGPT hinzufügst, ruft dessen Anbieter unsere Adresse outings.allo.land/mcp von seinen eigenen Servern auf. Wir erhalten nur, was der Assistent für das jeweilige Werkzeug schickt: Suchwörter, einen Ort, Daten und Filter, eine ID oder den Text eines Tipps, einer Meldung oder eines Vorschlags. Dein Gespräch, deinen Namen oder dein Konto erhalten wir nicht, und wir bilden keine Profile. Suchen werden beantwortet und nicht gespeichert; Cloudflare führt kurzlebige technische Protokolle wie unter Hosting beschrieben. Tipps, Meldungen und Vorschläge werden wie die von der Website gespeichert (siehe Was du uns schickst). Um zu begrenzen, wie viele Vorschläge alle Assistenten zusammen schicken können, speichern wir nur den Zeitpunkt jedes Vorschlags, für 24 Stunden. Was du dem Assistenten schreibst, verarbeitet sein Anbieter nach dessen eigener Datenschutzerklärung. Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO, weil du es anforderst." }
   parse: { h: Plakate und Links auslesen, p: "Wenn du einen Termin aus einem Foto, Link oder eingefügtem Text anlegst, wird dieser Inhalt einmalig an einen KI-Dienst geschickt (Google Gemini oder Anthropic Claude, beide USA, EU-US Data Privacy Framework), der das Formular für dich ausfüllt. Das Foto wird nicht gespeichert. Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO, weil du es anforderst." }
   sync: { h: Passkey-Sync und Einladungen, p: "Wenn du den Passkey-Sync einschaltest oder eine Einladung erstellst, speichern wir dein Profil bzw. die Einladung und den öffentlichen Schlüssel deines Passkeys in Cloudflare D1. Es gibt keinen Namen und keine E-Mail. Wenn du dein Profil löschst, wird beides gelöscht. Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO." }
   map: { h: Karte, p: "Die Kartenkacheln kommen von OpenStreetMap (OpenStreetMap Foundation, Vereinigtes Königreich, mit EU-Angemessenheitsbeschluss), die dafür deine IP-Adresse erhält. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO. Dein Standort wird nur auf deinem Handy verwendet, wenn du den Standort-Knopf antippst, und nie an uns geschickt." }
