@@ -6,7 +6,7 @@
 export type CountAction = "save" | "maps" | "calendar" | "website" | "share" | "install" | "copy" | "from_rednote" | "from_wechat" | "share_image" | "rednote_share";
 
 /**
- * Also adds one to the shared Allo usage counter (count.allo.land, spikinglabs/alloland-rebirth
+ * Also adds one to the shared Allo usage counter (monitoring.admin.allo.land, spikinglabs/alloland-rebirth
  * workers/count), which keeps only day, site, feature and country, so every Allo site shows in one
  * place. Skipped when the browser asks not to be tracked, and off outings.allo.land.
  */
@@ -15,7 +15,7 @@ export function track(feature: string) {
     const nav = navigator as Navigator & { globalPrivacyControl?: boolean };
     if (nav.doNotTrack === "1" || nav.globalPrivacyControl) return;
     if (location.hostname !== "outings.allo.land") return;
-    nav.sendBeacon?.(`https://count.allo.land/e?f=${encodeURIComponent(feature)}`);
+    nav.sendBeacon?.(`https://monitoring.admin.allo.land/e?f=${encodeURIComponent(feature)}`);
   } catch { /* counting must never get in the way */ }
 }
 
