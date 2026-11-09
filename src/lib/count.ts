@@ -19,6 +19,26 @@ export function track(feature: string) {
   } catch { /* counting must never get in the way */ }
 }
 
+// Runs fn once a person is plausibly there: after the page has been visible for 3 seconds,
+// or at the first tap, click, key or scroll. Scripts that load the page and leave aren't counted.
+export function whenPresent(fn: () => void) {
+  const events = ["pointerdown", "keydown", "scroll", "touchstart"];
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const onVisibility = () => {
+    clearTimeout(timer);
+    if (document.visibilityState === "visible") timer = setTimeout(go, 3000);
+  };
+  function go() {
+    clearTimeout(timer);
+    for (const e of events) removeEventListener(e, go, true);
+    document.removeEventListener("visibilitychange", onVisibility);
+    fn();
+  }
+  for (const e of events) addEventListener(e, go, { capture: true, passive: true });
+  document.addEventListener("visibilitychange", onVisibility);
+  onVisibility();
+}
+
 export function count(e: CountAction, about?: "event" | "place") {
   track(e);
   const path = location.pathname;
