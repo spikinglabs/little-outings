@@ -1,0 +1,27 @@
+---
+// The page for an event that is gone (src/lib/gone.ts): a template with placeholders, packed with
+// the event pages and filled in by functions/<lang>/termine/ for each gone address. Never linked.
+import Base from "../../../layouts/Base.astro";
+import { LANGS, useT, type Lang } from "../../../lib/i18n";
+import { SLOT } from "../../../lib/gone";
+
+export const getStaticPaths = () => LANGS.map((lang) => ({ params: { lang } }));
+const lang = Astro.params.lang as Lang;
+const t = useT(lang);
+---
+<Base lang={lang} title={SLOT.title} description={SLOT.description}>
+  <article class="detail gone">
+    <a class="back" href={`/${lang}/`}>← {t("back")}</a>
+    <Fragment set:html={SLOT.body} />
+  </article>
+</Base>
+<style is:global>
+  .gone .gone-box { margin: 16px 0; padding: 14px 16px; border-radius: 14px; background: var(--gold-bg); color: var(--ink); font-weight: 700; }
+  .gone .gone-box p { margin: 0; }
+  .gone .gone-box p + p { margin-top: 6px; font-weight: 400; }
+  .gone .gone-box a { color: inherit; }
+  .gone .gone-list { list-style: none; padding: 0; margin: 8px 0 0; display: grid; gap: 10px; }
+  .gone .gone-list a { display: block; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); text-decoration: none; color: var(--ink); }
+  .gone .gone-list small { display: block; opacity: 0.75; }
+  .gone .gone-more { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+</style>

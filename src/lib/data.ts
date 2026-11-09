@@ -1,6 +1,6 @@
 // Build-time data access for pages. Everything here runs once per build, never in the browser.
 import { getCollection } from "astro:content";
-import { readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { current, type Alert } from "./alerts.ts";
 import type { Recall } from "./recalls.ts";
 import { tagSharedNames } from "./credit.ts";
@@ -27,6 +27,12 @@ export interface Data {
   events: Event[];
   placeById: Map<string, Place>;
   eventById: Map<string, Event>;
+  /**
+   * Events that had a page and no longer do: past ones (from data/past-events/, scripts/archive-events.mjs,
+   * and the hand-written and fixture events that ended) and imported ones that dropped out. Their old
+   * addresses answer with a "this event is over" page (src/lib/gone.ts).
+   */
+  gone: Event[];
   /** Seasons and their fixtures, past ones included (landing pages show last season off season). */
   seasons: SeasonData;
 }
@@ -60,6 +66,7 @@ async function load(): Promise<Data> {
 
   const seen = new Set<string>();
   const events: Event[] = [];
+  const gone = new Map<string, Event>();
   for (const e of [...rawEvents, ...imported]) {
     const id = slug(e.id);
     if (seen.has(id) || placeById.has(id)) throw new Error(`duplicate id "${id}"; ids must be unique across places and events`);
@@ -68,21 +75,31 @@ async function load(): Promise<Data> {
     if (!ev) continue;
     if (demoShift) Object.assign(ev, { start: shiftDays(ev.start, demoShift), end: shiftDays(ev.end, demoShift) });
     if (ev.end >= TODAY) events.push(applyEventTally(applyTranslations(ev, tr), tallies[id], placeById));
+    else gone.set(id, applyTranslations(ev, tr));
   }
   // Fixtures (Christmas markets, fairs) are events too; one without a pin sits at its town's centre.
   const seasons = loadSeasons("content/seasons.yaml", ROOT);
   for (const file of seasons.fixtures) for (const f of file.items) {
     const ev = fixtureEvent(file, f, seasons.seasons.find((s) => s.id === file.season)?.fixture_tags);
-    if (ev.end < TODAY) continue;
     if (seen.has(ev.id)) throw new Error(`duplicate id "${ev.id}"`);
     seen.add(ev.id);
+    if (ev.end < TODAY) {
+      gone.set(ev.id, applyTranslations({ ...ev, geo: resolveGeo(f.geo, file.town, towns) }, tr));
+      continue;
+    }
     events.push(applyEventTally(applyTranslations({ ...ev, geo: resolveGeo(f.geo, file.town, towns) }, tr), tallies[ev.id], placeById));
   }
   for (const p of places) {
     const of = seasons.seasons.filter((s) => s.kinds?.includes(p.kind)).map((s) => s.id);
     if (of.length) p.seasons = of;
   }
-  for (const e of events) {
+  // Imported events that had a page once and are no longer imported: past, or dropped by the source.
+  if (!demoShift) for (const a of pastEvents()) {
+    if (seen.has(a.id) || gone.has(a.id)) continue;
+    const ev = normalizeEvent(a.id, { ...a, origin: "cityklub", trust: { level: "official", source: a.attribution } }, {}, placeById, towns);
+    if (ev) gone.set(a.id, applyTranslations(ev, tr));
+  }
+  for (const e of [...events, ...gone.values()]) {
     const found = seasonsOf(typeof e.title === "string" ? e.title : e.title.de, seasons.seasons);
     const all = [...new Set([...(e.seasons ?? []), ...found])];
     if (all.length) e.seasons = all;
@@ -96,7 +113,14 @@ async function load(): Promise<Data> {
   }
   // Same nickname, different families: tell them apart with a short tag.
   tagSharedNames([...places, ...events, ...places.flatMap((p) => p.tips ?? [])]);
-  return { region, places, events, placeById, eventById: new Map(events.map((e) => [e.id, e])), seasons };
+  return { region, places, events, placeById, eventById: new Map(events.map((e) => [e.id, e])), gone: [...gone.values()], seasons };
+}
+
+/** data/past-events/<YYYY-MM>.jsonl, written by scripts/archive-events.mjs. */
+function pastEvents(dir = "data/past-events"): any[] {
+  if (!existsSync(dir)) return [];
+  return readdirSync(dir).filter((f) => f.endsWith(".jsonl"))
+    .flatMap((f) => readFileSync(`${dir}/${f}`, "utf8").split("\n").filter((l) => l.trim()).map((l) => JSON.parse(l)));
 }
 
 /** Parents' votes, visits and approved tips, counted by scripts/tally-inbox.mjs before the build. */

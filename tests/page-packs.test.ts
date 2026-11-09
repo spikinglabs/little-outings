@@ -47,7 +47,7 @@ function built() {
 
 test("pack-pages moves event and place pages into packs and leaves other pages alone", () => {
   const { dist, out } = built();
-  assert.match(out, /packed 7 pages into \d+ files/);
+  assert.match(out, /packed 7 pages and 0 gone-event entries into \d+ files/);
   assert.equal(existsSync(join(dist, "de", "termine")), false);
   assert.equal(existsSync(join(dist, "de", "orte")), false);
   assert.equal(readFileSync(join(dist, "de", "mitmachen", "index.html"), "utf8"), "contribute");

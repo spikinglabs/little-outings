@@ -767,3 +767,18 @@ city:
   hubCount: "{events} events · {places} places"
   hubPlaces: "{places} places"
   nav: By city
+# Pages for events that are gone (src/lib/gone.ts): over, or no longer listed. People arrive from search engines.
+gone:
+  over: "This event is over."
+  was: "It took place on {when}."
+  planned: "It was planned for {when}."
+  dropped: "This event is no longer listed."
+  droppedWhy: "It may have been cancelled or moved. The organiser's page knows more."
+  soon: "Coming up in {town}"
+  allIn: "All ideas in {town}"
+  organiser: "Organiser's page"
+  organiserNext: "Next dates are usually announced on the organiser's page:"
+  description: "{title} ({when}, {town}) is over. See what's on for kids in {town} soon."
+  unknownTitle: "This event is no longer listed"
+  unknown: "Most likely it is over. Here is what's on now:"
+  discover: "Ideas for this week"
