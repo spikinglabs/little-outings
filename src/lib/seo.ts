@@ -155,6 +155,19 @@ export function sitemapWorthy(p: Place): boolean {
     || known >= 2 || p.trust.level !== "community";
 }
 
+/** How far ahead the sitemap lists events: two weeks gives Google time to find one before its day. */
+export const SITEMAP_EVENT_DAYS = 14;
+
+/**
+ * The upcoming events worth naming in the sitemap: those that start within SITEMAP_EVENT_DAYS of
+ * `today` ("YYYY-MM-DD"), or are already running. Events further out wait their turn, so the list
+ * stays a few thousand addresses instead of all 13,000.
+ */
+export function eventsSoon<E extends Pick<Event, "start" | "end">>(events: E[], today: string, days = SITEMAP_EVENT_DAYS): E[] {
+  const last = new Date(Date.parse(`${today}T12:00:00Z`) + days * 864e5).toISOString().slice(0, 10);
+  return events.filter((e) => e.end >= today && e.start.slice(0, 10) <= last);
+}
+
 /** JSON for a <script type="application/ld+json">, safe to inline (no closing tag can sneak in). */
 export const ldJson = (x: unknown) => JSON.stringify(x).replace(/</g, "\\u003c");
 

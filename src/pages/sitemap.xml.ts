@@ -1,15 +1,16 @@
 // The pages search engines should spend their visits on, in all three languages, each linked to its
 // translations (hreflang). Google crawls a new site slowly and left ~13,000 listed pages "discovered,
 // not indexed" (Search Console, Oct 2026), so the list is now the hubs plus places with something of
-// their own. Event pages are left out: they are gone within two weeks, usually before Google gets to
-// them; the weekend editions and places link to them, so they can still be found.
+// their own, plus the events of the next two weeks. Events are what ranks best (a Laternenumzug or the
+// Karnevalsrakete sits at position 6 to 9, Search Console Nov 2026) and they keep their address after
+// the day (#151), so the sitemap names them while there is still time to find them before the day.
 // Saved list, profile and invites are personal, so they stay out (and carry noindex).
 import type { APIRoute } from "astro";
 import { LANGS } from "../lib/i18n";
 import { getData, TODAY } from "../lib/data";
 import { editionTowns, liveEdition } from "../lib/weekend-data";
 import { seasonPages } from "../lib/seasons";
-import { sitemapWorthy } from "../lib/seo";
+import { eventsSoon, sitemapWorthy } from "../lib/seo";
 import { cityTowns } from "../lib/city";
 
 export const GET: APIRoute = async ({ site }) => {
@@ -27,6 +28,9 @@ export const GET: APIRoute = async ({ site }) => {
     ...new Set(seasonal),
     ...places.filter((p) => sitemapWorthy(p) && (ours.has(p.town) || !p.id.startsWith("osm-"))).map((p) => `orte/${p.id}/`),
   ];
+  // Events starting in the next two weeks (or running now): enough time for Google to pick them up
+  // before the day, without listing the thousands that are further out.
+  paths.push(...eventsSoon(events, TODAY).map((e) => `termine/${e.id}/`));
   // The weekend editions: one address per town that changes every Monday (refreshed on Friday).
   const weekend = editionTowns();
   if (weekend.length) paths.push("wochenende/", ...weekend.map((w) => `wochenende/${w.slug}/`));
