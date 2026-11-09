@@ -766,3 +766,18 @@ city:
   hubCount: "{events} 个活动 · {places} 个地方"
   hubPlaces: "{places} 个地方"
   nav: 按城市浏览
+# Pages for events that are gone (src/lib/gone.ts): over, or no longer listed. People arrive from search engines.
+gone:
+  over: "这个活动已经结束了。"
+  was: "举办时间：{when}。"
+  planned: "原定时间：{when}。"
+  dropped: "这个活动已不在列表中。"
+  droppedWhy: "可能已取消或改期，请查看主办方页面。"
+  soon: "{town}近期活动"
+  allIn: "{town}的全部推荐"
+  organiser: "主办方页面"
+  organiserNext: "下一次的日期通常会公布在主办方页面："
+  description: "{title}（{when}，{town}）已结束。看看{town}近期有哪些适合孩子的活动。"
+  unknownTitle: "这个活动已不在列表中"
+  unknown: "很可能已经结束了。看看现在有什么活动："
+  discover: "本周推荐"

@@ -4,6 +4,8 @@
 // functions/<lang>/termine/ and functions/<lang>/orte/ serve a page from its pack, and /api/ics reads calendar files from there.
 // The pages themselves are unchanged: still built by Astro, still at /<lang>/termine/<id>/ and /<lang>/orte/<id>/.
 // Pure code with no Astro imports: it runs at build time and inside Cloudflare Pages Functions.
+// Event addresses that no longer have a page get the "this event is over" page (src/lib/gone.ts).
+import { fillGone, TEMPLATE_ID, UNKNOWN_ID, type GoneEntry } from "./gone.ts";
 
 export type Assets = (path: string) => Promise<Response>;
 
@@ -24,6 +26,11 @@ export function packOf(id: string): number {
 
 export const packPath = (section: Section, lang: string, id: string) =>
   `/packs/${section}/${lang}/${packOf(id).toString(16).padStart(2, "0")}.jsonl`;
+
+/** Packs per language for gone events (src/lib/gone.ts): a line is ~1 KB, so a few months of past events fit. */
+export const GONE_PACKS = 64;
+export const gonePath = (lang: string, id: string) =>
+  `/packs/gone/${lang}/${(packOf(id) % GONE_PACKS).toString(16).padStart(2, "0")}.jsonl`;
 
 /** One line of a pack: `["<id>","<html>"]`. JSON keeps each page on one line. */
 export const packLine = (id: string, html: string) => JSON.stringify([id, html]);
@@ -60,13 +67,37 @@ export async function servePacked(request: Request, assets: Assets, section: Sec
   const url = new URL(request.url);
   const [, lang, , id = "", ...rest] = url.pathname.split("/");
   if (id && !rest.length) return Response.redirect(new URL(`${url.pathname}/${url.search}`, url).toString(), 308);
-  const html = rest.length === 1 && rest[0] === "" ? await readPacked(assets, section, lang, id) : null;
+  const page = rest.length === 1 && rest[0] === "";
+  const html = page && id !== TEMPLATE_ID ? await readPacked(assets, section, lang, id) : null;
   const res = html !== null
     ? new Response(html, { headers: { "content-type": "text/html; charset=utf-8" } })
-    : await notFound(assets);
+    : (page && section === "termine" && await serveGone(assets, lang, id, url)) || await notFound(assets);
   res.headers.set("cache-control", "public, max-age=0, must-revalidate");
   if (url.hostname.endsWith(".pages.dev")) res.headers.set("x-robots-tag", "noindex");
   return res;
+}
+
+/**
+ * An event address with no page: the next date of the same event, or the "this event is over" page.
+ * An address nothing is known about gets that page too, saying only that the event is no longer
+ * listed, with status 404. Null when the build has no gone pages (an older deploy, a language without them).
+ */
+async function serveGone(assets: Assets, lang: string, id: string, url: URL): Promise<Response | null> {
+  if (!validId(id)) return null;
+  const read = async (key: string): Promise<GoneEntry | null> => {
+    const res = await assets(gonePath(lang, key));
+    const line = res.ok ? pageIn(await res.text(), key) : null;
+    return line === null ? null : JSON.parse(line);
+  };
+  const known = await read(id);
+  if (known?.to) return new Response(null, { status: 302, headers: { location: new URL(known.to, url).toString() } });
+  const entry = known ?? await read(UNKNOWN_ID);
+  const template = entry && await readPacked(assets, "termine", lang, TEMPLATE_ID);
+  if (!entry || !template) return null;
+  return new Response(fillGone(template, id, entry), {
+    status: known ? 200 : 404,
+    headers: { "content-type": "text/html; charset=utf-8" },
+  });
 }
 
 async function notFound(assets: Assets): Promise<Response> {

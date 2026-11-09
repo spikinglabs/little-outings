@@ -6,7 +6,7 @@
 // See src/lib/page-packs.ts.
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { PACKED, packLine, packPath } from "../src/lib/page-packs.ts";
+import { gonePath, PACKED, packLine, packPath } from "../src/lib/page-packs.ts";
 
 const dist = process.argv[2] ?? "dist";
 let pages = 0;
@@ -33,4 +33,25 @@ for (const section of PACKED) {
     rmSync(dir, { recursive: true });
   }
 }
-console.log(`packed ${pages} pages into ${files} files`);
+// Gone events (src/lib/gone.ts): dist/gone/<lang>.jsonl, one ["<id>", entry] line each, split the same way.
+let gone = 0;
+const goneDir = join(dist, "gone");
+if (existsSync(goneDir)) {
+  for (const f of readdirSync(goneDir).filter((f) => /^[a-z]{2}\.jsonl$/.test(f))) {
+    const lang = f.slice(0, 2);
+    const packs = new Map();
+    for (const line of readFileSync(join(goneDir, f), "utf8").split("\n").filter(Boolean)) {
+      const path = gonePath(lang, JSON.parse(line)[0]);
+      if (!packs.has(path)) packs.set(path, []);
+      packs.get(path).push(line);
+      gone++;
+    }
+    for (const [path, lines] of packs) {
+      mkdirSync(join(dist, path, ".."), { recursive: true });
+      writeFileSync(join(dist, path), `${lines.join("\n")}\n`);
+      files++;
+    }
+  }
+  rmSync(goneDir, { recursive: true });
+}
+console.log(`packed ${pages} pages and ${gone} gone-event entries into ${files} files`);
