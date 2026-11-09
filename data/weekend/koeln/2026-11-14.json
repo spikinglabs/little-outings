@@ -1,0 +1,114 @@
+{
+  "town": "Köln",
+  "slug": "koeln",
+  "weekend": "2026-11-14",
+  "week": 46,
+  "published_at": "2026-11-09T08:50:21.330Z",
+  "by": "score",
+  "weather": [
+    {
+      "day": "2026-11-14",
+      "code": 45,
+      "max": 7.9,
+      "rain": 4
+    },
+    {
+      "day": "2026-11-15",
+      "code": 51,
+      "max": 10.7,
+      "rain": 11
+    }
+  ],
+  "picks": [
+    {
+      "id": "ck-evt-ecd318cadaee0d57c66c",
+      "type": "event",
+      "title": "MINT-Vorlesen",
+      "venue": "Stadtteilbibliothek Sülz, Wichterichstraße 1",
+      "district": "Sülz",
+      "days": [
+        "2026-11-13"
+      ],
+      "time": "16:30 bis 17 Uhr",
+      "free": true,
+      "price": "Die Teilnahme ist kostenlos.",
+      "indoor": true,
+      "tags": [
+        "reading"
+      ]
+    },
+    {
+      "id": "ck-evt-71b6713a09f27d1566bb",
+      "type": "event",
+      "title": "MINT-Vorlesen am Samstag",
+      "venue": "Stadtteilbibliothek Kalk, Kalker Hauptstraße 247-273",
+      "district": "Kalk",
+      "days": [
+        "2026-11-14"
+      ],
+      "time": "11 bis 11:30 Uhr",
+      "free": true,
+      "price": "Die Teilnahme ist kostenlos.",
+      "indoor": true,
+      "tags": [
+        "reading"
+      ]
+    },
+    {
+      "id": "ck-evt-564e37281f0c3073bc7b",
+      "type": "event",
+      "title": "Vorlesezeit",
+      "venue": "Stadtteilbibliothek Chorweiler, Pariser Platz 1",
+      "district": "Chorweiler",
+      "days": [
+        "2026-11-14"
+      ],
+      "time": "11 bis 11:30 Uhr",
+      "free": true,
+      "price": "Die Teilnahme ist kostenlos.",
+      "indoor": true,
+      "tags": [
+        "reading"
+      ]
+    },
+    {
+      "id": "ck-evt-5141f8750e9fcbfc5bda",
+      "type": "event",
+      "title": "FAMILIENTAG Magie der Materialien – Wenn Dinge Kunst werden",
+      "venue": "Museum Ludwig",
+      "days": [
+        "2026-11-15"
+      ],
+      "time": "10:30",
+      "indoor": true,
+      "tags": [
+        "tour"
+      ]
+    },
+    {
+      "id": "ck-evt-94002d45c5530c199783",
+      "type": "event",
+      "title": "Rundgang für Familien durch return",
+      "venue": "Rautenstrauch-Joest-Museum - Kulturen der Welt",
+      "days": [
+        "2026-11-15"
+      ],
+      "time": "11:00",
+      "indoor": true,
+      "tags": [
+        "tour"
+      ]
+    },
+    {
+      "id": "osm-way-299857186",
+      "type": "place",
+      "title": "Höhenbergbad",
+      "kind": "pool",
+      "hours": "Mo, Tu, Th, Fr 06:30-21:30; Sa, Su 09:00-17:00",
+      "indoor": true,
+      "district": "Höhenberg",
+      "venue": "Schwarzburger Straße 4",
+      "days": []
+    }
+  ]
+}

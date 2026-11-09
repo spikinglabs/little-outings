@@ -1,0 +1,166 @@
+{
+  "town": "Aachen",
+  "slug": "aachen",
+  "weekend": "2026-11-14",
+  "week": 46,
+  "published_at": "2026-11-09T08:52:05.641Z",
+  "by": "score",
+  "weather": [
+    {
+      "day": "2026-11-14",
+      "code": 0,
+      "max": 8.1,
+      "rain": 4
+    },
+    {
+      "day": "2026-11-15",
+      "code": 51,
+      "max": 10.8,
+      "rain": 10
+    }
+  ],
+  "picks": [
+    {
+      "id": "ck-evt-4cccec18fce00981d3c5",
+      "type": "event",
+      "title": "Martinsbasar der Freien Waldorfschule Aachen",
+      "venue": "Waldorfschule Aachen Anton-Kurze-Allee 10, Anton-Kurze-Allee 10, 52064 Aachen",
+      "days": [
+        "2026-11-14"
+      ],
+      "time": "11:00",
+      "indoor": false,
+      "tags": [
+        "market",
+        "outside",
+        "season"
+      ],
+      "label": {
+        "de": "Martinsbasar Waldorfschule Aachen",
+        "en": "Martinsbasar Waldorfschule Aachen",
+        "zh": "亚琛华德福学校圣马丁集市"
+      },
+      "why": {
+        "de": "Samstag ab 11 Uhr im Freien an der Waldorfschule Aachen stöbern.",
+        "en": "Outdoor Martinmas bazaar this Saturday from 11:00 at Waldorfschule Aachen.",
+        "zh": "周六上午11点开始，去亚琛华德福学校参加户外集市活动。"
+      }
+    },
+    {
+      "id": "ck-evt-1914993109070b55281e",
+      "type": "event",
+      "title": "Puppenspiel “Däumelinchen”",
+      "venue": "Die Kleine Theaterfabrik, Strüverweg 116",
+      "days": [
+        "2026-11-14"
+      ],
+      "time": "15:00",
+      "indoor": true,
+      "tags": [
+        "stage"
+      ],
+      "label": {
+        "de": "Puppenspiel „Däumelinchen“",
+        "en": "Puppenspiel \"Däumelinchen\"",
+        "zh": "木偶剧《拇指姑娘》"
+      },
+      "why": {
+        "de": "Samstag um 15:00 Uhr Puppentheater drinnen in der Kleinen Theaterfabrik erleben.",
+        "en": "Watch indoor puppet theater this Saturday at 15:00 at Die Kleine Theaterfabrik.",
+        "zh": "周六15:00在Die Kleine Theaterfabrik观看室内木偶戏。"
+      }
+    },
+    {
+      "id": "ck-evt-05d96eef7d74bc793ea9",
+      "type": "event",
+      "title": "Biedermeierzeit: die Familie als Lebensmittelpunkt",
+      "days": [
+        "2026-11-14"
+      ],
+      "time": "15:00–16:00",
+      "tags": [],
+      "label": {
+        "de": "Biedermeierzeit: Familie im Fokus",
+        "en": "Biedermeier Era: Family Focus",
+        "zh": "比德迈时期：家庭生活中心"
+      },
+      "why": {
+        "de": "Samstagnachmittag von 15:00 bis 16:00 Uhr mehr über die Biedermeierzeit erfahren.",
+        "en": "Learn about family life in the Biedermeier era on Saturday from 15:00 to 16:00.",
+        "zh": "周六15:00至16:00，一起了解比德迈时期的家庭生活。"
+      }
+    },
+    {
+      "id": "ck-evt-be20b8bc63941311be2d",
+      "type": "event",
+      "title": "Familienangebot für große und kleine Künstler*innen",
+      "days": [
+        "2026-11-15"
+      ],
+      "time": "14:00–16:00",
+      "tags": [
+        "diy"
+      ],
+      "label": {
+        "de": "Für große und kleine Künstler",
+        "en": "For Big and Small Artists",
+        "zh": "大小艺术家的亲子活动"
+      },
+      "why": {
+        "de": "Am Sonntag von 14:00 bis 16:00 Uhr gemeinsam als Familie kreativ werden.",
+        "en": "Get creative together as a family on Sunday between 14:00 and 16:00.",
+        "zh": "周日下午14:00到16:00，全家一起开展艺术创作。"
+      }
+    },
+    {
+      "id": "ck-evt-190cec48f0c2a2eaf702",
+      "type": "event",
+      "title": "Regelmäßige Vorlesestunde",
+      "venue": "Stadtbibliothek – Kinderbibliothek",
+      "days": [
+        "2026-11-15"
+      ],
+      "time": "15:00–15:30",
+      "indoor": true,
+      "tags": [
+        "reading"
+      ],
+      "label": {
+        "de": "Vorlesestunde Kinderbibliothek",
+        "en": "Storytime at Kinderbibliothek",
+        "zh": "儿童图书馆定期故事会"
+      },
+      "why": {
+        "de": "Sonntag von 15:00 bis 15:30 Uhr gemütlich drinnen spannenden Geschichten lauschen.",
+        "en": "Listen to stories indoors this Sunday from 15:00 to 15:30 at Stadtbibliothek.",
+        "zh": "周日15:00至15:30，在城市图书馆的儿童图书馆室内听故事。"
+      }
+    },
+    {
+      "id": "osm-way-871751380",
+      "type": "place",
+      "title": "Speelplek \"Dr Kengertreff\"",
+      "kind": "playground",
+      "free": true,
+      "venue": "Ceresstraat",
+      "days": [],
+      "label": {
+        "de": "Speelplek „Dr Kengertreff“",
+        "en": "Speelplek \"Dr Kengertreff\"",
+        "zh": "Dr Kengertreff 游乐场"
+      },
+      "why": {
+        "de": "Kostenloser Spielplatzspaß für die Kinder an der Ceresstraat.",
+        "en": "Free playground fun for kids at Ceresstraat.",
+        "zh": "位于Ceresstraat的免费儿童游乐场。"
+      }
+    }
+  ],
+  "still": [
+    {
+      "id": "ck-evt-2c4ff94b78c4d713a95e",
+      "title": "Lufonauten - Museumsclub für Kinder",
+      "end": "2026-12-16"
+    }
+  ]
+}

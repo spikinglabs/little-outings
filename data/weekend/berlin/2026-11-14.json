@@ -1,0 +1,178 @@
+{
+  "town": "Berlin",
+  "slug": "berlin",
+  "weekend": "2026-11-14",
+  "week": 46,
+  "published_at": "2026-11-09T08:50:53.221Z",
+  "by": "score",
+  "weather": [
+    {
+      "day": "2026-11-14",
+      "code": 2,
+      "max": 7.8,
+      "rain": 3
+    },
+    {
+      "day": "2026-11-15",
+      "code": 3,
+      "max": 7.4,
+      "rain": 0
+    }
+  ],
+  "picks": [
+    {
+      "id": "ck-evt-8b9dc65cd95a9073ca6b",
+      "type": "event",
+      "title": "Entdeckt mit uns das Kids Digilab - Taucht in die digitale Welt ein",
+      "venue": "Deutsches Technikmuseum, Trebbiner Straße 9",
+      "district": "Friedrichshain-Kreuzberg",
+      "days": [
+        "2026-11-13"
+      ],
+      "time": "15:00–17:00",
+      "indoor": true,
+      "tags": [
+        "tour"
+      ],
+      "label": {
+        "de": "Kids Digilab im Technikmuseum",
+        "en": "Kids Digilab at Technikmuseum",
+        "zh": "德国科技博物馆 Kids Digilab"
+      },
+      "why": {
+        "de": "Taucht am Freitag drinnen im Deutschen Technikmuseum in die digitale Welt ein!",
+        "en": "Dive into the digital world indoors at the Deutsches Technikmuseum this Friday!",
+        "zh": "本周五在德国科技博物馆室内探索奇妙的数字世界！"
+      }
+    },
+    {
+      "id": "ck-evt-607cab1332f6f89e5024",
+      "type": "event",
+      "title": "Laternenlauf",
+      "venue": "Tierpark Berlin, Am Tierpark 125",
+      "district": "Lichtenberg",
+      "days": [
+        "2026-11-13",
+        "2026-11-14",
+        "2026-11-15"
+      ],
+      "time": "15:45–17:00",
+      "indoor": false,
+      "tags": [
+        "animals",
+        "season"
+      ],
+      "label": {
+        "de": "Laternenlauf im Tierpark Berlin",
+        "en": "Lantern Walk at Tierpark Berlin",
+        "zh": "柏林动物园 Laternenlauf"
+      },
+      "why": {
+        "de": "Zieht am Wochenende beim Laternenlauf draußen durch den Tierpark Berlin.",
+        "en": "Join the outdoor lantern walk at Tierpark Berlin this weekend.",
+        "zh": "周末一起来柏林动物园参加户外的提灯游行活动吧。"
+      }
+    },
+    {
+      "id": "ck-evt-407f3e886d5b6c6ea468",
+      "type": "event",
+      "title": "Mitmachkonzert »Im Zoo: Roar-törööö«",
+      "venue": "Philharmonie Berlin, Herbert-von-Karajan-Straße 1",
+      "district": "Mitte",
+      "days": [
+        "2026-11-14",
+        "2026-11-15"
+      ],
+      "time": "10:00",
+      "indoor": false,
+      "tags": [
+        "diy",
+        "music",
+        "animals"
+      ],
+      "label": {
+        "de": "Konzert »Im Zoo: Roar-törööö«",
+        "en": "Concert \"Im Zoo: Roar-törööö\"",
+        "zh": "“Im Zoo: Roar-törööö”互动音乐会"
+      },
+      "why": {
+        "de": "Erlebt das Mitmachkonzert am Wochenende draußen an der Philharmonie Berlin!",
+        "en": "Enjoy an outdoor interactive concert at Philharmonie Berlin this weekend!",
+        "zh": "周末在柏林爱乐乐团户外场地体验生动的互动音乐会！"
+      }
+    },
+    {
+      "id": "ck-evt-1d0361cad67be253fa8e",
+      "type": "event",
+      "title": "20. Kunst- und Keramikmarkt",
+      "venue": "Alt-Marzahn 23",
+      "district": "Marzahn-Hellersdorf",
+      "days": [
+        "2026-11-14",
+        "2026-11-15"
+      ],
+      "time": "10-18 Uhr",
+      "indoor": false,
+      "tags": [
+        "market"
+      ],
+      "label": {
+        "de": "20. Kunst- und Keramikmarkt",
+        "en": "20th Art and Ceramics Market",
+        "zh": "第20届艺术与陶瓷集市"
+      },
+      "why": {
+        "de": "Schlendert am Samstag und Sonntag draußen über den Markt in Alt-Marzahn.",
+        "en": "Stroll through this outdoor market in Alt-Marzahn on Saturday and Sunday.",
+        "zh": "周六和周日来阿尔特马赞逛逛这个户外艺术与陶瓷集市。"
+      }
+    },
+    {
+      "id": "ck-evt-42402942e12920a2edc5",
+      "type": "event",
+      "title": "Familien-Führung",
+      "venue": "Großes Haus, Bismarckstraße 35",
+      "district": "Charlottenburg-Wilmersdorf",
+      "days": [
+        "2026-11-14",
+        "2026-11-15"
+      ],
+      "time": "14:30",
+      "indoor": true,
+      "tags": [
+        "tour"
+      ],
+      "label": {
+        "de": "Familien-Führung im Großen Haus",
+        "en": "Family Tour at Großes Haus",
+        "zh": "Großes Haus 家庭导览"
+      },
+      "why": {
+        "de": "Macht am Wochenende drinnen im Großen Haus bei der Familien-Führung mit!",
+        "en": "Take part in an indoor family tour at the Großes Haus this weekend!",
+        "zh": "周末来 Großes Haus 参加室内亲子导览活动！"
+      }
+    },
+    {
+      "id": "osm-way-132382128",
+      "type": "place",
+      "title": "Damwildgehege",
+      "kind": "zoo",
+      "hours": "24/7",
+      "free": true,
+      "district": "Tegel",
+      "venue": "Schwarzer Weg",
+      "days": [],
+      "label": {
+        "de": "Damwildgehege Tegel",
+        "en": "Damwildgehege Tegel",
+        "zh": "泰格尔黇鹿园"
+      },
+      "why": {
+        "de": "Dieser Zoo in Tegel ist rund um die Uhr geöffnet und der Eintritt ist kostenlos.",
+        "en": "This zoo in Tegel is open 24/7 and completely free to visit.",
+        "zh": "位于泰格尔的这座动物园全天24小时开放，且免费参观。"
+      }
+    }
+  ]
+}

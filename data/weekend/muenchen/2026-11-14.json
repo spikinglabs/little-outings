@@ -1,0 +1,171 @@
+{
+  "town": "München",
+  "slug": "muenchen",
+  "weekend": "2026-11-14",
+  "week": 46,
+  "published_at": "2026-11-09T08:50:53.320Z",
+  "by": "ai",
+  "weather": [
+    {
+      "day": "2026-11-14",
+      "code": 0,
+      "max": 5.1,
+      "rain": 15
+    },
+    {
+      "day": "2026-11-15",
+      "code": 2,
+      "max": 9,
+      "rain": 3
+    }
+  ],
+  "picks": [
+    {
+      "id": "ck-evt-1809fb17a1b1719ec481",
+      "type": "event",
+      "title": "Weltkinder",
+      "venue": "Stadtbibliothek im Motorama",
+      "days": [
+        "2026-11-14"
+      ],
+      "time": "10:30",
+      "indoor": true,
+      "tags": [],
+      "label": {
+        "de": "Weltkinder in der Stadtbibliothek",
+        "en": "World Kids at the City Library",
+        "zh": "市立图书馆：世界儿童活动"
+      },
+      "why": {
+        "de": "Kostenlose Vorlesestunde und bunte Geschichten für die Kleinsten in der Bibliothek.",
+        "en": "Free storytelling session with colorful stories for little ones at the library.",
+        "zh": "图书馆免费讲故事时光，为低幼儿童带来生动有趣的故事。"
+      }
+    },
+    {
+      "id": "ck-evt-0597645cf693851f8ea7",
+      "type": "event",
+      "title": "Weihnachtszauberwald München-Bogenhausen",
+      "venue": "Bogenhausen",
+      "days": [
+        "2026-11-14"
+      ],
+      "time": "12:00–20:00",
+      "indoor": false,
+      "tags": [
+        "stage",
+        "outside",
+        "season"
+      ],
+      "label": {
+        "de": "Weihnachtszauberwald Bogenhausen",
+        "en": "Bogenhausen Christmas Magic Forest",
+        "zh": "博根豪森圣诞魔法森林"
+      },
+      "why": {
+        "de": "Stimmungsvoller Winterzauber im Freien mit Lichtern und Buden für Groß und Klein.",
+        "en": "Atmospheric outdoor winter magic with festive stalls and twinkling lights.",
+        "zh": "充满氛围的户外冬日集市，伴有梦幻彩灯和丰富摊位，适合全家游玩。"
+      }
+    },
+    {
+      "id": "ck-evt-5cb654341833cbb05fda",
+      "type": "event",
+      "title": "Münchner Bücherschau: Offene Studios 'Wir führen was auf! - Bilderbücher live on stage'",
+      "venue": "Haus der Kunst @ 1 Prinzregentenstraße, München, Bayern, 80538, Deutschland",
+      "days": [
+        "2026-11-14",
+        "2026-11-15"
+      ],
+      "time": "14:00–18:00",
+      "indoor": true,
+      "tags": [
+        "reading",
+        "music"
+      ],
+      "label": {
+        "de": "Bücherschau: Bilderbücher live",
+        "en": "Book Fair: Picture Books on Stage",
+        "zh": "慕尼黑书展：绘本舞台工作坊"
+      },
+      "why": {
+        "de": "Offenes Mitmachstudio, in dem Bilderbücher lebendig auf der Bühne werden.",
+        "en": "Open creative studio where picture books come alive on stage for children.",
+        "zh": "开放式互动工作室，让绘本故事在舞台上生动呈现。"
+      }
+    },
+    {
+      "id": "ck-evt-0a67fc0ed74e021e12d8",
+      "type": "event",
+      "title": "Family Time – Familien-Workshop",
+      "venue": "Schauburg Labor in Ramersdorf – Rosenheimer Straße 192",
+      "days": [
+        "2026-11-15"
+      ],
+      "time": "11:00",
+      "tags": [
+        "diy"
+      ],
+      "label": {
+        "de": "Family Time Familien-Workshop",
+        "en": "Family Time Creative Workshop",
+        "zh": "家庭时光：亲子创意工作坊"
+      },
+      "why": {
+        "de": "Gemeinsam spielen, forschen und Theaterluft schnuppern beim interaktiven Workshop.",
+        "en": "Play, explore, and discover theater together at this interactive family workshop.",
+        "zh": "适合全家一起参与的戏剧互动工作坊，在游戏中探索舞台乐趣。"
+      }
+    },
+    {
+      "id": "ck-evt-c1585f4e22800c00e425",
+      "type": "event",
+      "title": "Familienmatinee in der Seidlvilla",
+      "venue": "KJW Seidlvilla @ 1B Nikolaiplatz, München, Bayern, 80802, Deutschland",
+      "days": [
+        "2026-11-15"
+      ],
+      "time": "11:00–23:59",
+      "tags": [],
+      "label": {
+        "de": "Familienmatinee in der Seidlvilla",
+        "en": "Family Matinee at Seidlvilla",
+        "zh": "塞德尔别墅家庭早场活动"
+      },
+      "why": {
+        "de": "Gemütlicher Kulturvormittag für die ganze Familie im schönen Ambiente der Seidlvilla.",
+        "en": "A cozy cultural morning for the whole family in the beautiful Seidlvilla.",
+        "zh": "在优雅的塞德尔别墅享受温馨的周日上午亲子文化活动。"
+      }
+    },
+    {
+      "id": "osm-way-1110756742",
+      "type": "place",
+      "title": "Lustheim - Elsternweg",
+      "kind": "playground",
+      "hours": "Mo-Su 09:00-20:00",
+      "free": true,
+      "district": "Lustheim",
+      "venue": "Elsternweg",
+      "days": [],
+      "label": {
+        "de": "Spielplatz Elsternweg Lustheim",
+        "en": "Lustheim Elsternweg Playground",
+        "zh": "Lustheim Elsternweg 游乐场"
+      },
+      "why": {
+        "de": "Kostenloser Spielplatzspaß für die Familie, täglich von 9:00 bis 20:00 Uhr geöffnet.",
+        "en": "Free playground fun for families, open daily from 9:00 to 20:00.",
+        "zh": "适合家庭的免费游乐场，每日9:00至20:00开放。"
+      }
+    }
+  ],
+  "still": [
+    {
+      "id": "ck-evt-2182f27f2bacceec4538",
+      "title": "KinderUni-Kongress beim Tag der offenen Tür auf dem Forschungscampus Garching",
+      "venue": "TUM Campus Garching @ Boltzmannstraße 15, Garching bei München, 85748",
+      "end": "2027-02-05"
+    }
+  ]
+}

@@ -1,0 +1,163 @@
+{
+  "town": "Bonn",
+  "slug": "bonn",
+  "weekend": "2026-11-14",
+  "week": 46,
+  "published_at": "2026-11-09T08:50:44.477Z",
+  "by": "score",
+  "weather": [
+    {
+      "day": "2026-11-14",
+      "code": 0,
+      "max": 8.8,
+      "rain": 4
+    },
+    {
+      "day": "2026-11-15",
+      "code": 53,
+      "max": 10.8,
+      "rain": 14
+    }
+  ],
+  "picks": [
+    {
+      "id": "ck-evt-671aa4126a620bd3c451",
+      "type": "event",
+      "title": "Martinszug Umzüge in Geislar",
+      "venue": "Liestraße 33 (Feuerwehr)",
+      "days": [
+        "2026-11-13"
+      ],
+      "time": "17:30",
+      "tags": [
+        "season"
+      ],
+      "label": {
+        "de": "Martinszug in Geislar",
+        "en": "Martinszug in Geislar",
+        "zh": "Geislar 圣马丁游行"
+      },
+      "why": {
+        "de": "Am Freitag ab 17:30 Uhr zieht der Martinszug an der Feuerwehr in Geislar los.",
+        "en": "On Friday at 17:30, the Martinszug starts at the fire station in Geislar.",
+        "zh": "周五17:30，圣马丁游行将在Geislar消防队处出发。"
+      }
+    },
+    {
+      "id": "ck-evt-0ee10d8dfffb7e01f225",
+      "type": "event",
+      "title": "Basar der Freien Waldorfschule Bonn und Waldorfkindergarten",
+      "venue": "Freie Waldorfschule Bonn, Stettiner Str. 21",
+      "days": [
+        "2026-11-14"
+      ],
+      "time": "11:00",
+      "indoor": false,
+      "tags": [
+        "market",
+        "outside"
+      ],
+      "label": {
+        "de": "Basar der Freien Waldorfschule Bonn",
+        "en": "Freie Waldorfschule Bonn Bazaar",
+        "zh": "波恩自由华德福学校义卖集市"
+      },
+      "why": {
+        "de": "Am Samstag ab 11:00 Uhr lädt der Basar draußen an der Freien Waldorfschule ein.",
+        "en": "Visit this outdoor bazaar on Saturday from 11:00 at the Freie Waldorfschule.",
+        "zh": "周六11:00起，在波恩自由华德福学校举办户外义卖集市。"
+      }
+    },
+    {
+      "id": "ck-evt-cfeeb206a49f07a01e1d",
+      "type": "event",
+      "title": "Kindernähkurs am Samstag Nachmittag",
+      "venue": "Ninibutz - Stofflädchen und Atelier, Kessenicher Straße 175",
+      "days": [
+        "2026-11-14"
+      ],
+      "time": "14:30",
+      "tags": [
+        "diy"
+      ],
+      "label": {
+        "de": "Kindernähkurs am Samstagnachmittag",
+        "en": "Kids' Sewing Class on Saturday",
+        "zh": "周六下午儿童缝纫课"
+      },
+      "why": {
+        "de": "Am Samstag um 14:30 Uhr gibt es einen Kindernähkurs bei Ninibutz.",
+        "en": "On Saturday at 14:30, children can join a sewing course at Ninibutz.",
+        "zh": "周六14:30，孩子们可以在Ninibutz面料工坊参加缝纫课程。"
+      }
+    },
+    {
+      "id": "ck-evt-56877d3ac7fc5c3a3d2b",
+      "type": "event",
+      "title": "Martin Pfeiffer - Mitmachkonzert",
+      "venue": "Haus der Springmaus, Frongasse 8",
+      "days": [
+        "2026-11-14"
+      ],
+      "time": "14:30",
+      "indoor": true,
+      "tags": [
+        "diy",
+        "music",
+        "season"
+      ],
+      "label": {
+        "de": "Martin Pfeiffer - Mitmachkonzert",
+        "en": "Martin Pfeiffer Interactive Concert",
+        "zh": "Martin Pfeiffer 互动音乐会"
+      },
+      "why": {
+        "de": "Erlebt am Samstag um 14:30 Uhr das Mitmachkonzert drinnen im Haus der Springmaus.",
+        "en": "Enjoy an indoor interactive concert on Saturday at 14:30 at Haus der Springmaus.",
+        "zh": "周六14:30，在Haus der Springmaus室内体验互动音乐会。"
+      }
+    },
+    {
+      "id": "ck-evt-61199775aaaaa5083283",
+      "type": "event",
+      "title": "Pop-Up Karten selber basteln",
+      "venue": "MakerSpace Bonn e.V., Kennedyallee 18",
+      "days": [
+        "2026-11-15"
+      ],
+      "time": "15:00",
+      "tags": [
+        "diy"
+      ],
+      "label": {
+        "de": "Pop-Up Karten selber basteln",
+        "en": "Make Your Own Pop-Up Cards",
+        "zh": "亲手制作立体卡片"
+      },
+      "why": {
+        "de": "Am Sonntag ab 15:00 Uhr könnt ihr im MakerSpace Bonn eigene Pop-Up-Karten basteln.",
+        "en": "Craft your own pop-up cards this Sunday at 15:00 at MakerSpace Bonn.",
+        "zh": "周日15:00起，可以在MakerSpace Bonn亲手制作立体卡片。"
+      }
+    },
+    {
+      "id": "osm-way-102199953",
+      "type": "place",
+      "title": "Stadtgarten",
+      "kind": "park",
+      "district": "Stadtbezirk Bonn",
+      "venue": "Regina-Pacis-Weg",
+      "days": [],
+      "label": {
+        "de": "Stadtgarten Bonn",
+        "en": "Stadtgarten Bonn",
+        "zh": "波恩 Stadtgarten 公园"
+      },
+      "why": {
+        "de": "Dieser Park am Regina-Pacis-Weg im Stadtbezirk Bonn bietet Raum im Grünen.",
+        "en": "This park at Regina-Pacis-Weg in Bonn is a green destination for families.",
+        "zh": "这座位于波恩Regina-Pacis-Weg的公园很适合周末走走。"
+      }
+    }
+  ]
+}

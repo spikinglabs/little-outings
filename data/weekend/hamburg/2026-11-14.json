@@ -1,0 +1,93 @@
+{
+  "town": "Hamburg",
+  "slug": "hamburg",
+  "weekend": "2026-11-14",
+  "week": 46,
+  "published_at": "2026-11-09T08:51:55.073Z",
+  "by": "score",
+  "picks": [
+    {
+      "id": "ck-evt-04cf13f76bdfbeb93784",
+      "type": "event",
+      "title": "Bilderbuchkino: Der Sonnendieb",
+      "venue": "Bücherhalle Wandsbek",
+      "days": [
+        "2026-11-13"
+      ],
+      "time": "16:00",
+      "indoor": true,
+      "tags": [
+        "reading",
+        "stage"
+      ]
+    },
+    {
+      "id": "ck-evt-5808fbb0abf15df0a2b0",
+      "type": "event",
+      "title": "Kreativer Samstag für Familien",
+      "venue": "Bücherhalle Neugraben",
+      "days": [
+        "2026-11-14"
+      ],
+      "time": "11:30–12:30",
+      "indoor": true,
+      "tags": [
+        "diy"
+      ]
+    },
+    {
+      "id": "ck-evt-5bf2f7fadb7ec43e5f62",
+      "type": "event",
+      "title": "Kreative Familienführung",
+      "venue": "Museum der Arbeit",
+      "days": [
+        "2026-11-14"
+      ],
+      "time": "13:00",
+      "indoor": true,
+      "tags": [
+        "diy",
+        "tour"
+      ]
+    },
+    {
+      "id": "ck-evt-e8f31f244c89c2c9898e",
+      "type": "event",
+      "title": "Zweisprachiges Bilderbuchkino: Deutsch und Deutsche Gebärdensprache",
+      "venue": "Bücherhalle Wilhelmsburg",
+      "days": [
+        "2026-11-14"
+      ],
+      "time": "13:00–13:30",
+      "indoor": true,
+      "tags": [
+        "reading",
+        "stage"
+      ]
+    },
+    {
+      "id": "ck-evt-beeb6a67ea97bb2a8c63",
+      "type": "event",
+      "title": "Vorlesen für Kinder am Sonntag",
+      "venue": "Zentralbibliothek",
+      "days": [
+        "2026-11-15"
+      ],
+      "time": "15:30–16:30",
+      "indoor": true,
+      "tags": [
+        "reading"
+      ]
+    },
+    {
+      "id": "osm-node-280954595",
+      "type": "place",
+      "title": "Spielplatz Grootmoor",
+      "kind": "playground",
+      "free": true,
+      "district": "Bramfeld",
+      "venue": "Grootmoor",
+      "days": []
+    }
+  ]
+}

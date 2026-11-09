@@ -1,0 +1,104 @@
+{
+  "town": "Frankfurt am Main",
+  "slug": "frankfurt",
+  "weekend": "2026-11-14",
+  "week": 46,
+  "published_at": "2026-11-09T08:51:25.214Z",
+  "by": "score",
+  "weather": [
+    {
+      "day": "2026-11-14",
+      "code": 45,
+      "max": 7.7,
+      "rain": 0
+    },
+    {
+      "day": "2026-11-15",
+      "code": 3,
+      "max": 9.3,
+      "rain": 6
+    }
+  ],
+  "picks": [
+    {
+      "id": "ck-evt-25d0ff4309439eedbdcd",
+      "type": "event",
+      "title": "Familien-Führung im Goethe-Haus",
+      "venue": "Frankfurter Goethe-Haus",
+      "days": [
+        "2026-11-14"
+      ],
+      "time": "14:00",
+      "indoor": true,
+      "tags": [
+        "tour"
+      ]
+    },
+    {
+      "id": "ck-evt-8943556b817b7954eea5",
+      "type": "event",
+      "title": "Familienworkshop",
+      "venue": "Treffpunkt Opernpforte",
+      "days": [
+        "2026-11-15"
+      ],
+      "time": "11:00",
+      "tags": [
+        "diy"
+      ]
+    },
+    {
+      "id": "ck-evt-63d70fd19a266a27d630",
+      "type": "event",
+      "title": "Märchen und Reime",
+      "venue": "Theaterhaus",
+      "days": [
+        "2026-11-15"
+      ],
+      "time": "11:00",
+      "indoor": true,
+      "tags": [
+        "reading",
+        "stage"
+      ]
+    },
+    {
+      "id": "ck-evt-c220b7ef615ecff2d28c",
+      "type": "event",
+      "title": "Mitmachstation: Über den Tellerrand - Welche Auswirkungen hat unsere Ernährung auf die Umwelt?",
+      "venue": "außerhalb des Museums",
+      "days": [
+        "2026-11-15"
+      ],
+      "time": "14:00",
+      "indoor": true,
+      "tags": [
+        "diy",
+        "tour"
+      ]
+    },
+    {
+      "id": "ck-evt-a7b14a60384d5f2917a5",
+      "type": "event",
+      "title": "Öffentliche Führung: Familienbande",
+      "venue": "Museum für Kommunikation Frankfurt am Main Schaumainkai 53 Frankfurt am Main 60596",
+      "days": [
+        "2026-11-15"
+      ],
+      "time": "16:00–17:00",
+      "indoor": true,
+      "tags": [
+        "tour"
+      ]
+    },
+    {
+      "id": "osm-relation-12655355",
+      "type": "place",
+      "title": "Von-Bernus-Park",
+      "kind": "park",
+      "district": "Bockenheim",
+      "venue": "Kasseler Straße",
+      "days": []
+    }
+  ]
+}

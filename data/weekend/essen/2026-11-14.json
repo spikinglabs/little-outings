@@ -1,0 +1,173 @@
+{
+  "town": "Essen",
+  "slug": "essen",
+  "weekend": "2026-11-14",
+  "week": 46,
+  "published_at": "2026-11-09T08:52:05.564Z",
+  "by": "score",
+  "weather": [
+    {
+      "day": "2026-11-14",
+      "code": 0,
+      "max": 7.4,
+      "rain": 2
+    },
+    {
+      "day": "2026-11-15",
+      "code": 53,
+      "max": 9.7,
+      "rain": 10
+    }
+  ],
+  "picks": [
+    {
+      "id": "ck-evt-909f8eec4d4fe15fccc4",
+      "type": "event",
+      "title": "Rätsel-Reise Ruhr Museum",
+      "venue": "Ruhr Museum, Gelsenkirchener Straße 181",
+      "district": "Stoppenberg",
+      "days": [
+        "2026-11-14",
+        "2026-11-15"
+      ],
+      "time": "10:00",
+      "indoor": true,
+      "tags": [
+        "tour"
+      ],
+      "label": {
+        "de": "Rätsel-Reise Ruhr Museum",
+        "en": "Rätsel-Reise Ruhr Museum",
+        "zh": "Rätsel-Reise Ruhr Museum"
+      },
+      "why": {
+        "de": "Am Wochenende drinnen im Ruhr Museum gemeinsam knifflige Rätsel lösen.",
+        "en": "Head indoors to the Ruhr Museum this weekend and solve puzzles together.",
+        "zh": "周末去鲁尔博物馆室内一起探索解谜。"
+      }
+    },
+    {
+      "id": "ck-evt-0b66a69dcb2e65815650",
+      "type": "event",
+      "title": "Handverlesen",
+      "venue": "Halle 12, UNESCO-Welterbe Zollverein",
+      "days": [
+        "2026-11-14",
+        "2026-11-15"
+      ],
+      "time": "12:00–18:00",
+      "indoor": true,
+      "tags": [
+        "reading"
+      ],
+      "label": {
+        "de": "Handverlesen",
+        "en": "Handverlesen",
+        "zh": "Handverlesen"
+      },
+      "why": {
+        "de": "Samstag und Sonntag drinnen in der Halle 12 auf Zollverein stöbern.",
+        "en": "Visit Halle 12 at Zollverein indoors this Saturday and Sunday.",
+        "zh": "周六和周日来关税同盟12号厅室内逛逛。"
+      }
+    },
+    {
+      "id": "ck-evt-8b200cd8fdf2bba02876",
+      "type": "event",
+      "title": "Familienschicht in der Mitmachzeche",
+      "venue": "Denkmalpfad Zollverein, Gelsenkirchener Straße 181",
+      "district": "Stoppenberg",
+      "days": [
+        "2026-11-14"
+      ],
+      "time": "13:00",
+      "indoor": true,
+      "tags": [
+        "diy"
+      ],
+      "label": {
+        "de": "Familienschicht in der Mitmachzeche",
+        "en": "Familienschicht in der Mitmachzeche",
+        "zh": "Familienschicht in der Mitmachzeche"
+      },
+      "why": {
+        "de": "Diesen Samstag drinnen am Denkmalpfad Zollverein die Mitmachzeche erleben.",
+        "en": "Experience the hands-on mine indoors at Denkmalpfad Zollverein this Saturday.",
+        "zh": "本周六在关税同盟古迹步道的室内体验互动矿井活动。"
+      }
+    },
+    {
+      "id": "ck-evt-4a15c37ddc5dce7aa15d",
+      "type": "event",
+      "title": "ART ON THE SIDE – Offener Workshop für alle (ab 5 Jahren)",
+      "venue": "Museum Folkwang, Museumsplatz 1",
+      "district": "Südviertel",
+      "days": [
+        "2026-11-14"
+      ],
+      "time": "13:00–16:00",
+      "indoor": true,
+      "tags": [
+        "diy",
+        "tour"
+      ],
+      "label": {
+        "de": "ART ON THE SIDE",
+        "en": "ART ON THE SIDE",
+        "zh": "ART ON THE SIDE"
+      },
+      "why": {
+        "de": "Samstag drinnen im Museum Folkwang: offener Workshop für alle ab 5 Jahren.",
+        "en": "Open indoor workshop for ages 5 and up this Saturday at Museum Folkwang.",
+        "zh": "周六在福克旺博物馆室内参与适合5岁及以上的开放工作坊。"
+      }
+    },
+    {
+      "id": "ck-evt-3d252bf4c8b99e772411",
+      "type": "event",
+      "title": "Familien-Werkstatt",
+      "venue": "Aalto-Theater, Opernplatz 10",
+      "days": [
+        "2026-11-14"
+      ],
+      "time": "14:00",
+      "indoor": true,
+      "tags": [
+        "diy",
+        "stage"
+      ],
+      "label": {
+        "de": "Familien-Werkstatt",
+        "en": "Familien-Werkstatt",
+        "zh": "Familien-Werkstatt"
+      },
+      "why": {
+        "de": "Am Samstagnachmittag drinnen im Aalto-Theater die Familien-Werkstatt besuchen.",
+        "en": "Join the family workshop indoors at the Aalto-Theater this Saturday afternoon.",
+        "zh": "周六下午在阿尔托剧院室内参加家庭工作坊。"
+      }
+    },
+    {
+      "id": "osm-way-90470363",
+      "type": "place",
+      "title": "Funiversum",
+      "kind": "indoor",
+      "hours": "Mo,Tu,Th 14:00-19:00;We,Fr 10:00-19:00; PH,Sa,Su 10:00-19:00",
+      "free": false,
+      "indoor": true,
+      "district": "Bergerhausen",
+      "venue": "Schürmannstraße 19a",
+      "days": [],
+      "label": {
+        "de": "Funiversum",
+        "en": "Funiversum",
+        "zh": "Funiversum"
+      },
+      "why": {
+        "de": "Am Samstag und Sonntag drinnen von 10:00 bis 19:00 Uhr im Funiversum toben.",
+        "en": "Play indoors this Saturday and Sunday from 10:00 to 19:00 at Funiversum.",
+        "zh": "周六和周日10:00至19:00在室内Funiversum尽情玩乐。"
+      }
+    }
+  ]
+}

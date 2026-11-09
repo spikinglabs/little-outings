@@ -1,0 +1,195 @@
+{
+  "town": "Düsseldorf",
+  "slug": "duesseldorf",
+  "weekend": "2026-11-14",
+  "week": 46,
+  "published_at": "2026-11-09T08:50:53.122Z",
+  "by": "score",
+  "weather": [
+    {
+      "day": "2026-11-14",
+      "code": 0,
+      "max": 7.3,
+      "rain": 4
+    },
+    {
+      "day": "2026-11-15",
+      "code": 53,
+      "max": 10.4,
+      "rain": 6
+    }
+  ],
+  "picks": [
+    {
+      "id": "ck-evt-760cc74974b90d92a67e",
+      "type": "event",
+      "title": "Eltern-Kind-Workshop: Engelwerkstatt Für Eltern und Kinder ab 4 Jahren",
+      "venue": "Familienzentrum Heilige Familie, Carl-Sonnenschein-Straße 61",
+      "days": [
+        "2026-11-14"
+      ],
+      "time": "10:00",
+      "price": "5,00 €",
+      "book": true,
+      "indoor": true,
+      "tags": [
+        "diy"
+      ],
+      "label": {
+        "de": "Engelwerkstatt",
+        "en": "Angel Workshop",
+        "zh": "天使工坊"
+      },
+      "why": {
+        "de": "Gemeinsamer Indoor-Workshop für Eltern und Kinder ab 4 Jahren am Samstag.",
+        "en": "Indoor workshop for parents and kids aged 4 and up this Saturday.",
+        "zh": "周六面向家长和4岁及以上儿童的室内亲子工坊。"
+      }
+    },
+    {
+      "id": "ck-evt-00df1ca84fb24b2ec680",
+      "type": "event",
+      "title": "Feuer-Werkstatt für Eltern und Kinder ab 4 Jahren",
+      "venue": "Rath, Oberrather Str. 33, Ev. Familienzentrum, Oberrather Str. 33",
+      "days": [
+        "2026-11-14"
+      ],
+      "time": "10:00",
+      "book": true,
+      "indoor": true,
+      "tags": [
+        "diy"
+      ],
+      "label": {
+        "de": "Feuer-Werkstatt",
+        "en": "Fire Workshop",
+        "zh": "火主题工坊"
+      },
+      "why": {
+        "de": "Ein spannender Indoor-Samstag für Eltern und Kinder ab 4 Jahren in Rath.",
+        "en": "An exciting indoor Saturday for parents and kids aged 4 and up in Rath.",
+        "zh": "周六在拉特为家长及4岁以上儿童举办的室内工坊。"
+      }
+    },
+    {
+      "id": "ck-evt-6338146b317b4a7a69c8",
+      "type": "event",
+      "title": "Kunstwerkstatt zur Weihnachtszeit für (Groß-) Eltern und Kinder von 3 bis 6 Jahren",
+      "venue": "Heerdt, Gottfried- Hötzel-Str.4, Ev. Familienzentrum, Gottfried-Hötzel-Str. 4",
+      "days": [
+        "2026-11-14"
+      ],
+      "time": "15:00",
+      "book": true,
+      "indoor": true,
+      "tags": [
+        "diy",
+        "season"
+      ],
+      "label": {
+        "de": "Kunstwerkstatt zur Weihnachtszeit",
+        "en": "Christmas Art Workshop",
+        "zh": "圣诞艺术工坊"
+      },
+      "why": {
+        "de": "Kreativer Samstagnachmittag für (Groß-)Eltern und Kinder von 3 bis 6 Jahren.",
+        "en": "Creative Saturday afternoon for (grand)parents and kids aged 3 to 6.",
+        "zh": "周六下午适合（祖）父母与3至6岁儿童的创意室内活动。"
+      }
+    },
+    {
+      "id": "ck-evt-f8b9dad84006ab3d270c",
+      "type": "event",
+      "title": "ERÖFFNUNG: „Die Lichtmaschinerie“ – Mitmach-Ausstellung für Familien",
+      "venue": "Akki – Aktion & Kultur mit Kindern, Siegburger Straße 25",
+      "district": "Wersten",
+      "days": [
+        "2026-11-15"
+      ],
+      "time": "11:00",
+      "indoor": true,
+      "tags": [
+        "diy",
+        "tour"
+      ],
+      "label": {
+        "de": "Eröffnung: Die Lichtmaschinerie",
+        "en": "Opening: Die Lichtmaschinerie",
+        "zh": "开幕：“光影机械”互动展"
+      },
+      "why": {
+        "de": "Sonntags-Eröffnung einer interaktiven Indoor-Ausstellung für Familien bei Akki.",
+        "en": "Sunday opening of an interactive indoor exhibition for families at Akki.",
+        "zh": "周日在Akki为家庭举办的室内互动展览开幕活动。"
+      }
+    },
+    {
+      "id": "ck-evt-0f84d45f5d940f5cb8c2",
+      "type": "event",
+      "title": "Kreativer Tanz-Workshop für Eltern und Kinder ab 3 Jahre",
+      "venue": "Friedrichstadt DRK-Haus, Jahnstr. 47, Jahnstr. 47",
+      "days": [
+        "2026-11-15"
+      ],
+      "time": "15:30",
+      "book": true,
+      "indoor": true,
+      "tags": [
+        "diy",
+        "sport"
+      ],
+      "label": {
+        "de": "Kreativer Tanz-Workshop",
+        "en": "Creative Dance Workshop",
+        "zh": "创意舞蹈工坊"
+      },
+      "why": {
+        "de": "Indoor-Tanzspaß für Eltern und Kinder ab 3 Jahren am Sonntagnachmittag.",
+        "en": "Indoor dancing fun for parents and kids aged 3 and up on Sunday afternoon.",
+        "zh": "周日下午面向家长及3岁以上儿童的室内趣味舞蹈活动。"
+      }
+    },
+    {
+      "id": "osm-node-1354630869",
+      "type": "place",
+      "title": "Wunderhaus",
+      "kind": "indoor",
+      "hours": "Sa,Su 10:00-19:00; PH off",
+      "free": false,
+      "indoor": true,
+      "district": "Wersten",
+      "venue": "Kölner Landstraße",
+      "days": [],
+      "label": {
+        "de": "Wunderhaus",
+        "en": "Wunderhaus",
+        "zh": "Wunderhaus"
+      },
+      "why": {
+        "de": "Das ganze Wochenende von 10:00 bis 19:00 Uhr drinnen in Wersten spielen.",
+        "en": "Enjoy indoor play in Wersten all weekend from 10:00 to 19:00.",
+        "zh": "周末10:00至19:00在韦尔斯滕享受室内玩乐时光。"
+      }
+    }
+  ],
+  "still": [
+    {
+      "id": "ck-evt-3157d2e0ec93aeccc761",
+      "title": "Farbenzauber und Klangreise für Eltern und Kinder ab 2 Jahren",
+      "venue": "Stadtmitte, Hohenzollernstr. 24, efa, Hohenzollernstr. 24",
+      "end": "2026-12-16"
+    },
+    {
+      "id": "ck-evt-bf5a3f4efa0505f5b9a6",
+      "title": "Natürlich bunt! Malen & Matschen mit essbaren Farben Für Eltern und Kinder von 1,5 bis 2 Jahren",
+      "venue": "Familientreff Oberkassel, Wildenbruchstraße 27",
+      "end": "2026-12-02"
+    },
+    {
+      "id": "ck-evt-6d24c5dbc157d2edc7f5",
+      "title": "Kreativer Kindertanz für Kinder von 3-4 Jahren",
+      "venue": "FZ Pusteblume Bewegungs- und Spielraum, Liststr. 2",
+      "end": "2026-12-09"
+    }
+  ]
+}
