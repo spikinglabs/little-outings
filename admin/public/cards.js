@@ -1,7 +1,9 @@
 // A box of picture sets drawn by the site's build, posted by hand: the Rednote box (rednote.js) and the
 // Instagram box (instagram.js). Save the pictures, copy title and caption. Talks to /api/<id>.
 // "Save all" hands a phone every card of a set at once (its share menu: Photos, Files or the app itself);
-// a computer, or a phone that can't share files, gets them as one ZIP.
+// a computer, or a phone that can't share files, gets them as one ZIP. On the way it copies the title and
+// then the caption, so both wait in the keyboard's clipboard list (Gboard, Samsung, SwiftKey keep the
+// last few) and a plain paste gives the caption: no coming back to copy them.
 import { zipStore } from "./zip.js";
 const $ = (id) => document.getElementById(id);
 const esc = (value) =>
@@ -53,6 +55,9 @@ export function cardBox({ id, label, type, size, title, onLoad, decorate }) {
           <button class="primary" data-save="${i}">Save all ${s.pictures.length} pictures</button>
           <button class="ghost" data-zip="${i}">Download ZIP</button>
         </div>
+        <p class="sub rednote-hint" id="${id}-hint-${i}">${title
+          ? "Save all also copies the title, then the caption. In the app: paste into the text, and pick the title from your keyboard's clipboard."
+          : "Save all also copies the caption: paste it into the post."}</p>
         ${title ? `<label for="${id}-title-${i}">Title</label>
         <div class="rednote-copy">
           <input id="${id}-title-${i}" readonly value="${esc(s.title)}">
@@ -102,9 +107,13 @@ export function cardBox({ id, label, type, size, title, onLoad, decorate }) {
     try {
       const list = await filesOf(i);
       if (!zip && canShareFiles(list)) {
-        // The caption goes to the clipboard on the way, ready to paste into the note.
-        await navigator.clipboard?.writeText(sets[i].caption).catch(() => {});
-        await navigator.share({ files: list }).catch((e) => { if (e.name !== "AbortError") throw e; });
+        await copyTexts(i);
+        await navigator.share({ files: list }).catch((e) => {
+          if (e.name === "AbortError") return;
+          // A browser that lets a tap's permission run out while copying: the cards are loaded now, so a second tap is quick.
+          if (e.name === "NotAllowedError") throw new Error("the phone did not open its share menu, tap Save all again");
+          throw e;
+        });
         return;
       }
       const bytes = zipStore(await Promise.all(list.map(async (f) => ({ name: f.name, bytes: new Uint8Array(await f.arrayBuffer()) }))));
@@ -119,6 +128,24 @@ export function cardBox({ id, label, type, size, title, onLoad, decorate }) {
       note(`Could not save the pictures: ${error.message}`, true);
     } finally {
       btn.disabled = false;
+    }
+  }
+
+  /**
+   * Title first, then the caption, a moment apart so the keyboard records each as its own clip; the
+   * caption comes last, so a plain paste gives the long text and the title is one tap in the clip list.
+   */
+  async function copyTexts(i) {
+    const hint = $(`${id}-hint-${i}`);
+    try {
+      if (title && sets[i].title) {
+        await navigator.clipboard.writeText(sets[i].title);
+        await new Promise((r) => setTimeout(r, 350));
+      }
+      await navigator.clipboard.writeText(sets[i].caption);
+      if (hint) hint.textContent = title ? "Copied the title and the caption ✓ Paste the caption; the title is in your keyboard's clipboard." : "Copied the caption ✓";
+    } catch {
+      if (hint) hint.textContent = "Could not copy the texts: use the Copy buttons below.";
     }
   }
 

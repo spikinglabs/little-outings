@@ -42,6 +42,18 @@ test("the weekly set has a cover, a card per pick and a closing card", () => {
   assert.match(s.sheets[2].tag!, /随时可去 · 动物园和动物 · 免费/);
   assert.match(s.caption, /①【周六 10:00–15:00】MINTköln 科学日，Interim Zentralbibliothek（免费） 编号K31-1/);
   assert.match(s.caption, /天气：周六 有雨 11°/);
+  assert.match(s.caption, /2026-10-31（周六）– 2026-11-01（周日）/);
+  assert.ok(s.sheets[0].lines!.includes("2026-10-31（周六） –") && s.sheets[0].lines!.includes("2026-11-01（周日）"), "the cover carries the dates with the year");
+  assert.match(s.sheets[1].tag!, /^2026-10-31 周六 10:00–15:00 · 免费/, "an event card's tag carries its day with the year");
+  const busy = weeklySet({ ...edition, picks: [{ ...edition.picks[0], time: "10:00 bis 11:30 Uhr", book: true, days: ["2026-10-31"] }] }, { townZh: "科隆", kindName, more: { events: 1, places: 1 } });
+  assert.match(busy.sheets[1].tag!, /^2026-10-31 10:00–11:30 · 免费 · 需预约$/, "a long tag drops the weekday, never the date");
+  const dus = weeklySet(edition, { townZh: "杜塞尔多夫", kindName, more: { events: 1, places: 1 } });
+  assert.equal(dus.sheets[0].title, "杜塞尔多夫\n带娃周末去哪", "pictures carry the full name");
+  assert.match(dus.caption, /^杜塞尔多夫本周末/);
+  assert.equal(dus.title, "杜塞周末带娃去哪｜2026-10-31", "the note title uses the short name");
+  assert.match(dus.caption, /#杜塞尔多夫带娃/, "hashtags keep the full name people search");
+  const two = weeklySet({ ...edition, picks: [{ ...edition.picks[0], days: ["2026-11-01", "2026-10-31"] }] }, { townZh: "科隆", kindName, more: { events: 1, places: 1 } });
+  assert.match(two.sheets[1].tag!, /^2026-10-31、11-01 /);
   assert.match(s.caption, /#科隆带娃/);
   assert.doesNotMatch(s.caption + JSON.stringify(s.sheets), /https?:|allo\.land/);
 });
@@ -51,8 +63,15 @@ test("codes open the pick's page in any language", () => {
 });
 
 test("the note's title stays within Rednote's 20 characters", () => {
-  assert.equal(weeklyTitle("科隆", "2026-10-31"), "科隆周末带娃去哪｜10.31–11.1");
-  assert.ok([...weeklyTitle("法兰克福", "2026-12-12")].length <= 20);
+  assert.equal(weeklyTitle("科隆", "2026-10-31"), "科隆周末带娃去哪｜2026-10-31");
+  assert.equal(weeklyTitle("杜塞尔多夫", "2026-11-14"), "杜塞周末带娃去哪｜2026-11-14");
+  assert.equal(weeklyTitle("巴特明斯特艾菲尔小镇", "2026-11-14"), "巴特明斯特艾菲尔小镇带娃｜11-14", "the year goes only when it can't fit");
+  assert.equal(weeklyTitle("慕尼黑", "2026-11-14"), "慕尼黑周末带娃去哪｜2026-11-14");
+  for (const town of ["科隆", "波恩", "柏林", "慕尼黑", "法兰克福", "汉堡", "杜塞尔多夫", "门兴格拉德巴赫"]) {
+    const t = weeklyTitle(town, "2026-12-12");
+    assert.ok([...t].length <= 20, t);
+    assert.ok(t.endsWith("2026-12-12"), `every town's title carries the date with the year: ${t}`);
+  }
 });
 
 test("closing punctuation never starts a line", () => {
@@ -133,10 +152,11 @@ test("a confirmed city alert becomes a set: facts, what to watch for, an invitat
   const alert = { id: "rec_abc123def456", city: "Köln", day: "2026-10-31", from: "14:00", to: "18:00", kind: "police_notice", line: { zh: "莱茵河岸大型游行，道路封闭，电车改道。" } };
   const s = alertSet(alert, "科隆");
   assert.equal(s.id, "alert-koeln-2026-10-31-def456");
-  assert.equal(s.title, "科隆出行提醒｜10月31日周六");
+  assert.equal(s.title, "科隆出行提醒｜2026-10-31");
+  assert.equal(alertSet({ ...alert, city: "Düsseldorf", type: "demonstration" }, "杜塞尔多夫").title, "杜塞集会出行提醒｜2026-10-31");
   assert.ok([...s.title].length <= 20);
-  assert.equal(alertWhen(alert), "10月31日周六 14:00–18:00");
-  assert.equal(alertWhen({ ...alert, until: "2026-11-01", from: undefined }), "10月31日周六–11月1日周日");
+  assert.equal(alertWhen(alert), "2026-10-31（周六） 14:00–18:00");
+  assert.equal(alertWhen({ ...alert, until: "2026-11-01", from: undefined }), "2026-10-31（周六）–2026-11-01（周日）");
   assert.equal(s.sheets.length, 3);
   assert.ok(s.sheets[1].lines?.includes(alert.line.zh));
   assert.match(s.caption, /评论区补充/);
@@ -148,7 +168,7 @@ test("a confirmed city alert becomes a set: facts, what to watch for, an invitat
   // With the facts from the page: a type in the title, a card with place, route, size and lines, the key points.
   const rich = alertSet({ ...alert, type: "march", expected: 15000, route: "Deutzer Brücke – Heumarkt", lines: ["KVB 1", "KVB 7"],
     about: { zh: "X 倡议组织的游行。" }, points: { zh: ["莱茵河岸封闭"] } }, "科隆");
-  assert.equal(rich.title, "科隆游行出行提醒｜10月31日周六");
+  assert.equal(rich.title, "科隆游行出行提醒｜2026-10-31");
   assert.equal(rich.sheets.length, 4);
   assert.deepEqual(rich.sheets[2].lines, ["路线：Deutzer Brücke – Heumarkt", "预计人数：约1.5万人", "受影响线路：KVB 1、KVB 7", "莱茵河岸封闭"]);
   assert.match(rich.caption, /X 倡议组织的游行。/);

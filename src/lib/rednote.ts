@@ -11,9 +11,10 @@
 //   sets     hand-written explainers in content/rednote/<id>.yaml (St. Martin …), drawn until their `until` day
 //
 // Cards are 1080×1440 (3:4, what Rednote shows uncropped), drawn by src/lib/sheet.ts. Plain TypeScript, so tests run it in Node.
-import { pageLines, type Sheet } from "./sheet.ts";
+import { pageLines, XHS, type Sheet } from "./sheet.ts";
+import { textEm } from "./og.ts";
 import { codeOf } from "./rednote-code.ts";
-import { addDays, textIn, townSlug, weatherLine, whenShort, WEEKEND_TOWNS, type Edition, type Pick } from "./weekend.ts";
+import { addDays, clockText, textIn, townSlug, weatherLine, whenShort, WEEKEND_TOWNS, type Edition, type Pick } from "./weekend.ts";
 
 export { XHS, fitTitle, lines, sheetSvg, type Sheet } from "./sheet.ts";
 
@@ -30,19 +31,55 @@ const TAGS = (town: string) => ["德国带娃", `${town}带娃`, town, "周末�
 export const BRAND_TAG = "小鹿出游";
 export const hashtags = (tags: string[]) => [BRAND_TAG, ...tags.filter((t) => t !== BRAND_TAG)].map((t) => `#${t}`).join(" ");
 
-const md = (d: string) => `${Number(d.slice(5, 7))}.${Number(d.slice(8, 10))}`;
+// Pictures and captions have room, so they carry the full date with the year and the full town name; only
+// the note's title, limited to 20 characters, uses the short name (L, 2026-11-10).
+const WEEKDAY_ZH = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
+const weekdayZh = (d: string) => WEEKDAY_ZH[new Date(`${d}T12:00:00Z`).getUTCDay()];
+/** "2026-11-14（周六）" */
+export const dayIso = (d: string) => `${d}（${weekdayZh(d)}）`;
+/** "2026-11-14（周六）– 2026-11-15（周日）" */
+export const weekendIso = (sat: string) => `${dayIso(sat)}– ${dayIso(addDays(sat, 1))}`;
 const venueOf = (p: Pick) => (p.venue ?? "").trim();
 const nameOf = (p: Pick) => textIn(p.label, "zh", p.title);
 
-/** The note's title, at most 20 characters (Rednote's limit): "科隆周末带娃去哪｜10.31–11.1". */
+/** The short names parents use for long town names, for the note title only (L, 2026-11-10). */
+const SHORT_ZH: Record<string, string> = { 杜塞尔多夫: "杜塞", 法兰克福: "法兰" };
+export const shortZh = (townZh: string) => SHORT_ZH[townZh] ?? townZh;
+
+/**
+ * The note's title, at most 20 characters (Rednote's limit), ending in the Saturday as ISO with the year
+ * (L, 2026-11-10: the post's text title keeps the year; the pictures use 11-14): "科隆周末带娃去哪｜2026-11-14".
+ */
 export function weeklyTitle(townZh: string, saturday: string): string {
-  const full = `${townZh}周末带娃去哪｜${md(saturday)}–${md(addDays(saturday, 1))}`;
-  return [...full].length <= 20 ? full : `${townZh}周末带娃去哪`;
+  const t = shortZh(townZh);
+  // The year stays while it fits (L, 2026-11-10); a very long name falls back to "11-14".
+  const md = saturday.slice(5);
+  return [`${t}周末带娃去哪｜${saturday}`, `${t}周末带娃｜${saturday}`, `${t}带娃｜${saturday}`, `${t}带娃｜${md}`]
+    .find((x) => [...x].length <= 20) ?? `${t}｜${md}`;
 }
+
+/** A later day after the first, without the year or month they share: "15", "12-01", "2027-01-02". */
+const tail = (first: string, d: string) => (d.slice(0, 7) === first.slice(0, 7) ? d.slice(8) : d.slice(0, 4) === first.slice(0, 4) ? d.slice(5) : d);
+
+/**
+ * A pick's days in its card's tag: "11-14 周六", "11-14、15", or a longer run's first and last day
+ * "11-13–15", so a card still says when it was on once the note is old.
+ */
+function pickDays(p: Pick, weekday = true): string {
+  const d = [...(p.days ?? [])].sort();
+  if (!d.length) return "";
+  if (d.length === 1) return weekday ? `${d[0]} ${weekdayZh(d[0])}` : d[0];
+  return d.length === 2 ? `${d[0]}、${tail(d[0], d[1])}` : `${d[0]}–${tail(d[0], d.at(-1)!)}`;
+}
+
+const tagFits = (tag: string) => textEm(tag) * 38 * 1.08 + 60 <= XHS.w - 2 * 96;
 
 function pickTag(p: Pick, kindName: (k: string) => string): string {
   if (p.type === "place") return ["随时可去", p.kind ? kindName(p.kind) : "", p.free ? "免费" : ""].filter(Boolean).join(" · ");
-  return [whenShort(p, "zh"), p.free ? "免费" : "", p.book ? "需预约" : ""].filter(Boolean).join(" · ");
+  const tag = (weekday: boolean) =>
+    [[pickDays(p, weekday), clockText(p.time)].filter(Boolean).join(" "), p.free ? "免费" : "", p.book ? "需预约" : ""].filter(Boolean).join(" · ");
+  // The tag is one line on the card (src/lib/sheet.ts); a long one drops the weekday, never the date.
+  return tagFits(tag(true)) ? tag(true) : tag(false);
 }
 
 function pickSheet(p: Pick, code: string, kindName: (k: string) => string): Sheet {
@@ -87,9 +124,11 @@ export function weeklySet(ed: Edition, o: { townZh: string; kindName: (k: string
   const cover: Sheet = {
     tone: "gold",
     tag: `本周末 · ${o.townZh}`,
-    title: `${o.townZh}带娃\n周末去哪`,
+    // A long name gets a line of its own rather than being split mid-name.
+    title: [...o.townZh].length >= 5 ? `${o.townZh}\n带娃周末去哪` : `${o.townZh}带娃\n周末去哪`,
     lines: [
-      `${md(sat)}（六）– ${md(addDays(sat, 1))}（日）`,
+      dayIso(sat) + " –",
+      dayIso(addDays(sat, 1)),
       weather ? `天气：${weather}` : "",
       holiday,
       [events ? `${events} 个活动` : "", places ? `${places} 个好去处` : ""].filter(Boolean).join("，"),
@@ -106,7 +145,7 @@ export function weeklySet(ed: Edition, o: { townZh: string; kindName: (k: string
   };
   const caption = [
     `${o.townZh}本周末带娃去哪儿，挑了 ${ed.picks.length} 个👇`,
-    [`${md(sat)}（六）– ${md(addDays(sat, 1))}（日）`, weather ? `天气：${weather}` : ""].filter(Boolean).join(" · "),
+    [weekendIso(sat), weather ? `天气：${weather}` : ""].filter(Boolean).join(" · "),
     holiday,
     "",
     ...ed.picks.map((p, i) => pickLine(p, i, codes[i], o.kindName)),
@@ -168,8 +207,13 @@ const TYPE_ZH: Record<string, string> = {
 /** "约1.5万人", "约800人" */
 export const peopleZh = (n: number) => `约${n >= 10000 ? `${Number((n / 10000).toFixed(1))}万` : n}人`;
 
-const WEEKDAY_ZH = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
-const dayZh = (d: string) => `${Number(d.slice(5, 7))}月${Number(d.slice(8, 10))}日${WEEKDAY_ZH[new Date(`${d}T12:00:00Z`).getUTCDay()]}`;
+const dayZh = dayIso;
+/** An alert note's title, at most 20 characters, always ending in the ISO day: "科隆集会出行提醒｜2026-10-31". */
+function alertTitle(townZh: string, typeZh: string, day: string): string {
+  const type = typeZh === "出行提醒" ? "" : typeZh;
+  return [`${townZh}${type}出行提醒｜${day}`, `${townZh}${type}提醒｜${day}`, `${townZh}${type}｜${day}`, `${townZh}｜${day}`]
+    .find((t) => [...t].length <= 20) ?? `${townZh}｜${day}`;
+}
 /** Where the facts come from, as a parent would say it. */
 const SOURCE_ZH: Record<string, string> = { police_notice: "警方通告", assembly: "警方集会登记", transit: "交通公司通知", strike: "官方通知" };
 /** What to watch for, by kind. Plain advice, never "no need to worry". */
@@ -225,5 +269,5 @@ export function alertSet(a: AlertFacts, townZh: string): XhsSet {
     "",
     hashtags(["德国带娃", `${townZh}带娃`, townZh, "出行提醒", "德国生活", "德国妈妈", "德国爸爸"]),
   ].join("\n");
-  return { id: `alert-${townSlug(a.city)}-${a.day}-${a.id.slice(-6)}`, title: `${townZh}${typeZh === "出行提醒" ? "" : typeZh}出行提醒｜${dayZh(a.day)}`.slice(0, 20), caption, sheets };
+  return { id: `alert-${townSlug(a.city)}-${a.day}-${a.id.slice(-6)}`, title: alertTitle(shortZh(townZh), typeZh, a.day), caption, sheets };
 }
