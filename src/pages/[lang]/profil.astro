@@ -124,6 +124,7 @@ const ui = { ...t.group("profile"), count: t.group("profile.count") };
     import { renderSVG } from "uqr";
     import { clean, forget, packForMove, readProfile, unpackMove, type Profile } from "../../lib/profile";
     import { adopt, getSync, lastSynced, push, schedulePush, setSync, syncNow } from "../../scripts/sync";
+    import { count } from "../../lib/count";
     import { cleanNick, myNick, randomNick, rememberNick } from "../../lib/nickname";
     import { applyTheme, themeChoice, type ThemeChoice } from "../../lib/theme";
 
@@ -229,6 +230,7 @@ const ui = { ...t.group("profile"), count: t.group("profile.count") };
       await push(); // the latest changes first
       if (s) fetch("/api/profile/logout", { method: "POST", headers: { authorization: `Bearer ${s.token}` } }).catch(() => {});
       setSync(null);
+      count("sync_off");
     });
 
     /* ---------- move to another phone ---------- */
