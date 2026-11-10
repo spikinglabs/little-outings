@@ -18,8 +18,10 @@ type Ctx = { request: Request; env: Env };
 // copy: the weekend edition's chat text; from_print / from_telegram: someone arrived from the printed
 // sheet or the Telegram post (?von=…); from_rednote: someone typed a Rednote card's code into the search box;
 // rednote_share: someone tapped "分享到小红书" or "保存图片和文字" (src/components/RednoteShare.astro);
-// from_wechat: a visit opened inside WeChat's own browser, once per visit (src/scripts/app.ts).
-export const EVENTS = ["save", "maps", "calendar", "website", "share", "install", "copy", "from_print", "from_telegram", "from_rednote", "rednote_share", "from_wechat", "share_image"];
+// from_wechat: a visit opened inside WeChat's own browser, once per visit (src/scripts/app.ts);
+// sync_*: passkey sync turned on, signed in, signed out, and phones with sync used that day (src/scripts/sync.ts).
+export const EVENTS = ["save", "maps", "calendar", "website", "share", "install", "copy", "from_print", "from_telegram", "from_rednote", "rednote_share", "from_wechat", "share_image",
+  "sync_on", "sync_signin", "sync_off", "sync_active"];
 const ON = ["event", "place", "other"];
 const LANGS = ["de", "en", "zh"];
 

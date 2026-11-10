@@ -3,7 +3,8 @@
 // "login" uses a passkey the phone already has; "register" makes a new one and syncs this phone's profile.
 import { startAuthentication, startRegistration, browserSupportsWebAuthn } from "@simplewebauthn/browser";
 import { readProfile } from "../lib/profile";
-import { adopt, getSync, setSync } from "./sync";
+import { adopt, getSync, setSync, today } from "./sync";
+import { count } from "../lib/count";
 
 /** ok, the parent cancelled, the passkey has no profile behind it, the server has no database, or it failed. */
 export type PasskeyResult = "ok" | "cancel" | "unknown" | "soon" | "fail";
@@ -26,7 +27,8 @@ export async function register(): Promise<PasskeyResult> {
     const res = await post("register", { challenge, response, profile: local() });
     if (!res.ok) return "fail";
     const { token, updated } = await res.json();
-    setSync({ token, pushed: updated, pulled: updated });
+    setSync({ token, pushed: updated, pulled: updated, counted: today() });
+    count("sync_on");
     return "ok";
   } catch (e) {
     return (e as Error).name === "NotAllowedError" ? "cancel" : "fail"; // NotAllowedError: the parent cancelled
@@ -45,8 +47,9 @@ export async function login(): Promise<PasskeyResult> {
     if (res.status === 404) return "unknown";
     if (!res.ok) return "fail";
     const { token, profile, updated } = await res.json();
-    setSync({ token, pulled: updated ?? Date.now() });
+    setSync({ token, pulled: updated ?? Date.now(), counted: today() });
     adopt(profile);
+    count("sync_signin");
     return "ok";
   } catch (e) {
     return (e as Error).name === "NotAllowedError" ? "cancel" : "fail";

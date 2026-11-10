@@ -3,7 +3,10 @@
 // from_rednote: a code from a Rednote card or a share card typed into the search box (src/scripts/explore.ts).
 // from_wechat: a visit opened inside WeChat, counted once per visit (src/scripts/app.ts).
 // share_image: an event or place shared or saved as a picture; rednote_share also counts its Rednote button.
-export type CountAction = "save" | "maps" | "calendar" | "website" | "share" | "install" | "copy" | "from_rednote" | "from_wechat" | "share_image" | "rednote_share";
+// sync_on: a new passkey turned sync on; sync_signin: signed in with an existing passkey; sync_off: signed out;
+// sync_active: a phone with sync on was used that day, counted at most once a day per phone (src/scripts/sync.ts).
+export type CountAction = "save" | "maps" | "calendar" | "website" | "share" | "install" | "copy" | "from_rednote" | "from_wechat" | "share_image" | "rednote_share"
+  | "sync_on" | "sync_signin" | "sync_off" | "sync_active";
 
 /**
  * Also adds one to the shared Allo usage counter (monitoring.admin.allo.land, spikinglabs/alloland-rebirth

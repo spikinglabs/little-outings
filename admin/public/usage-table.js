@@ -16,6 +16,10 @@ export const ACTIONS = [
   ["from_rednote", "Typed a Rednote card code"],
   ["from_telegram", "Came from Telegram"],
   ["from_print", "Came from the printed sheet"],
+  ["sync_active", "Phones with sync on, used that day"],
+  ["sync_on", "Turned on passkey sync (new passkey)"],
+  ["sync_signin", "Signed in with an existing passkey"],
+  ["sync_off", "Signed out of sync"],
 ];
 
 const DAY = 86400_000;

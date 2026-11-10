@@ -2,9 +2,13 @@
 // moment later, and the synced copy is brought in now and then, so a second phone catches up.
 // Without a passkey nothing here runs and the profile stays on this device.
 import { SYNC_KEY, merge, readProfile, writeProfile, clean } from "../lib/profile";
+import { count } from "../lib/count";
 
 // dirty: a change that hasn't reached the server yet (offline, or the page closed first).
-type Sync = { token: string; pulled?: number; pushed?: number; dirty?: boolean };
+// counted: the UTC day this phone last added one to "sync_active"; it stays on this phone and is never sent.
+type Sync = { token: string; pulled?: number; pushed?: number; dirty?: boolean; counted?: string };
+
+export const today = () => new Date().toISOString().slice(0, 10);
 const PULL_EVERY = 3600_000;
 
 export function getSync(): Sync | null {
@@ -70,6 +74,8 @@ export function adopt(other: unknown): boolean {
 export function pullNowAndThen() {
   const s = getSync();
   if (!s) return;
+  // One anonymous tick a day per phone with sync on, so the admin sees how many use it (no id goes with it).
+  if (s.counted !== today()) { setSync({ ...s, counted: today() }); count("sync_active"); }
   if (Date.now() - (s.pulled ?? 0) > PULL_EVERY) pull().then(() => { if (getSync()?.dirty) schedulePush(); });
   else if (s.dirty && !timer) schedulePush();
 }
