@@ -62,13 +62,13 @@ test("codes open the pick's page in any language", () => {
 });
 
 test("the note's title stays within Rednote's 20 characters", () => {
-  assert.equal(weeklyTitle("科隆", "2026-10-31"), "科隆周末带娃去哪｜10-31–11-01");
-  assert.equal(weeklyTitle("杜塞尔多夫", "2026-11-14"), "杜塞周末带娃去哪｜11-14–11-15");
-  assert.equal(weeklyTitle("慕尼黑", "2026-11-14"), "慕尼黑周末带娃｜11-14–11-15");
+  assert.equal(weeklyTitle("科隆", "2026-10-31"), "科隆周末带娃去哪｜2026-10-31");
+  assert.equal(weeklyTitle("杜塞尔多夫", "2026-11-14"), "杜塞周末带娃去哪｜2026-11-14");
+  assert.equal(weeklyTitle("慕尼黑", "2026-11-14"), "慕尼黑周末带娃去哪｜2026-11-14");
   for (const town of ["科隆", "波恩", "柏林", "慕尼黑", "法兰克福", "汉堡", "杜塞尔多夫", "门兴格拉德巴赫"]) {
     const t = weeklyTitle(town, "2026-12-12");
     assert.ok([...t].length <= 20, t);
-    assert.ok(t.includes("12-12"), `every town's title carries the date: ${t}`);
+    assert.ok(t.endsWith("2026-12-12"), `every town's title carries the date: ${t}`);
   }
 });
 
@@ -150,8 +150,8 @@ test("a confirmed city alert becomes a set: facts, what to watch for, an invitat
   const alert = { id: "rec_abc123def456", city: "Köln", day: "2026-10-31", from: "14:00", to: "18:00", kind: "police_notice", line: { zh: "莱茵河岸大型游行，道路封闭，电车改道。" } };
   const s = alertSet(alert, "科隆");
   assert.equal(s.id, "alert-koeln-2026-10-31-def456");
-  assert.equal(s.title, "科隆出行提醒｜10-31（周六）");
-  assert.equal(alertSet({ ...alert, city: "Düsseldorf", type: "demonstration" }, "杜塞尔多夫").title, "杜塞集会出行提醒｜10-31（周六）");
+  assert.equal(s.title, "科隆出行提醒｜2026-10-31");
+  assert.equal(alertSet({ ...alert, city: "Düsseldorf", type: "demonstration" }, "杜塞尔多夫").title, "杜塞集会出行提醒｜2026-10-31");
   assert.ok([...s.title].length <= 20);
   assert.equal(alertWhen(alert), "10-31（周六） 14:00–18:00");
   assert.equal(alertWhen({ ...alert, until: "2026-11-01", from: undefined }), "10-31（周六）–11-01（周日）");
@@ -166,7 +166,7 @@ test("a confirmed city alert becomes a set: facts, what to watch for, an invitat
   // With the facts from the page: a type in the title, a card with place, route, size and lines, the key points.
   const rich = alertSet({ ...alert, type: "march", expected: 15000, route: "Deutzer Brücke – Heumarkt", lines: ["KVB 1", "KVB 7"],
     about: { zh: "X 倡议组织的游行。" }, points: { zh: ["莱茵河岸封闭"] } }, "科隆");
-  assert.equal(rich.title, "科隆游行出行提醒｜10-31（周六）");
+  assert.equal(rich.title, "科隆游行出行提醒｜2026-10-31");
   assert.equal(rich.sheets.length, 4);
   assert.deepEqual(rich.sheets[2].lines, ["路线：Deutzer Brücke – Heumarkt", "预计人数：约1.5万人", "受影响线路：KVB 1、KVB 7", "莱茵河岸封闭"]);
   assert.match(rich.caption, /X 倡议组织的游行。/);

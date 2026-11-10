@@ -48,13 +48,13 @@ const SHORT_ZH: Record<string, string> = { 杜塞尔多夫: "杜塞", 法兰克�
 export const shortZh = (townZh: string) => SHORT_ZH[townZh] ?? townZh;
 
 /**
- * The note's title, at most 20 characters (Rednote's limit), always with the dates:
- * "科隆周末带娃去哪｜11-14–11-15", shortened for longer town names ("慕尼黑周末带娃｜11-14–11-15").
+ * The note's title, at most 20 characters (Rednote's limit), ending in the Saturday as ISO with the year
+ * (L, 2026-11-10: the post's text title keeps the year; the pictures use 11-14): "科隆周末带娃去哪｜2026-11-14".
  */
 export function weeklyTitle(townZh: string, saturday: string): string {
-  const t = shortZh(townZh), range = `${md(saturday)}–${md(addDays(saturday, 1))}`;
-  return [`${t}周末带娃去哪｜${range}`, `${t}周末带娃｜${range}`, `${t}带娃｜${range}`, `${t}周末带娃｜${md(saturday)}`]
-    .find((x) => [...x].length <= 20) ?? `${t}｜${md(saturday)}`;
+  const t = shortZh(townZh);
+  return [`${t}周末带娃去哪｜${saturday}`, `${t}周末带娃｜${saturday}`, `${t}带娃｜${saturday}`]
+    .find((x) => [...x].length <= 20) ?? `${t}｜${saturday}`;
 }
 
 /** A later day after the first, without the month they share: "15", or "12-01". */
@@ -205,9 +205,8 @@ const TYPE_ZH: Record<string, string> = {
 export const peopleZh = (n: number) => `约${n >= 10000 ? `${Number((n / 10000).toFixed(1))}万` : n}人`;
 
 const dayZh = dayMd;
-/** An alert note's title, at most 20 characters, always ending in the day: "科隆集会出行提醒｜10-31（周六）". */
-function alertTitle(townZh: string, typeZh: string, d: string): string {
-  const day = dayMd(d);
+/** An alert note's title, at most 20 characters, always ending in the ISO day: "科隆集会出行提醒｜2026-10-31". */
+function alertTitle(townZh: string, typeZh: string, day: string): string {
   const type = typeZh === "出行提醒" ? "" : typeZh;
   return [`${townZh}${type}出行提醒｜${day}`, `${townZh}${type}提醒｜${day}`, `${townZh}${type}｜${day}`, `${townZh}｜${day}`]
     .find((t) => [...t].length <= 20) ?? `${townZh}｜${day}`;
