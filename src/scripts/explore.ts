@@ -621,6 +621,6 @@ const hashSeason = location.hash.slice(1);
 if (hashSeason && seasonBtn(hashSeason)) { state.season = hashSeason; state.when = "soon"; }
 // A city page's "all events" button: the next two weeks, not just the weekend.
 else if (hashSeason === "soon") state.when = "soon";
-if (location.hash === "#map") showMap(true, false);
+if (location.hash === "#map" || new URLSearchParams(location.search).get("ev") === "1") showMap(true, false);
 else try { if (localStorage.getItem("lo-map") === "1") showMap(true, false); } catch { /* storage blocked */ }
 loadTiles();
