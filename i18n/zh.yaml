@@ -243,7 +243,7 @@ tasksLater: "以后"
 tasksCount: { one: "{n} 个活动", other: "{n} 个活动" }
 tasksNone: "没有找到。换个词试试，或显示全部。"
 kinds: { playground: 游乐场, indoor: 室内游乐场, park: 公园和花园, zoo: 动物园和动物, farm: 农场, pool: 泳池和湖泊, museum: 博物馆, cafe: 亲子咖啡馆, fun: 游乐园和攀爬园, winter: 溜冰场和雪橇坡 }
-features: { playground: 游乐场, changing_table: 尿布台, highchairs: 儿童餐椅, kids_menu: 儿童餐, toys: 玩具和小礼物, animals: 动物, stroller_friendly: 婴儿车方便, nursing_room: 哺乳角, indoor_play: 室内游戏区, toilets: 卫生间, farm_shop: 农场小店, parking: 停车场, sandpit: 沙坑, water_play: 玩水区, swings: 秋千, slides: 滑梯, climbing: 攀爬, toddler_area: 幼儿区, shade: 遮阴, benches: 长椅, fenced: 有围栏 }
+features: { playground: 游乐场, changing_table: 尿布台, highchairs: 儿童餐椅, kids_menu: 儿童餐, toys: 玩具和小礼物, animals: 动物, stroller_friendly: 婴儿车方便, nursing_room: 哺乳角, indoor_play: 室内游戏区, toilets: 卫生间, farm_shop: 农场小店, parking: 停车场, sandpit: 沙坑, water_play: 玩水区, swings: 秋千, slides: 滑梯, climbing: 攀爬, toddler_area: 幼儿区, shade: 遮阴, benches: 长椅, fenced: 有围栏, birthday: "可以办生日会" }
 tags: { fest: 节庆, animals: 动物, market: 市集, diy: 动手体验, season: 季节活动, reading: 绘本故事, music: 音乐, outside: 户外, stage: 戏剧和电影, sport: 运动, tour: 博物馆和导览, parents: 家长专场, learn: 课程和语言, other: 其他 }
 empty: 这里还没有内容。你知道什么好去处吗？可以在“投稿”中告诉我们。
 install: { button: "安装应用", hint: "可以把小鹿出游添加到主屏幕，像应用一样使用。", hintIos: "点“分享”，再选“添加到主屏幕”，就能像应用一样使用小鹿出游。", short: 安装, dismiss: 关闭, menu: "在浏览器菜单中选择“安装应用”或“添加到主屏幕”。", installed: "小鹿出游已经安装在这台设备上，请从主屏幕或应用列表打开。" }
@@ -357,6 +357,7 @@ chipAsk:
     indoor_play: "那里有室内游戏区吗？"
     toilets: "那里有卫生间吗？"
     farm_shop: "那里有农场小店吗？"
+    birthday: "那里可以办儿童生日会吗？"
     parking: "那里有停车场吗？"
     sandpit: "那里有沙坑吗？"
     water_play: "那里有玩水的地方吗？"
@@ -824,6 +825,10 @@ more:
   giftsDesc: 各城市的年卡和礼券、德国送礼习俗、买玩具前的提示。
 # 生日会页 /zh/kindergeburtstag/（content/birthdays.yaml）
 party:
+  parentsH: 家长推荐
+  parentsTag: 家长提供
+  parentsNote: "“家长推荐”来自至少两位家长在地点页上的确认，没有在官网核对过，预约前请直接问场馆。你去过哪里办生日会？在地点页回答“那里可以办儿童生日会吗？”，或者添加一个新地点。"
+  add: "你知道还有哪里可以办生日会？添加地点"
   nav: 儿童生日会
   title: "儿童生日会场地：动物园、博物馆和植物园"
   sub: "德国很多动物园、博物馆和植物园都可以办儿童生日会：通常是一场导览或工作坊。下面按城市列出，每家都在官网核对过。"

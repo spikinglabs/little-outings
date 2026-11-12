@@ -74,7 +74,7 @@ export function entryOf(x: Event | Place): Entry {
 export const PLACE_KINDS = ["playground", "indoor", "park", "zoo", "farm", "pool", "museum", "cafe", "fun", "winter"];
 export const EVENT_TAGS = ["fest", "animals", "market", "diy", "season", "reading", "music", "outside", "stage", "sport", "tour", "parents", "learn", "other"];
 export const FACILITIES = ["playground", "changing_table", "highchairs", "kids_menu", "toys", "animals", "stroller_friendly",
-  "nursing_room", "indoor_play", "toilets", "farm_shop", "parking", "sandpit", "water_play", "swings", "slides", "climbing",
+  "nursing_room", "indoor_play", "toilets", "farm_shop", "parking", "birthday", "sandpit", "water_play", "swings", "slides", "climbing",
   "toddler_area", "shade", "benches", "fenced"];
 
 export interface Query {
@@ -130,7 +130,7 @@ const WORDS: Record<string, string> = {
 const FAC_WORDS: Record<string, string> = {
   sandpit: "sandpit", sandbox: "sandpit", sandkasten: "sandpit", swings: "swings", swing: "swings", schaukel: "swings",
   slide: "slides", slides: "slides", rutsche: "slides", highchair: "highchairs", highchairs: "highchairs", hochstuhl: "highchairs",
-  wickeltisch: "changing_table", toilets: "toilets", toilet: "toilets", toilette: "toilets", parking: "parking", parkplatz: "parking",
+  wickeltisch: "changing_table", toilets: "toilets", toilet: "toilets", toilette: "toilets", parking: "parking", parkplatz: "parking", geburtstag: "birthday", kindergeburtstag: "birthday", birthday: "birthday",
   fenced: "fenced", eingezäunt: "fenced", climbing: "climbing", klettern: "climbing", shade: "shade", schatten: "shade",
 };
 const STOP = new Set(["the", "and", "for", "with", "kids", "kid", "children", "family", "families", "near", "around", "this",

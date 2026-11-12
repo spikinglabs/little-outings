@@ -244,7 +244,7 @@ tasksLater: "Later"
 tasksCount: { one: "{n} outing", other: "{n} outings" }
 tasksNone: "Nothing matches. Try another word or show everything."
 kinds: { playground: Playground, indoor: Indoor play, park: "Parks & gardens", zoo: "Zoos & animals", farm: Farm, pool: "Pools & lakes", museum: Museum, cafe: Family café, fun: "Theme & adventure parks", winter: "Ice rinks & sledging" }
-features: { playground: Playground, changing_table: Changing table, highchairs: High chairs, kids_menu: "Kids' menu", toys: "Toys & little gifts", animals: Animals, stroller_friendly: Pram-friendly, nursing_room: Nursing corner, indoor_play: Indoor play area, toilets: Toilets, farm_shop: Farm shop, parking: Parking, sandpit: Sandpit, water_play: Water play, swings: Swings, slides: Slides, climbing: Climbing, toddler_area: Toddler area, shade: Shade, benches: Benches, fenced: Fenced in }
+features: { playground: Playground, changing_table: Changing table, highchairs: High chairs, kids_menu: "Kids' menu", toys: "Toys & little gifts", animals: Animals, stroller_friendly: Pram-friendly, nursing_room: Nursing corner, indoor_play: Indoor play area, toilets: Toilets, farm_shop: Farm shop, parking: Parking, sandpit: Sandpit, water_play: Water play, swings: Swings, slides: Slides, climbing: Climbing, toddler_area: Toddler area, shade: Shade, benches: Benches, fenced: Fenced in, birthday: "Birthday parties" }
 tags: { fest: Festival, animals: Animals, market: Market, diy: Hands-on, season: Seasonal, reading: Story time, music: Music, outside: Outdoors, stage: "Theatre & film", sport: "Sport & movement", tour: "Museums & tours", parents: "For parents", learn: "Courses & languages", other: Other }
 empty: Nothing listed here yet. Know something? Add it under Contribute.
 install: { button: "Install the app", hint: "Add Allo Outings to your home screen, it works like an app.", hintIos: "Tap Share, then “Add to Home Screen”, to use Allo Outings like an app.", short: Install, dismiss: Dismiss, menu: "In your browser menu, choose “Install app” or “Add to Home screen”.", installed: "Allo Outings is already installed on this device. Open it from your home screen or app list." }
@@ -358,6 +358,7 @@ chipAsk:
     indoor_play: "Is there an indoor play area?"
     toilets: "Are there toilets?"
     farm_shop: "Is there a farm shop?"
+    birthday: "Can you hold a children's birthday party there?"
     parking: "Is there parking?"
     sandpit: "Is there a sandpit?"
     water_play: "Is there water to play with?"
@@ -825,6 +826,10 @@ more:
   giftsDesc: Annual passes and vouchers per city, German gift customs, tips before buying toys.
 # Birthday parties /en/kindergeburtstag/ (content/birthdays.yaml)
 party:
+  parentsH: Tips from parents
+  parentsTag: From parents
+  parentsNote: "“Tips from parents” were confirmed by at least two parents on the place's page; we have not checked them with the venue, so ask there before booking. Held a party somewhere else? Answer “Can you hold a children's birthday party there?” on its page, or add a new place."
+  add: "Know another place for birthday parties? Add a place"
   nav: Birthday parties
   title: "Children's birthday parties: zoos, museums and gardens"
   sub: "Many zoos, museums and gardens host children's birthday parties, usually with a tour or a workshop. Listed by city, each checked on the place's own page."

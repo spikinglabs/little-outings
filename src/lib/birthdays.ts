@@ -37,3 +37,15 @@ export const loadBirthdays = (file = "content/birthdays.yaml") => parseBirthdays
 
 /** /de/kindergeburtstag/ */
 export const birthdaysPath = (lang: string) => `/${lang}/kindergeburtstag/`;
+
+/**
+ * Places where parents say a children's birthday party can be held: the "birthday" facility is yes, and
+ * when only votes decided it, at least two parents said yes (one tap is not enough to list a venue).
+ */
+export function parentPicks<P extends { facilities: Record<string, { status: string; byVotes?: boolean; votes?: { yes: number; no: number } }> }>(places: P[]): P[] {
+  return places.filter((p) => {
+    const f = p.facilities.birthday;
+    if (!f || f.status !== "yes") return false;
+    return !f.byVotes || (f.votes?.yes ?? 0) >= 2;
+  });
+}

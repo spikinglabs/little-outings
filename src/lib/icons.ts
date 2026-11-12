@@ -24,6 +24,7 @@ export const FEATURE_ICON: Record<string, string> = {
   indoor_play: '<rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/><rect x="8.5" y="4.5" width="7" height="7" rx="1"/>',
   toilets: '<path d="M7 4v16M17 4v16M4 9h6M14 9h6"/>',
   farm_shop: '<path d="M4 9h16l-1.5 11h-13z"/><path d="M8 9l4-5 4 5"/>',
+  birthday: '<path d="M4 20h16M5 20v-7h14v7"/><path d="M5 16c1.5 1 3 1 4.5 0s3-1 4.5 0 3 1 5 0"/><path d="M12 13V9"/><path d="M12 4.5c.9 1 .9 2.2 0 3-.9-.8-.9-2 0-3z"/>',
   parking: '<rect x="4" y="4" width="16" height="16" rx="3"/><path d="M10 16V8h3a2.5 2.5 0 0 1 0 5h-3"/>',
   sandpit: '<path d="M3 20h18"/><path d="M5 11h8l-1.2 6H6.2z"/><path d="M6 11c0-1.7 1.4-3 3-3s3 1.3 3 3"/><path d="M18 4v9M16.3 13h3.4L18 17z"/>',
   water_play: '<path d="M12 3c3 4.4 5 7.2 5 9.8a5 5 0 0 1-10 0C7 10.2 9 7.4 12 3z"/><path d="M3 21c2 0 2-1.5 4.5-1.5S10 21 12 21s2.5-1.5 4.5-1.5S19 21 21 21"/>',
