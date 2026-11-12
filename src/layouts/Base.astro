@@ -20,7 +20,7 @@ interface Props {
   lang: Lang;
   title?: string;
   description?: string;
-  tab?: "explore" | "saved" | "add";
+  tab?: "explore" | "saved" | "add" | "more";
   /** The link preview picture's key (src/lib/og.ts), e.g. eventKey(e); the brand picture otherwise. */
   og?: string;
   /** A ready picture instead, 1200×630 (meetups; functions/m/[id].ts rewrites it and og:url). */
@@ -46,13 +46,14 @@ const footLinks = [
   { href: giftsPath(lang), label: `🎁 ${t("gifts.nav")}` },
 ];
 // The "saved" tab is labelled "Mine": it holds the saved list, what was sent and the profile.
-const TAB_ICON: Record<string, string> = { explore: UI_ICON.explore, saved: UI_ICON.mine, add: UI_ICON.add };
+const TAB_ICON: Record<string, string> = { explore: UI_ICON.explore, saved: UI_ICON.mine, add: UI_ICON.add, more: UI_ICON.more };
 // Path without the language prefix, so the switcher keeps the reader on the same page.
 const rest = Astro.url.pathname.replace(/^\/(de|en|zh)\//, "");
 const tabs = [
   ["explore", ""],
   ["saved", "merkliste/"],
   ["add", "mitmachen/"],
+  ["more", "mehr/"],
 ] as const;
 const pageTitle = title ? `${title} · ${t("siteName")}` : `${t("siteName")} · ${t("tagline")}`;
 const site = Astro.site?.toString().replace(/\/$/, "") ?? "";

@@ -1,0 +1,47 @@
+---
+// The "More" tab: every guide page in one list (weekend editions, city pages, season pages, gift ideas),
+// then help and info. The season pages in their weeks come first, marked "In season".
+import Base from "../../layouts/Base.astro";
+import { LANGS, tr, useT, type Lang } from "../../lib/i18n";
+import { getData, TODAY } from "../../lib/data";
+import { inWindow, seasonPages, seasonPath } from "../../lib/seasons";
+import { giftsPath } from "../../lib/gifts";
+
+export const getStaticPaths = () => LANGS.map((lang) => ({ params: { lang } }));
+const lang = Astro.params.lang as Lang;
+const t = useT(lang);
+const { seasons } = await getData();
+const GIFTS = [{ from: "11-01", to: "12-24" }];
+const pageSeasons = [...new Set(seasonPages(seasons).map((p) => p.season))];
+const timed = [
+  ...pageSeasons.map((s) => ({ href: seasonPath(lang, s), label: `${s.emoji} ${tr(s.page!.nav ?? s.label, lang)}`, desc: tr(s.page!.hub, lang), now: inWindow(s.page!.link ?? s.chip, TODAY) })),
+  { href: giftsPath(lang), label: `🎁 ${t("gifts.nav")}`, desc: t("more.giftsDesc"), now: inWindow(GIFTS, TODAY) },
+].sort((a, b) => Number(b.now) - Number(a.now));
+const guides = [
+  { href: `/${lang}/wochenende/`, label: `📰 ${t("weekend.nav")}`, desc: t("weekend.hubSub"), now: false },
+  { href: `/${lang}/stadt/`, label: `🏙 ${t("city.nav")}`, desc: t("city.hubSub"), now: false },
+];
+const info = [
+  { href: `/${lang}/hilfe/`, label: t("help.link") },
+  { href: `/${lang}/ki/`, label: t("assistant.footer") },
+  { href: `/${lang}/daten`, label: t("about.link") },
+  { href: `/${lang}/impressum`, label: t("legal.link") },
+];
+---
+<Base lang={lang} tab="more" title={t("more.title")} description={t("more.sub")}>
+  <div class="season-page more-page">
+    <h1 class="page-title">{t("more.title")}</h1>
+    <section aria-labelledby="guides-h">
+      <h2 id="guides-h">{t("more.guides")}</h2>
+      <ul class="more-list">
+        {[...timed.filter((x) => x.now), ...guides, ...timed.filter((x) => !x.now)].map((x) => (
+          <li><a href={x.href}><b>{x.label} {x.now && <span class="pill">{t("more.now")}</span>}</b><span class="small">{x.desc}</span></a></li>
+        ))}
+      </ul>
+    </section>
+    <section aria-labelledby="info-h">
+      <h2 id="info-h">{t("more.info")}</h2>
+      <ul class="more-list">{info.map((x) => <li><a href={x.href}><b>{x.label}</b></a></li>)}</ul>
+    </section>
+  </div>
+</Base>

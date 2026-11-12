@@ -403,7 +403,7 @@ footer.foot { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--l
 .app-hint-x { border: 0; background: none; color: var(--ink-soft); font-size: 1.15rem; line-height: 1; padding: 4px 8px; cursor: pointer; border-radius: 8px; }
 
 /* bottom tabs */
-.tabs { position: fixed; left: 0; right: 0; bottom: 0; z-index: 1000; background: var(--card); border-top: 1px solid var(--line); display: grid; grid-template-columns: repeat(3, 1fr); padding: 6px 6px calc(6px + env(safe-area-inset-bottom, 0px)); }
+.tabs { position: fixed; left: 0; right: 0; bottom: 0; z-index: 1000; background: var(--card); border-top: 1px solid var(--line); display: grid; grid-template-columns: repeat(4, 1fr); padding: 6px 6px calc(6px + env(safe-area-inset-bottom, 0px)); }
 .tabs a { display: grid; justify-items: center; gap: 2px; font-size: .74rem; font-weight: 700; color: var(--ink-soft); padding: 6px 0; border-radius: 10px; text-decoration: none; }
 .tabs svg { width: 24px; height: 24px; }
 .tabs a[aria-current="page"] { color: var(--ink); background: var(--tint); box-shadow: inset 0 3px 0 var(--rot); }
@@ -684,3 +684,8 @@ footer.foot { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--l
 .gift-more { margin: 0; padding-left: 1.2em; display: grid; gap: 4px; }
 .gift-safety { padding: 4px 14px 10px; border-radius: 12px; background: var(--card); border: 1px solid var(--rot); border-left-width: 4px; }
 .gift-safety ul { margin: 0; padding-left: 1.2em; display: grid; gap: 4px; }
+
+/* "More" /<lang>/mehr/: every guide page in one list */
+.more-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+.more-list a { display: grid; gap: 2px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); text-decoration: none; color: var(--ink); }
+.more-list .small { color: var(--ink-soft); }
