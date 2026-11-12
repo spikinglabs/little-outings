@@ -49,3 +49,11 @@ export function parentPicks<P extends { facilities: Record<string, { status: str
     return !f.byVotes || (f.votes?.yes ?? 0) >= 2;
   });
 }
+
+/** Places one parent suggested for birthday parties that no other parent has confirmed yet (one yes, no no). */
+export function parentProposals<P extends { facilities: Record<string, { status: string; byVotes?: boolean; votes?: { yes: number; no: number } }> }>(places: P[]): P[] {
+  return places.filter((p) => {
+    const f = p.facilities.birthday;
+    return !!f && f.status === "yes" && !!f.byVotes && f.votes?.yes === 1 && (f.votes?.no ?? 0) === 0;
+  });
+}

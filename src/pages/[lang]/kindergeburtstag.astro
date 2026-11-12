@@ -6,7 +6,7 @@ import TownFilter from "../../components/TownFilter.astro";
 import { LANGS, tr, useT, type Lang } from "../../lib/i18n";
 import { getData } from "../../lib/data";
 import { townName } from "../../lib/format";
-import { loadBirthdays, parentPicks } from "../../lib/birthdays";
+import { loadBirthdays, parentPicks, parentProposals } from "../../lib/birthdays";
 import { nameOf, pathFor, areaName } from "../../lib/format";
 import { giftsPath } from "../../lib/gifts";
 
@@ -16,7 +16,10 @@ const t = useT(lang);
 const p = t.group("party") as unknown as { tips: string[] };
 const { region, places } = await getData();
 const picks = parentPicks(places);
-const picksIn = (town: string) => picks.filter((x) => x.town === town).sort((a, b) => a.name.localeCompare(b.name));
+const proposals = parentProposals(places);
+const inTown = <T extends { town?: string; name: string }>(list: T[], town: string) => list.filter((x) => x.town === town).sort((a, b) => a.name.localeCompare(b.name));
+const picksIn = (town: string) => inTown(picks, town);
+const proposalsIn = (town: string) => inTown(proposals, town);
 const data = loadBirthdays();
 const day = (d: string) => new Intl.DateTimeFormat(t.locale, { timeZone: "UTC", day: "numeric", month: "long", year: "numeric" }).format(new Date(`${d}T12:00:00Z`));
 const fold = (s: string) => s.normalize("NFD").replace(/\p{M}/gu, "").replace(/ß/g, "ss").toLowerCase();
@@ -51,6 +54,17 @@ const pickTowns = (list: { town: string }[]) => list.map((x) => {
             <ul class="gift-list">
               {picksIn(x.town).map((pl) => (
                 <li class="gift"><span class="gift-kind">{t("party.parentsTag")}</span><b><a href={pathFor(lang, pl)}>{nameOf(pl, lang)}</a></b><p>{areaName(pl, lang, region.towns)}</p></li>
+              ))}
+            </ul>
+          </>
+        )}
+        {proposalsIn(x.town).length > 0 && (
+          <>
+            <h3>{t("party.proposedH")}</h3>
+            <p class="small">{t("party.proposedNote")}</p>
+            <ul class="gift-list">
+              {proposalsIn(x.town).map((pl) => (
+                <li class="gift"><span class="gift-kind">{t("party.proposedTag")}</span><b><a href={pathFor(lang, pl)}>{nameOf(pl, lang)}</a></b><p>{areaName(pl, lang, region.towns)}</p></li>
               ))}
             </ul>
           </>
