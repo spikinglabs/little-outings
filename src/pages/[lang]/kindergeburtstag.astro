@@ -1,0 +1,54 @@
+---
+// Children's birthday parties at zoos, museums and gardens (content/birthdays.yaml), per town, with a few
+// things to know before booking. No prices: each place links to its own page.
+import Base from "../../layouts/Base.astro";
+import TownFilter from "../../components/TownFilter.astro";
+import { LANGS, tr, useT, type Lang } from "../../lib/i18n";
+import { getData } from "../../lib/data";
+import { townName } from "../../lib/format";
+import { loadBirthdays } from "../../lib/birthdays";
+import { giftsPath } from "../../lib/gifts";
+
+export const getStaticPaths = () => LANGS.map((lang) => ({ params: { lang } }));
+const lang = Astro.params.lang as Lang;
+const t = useT(lang);
+const p = t.group("party") as unknown as { tips: string[] };
+const { region } = await getData();
+const data = loadBirthdays();
+const day = (d: string) => new Intl.DateTimeFormat(t.locale, { timeZone: "UTC", day: "numeric", month: "long", year: "numeric" }).format(new Date(`${d}T12:00:00Z`));
+const fold = (s: string) => s.normalize("NFD").replace(/\p{M}/gu, "").replace(/ß/g, "ss").toLowerCase();
+const pickTowns = (list: { town: string }[]) => list.map((x) => {
+  const r = region.towns.find((h) => h.name === x.town);
+  return { town: x.town, label: townName(x.town, lang, region.towns), keys: [x.town, r?.en, r?.zh].filter(Boolean).map((k) => fold(k!)).join("|") };
+});
+---
+<Base lang={lang} title={t("party.title")} description={t("party.sub")}>
+  <div class="season-page gifts-page">
+    <a class="back" href={`/${lang}/mehr/`}>← {t("more.title")}</a>
+    <p class="eyebrow">🎂 {t("party.nav")}</p>
+    <h1 class="page-title">{t("party.title")}</h1>
+    <p class="page-sub">{t("party.sub")}</p>
+    <TownFilter lang={lang} towns={pickTowns(data.towns)} />
+    {data.towns.map((x) => (
+      <div class="gift-town" id={x.slug} data-town-section={x.town}>
+        <h2>{townName(x.town, lang, region.towns)}</h2>
+        <ul class="gift-list">
+          {x.items.map((item) => (
+            <li class="gift">
+              {item.from != null && <span class="gift-kind">{t("party.ages", { from: item.from })}</span>}
+              <b>{item.name}</b>
+              <p>{tr(item.note, lang)}</p>
+              <a href={item.url} target="_blank" rel="noopener">{t("party.book")} ↗</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+    <p class="small">{t("party.checked", { date: day(data.checked) })}</p>
+    <section aria-labelledby="tips-h">
+      <h2 id="tips-h">{t("party.tipsH")}</h2>
+      <ul class="gift-more">{p.tips.map((s) => <li>{s}</li>)}</ul>
+    </section>
+    <p><a class="chip" href={giftsPath(lang)}>🎁 {t("party.gifts")}</a></p>
+  </div>
+</Base>

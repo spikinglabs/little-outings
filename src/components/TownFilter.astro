@@ -1,0 +1,79 @@
+---
+// The town picker of a guide page (gift ideas, birthday parties): the same button and searchable sheet as on
+// Discover, sharing its home town both ways. It shows one town's section ([data-town-section]) and hides the rest; "All cities" shows every one.
+// It starts on the reader's home town, or the nearest town with a section within 40 km (Hürth gets Köln).
+// Without JavaScript every section shows, so search engines and old browsers see the whole page.
+import { useT, type Lang } from "../lib/i18n";
+import { svg, UI_ICON } from "../lib/icons";
+
+interface Props { lang: Lang; towns: { town: string; label: string; keys: string }[] }
+const { lang, towns } = Astro.props;
+const t = useT(lang);
+---
+<p class="guide-town" data-guide-town hidden>
+  <button class="chip town-btn" type="button" data-guide-home aria-haspopup="dialog">📍 {t("city.pick")} <b data-guide-name>{t("city.all")}</b><span class="caret" aria-hidden="true">▾</span></button>
+</p>
+<dialog class="sheet town-sheet" data-guide-sheet aria-label={t("city.pick")}>
+  <form method="dialog">
+    <label class="search">
+      <span class="sr-only">{t("townPh")}</span>
+      <Fragment set:html={svg(UI_ICON.search, 'stroke-width="2"')} />
+      <input type="search" data-guide-q placeholder={t("townPh")} autocomplete="off" enterkeyhint="go" />
+    </label>
+    <ul class="town-list" data-guide-list>
+      <li><button type="submit" value="*" data-guide-row data-keys="*">{t("city.all")}</button></li>
+      {towns.map((x) => <li><button type="submit" value={x.town} data-guide-row data-keys={x.keys}>{x.label}</button></li>)}
+    </ul>
+    <p class="small" data-guide-none hidden>{t("townNone")}</p>
+  </form>
+</dialog>
+<script>
+  import { getHome, setHome, townKm } from "../scripts/app";
+  const $ = <T extends HTMLElement>(s: string) => document.querySelector<T>(s)!;
+  const sheet = $<HTMLDialogElement>("[data-guide-sheet]");
+  const q = $<HTMLInputElement>("[data-guide-q]");
+  const rows = [...document.querySelectorAll<HTMLButtonElement>("[data-guide-row]")];
+  const sections = [...document.querySelectorAll<HTMLElement>("[data-town-section]")];
+  const fold = (s: string) => s.normalize("NFD").replace(/\p{M}/gu, "").replace(/ß/g, "ss").toLowerCase().trim();
+  let current = "*";
+  function show(town: string) {
+    current = town;
+    for (const s of sections) s.hidden = town !== "*" && s.dataset.townSection !== town;
+    $("[data-guide-name]").textContent = rows.find((r) => r.value === town)?.textContent ?? "";
+  }
+  // The home town, else the nearest town on the page within 40 km, else all of them.
+  function start(): string {
+    const home = getHome();
+    let best = "*", bestKm = 40;
+    for (const s of sections) {
+      const d = s.dataset.townSection === home ? 0 : townKm(home, s.dataset.townSection!);
+      if (d != null && d < bestKm) { best = s.dataset.townSection!; bestKm = d; }
+    }
+    return best;
+  }
+  function filter() {
+    const v = fold(q.value);
+    let n = 0;
+    for (const r of rows) { const hit = !v || r.dataset.keys!.split("|").some((k) => k.includes(v)); r.parentElement!.hidden = !hit; if (hit) n++; }
+    $("[data-guide-none]").hidden = n > 0;
+  }
+  $("[data-guide-town]").hidden = false;
+  show(start());
+  $("[data-guide-home]").addEventListener("click", () => {
+    q.value = "";
+    rows.forEach((r) => r.setAttribute("aria-current", String(r.value === current)));
+    filter();
+    sheet.showModal();
+    if (matchMedia("(pointer: fine)").matches) q.focus();
+  });
+  q.addEventListener("input", filter);
+  q.addEventListener("keydown", (e) => {
+    if (e.key !== "Enter") return;
+    e.preventDefault();
+    const first = rows.find((r) => !r.parentElement!.hidden);
+    if (first) { sheet.close(); pick(first.value); }
+  });
+  // A town picked here becomes the home town on Discover too, so the reader picks it once.
+  const pick = (town: string) => { show(town); if (town !== "*") setHome(town); };
+  sheet.addEventListener("close", () => { if (sheet.returnValue) pick(sheet.returnValue); sheet.returnValue = ""; });
+</script>

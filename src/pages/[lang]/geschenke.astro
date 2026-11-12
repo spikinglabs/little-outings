@@ -3,6 +3,7 @@
 // upcoming kids' bazaars and a toy-safety box linking to Allo Recalls. No products and no brands.
 // The Chinese pages show the customs first: that is what families new to Germany ask about.
 import Base from "../../layouts/Base.astro";
+import TownFilter from "../../components/TownFilter.astro";
 import Card from "../../components/Card.astro";
 import GiftCustoms from "../../components/GiftCustoms.astro";
 import { LANGS, tr, useT, type Lang } from "../../lib/i18n";
@@ -24,6 +25,11 @@ const basare = events.filter((e) => e.seasons?.includes("basar") && e.start >= T
   .filter((e) => { const n = perTown.get(e.town ?? "") ?? 0; perTown.set(e.town ?? "", n + 1); return n < 3; }).slice(0, 12);
 const day = (d: string) => new Intl.DateTimeFormat(t.locale, { timeZone: "UTC", day: "numeric", month: "long", year: "numeric" }).format(new Date(`${d}T12:00:00Z`));
 const customsFirst = lang === "zh";
+const fold = (s: string) => s.normalize("NFD").replace(/\p{M}/gu, "").replace(/ß/g, "ss").toLowerCase();
+const pickTowns = (list: { town: string }[]) => list.map((x) => {
+  const r = region.towns.find((h) => h.name === x.town);
+  return { town: x.town, label: townName(x.town, lang, region.towns), keys: [x.town, r?.en, r?.zh].filter(Boolean).map((k) => fold(k!)).join("|") };
+});
 ---
 <Base lang={lang} title={t("gifts.title")} description={t("gifts.sub")}>
   <div class="season-page gifts-page">
@@ -37,11 +43,9 @@ const customsFirst = lang === "zh";
     <section aria-labelledby="exp-h">
       <h2 id="exp-h">{t("gifts.experiencesH")}</h2>
       <p>{t("gifts.experiencesP")}</p>
-      <nav class="gift-towns" aria-label={t("gifts.towns")}>
-        {gifts.towns.map((x) => <a class="chip" href={`#${x.slug}`}>{townName(x.town, lang, region.towns)}</a>)}
-      </nav>
+      <TownFilter lang={lang} towns={pickTowns(gifts.towns)} />
       {gifts.towns.map((x) => (
-        <div class="gift-town" id={x.slug}>
+        <div class="gift-town" id={x.slug} data-town-section={x.town}>
           <h3>{townName(x.town, lang, region.towns)}</h3>
           <ul class="gift-list">
             {x.items.map((item) => (

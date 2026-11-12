@@ -2,6 +2,7 @@
 // German gift customs (content/gifts.yaml `customs`) on the gift ideas page.
 import { tr, type Lang, type T } from "../lib/i18n";
 import type { Custom } from "../lib/gifts";
+import { birthdaysPath } from "../lib/birthdays";
 
 interface Props { lang: Lang; t: T; customs: Custom[] }
 const { lang, t, customs } = Astro.props;
@@ -10,7 +11,7 @@ const { lang, t, customs } = Astro.props;
   <h2 id="customs-h">{t("gifts.customsH")}</h2>
   <ul class="gift-customs">
     {customs.map((c) => (
-      <li><span class="gift-emoji" aria-hidden="true">{c.emoji}</span><div><b>{tr(c.title, lang)}</b> <span class="small">{tr(c.when, lang)}</span><p>{tr(c.text, lang)}</p></div></li>
+      <li><span class="gift-emoji" aria-hidden="true">{c.emoji}</span><div><b>{tr(c.title, lang)}</b> <span class="small">{tr(c.when, lang)}</span><p>{tr(c.text, lang)}</p>{c.id === "geburtstag" && <p><a href={birthdaysPath(lang)}>🎂 {t("party.nav")} →</a></p>}</div></li>
     ))}
   </ul>
 </section>

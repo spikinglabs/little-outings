@@ -1,0 +1,110 @@
+# Children's birthday parties at zoos, museums and gardens, per town (src/lib/birthdays.ts, page
+# /<lang>/kindergeburtstag/). Every place was checked on its own page on the `checked` date. No prices (they
+# change; the link has today's), only the ages the place names. Book weeks ahead; popular dates go first.
+#
+#   from   the youngest age the place names; leave out when its page names none
+
+checked: 2026-11-12
+towns:
+  - slug: koeln
+    town: Köln
+    items:
+      - name: Kölner Zoo
+        url: https://koelnerzoo.de/feiern-ferien/#geburtstag
+        from: 5
+        note:
+          de: "Themenführungen, etwa auf dem Bauernhof Clemenshof oder auf Spurensuche bei Giraffe und Tiger."
+          en: "Themed tours, for example on the Clemenshof farm or tracking giraffes and tigers."
+          zh: "有主题导览，比如在动物园农场 Clemenshof 认识家畜，或者跟着长颈鹿和老虎的足迹探索。"
+      - name: Museen der Stadt Köln
+        url: https://www.museen.koeln/besuchen/angebote/kinder-und-familien/kindergeburtstag
+        from: 5
+        note:
+          de: "Ein Rundgang durch die Ausstellung und ein Workshop im Werkraum oder Atelier; je nach Workshop ab 5, 7 oder 8 Jahren."
+          en: "A tour of the exhibition and a workshop in a studio; from age 5, 7 or 8 depending on the workshop."
+          zh: "先参观展览，再到工作室做手工；不同工作坊分别适合 5、7 或 8 岁以上的孩子。"
+  - slug: bonn
+    town: Bonn
+    items:
+      - name: Museum Koenig
+        url: https://bonn.leibniz-lib.de/de/museum/fuehrungen-programme/kindergeburtstage
+        note:
+          de: "Das Naturkundemuseum hat eigene Geburtstagsprogramme; Anmeldung im Online-Shop."
+          en: "The natural history museum has its own birthday programmes; book in the online shop."
+          zh: "自然历史博物馆，有专门的生日会项目，在网店预约。"
+  - slug: duesseldorf
+    town: Düsseldorf
+    items:
+      - name: Filmmuseum Düsseldorf
+        url: https://www.duesseldorf.de/filmmuseum/medienpaedagogik/kindergeburtstag
+        from: 7
+        note:
+          de: "Führungen und Workshops rund um Film, etwa Geräusche zum Stummfilm machen oder selbst drehen."
+          en: "Tours and workshops about film, such as adding sounds to a silent film or shooting your own."
+          zh: "围绕电影的导览和工作坊，比如给默片配音效，或者自己拍一段小电影。"
+  - slug: berlin
+    town: Berlin
+    items:
+      - name: Zoo Berlin
+        url: https://www.zoo-berlin.de/de/tickets-service/fuehrungen-erlebnisse
+        note:
+          de: "Geburtstagsführungen durch den Zoo; im Online-Shop unter „Kindergeburtstag planen“."
+          en: "Birthday tours of the zoo; in the online shop under “Kindergeburtstag planen”."
+          zh: "动物园生日导览，在网店的“Kindergeburtstag planen”下预约。"
+      - name: Museum für Naturkunde
+        url: https://www.museumfuernaturkunde.berlin/en/participate/education/childrens-birthday-parties
+        from: 5
+        note:
+          de: "Geburtstagsführung oder Dinosaurier-Party ab 5, Ausgrabung ab 8; Führungen auch auf Englisch. Termine für 2027 sind schon buchbar."
+          en: "Birthday tour or dinosaur party from age 5, a dig from age 8; tours in English too. Dates for 2027 can already be booked."
+          zh: "5 岁起有生日导览和恐龙派对，8 岁起有“化石挖掘”；也有英语导览。2027 年的日期已经可以预约。"
+  - slug: muenchen
+    town: München
+    items:
+      - name: Tierpark Hellabrunn
+        url: https://www.hellabrunn.de/parkbesuch/fuehrungen-und-geschenke/fuehrungen-und-besondere-erlebnisse/kindergeburtstage
+        from: 4
+        note:
+          de: "Ab 4 Jahren, zum Beispiel bei den Nutztieren im Mühlendorf; Matschhosen mitbringen."
+          en: "From age 4, for example with the farm animals in the Mühlendorf; bring muddy-weather trousers."
+          zh: "4 岁起可以参加，比如去 Mühlendorf 看家畜；记得带防水裤。"
+      - name: Deutsches Museum
+        url: https://www.deutsches-museum.de/museumsinsel/programm/programm-a-z/kindergeburtstag
+        from: 3
+        note:
+          de: "Feier im Kinderreich für 3- bis 8-Jährige oder eine Führung für 8- bis 12-Jährige."
+          en: "A party in the Kinderreich for ages 3 to 8, or a tour for ages 8 to 12."
+          zh: "3 到 8 岁可以在儿童王国（Kinderreich）开派对，8 到 12 岁可以参加导览。"
+  - slug: frankfurt
+    town: Frankfurt am Main
+    items:
+      - name: Senckenberg Naturmuseum
+        url: https://museumfrankfurt.senckenberg.de/de/programm/kindergeburtstag/
+        from: 5
+        note:
+          de: "Geburtstagsführungen und Programme für verschiedene Altersstufen, ab dem 5. Geburtstag; Buchung per Telefon."
+          en: "Birthday tours and programmes for different ages, from the 5th birthday; booked by phone."
+          zh: "有生日导览和不同年龄段的项目，5 岁生日起可以参加，电话预约。"
+      - name: Zoo Frankfurt
+        url: https://www.zoo-frankfurt.de/de/bildung/kindergeburtstag
+        from: 6
+        note:
+          de: "Geburtstagsführung ab 6 Jahren; nur telefonisch und mindestens vier Wochen vorher buchbar."
+          en: "Birthday tour from age 6; booked by phone only, at least four weeks ahead."
+          zh: "6 岁起的生日导览；只能电话预约，至少提前四周。"
+      - name: Palmengarten
+        url: https://www.palmengarten.de/de/fuehrungen-bildungsangebote/gruene-schule.html
+        from: 6
+        note:
+          de: "Zwei Stunden im Tropicarium und Werkraum; einen Geburtstagskuchen dürft ihr für die Pause mitbringen."
+          en: "Two hours in the Tropicarium and workshop room; you may bring a birthday cake for the break."
+          zh: "在热带温室和工作室度过两小时，中间休息时可以自带生日蛋糕。"
+  - slug: hamburg
+    town: Hamburg
+    items:
+      - name: Tierpark Hagenbeck
+        url: https://shop.hagenbeck.de/de/category/40
+        note:
+          de: "Die Zooschule hilft bei der Planung; im Online-Shop des Tierparks."
+          en: "The zoo school helps plan the party; in the zoo's online shop."
+          zh: "动物园学校会帮忙策划，在动物园网店预约。"

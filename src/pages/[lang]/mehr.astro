@@ -6,6 +6,7 @@ import { LANGS, tr, useT, type Lang } from "../../lib/i18n";
 import { getData, TODAY } from "../../lib/data";
 import { inWindow, seasonPages, seasonPath } from "../../lib/seasons";
 import { giftsPath } from "../../lib/gifts";
+import { birthdaysPath } from "../../lib/birthdays";
 
 export const getStaticPaths = () => LANGS.map((lang) => ({ params: { lang } }));
 const lang = Astro.params.lang as Lang;
@@ -20,6 +21,7 @@ const timed = [
 const guides = [
   { href: `/${lang}/wochenende/`, label: `📰 ${t("weekend.nav")}`, desc: t("weekend.hubSub"), now: false },
   { href: `/${lang}/stadt/`, label: `🏙 ${t("city.nav")}`, desc: t("city.hubSub"), now: false },
+  { href: birthdaysPath(lang), label: `🎂 ${t("party.nav")}`, desc: t("party.desc"), now: false },
 ];
 const info = [
   { href: `/${lang}/hilfe/`, label: t("help.link") },
