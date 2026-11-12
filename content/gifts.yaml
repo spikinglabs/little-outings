@@ -1,0 +1,202 @@
+# Gift ideas for children: annual passes, vouchers and animal sponsorships per town
+# (src/lib/gifts.ts, page /<lang>/geschenke/). Every item was checked on the provider's own page on the `checked`
+# date. No prices: they change and the link shows today's. No shops, no products, no brands.
+#
+#   town      as the region files spell it (Köln, Frankfurt am Main); slug is the #anchor on the page
+#   items     kind: pass (annual pass), voucher (gift voucher), sponsor (animal sponsorship)
+#             name: the venue and offer as it calls itself; place: a place id when we have its page
+#             note: one line on what the child gets; url: the provider's page where it is sold or explained
+
+checked: 2026-11-12
+towns:
+  - slug: koeln
+    town: Köln
+    items:
+      - kind: pass
+        name: Kölner Zoo – Jahreskarte
+        url: https://shop.koelnerzoo.de/de/categories/4
+        note:
+          de: "365 Tage Zoo, auch als Familien-Jahreskarte. Im Online-Shop des Zoos zu kaufen."
+          en: "A year of zoo visits, also as a family pass. Sold in the zoo's online shop."
+          zh: "一年内随时去动物园，也有家庭年卡。可在动物园网店购买。"
+      - kind: sponsor
+        name: Kölner Zoo – Tierpatenschaft
+        url: https://foerdern.koelnerzoo.de/patenschaften
+        note:
+          de: "Eine Patenschaft für das Lieblingstier: Damit unterstützt das Kind den Zoo und seine Tiere."
+          en: "Sponsor a favourite animal: the child supports the zoo and its animals."
+          zh: "以孩子的名义认养最喜欢的动物，支持动物园和它的动物。"
+      - kind: pass
+        name: Jahreskarte der Kölner Museen
+        url: https://www.stadt-koeln.de/artikel/04348/index.html
+        note:
+          de: "Ein Jahr lang in die städtischen Museen, für die Eltern, die mitgehen."
+          en: "A year in the city's museums, for the parents who go along."
+          zh: "一年内可参观科隆市立博物馆，适合送给陪孩子去的家长。"
+  - slug: bonn
+    town: Bonn
+    items:
+      - kind: voucher
+        name: Junges Theater Bonn – Geschenkgutschein
+        url: https://www.jt-bonn.de/preise/gutscheine/
+        note:
+          de: "Theater für Kinder und Familien; der Gutschein gilt für einen Besuch nach Wahl."
+          en: "Theatre for children and families; the voucher is for a show of their choice."
+          zh: "儿童和家庭剧场，礼券可以自己挑场次。"
+      - kind: voucher
+        name: Theater Bonn – Gutschein
+        url: https://www.theater-bonn.de/de/karten-und-abos/gutscheine
+        note:
+          de: "Gilt auch für die Stücke für junges Publikum, etwa die Kinderoper."
+          en: "Also good for the shows for young audiences, such as children's opera."
+          zh: "也可以用于给小观众的演出，比如儿童歌剧。"
+  - slug: duesseldorf
+    town: Düsseldorf
+    items:
+      - kind: voucher
+        name: Düsseldorfer Schauspielhaus – Gutschein
+        url: https://www.dhaus.de/home/junges-schauspiel/
+        note:
+          de: "Gilt auch für das Junge Schauspiel, das Theater für Kinder und Jugendliche."
+          en: "Also good for the Junges Schauspiel, its theatre for children and teenagers."
+          zh: "也可以用于 Junges Schauspiel，即剧院的儿童青少年剧场。"
+  - slug: berlin
+    town: Berlin
+    items:
+      - kind: pass
+        name: Zoo, Aquarium und Tierpark Berlin – Jahreskarte
+        url: https://www.zoo-berlin.de/de/tickets-service/tickets-preise
+        note:
+          de: "Für den Zoo allein oder mit Aquarium und Tierpark, mit eigenen Kinderpreisen."
+          en: "For the zoo alone or with the aquarium and Tierpark, with children's prices."
+          zh: "可以只买动物园，也可以连同水族馆和 Tierpark 一起，有儿童价。"
+      - kind: voucher
+        name: Zoo Berlin – Gutscheine
+        url: https://shop.zoo-berlin.de/de/categories/10
+        note:
+          de: "Für einen Tag im Zoo, im Online-Shop zum Ausdrucken."
+          en: "For a day at the zoo, from the online shop to print."
+          zh: "送一天动物园游玩，网店购买后可打印。"
+      - kind: pass
+        name: Deutsches Technikmuseum – Jahreskarte
+        url: https://technikmuseum.berlin/besuch/tickets
+        note:
+          de: "Ein Jahr lang Züge, Flugzeuge und das Science Center Spectrum."
+          en: "A year of trains, planes and the Spectrum science centre."
+          zh: "一年内随时去看火车、飞机，还有 Spectrum 科学中心。"
+  - slug: muenchen
+    town: München
+    items:
+      - kind: pass
+        name: Tierpark Hellabrunn – Jahreskarte
+        url: https://www.hellabrunn.de/parkbesuch/allgemeine-informationen/tickets
+        note:
+          de: "Für Kinder, Erwachsene, kleine und große Familien. Gutscheine gibt es auch online."
+          en: "For children, adults, small and large families. Vouchers are sold online too."
+          zh: "有儿童、成人、小家庭和大家庭年卡，也可以在网上买礼券。"
+      - kind: pass
+        name: Deutsches Museum – Jahreskarte
+        url: https://www.deutsches-museum.de/museumsinsel/besuch/preise-und-tickets/jahreskarte
+        note:
+          de: "Ein Jahr lang alle Münchner Häuser des Museums; laut Museum ab dem vierten Besuch günstiger."
+          en: "A year at all the museum's Munich sites; the museum says it pays off from the fourth visit."
+          zh: "一年内可去博物馆在慕尼黑的所有场馆，博物馆称去第四次就回本。"
+      - kind: voucher
+        name: Schauburg – Theatergutschein
+        url: https://www.schauburg.net/de
+        note:
+          de: "Das Theater für junges Publikum; den Betrag des Gutscheins legt ihr selbst fest."
+          en: "The city's theatre for young audiences; you choose the voucher's amount."
+          zh: "慕尼黑的青少年剧场，礼券金额可以自己定。"
+  - slug: frankfurt
+    town: Frankfurt am Main
+    items:
+      - kind: pass
+        name: MuseumsuferCard Familie
+        url: https://museumsufer.de/de/eintritt-und-tickets/dauerkarten/museumsufercard/
+        note:
+          de: "Ein Jahr lang 39 Museen für zwei Erwachsene und ihre Kinder unter 18."
+          en: "A year in 39 museums for two adults and their children under 18."
+          zh: "一年内可去 39 家博物馆，适用于两位成人和 18 岁以下的孩子。"
+      - kind: pass
+        name: Zoo Frankfurt – Jahreskarte
+        url: https://www.zoo-frankfurt.de/zoobesuch-planen/tickets/jahreskarten/
+        note:
+          de: "Auch als Familien-Jahreskarte; mit eigenem Eingang für Jahreskarten."
+          en: "Also as a family pass, with its own entrance for pass holders."
+          zh: "也有家庭年卡，年卡持有人走单独入口。"
+  - slug: hamburg
+    town: Hamburg
+    items:
+      - kind: pass
+        name: Tierpark Hagenbeck – Jahreskarte
+        url: https://shop.hagenbeck.de/de
+        note:
+          de: "Ein Jahr Tierpark, für Kinder ab 4 mit eigenem Preis; ein Jahr ab Ausstellung gültig."
+          en: "A year at the zoo, with a children's price from age 4; valid for a year from issue."
+          zh: "一年内随时去动物园，4 岁起有儿童价，自开卡起一年有效。"
+      - kind: voucher
+        name: Tierpark Hagenbeck – Gutschein
+        url: https://shop.hagenbeck.de/de/category/29
+        note:
+          de: "Für einen Tag im Tierpark, im Online-Shop."
+          en: "For a day at the zoo, from the online shop."
+          zh: "送一天动物园游玩，网店有售。"
+      - kind: voucher
+        name: Planetarium Hamburg – Gutschein
+        url: https://www.planetarium-hamburg.de/de/startseite
+        note:
+          de: "Für eine Show unter der Kuppel; es gibt eigene Kindershows."
+          en: "For a show under the dome; there are shows made for children."
+          zh: "送一场球幕演出，有专门给孩子的场次。"
+
+# German gift customs for families new to Germany (the Chinese pages show this part first).
+customs:
+  - id: advent
+    emoji: "🗓️"
+    when: { de: 1.–24. Dezember, en: 1–24 December, zh: 12月1日至24日 }
+    title: { de: Adventskalender, en: Advent calendar, zh: 降临节日历 }
+    text:
+      de: "Jeden Tag ein Türchen bis Heiligabend. Viele Eltern füllen 24 kleine Säckchen selbst, mit Kleinigkeiten oder einem Zettel für einen Ausflug."
+      en: "One little door a day until Christmas Eve. Many parents fill 24 small bags themselves, with small things or a note for an outing."
+      zh: "从12月1日起每天开一个小格子，一直到平安夜。很多家长自己装24个小袋子，放小东西，或者放一张“这周去哪玩”的小纸条。"
+  - id: nikolaus
+    emoji: "🥾"
+    when: { de: 5./6. Dezember, en: 5–6 December, zh: 12月5日晚至6日 }
+    title: { de: Nikolaus, en: St. Nicholas, zh: 圣尼古拉斯节 }
+    text:
+      de: "Am Abend des 5. Dezember stellen Kinder geputzte Stiefel vor die Tür. Am Morgen liegen Nüsse, Mandarinen, Schokolade oder eine Kleinigkeit darin. In vielen Kitas kommt der Nikolaus zu Besuch."
+      en: "On the evening of 5 December, children put cleaned boots outside the door. In the morning there are nuts, tangerines, chocolate or a small present in them. Many Kitas get a visit from St. Nicholas."
+      zh: "12月5日晚上，孩子把擦干净的靴子放在门口，第二天早上靴子里会有坚果、橘子、巧克力或小礼物。很多幼儿园这天会有“圣尼古拉斯”来访。"
+  - id: heiligabend
+    emoji: "🎁"
+    when: { de: 24. Dezember, en: 24 December, zh: 12月24日 }
+    title: { de: Heiligabend und Bescherung, en: Christmas Eve, zh: 平安夜拆礼物 }
+    text:
+      de: "In Deutschland gibt es die Geschenke meist schon am Abend des 24., nicht am Morgen des 25. In vielen Familien bringt sie das Christkind, in anderen der Weihnachtsmann."
+      en: "In Germany presents are usually opened on the evening of the 24th, not the morning of the 25th. In many families the Christkind brings them, in others Father Christmas."
+      zh: "德国一般在24日晚上就拆礼物，而不是25日早上。很多家庭说礼物是“圣婴（Christkind）”送来的，也有家庭说是圣诞老人。"
+  - id: wichteln
+    emoji: "🎲"
+    when: { de: Dezember, en: December, zh: 12月 }
+    title: { de: Wichteln, en: Secret Santa, zh: 抽签互送小礼物 }
+    text:
+      de: "In Klassen und Kitas zieht jedes Kind einen Namen und schenkt eine Kleinigkeit. Den Betrag legen die Eltern oder die Erzieher vorher fest."
+      en: "In classes and Kitas each child draws a name and gives a small present. Parents or teachers agree the amount beforehand."
+      zh: "班级或幼儿园里每个孩子抽一个名字，给对方准备一份小礼物。金额通常由家长或老师事先约定。"
+  - id: geburtstag
+    emoji: "🎂"
+    when: { de: Das ganze Jahr, en: All year, zh: 全年 }
+    title: { de: Kindergeburtstag, en: Children's birthday parties, zh: 孩子的生日会 }
+    text:
+      de: "Gäste bringen ein Geschenk mit; was üblich ist, klärt man am besten im Elternchat. Manchmal legen mehrere Familien für ein größeres Geschenk zusammen. Am Ende bekommt jedes Gastkind ein kleines Mitgebsel."
+      en: "Guests bring a present; the parents' chat is the best place to ask what is usual. Sometimes several families club together for a bigger one. At the end each guest gets a small goody bag (Mitgebsel)."
+      zh: "受邀的孩子要带礼物，多少钱合适最好在家长群里问一下；有时几家会凑钱送一份大礼物。生日会结束时，主人家会给每个小客人一个小礼物袋（Mitgebsel）。"
+  - id: schultuete
+    emoji: "🎒"
+    when: { de: Einschulung, en: First day of school, zh: 入学第一天 }
+    title: { de: Schultüte, en: School cone, zh: 入学礼筒 }
+    text:
+      de: "Zum ersten Schultag bekommen Kinder eine große Tüte mit Süßem und Schulsachen. Oft wird sie im letzten Kita-Jahr gemeinsam gebastelt."
+      en: "On the first day of school children get a big cone of sweets and school things. It is often made together in the last Kita year."
+      zh: "上小学第一天，孩子会收到一个装满糖果和文具的大纸筒。很多幼儿园会在最后一年带家长一起做。"

@@ -1,0 +1,86 @@
+---
+// Gift ideas for children (content/gifts.yaml): experiences per town, German gift customs,
+// upcoming kids' bazaars and a toy-safety box linking to Allo Recalls. No products and no brands.
+// The Chinese pages show the customs first: that is what families new to Germany ask about.
+import Base from "../../layouts/Base.astro";
+import Card from "../../components/Card.astro";
+import GiftCustoms from "../../components/GiftCustoms.astro";
+import { LANGS, tr, useT, type Lang } from "../../lib/i18n";
+import { getData, TODAY } from "../../lib/data";
+import { townName } from "../../lib/format";
+import { loadGifts } from "../../lib/gifts";
+import { recallsHome } from "../../lib/recalls";
+
+export const getStaticPaths = () => LANGS.map((lang) => ({ params: { lang } }));
+const lang = Astro.params.lang as Lang;
+const t = useT(lang);
+const g = t.group("gifts") as unknown as { more: string[]; safety: string[] };
+const { region, events } = await getData();
+const gifts = loadGifts();
+// Bazaars in the next eight weeks, soonest first, a few per town at most.
+const until = new Date(Date.parse(`${TODAY}T12:00:00Z`) + 56 * 864e5).toISOString().slice(0, 10);
+const perTown = new Map<string, number>();
+const basare = events.filter((e) => e.seasons?.includes("basar") && e.start >= TODAY && e.start <= until && e.geo.precision !== "unknown")
+  .filter((e) => { const n = perTown.get(e.town ?? "") ?? 0; perTown.set(e.town ?? "", n + 1); return n < 3; }).slice(0, 12);
+const day = (d: string) => new Intl.DateTimeFormat(t.locale, { timeZone: "UTC", day: "numeric", month: "long", year: "numeric" }).format(new Date(`${d}T12:00:00Z`));
+const customsFirst = lang === "zh";
+---
+<Base lang={lang} title={t("gifts.title")} description={t("gifts.sub")}>
+  <div class="season-page gifts-page">
+    <a class="back" href={`/${lang}/`}>← {t("back")}</a>
+    <p class="eyebrow">🎁 {t("gifts.nav")}</p>
+    <h1 class="page-title">{t("gifts.title")}</h1>
+    <p class="page-sub">{t("gifts.sub")}</p>
+
+    {customsFirst && <GiftCustoms lang={lang} t={t} customs={gifts.customs} />}
+
+    <section aria-labelledby="exp-h">
+      <h2 id="exp-h">{t("gifts.experiencesH")}</h2>
+      <p>{t("gifts.experiencesP")}</p>
+      <nav class="gift-towns" aria-label={t("gifts.towns")}>
+        {gifts.towns.map((x) => <a class="chip" href={`#${x.slug}`}>{townName(x.town, lang, region.towns)}</a>)}
+      </nav>
+      {gifts.towns.map((x) => (
+        <div class="gift-town" id={x.slug}>
+          <h3>{townName(x.town, lang, region.towns)}</h3>
+          <ul class="gift-list">
+            {x.items.map((item) => (
+              <li class={`gift gift-${item.kind}`}>
+                <span class="gift-kind">{t(`gifts.kind.${item.kind}`)}</span>
+                <b>{item.name}</b>
+                <p>{tr(item.note, lang)}</p>
+                <a href={item.url} target="_blank" rel="noopener">{t("gifts.buy")} ↗</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+      <p class="small">{t("gifts.checked", { date: day(gifts.checked) })}</p>
+    </section>
+
+    <section aria-labelledby="more-h">
+      <h2 id="more-h">{t("gifts.moreH")}</h2>
+      <ul class="gift-more">{g.more.map((m) => <li>{m}</li>)}</ul>
+    </section>
+
+    {!customsFirst && <GiftCustoms lang={lang} t={t} customs={gifts.customs} />}
+
+    <section aria-labelledby="basar-h">
+      <h2 id="basar-h">👕 {t("gifts.basarH")}</h2>
+      {basare.length > 0 ? (
+        <>
+          <p>{t("gifts.basarP")}</p>
+          <div class="grid ideas">{basare.map((e) => <Card item={e} t={t} />)}</div>
+        </>
+      ) : <p>{t("gifts.basarNone")}</p>}
+    </section>
+
+    <section class="gift-safety" aria-labelledby="safety-h">
+      <h2 id="safety-h">⚠ {t("gifts.safetyH")}</h2>
+      <ul>{g.safety.map((s) => <li>{s}</li>)}</ul>
+      <p><a href={recallsHome(lang)} target="_blank" rel="noopener">{t("gifts.recalls")} ↗</a></p>
+    </section>
+
+    <p class="note">{t("gifts.missing")} <a href={`/${lang}/mitmachen/`}>{t("gifts.missingLink")}</a></p>
+  </div>
+</Base>

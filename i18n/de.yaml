@@ -7,7 +7,7 @@ homeDescription: "Ausflüge mit Kindern in Köln, Berlin, München, Hamburg und 
 brandAbout:
   h: Über Allo Outings
   p: "Allo Outings (chinesisch 小鹿出游) ist eine kostenlose Seite für Familien in Deutschland: Termine für Kinder und kinderfreundliche Orte wie Spielplätze, Bauernhöfe, Zoos, Schwimmbäder und Familiencafés in Köln, Berlin, München, Hamburg und weiteren Städten, auf Deutsch, Englisch und Chinesisch. Jede Nacht aktualisiert, ohne Anmeldung. Früher hieß die Seite Little Outings (小出游)."
-tabs: { explore: Entdecken, saved: Meins, add: Neu }
+tabs: { explore: Entdecken, saved: Meins, add: Neu, more: Mehr }
 when: { today: Heute, tomorrow: Morgen, weekend: Wochenende, soon: Nächste 2 Wochen }
 whenIn: { today: heute, tomorrow: morgen, weekend: am Wochenende, soon: in den nächsten 2 Wochen }
 # School holidays (data/school-holidays.json names them in German): the "When" button and its phrase.
@@ -782,3 +782,42 @@ gone:
   unknownTitle: "Diese Veranstaltung steht nicht mehr im Programm"
   unknown: "Wahrscheinlich ist sie vorbei. Das ist gerade los:"
   discover: "Ideen für diese Woche"
+# Geschenkideen /de/geschenke/ (content/gifts.yaml, src/lib/gifts.ts).
+gifts:
+  nav: Geschenkideen
+  title: "Geschenkideen für Kinder: Erlebnisse, Bräuche und Tipps zum Kauf"
+  sub: "Jahreskarten, Theatergutscheine und Tierpatenschaften in eurer Stadt, deutsche Schenk-Bräuche vom Adventskalender bis zum Kindergeburtstag, Kinderbasare und ein Blick auf Rückrufe, bevor ihr Spielzeug kauft."
+  towns: Zu eurer Stadt
+  experiencesH: "Erlebnisse verschenken"
+  experiencesP: "Jahreskarten, Gutscheine und Tierpatenschaften in euren Städten. Jeder Eintrag führt zur Seite des Anbieters, mit den aktuellen Preisen."
+  kind:
+    pass: Jahreskarte
+    voucher: Gutschein
+    sponsor: Tierpatenschaft
+  buy: "Zur Website"
+  moreH: "Weitere Erlebnis-Geschenke"
+  more:
+    - "Ein Schwimm-, Musik- oder Malkurs; viele Kurse beginnen im Januar."
+    - "Ein selbstgemachter Gutschein für einen gemeinsamen Ausflug: auf Entdecken einen aussuchen und das Datum auf die Karte schreiben."
+    - "Karten für ein Familienkonzert oder eine Vorstellung auf dem Weihnachtsmarkt."
+  customsH: "So wird in Deutschland geschenkt"
+  basarH: "Gebraucht: Kinderbasare"
+  basarP: "Kinderkleidung, Spielzeug und Bücher auf Basaren von Kitas und Gemeinden. Die nächsten:"
+  basarNone: "Für die nächsten Wochen ist kein Basar eingetragen. Im Frühjahr und Herbst gibt es wieder viele; Entdecken zeigt sie mit dem Chip „Kinderbasare“."
+  safetyH: "Bevor ihr Spielzeug kauft"
+  safety:
+    - "Jedes Spielzeug, das in der EU verkauft wird, braucht das CE-Zeichen."
+    - "„Nicht für Kinder unter 36 Monaten“ heißt: Kleinteile. Von jüngeren Geschwistern fernhalten."
+    - "Knopfzellen und kleine starke Magnete sind gefährlich, wenn sie verschluckt werden; das Batteriefach sollte verschraubt sein."
+  recalls: "Rückrufe von Kinderprodukten ansehen"
+  checked: "Am {date} auf den Seiten der Anbieter geprüft."
+  missing: "Ihr kennt eine gute Geschenkidee in eurer Stadt?"
+  missingLink: Schreibt uns
+# The "More" tab /<lang>/mehr/
+more:
+  title: Mehr
+  sub: Alle Themenseiten und Hilfe auf einen Blick.
+  guides: Themen
+  info: Hilfe und Infos
+  now: Jetzt
+  giftsDesc: Jahreskarten und Gutscheine je Stadt, Schenk-Bräuche, Tipps vor dem Spielzeugkauf.

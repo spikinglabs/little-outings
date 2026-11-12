@@ -7,7 +7,7 @@ homeDescription: "Family outings in Cologne, Berlin, Munich, Hamburg and more ci
 brandAbout:
   h: About Allo Outings
   p: "Allo Outings (in Chinese 小鹿出游) is a free site for families in Germany: events for kids and kid-friendly places like playgrounds, farms, zoos, pools and family cafés in Cologne, Berlin, Munich, Hamburg and more cities, in German, English and Chinese. Updated every night, no sign-up. Formerly Little Outings (小出游)."
-tabs: { explore: Discover, saved: Mine, add: Add }
+tabs: { explore: Discover, saved: Mine, add: Add, more: More }
 when: { today: Today, tomorrow: Tomorrow, weekend: Weekend, soon: Next 2 weeks }
 whenIn: { today: today, tomorrow: tomorrow, weekend: this weekend, soon: in the next 2 weeks }
 # School holidays (data/school-holidays.json names them in German): the "When" button and its phrase.
@@ -782,3 +782,42 @@ gone:
   unknownTitle: "This event is no longer listed"
   unknown: "Most likely it is over. Here is what's on now:"
   discover: "Ideas for this week"
+# Gift ideas page /en/geschenke/ (content/gifts.yaml, src/lib/gifts.ts).
+gifts:
+  nav: Gift ideas
+  title: "Gift ideas for children: experiences, customs and buying tips"
+  sub: "Annual passes, theatre vouchers and animal sponsorships in your city, how presents work in Germany from Advent calendars to birthday parties, second-hand bazaars, and a recall check before you buy a toy."
+  towns: Jump to your city
+  experiencesH: "Give an experience"
+  experiencesP: "Annual passes, vouchers and animal sponsorships in each city. Each one links to the place's own page, with today's prices."
+  kind:
+    pass: Annual pass
+    voucher: Voucher
+    sponsor: Animal sponsorship
+  buy: "On their website"
+  moreH: "More experience gifts"
+  more:
+    - "A swimming, music or art course; many courses start in January."
+    - "A home-made voucher for a day out together: pick one on Discover and write the date on the card."
+    - "Tickets for a family concert or a show at a Christmas market."
+  customsH: "How presents work in Germany"
+  basarH: "Second-hand: kids' bazaars"
+  basarP: "Children's clothes, toys and books at bazaars run by Kitas and parishes. Coming up:"
+  basarNone: "No bazaars are listed for the coming weeks. They come back in spring and autumn; Discover shows them with the “Kids' bazaars” chip."
+  safetyH: "Before you buy a toy"
+  safety:
+    - "Every toy sold in the EU must carry the CE mark."
+    - "“Not suitable for children under 36 months” means small parts: keep it away from younger siblings."
+    - "Button batteries and small strong magnets are dangerous if swallowed; check that the battery lid is screwed shut."
+  recalls: "Check the recalls for children's products"
+  checked: "Checked on {date} on each provider's own page."
+  missing: "Know a good gift idea in your city?"
+  missingLink: Tell us
+# The "More" tab /<lang>/mehr/
+more:
+  title: More
+  sub: Every guide page and help in one place.
+  guides: Guides
+  info: Help and info
+  now: In season
+  giftsDesc: Annual passes and vouchers per city, German gift customs, tips before buying toys.

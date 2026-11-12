@@ -18,7 +18,8 @@ import { townStates, type Period } from "../../lib/holidays";
 import schoolHolidays from "../../../data/school-holidays.json";
 import { editionTowns, liveEdition } from "../../lib/weekend-data";
 import { addDays } from "../../lib/weekend";
-import { seasonPages, seasonPath } from "../../lib/seasons";
+import { inWindow, seasonPages, seasonPath } from "../../lib/seasons";
+import { giftsPath } from "../../lib/gifts";
 import { rednoteSets } from "../../lib/rednote-data";
 
 export const getStaticPaths = () => LANGS.map((lang) => ({ params: { lang } }));
@@ -73,6 +74,8 @@ const seasonLinks = data.seasons.seasons.filter((s) => s.page && pages.some((p) 
   id: s.id, label: `${s.emoji} ${tr(s.page!.nav ?? s.label, lang)}`, window: s.page!.link!, hub: seasonPath(lang, s),
   towns: Object.fromEntries(pages.filter((p) => p.season.id === s.id).map((p) => [p.file.town, seasonPath(lang, s, p.file.slug)])),
 }));
+// Gift ideas: from 1 November until Christmas Eve (the page is rebuilt every night).
+const giftsNow = inWindow([{ from: "11-01", to: "12-24" }], TODAY);
 // The next days' weather per town, from the nightly build (no request from the reader's phone).
 const weather = await getWeather();
 const pluralUi = { nEvents: t.group("nEvents"), nPlaces: t.group("nPlacesAny"), tip: t("tip"), whenIn, mapShow: t("mapShow"), mapHide: t("mapHide"), areaBack: t("mapAreaBack"), showMore: t("mapShowMore"), locNone: t("locNone"), loadFail: t("loadFail"), noneHere: t("noneHere"), holidays, seasons: seasons.map(({ id, chip, shareText }) => ({ id, chip, shareText })), links: { weekend: weekendLinks, seasons: seasonLinks }, mapShort: [t("mapShowShort"), t("mapHideShort")], copied: t("season.copied"), weather, wx: t.group("wx") };
@@ -179,6 +182,7 @@ const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
     <nav class="shortcuts" aria-label={t("shortcuts")} data-shortcuts>
       <a class="shortcut" href={`/${lang}/wochenende/`} data-weekend-link hidden>📰 {t("weekend.nav")}<span class="new" data-weekend-new hidden>{t("weekend.new")}</span></a>
       {seasonLinks.map((s) => <a class="shortcut" href={s.hub} data-season-link={s.id} hidden>{s.label}</a>)}
+      {giftsNow && <a class="shortcut" href={giftsPath(lang)}>🎁 {t("gifts.nav")}</a>}
     </nav>
     <button class="map-btn" type="button" data-map-toggle aria-expanded="false" aria-controls="explore-map">
       <Fragment set:html={svg(UI_ICON.map, 'stroke-width="2"')} /><span class="map-long" data-map-label>{t("mapShow")}</span><span class="map-short" data-map-short>{t("mapShowShort")}</span>

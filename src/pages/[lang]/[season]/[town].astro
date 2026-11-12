@@ -10,6 +10,7 @@ import { nameOf, pathFor, townName } from "../../../lib/format";
 import { seasonPages, seasonPath, type Fixture, type FixtureFile, type Season } from "../../../lib/seasons";
 import { eventLd } from "../../../lib/seo";
 import { seasonKey } from "../../../lib/og";
+import { giftsPath } from "../../../lib/gifts";
 
 export async function getStaticPaths() {
   const { seasons } = await getData();
@@ -90,6 +91,8 @@ const ld = {
         <div class="grid ideas">{also.map((e) => <Card item={e} t={t} />)}</div>
       </section>
     )}
+
+    {seasonId === "advent" && <p><a class="chip" href={giftsPath(lang)}>🎁 {t("gifts.nav")}</a></p>}
 
     <p class="note">{t("season.missing")} <a href={`/${lang}/mitmachen/#event`}>{t("season.missingLink")}</a></p>
 

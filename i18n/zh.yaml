@@ -7,7 +7,7 @@ homeDescription: "小鹿出游（Allo Outings）：德国带娃去哪儿。科�
 brandAbout:
   h: 关于小鹿出游
   p: "小鹿出游（Allo Outings）是给在德国带娃的家庭做的免费网站：科隆、柏林、慕尼黑、汉堡等城市的亲子活动，还有游乐场、农场、动物园、游泳池和亲子咖啡馆等适合孩子的地方，都有中文介绍。每天晚上更新，不用注册。以前叫小出游（Little Outings）。"
-tabs: { explore: 发现, saved: 我的, add: 添加 }
+tabs: { explore: 发现, saved: 我的, add: 添加, more: 更多 }
 when: { today: 今天, tomorrow: 明天, weekend: 周末, soon: 未来两周 }
 whenIn: { today: 今天, tomorrow: 明天, weekend: 这个周末, soon: 未来两周 }
 # School holidays (data/school-holidays.json names them in German): the "When" button and its phrase.
@@ -781,3 +781,42 @@ gone:
   unknownTitle: "这个活动已不在列表中"
   unknown: "很可能已经结束了。看看现在有什么活动："
   discover: "本周推荐"
+# 礼物页 /zh/geschenke/（content/gifts.yaml, src/lib/gifts.ts）
+gifts:
+  nav: 送孩子什么
+  title: "儿童礼物点子：体验、习俗和购买提示"
+  sub: "你所在城市的动物园和博物馆年卡、儿童剧场礼券、动物认养；从降临节日历到生日会的德国送礼习俗；儿童二手市集；买玩具前先查召回。"
+  towns: 选择城市
+  experiencesH: "送一段经历"
+  experiencesP: "各城市的年卡、礼券和动物认养。每一项都链接到官方页面，价格以官网为准。"
+  kind:
+    pass: 年卡
+    voucher: 礼券
+    sponsor: 动物认养
+  buy: "去官网"
+  moreH: "其他体验类礼物"
+  more:
+    - "游泳课、音乐课或美术课，很多课程1月开课。"
+    - "自己做一张“出游券”：在“发现”里挑一个地方，把日期写在卡片上。"
+    - "家庭音乐会或圣诞市场演出的门票。"
+  customsH: "德国人怎么给孩子送礼"
+  basarH: "买二手：儿童二手市集"
+  basarP: "幼儿园和教区办的市集，有童装、玩具和书。最近的几场："
+  basarNone: "接下来几周没有登记的二手市集。春秋两季会比较多，在“发现”里点“儿童二手市集”就能看到。"
+  safetyH: "买玩具前看一眼"
+  safety:
+    - "欧盟销售的玩具都必须有 CE 标志。"
+    - "写着“不适合36个月以下儿童”说明有小零件，注意别让更小的孩子拿到。"
+    - "纽扣电池和小强磁铁误吞非常危险，电池盖最好是用螺丝固定的。"
+  recalls: "查看儿童产品召回"
+  checked: "{date}在各家官网核对。"
+  missing: "你知道所在城市还有什么好的礼物点子吗？"
+  missingLink: 告诉我们
+# The "More" tab /<lang>/mehr/
+more:
+  title: 更多
+  sub: 所有专题页面和帮助信息。
+  guides: 专题
+  info: 帮助和信息
+  now: 当季
+  giftsDesc: 各城市的年卡和礼券、德国送礼习俗、买玩具前的提示。
