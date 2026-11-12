@@ -53,6 +53,10 @@
  "https://centre-charlemagne.eu/termin/baden-pilgern-printen-2000-jahre-kulturgeschichte-11/": {
   "venue": "Centre Charlemagne"
  },
+ "https://centre-charlemagne.eu/termin/das-grashaus-im-wandel-der-zeiten-17/": {
+  "venue": "Centre Charlemagne",
+  "street": "Katschhof 1"
+ },
  "https://centre-charlemagne.eu/termin/ein-halbes-dutzend-karls-auf-der-suche-nach-der-wirklichkeit/": {
   "venue": "Centre Charlemagne"
  },
@@ -91,6 +95,14 @@
  "https://centre-charlemagne.eu/termin/von-koenigen-pilgerinnen-und-anderen-gaesten-die-welt-zu-besuch-in-aachen-3/": {
   "venue": "Centre Charlemagne"
  },
+ "https://couven-museum.de/event/alles-couven-oder-was-19/": {
+  "venue": null,
+  "guess": {
+   "venue": "Couven-Museum",
+   "why": "The event is a guided tour through the permanent exhibition hosted on the Couven-Museum website."
+  },
+  "read": 3
+ },
  "https://couven-museum.de/event/biedermeierzeit-die-familie-als-lebensmittelpunkt-3/": {
   "venue": null,
   "guess": {
@@ -98,6 +110,25 @@
    "why": "The event URL is on couven-museum.de and the description mentions a museum tour with museum admission."
   },
   "read": 3
+ },
+ "https://couven-museum.de/event/fernoestliche-motive-in-der-wohnkultur-des-18-und-19-jahrhunderts-6/": {
+  "venue": null,
+  "guess": {
+   "venue": "Couven-Museum",
+   "why": "The event is hosted on the Couven-Museum website and is a guided tour of its permanent exhibition."
+  },
+  "read": 3
+ },
+ "https://couven-museum.de/event/mit-baby-ins-museum-4/": {
+  "venue": null,
+  "guess": {
+   "venue": "Couven-Museum",
+   "why": "The event URL is hosted directly on the Couven-Museum website."
+  },
+  "read": 3
+ },
+ "https://couven-museum.de/event/zwischen-oeffentlichkeit-und-privatheit-portraits-im-couven-museum/": {
+  "venue": "Couven-Museum"
  },
  "https://events.timely.fun/ewx8j2kb/event/78461289/20260926140000": {
   "venue": null,
@@ -298,6 +329,10 @@
   "venue": "Sartory",
   "street": "Friesenstraße 44-48"
  },
+ "https://koelnerkarneval.de/session/veranstaltungen/veranstaltung/familijesitzung-1": {
+  "venue": "Sartory",
+  "street": "Friesenstraße 44-48"
+ },
  "https://koelnerkarneval.de/session/veranstaltungen/veranstaltung/fastelovend-famos-die-familiensitzung-1": {
   "venue": "Stadthalle Mülheim",
   "street": "Jan-Wellem-Straße 2"
@@ -320,6 +355,10 @@
  "https://koelnerkarneval.de/session/veranstaltungen/veranstaltung/kajuhu-puute-sitzung-2": {
   "venue": "Gesamtschule Holweide",
   "street": "Burgwiesenstraße 125"
+ },
+ "https://koelnerkarneval.de/session/veranstaltungen/veranstaltung/kinder-kostuem-fest": {
+  "venue": "Josef-Barten-Halle (Schützenheim Dünnwald)",
+  "street": "Berliner Straße/Dünnwalder Mauspfad 437"
  },
  "https://koelnerkarneval.de/session/veranstaltungen/veranstaltung/kinder-kostuemsitzung-4": {
   "venue": "Gymnasium Rodenkirchen",
@@ -380,14 +419,6 @@
  "https://koelnerkarneval.de/session/veranstaltungen/veranstaltung/rosenmontagszugtribuene": {
   "venue": "Lindner Hotel City Plaza",
   "street": "Magnusstraße 20"
- },
- "https://koelnerkarneval.de/session/veranstaltungen/veranstaltung/sessionseroeffnung-die-traditionelle-sessionseroeffnung-des-koelner-karnevals-der-1111": {
-  "venue": "Heumarkt",
-  "street": "Heumarkt"
- },
- "https://koelnerkarneval.de/session/veranstaltungen/veranstaltung/sessionseroeffnung-zu-gunsten-des-zentral-dombau-vereins": {
-  "venue": "Dorint an der Messe",
-  "street": "Deutz-Mülheimer Straße 22-24"
  },
  "https://koelnerkarneval.de/session/veranstaltungen/veranstaltung/stage-foer-paenz": {
   "venue": "Sartory",
@@ -511,6 +542,9 @@
   },
   "read": 3
  },
+ "https://suermondt-ludwig-museum.de/event/interkultureller-kunstworkshop-3-2-2/": {
+  "venue": "Suermondt Ludwig Museum"
+ },
  "https://suermondt-ludwig-museum.de/event/kunst-croissants-und-konfituere-5-2-2/": {
   "venue": "Suermondt-Ludwig-Museum"
  },
@@ -600,6 +634,10 @@
  "https://uni-koeln.de/universitaet/aktuell/veranstaltungen/detail/arirang-echo-koeln-2026-winteredition-korea-und-tuerkiye-im-dialog-der-kulturen": {
   "venue": "Aula 2 und im Foyer Hauptgebäude",
   "street": "Albertus-Magnus-Platz"
+ },
+ "https://uni-koeln.de/universitaet/aktuell/veranstaltungen/detail/koelnalumni-eisstockschiessen": {
+  "venue": "Eisstockbahn Heinzels Wintermärchen",
+  "street": "Heumarkt"
  },
  "https://uni-koeln.de/universitaet/aktuell/veranstaltungen/detail/opencampus-2026": {
   "venue": "Hauptcampus der Universität zu Köln",
@@ -698,10 +736,6 @@
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/dancing-queens": {
   "venue": "Theater Düren im Haus der Stadt",
-  "street": "Stefan-Schwer-Straße 4-6"
- },
- "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/das-18-karnevalistische-konzert-zur-sessionserffnung": {
-  "venue": "Haus der Stadt",
   "street": "Stefan-Schwer-Straße 4-6"
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/de-knippschaft-weihnachtskonzert": {
@@ -949,6 +983,10 @@
   "venue": "Stadtbücherei Düren",
   "street": "Stefan-Schwer-Straße 4-6"
  },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/papierwandel-eine-veranstaltung-des-projekts-zellulr": {
+  "venue": "Papiermuseum Düren",
+  "street": "Wallstraße 2-8"
+ },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/peace-food-oder-die-letzte-suppe-schulvorstellung": {
   "venue": "KOMM – Kulturzentrum Pleußmühle",
   "street": "August-Klotz Straße 21"
@@ -967,10 +1005,6 @@
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/seeraeuber-susi-sucht-ws-suesses": {
   "venue": "Theater Düren im Haus der Stadt",
   "street": "Stefan-Schwer-Straße 4-6"
- },
- "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/seife-sieden": {
-  "venue": "Volkshochschule Rur-Eifel",
-  "street": "Violengasse 2"
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/sim-sim-salla-bimmmm": {
   "venue": "Theater Düren im Haus der Stadt",
