@@ -1,0 +1,96 @@
+# A Rednote (小红书) set: Cologne's Christmas markets for families, from content/seasons/advent/koeln.yaml
+# (koeln.de, checked 2026-10-26) and changing tables near them from OpenStreetMap (places/toilets.jsonl, 2026-11-12).
+# Drawn at /xhs/koeln-weihnachtsmarkt-<n>.png until `until`; the admin's Rednote box shows it with the caption.
+# Ends on a vote so parents talk in the comments (public: ask for favourites and tips, never about their kids).
+# After changing Chinese text here, rerun scripts/og-font.py so the font has every character.
+title: 科隆圣诞市场带娃哪个最好？｜2026
+until: 2026-12-23
+caption: |
+  科隆的圣诞市场今年11-13起陆续开门🎄 鹿小游把适合带娃的几个挑出来了，看完来评论区投票（A–F）👇
+
+  A 【11-16起】大教堂：老式旋转木马、木偶剧、手工
+  B 【11-23起】老城 Heinzels：溜冰场、小摩天轮，开到1月10日
+  C 【11-13起】港口市场：儿童小火车、50米摩天轮，周二画脸寻宝
+  D 【11-16起】Rudolfplatz 尼古拉斯村：暖气小屋里免费手工
+  E 【11-16起】Neumarkt：童话人物、魔术、圣尼古拉斯
+  F 【11-19起】Köln-West：有顶棚和暖气，下雨天也能去
+
+  小提示：11-22（周日，Totensonntag）大部分市场不开。换尿布的地方见第7张。
+
+  🗳 你家投哪个？评论区留下字母就行。
+  也想听听大家的经验：白天去还是晚上去？推车还是背带？有没有人少的私藏小市场？
+
+  时间以官方为准，出发前请再确认～
+  更多市场：浏览器搜索「小鹿出游 Allo Outings」，选科隆，点「圣诞市场」。
+tags: [科隆带娃, 科隆圣诞市场, 德国圣诞市场, 圣诞市场, 德国带娃, 德国生活, 德国妈妈, 德国爸爸, 留德]
+cards:
+  - tone: gold
+    tag: 2026 · 科隆
+    title: "科隆圣诞市场\n带娃去哪个？"
+    lines:
+      - 6个有孩子玩的市场：开门时间、亮点、换尿布的地方都在这里。
+      - 最后一张投票，评论区见！
+    foot: 德国带娃 · 圣诞季
+  - tone: paper
+    tag: 开门时间
+    title: 哪天开门？
+    rows:
+      - { when: "11-13", name: 港口市场、Stadtgarten }
+      - { when: "11-16", name: 大教堂、Neumarkt、Rudolfplatz }
+      - { when: "11-19", name: Köln-West、Chlodwigplatz }
+      - { when: "11-23", name: 老城 Heinzels }
+      - { when: "12-02", name: Eigelstein（只到12-06） }
+      - { when: "12-05", name: Wachsfabrik（只有周末） }
+    note: 11-22（周日）是 Totensonntag，大部分市场这天不开。多数开到12-23。
+  - tone: paper
+    tag: A 大教堂 · B 老城
+    title: 经典两个，挨着逛
+    lines:
+      - A 大教堂（Roncalliplatz）：老式旋转木马、木偶剧、手工、画脸。周日到周三11–21点，周四到周六开到22点。
+      - B 老城 Heinzels（Alter Markt + Heumarkt）：Heumarkt 上有溜冰场，还有给孩子的小摩天轮和旋转木马。
+    note: 老城的 Heumarkt 开到1月10日，圣诞后还能去溜冰。
+  - tone: paper
+    tag: C 港口市场
+    title: 小火车和大摩天轮
+    lines:
+      - 在巧克力博物馆旁边，11-13最早开门。
+      - 儿童旋转木马、儿童小火车，还有50米高的摩天轮。
+      - 每周二有画脸和寻宝游戏。
+    note: 圣诞后是新年市场，开到1月3日。
+  - tone: paper
+    tag: D Rudolfplatz · E Neumarkt
+    title: 小小孩最爱
+    lines:
+      - D 尼古拉斯村（Rudolfplatz）：有暖气的尼古拉斯小屋，孩子可以在工作人员陪同下免费做手工、画画。
+      - E Neumarkt：能见到 Elsa 和 Anna 等童话人物，还有画脸、魔术和圣尼古拉斯来访。
+    note: 两个市场走路10分钟左右，冷了就进小屋暖和一下。
+  - tone: paper
+    tag: F 还有这些
+    title: 下雨天和小众的
+    lines:
+      - F Köln-West（Ehrenfeld）：部分有顶棚和暖气，有儿童旋转木马和溜冰场。
+      - Eigelstein（12-02到12-06）：圣尼古拉斯每天16点来。
+      - Wachsfabrik（Rodenkirchen，只有12月周末）：动手工作坊、家庭剧场和童话人物。
+  - tone: paper
+    tag: 换尿布 · 厕所
+    title: 宝宝要换尿布？
+    lines:
+      - 大教堂：对面的 Domforum 有换尿布台，约130米，开到17点。
+      - Neumarkt 和 Rudolfplatz：附近 dm 药妆店有换尿布台，约100米，周一到周六开到20点。
+      - 热饮杯要付押金（Pfand），还杯退钱，也可以留着做纪念。
+    note: 晚上人多推车难走，背带更轻松。
+    foot: 换尿布台位置来自 © OpenStreetMap 贡献者
+  - tone: ink
+    title: "你家投哪个？"
+    lines:
+      - 评论区留字母，也欢迎分享你家的私藏小市场。
+    rows:
+      - { when: "A", name: 大教堂 }
+      - { when: "B", name: 老城溜冰 }
+      - { when: "C", name: 港口小火车 }
+      - { when: "D", name: 尼古拉斯村手工 }
+      - { when: "E", name: Neumarkt 童话人物 }
+      - { when: "F", name: Köln-West }
+    search: 小鹿出游 Allo Outings
+    note: 浏览器搜索后选科隆，点「圣诞市场」。
+    foot: 信息以官方为准，出发前请再确认
