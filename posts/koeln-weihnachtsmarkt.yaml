@@ -3,6 +3,9 @@
 # Drawn and uploaded by .github/workflows/posts.yml on push; the admin's Posts panel opens it by its code.
 # Ends on a vote so parents talk in the comments (public: ask for favourites and tips, never about their kids).
 # The posting job cuts the Chinese font itself, so new characters need no font commit.
+# History (find a post by its code: grep -l "code: 73HQ" posts/):
+# - 2026-11-12 L asked for Christmas market posters that start a discussion; facts checked on official 2026 pages ("注意信息的可靠性").
+# - 2026-11-12 L: no brand names, so shops on the changing-table card are named by kind (pharmacy, shopping centre).
 code: 73HQ
 title: 科隆圣诞市场带娃哪个最好？｜2026
 until: 2026-12-23
