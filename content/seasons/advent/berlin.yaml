@@ -99,9 +99,9 @@ items:
     name: Zehlendorfer Weihnachtsmarkt
     from: 2026-11-23
     to: 2026-12-30
-    hours: "Zeiten noch nicht bekannt; Bühne Sa–So ab 16 Uhr"
+    hours: "Mo–Do 11–21, Fr 12–22, Sa 11–22, So 11–21 Uhr; Bühne Sa–So ab 16 Uhr"
     street: Kirchstraße 1
-    geo: { lat: 52.43503, lon: 13.71618 }
+    geo: { lat: 52.43390, lon: 13.25960 }
     district: Zehlendorf
     kids: [ice_rink, crafts, santa, stage]
     website: https://www.berlin.de/weihnachtsmarkt/5703047-3496862-zehlendorfer-weihnachtsmarkt.html

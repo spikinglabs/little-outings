@@ -1,0 +1,94 @@
+# A Rednote (小红书) set: Munich's Christmas markets for families. Every date, hour and children's offer checked
+# on muenchen.de and the markets' own sites on 2026-11-12; changing tables from OpenStreetMap (places/toilets.jsonl).
+# Drawn at /xhs/muenchen-weihnachtsmarkt-<n>.png until `until`; the admin's Rednote box shows it with the caption.
+# Ends on a vote so parents talk in the comments (public: ask for favourites and tips, never about their kids).
+# After changing Chinese text here, rerun scripts/og-font.py so the font has every character.
+title: 慕尼黑圣诞市场带娃哪个最好？｜2026
+until: 2026-12-28
+caption: |
+  慕尼黑的圣诞市场11-13起陆续开门🎄 鹿小游按官方信息挑了5个适合带娃的，看完来评论区投票（A–E）👇
+
+  A 【11-20起】玛利亚广场：6–12岁"天堂工坊"免费做手工（要报名）
+  B 【11-16起】Residenz 王宫：免费童话森林、木偶剧、画脸
+  C 【11-19起】中国塔：老式旋转木马、儿童小火车、马车（周一周二不开）
+  D 【11-26起】Märchenbazar：每天免费讲童话、做蜡烛、木偶剧
+  E 【11-13起】Stachus：市中心溜冰场
+
+  小提示：11-22（周日，Totensonntag）玛利亚广场和王宫不开。12-13 15–17点老城有坎卜斯（Krampus）游行，几百个"恶魔"，小小孩可能会怕。
+
+  🗳 你家投哪个？评论区留下字母就行。
+  也想听听大家的经验：白天去还是晚上去？推车还是背带？坎卜斯游行你家娃怕不怕？
+
+  时间以官方为准，出发前请再确认～
+  更多市场：浏览器搜索「小鹿出游 Allo Outings」，选慕尼黑，点「圣诞市场」。
+tags: [慕尼黑带娃, 慕尼黑圣诞市场, 德国圣诞市场, 圣诞市场, 德国带娃, 德国生活, 德国妈妈, 德国爸爸, 留德]
+cards:
+  - tone: gold
+    tag: 2026 · 慕尼黑
+    title: "慕尼黑\n圣诞市场\n带娃去哪个？"
+    lines:
+      - 5个有孩子玩的市场：开门时间、亮点、免费的儿童活动，都按官方信息核对过。
+      - 最后一张投票，评论区见！
+    foot: 德国带娃 · 圣诞季
+  - tone: paper
+    tag: 开门时间
+    title: 哪天开门？
+    rows:
+      - { when: "11-13", name: Stachus 溜冰场 }
+      - { when: "11-16", name: Residenz 王宫 }
+      - { when: "11-19", name: 中国塔（只周三到周日） }
+      - { when: "11-20", name: 玛利亚广场 }
+      - { when: "11-26", name: Märchenbazar、天堂工坊 }
+    note: 11-22（周日）是 Totensonntag，玛利亚广场和王宫不开。
+  - tone: paper
+    tag: A 玛利亚广场
+    title: 天堂工坊：扮小天使做手工
+    lines:
+      - 新市政厅里的 Himmelswerkstatt，6–12岁，11-26到12-13每天两场：14:30–16点、16:30–18点，免费。
+      - 孩子可以扮成小天使，做卡片或蜡烛。
+      - 要提前在 Kindermuseum München 报名，每场提前10天开放。
+    note: 市场周一到周六10–21点，周日10–20点，12-24开到14点。
+  - tone: paper
+    tag: B Residenz 王宫
+    title: 免费的童话森林
+    lines:
+      - 王宫的 Kaiserhof 里，按一下按钮，小红帽、霍勒大妈等童话就动起来。免费入场，每天11–21点。
+      - 木偶剧：11-23、11-30、12-08、12-14，15–16点。
+      - 画脸：11-24、12-01、12-09、12-15，16–18点。
+      - 尼古拉斯：12-06和12-07，17点起送小礼物（送完为止）。
+  - tone: paper
+    tag: C 中国塔
+    title: 小火车和马车
+    lines:
+      - 在英国花园里，有老式儿童旋转木马和儿童小火车。
+      - 周四到周日13点起可以坐马车游花园。12-05和12-06尼古拉斯来。
+      - 注意：周一周二不开（12-21到23每天开）。
+  - tone: paper
+    tag: D Märchenbazar
+    title: 童话帐篷，全免费
+    lines:
+      - 在奥林匹克公园南，免费入场。
+      - 每天有免费儿童节目：讲童话、做蜡烛、木偶剧、手工。
+      - 工作日14点开，周六12点、周日11点开，12-24不开。
+  - tone: paper
+    tag: E Stachus · 换尿布
+    title: 溜冰和换尿布
+    lines:
+      - E Stachus 溜冰场：11-13到1月10日，在市中心。
+      - 玛利亚广场：旁边 Galeria 百货有换尿布台（约110米）。
+      - Stachus：旁边 dm 有换尿布台（约150米）。
+      - 中国塔：旁边餐厅有换尿布台（约80米，开到18点）。
+    foot: 换尿布台位置来自 © OpenStreetMap 贡献者
+  - tone: ink
+    title: "你家投哪个？"
+    lines:
+      - 评论区留字母，也欢迎分享你家的私藏小市场。
+    rows:
+      - { when: "A", name: 玛利亚广场天堂工坊 }
+      - { when: "B", name: 王宫童话森林 }
+      - { when: "C", name: 中国塔小火车 }
+      - { when: "D", name: Märchenbazar }
+      - { when: "E", name: Stachus 溜冰 }
+    search: 小鹿出游 Allo Outings
+    note: 浏览器搜索后选慕尼黑，点「圣诞市场」。
+    foot: 信息以官方为准，出发前请再确认

@@ -1,0 +1,101 @@
+# A Rednote (小红书) set: Hamburg's Christmas markets for families. Every date, hour, price and children's offer
+# checked on the market's hamburg.de page on 2026-11-12; changing tables from OpenStreetMap (places/toilets.jsonl).
+# Drawn at /xhs/hamburg-weihnachtsmarkt-<n>.png until `until`; the admin's Rednote box shows it with the caption.
+# Ends on a vote so parents talk in the comments (public: ask for favourites and tips, never about their kids).
+# After changing Chinese text here, rerun scripts/og-font.py so the font has every character.
+title: 汉堡圣诞市场带娃哪个最好？｜2026
+until: 2026-12-30
+caption: |
+  汉堡的圣诞市场已经陆续开门了🎄 鹿小游按官方信息挑了6个适合带娃的，看完来评论区投票（A–F）👇
+
+  A 【11-23起】市政厅广场：圣诞老人每天16、18、20点坐雪橇从头顶"飞过"
+  B 【11-18起】少女堤：1899年的老摩天轮，童话船
+  C 【11-19起】Harburg：12-06 霍勒大妈从市政厅窗口撒"雪花"和巧克力金币
+  D 【11-20起】Bergedorf：长袜子皮皮的小屋，周末自己烤饼干
+  E 【11-19起】Ottensen：旋转木马、木偶剧
+  F 【已开】Wandsbek：溜冰场，周三家庭日减价
+
+  小提示：11-22（周日，Totensonntag）好几个市场不开。12-06 尼古拉斯节，B、C、E、F 都有活动。
+
+  🗳 你家投哪个？评论区留下字母就行。
+  也想听听大家的经验：白天去还是晚上去？推车还是背带？有没有人少的私藏小市场？
+
+  时间以官方为准，出发前请再确认～
+  更多市场：浏览器搜索「小鹿出游 Allo Outings」，选汉堡，点「圣诞市场」。
+tags: [汉堡带娃, 汉堡圣诞市场, 德国圣诞市场, 圣诞市场, 德国带娃, 德国生活, 德国妈妈, 德国爸爸, 留德]
+cards:
+  - tone: gold
+    tag: 2026 · 汉堡
+    title: "汉堡圣诞市场\n带娃去哪个？"
+    lines:
+      - 6个有孩子玩的市场：开门时间、亮点、孩子的专场活动，都按官方信息核对过。
+      - 最后一张投票，评论区见！
+    foot: 德国带娃 · 圣诞季
+  - tone: paper
+    tag: 开门时间
+    title: 哪天开门？
+    rows:
+      - { when: "已开", name: Wandsbek、Barmbek }
+      - { when: "11-18", name: 少女堤、鹅市场、圣彼得教堂 }
+      - { when: "11-19", name: Harburg、Ottensen }
+      - { when: "11-20", name: Bergedorf }
+      - { when: "11-23", name: 市政厅广场 }
+    note: 11-22（周日）是 Totensonntag，少女堤、Ottensen、Bergedorf 等这天不开。
+  - tone: paper
+    tag: A 市政厅广场
+    title: 会飞的圣诞老人
+    lines:
+      - 每天16、18、20点，圣诞老人坐着驯鹿雪橇从市场上空"飞过"，边飞边讲驯鹿鲁道夫的故事。
+      - 还有老式旋转木马。每天11–21点。
+      - 附近的 Mönckebergstraße：4个将临期周六（11-28、12-05、12-12、12-19）14点和17点有圣诞游行。
+  - tone: paper
+    tag: B 少女堤
+    title: 老摩天轮和童话船
+    lines:
+      - 1899年的老摩天轮，可以俯瞰市场和阿尔斯特湖。
+      - 河边停着童话船（11-26到12-23）。
+      - 12-06 16:30 尼古拉斯来，会背诗或唱歌的孩子能拿到糖。
+  - tone: paper
+    tag: C Harburg
+    title: 霍勒大妈撒"雪花"
+    lines:
+      - 旋转木马、手工，还有讲童话的 Hans 爷爷。
+      - 12-05 14点：汉堡最大的姜饼屋。
+      - 12-06 17点：霍勒大妈从市政厅窗口抖被子，撒下"雪花"和巧克力金币。
+      - 12-13 15点：木偶剧。
+  - tone: paper
+    tag: D Bergedorf · E Ottensen
+    title: 长袜子皮皮和木偶剧
+    lines:
+      - D Bergedorf：长袜子皮皮的小屋有壁炉、玩具和手工，周末能自己烤饼干；还可以和圣诞老人合影。
+      - E Ottensen：儿童旋转木马、木偶剧，每周日有木偶剧场，12-06 尼古拉斯来。
+  - tone: paper
+    tag: F Wandsbek
+    title: 已经能溜冰了
+    lines:
+      - Wandsbek 市场广场，10-31已开，到1月1日。
+      - 溜冰每场90分钟：14岁以下3欧，大人4欧，租鞋4欧。
+      - 每周三12–18点是家庭日，溜冰和儿童旋转木马都减价。12-06 尼古拉斯来溜冰场送礼物。
+  - tone: paper
+    tag: 换尿布 · 小提示
+    title: 宝宝要换尿布？
+    lines:
+      - 市政厅广场和少女堤：附近的 Budnikowsky 药妆店有换尿布台（约190米，周日不开）。
+      - Wandsbek：旁边 Quarree 商场有换尿布台（约130米）。
+      - Harburg：市政厅附近约80米有换尿布台。
+    note: 晚上人多推车难走，背带更轻松。
+    foot: 换尿布台位置来自 © OpenStreetMap 贡献者
+  - tone: ink
+    title: "你家投哪个？"
+    lines:
+      - 评论区留字母，也欢迎分享你家的私藏小市场。
+    rows:
+      - { when: "A", name: 市政厅广场 }
+      - { when: "B", name: 少女堤 }
+      - { when: "C", name: Harburg }
+      - { when: "D", name: Bergedorf }
+      - { when: "E", name: Ottensen }
+      - { when: "F", name: Wandsbek }
+    search: 小鹿出游 Allo Outings
+    note: 浏览器搜索后选汉堡，点「圣诞市场」。
+    foot: 信息以官方为准，出发前请再确认

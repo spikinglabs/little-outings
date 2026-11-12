@@ -71,9 +71,9 @@ items:
     note: { de: "Nostalgisches Kinderkarussell, Puppentheater und Zauberer.", en: "A nostalgic children's carousel, puppet theatre and a magician.", zh: "有怀旧儿童旋转木马、木偶剧和魔术师。" }
   - id: ottensen
     name: Weihnachtsmarkt Ottensen
-    from: 2026-11-23
+    from: 2026-11-19
     to: 2026-12-23
-    hours: "Mo–Mi 11–21, Do–Sa 11–22, So 12–20 Uhr"
+    hours: "Mo–Mi 11–21, Do–Sa 11–22, So 12–20 Uhr; Totensonntag (22.11.) zu"
     street: Ottenser Hauptstraße
     geo: { lat: 53.55222, lon: 9.93291 }
     district: Ottensen
