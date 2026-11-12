@@ -828,7 +828,10 @@ more:
 party:
   parentsH: Tips from parents
   parentsTag: From parents
-  parentsNote: "“Tips from parents” were confirmed by at least two parents on the place's page; we have not checked them with the venue, so ask there before booking. Held a party somewhere else? Answer “Can you hold a children's birthday party there?” on its page, or add a new place."
+  proposedH: Suggested by a parent
+  proposedTag: Not confirmed
+  proposedNote: One parent suggested these; no other parent has confirmed them yet. Been there? Confirm it on the place's page.
+  parentsNote: "“Tips from parents” were confirmed by at least two parents on the place's page, suggestions by only one; we have not checked either with the venue, so ask there before booking. Held a party somewhere else? Answer “Can you hold a children's birthday party there?” on its page, or add a new place."
   add: "Know another place for birthday parties? Add a place"
   nav: Birthday parties
   title: "Children's birthday parties: zoos, museums and gardens"

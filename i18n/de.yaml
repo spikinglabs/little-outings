@@ -828,7 +828,10 @@ more:
 party:
   parentsH: Tipps von Eltern
   parentsTag: Von Eltern
-  parentsNote: "„Tipps von Eltern“ haben mindestens zwei Eltern auf der Seite des Ortes bestätigt; wir haben sie nicht beim Anbieter geprüft, fragt dort vor dem Buchen nach. Ihr habt woanders gefeiert? Beantwortet auf der Seite des Ortes „Kann man dort Kindergeburtstag feiern?“ oder tragt einen neuen Ort ein."
+  proposedH: Vorschläge von Eltern
+  proposedTag: Unbestätigt
+  proposedNote: Ein Elternteil hat das vorgeschlagen, andere Eltern haben es noch nicht bestätigt. Wart ihr dort? Bestätigt es auf der Seite des Ortes.
+  parentsNote: "„Tipps von Eltern“ haben mindestens zwei Eltern auf der Seite des Ortes bestätigt, „Vorschläge“ bisher nur ein Elternteil; wir haben beides nicht beim Anbieter geprüft, fragt dort vor dem Buchen nach. Ihr habt woanders gefeiert? Beantwortet auf der Seite des Ortes „Kann man dort Kindergeburtstag feiern?“ oder tragt einen neuen Ort ein."
   add: "Ihr kennt noch einen Ort für Kindergeburtstage? Ort eintragen"
   nav: Kindergeburtstag
   title: "Kindergeburtstag feiern: Zoos, Museen und Gärten"

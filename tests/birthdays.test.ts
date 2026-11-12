@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { loadBirthdays, parentPicks, parseBirthdays } from "../src/lib/birthdays.ts";
+import { loadBirthdays, parentPicks, parentProposals, parseBirthdays } from "../src/lib/birthdays.ts";
 
 test("the birthdays file loads, every note in all three languages", () => {
   const b = loadBirthdays();
@@ -25,4 +25,10 @@ test("a parents' pick needs two yes votes, or a yes from a source", () => {
     p(undefined),
   ]);
   assert.equal(picks.length, 2);
+  const proposals = parentProposals([
+    p({ status: "yes", confirmed: 0, byVotes: true, votes: { yes: 1, no: 0 } }),
+    p({ status: "yes", confirmed: 0, byVotes: true, votes: { yes: 2, no: 0 } }),
+    p({ status: "unknown", confirmed: 0, byVotes: true, votes: { yes: 1, no: 1 } }),
+  ]);
+  assert.equal(proposals.length, 1);
 });
