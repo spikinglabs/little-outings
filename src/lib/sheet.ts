@@ -11,7 +11,8 @@ export const IG = { w: 1080, h: 1350 } as const;
 
 /** One card. `title` may hold "\n" to break it on purpose. */
 export interface Sheet {
-  tone: "gold" | "paper" | "ink";
+  /** gold, paper and ink are the house colours; the others are for seasonal sets (Christmas red and green, and three pastels). */
+  tone: Tone;
   tag?: string;
   title: string;
   /** Lines under the title, each wrapped on its own. */
@@ -36,7 +37,14 @@ const C = {
   gold: { bg: "#ffcc00", ink: "#17191b", soft: "#3d4146", tagBg: "#17191b", tagInk: "#ffcc00", rule: "#17191b" },
   paper: { bg: "#fbfaf6", ink: "#17191b", soft: "#4a4f55", tagBg: "#17191b", tagInk: "#ffcc00", rule: "#dddbd5" },
   ink: { bg: "#17191b", ink: "#ffffff", soft: "#c9cbcf", tagBg: "#ffcc00", tagInk: "#17191b", rule: "#3a3d41" },
+  red: { bg: "#b3122e", ink: "#ffffff", soft: "#f6dde1", tagBg: "#ffcc00", tagInk: "#17191b", rule: "#d9566c" },
+  green: { bg: "#1e5b3a", ink: "#ffffff", soft: "#d6eadc", tagBg: "#ffcc00", tagInk: "#17191b", rule: "#4d8a66" },
+  rose: { bg: "#ffe3e8", ink: "#17191b", soft: "#4a4f55", tagBg: "#b3122e", tagInk: "#ffffff", rule: "#f2b8c3" },
+  sky: { bg: "#dcecff", ink: "#17191b", soft: "#4a4f55", tagBg: "#1d4f91", tagInk: "#ffffff", rule: "#a9c8ee" },
+  mint: { bg: "#dcf3e4", ink: "#17191b", soft: "#4a4f55", tagBg: "#1e5b3a", tagInk: "#ffffff", rule: "#a6d9b8" },
 } as const;
+export type Tone = keyof typeof C;
+export const TONES = Object.keys(C) as Tone[];
 const BLAU = "#1d4f91";
 const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const font = (s: string) => `font-family="${/[⺀-￯]/.test(s) ? "Noto Sans SC" : "Atkinson Hyperlegible"}"`;

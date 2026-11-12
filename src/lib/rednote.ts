@@ -11,7 +11,7 @@
 //   sets     hand-written explainers in content/rednote/<id>.yaml (St. Martin …), drawn until their `until` day
 //
 // Cards are 1080×1440 (3:4, what Rednote shows uncropped), drawn by src/lib/sheet.ts. Plain TypeScript, so tests run it in Node.
-import { pageLines, XHS, type Sheet } from "./sheet.ts";
+import { pageLines, TONES, XHS, type Sheet } from "./sheet.ts";
 import { textEm } from "./og.ts";
 import { codeOf } from "./rednote-code.ts";
 import { addDays, clockText, textIn, townSlug, weatherLine, whenShort, WEEKEND_TOWNS, type Edition, type Pick } from "./weekend.ts";
@@ -185,7 +185,7 @@ export function checkSetFile(f: SetFile): string[] {
   if (/https?:|www\.|\.de\b|\.com\b|allo\.land/i.test(`${f.caption} ${JSON.stringify(f.cards)}`)) out.push("contains a link; Rednote punishes those");
   if (!f.cards?.length || f.cards.length > 18) out.push("needs 1 to 18 cards");
   for (const [i, c] of (f.cards ?? []).entries()) {
-    if (!["gold", "paper", "ink"].includes(c.tone)) out.push(`card ${i + 1}: tone must be gold, paper or ink`);
+    if (!TONES.includes(c.tone)) out.push(`card ${i + 1}: tone must be one of ${TONES.join(", ")}`);
     if (!c.title) out.push(`card ${i + 1}: no title`);
   }
   return out;
