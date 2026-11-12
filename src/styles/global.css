@@ -74,31 +74,39 @@ h1, h2, h3, .meta, .de-name, .orig, .trust { overflow-wrap: anywhere; }
 .chip .n:empty { display: none; }
 .chip.none:not([aria-pressed="true"]) { opacity: .5; }
 .chip.rain[aria-pressed="true"] { border-color: var(--blau); background: var(--blau); color: var(--paper); }
-/* The chosen days' weather and its nudge, under the When buttons (explore.ts). */
-.alerts { margin-top: 10px; padding: 8px 12px; border-radius: 12px; background: var(--card); border: 1px solid var(--rot); border-left-width: 4px; }
-.alerts-title { margin: 0; font-weight: 700; color: var(--rot); }
-.alerts ul { margin: 4px 0 0; padding: 0; list-style: none; }
-.alerts li { margin: 2px 0 0; overflow-wrap: anywhere; }
+/* The header bell (layouts/Base.astro): city alerts + recalls behind one button, a red dot while unseen. */
+.top-right:has(.notices) { position: relative; }
+.notices { flex: none; }
+.notices[hidden] { display: none; }
+.notices > summary { list-style: none; cursor: pointer; position: relative; width: 34px; height: 34px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 999px; background: var(--card); color: var(--ink-soft); }
+.notices > summary::-webkit-details-marker { display: none; }
+.notices > summary:hover, .notices[open] > summary { color: var(--ink); }
+.notices > summary > span { display: grid; }
+.notices > summary svg { width: 18px; height: 18px; }
+.notices-dot { position: absolute; top: 5px; right: 6px; width: 9px; height: 9px; border-radius: 50%; background: var(--rot); box-shadow: 0 0 0 2px var(--card); }
+.notices-dot[hidden] { display: none; }
+.notices-panel { position: absolute; right: 0; top: calc(100% + 6px); z-index: 60; width: min(360px, calc(100vw - 32px)); max-height: min(70vh, 520px); overflow-y: auto; padding: 4px 14px 12px; border: 1px solid var(--line); border-radius: 14px; background: var(--card); box-shadow: 0 8px 28px rgba(0, 0, 0, .18); overflow-wrap: anywhere; }
+.notices-panel > :not([hidden]) ~ :not([hidden]) { border-top: 1px solid var(--line); margin-top: 6px; }
+.notices-h { margin: 10px 0 2px; font-weight: 700; font-size: .95rem; display: flex; justify-content: space-between; gap: 8px; }
+.notices-all { font-weight: 400; font-size: .85rem; white-space: nowrap; }
+.notices-panel ul { margin: 6px 0 0; padding: 0; list-style: none; }
+.notices-panel li { margin: 0; padding: 6px 0; }
+.notices-panel li + li { border-top: 1px dashed var(--line); }
+.notices-panel p { margin: 6px 0 0; }
+.notices-panel small, .notices-panel .small { color: var(--ink-soft); }
+.recall-line li a { color: var(--ink); }
 .alerts a { white-space: nowrap; font-size: .85rem; }
 .alert-type { display: inline-block; padding: 0 6px; border-radius: 6px; background: var(--rot); color: var(--rot-ink); font-size: .78rem; font-weight: 700; }
 .alert-more { margin-top: 4px; }
 .alert-more summary { cursor: pointer; color: var(--ink-soft); font-size: .9rem; }
 .alert-more p, .alert-more dl, .alert-more ul { margin: 4px 0 0; }
 .alert-more dl div { display: flex; gap: 6px; }
-/* Recent recalls (components/RecallLine.astro) */
-.recall-line { margin-top: 10px; padding: 8px 12px; border-radius: 12px; background: var(--card); border: 1px solid var(--rot); border-left-width: 4px; overflow-wrap: anywhere; }
-.recall-line summary { cursor: pointer; }
-.recall-line summary b { color: var(--rot); }
-.recall-line summary span { color: var(--ink-soft); }
-.recall-line ul { margin: 6px 0 0; padding-left: 1.2em; }
-.recall-line li { margin: 2px 0; }
-.recall-line small, .recall-line .small { color: var(--ink-soft); }
-.recall-line p { margin: 6px 0 0; }
 .alert-more dt { color: var(--ink-soft); }
 .alert-more dt::after { content: ":"; }
 .alert-more dd { margin: 0; }
 .alert-more ul { padding-left: 1.2em; list-style: disc; }
-.alerts[data-alerts-town] { margin-bottom: 12px; }
+.alert-more li { padding: 1px 0; border: 0 !important; }
+/* The chosen days' weather and its nudge, under the When buttons (explore.ts). */
 .wx { margin-top: 10px; padding: 8px 12px; border-radius: 12px; background: var(--card); border: 1px solid var(--line); }
 .wx p { margin: 0; }
 .wx-days { font-weight: 700; }

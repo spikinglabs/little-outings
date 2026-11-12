@@ -107,6 +107,11 @@ const description = t("homeDescription", { events: listed.length, places: places
 const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
 ---
 <Base lang={lang} tab="explore" earlyTiles={`/${lang}/ideen/`} description={description} ld={siteLd({ site, url: `${site}/${lang}/`, name: t("siteName"), description, lang, maker: MAKER_URL })}>
+  <!-- The header bell: confirmed city alerts for the home town (explore.ts picks them) and recent recalls. -->
+  <Fragment slot="notices">
+    <CityAlerts lang={lang} t={t} />
+    <RecallLine lang={lang} t={t} />
+  </Fragment>
   <section class="ask">
     <h1 set:html={t("ask", { when: `<span data-when-word>${whenIn.weekend}</span>` })} />
     <label class="search">
@@ -120,10 +125,6 @@ const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
         {k === "weekend" && <button type="button" data-when="holiday" aria-pressed="false" hidden></button>}
       </>)}
     </div>
-    <!-- Confirmed city alerts for the home town (a big demo, a strike); explore.ts shows them. -->
-    <CityAlerts lang={lang} t={t} />
-    <!-- Recent recalls of kids' products in Germany, from Allo Recalls. -->
-    <RecallLine lang={lang} t={t} />
     <!-- The chosen days' weather, and a nudge toward ideas that suit it (explore.ts). Hidden without a forecast. -->
     <div class="wx" data-wx hidden>
       <p class="wx-days" data-wx-days></p>

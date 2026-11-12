@@ -5,6 +5,7 @@ import { count, track, whenPresent, type CountAction } from "../lib/count";
 import { firstSendHint, myNick } from "../lib/nickname";
 import { dropDraft, fillForm, formValues, hasText, loadDraft, saveDraft } from "../lib/draft";
 import { applyTheme, isDark } from "../lib/theme";
+import "./notices"; // the header bell
 
 const body = document.body;
 const ui = JSON.parse(body.dataset.ui || "{}") as Record<string, string> & { fac?: [string, string][] };

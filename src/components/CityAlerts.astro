@@ -1,5 +1,5 @@
 ---
-// "Good to know": confirmed city alerts (a big demo, a strike, an evacuation), one short line each with the
+// "Good to know", inside the header bell (layouts/Base.astro, slot "notices"): confirmed city alerts (a big demo, a strike, an evacuation), one short line each with the
 // official source. With `town`, only that town's; without, every town's, hidden, and scripts/alerts.ts shows
 // the home town's. The same script hides an alert once its last day is over, before the next build.
 import { getAlerts } from "../lib/data";
@@ -14,10 +14,10 @@ const hasMore = (a: Alert) => !!(a.about || a.expected || a.where || a.route || 
 ---
 {alerts.length > 0 && (
   <aside class="alerts" data-alerts data-alerts-town={town} hidden={!town} aria-label={t("alerts.title")}>
-    <p class="alerts-title">⚠ {t("alerts.title")}</p>
+    <p class="notices-h">{t("alerts.title")}</p>
     <ul>
       {alerts.map((a) => (
-        <li data-alert-city={a.city} data-alert-end={a.until || a.day} hidden={!town}>
+        <li data-notice={`a:${a.id}`} data-alert-city={a.city} data-alert-end={a.until || a.day} hidden={!town}>
           {a.type && <span class="alert-type">{t(`alerts.type.${a.type}`)}</span>} <b>{whenText(a, t.locale)}</b> · {a.line[lang]} <a href={a.url} target="_blank" rel="noopener nofollow">{t("alerts.source")} ↗</a>
           {hasMore(a) && (
             <details class="alert-more">

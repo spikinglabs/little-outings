@@ -42,8 +42,10 @@ const ld = live && {
 };
 ---
 <Base lang={lang} tab="explore" title={title} description={description} ld={ld || undefined} og={weekendKey(Astro.params.town)}>
-  <CityAlerts lang={lang} t={t} town={name} />
-  <RecallLine lang={lang} t={t} />
+  <Fragment slot="notices">
+    <CityAlerts lang={lang} t={t} town={name} />
+    <RecallLine lang={lang} t={t} />
+  </Fragment>
   {live ? <WeekendEdition edition={live} t={t} /> : (
     <section class="wk">
       <header class="wk-head">

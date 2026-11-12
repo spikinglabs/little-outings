@@ -41,6 +41,10 @@ alerts:
     evacuation: "Evacuation"
     crowd_event: "Big crowd event"
     other: "Notice"
+notices:
+  button: "Notices"
+  new: "new"
+  recalls: "Product recalls"
 recalls:
   line:
     one: "{n} recall of a kids' product in Germany this month"

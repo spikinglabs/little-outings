@@ -1,5 +1,5 @@
 // Recent recalls of children's products sold in Germany → data/recalls.json, before every build (so nightly),
-// for the recall line on Discover and the weekend pages (src/components/RecallLine.astro).
+// for the recalls in the header bell on Discover and the weekend pages (src/components/RecallLine.astro).
 // From Allo Recalls (recalls.allo.land, repo spikinglabs/recall-tracker), which collects and translates them daily:
 // German notices (lebensmittelwarnung.de) and EU Safety Gate alerts notified by Germany, from the last DAYS days.
 // Each links to its own page on recalls.allo.land. Never fails the build: without the file the line is not shown.
