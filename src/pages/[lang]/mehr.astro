@@ -2,7 +2,7 @@
 // The "More" tab: every guide page in one list (weekend editions, city pages, season pages, gift ideas),
 // then help and info. The season pages in their weeks come first, marked "In season".
 import Base from "../../layouts/Base.astro";
-import { LANGS, tr, useT, type Lang } from "../../lib/i18n";
+import { LANGS, carsChildUrl, tr, useT, type Lang } from "../../lib/i18n";
 import { getData, TODAY } from "../../lib/data";
 import { inWindow, seasonPages, seasonPath } from "../../lib/seasons";
 import { giftsPath } from "../../lib/gifts";
@@ -20,6 +20,7 @@ const timed = [
 const guides = [
   { href: `/${lang}/wochenende/`, label: `📰 ${t("weekend.nav")}`, desc: t("weekend.hubSub"), now: false },
   { href: `/${lang}/stadt/`, label: `🏙 ${t("city.nav")}`, desc: t("city.hubSub"), now: false },
+  { href: carsChildUrl(lang), label: `🚗 ${t("more.cars")}`, desc: t("more.carsDesc"), now: false },
 ];
 const info = [
   { href: `/${lang}/hilfe/`, label: t("help.link") },

@@ -9,13 +9,15 @@ export const MAKER_URL = "https://spikinglabs.com/products/allo-outings";
 // The other Allo sites, linked from every page's foot (each of them links back here).
 // Names and one-line blurbs are in i18n/<lang>.yaml under "allo".
 const RECALLS_DIR: Record<Lang, string> = { de: "de/", en: "", zh: "zh/" };
-const CARS_DIR: Record<Lang, string> = { de: "de/", en: "", zh: "" };
+const CARS_DIR: Record<Lang, string> = { de: "de/", en: "", zh: "zh/" };
 export const alloSites = (lang: Lang) => [
   { id: "recalls", url: `https://recalls.allo.land/${RECALLS_DIR[lang]}` },
   { id: "auri", url: "https://auri.allo.land/" },
   { id: "cars", url: `https://cars.allo.land/${CARS_DIR[lang]}` },
   { id: "land", url: "https://allo.land/" },
 ] as const;
+// Allo Cars' child occupant ranking (Euro NCAP child score, ISOFIX seats), linked from the More tab.
+export const carsChildUrl = (lang: Lang) => `https://cars.allo.land/${CARS_DIR[lang]}rankings/?list=child`;
 
 // UI strings live in i18n/<lang>.yaml so translators never touch code.
 const files = import.meta.glob("/i18n/*.yaml", { query: "?raw", import: "default", eager: true }) as Record<string, string>;
