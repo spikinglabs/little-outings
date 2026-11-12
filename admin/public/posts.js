@@ -1,16 +1,20 @@
 // Posts box: Rednote topic posts (Christmas markets, toy votes, St. Martin …), each with a four-character
 // code. Claude writes them in posts/ of the site repository and the posts job draws them here within minutes
-// of a push, without a site deploy (.github/workflows/posts.yml). Type a code, or tap one of the current
-// posts, to open it: "Post" hands its pictures to the phone's share menu (pick 小红书) and copies the title,
-// then the caption; the Copy buttons copy either again. ?post=<code> in the address opens one straight away.
+// of a push, without a site deploy (.github/workflows/posts.yml). One search box finds a post by its code,
+// a word of its title or a date (the day it was made or its last day, e.g. 11-12 or 2026-12): an exact code
+// opens it, anything else lists up to MAX matches to tap. With the box empty only the newest few show, so the
+// panel stays short however many posts there are. "Post" hands the pictures to the phone's share menu (pick
+// 小红书) and copies the title, then the caption; the Copy buttons copy either again. ?post=<code> opens one.
 import { cardBox } from "./cards.js";
 const $ = (id) => document.getElementById(id);
 const esc = (value) =>
   String(value ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
-const today = () => new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Berlin" }).format(new Date());
-const clean = (v) => String(v ?? "").toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 4);
+const MAX = 8, NEWEST = 3;
+const code = (v) => String(v ?? "").toUpperCase().replace(/[^A-Z0-9]/g, "");
+const made = (s) => String(s.updated ?? "").slice(0, 10);
 
-let open = clean(new URLSearchParams(location.search).get("post"));
+let open = code(new URLSearchParams(location.search).get("post")).slice(0, 4);
+let query = open;
 
 const box = cardBox({
   id: "posts", label: "post", type: "image/png", size: [135, 180], title: true,
@@ -20,29 +24,39 @@ const box = cardBox({
   onLoad: () => queueMicrotask(list),
 });
 
-/** The current posts (not past their `until` day) as buttons, newest first; past ones open by code only. */
+/** Posts whose code, title or dates contain every word typed, newest first (the API's order). */
+function search(sets, q) {
+  const words = q.trim().toLowerCase().split(/\s+/).filter(Boolean);
+  return sets.filter((s) => {
+    const hay = `${s.code} ${s.title} ${made(s)} ${s.until ?? ""}`.toLowerCase();
+    return words.every((w) => hay.includes(w));
+  });
+}
+
 function list() {
   const sets = box.sets();
-  const current = sets.filter((s) => !s.until || s.until >= today());
-  $("posts-list").innerHTML = current.length
-    ? current.map((s) => `<button class="${s.code === open ? "primary" : "ghost"}" data-post="${esc(s.code)}">${esc(s.code)} · ${esc(s.title)}</button>`).join("")
-    : `<p class="sub">No current posts.</p>`;
-  const found = sets.find((s) => s.code === open);
-  $("posts-found").textContent = !open ? "" : found ? (found.until && found.until < today() ? `Listed until ${found.until}, still here by its code.` : "") : open.length === 4 ? `No post ${open}. It shows a few minutes after Claude pushes it.` : "";
+  const q = query.trim();
+  // An exact code opens its post straight away.
+  const exact = sets.find((s) => s.code === code(q) && code(q).length === 4);
+  if (exact) open = exact.code;
+  const hits = q ? search(sets, q) : sets.slice(0, NEWEST);
+  $("posts-list").innerHTML = (q ? "" : `<p class="sub">Newest:</p>`) + (hits.length
+    ? hits.slice(0, MAX).map((s) => `<button class="${s.code === open ? "primary" : "ghost"}" data-post="${esc(s.code)}">${esc(s.code)} · ${esc(s.title)} <span class="sub">${esc(made(s))}</span></button>`).join("")
+    : q ? `<p class="sub">No post matches “${esc(q)}”. A new one shows a few minutes after Claude pushes it.</p>` : `<p class="sub">No posts yet.</p>`);
+  $("posts-found").textContent = hits.length > MAX ? `${hits.length} matches, showing ${MAX}: type more to narrow.` : "";
   box.render();
 }
 
-function show(code) {
-  open = clean(code);
-  $("posts-code").value = open;
+function show(c) {
+  open = c;
   const url = new URL(location.href);
   if (open) url.searchParams.set("post", open); else url.searchParams.delete("post");
   history.replaceState(null, "", url);
   list();
 }
 
-$("posts-code").value = open;
-$("posts-code").addEventListener("input", (ev) => show(ev.target.value));
+$("posts-q").value = query;
+$("posts-q").addEventListener("input", (ev) => { query = ev.target.value; list(); });
 document.addEventListener("click", (ev) => {
   const btn = ev.target.closest?.("#posts-panel [data-post]");
   if (btn) show(btn.dataset.post === open ? "" : btn.dataset.post);
