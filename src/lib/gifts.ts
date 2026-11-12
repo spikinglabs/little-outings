@@ -1,4 +1,4 @@
-// Gifts that are time together (content/gifts.yaml): annual passes, vouchers and animal sponsorships per town,
+// Gift ideas for children (content/gifts.yaml): annual passes, vouchers and animal sponsorships per town,
 // plus the German gift customs. Shown on /<lang>/geschenke/. Pure functions plus a file loader, so
 // `node --test` and the build both use them.
 import { readFileSync } from "node:fs";

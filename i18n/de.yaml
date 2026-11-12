@@ -785,17 +785,17 @@ gone:
 # Geschenkideen /de/geschenke/ (content/gifts.yaml, src/lib/gifts.ts).
 gifts:
   nav: Geschenkideen
-  title: "Geschenke für Kinder: gemeinsame Zeit statt noch mehr Spielzeug"
+  title: "Geschenkideen für Kinder: Erlebnisse, Bräuche und Tipps zum Kauf"
   sub: "Jahreskarten, Theatergutscheine und Tierpatenschaften in eurer Stadt, deutsche Schenk-Bräuche vom Adventskalender bis zum Kindergeburtstag, Kinderbasare und ein Blick auf Rückrufe, bevor ihr Spielzeug kauft."
   towns: Zu eurer Stadt
   experiencesH: "Erlebnisse verschenken"
-  experiencesP: "Ein Jahr Zoo oder ein Gutschein fürs Kindertheater wird immer wieder genutzt und füllt kein Regal. Jeder Eintrag führt zur Seite des Anbieters, mit den aktuellen Preisen."
+  experiencesP: "Jahreskarten, Gutscheine und Tierpatenschaften in euren Städten. Jeder Eintrag führt zur Seite des Anbieters, mit den aktuellen Preisen."
   kind:
     pass: Jahreskarte
     voucher: Gutschein
     sponsor: Tierpatenschaft
   buy: "Zur Website"
-  moreH: "Noch mehr Ideen, die keine Dinge sind"
+  moreH: "Weitere Erlebnis-Geschenke"
   more:
     - "Ein Schwimm-, Musik- oder Malkurs; viele Kurse beginnen im Januar."
     - "Ein selbstgemachter Gutschein für einen gemeinsamen Ausflug: auf Entdecken einen aussuchen und das Datum auf die Karte schreiben."

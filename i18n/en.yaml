@@ -785,17 +785,17 @@ gone:
 # Gift ideas page /en/geschenke/ (content/gifts.yaml, src/lib/gifts.ts).
 gifts:
   nav: Gift ideas
-  title: "Gifts for children: time together instead of more toys"
+  title: "Gift ideas for children: experiences, customs and buying tips"
   sub: "Annual passes, theatre vouchers and animal sponsorships in your city, how presents work in Germany from Advent calendars to birthday parties, second-hand bazaars, and a recall check before you buy a toy."
   towns: Jump to your city
   experiencesH: "Give an experience"
-  experiencesP: "A year at the zoo or a voucher for children's theatre is used again and again and fills no shelf. Each one links to the place's own page, with today's prices."
+  experiencesP: "Annual passes, vouchers and animal sponsorships in each city. Each one links to the place's own page, with today's prices."
   kind:
     pass: Annual pass
     voucher: Voucher
     sponsor: Animal sponsorship
   buy: "On their website"
-  moreH: "More ideas that are not things"
+  moreH: "More experience gifts"
   more:
     - "A swimming, music or art course; many courses start in January."
     - "A home-made voucher for a day out together: pick one on Discover and write the date on the card."
