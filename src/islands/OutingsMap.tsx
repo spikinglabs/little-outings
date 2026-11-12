@@ -115,13 +115,19 @@ export default function OutingsMap({ pinsBase, toiletsUrl, lang = "de", center, 
       const t = towns.find(([n]) => n === h);
       if (t) home = [t[1], t[2]];
     } catch { /* storage blocked */ }
+    // A link from Allo Cars' charger map (?lat=…&lon=…&ev=1#map) opens the map there with chargers shown.
+    const q = new URLSearchParams(location.search);
+    const qLat = Number(q.get("lat")), qLon = Number(q.get("lon"));
+    const fromLink = q.has("lat") && q.has("lon") && qLat > 47 && qLat < 55.2 && qLon > 5.8 && qLon < 15.1;
+    if (fromLink) home = [qLat, qLon];
+    const evOn = q.get("ev") === "1";
     // Phones have pinch for zooming; the +/− buttons only help with a mouse.
     const map = L.map(box, {
       zoomControl: matchMedia("(pointer: fine)").matches,
       // One finger scrolls the page past the map, two move it; a mouse wheel needs Ctrl (⌘).
       gestureHandling: true,
       gestureHandlingOptions: { text: { touch: labels.touch, scroll: labels.zoom, scrollMac: labels.zoomMac }, duration: 1200 },
-    } as L.MapOptions).setView(home, 11);
+    } as L.MapOptions).setView(home, fromLink ? 14 : 11);
     // OpenStreetMap tiles (free, no key), faded hard in CSS (.map .leaflet-tile-pane), and turned dark in
     // dark mode: the map only gives a rough idea, so streets and labels stay in the background.
     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -304,7 +310,8 @@ export default function OutingsMap({ pinsBase, toiletsUrl, lang = "de", center, 
       const at = town ? L.latLng(town[1], town[2]) : L.latLng(home);
       ring.setLatLng(at).setRadius(f.radius * 1000);
       const key = `${f.home}|${f.radius}|${f.view}`;
-      if (key !== last) {
+      // A link with its own spot (?lat=&lon=) keeps that view on the first draw.
+      if (key !== last && !(fromLink && last === "")) {
         fitting = true;
         map.fitBounds(at.toBounds(f.radius * 2000), { padding: [8, 8], animate: false });
         fitting = false;
@@ -514,6 +521,7 @@ export default function OutingsMap({ pinsBase, toiletsUrl, lang = "de", center, 
         },
       });
       new Chargers({ position: "topright" }).addTo(map);
+      if (evOn) { plugs.addTo(map); map.attributionControl.addAttribution(CREDIT); loadView(); map.fire("zoomend"); }
     }
     const onHere = (e: Event) => showHere((e as CustomEvent<Here | null>).detail);
     try { showHere(JSON.parse(sessionStorage.getItem("lo-here") || "null")); } catch { /* storage blocked */ }
