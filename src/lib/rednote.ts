@@ -8,10 +8,13 @@
 // caption, and someone posts them by hand.
 //
 //   weekly   one set per town in REDNOTE_TOWNS from its weekend edition: cover, one card per pick, closing card
-//   sets     hand-written explainers in content/rednote/<id>.yaml (St. Martin …), drawn until their `until` day
+//   alerts   three cards per confirmed city alert
+// Hand-written topic posts (Christmas markets, St. Martin …) are not in the site at all: they live in posts/<id>.yaml,
+// .github/workflows/posts.yml draws them (scripts/posts.mts) into the admin's bucket on every push, and the
+// admin's Posts panel opens each by its code. A new post needs no site deploy.
 //
 // Cards are 1080×1440 (3:4, what Rednote shows uncropped), drawn by src/lib/sheet.ts. Plain TypeScript, so tests run it in Node.
-import { pageLines, XHS, type Sheet } from "./sheet.ts";
+import { pageLines, TONES, XHS, type Sheet } from "./sheet.ts";
 import { textEm } from "./og.ts";
 import { codeOf } from "./rednote-code.ts";
 import { addDays, clockText, textIn, townSlug, weatherLine, whenShort, WEEKEND_TOWNS, type Edition, type Pick } from "./weekend.ts";
@@ -169,9 +172,11 @@ export const codesOf = (ed: Edition, codes = ed.picks.map((_, i) => codeOf(ed.sl
 
 // ---------- hand-written sets ----------
 
-/** content/rednote/<id>.yaml */
-/** `season`: a season id (content/seasons.yaml) the set belongs to; event pages share their own poster instead (src/components/ShareButton.astro). */
-export interface SetFile { title: string; caption: string; tags?: string[]; until?: string; season?: string; cards: Sheet[] }
+/** posts/<id>.yaml. `code`: POST_CODE, what the admin's Posts panel searches for; `until`: the last day it is listed. */
+export interface SetFile { code?: string; title: string; caption: string; tags?: string[]; until?: string; cards: Sheet[] }
+
+/** A post's code: four letters or digits without the look-alikes 0/O, 1/I/L, easy to type on a phone. */
+export const POST_CODE = /^[A-HJKMNP-Z2-9]{4}$/;
 
 export function fileSet(id: string, f: SetFile): XhsSet {
   return { id, title: f.title, caption: [f.caption.trim(), "", hashtags(f.tags ?? [])].join("\n").trim(), sheets: f.cards };
@@ -180,12 +185,13 @@ export function fileSet(id: string, f: SetFile): XhsSet {
 /** Problems with a set file, so a typo fails the tests rather than drawing a broken card. */
 export function checkSetFile(f: SetFile): string[] {
   const out: string[] = [];
+  if (f.code !== undefined && !POST_CODE.test(String(f.code))) out.push(`code ${f.code} must be 4 letters or digits, without 0, O, 1, I or L`);
   if ([...(f.title ?? "")].length > 20) out.push(`title has ${[...f.title].length} characters; Rednote allows 20`);
   if (!f.caption?.trim()) out.push("caption is empty");
   if (/https?:|www\.|\.de\b|\.com\b|allo\.land/i.test(`${f.caption} ${JSON.stringify(f.cards)}`)) out.push("contains a link; Rednote punishes those");
   if (!f.cards?.length || f.cards.length > 18) out.push("needs 1 to 18 cards");
   for (const [i, c] of (f.cards ?? []).entries()) {
-    if (!["gold", "paper", "ink"].includes(c.tone)) out.push(`card ${i + 1}: tone must be gold, paper or ink`);
+    if (!TONES.includes(c.tone)) out.push(`card ${i + 1}: tone must be one of ${TONES.join(", ")}`);
     if (!c.title) out.push(`card ${i + 1}: no title`);
   }
   return out;

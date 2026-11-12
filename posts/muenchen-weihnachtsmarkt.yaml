@@ -1,8 +1,12 @@
 # A Rednote (小红书) set: Munich's Christmas markets for families. Every date, hour and children's offer checked
 # on muenchen.de and the markets' own sites on 2026-11-12; changing tables from OpenStreetMap (places/toilets.jsonl).
-# Drawn at /xhs/muenchen-weihnachtsmarkt-<n>.png until `until`; the admin's Rednote box shows it with the caption.
+# Drawn and uploaded by .github/workflows/posts.yml on push; the admin's Posts panel opens it by its code.
 # Ends on a vote so parents talk in the comments (public: ask for favourites and tips, never about their kids).
-# After changing Chinese text here, rerun scripts/og-font.py so the font has every character.
+# The posting job cuts the Chinese font itself, so new characters need no font commit.
+# History (find a post by its code: grep -l "code: UG9H" posts/):
+# - 2026-11-12 L asked for Christmas market posters that start a discussion; facts checked on official 2026 pages ("注意信息的可靠性").
+# - 2026-11-12 L: no brand names, so shops on the changing-table card are named by kind (pharmacy, shopping centre).
+code: UG9H
 title: 慕尼黑圣诞市场带娃哪个最好？｜2026
 until: 2026-12-28
 caption: |
@@ -76,7 +80,7 @@ cards:
     lines:
       - E Stachus 溜冰场：11-13到1月10日，在市中心。
       - 玛利亚广场：旁边 Galeria 百货有换尿布台（约110米）。
-      - Stachus：旁边 dm 有换尿布台（约150米）。
+      - Stachus：旁边药妆店有换尿布台（约150米）。
       - 中国塔：旁边餐厅有换尿布台（约80米，开到18点）。
     foot: 换尿布台位置来自 © OpenStreetMap 贡献者
   - tone: ink

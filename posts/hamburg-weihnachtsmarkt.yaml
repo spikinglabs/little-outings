@@ -1,8 +1,12 @@
 # A Rednote (小红书) set: Hamburg's Christmas markets for families. Every date, hour, price and children's offer
 # checked on the market's hamburg.de page on 2026-11-12; changing tables from OpenStreetMap (places/toilets.jsonl).
-# Drawn at /xhs/hamburg-weihnachtsmarkt-<n>.png until `until`; the admin's Rednote box shows it with the caption.
+# Drawn and uploaded by .github/workflows/posts.yml on push; the admin's Posts panel opens it by its code.
 # Ends on a vote so parents talk in the comments (public: ask for favourites and tips, never about their kids).
-# After changing Chinese text here, rerun scripts/og-font.py so the font has every character.
+# The posting job cuts the Chinese font itself, so new characters need no font commit.
+# History (find a post by its code: grep -l "code: H9WD" posts/):
+# - 2026-11-12 L asked for Christmas market posters that start a discussion; facts checked on official 2026 pages ("注意信息的可靠性").
+# - 2026-11-12 L: no brand names, so shops on the changing-table card are named by kind (pharmacy, shopping centre).
+code: H9WD
 title: 汉堡圣诞市场带娃哪个最好？｜2026
 until: 2026-12-30
 caption: |
@@ -80,8 +84,8 @@ cards:
     tag: 换尿布 · 小提示
     title: 宝宝要换尿布？
     lines:
-      - 市政厅广场和少女堤：附近的 Budnikowsky 药妆店有换尿布台（约190米，周日不开）。
-      - Wandsbek：旁边 Quarree 商场有换尿布台（约130米）。
+      - 市政厅广场和少女堤：附近的药妆店有换尿布台（约190米，周日不开）。
+      - Wandsbek：旁边的商场有换尿布台（约130米）。
       - Harburg：市政厅附近约80米有换尿布台。
     note: 晚上人多推车难走，背带更轻松。
     foot: 换尿布台位置来自 © OpenStreetMap 贡献者

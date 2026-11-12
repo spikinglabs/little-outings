@@ -2,8 +2,9 @@
 # Cologne and Frankfurt walks added by hand to content/events/st-martin/ the same day).
 # The explainer is st-martin.yaml; this one only lists walks, so it has no `season` (the event pages keep
 # offering the explainer).
-# Drawn at /xhs/martin-walks-<n>.png until `until`; the admin's Rednote box shows it with the caption.
-# After changing Chinese text here, rerun scripts/og-font.py so the font has every character.
+# Drawn and uploaded by .github/workflows/posts.yml on push; the admin's Posts panel opens it by its code.
+# The posting job cuts the Chinese font itself, so new characters need no font commit.
+code: NF4S
 title: 圣马丁灯笼游行｜德国6城时间地点
 until: 2026-11-14
 caption: |

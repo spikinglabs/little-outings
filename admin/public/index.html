@@ -13,6 +13,7 @@
   <script type="module" src="weekend.js"></script>
   <script type="module" src="alerts.js"></script>
   <script type="module" src="rednote.js"></script>
+  <script type="module" src="posts.js"></script>
   <script type="module" src="weekend-now.js"></script>
   <script type="module" src="instagram.js"></script>
   <script type="module" src="usage.js"></script>
@@ -72,7 +73,7 @@
     <section class="panel" id="rednote-panel">
       <div class="panel-head">
         <h2>Rednote</h2>
-        <p>Picture sets for 小红书, drawn when the weekend edition comes out on Monday and redrawn after Friday's refresh (every weekend town), plus explainers like St. Martin. "Save all" puts a set's pictures on your phone in one go: pick Photos, Files or Rednote in the share menu, and the caption is copied too. On a computer it downloads them as one ZIP. Post them in this order with the title and caption. No links or QR codes anywhere: Rednote punishes them. Parents find the site by searching 小鹿出游 and typing a card's code (like K31-2) into the search box.</p>
+        <p>Picture sets for 小红书, drawn when the weekend edition comes out on Monday and redrawn after Friday's refresh (every weekend town), and city alert posters. Topic posts (Christmas markets, St. Martin …) are in the Posts panel. "Save all" puts a set's pictures on your phone in one go: pick Photos, Files or Rednote in the share menu, and the caption is copied too. On a computer it downloads them as one ZIP. Post them in this order with the title and caption. No links or QR codes anywhere: Rednote punishes them. Parents find the site by searching 小鹿出游 and typing a card's code (like K31-2) into the search box.</p>
         <p>The button makes next weekend's sets now instead of waiting for Monday, from the events published so far (with any swaps from the Weekend panel); they show here about 15 minutes later, in the Instagram box too. Friday's refresh then keeps its picks in order, so the codes on cards you posted stay right.</p>
       </div>
       <div class="weekend-now">
@@ -81,6 +82,21 @@
       </div>
       <div class="banner" id="rednote-banner" hidden></div>
       <div id="rednote"></div>
+    </section>
+
+    <section class="panel" id="posts-panel">
+      <div class="panel-head">
+        <h2>Posts</h2>
+        <p>Rednote topic posts, beyond the weekly sets: Christmas markets, votes, explainers. Each has a four-character code that Claude gives you in the chat; a new one shows here a few minutes after Claude pushes it, without a site deploy. Search by code, a word of the title or a date (when it was made or its last day), then tap a result; an exact code opens straight away. With the box empty only the newest three show. "Post" hands its pictures to your phone's share menu (pick 小红书) and copies the title, then the caption; the Copy buttons copy either again. No links or QR codes: Rednote punishes them.</p>
+      </div>
+      <div class="posts-search">
+        <label for="posts-q">Search</label>
+        <input id="posts-q" type="search" autocomplete="off" spellcheck="false" placeholder="Code, title or date, e.g. TK9C, 圣诞, 11-12">
+        <span class="sub" id="posts-found" aria-live="polite"></span>
+      </div>
+      <div class="posts-list" id="posts-list"><p class="sub">Loading…</p></div>
+      <div class="banner" id="posts-banner" hidden></div>
+      <div id="posts"></div>
     </section>
 
     <section class="panel" id="instagram-panel">

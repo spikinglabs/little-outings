@@ -1,27 +1,15 @@
 // Build-time Rednote sets (src/lib/rednote.ts): each REDNOTE_TOWNS town's newest weekend edition, each
-// confirmed city alert still to come, and the hand-written sets in content/rednote/ until their `until` day. Drawn by src/pages/xhs/[file].ts,
-// listed with their captions in /xhs/index.json for the admin's Rednote box.
-import { existsSync, readdirSync, readFileSync } from "node:fs";
-import { load as parseYaml } from "js-yaml";
-import { getAlerts, getData, TODAY } from "./data";
+// confirmed city alert still to come. Drawn by src/pages/xhs/[file].ts, listed with their captions in
+// /xhs/index.json for the admin's Rednote box. Hand-written topic posts live in posts/ instead (scripts/posts.mts).
+import { getAlerts, getData } from "./data";
 import { townName } from "./format";
 import { useT } from "./i18n";
 import { codeOf } from "./rednote-code";
-import { REDNOTE_TOWNS, alertSet, codesOf, fileSet, weeklySet, type SetFile, type XhsSet } from "./rednote";
+import { REDNOTE_TOWNS, alertSet, codesOf, weeklySet, type XhsSet } from "./rednote";
 import { editionTowns, weekendCounts } from "./weekend-data";
 import type { Pick } from "./weekend";
 
-const DIR = "content/rednote";
-
-export interface BuiltSet extends XhsSet { kind: "weekly" | "set" | "alert"; town?: string; weekend?: string; season?: string; day?: string }
-
-/** The hand-written sets, by file name, still before their `until` day. */
-export function setFiles(): [string, SetFile][] {
-  if (!existsSync(DIR)) return [];
-  return readdirSync(DIR).filter((f) => f.endsWith(".yaml")).sort()
-    .map((f) => [f.replace(/\.yaml$/, ""), parseYaml(readFileSync(`${DIR}/${f}`, "utf8")) as SetFile] as [string, SetFile])
-    .filter(([, s]) => !s.until || String(s.until) >= TODAY);
-}
+export interface BuiltSet extends XhsSet { kind: "weekly" | "alert"; town?: string; weekend?: string; day?: string }
 
 let built: Promise<{ sets: BuiltSet[]; codes: Record<string, string> }> | undefined;
 /** Every set and every code; made once per build, since the home and event pages ask too. */
@@ -54,7 +42,6 @@ async function buildSets(): Promise<{ sets: BuiltSet[]; codes: Record<string, st
   }
   // Confirmed city alerts (data/alerts.json) get a set of their own, listed first, ready as soon as the admin confirms one.
   for (const a of getAlerts().reverse()) sets.unshift({ kind: "alert", town: a.city, day: a.day, ...alertSet(a, townName(a.city, "zh", region.towns)) });
-  for (const [id, f] of setFiles()) sets.push({ kind: "set", ...(f.season ? { season: f.season } : {}), ...fileSet(id, f) });
   return { sets, codes: found };
 }
 

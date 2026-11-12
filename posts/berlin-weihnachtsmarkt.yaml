@@ -1,8 +1,12 @@
 # A Rednote (小红书) set: Berlin's Christmas markets for families. Every date, hour, price and children's offer
 # checked on the market's berlin.de page on 2026-11-12; changing table from OpenStreetMap (places/toilets.jsonl).
-# Drawn at /xhs/berlin-weihnachtsmarkt-<n>.png until `until`; the admin's Rednote box shows it with the caption.
+# Drawn and uploaded by .github/workflows/posts.yml on push; the admin's Posts panel opens it by its code.
 # Ends on a vote so parents talk in the comments (public: ask for favourites and tips, never about their kids).
-# After changing Chinese text here, rerun scripts/og-font.py so the font has every character.
+# The posting job cuts the Chinese font itself, so new characters need no font commit.
+# History (find a post by its code: grep -l "code: G4TG" posts/):
+# - 2026-11-12 L asked for Christmas market posters that start a discussion; facts checked on official 2026 pages ("注意信息的可靠性").
+# - 2026-11-12 L: no brand names, so shops on the changing-table card are named by kind (pharmacy, shopping centre).
+code: G4TG
 title: 柏林圣诞市场带娃哪个最好？｜2026
 until: 2026-12-30
 caption: |
@@ -73,7 +77,7 @@ cards:
     tag: 换尿布 · 小提示
     title: 宝宝要换尿布？
     lines:
-      - 红色市政厅：旁边约100米的 City WC 有换尿布台。
+      - 红色市政厅：旁边约100米的公共厕所有换尿布台。
       - 其他市场附近我们的数据里还没有，可以去附近商场。
       - 热饮杯要付押金（Pfand），还杯退钱，也可以留着做纪念。
     note: 晚上人多推车难走，背带更轻松。

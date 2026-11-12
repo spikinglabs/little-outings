@@ -1,9 +1,9 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readdirSync, readFileSync } from "node:fs";
-import { load } from "js-yaml";
+import { readFileSync } from "node:fs";
 import { codeOf, normCode } from "../src/lib/rednote-code.ts";
-import { alertSet, alertWhen, checkSetFile, codesOf, fileSet, fitTitle, lines, sheetSvg, weeklySet, weeklyTitle, type SetFile } from "../src/lib/rednote.ts";
+import { alertSet, alertWhen, checkSetFile, codesOf, fileSet, fitTitle, lines, POST_CODE, sheetSvg, weeklySet, weeklyTitle } from "../src/lib/rednote.ts";
+import { checkPosts, postJson, readPosts } from "../scripts/posts.mts";
 import type { Edition } from "../src/lib/weekend.ts";
 
 const edition: Edition = {
@@ -90,24 +90,31 @@ test("every card draws as an SVG", () => {
   for (const sheet of s.sheets) assert.match(sheetSvg(sheet, "1/4"), /^<svg [^>]+width="1080" height="1440"/);
 });
 
-const setFiles = readdirSync("content/rednote").filter((f) => f.endsWith(".yaml"));
+// Topic posts (posts/, drawn for the admin by scripts/posts.mts; the posting job cuts its own font).
+const posts = readPosts();
 
-test("hand-written sets are complete and carry no links", () => {
-  assert.ok(setFiles.length > 0);
-  for (const f of setFiles) {
-    const file = load(readFileSync(`content/rednote/${f}`, "utf8")) as SetFile;
-    assert.deepEqual(checkSetFile(file), [], f);
-    assert.match(fileSet(f, file).caption, /#/);
-  }
+test("topic posts are complete, carry no links and each has its own code", () => {
+  assert.ok(posts.length > 0);
+  assert.deepEqual(checkPosts(posts), []);
+  for (const p of posts) assert.match(fileSet(p.id, p).caption, /#/);
 });
 
-test("the Chinese font has every character the hand-written sets show", () => {
-  // design/og/zh-chars.txt lists what scripts/og-font.py put in the font; rerun it when this fails.
-  const have = new Set(readFileSync("design/og/zh-chars.txt", "utf8").trim());
-  // Only the cards are drawn; the caption is pasted as text, so it may carry emoji.
-  const text = setFiles.map((f) => JSON.stringify((load(readFileSync(`content/rednote/${f}`, "utf8")) as SetFile).cards)).join("");
-  const missing = [...new Set([...text].filter((c) => c >= "⺀" && c <= "￯" && !have.has(c)))];
-  assert.deepEqual(missing, []);
+test("a post without a code, with a shared one or a look-alike letter is refused", () => {
+  const card = { tone: "paper" as const, title: "x" };
+  const base = { title: "t", caption: "c", cards: [card] };
+  assert.match(checkPosts([{ ...base, id: "a" }]).join(), /needs a code/);
+  assert.match(checkPosts([{ ...base, id: "a", code: "AB2C" }, { ...base, id: "b", code: "AB2C" }]).join(), /already used by a/);
+  assert.match(checkPosts([{ ...base, id: "a", code: "AB0C" }]).join(), /without 0, O/);
+  assert.ok(POST_CODE.test("TK9C") && !POST_CODE.test("tk9c") && !POST_CODE.test("TK9CX"));
+});
+
+test("post.json names the pictures in order, with the hashtags in the caption", () => {
+  const p = posts.find((x) => x.id === "weihnachten-spielzeug")!;
+  const j = postJson(p, "2026-11-12T15:00:00.000Z");
+  assert.equal(j.code, "TK9C");
+  assert.equal(j.pictures.length, p.cards.length);
+  assert.equal(j.pictures[0], "weihnachten-spielzeug-1.png");
+  assert.match(j.caption, /\n#小鹿出游 #/);
 });
 
 test("a pick that dropped out leaves the other codes as posted", () => {
@@ -124,7 +131,7 @@ test("the last line is never one or two lone characters", () => {
 
 test("captions speak to mums and dads alike", () => {
   const weekly = weeklySet(edition, { townZh: "科隆", kindName, more: { events: 1, places: 1 } }).caption;
-  const sets = setFiles.map((f) => fileSet(f, load(readFileSync(`content/rednote/${f}`, "utf8")) as SetFile).caption);
+  const sets = posts.map((p) => fileSet(p.id, p).caption);
   for (const caption of [weekly, ...sets]) {
     assert.equal(caption.includes("#德国妈妈"), caption.includes("#德国爸爸"), caption.slice(-80));
   }
@@ -132,7 +139,7 @@ test("captions speak to mums and dads alike", () => {
 
 test("every caption carries our own #小鹿出游 tag first", () => {
   const weekly = weeklySet(edition, { townZh: "科隆", kindName, more: { events: 1, places: 1 } }).caption;
-  const sets = setFiles.map((f) => fileSet(f, load(readFileSync(`content/rednote/${f}`, "utf8")) as SetFile).caption);
+  const sets = posts.map((p) => fileSet(p.id, p).caption);
   for (const caption of [weekly, ...sets]) {
     assert.match(caption, /\n#小鹿出游 #/, caption.slice(-80));
     assert.equal(caption.split("#小鹿出游").length, 2);

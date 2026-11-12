@@ -1,8 +1,8 @@
 # A Rednote (小红书) set explaining St. Martin's lantern walks to Chinese-speaking parents (src/lib/rednote.ts).
-# Drawn at /xhs/st-martin-<n>.png until `until`; the admin's Rednote box shows it with the caption.
-# After changing Chinese text here, rerun scripts/og-font.py so the font has every character.
+# Drawn and uploaded by .github/workflows/posts.yml on push; the admin's Posts panel opens it by its code.
+# The posting job cuts the Chinese font itself, so new characters need no font commit.
+code: SQQA
 title: 圣马丁节是什么？带娃参加灯笼游行
-season: martin
 until: 2026-11-11
 caption: |
   11月11日前后，德国到处都有圣马丁灯笼游行🏮 第一次参加的爸爸妈妈看这里：

@@ -22,6 +22,8 @@ export const KEYS = {
   igApprovals: `${PREFIX}/instagram-approvals.json`,
   igPosted: `${PREFIX}/instagram-posted.json`,
   igToken: `${PREFIX}/instagram-token.json`,
+  // Rednote topic posts, one folder per code (post.json + pictures), uploaded by the site repository's posts job.
+  posts: `${PREFIX}/posts/`,
 };
 
 export function json(body, status = 200) {

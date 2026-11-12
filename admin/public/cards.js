@@ -1,5 +1,6 @@
-// A box of picture sets drawn by the site's build, posted by hand: the Rednote box (rednote.js) and the
-// Instagram box (instagram.js). Save the pictures, copy title and caption. Talks to /api/<id>.
+// A box of picture sets, posted by hand: the Rednote box (rednote.js) and the Instagram box (instagram.js),
+// drawn by the site's build, and the Posts box (posts.js), drawn by the posts job. Save the pictures, copy
+// title and caption. Talks to /api/<id>.
 // "Save all" hands a phone every card of a set at once (its share menu: Photos, Files or the app itself);
 // a computer, or a phone that can't share files, gets them as one ZIP. On the way it copies the title and
 // then the caption, so both wait in the keyboard's clipboard list (Gboard, Samsung, SwiftKey keep the
@@ -13,9 +14,11 @@ const esc = (value) =>
  * id: "rednote" or "instagram" (the box #<id>, its banner #<id>-banner, the API /api/<id>); label: the
  * app's name in messages; type: the cards' picture type; size: a thumbnail's [width, height]; title: show
  * the set's title as a field to copy (Rednote notes have one, Instagram posts don't). Optional: onLoad(body)
- * gets the API's whole answer, decorate(set) adds HTML under a set's heading. Returns { load, render }.
+ * gets the API's whole answer, decorate(set) adds HTML under a set's heading, visible(set) picks the sets
+ * shown (default all), empty is the text when none is, saveLabel(n) names the main button.
+ * Returns { load, render, note, sets }.
  */
-export function cardBox({ id, label, type, size, title, onLoad, decorate }) {
+export function cardBox({ id, label, type, size, title, onLoad, decorate, visible, empty, saveLabel }) {
   let sets = [];
 
   async function load() {
@@ -40,24 +43,25 @@ export function cardBox({ id, label, type, size, title, onLoad, decorate }) {
 
   function render() {
     const box = $(id);
-    if (!sets.length) {
-      box.innerHTML = `<p class="sub">No cards yet. They are drawn when the weekend edition is published early on Monday.</p>`;
+    const shown = sets.map((s, i) => [s, i]).filter(([s]) => !visible || visible(s));
+    if (!shown.length) {
+      box.innerHTML = `<p class="sub">${esc(empty ?? "No cards yet. They are drawn when the weekend edition is published early on Monday.")}</p>`;
       return;
     }
-    box.innerHTML = sets.map((s, i) => `
+    box.innerHTML = shown.map(([s, i]) => `
       <section class="rednote-set">
-        <h3>${esc(s.kind === "weekly" ? `${s.town}, weekend of ${s.weekend}` : s.kind === "alert" ? `⚠ City alert: ${s.town}, ${s.day}` : s.kind === "set" ? s.id : s.title)}</h3>
+        <h3>${esc(s.kind === "weekly" ? `${s.town}, weekend of ${s.weekend}` : s.kind === "alert" ? `⚠ City alert: ${s.town}, ${s.day}` : s.kind === "post" ? `${s.code} · ${s.title}` : s.title)}</h3>
         ${decorate ? decorate(s) : ""}
         <div class="rednote-pics">
           ${s.pictures.map((p, n) => `<a href="${esc(p)}" target="_blank" rel="noopener"><img src="${esc(p)}" alt="Card ${n + 1}" loading="lazy" width="${size[0]}" height="${size[1]}"></a>`).join("")}
         </div>
         <div class="rednote-save">
-          <button class="primary" data-save="${i}">Save all ${s.pictures.length} pictures</button>
+          <button class="primary" data-save="${i}">${esc(saveLabel ? saveLabel(s.pictures.length) : `Save all ${s.pictures.length} pictures`)}</button>
           <button class="ghost" data-zip="${i}">Download ZIP</button>
         </div>
         <p class="sub rednote-hint" id="${id}-hint-${i}">${title
-          ? "Save all also copies the title, then the caption. In the app: paste into the text, and pick the title from your keyboard's clipboard."
-          : "Save all also copies the caption: paste it into the post."}</p>
+          ? `${saveLabel ? "Post" : "Save all"} also copies the title, then the caption. In the app: paste into the text, and pick the title from your keyboard's clipboard.`
+          : `${saveLabel ? "Post" : "Save all"} also copies the caption: paste it into the post.`}</p>
         ${title ? `<label for="${id}-title-${i}">Title</label>
         <div class="rednote-copy">
           <input id="${id}-title-${i}" readonly value="${esc(s.title)}">
@@ -168,5 +172,5 @@ export function cardBox({ id, label, type, size, title, onLoad, decorate }) {
   });
 
   load();
-  return { load, render, note };
+  return { load, render, note, sets: () => sets };
 }
