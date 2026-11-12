@@ -824,6 +824,8 @@ more:
   info: Help and info
   now: In season
   giftsDesc: Annual passes and vouchers per city, German gift customs, tips before buying toys.
+  cars: Children in the car
+  carsDesc: "Euro NCAP child occupant scores and ISOFIX seats per car model, at Allo Cars."
 # Birthday parties /en/kindergeburtstag/ (content/birthdays.yaml)
 party:
   parentsH: Tips from parents
