@@ -50,5 +50,40 @@ items:
     street: Kaiserhof der Residenz
     geo: { lat: 48.14150, lon: 11.57900 }
     district: Altstadt
+    kids: [fairy_tale, stage, santa]
     free: true
-    website: https://www.muenchen.de/veranstaltungen/weihnachtsmaerkte-christkindlmaerkte-2026
+    website: https://www.muenchen.de/veranstaltungen/freizeit/weihnachtsmarkt-christkindlmarkt/weihnachtsdorf-der-residenz
+    note:
+      de: "Kostenloser Märchenwald mit Märchen auf Knopfdruck; Kasperletheater (23.11., 30.11., 8.12., 14.12., 15–16 Uhr), Kinderschminken und Nikolaus am 6. und 7.12. ab 17 Uhr."
+      en: "A free fairy-tale forest with stories at the press of a button; Punch and Judy shows (23 Nov, 30 Nov, 8 Dec, 14 Dec, 3–4 pm), face painting, and St. Nicholas on 6 and 7 Dec from 5 pm."
+      zh: "免费的童话森林，按一下按钮童话就动起来；木偶剧（11月23日、30日，12月8日、14日，15–16点），儿童画脸，12月6日和7日17点起圣尼古拉斯来。"
+  - id: chinaturm
+    name: Weihnachtsmarkt am Chinesischen Turm
+    from: 2026-11-19
+    to: 2026-12-23
+    hours: "Mi–Fr 11:30–20:30, Sa–So 11–20:30 Uhr; Mo und Di zu (21.–23.12. täglich 11–20:30)"
+    street: Englischer Garten 3
+    geo: { lat: 48.15268, lon: 11.59200 }
+    district: Schwabing
+    kids: [carousel, train, santa]
+    free: true
+    website: https://www.muenchen.de/veranstaltungen/freizeit/weihnachtsmarkt-christkindlmarkt/weihnachtsmarkt-am-chinesischen-turm
+    note:
+      de: "Historisches Kinderkarussell und Kindereisenbahn; Do–So ab 13 Uhr Kutschfahrten durch den Englischen Garten, Nikolaus am 5. und 6.12."
+      en: "A historic children's carousel and a little train; carriage rides through the English Garden Thu–Sun from 1 pm, St. Nicholas on 5 and 6 Dec."
+      zh: "有老式儿童旋转木马和儿童小火车；周四到周日13点起可以坐马车游英国花园，12月5日和6日圣尼古拉斯来。"
+  - id: maerchenbazar
+    name: Märchenbazar im Olympiapark Süd
+    from: 2026-11-26
+    to: 2026-12-28
+    hours: "Mo–Mi 14–22, Do–Fr 14–23, Sa 12–23, So 11–21 Uhr; 24.12. zu"
+    street: Spiridon-Louis-Ring 100
+    geo: { lat: 48.16890, lon: 11.54830 }
+    district: Milbertshofen-Am Hart
+    kids: [fairy_tale, crafts, stage]
+    free: true
+    website: https://www.muenchen.de/veranstaltungen/freizeit/weihnachtsmarkt-christkindlmarkt/maerchenbazar
+    note:
+      de: "Eintritt frei; täglich kostenloses Kinderprogramm mit Märchenstunden, Kerzenziehen, Kasperletheater und Basteln."
+      en: "Free entry; a free children's programme every day with fairy-tale hours, candle dipping, Punch and Judy and crafts."
+      zh: "免费入场；每天有免费儿童节目：讲童话、做蜡烛、木偶剧和手工。"

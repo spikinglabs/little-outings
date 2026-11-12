@@ -106,9 +106,9 @@ items:
     free: true
     website: https://www.koeln.de/weihnachten/weihnachtsmaerkte-koeln/weihnachtsmarkt-koeln-west/
     note:
-      de: "Zum Teil überdachte und beheizte Winterwelt mit Kinderkarussell, dazu eine Eisbahn."
-      en: "A partly covered, heated winter hall with a children's carousel, plus an ice rink."
-      zh: "部分有顶棚和暖气的冬日市场，有儿童旋转木马和溜冰场。"
+      de: "Zum Teil überdachte und beheizte Winterwelt mit Kinderkarussell; eine Eisbahn ist geplant."
+      en: "A partly covered, heated winter hall with a children's carousel; an ice rink is planned."
+      zh: "部分有顶棚和暖气的冬日市场，有儿童旋转木马，还计划有溜冰场。"
   - id: chlodwigplatz
     name: Weihnachtsmarkt am Chlodwigplatz
     from: 2026-11-19

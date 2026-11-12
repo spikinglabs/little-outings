@@ -1,0 +1,94 @@
+# A Rednote (小红书) set: Berlin's Christmas markets for families. Every date, hour, price and children's offer
+# checked on the market's berlin.de page on 2026-11-12; changing table from OpenStreetMap (places/toilets.jsonl).
+# Drawn at /xhs/berlin-weihnachtsmarkt-<n>.png until `until`; the admin's Rednote box shows it with the caption.
+# Ends on a vote so parents talk in the comments (public: ask for favourites and tips, never about their kids).
+# After changing Chinese text here, rerun scripts/og-font.py so the font has every character.
+title: 柏林圣诞市场带娃哪个最好？｜2026
+until: 2026-12-30
+caption: |
+  柏林的圣诞市场11-13起陆续开门🎄 鹿小游按官方信息挑了6个适合带娃的，看完来评论区投票（A–F）👇
+
+  A 【11-23起】红色市政厅：海神喷泉溜冰场、50米摩天轮
+  B 【11-23起】夏洛滕堡宫：两个儿童旋转木马和小摩天轮
+  C 【11-23起】Kulturbrauerei：圣诞老人每天来，骑士城堡
+  D 【11-23起】Zehlendorf：小溜冰场，周末舞台节目
+  E 【11-28起，只有周末】Späth 苗圃：格林童话剧、坐马车
+  F 【12-04起，只有周末】Lehmanns 农场：看动物、骑小马
+
+  小提示：农场和苗圃只开几个周末，日期见第5、6张。
+
+  🗳 你家投哪个？评论区留下字母就行。
+  也想听听大家的经验：白天去还是晚上去？推车还是背带？有没有人少的私藏小市场？
+
+  时间以官方为准，出发前请再确认～
+  更多市场：浏览器搜索「小鹿出游 Allo Outings」，选柏林，点「圣诞市场」。
+tags: [柏林带娃, 柏林圣诞市场, 德国圣诞市场, 圣诞市场, 德国带娃, 德国生活, 德国妈妈, 德国爸爸, 留德]
+cards:
+  - tone: gold
+    tag: 2026 · 柏林
+    title: "柏林圣诞市场\n带娃去哪个？"
+    lines:
+      - 6个有孩子玩的市场：开门时间、亮点、要不要门票，都按官方信息核对过。
+      - 最后一张投票，评论区见！
+    foot: 德国带娃 · 圣诞季
+  - tone: paper
+    tag: 开门时间
+    title: 哪天开门？
+    rows:
+      - { when: "11-13", name: 威廉皇帝纪念教堂（最早） }
+      - { when: "11-18", name: 洪堡论坛 }
+      - { when: "11-23", name: 红色市政厅、夏洛滕堡宫、Kulturbrauerei、Zehlendorf }
+      - { when: "11-28", name: Späth 苗圃（只有周末） }
+      - { when: "12-04", name: Lehmanns 农场、Rixdorf（只有周末） }
+    note: 大部分开到12-23以后，红色市政厅开到1月3日。
+  - tone: paper
+    tag: A 红色市政厅 · B 夏洛滕堡宫
+    title: 溜冰、摩天轮、旋转木马
+    lines:
+      - A 红色市政厅：溜冰场围着海神喷泉，50米摩天轮是封闭的暖气吊舱，还有木偶艺人和讲故事的人。
+      - B 夏洛滕堡宫：两个儿童旋转木马和一个小摩天轮，城堡晚上有灯光。
+    note: 都是中午前后开门，12-24都不开。
+  - tone: paper
+    tag: C Kulturbrauerei · D Zehlendorf
+    title: 小小孩会喜欢
+    lines:
+      - C Kulturbrauerei：圣诞老人每天来听孩子的愿望，有旋转秋千和骑士城堡，还能动手做礼物。工作日15点开。
+      - D Zehlendorf：小溜冰场（2.50欧），周末16点起有舞台节目，还有手工和烘焙活动。
+    note: 两个都免费入场。
+  - tone: paper
+    tag: E Späth 苗圃
+    title: 童话剧和马车
+    lines:
+      - 只开11-28/29、12-05/06、12-12/13，11–20点。
+      - Monbijou 剧场演格林童话，可以坐马车逛苗圃，还有暖棚里的圣诞手工。
+      - 门票8欧（优惠5欧），16岁以下免费。
+  - tone: paper
+    tag: F Lehmanns 农场
+    title: 看动物、骑小马
+    lines:
+      - 在 Marienfelde，只开12-04到06和12-11到13：周五14–20点，周六周日12–20点，免费。
+      - 孩子可以看农场动物、骑小马、听讲故事的人讲童话。
+      - 同一个周末（12-04到06）还有 Rixdorf 老村市场：骑小马，三圣王牵着骆驼来，女巫发糖果。
+  - tone: paper
+    tag: 换尿布 · 小提示
+    title: 宝宝要换尿布？
+    lines:
+      - 红色市政厅：旁边约100米的 City WC 有换尿布台。
+      - 其他市场附近我们的数据里还没有，可以去附近商场。
+      - 热饮杯要付押金（Pfand），还杯退钱，也可以留着做纪念。
+    note: 晚上人多推车难走，背带更轻松。
+    foot: 换尿布台位置来自 © OpenStreetMap 贡献者
+  - tone: ink
+    title: "你家投哪个？"
+    lines:
+      - 评论区留字母，也欢迎分享你家的私藏小市场。
+    rows:
+      - { when: "A", name: 红色市政厅 }
+      - { when: "B", name: 夏洛滕堡宫 }
+      - { when: "C", name: Kulturbrauerei }
+      - { when: "D", name: Zehlendorf }
+      - { when: "E", name: Späth 苗圃 }
+      - { when: "F", name: Lehmanns 农场 }
+    search: 小鹿出游 Allo Outings
+    note: 浏览器搜索后选柏林，点「圣诞市场」。
+    foot: 信息以官方为准，出发前请再确认
