@@ -41,6 +41,10 @@ alerts:
     evacuation: "Evakuierung"
     crowd_event: "Großveranstaltung"
     other: "Hinweis"
+notices:
+  button: "Hinweise"
+  new: "neu"
+  recalls: "Produktrückrufe"
 recalls:
   line:
     one: "{n} Rückruf eines Kinderprodukts in Deutschland diesen Monat"

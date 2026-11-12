@@ -41,6 +41,10 @@ alerts:
     evacuation: "疏散"
     crowd_event: "大型活动"
     other: "提醒"
+notices:
+  button: "提醒"
+  new: "新"
+  recalls: "产品召回"
 recalls:
   line:
     other: "近一个月德国 {n} 条儿童产品召回"

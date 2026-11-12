@@ -178,6 +178,17 @@ const ui = {
           {tabs.map(([k, p]) => <a href={`/${lang}/${p}`} aria-current={tab === k ? "page" : undefined} data-tab={k}>{t(`tabs.${k}`)}</a>)}
         </nav>
         <div class="top-right">
+          {Astro.slots.has("notices") && (
+            <details class="notices" data-notices hidden>
+              <summary aria-label={t("notices.button")} title={t("notices.button")}>
+                <span set:html={svg(UI_ICON.bell)} />
+                <i class="notices-dot" data-notices-dot hidden><span class="sr-only">{t("notices.new")}</span></i>
+              </summary>
+              <div class="notices-panel" role="region" aria-label={t("notices.button")}>
+                <slot name="notices" />
+              </div>
+            </details>
+          )}
           <button type="button" class="theme-flip" data-theme-flip aria-label={t("themeFlip")} title={t("themeFlip")}>
             <span class="theme-moon" set:html={svg(UI_ICON.moon)} />
             <span class="theme-sun" set:html={svg(UI_ICON.sun)} />

@@ -1,5 +1,7 @@
 // Shows the city alerts (components/CityAlerts.astro) for a town and hides those already over: the page is
 // built nightly, so an alert for Saturday is still in Sunday morning's page.
+import { refreshBell } from "./notices";
+
 const today = () => new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Berlin" }).format(new Date());
 
 /** Shows `town`'s alerts that are not over; `near` adds other towns (an alert in Köln matters in Hürth). */
@@ -15,4 +17,5 @@ export function showAlerts(town?: string, near: (city: string) => boolean = () =
     any ||= on;
   });
   box.hidden = !any;
+  refreshBell();
 }
