@@ -244,7 +244,7 @@ tasksLater: "Später"
 tasksCount: { one: "{n} Ausflug", other: "{n} Ausflüge" }
 tasksNone: "Nichts gefunden. Versucht ein anderes Wort oder zeigt alles an."
 kinds: { playground: Spielplatz, indoor: Indoorspielplatz, park: "Parks & Gärten", zoo: "Zoo & Tiere", farm: Bauernhof, pool: "Bad & Badesee", museum: Museum, cafe: Familiencafé, fun: "Freizeit- & Kletterpark", winter: "Eisbahn & Rodeln" }
-features: { playground: Spielplatz, changing_table: Wickeltisch, highchairs: Hochstühle, kids_menu: Kinderkarte, toys: "Spielzeug & Mitgebsel", animals: Tiere, stroller_friendly: Kinderwagen-tauglich, nursing_room: Stillecke, indoor_play: Spielecke drinnen, toilets: Toiletten, farm_shop: Hofladen, parking: Parkplatz, sandpit: Sandkasten, water_play: Wasserspiel, swings: Schaukeln, slides: Rutschen, climbing: Klettern, toddler_area: Kleinkindbereich, shade: Schatten, benches: Bänke, fenced: Eingezäunt }
+features: { playground: Spielplatz, changing_table: Wickeltisch, highchairs: Hochstühle, kids_menu: Kinderkarte, toys: "Spielzeug & Mitgebsel", animals: Tiere, stroller_friendly: Kinderwagen-tauglich, nursing_room: Stillecke, indoor_play: Spielecke drinnen, toilets: Toiletten, farm_shop: Hofladen, parking: Parkplatz, sandpit: Sandkasten, water_play: Wasserspiel, swings: Schaukeln, slides: Rutschen, climbing: Klettern, toddler_area: Kleinkindbereich, shade: Schatten, benches: Bänke, fenced: Eingezäunt, birthday: "Kindergeburtstag" }
 tags: { fest: Fest, animals: Tiere, market: Markt, diy: Mitmachen, season: Saison, reading: Vorlesen, music: Musik, outside: Draußen, stage: "Theater & Kino", sport: "Sport & Bewegung", tour: "Museum & Führung", parents: "Für Eltern", learn: "Kurse & Sprachen", other: Sonstiges }
 empty: Hier ist noch nichts eingetragen. Kennt ihr etwas? Unter „Mitmachen“ könnt ihr es melden.
 install: { button: "App installieren", hint: "Allo Outings lässt sich wie eine App auf den Startbildschirm legen.", hintIos: "Teilen antippen, dann „Zum Home-Bildschirm“, um Allo Outings wie eine App zu nutzen.", short: Installieren, dismiss: Ausblenden, menu: "Im Browser-Menü „App installieren“ oder „Zum Startbildschirm hinzufügen“ wählen.", installed: "Allo Outings ist auf diesem Gerät schon installiert. Öffne es über den Startbildschirm oder die App-Liste." }
@@ -358,6 +358,7 @@ chipAsk:
     indoor_play: "Gibt es drinnen eine Spielecke?"
     toilets: "Gibt es Toiletten?"
     farm_shop: "Gibt es einen Hofladen?"
+    birthday: "Kann man dort Kindergeburtstag feiern?"
     parking: "Gibt es Parkplätze?"
     sandpit: "Gibt es einen Sandkasten?"
     water_play: "Gibt es eine Wasserspielstelle?"
@@ -825,6 +826,10 @@ more:
   giftsDesc: Jahreskarten und Gutscheine je Stadt, Schenk-Bräuche, Tipps vor dem Spielzeugkauf.
 # Kindergeburtstag /de/kindergeburtstag/ (content/birthdays.yaml)
 party:
+  parentsH: Tipps von Eltern
+  parentsTag: Von Eltern
+  parentsNote: "„Tipps von Eltern“ haben mindestens zwei Eltern auf der Seite des Ortes bestätigt; wir haben sie nicht beim Anbieter geprüft, fragt dort vor dem Buchen nach. Ihr habt woanders gefeiert? Beantwortet auf der Seite des Ortes „Kann man dort Kindergeburtstag feiern?“ oder tragt einen neuen Ort ein."
+  add: "Ihr kennt noch einen Ort für Kindergeburtstage? Ort eintragen"
   nav: Kindergeburtstag
   title: "Kindergeburtstag feiern: Zoos, Museen und Gärten"
   sub: "Viele Zoos, Museen und Gärten richten Kindergeburtstage aus, meist mit einer Führung oder einem Workshop. Hier nach Stadt, jeder Ort auf seiner eigenen Seite geprüft."

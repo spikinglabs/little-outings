@@ -10,7 +10,7 @@ export const LANGS = ["de", "en", "zh"] as const;
 export const KINDS = ["playground", "indoor", "park", "zoo", "farm", "pool", "museum", "cafe", "fun", "winter"] as const;
 export const FEATURES = [
   "playground", "changing_table", "highchairs", "kids_menu", "toys", "animals", "stroller_friendly",
-  "nursing_room", "indoor_play", "toilets", "farm_shop", "parking",
+  "nursing_room", "indoor_play", "toilets", "farm_shop", "parking", "birthday",
   // Playgrounds (src/lib/features.ts says which kinds offer which).
   "sandpit", "water_play", "swings", "slides", "climbing", "toddler_area", "shade", "benches", "fenced",
 ] as const;
