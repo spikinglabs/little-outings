@@ -1,6 +1,6 @@
 # A Rednote (小红书) set for discussion: what toys to give children for Christmas, as a vote over six kinds of toy.
 # Customs and labels as generally documented (Christkind / Weihnachtsmann, Nikolaus on 6 Dec, CE mark, "spiel gut",
-# Kinderspiel des Jahres); brands only as examples, never "the best". Colourful seasonal tones (L, 2026-11-12).
+# Kinderspiel des Jahres); no brand names at all (L, 2026-11-12). Colourful seasonal tones (L, 2026-11-12).
 # Public comments: ask for favourites and tips, never about the children themselves.
 # After changing Chinese text here, rerun scripts/og-font.py so the font has every character.
 title: 圣诞给娃买什么玩具？投票｜2026
@@ -9,7 +9,7 @@ caption: |
   圣诞快到了🎄 每年最纠结的问题：给娃买什么玩具？
   鹿小游整理了德国家庭常送的6类玩具，各有什么好，来评论区投票（A–F）👇
 
-  A 积木拼搭：乐高、木头积木、磁力片
+  A 积木拼搭：小颗粒积木、木头积木、磁力片
   B 角色扮演：厨房、娃娃屋、小医生
   C 桌游拼图：德国是桌游大国
   D 户外运动：平衡车、滑板车、雪橇
@@ -45,13 +45,13 @@ cards:
     title: 搭了拆，拆了搭
     lines:
       - 大颗粒积木、木头积木、磁力片，适合小一点的孩子。
-      - 乐高这类小颗粒适合大一点的孩子，盒子上有建议年龄。
+      - 小颗粒积木适合大一点的孩子，盒子上有建议年龄。
       - 好处：一套能玩好几年，还能和新的混着玩。
   - tone: sky
     tag: B 角色扮演
     title: 过家家永远不过时
     lines:
-      - 玩具厨房、娃娃屋、小医生箱、工具箱，还有 Playmobil 这类小人场景。
+      - 玩具厨房、娃娃屋、小医生箱、工具箱，还有小人场景玩具。
       - 孩子模仿大人做饭、看病、修东西，常常一玩就是很久。
       - 好处：能和兄弟姐妹、朋友一起玩。
   - tone: mint
@@ -66,7 +66,7 @@ cards:
     title: 跑起来，听起来
     lines:
       - D 户外运动：平衡车、滑板车、雪橇。德国孩子很多很小就骑平衡车。
-      - E 故事机和绘本：Toniebox 这类故事机放一个小人就能听故事；绘本可以中德双语一起读。
+      - E 故事机和绘本：孩子自己就能操作故事机，随时听故事；绘本可以中德双语一起读。
   - tone: rose
     tag: F 手工画画
     title: 动手做点什么
