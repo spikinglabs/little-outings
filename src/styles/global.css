@@ -668,3 +668,19 @@ footer.foot { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--l
 .ki-addr { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 .ki-addr code { overflow-wrap: anywhere; background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; }
 .ki-examples li { font-style: italic; }
+
+/* Gift ideas /<lang>/geschenke/ */
+.gift-towns { display: flex; flex-wrap: wrap; gap: 6px; }
+.gift-towns .chip, .gifts-chip { text-decoration: none; color: var(--ink); }
+.gift-town h3 { font-size: 1.05rem; margin: 14px 0 8px; }
+.gift-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+.gift { display: grid; gap: 4px; align-content: start; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); overflow-wrap: anywhere; }
+.gift p { margin: 0; color: var(--ink-soft); }
+.gift-kind { justify-self: start; font-size: .75rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: var(--gold-bg); }
+.gift-customs { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.gift-customs li { display: flex; gap: 10px; align-items: flex-start; }
+.gift-customs p { margin: 2px 0 0; max-width: 70ch; }
+.gift-emoji { font-size: 1.5rem; line-height: 1.2; flex: none; }
+.gift-more { margin: 0; padding-left: 1.2em; display: grid; gap: 4px; }
+.gift-safety { padding: 4px 14px 10px; border-radius: 12px; background: var(--card); border: 1px solid var(--rot); border-left-width: 4px; }
+.gift-safety ul { margin: 0; padding-left: 1.2em; display: grid; gap: 4px; }

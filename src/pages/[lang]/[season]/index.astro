@@ -6,6 +6,7 @@ import { getData, TODAY } from "../../../lib/data";
 import { townName } from "../../../lib/format";
 import { seasonPages, seasonPath, type Season } from "../../../lib/seasons";
 import { seasonKey } from "../../../lib/og";
+import { giftsPath } from "../../../lib/gifts";
 
 export async function getStaticPaths() {
   const { seasons } = await getData();
@@ -42,5 +43,6 @@ const intro = tr(page.intro, lang).replace(/\{town\}/g, towns.map((x) => x.name)
         <li><a href={x.href}><b>{x.name}</b><span class="small">{tr(page.fixtures, lang)}: {x.n} · {t("season.dates", { from: fmt(x.from), to: fmt(x.to) })}</span></a></li>
       ))}
     </ul>
+    {seasonId === "advent" && <p><a class="chip" href={giftsPath(lang)}>🎁 {t("gifts.nav")}</a></p>}
   </div>
 </Base>

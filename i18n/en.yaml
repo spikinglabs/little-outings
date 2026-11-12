@@ -782,3 +782,34 @@ gone:
   unknownTitle: "This event is no longer listed"
   unknown: "Most likely it is over. Here is what's on now:"
   discover: "Ideas for this week"
+# Gift ideas page /en/geschenke/ (content/gifts.yaml, src/lib/gifts.ts).
+gifts:
+  nav: Gift ideas
+  title: "Gifts for children: time together instead of more toys"
+  sub: "Annual passes, theatre vouchers and animal sponsorships in your city, how presents work in Germany from Advent calendars to birthday parties, second-hand bazaars, and a recall check before you buy a toy."
+  towns: Jump to your city
+  experiencesH: "Give an experience"
+  experiencesP: "A year at the zoo or a voucher for children's theatre is used again and again and fills no shelf. Each one links to the place's own page, with today's prices."
+  kind:
+    pass: Annual pass
+    voucher: Voucher
+    sponsor: Animal sponsorship
+  buy: "On their website"
+  moreH: "More ideas that are not things"
+  more:
+    - "A swimming, music or art course; many courses start in January."
+    - "A home-made voucher for a day out together: pick one on Discover and write the date on the card."
+    - "Tickets for a family concert or a show at a Christmas market."
+  customsH: "How presents work in Germany"
+  basarH: "Second-hand: kids' bazaars"
+  basarP: "Children's clothes, toys and books at bazaars run by Kitas and parishes. Coming up:"
+  basarNone: "No bazaars are listed for the coming weeks. They come back in spring and autumn; Discover shows them with the “Kids' bazaars” chip."
+  safetyH: "Before you buy a toy"
+  safety:
+    - "Every toy sold in the EU must carry the CE mark."
+    - "“Not suitable for children under 36 months” means small parts: keep it away from younger siblings."
+    - "Button batteries and small strong magnets are dangerous if swallowed; check that the battery lid is screwed shut."
+  recalls: "Check the recalls for children's products"
+  checked: "Checked on {date} on each provider's own page."
+  missing: "Know a good gift idea in your city?"
+  missingLink: Tell us

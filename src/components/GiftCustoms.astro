@@ -1,0 +1,16 @@
+---
+// German gift customs (content/gifts.yaml `customs`) on the gift ideas page.
+import { tr, type Lang, type T } from "../lib/i18n";
+import type { Custom } from "../lib/gifts";
+
+interface Props { lang: Lang; t: T; customs: Custom[] }
+const { lang, t, customs } = Astro.props;
+---
+<section aria-labelledby="customs-h">
+  <h2 id="customs-h">{t("gifts.customsH")}</h2>
+  <ul class="gift-customs">
+    {customs.map((c) => (
+      <li><span class="gift-emoji" aria-hidden="true">{c.emoji}</span><div><b>{tr(c.title, lang)}</b> <span class="small">{tr(c.when, lang)}</span><p>{tr(c.text, lang)}</p></div></li>
+    ))}
+  </ul>
+</section>

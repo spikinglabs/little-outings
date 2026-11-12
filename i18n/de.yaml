@@ -782,3 +782,34 @@ gone:
   unknownTitle: "Diese Veranstaltung steht nicht mehr im Programm"
   unknown: "Wahrscheinlich ist sie vorbei. Das ist gerade los:"
   discover: "Ideen für diese Woche"
+# Geschenkideen /de/geschenke/ (content/gifts.yaml, src/lib/gifts.ts).
+gifts:
+  nav: Geschenkideen
+  title: "Geschenke für Kinder: gemeinsame Zeit statt noch mehr Spielzeug"
+  sub: "Jahreskarten, Theatergutscheine und Tierpatenschaften in eurer Stadt, deutsche Schenk-Bräuche vom Adventskalender bis zum Kindergeburtstag, Kinderbasare und ein Blick auf Rückrufe, bevor ihr Spielzeug kauft."
+  towns: Zu eurer Stadt
+  experiencesH: "Erlebnisse verschenken"
+  experiencesP: "Ein Jahr Zoo oder ein Gutschein fürs Kindertheater wird immer wieder genutzt und füllt kein Regal. Jeder Eintrag führt zur Seite des Anbieters, mit den aktuellen Preisen."
+  kind:
+    pass: Jahreskarte
+    voucher: Gutschein
+    sponsor: Tierpatenschaft
+  buy: "Zur Website"
+  moreH: "Noch mehr Ideen, die keine Dinge sind"
+  more:
+    - "Ein Schwimm-, Musik- oder Malkurs; viele Kurse beginnen im Januar."
+    - "Ein selbstgemachter Gutschein für einen gemeinsamen Ausflug: auf Entdecken einen aussuchen und das Datum auf die Karte schreiben."
+    - "Karten für ein Familienkonzert oder eine Vorstellung auf dem Weihnachtsmarkt."
+  customsH: "So wird in Deutschland geschenkt"
+  basarH: "Gebraucht: Kinderbasare"
+  basarP: "Kinderkleidung, Spielzeug und Bücher auf Basaren von Kitas und Gemeinden. Die nächsten:"
+  basarNone: "Für die nächsten Wochen ist kein Basar eingetragen. Im Frühjahr und Herbst gibt es wieder viele; Entdecken zeigt sie mit dem Chip „Kinderbasare“."
+  safetyH: "Bevor ihr Spielzeug kauft"
+  safety:
+    - "Jedes Spielzeug, das in der EU verkauft wird, braucht das CE-Zeichen."
+    - "„Nicht für Kinder unter 36 Monaten“ heißt: Kleinteile. Von jüngeren Geschwistern fernhalten."
+    - "Knopfzellen und kleine starke Magnete sind gefährlich, wenn sie verschluckt werden; das Batteriefach sollte verschraubt sein."
+  recalls: "Rückrufe von Kinderprodukten ansehen"
+  checked: "Am {date} auf den Seiten der Anbieter geprüft."
+  missing: "Ihr kennt eine gute Geschenkidee in eurer Stadt?"
+  missingLink: Schreibt uns

@@ -8,6 +8,7 @@ import "@fontsource-variable/bricolage-grotesque/opsz.css";
 import "../styles/global.css";
 import { LANGS, MAKER_URL, alloSites, tr, useT, type Lang } from "../lib/i18n";
 import { seasonPages, seasonPath } from "../lib/seasons";
+import { giftsPath } from "../lib/gifts";
 import { UI_ICON, sprite, svg } from "../lib/icons";
 import { FEATURES } from "../content.config";
 import { getData } from "../lib/data";
@@ -42,6 +43,7 @@ const footLinks = [
   { href: `/${lang}/wochenende/`, label: `📰 ${t("weekend.nav")}` },
   { href: `/${lang}/stadt/`, label: `🏙 ${t("city.nav")}` },
   ...pageSeasons.map((s) => ({ href: seasonPath(lang, s), label: `${s.emoji} ${tr(s.page!.nav ?? s.label, lang)}` })),
+  { href: giftsPath(lang), label: `🎁 ${t("gifts.nav")}` },
 ];
 // The "saved" tab is labelled "Mine": it holds the saved list, what was sent and the profile.
 const TAB_ICON: Record<string, string> = { explore: UI_ICON.explore, saved: UI_ICON.mine, add: UI_ICON.add };
