@@ -730,6 +730,8 @@ feed:
   thanks: "谢谢！我们会查看您的日历并尽快添加。之后的修改会自动显示。"
 # City pages (/zh/stadt/<town>/, src/lib/city.ts): what parents search for, "科隆带娃去哪儿".
 city:
+  pick: "城市："
+  all: 全部城市
   title: "{town}带娃去哪儿：亲子活动和好去处"
   h1: "{town}带娃去哪儿"
   sub: "{town}接下来两周有 {events} 个亲子活动，还有 {places} 个适合孩子的地方：游乐场、公园、农场、动物园、游泳池和亲子咖啡馆。每天晚上更新，免费，不用注册。"

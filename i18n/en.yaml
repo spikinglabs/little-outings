@@ -731,6 +731,8 @@ feed:
   thanks: "Thank you! We'll look at your calendar and add it soon. Changes you make to it later show up here by themselves."
 # City pages (/en/stadt/<town>/, src/lib/city.ts): what parents search for, "Cologne with kids".
 city:
+  pick: "City:"
+  all: All cities
   title: "{town} with kids: family events and places to go"
   h1: "{town} with kids"
   sub: "{events} family events in {town} over the next two weeks and {places} kid-friendly places: playgrounds, parks, farms, zoos, pools and family cafés. Updated every night, free, no sign-up."

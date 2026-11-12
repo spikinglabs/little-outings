@@ -731,6 +731,8 @@ feed:
   thanks: "Danke! Wir schauen uns Ihren Kalender an und nehmen ihn bald auf. Spätere Änderungen erscheinen dann von selbst."
 # City pages (/de/stadt/<town>/, src/lib/city.ts): what parents search for, "Köln mit Kindern".
 city:
+  pick: "Stadt:"
+  all: Alle Städte
   title: "{town} mit Kindern: Termine und Ausflugsziele"
   h1: "{town} mit Kindern"
   sub: "{events} Termine für Kinder in {town} in den nächsten zwei Wochen und {places} kinderfreundliche Orte: Spielplätze, Parks, Bauernhöfe, Zoos, Schwimmbäder und Familiencafés. Jede Nacht aktualisiert, kostenlos, ohne Anmeldung."
