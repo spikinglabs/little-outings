@@ -1,6 +1,7 @@
 # A Rednote (小红书) set of real Halloween events for families, from the site's own listings (checked 2026-10-29).
-# Drawn at /xhs/halloween-<n>.png until `until`; the admin's Rednote box shows it with the caption.
-# After changing Chinese text here, rerun scripts/og-font.py so the font has every character.
+# Drawn and uploaded by .github/workflows/posts.yml on push; the admin's Posts panel opens it by its code.
+# The posting job cuts the Chinese font itself, so new characters need no font commit.
+code: P527
 title: 万圣节带娃去哪｜德国6城活动
 until: 2026-10-31
 caption: |

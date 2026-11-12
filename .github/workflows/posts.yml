@@ -1,0 +1,74 @@
+# Rednote topic posts (posts/<id>.yaml): draws the cards of every post a push added or changed
+# (scripts/posts.mts) and uploads them to the Allo Outings bucket under little-outings/posts/<code>/, where
+# the admin's Posts panel finds them by code. Runs on a push to any branch (L, 2026-11-12: a post shows in
+# the admin as soon as it is pushed, without a merge or a site deploy); posts are only for the admin, and
+# nothing here reaches the public site.
+# The Chinese font is cut here from Noto Sans SC with every character the posts use, so a post with new
+# characters needs no font commit. Needs the same bucket token as the nightly jobs: the secret R2_SORT_TOKEN
+# or CLOUDFLARE_API_TOKEN with "Workers R2 Storage: Edit", plus CLOUDFLARE_ACCOUNT_ID.
+name: Posts
+on:
+  push:
+    paths: ["posts/**", "scripts/posts.mts", "src/lib/sheet.ts", "src/lib/rednote.ts", ".github/workflows/posts.yml"]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: posts-${{ github.ref }}
+env:
+  BUCKET: spikinglabs-little-outings
+jobs:
+  draw:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - name: Check every post
+        run: node scripts/posts.mts --check
+      - name: Which posts to draw
+        id: which
+        env:
+          BEFORE: ${{ github.event.before }}
+        run: |
+          # Only the posts this push added or changed; all of them when the drawing itself changed, on a
+          # new branch, or when started by hand.
+          if [ "$GITHUB_EVENT_NAME" = push ] && [ -n "$BEFORE" ] && ! echo "$BEFORE" | grep -qE '^0+$' \
+            && git cat-file -e "$BEFORE^{commit}" 2>/dev/null \
+            && git diff --quiet "$BEFORE" HEAD -- scripts/posts.mts src/lib/sheet.ts src/lib/rednote.ts; then
+            files=$(git diff --name-only --diff-filter=AMR "$BEFORE" HEAD -- 'posts/*.yaml' | tr '\n' ' ')
+          else
+            files=$(ls posts/*.yaml | tr '\n' ' ')
+          fi
+          echo "files=$files" >> "$GITHUB_OUTPUT"
+          echo "To draw: ${files:-nothing}"
+      - uses: actions/setup-python@v5
+        if: steps.which.outputs.files != ''
+        with: { python-version: "3.12" }
+      - name: Cut the Chinese font
+        if: steps.which.outputs.files != ''
+        run: |
+          pip install --quiet fonttools brotli
+          mkdir -p .cache/font
+          (cd .cache/font && npm pack --silent @fontsource/noto-sans-sc && tar xzf fontsource-noto-sans-sc-*.tgz)
+          python3 scripts/og-font.py .cache/font/package/files
+      - name: Draw
+        if: steps.which.outputs.files != ''
+        run: node scripts/posts.mts .cache/posts ${{ steps.which.outputs.files }}
+      - name: Upload for the admin
+        if: steps.which.outputs.files != ''
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.R2_SORT_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID || vars.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          cd .cache/posts
+          for f in */*.png; do
+            npx wrangler r2 object put "$BUCKET/little-outings/posts/$f" --file "$f" --content-type image/png > /dev/null
+          done
+          # post.json last: the panel lists a post only once its pictures are there.
+          for f in */post.json; do
+            npx wrangler r2 object put "$BUCKET/little-outings/posts/$f" --file "$f" --content-type application/json > /dev/null
+            echo "::notice title=Post ready::$(dirname "$f") in the admin's Posts panel"
+          done

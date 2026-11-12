@@ -1,8 +1,9 @@
 # A Rednote (小红书) set: Berlin's Christmas markets for families. Every date, hour, price and children's offer
 # checked on the market's berlin.de page on 2026-11-12; changing table from OpenStreetMap (places/toilets.jsonl).
-# Drawn at /xhs/berlin-weihnachtsmarkt-<n>.png until `until`; the admin's Rednote box shows it with the caption.
+# Drawn and uploaded by .github/workflows/posts.yml on push; the admin's Posts panel opens it by its code.
 # Ends on a vote so parents talk in the comments (public: ask for favourites and tips, never about their kids).
-# After changing Chinese text here, rerun scripts/og-font.py so the font has every character.
+# The posting job cuts the Chinese font itself, so new characters need no font commit.
+code: G4TG
 title: 柏林圣诞市场带娃哪个最好？｜2026
 until: 2026-12-30
 caption: |

@@ -2,7 +2,8 @@
 # Customs and labels as generally documented (Christkind / Weihnachtsmann, Nikolaus on 6 Dec, CE mark, "spiel gut",
 # Kinderspiel des Jahres); no brand names at all (L, 2026-11-12). Colourful seasonal tones (L, 2026-11-12).
 # Public comments: ask for favourites and tips, never about the children themselves.
-# After changing Chinese text here, rerun scripts/og-font.py so the font has every character.
+# The posting job cuts the Chinese font itself, so new characters need no font commit.
+code: TK9C
 title: 圣诞给娃买什么玩具？投票｜2026
 until: 2026-12-24
 caption: |

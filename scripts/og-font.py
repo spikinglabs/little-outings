@@ -16,7 +16,7 @@ from fontTools.ttLib import TTFont
 files = sys.argv[1]
 root = os.path.join(os.path.dirname(__file__), "..")
 text = ""
-for pattern in ["i18n/zh.yaml", "content/seasons.yaml", "content/regions/*.yaml", "content/seasons/**/*.yaml", "content/rednote/*.yaml", "data/translations/zh.json"]:
+for pattern in ["i18n/zh.yaml", "content/seasons.yaml", "content/regions/*.yaml", "content/seasons/**/*.yaml", "posts/*.yaml", "data/translations/zh.json"]:
     for f in glob.glob(os.path.join(root, pattern), recursive=True):
         text += open(f, encoding="utf-8").read()
 # Dates as Intl writes them in Chinese ("11月8日星期日"), which no YAML file holds.
