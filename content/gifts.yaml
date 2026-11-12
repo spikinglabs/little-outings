@@ -23,16 +23,16 @@ towns:
         name: Kölner Zoo – Tierpatenschaft
         url: https://foerdern.koelnerzoo.de/patenschaften
         note:
-          de: "Eine Patenschaft für das Lieblingstier: Damit unterstützt das Kind den Zoo und seine Tiere."
-          en: "Sponsor a favourite animal: the child supports the zoo and its animals."
-          zh: "以孩子的名义认养最喜欢的动物，支持动物园和它的动物。"
+          de: "Eine Patenschaft für ein Tier unterstützt den Zoo; der Zoo bewirbt sie selbst als Weihnachtsgeschenk."
+          en: "Sponsoring an animal supports the zoo; the zoo itself suggests it as a Christmas present."
+          zh: "认养一只动物来支持动物园，动物园自己也推荐把它当圣诞礼物。"
       - kind: pass
         name: Jahreskarte der Kölner Museen
         url: https://www.stadt-koeln.de/artikel/04348/index.html
         note:
-          de: "Ein Jahr lang in die städtischen Museen, für die Eltern, die mitgehen."
-          en: "A year in the city's museums, for the parents who go along."
-          zh: "一年内可参观科隆市立博物馆，适合送给陪孩子去的家长。"
+          de: "Ein Jahr lang in die städtischen Museen Kölns."
+          en: "A year in Cologne's city museums."
+          zh: "一年内可参观科隆的市立博物馆。"
   - slug: bonn
     town: Bonn
     items:
@@ -40,16 +40,16 @@ towns:
         name: Junges Theater Bonn – Geschenkgutschein
         url: https://www.jt-bonn.de/preise/gutscheine/
         note:
-          de: "Theater für Kinder und Familien; der Gutschein gilt für einen Besuch nach Wahl."
-          en: "Theatre for children and families; the voucher is for a show of their choice."
-          zh: "儿童和家庭剧场，礼券可以自己挑场次。"
+          de: "Theater für Kinder und Familien; Geschenkgutscheine gibt es im Online-Shop."
+          en: "Theatre for children and families; gift vouchers are sold in its online shop."
+          zh: "儿童和家庭剧场，网店有礼券出售。"
       - kind: voucher
         name: Theater Bonn – Gutschein
         url: https://www.theater-bonn.de/de/karten-und-abos/gutscheine
         note:
-          de: "Gilt auch für die Stücke für junges Publikum, etwa die Kinderoper."
-          en: "Also good for the shows for young audiences, such as children's opera."
-          zh: "也可以用于给小观众的演出，比如儿童歌剧。"
+          de: "Das Theater hat auch ein Programm für junges Publikum; Gutscheine gibt es auf der Website."
+          en: "The theatre also has a programme for young audiences; vouchers are on its website."
+          zh: "剧院也有面向小观众的节目，礼券见官网。"
   - slug: duesseldorf
     town: Düsseldorf
     items:
@@ -57,9 +57,9 @@ towns:
         name: Düsseldorfer Schauspielhaus – Gutschein
         url: https://www.dhaus.de/home/junges-schauspiel/
         note:
-          de: "Gilt auch für das Junge Schauspiel, das Theater für Kinder und Jugendliche."
-          en: "Also good for the Junges Schauspiel, its theatre for children and teenagers."
-          zh: "也可以用于 Junges Schauspiel，即剧院的儿童青少年剧场。"
+          de: "Zum Schauspielhaus gehört das Junge Schauspiel, Theater für Kinder und Jugendliche; Gutscheine gibt es im Webshop."
+          en: "The playhouse includes the Junges Schauspiel, theatre for children and teenagers; vouchers are sold in its web shop."
+          zh: "剧院下设儿童青少年剧场 Junges Schauspiel，网店有礼券出售。"
   - slug: berlin
     town: Berlin
     items:
@@ -74,16 +74,16 @@ towns:
         name: Zoo Berlin – Gutscheine
         url: https://shop.zoo-berlin.de/de/categories/10
         note:
-          de: "Für einen Tag im Zoo, im Online-Shop zum Ausdrucken."
-          en: "For a day at the zoo, from the online shop to print."
-          zh: "送一天动物园游玩，网店购买后可打印。"
+          de: "Gutscheine gibt es im Online-Shop des Zoos."
+          en: "Vouchers are sold in the zoo's online shop."
+          zh: "动物园网店有礼券出售。"
       - kind: pass
         name: Deutsches Technikmuseum – Jahreskarte
         url: https://technikmuseum.berlin/besuch/tickets
         note:
-          de: "Ein Jahr lang Züge, Flugzeuge und das Science Center Spectrum."
-          en: "A year of trains, planes and the Spectrum science centre."
-          zh: "一年内随时去看火车、飞机，还有 Spectrum 科学中心。"
+          de: "Ein Jahr lang ins Technikmuseum; das Museum wirbt selbst damit als Geschenk."
+          en: "A year at the museum of technology; the museum suggests it as a gift itself."
+          zh: "一年内随时去技术博物馆，博物馆自己也推荐把它当礼物。"
   - slug: muenchen
     town: München
     items:
@@ -139,16 +139,16 @@ towns:
         name: Tierpark Hagenbeck – Gutschein
         url: https://shop.hagenbeck.de/de/category/29
         note:
-          de: "Für einen Tag im Tierpark, im Online-Shop."
-          en: "For a day at the zoo, from the online shop."
-          zh: "送一天动物园游玩，网店有售。"
+          de: "Gutscheine gibt es im Online-Shop des Tierparks."
+          en: "Vouchers are sold in the zoo's online shop."
+          zh: "动物园网店有礼券出售。"
       - kind: voucher
         name: Planetarium Hamburg – Gutschein
         url: https://www.planetarium-hamburg.de/de/startseite
         note:
-          de: "Für eine Show unter der Kuppel; es gibt eigene Kindershows."
-          en: "For a show under the dome; there are shows made for children."
-          zh: "送一场球幕演出，有专门给孩子的场次。"
+          de: "Gutscheine gibt es im Gutscheinshop des Planetariums."
+          en: "Vouchers are sold in the planetarium's voucher shop."
+          zh: "天文馆的礼券商店有礼券出售。"
 
 # German gift customs for families new to Germany (the Chinese pages show this part first).
 customs:
@@ -197,6 +197,6 @@ customs:
     when: { de: Einschulung, en: First day of school, zh: 入学第一天 }
     title: { de: Schultüte, en: School cone, zh: 入学礼筒 }
     text:
-      de: "Zum ersten Schultag bekommen Kinder eine große Tüte mit Süßem und Schulsachen. Oft wird sie im letzten Kita-Jahr gemeinsam gebastelt."
-      en: "On the first day of school children get a big cone of sweets and school things. It is often made together in the last Kita year."
-      zh: "上小学第一天，孩子会收到一个装满糖果和文具的大纸筒。很多幼儿园会在最后一年带家长一起做。"
+      de: "Zum ersten Schultag bekommen Kinder eine große Tüte mit Süßem und Schulsachen. Manche Kitas basteln sie mit den Familien."
+      en: "On the first day of school children get a big cone of sweets and school things. Some Kitas make them together with the families."
+      zh: "上小学第一天，孩子会收到一个装满糖果和文具的大纸筒。有些幼儿园会和家长一起手工制作。"

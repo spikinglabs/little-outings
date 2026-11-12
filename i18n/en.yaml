@@ -821,3 +821,20 @@ more:
   info: Help and info
   now: In season
   giftsDesc: Annual passes and vouchers per city, German gift customs, tips before buying toys.
+# Birthday parties /en/kindergeburtstag/ (content/birthdays.yaml)
+party:
+  nav: Birthday parties
+  title: "Children's birthday parties: zoos, museums and gardens"
+  sub: "Many zoos, museums and gardens host children's birthday parties, usually with a tour or a workshop. Listed by city, each checked on the place's own page."
+  desc: Birthday programmes at zoos, museums and gardens, by city.
+  towns: Jump to your city
+  ages: "From age {from}"
+  book: "Book on their website"
+  tipsH: "Before you book"
+  tips:
+    - "Popular dates go quickly, so ask early; Berlin's natural history museum already takes bookings for 2027."
+    - "Each programme has a maximum number of children, given with the programme on the website."
+    - "Whether you may bring cake and drinks differs from place to place; ask when you book."
+    - "In Germany each guest takes home a small goody bag (Mitgebsel) at the end."
+  checked: "Checked on {date} on each place's own page; prices and dates are there."
+  gifts: "What to give? See the gift ideas"

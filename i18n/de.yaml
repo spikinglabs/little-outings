@@ -821,3 +821,20 @@ more:
   info: Hilfe und Infos
   now: Jetzt
   giftsDesc: Jahreskarten und Gutscheine je Stadt, Schenk-Bräuche, Tipps vor dem Spielzeugkauf.
+# Kindergeburtstag /de/kindergeburtstag/ (content/birthdays.yaml)
+party:
+  nav: Kindergeburtstag
+  title: "Kindergeburtstag feiern: Zoos, Museen und Gärten"
+  sub: "Viele Zoos, Museen und Gärten richten Kindergeburtstage aus, meist mit einer Führung oder einem Workshop. Hier nach Stadt, jeder Ort auf seiner eigenen Seite geprüft."
+  desc: Geburtstagsprogramme in Zoos, Museen und Gärten, nach Stadt.
+  towns: Zu eurer Stadt
+  ages: "ab {from} Jahren"
+  book: "Zur Buchung"
+  tipsH: "Vor dem Buchen"
+  tips:
+    - "Beliebte Termine sind schnell weg; früh anfragen lohnt sich. Das Naturkundemuseum Berlin nimmt schon Buchungen für 2027 an."
+    - "Jedes Angebot hat eine Höchstzahl an Kindern; sie steht beim Angebot auf der Website."
+    - "Ob Kuchen und Getränke mitgebracht werden dürfen, ist überall anders; beim Buchen fragen."
+    - "Zum Abschied bekommt jedes Gastkind ein kleines Mitgebsel."
+  checked: "Am {date} auf den Seiten der Orte geprüft; Preise und Termine dort."
+  gifts: "Was schenken? Zu den Geschenkideen"
