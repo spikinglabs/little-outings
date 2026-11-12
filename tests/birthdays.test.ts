@@ -16,7 +16,7 @@ test("a party place needs an https link and an age as a number", () => {
 });
 
 test("a parents' pick needs two yes votes, or a yes from a source", () => {
-  const p = (birthday: any) => ({ id: "x", facilities: birthday ? { birthday } : {} });
+  const p = (birthday: any): { id: string; facilities: Record<string, any> } => ({ id: "x", facilities: birthday ? { birthday } : {} });
   const picks = parentPicks([
     p({ status: "yes", confirmed: 0, byVotes: true, votes: { yes: 1, no: 0 } }),
     p({ status: "yes", confirmed: 0, byVotes: true, votes: { yes: 2, no: 1 } }),
