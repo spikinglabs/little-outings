@@ -11,6 +11,7 @@ import { seasonPages, seasonPath, type Fixture, type FixtureFile, type Season } 
 import { eventLd } from "../../../lib/seo";
 import { seasonKey } from "../../../lib/og";
 import { giftsPath } from "../../../lib/gifts";
+import { hoursOn, until } from "../../../lib/open-now";
 
 export async function getStaticPaths() {
   const { seasons } = await getData();
@@ -29,23 +30,31 @@ const file = seasons.fixtures.find((f) => f.season === seasonId && f.slug === sl
 const town = townName(file.town, lang, region.towns);
 const ids = new Set(file.items.map((f) => `season-${seasonId}-${slug}-${f.id}`));
 const order = [...ids];
-const current = events.filter((e) => ids.has(e.id)).sort((a, b) => a.start.localeCompare(b.start) || order.indexOf(a.id) - order.indexOf(b.id));
+const fmt = (d: string, more: Intl.DateTimeFormatOptions = {}) => new Intl.DateTimeFormat(t.locale, { timeZone: "UTC", day: "numeric", month: "short", ...more }).format(new Date(`${d}T12:00:00Z`));
+// Open today first (the site is rebuilt every night), then closed today, then by opening date.
+const statusOf = (e: (typeof events)[number]) => {
+  if (e.start > TODAY) return { rank: 2, text: t("season.opens", { date: fmt(e.start, { weekday: "short" }) }), on: false };
+  const h = hoursOn(e.time, TODAY);
+  if (h === "closed") return { rank: 1, text: t("season.closedToday"), on: false };
+  return { rank: 0, text: h ? t("season.openUntil", { time: until(h) }) : t("season.openToday"), on: true };
+};
+const current = events.filter((e) => ids.has(e.id)).map((e) => ({ e, s: statusOf(e) }))
+  .sort((a, b) => a.s.rank - b.s.rank || a.e.start.localeCompare(b.e.start) || order.indexOf(a.e.id) - order.indexOf(b.e.id));
 const past: Fixture[] = current.length ? [] : file.items;
 const pastYear = past.length ? past[0].from.slice(0, 4) : "";
 // The season's other events here (Nikolaus, crafts, Christmas shows), soonest first.
 const also = events.filter((e) => !ids.has(e.id) && e.town === file.town && e.seasons?.includes(seasonId) && e.geo.precision !== "unknown").slice(0, 12);
 const others = seasonPages(seasons).filter((p) => p.season.id === seasonId && p.file.slug !== slug);
-const year = (current[0]?.start ?? TODAY).slice(0, 4);
+const year = (current[0]?.e.start ?? TODAY).slice(0, 4);
 const title = tr(page.title, lang).replace("{town}", town);
 const intro = tr(page.intro, lang).replace("{town}", town);
-const fmt = (d: string) => new Intl.DateTimeFormat(t.locale, { timeZone: "UTC", day: "numeric", month: "short" }).format(new Date(`${d}T12:00:00Z`));
 const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
 const ld = {
   "@context": "https://schema.org",
   "@type": "ItemList",
   name: `${title} ${year}`,
   url: `${site}${Astro.url.pathname}`,
-  itemListElement: current.map((e, i) => ({
+  itemListElement: current.map(({ e }, i) => ({
     "@type": "ListItem", position: i + 1,
     item: eventLd(e, { url: `${site}${pathFor(lang, e)}`, name: nameOf(e, lang), description: e.time ?? "", lang }),
   })),
@@ -65,8 +74,9 @@ const ld = {
       <h2 id="fixtures-h">{tr(page.fixtures, lang)} <span class="small">{current.length || past.length}</span></h2>
       {current.length > 0 ? (
         <div class="grid ideas">
-          {current.map((e) => (
+          {current.map(({ e, s }) => (
             <Card item={e} t={t}>
+              <p class:list={["open-line", s.on && "on"]}>{s.text}</p>
               {e.kids && <div class="pills kids">{e.kids.map((k) => <span class="pill">{t(`kids.${k}`)}</span>)}</div>}
             </Card>
           ))}

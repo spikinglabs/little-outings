@@ -71,6 +71,10 @@ wx:
   rainChance: "{n}% chance of rain"
 # Season chips and pages (content/seasons.yaml, src/lib/seasons.ts). A season's own texts there win.
 season:
+  openUntil: "Open today until {time}"
+  openToday: "Open today"
+  closedToday: Closed today
+  opens: "Opens {date}"
   add: "Something missing?"
   addLink: Add it in a minute
   share: Share the link
@@ -683,6 +687,8 @@ weekend:
   description: "What to do with kids this weekend in {town}? {list} and more: ideas for {range}, new every Monday, updated Friday."
   always: Open any time
   still: Still on
+  alsoH: Also open this weekend
+  fromFri: "Fri afternoon – {range}"
   until: "until {date}"
   book: Book ahead
   holidayLast: Last day of the school holidays

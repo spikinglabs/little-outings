@@ -70,6 +70,10 @@ wx:
   rainChance: "降雨概率{n}%"
 # Season chips and pages (content/seasons.yaml, src/lib/seasons.ts). A season's own texts there win.
 season:
+  openUntil: "今天开放，至 {time}"
+  openToday: "今天开放"
+  closedToday: 今天不开放
+  opens: "{date}开放"
   add: "还缺了什么？"
   addLink: 一分钟添加
   share: 分享链接
@@ -682,6 +686,8 @@ weekend:
   description: "本周末带孩子在{town}做什么？{list}等：{range}的出游推荐，每周一发布、周五更新。"
   always: 随时可去
   still: 仍在进行
+  alsoH: 本周末也开放
+  fromFri: "周五下午 – {range}"
   until: "至{date}"
   book: 需预约
   holidayLast: 学校假期最后一天

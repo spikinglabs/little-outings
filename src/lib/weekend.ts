@@ -40,6 +40,8 @@ export interface Pick {
   book?: boolean;
   indoor?: boolean;
   tags?: string[];
+  /** How much German it needs, guessed from the title: "none", "en" (in English) or "de" (mostly German). */
+  language?: string;
   kind?: string;
   hours?: string;
   score?: number;
@@ -221,8 +223,15 @@ export function scoreEvent(p: Pick, o: { source?: string; rain?: boolean; dry?: 
   if (o.rain) s += p.indoor === true ? 1 : p.indoor === false ? -2 : 0;
   if (o.dry && p.indoor === false) s += 1;
   if (o.recent?.has(recentKey(p))) s -= 2;
+  // Most readers are Chinese- and English-speaking parents: a read-aloud or talk in German suits them least.
+  if (p.language === "de") s -= (p.tags ?? []).includes("reading") ? 3 : 1;
+  if (p.language === "none" || p.language === "en") s += 1;
   return s;
 }
+
+/** A title without its day or weekend suffix, to spot one series: "MINT-Vorlesen am Samstag" → "mint-vorlesen". */
+export const seriesOf = (title: string) =>
+  title.toLowerCase().replace(/\s+(am|an|zum|jeden)\s+(montag|dienstag|mittwoch|donnerstag|freitag|samstag|sonntag|wochenende)s?\b.*$/, "").replace(/[^\p{L}\p{N}]+/gu, " ").trim();
 
 export const recentKey = (p: Pick) => `${p.title.toLowerCase()}|${(p.venue ?? "").split(",")[0].toLowerCase()}`;
 
@@ -237,11 +246,15 @@ export function pickMix(cands: Pick[], o: { n?: number; rain?: boolean; sat: str
   const venue = (p: Pick) => (p.venue ?? p.id).split(",")[0].toLowerCase();
   // Events without a time don't count toward "the same hour".
   const slot = (p: Pick) => { const c = clockText(p.time); return c ? `${p.days[0]}|${c.slice(0, 2)}` : `${p.id}|?`; };
-  const title = (p: Pick) => p.title.toLowerCase();
+  // The same series counts once: "MINT-Vorlesen" and "MINT-Vorlesen am Samstag".
+  const title = (p: Pick) => seriesOf(p.title);
+  // At most one story time, so a weekend isn't three library readings.
+  const reading = (p: Pick) => (p.tags ?? []).includes("reading");
   // Friday afternoon is a bonus: one pick at most.
   const friday = (p: Pick) => !p.days.some((d) => d >= o.sat);
   const fits = (p: Pick, chosen: Pick[]) =>
     !chosen.some((c) => venue(c) === venue(p) || title(c) === title(p)) && chosen.filter((c) => slot(c) === slot(p)).length < 2
+    && !(reading(p) && chosen.some(reading))
     && !(friday(p) && chosen.some(friday));
   const out: Pick[] = [];
   for (const p of sorted) if (out.length < n && fits(p, out)) out.push(p);
@@ -448,6 +461,7 @@ Choose exactly {n} events a family with young children would most enjoy, with a 
 - at least one on Saturday and one on Sunday, at least two free if possible
 - one venue only once, different parts of town, something for under-4s if there is one
 - if rain is likely, mostly indoors; if it is dry, something outdoors
+- most readers are Chinese- and English-speaking parents who read little German: prefer what needs little German (hands-on, animals, markets, shows without words); at most one story time or reading in German
 For each pick write a short name (at most 40 characters; keep German proper names, translate what the event is) and one friendly line (at most 90 characters) saying why it's a good pick, each in German (de), English (en) and Simplified Chinese (zh). Don't invent facts that aren't in the list.
 Return only JSON: {"picks": [{"i": 0, "label": {"de": "", "en": "", "zh": ""}, "why": {"de": "", "en": "", "zh": ""}}]}`;
 
@@ -461,6 +475,7 @@ export function describe(p: Pick, i: number): string {
     p.type === "place" ? `place: ${p.kind}` : p.days.map((d) => dayShort(d, "en")).join("+"),
     clockText(p.time), p.venue, p.district, p.free ? "free" : p.price, p.book ? "registration needed" : "",
     p.indoor === true ? "indoors" : p.indoor === false ? "outdoors" : "", p.hours ? `hours ${p.hours}` : "",
+    p.language === "de" ? "mostly German" : p.language === "en" ? "in English" : p.language === "none" ? "no German needed" : "",
   ].filter(Boolean);
   return `${i}. ${p.title} | ${facts.join(" | ")}`;
 }
