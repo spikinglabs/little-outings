@@ -65,6 +65,8 @@ The export has only titles, so `scripts/describe-events.mjs` (nightly, in the Tr
 upcoming event's own page once and writes one sentence in DE/EN/ZH to `data/about.json`; the event page shows
 it labelled as an AI summary. An age range is kept only when the page states it in words the model quotes and
 that stand near the event's title; nothing is guessed from the kind of event. `ABOUT_LIMIT` caps pages per night (400).
+It prefers the page text cityklub-event-data already read (`little-outings/page-text.jsonl` in the bucket, kept in
+`.cache/` only: providers' prose is never committed) and fetches a page itself only when that file has no line for the event.
 
 ## Static API
 
