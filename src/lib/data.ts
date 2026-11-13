@@ -11,6 +11,7 @@ import { whereGuesser } from "./where-guess.ts";
 import type { Event, Place, Tally } from "./types.ts";
 import { pack, type Packed } from "./weather.ts";
 import { withTimes } from "./time-text.ts";
+import { zooParts } from "./zoo-parts.ts";
 
 /** The build date in Germany. The site is rebuilt every night, so "upcoming" stays true. */
 export const TODAY = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Berlin" }).format(new Date());
@@ -62,7 +63,10 @@ async function load(): Promise<Data> {
     if (!id.startsWith("inbox-")) return { id, data: p.data };
     return { id, data: { ...p.data, address: { ...p.data.address, town: canonicalTown(p.data.address.town, regionTowns) } } };
   });
-  const places = raw.map((p) => applyTranslations(applyTally(normalizePlace(p.id, p.data, answer.get(p.id), regionTowns), tallies[p.id]), tr));
+  const all = raw.map((p) => applyTranslations(applyTally(normalizePlace(p.id, p.data, answer.get(p.id), regionTowns), tallies[p.id]), tr));
+  // Enclosures inside a big zoo ("Gorilla", "Nashorn") aren't places of their own (src/lib/zoo-parts.ts).
+  const parts = zooParts(all);
+  const places = all.filter((p) => !parts.has(p.id));
   // A town only a parent's place is in (Merzenich) joins the town picker.
   const towns = [...regionTowns, ...townsFromPlaces(places.filter((p) => p.id.startsWith("inbox-")), regionTowns)];
   const region = { ...home, towns };
