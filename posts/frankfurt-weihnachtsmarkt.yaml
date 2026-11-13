@@ -1,0 +1,111 @@
+# A Rednote (小红书) set: Frankfurt's Christmas market for families. Frankfurt has one big market over several
+# squares, so the vote is over the children's shows on the Christmas boat at the Mainkai instead of over markets.
+# Every date, time and offer from the organiser's official page (visitfrankfurt.travel/en/experience/festival-and-events/
+# frankfurt-christmas-market/All, Tourismus+Congress GmbH, read 2026-11-13); changing tables from OpenStreetMap
+# (places/toilets.jsonl, 2026-11-12).
+# Drawn and uploaded by .github/workflows/posts.yml on push; the admin's Posts panel opens it by its code.
+# Ends on a vote so parents talk in the comments (public: ask for favourites and tips, never about their kids).
+# History (find a post by its code: grep -l "code: FA5E" posts/):
+# - 2026-11-12 held back: no official 2026 children's programme yet (frankfurt.de blocks reads, tourism URLs 404).
+# - 2026-11-13 L: the Christmas market posts are missing Frankfurt. The official page now lists the children's
+#   market and the boat programme, so this set is built from it. No brand names; performers named by kind of show.
+code: FA5E
+title: 法兰克福圣诞市场带娃攻略｜2026
+until: 2026-12-22
+caption: |
+  法兰克福圣诞市场 11-23（周一）开门，到 12-22🎄 今年美因河边有专门的儿童圣诞市场，河边的圣诞船上几乎每天下午都有孩子的节目。按官方节目单整理好了，看完来评论区投票（A–F）👇
+
+  A 讲童话：白雪公主、灰姑娘、霍勒大妈……
+  B 儿童音乐会：一起唱、一起跳
+  C 互动童话剧：孩子换上戏服一起演
+  D 魔术秀
+  E 剧场故事
+  F 唱圣诞歌的儿童秀
+
+  具体日期见第5–7张。12-06（周日）17:10 尼古拉斯来罗马广场舞台。
+
+  🗳 你家最想看哪个？评论区留字母就行。
+  也想听听大家的经验：法兰克福带娃白天去还是晚上去？推车好走吗？有没有人少的小角落？
+
+  节目单官方还会更新，出发前请再确认～
+  更多市场：浏览器搜索「小鹿出游 Allo Outings」，选法兰克福，点「圣诞市场」。
+tags: [法兰克福带娃, 法兰克福圣诞市场, 德国圣诞市场, 圣诞市场, 德国带娃, 德国生活, 德国妈妈, 德国爸爸, 留德]
+cards:
+  - tone: gold
+    tag: 2026 · 法兰克福
+    title: "法兰克福\n圣诞市场\n带娃怎么逛？"
+    lines:
+      - 今年美因河边有专门的儿童圣诞市场，船上有童话、音乐会和魔术。
+      - 按官方节目单整理，最后一张投票！
+    foot: 德国带娃 · 圣诞季
+  - tone: paper
+    tag: 开门时间
+    title: 什么时候、在哪？
+    rows:
+      - { when: "开门", name: 11-23（周一）到 12-22 }
+      - { when: "时间", name: 周一至周六 10–21点，周日 11–21点 }
+      - { when: "地点", name: 罗马广场、保罗广场、美因河岸、Hauptwache、Roßmarkt }
+    note: 11-23 17:10 罗马广场舞台开幕，17:25 歌剧院的儿童合唱团演唱。
+  - tone: green
+    tag: 儿童圣诞市场
+    title: 美因河边的孩子专区
+    lines:
+      - 在 Eiserner Steg 铁桥东边的美因河岸：儿童旋转木马、小摩天轮、圣诞手工坊。
+      - 100棵圣诞树，是法兰克福小学和幼儿园的孩子装饰的。
+      - 历史博物馆外墙变成大大的降临日历，每天17点开一扇门。
+  - tone: sky
+    tag: 圣诞船
+    title: 船上的孩子节目
+    lines:
+      - 停在 Eiserner Steg 旁边的灯光船上，有童话、音乐会、魔术和剧场。
+      - 不能带自己的吃的喝的上船。
+      - 有几场有手语翻译：11-24、12-02、12-10、12-18。
+    note: 下面三张是每类节目的日期。
+  - tone: rose
+    tag: A 讲童话 · B 音乐会
+    title: 听故事，一起唱
+    lines:
+      - A 讲童话：11-24、12-01、12-08、12-15、12-22 16点；周日 11-29、12-06、12-13、12-20 13点和15点。
+      - B 儿童音乐会：11-25、12-03、12-09、12-11、12-14、12-21 16点；12-19 13点和15点。
+  - tone: mint
+    tag: C 童话剧 · D 魔术
+    title: 一起演，看魔术
+    lines:
+      - C 互动童话剧：孩子换上戏服一起演，11-23、11-30、12-02、12-07 都是16点。
+      - D 魔术秀：11-28（周六）13点和15点，12-18 16点。
+  - tone: sky
+    tag: E 剧场 · F 儿童秀
+    title: 剧场和圣诞歌
+    lines:
+      - E 剧场故事：12-05、12-12（周六）13点和15点，12-16 16点。
+      - F 儿童秀：唱圣诞歌、跳舞、变魔术，11-26、11-27、12-10、12-17 都是16点。
+  - tone: red
+    tag: 别错过
+    title: 尼古拉斯和老火车
+    lines:
+      - 12-06（周日）17:10 尼古拉斯来罗马广场舞台。
+      - 12-12、12-13：老火车从 Eiserner Steg 出发，在城里绕一圈。
+      - 每周三、周六18点，圣尼古拉教堂屋顶上吹圣诞号角。
+  - tone: paper
+    tag: 换尿布 · 小提示
+    title: 宝宝要换尿布？
+    lines:
+      - 罗马广场：约90米的公共厕所有单独的换尿布间（收费，6–23:45点）。
+      - Hauptwache：附近书店有换尿布间（约180米，周日不开）。
+      - 儿童游乐设施那里可以免费领防走失手环，写上手机号。
+    note: 晚上人多推车难走，背带更轻松。
+    foot: 换尿布台位置来自 © OpenStreetMap 贡献者
+  - tone: ink
+    title: "你家最想看哪个？"
+    lines:
+      - 评论区留字母，也欢迎分享法兰克福带娃的小经验。
+    rows:
+      - { when: "A", name: 讲童话 }
+      - { when: "B", name: 儿童音乐会 }
+      - { when: "C", name: 互动童话剧 }
+      - { when: "D", name: 魔术秀 }
+      - { when: "E", name: 剧场故事 }
+      - { when: "F", name: 唱圣诞歌的儿童秀 }
+    search: 小鹿出游 Allo Outings
+    note: 搜索后选法兰克福，点「圣诞市场」。
+    foot: 节目以官方为准，出发前请再确认
