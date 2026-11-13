@@ -10,6 +10,7 @@
 # - 2026-11-13 L: the Christmas market posts are missing Frankfurt. The official page now lists the children's
 #   market and the boat programme, so this set is built from it. No brand names; performers named by kind of show.
 # - 2026-11-13 L asked to try video posts; this post's 28 s video (the `video:` block below) was the sample, L: "看起来可以".
+# - 2026-11-13 L: "德语地名不用翻译". Squares, streets, buildings and venues now keep their German names (towns keep 科隆/法兰克福 etc.).
 code: FA5E
 title: 法兰克福圣诞市场带娃攻略｜2026
 until: 2026-12-22
@@ -23,7 +24,7 @@ caption: |
   E 剧场故事
   F 唱圣诞歌的儿童秀
 
-  具体日期见第5–7张。12-06（周日）17:10 尼古拉斯来罗马广场舞台。
+  具体日期见第5–7张。12-06（周日）17:10 尼古拉斯来 Römerberg 舞台。
 
   🗳 你家最想看哪个？评论区留字母就行。
   也想听听大家的经验：法兰克福带娃白天去还是晚上去？推车好走吗？有没有人少的小角落？
@@ -45,15 +46,16 @@ cards:
     rows:
       - { when: "开门", name: 11-23（周一）到 12-22 }
       - { when: "时间", name: 周一至周六 10–21点，周日 11–21点 }
-      - { when: "地点", name: 罗马广场、保罗广场、美因河岸、Hauptwache、Roßmarkt }
-    note: 11-23 17:10 罗马广场舞台开幕，17:25 歌剧院的儿童合唱团演唱。
+      - { when: "地点", name: Römerberg、Paulsplatz、Mainkai }
+      - { when: "", name: Hauptwache、Roßmarkt }
+    note: 11-23 17:10 Römerberg 舞台开幕，17:25 Oper Frankfurt 的儿童合唱团演唱。
   - tone: green
     tag: 儿童圣诞市场
     title: 美因河边的孩子专区
     lines:
-      - 在 Eiserner Steg 铁桥东边的美因河岸：儿童旋转木马、小摩天轮、圣诞手工坊。
+      - 在 Eiserner Steg 桥东边的 Mainkai：儿童旋转木马、小摩天轮、圣诞手工坊。
       - 100棵圣诞树，是法兰克福小学和幼儿园的孩子装饰的。
-      - 历史博物馆外墙变成大大的降临日历，每天17点开一扇门。
+      - Historisches Museum 外墙变成大大的降临日历，每天17点开一扇门。
   - tone: sky
     tag: 圣诞船
     title: 船上的孩子节目
@@ -84,14 +86,14 @@ cards:
     tag: 别错过
     title: 尼古拉斯和老火车
     lines:
-      - 12-06（周日）17:10 尼古拉斯来罗马广场舞台。
+      - 12-06（周日）17:10 尼古拉斯来 Römerberg 舞台。
       - 12-12、12-13：老火车从 Eiserner Steg 出发，在城里绕一圈。
-      - 每周三、周六18点，圣尼古拉教堂屋顶上吹圣诞号角。
+      - 每周三、周六18点，Alte Nikolaikirche 屋顶上吹圣诞号角。
   - tone: paper
     tag: 换尿布 · 小提示
     title: 宝宝要换尿布？
     lines:
-      - 罗马广场：约90米的公共厕所有单独的换尿布间（收费，6–23:45点）。
+      - Römerberg：约90米的公共厕所有单独的换尿布间（收费，6–23:45点）。
       - Hauptwache：附近书店有换尿布间（约180米，周日不开）。
       - 儿童游乐设施那里可以免费领防走失手环，写上手机号。
     note: 晚上人多推车难走，背带更轻松。
@@ -127,15 +129,15 @@ video:
       items:
         - { icon: 🎁, k: 开门, v: 11-23（周一）到 12-22 }
         - { icon: 🕙, k: 时间, v: "周一至周六 10–21点\n周日 11–21点" }
-        - { icon: 📍, k: 地点, v: 罗马广场、保罗广场、美因河岸、Hauptwache、Roßmarkt }
+        - { icon: 📍, k: 地点, v: Römerberg、Paulsplatz、Mainkai、Hauptwache、Roßmarkt }
     - tone: green
       tag: 儿童圣诞市场
       title: 美因河边的孩子专区
       items:
-        - { icon: 🎠, v: 旋转木马、小摩天轮, s: 在 Eiserner Steg 铁桥东边的河岸 }
+        - { icon: 🎠, v: 旋转木马、小摩天轮, s: 在 Eiserner Steg 桥东边的 Mainkai }
         - { icon: ✂️, v: 圣诞手工坊 }
         - { icon: 🎄, v: 100棵圣诞树, s: 小学和幼儿园的孩子装饰 }
-        - { icon: 🚪, v: 降临日历外墙, s: 历史博物馆，每天17点开一扇门 }
+        - { icon: 🚪, v: 降临日历外墙, s: Historisches Museum，每天17点开一扇门 }
     - tone: blue
       tag: 圣诞船上的孩子节目
       title: 几乎每天下午都有
@@ -150,14 +152,14 @@ video:
     - tone: red
       tag: 别错过
       big: 12-06
-      lines: [周日 17:10 · 罗马广场舞台, 🎅 尼古拉斯来了]
+      lines: [周日 17:10 · Römerberg 舞台, 🎅 尼古拉斯来了]
       items:
         - { icon: 🚂, v: 12-12、12-13 老火车, s: 从 Eiserner Steg 出发绕城一圈 }
     - tone: green
       tag: 带娃小提示
       title: 出门前看一眼
       items:
-        - { icon: 🚼, v: 罗马广场换尿布, s: "约90米的公厕有换尿布间\n收费，6–23:45点" }
+        - { icon: 🚼, v: Römerberg 换尿布, s: "约90米的公厕有换尿布间\n收费，6–23:45点" }
         - { icon: 🏷️, v: 防走失手环, s: "在儿童游乐设施免费领\n写上手机号" }
         - { icon: 👶, v: 晚上人多, s: 推车难走，背带更轻松 }
     - tone: ink

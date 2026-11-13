@@ -18,7 +18,7 @@ items:
     note:
       de: "Himmelswerkstatt im Neuen Rathaus (26.11.–13.12.): Kinder von 6 bis 12 basteln kostenlos als Weihnachtsengerl, Anmeldung beim Kindermuseum. Krampuslauf am 13.12., 15–17 Uhr."
       en: "Himmelswerkstatt in the New Town Hall (26 Nov to 13 Dec): children aged 6 to 12 do free Christmas crafts dressed as angels; book with the Kindermuseum. Krampus parade on 13 Dec, 3 to 5 pm."
-      zh: "新市政厅的“天堂工坊”（11月26日至12月13日）：6至12岁的孩子可以扮成小天使免费做圣诞手工，需在儿童博物馆预约。12月13日15至17点有坎卜斯游行。"
+      zh: "Neues Rathaus 的“天堂工坊”（11月26日至12月13日）：6至12岁的孩子可以扮成小天使免费做圣诞手工，需在 Kindermuseum 预约。12月13日15至17点有坎卜斯游行。"
   - id: kripperlmarkt
     name: Kripperlmarkt am Alten Peter
     from: 2026-11-20
@@ -71,7 +71,7 @@ items:
     note:
       de: "Historisches Kinderkarussell und Kindereisenbahn; Do–So ab 13 Uhr Kutschfahrten durch den Englischen Garten, Nikolaus am 5. und 6.12."
       en: "A historic children's carousel and a little train; carriage rides through the English Garden Thu–Sun from 1 pm, St. Nicholas on 5 and 6 Dec."
-      zh: "有老式儿童旋转木马和儿童小火车；周四到周日13点起可以坐马车游英国花园，12月5日和6日圣尼古拉斯来。"
+      zh: "有老式儿童旋转木马和儿童小火车；周四到周日13点起可以坐马车游 Englischer Garten，12月5日和6日圣尼古拉斯来。"
   - id: maerchenbazar
     name: Märchenbazar im Olympiapark Süd
     from: 2026-11-26

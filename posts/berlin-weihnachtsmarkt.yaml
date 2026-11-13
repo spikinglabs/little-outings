@@ -6,14 +6,15 @@
 # History (find a post by its code: grep -l "code: G4TG" posts/):
 # - 2026-11-12 L asked for Christmas market posters that start a discussion; facts checked on official 2026 pages ("注意信息的可靠性").
 # - 2026-11-12 L: no brand names, so shops on the changing-table card are named by kind (pharmacy, shopping centre).
+# - 2026-11-13 L: "德语地名不用翻译". Squares, streets, buildings and venues now keep their German names (towns keep 科隆/法兰克福 etc.).
 code: G4TG
 title: 柏林圣诞市场带娃哪个最好？｜2026
 until: 2026-12-30
 caption: |
   柏林的圣诞市场11-13起陆续开门🎄 按官方信息挑了6个适合带娃的，看完来评论区投票（A–F）👇
 
-  A 【11-23起】红色市政厅：海神喷泉溜冰场、50米摩天轮
-  B 【11-23起】夏洛滕堡宫：两个儿童旋转木马和小摩天轮
+  A 【11-23起】Rotes Rathaus：Neptunbrunnen 溜冰场、50米摩天轮
+  B 【11-23起】Schloss Charlottenburg：两个儿童旋转木马和小摩天轮
   C 【11-23起】Kulturbrauerei：圣诞老人每天来，骑士城堡
   D 【11-23起】Zehlendorf：小溜冰场，周末舞台节目
   E 【11-28起，只有周末】Späth 苗圃：格林童话剧、坐马车
@@ -39,18 +40,19 @@ cards:
     tag: 开门时间
     title: 哪天开门？
     rows:
-      - { when: "11-13", name: 威廉皇帝纪念教堂（最早） }
-      - { when: "11-18", name: 洪堡论坛 }
-      - { when: "11-23", name: 红色市政厅、夏洛滕堡宫、Kulturbrauerei、Zehlendorf }
+      - { when: "11-13", name: Gedächtniskirche（最早） }
+      - { when: "11-18", name: Humboldt Forum }
+      - { when: "11-23", name: Rotes Rathaus、Schloss Charlottenburg }
+      - { when: "11-23", name: Kulturbrauerei、Zehlendorf }
       - { when: "11-28", name: Späth 苗圃（只有周末） }
       - { when: "12-04", name: Lehmanns 农场、Rixdorf（只有周末） }
-    note: 大部分开到12-23以后，红色市政厅开到1月3日。
+    note: 大部分开到12-23以后，Rotes Rathaus 开到1月3日。
   - tone: paper
-    tag: A 红色市政厅 · B 夏洛滕堡宫
+    tag: A Rotes Rathaus · B Schloss Charlottenburg
     title: 溜冰、摩天轮、旋转木马
     lines:
-      - A 红色市政厅：溜冰场围着海神喷泉，50米摩天轮是封闭的暖气吊舱，还有木偶艺人和讲故事的人。
-      - B 夏洛滕堡宫：两个儿童旋转木马和一个小摩天轮，城堡晚上有灯光。
+      - A Rotes Rathaus：溜冰场围着 Neptunbrunnen，50米摩天轮是封闭的暖气吊舱，还有木偶艺人和讲故事的人。
+      - B Schloss Charlottenburg：两个儿童旋转木马和一个小摩天轮，城堡晚上有灯光。
     note: 都是中午前后开门，12-24都不开。
   - tone: paper
     tag: C Kulturbrauerei · D Zehlendorf
@@ -77,7 +79,7 @@ cards:
     tag: 换尿布 · 小提示
     title: 宝宝要换尿布？
     lines:
-      - 红色市政厅：旁边约100米的公共厕所有换尿布台。
+      - Rotes Rathaus：旁边约100米的公共厕所有换尿布台。
       - 其他市场附近我们的数据里还没有，可以去附近商场。
       - 热饮杯要付押金（Pfand），还杯退钱，也可以留着做纪念。
     note: 晚上人多推车难走，背带更轻松。
@@ -87,8 +89,8 @@ cards:
     lines:
       - 评论区留字母，也欢迎分享你家的私藏小市场。
     rows:
-      - { when: "A", name: 红色市政厅 }
-      - { when: "B", name: 夏洛滕堡宫 }
+      - { when: "A", name: Rotes Rathaus }
+      - { when: "B", name: Schloss Charlottenburg }
       - { when: "C", name: Kulturbrauerei }
       - { when: "D", name: Zehlendorf }
       - { when: "E", name: Späth 苗圃 }

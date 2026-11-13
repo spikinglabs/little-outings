@@ -33,7 +33,7 @@ items:
     note:
       de: "Historisches Riesenrad von 1899, Märchenschiffe auf der Binnenalster (26.11.–23.12.). Am 6.12. ab 16:30 Uhr kommt der Nikolaus."
       en: "A historic Ferris wheel from 1899 and fairy-tale boats on the Inner Alster (26 Nov to 23 Dec). St. Nicholas comes on 6 Dec from 4:30 pm."
-      zh: "有1899年的老式摩天轮，内阿尔斯特湖上有童话船（11月26日至12月23日）。12月6日16:30起圣尼古拉斯来访。"
+      zh: "有1899年的老式摩天轮，Binnenalster 上有童话船（11月26日至12月23日）。12月6日16:30起圣尼古拉斯来访。"
   - id: gaensemarkt
     name: Lebkuchendorf auf dem Gänsemarkt
     from: 2026-11-18
@@ -45,7 +45,7 @@ items:
     kids: [fairy_tale]
     free: true
     website: https://www.hamburg.de/tourismus/weihnachten-hamburg/weihnachtsmarkt-hamburg/weihnachtsmarkt-auf-dem-gaensemarkt-301122
-    note: { de: "Ein Dorf aus Lebkuchen-Häuschen rund um das Lessingdenkmal.", en: "A village of gingerbread huts around the Lessing monument.", zh: "莱辛纪念碑周围的姜饼小屋村。" }
+    note: { de: "Ein Dorf aus Lebkuchen-Häuschen rund um das Lessingdenkmal.", en: "A village of gingerbread huts around the Lessing monument.", zh: "Lessingdenkmal 周围的姜饼小屋村。" }
   - id: petrikirche
     name: Weihnachtsmarkt an der Petrikirche
     from: 2026-11-18
