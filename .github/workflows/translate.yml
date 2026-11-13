@@ -36,7 +36,7 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID || vars.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           mkdir -p .cache/outings
-          for f in candidates.jsonl candidates.json decisions.json sorted.json weekend.json alerts.json alert-decisions.json; do
+          for f in candidates.jsonl candidates.json decisions.json sorted.json weekend.json alerts.json alert-decisions.json page-text.jsonl; do
             if npx wrangler r2 object get "$BUCKET/little-outings/$f" --file ".cache/outings/$f.part" > /dev/null 2>&1; then
               mv ".cache/outings/$f.part" ".cache/outings/$f"
             else

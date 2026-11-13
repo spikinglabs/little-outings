@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { excerptFor, keyOf, namesEvent, parseAbout, update, wanted } from "../scripts/describe-events.mjs";
+import { excerptFor, keyOf, namesEvent, parseAbout, textIndex, update, wanted } from "../scripts/describe-events.mjs";
 import { fromExport } from "../scripts/import-cityklub.mjs";
 
 const URL1 = "https://www.stadtbibliothek.example/bilderbuchkino";
@@ -73,4 +73,32 @@ test("a calendar page without the title lends no age or sentence", () => {
   const page = filters + "\n" + "x ".repeat(2000) + "\nVorlesezeit\nWir lesen Bilderbücher vor.";
   assert.equal(parseAbout(answer({ age_quote: "Kinder ab 5 Jahren", age_min: 5 }), page, "Vorlesezeit").ages, undefined);
   assert.deepEqual(parseAbout(answer({ age_quote: "ab 3 Jahren", age_min: 3 }), "Vorlesezeit\nFür Kinder ab 3 Jahren.", "Vorlesezeit").ages, [3, 18]);
+});
+
+test("cityklub's page text is used without fetching, and read again when its sha changes", async () => {
+  let pages = 0, asked = 0;
+  const fetch = async (url) => {
+    if (url === URL1) { pages++; return new Response("<p>nothing</p>"); }
+    asked++;
+    return Response.json({ candidates: [{ content: { parts: [{ text: answer({ age_quote: "ab 3 Jahren", age_min: 3 }) }] } }] });
+  };
+  const llm = { provider: "gemini", key: "k" };
+  // The text names no title: it is this event's own text, so no title check.
+  const line = { event_id: "e1", source_url: URL1, title: "Bilderbuchkino", page_text: "Bilder groß an der Wand, ab 3 Jahren.", page_text_source: "page", page_text_sha: "aaaa" };
+  const opts = { llm, today: "2026-11-13", until: "2026-11-27", fetch };
+  const r = await update([row], {}, { ...opts, texts: textIndex([line]) });
+  assert.equal(pages, 0);
+  assert.equal(asked, 1);
+  const entry = r.cache[keyOf(row)];
+  assert.equal(entry.sha, "aaaa");
+  assert.deepEqual(entry.ages, [3, 18]);
+  // The provider's words are never stored.
+  assert.doesNotMatch(JSON.stringify(r.cache), /Bilder groß|ab 3 Jahren/);
+  const same = await update([row], r.cache, { ...opts, texts: textIndex([line]) });
+  assert.equal(same.done, 0);
+  const changed = await update([row], r.cache, { ...opts, texts: textIndex([{ ...line, page_text_sha: "bbbb" }]) });
+  assert.equal(changed.done, 1);
+  // A page that told nothing gets another go once cityklub has text for it.
+  const later = await update([row], { [keyOf(row)]: { none: true, read: 1 } }, { ...opts, texts: textIndex([line]) });
+  assert.equal(later.done, 1);
 });

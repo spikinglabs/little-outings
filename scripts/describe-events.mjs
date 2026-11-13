@@ -13,6 +13,14 @@
 // a page whose text doesn't contain the title isn't sent to the model at all, and an age must stand near the title.
 // import-cityklub.mjs adds the sentence (`about`) and the ages to the imported event.
 //
+// cityklub-event-data already reads the pages: its export leaves little-outings/page-text.jsonl in the
+// bucket (event_id, source_url, title, page_text up to 1500 letters, page_text_source "page" or "listing",
+// page_text_sha). translate.yml downloads it to .cache/outings/page-text.jsonl; an event found there is
+// summarised from that text without fetching its page, and summarised again when its page_text_sha changes.
+// Events not in the file yet fall back to fetching the page here. That text is the providers' own prose:
+// it stays in .cache (gitignored) and only goes to the model; data/about.json holds only the AI's sentence,
+// the ages and the sha.
+//
 //   GEMINI_API_KEY=… npm run describe:events  (or ANTHROPIC_API_KEY; see src/lib/llm.ts for the switch)
 //   ABOUT_MODEL=…                             optional; the provider's default otherwise
 //   ABOUT_LIMIT=…                             pages read per night at most (default 400)
@@ -26,6 +34,7 @@ import { pageText } from "./find-venues.mjs";
 
 export const CACHE = "data/about.json";
 const PUBLISHED = process.env.OUTINGS_FILE || "data/outings.jsonl";
+const PAGE_TEXT = process.env.PAGE_TEXT_FILE || ".cache/outings/page-text.jsonl"; // from cityklub-event-data
 const READ = 1; // bump to read pages that gave nothing again after the reader got better
 const AT_ONCE = 6; // pages read at the same time, from many different sites
 const MAX_TEXT = 12000; // page text sent to the model
@@ -91,7 +100,6 @@ export function parseAbout(text, page, title = "") {
   if (quote.length >= 4 && squash(title ? nearTitle(page, title) : page).includes(squash(quote)) && (min != null || max != null)
     && inQuote(min) && inQuote(max) && (min ?? 0) >= 0 && (max ?? 18) <= 18 && (min ?? 0) <= (max ?? 18)) {
     out.ages = [min ?? 0, max ?? 18];
-    out.age_quote = quote;
   }
   return out;
 }
@@ -102,21 +110,42 @@ async function readPage(url, fetch) {
   return pageText(await res.text());
 }
 
+/** cityklub's page texts by event id and by page and title. */
+export function textIndex(lines) {
+  const byId = new Map(), byKey = new Map();
+  for (const l of lines) {
+    if (!l?.page_text) continue;
+    if (l.event_id) byId.set(l.event_id, l);
+    if (l.source_url && l.title) byKey.set(keyOf(l), l);
+  }
+  return (row) => byId.get(row.event_id) ?? byKey.get(keyOf(row));
+}
+
 /** Fill the cache for tonight's events and drop entries no event uses any more. */
-export async function update(rows, cache, { llm, model, today, until, limit = 400, fetch = globalThis.fetch }) {
+export async function update(rows, cache, { llm, model, today, until, limit = 400, fetch = globalThis.fetch, texts = () => undefined }) {
   const want = [...new Map(wanted(rows, today, until).map((r) => [keyOf(r), r])).values()];
-  const todo = want.filter((r) => !(keyOf(r) in cache) || (cache[keyOf(r)].none && (cache[keyOf(r)].read ?? 0) < READ));
+  const stale = (r) => {
+    const c = cache[keyOf(r)], given = texts(r);
+    if (!c) return true;
+    // cityklub's text changed, or arrived for an event its own page told nothing about.
+    if (given && (c.sha ? c.sha !== given.page_text_sha : c.none)) return true;
+    return !!c.none && !given && (c.read ?? 0) < READ;
+  };
+  const todo = want.filter(stale);
   let done = 0;
   if (llm) {
     const pages = new Map(); // url → Promise<page text>, so a calendar page is fetched once
     await eachLimit(todo.slice(0, limit), AT_ONCE, async (row) => {
       try {
-        if (!pages.has(row.source_url)) pages.set(row.source_url, readPage(row.source_url, fetch));
-        const page = await pages.get(row.source_url);
-        if (!namesEvent(page, row.title)) { cache[keyOf(row)] = { none: true, read: READ }; done++; return; }
+        const given = texts(row);
+        // cityklub's text belongs to this event already; a page fetched here must name it.
+        if (!given && !pages.has(row.source_url)) pages.set(row.source_url, readPage(row.source_url, fetch));
+        const page = given ? given.page_text : await pages.get(row.source_url);
+        const sha = given?.page_text_sha ? { sha: given.page_text_sha } : {};
+        if (!given && !namesEvent(page, row.title)) { cache[keyOf(row)] = { none: true, read: READ }; done++; return; }
         const ask = `Event title: ${row.title}\nTown: ${row.location?.city ?? ""}\nOrganiser: ${row.source_name ?? ""}\n\nPage text:\n${excerptFor(page, row.title)}`;
         const found = parseAbout(await complete(llm, model, { system: PROMPT, text: ask, maxTokens: 4000, json: true }, fetch), page, row.title);
-        cache[keyOf(row)] = found.none ? { ...found, read: READ } : found;
+        cache[keyOf(row)] = found.none ? { ...found, read: READ, ...sha } : { ...found, ...sha };
         done++;
       } catch (e) {
         console.warn(String(e).slice(0, 300));
@@ -135,13 +164,15 @@ async function main() {
   const today = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Berlin" }).format(new Date());
   const llm = pickLlm(process.env);
   const limit = Number(process.env.ABOUT_LIMIT) || 400;
-  const r = await update(rows, cache, { llm, model: process.env.ABOUT_MODEL, today, until: lastDay(today), limit });
+  const lines = existsSync(PAGE_TEXT) ? readFileSync(PAGE_TEXT, "utf8").split("\n").filter((l) => l.trim()).map((l) => JSON.parse(l)) : [];
+  const texts = textIndex(lines);
+  const r = await update(rows, cache, { llm, model: process.env.ABOUT_MODEL, today, until: lastDay(today), limit, texts });
   mkdirSync(dirname(CACHE), { recursive: true });
   writeFileSync(CACHE, JSON.stringify(r.cache, null, 1) + "\n");
   const all = Object.values(r.cache);
   const said = all.filter((v) => v.de).length, aged = all.filter((v) => v.ages).length;
   console.log(llm
-    ? `describe-events (${llm.provider}): ${r.todo} to read, ${r.done} read, ${said} events described, ${aged} with ages from the page`
+    ? `describe-events (${llm.provider}): ${lines.length} page texts from cityklub, ${r.todo} to read, ${r.done} read, ${said} events described, ${aged} with ages from the page`
     : `describe-events: ${r.todo} events without a sentence (set GEMINI_API_KEY or ANTHROPIC_API_KEY to read their pages)`);
 }
 
