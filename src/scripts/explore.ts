@@ -594,6 +594,11 @@ function showMap(on: boolean, remember = true) {
   if (full) {
     const tabs = document.querySelector<HTMLElement>(".tabs");
     document.documentElement.style.setProperty("--tabs-h", `${tabs?.offsetHeight ?? 0}px`);
+    // The legend under the map, measured once it shows (the switch sits just above it).
+    requestAnimationFrame(() => {
+      const legend = box.querySelector<HTMLElement>(".legend");
+      if (legend) document.documentElement.style.setProperty("--legend-h", `${legend.offsetHeight}px`);
+    });
     if (!history.state?.loMap) history.pushState({ ...(history.state ?? {}), loMap: 1 }, "");
   }
   box.classList.toggle("full", full);

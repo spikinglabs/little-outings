@@ -384,8 +384,10 @@ h1, h2, h3, .meta, .de-name, .orig, .trust { overflow-wrap: anywhere; }
   .explore-map.full .map { flex: 1; height: auto; }
   .explore-map.full .legend { padding: 6px 12px; }
   html.map-full { overflow: hidden; }
-  /* Over the map the switch sits at the top, clear of the card a tapped mark opens at the bottom. */
-  html.map-full .map-fab { bottom: auto; top: calc(12px + env(safe-area-inset-top, 0px)); }
+  /* Over the map the switch stays where the Map button was, just above the legend; the card a tapped
+     mark opens moves up above it. */
+  html.map-full .map-fab { bottom: calc(var(--tabs-h, 66px) + var(--legend-h, 44px) + 12px); }
+  .explore-map.full .map-card { bottom: 72px; }
 }
 .brand-about { margin-top: 32px; }
 .brand-about h2 { font-size: 1rem; margin-bottom: 4px; }
