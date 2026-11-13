@@ -58,7 +58,7 @@ interface Props {
 }
 
 /** What the Discover filters currently show; also kept on window for a map that mounts later. */
-export interface Filtered { ids: string[]; home: string; radius: number; view: number }
+export interface Filtered { ids: string[]; home: string; radius: number; view: number; area?: number[] | null }
 declare global { interface Window { loFiltered?: Filtered; loTiles?: string[] } }
 
 const pinIcon = (p: Pin) =>
@@ -318,7 +318,9 @@ export default function OutingsMap({ pinsBase, toiletsUrl, lang = "de", center, 
       // A link with its own spot (?lat=&lon=) keeps that view on the first draw.
       if (key !== last && !(fromLink && last === "")) {
         fitting = true;
-        map.fitBounds(at.toBounds(f.radius * 2000), { padding: [8, 8], animate: false });
+        // An area the reader picked earlier (kept for the session) comes back as it was; else the radius.
+        if (f.area && last === "") map.fitBounds([[f.area[0], f.area[1]], [f.area[2], f.area[3]]], { animate: false });
+        else map.fitBounds(at.toBounds(f.radius * 2000), { padding: [8, 8], animate: false });
         fitting = false;
       }
       last = key;
@@ -339,11 +341,15 @@ export default function OutingsMap({ pinsBase, toiletsUrl, lang = "de", center, 
       if (fixed) return;
       if ((await loadPins((e as CustomEvent<string[]>).detail)) && !folded() && window.loFiltered) update(window.loFiltered);
     };
-    // The map may mount while folded (zero size); once shown, measure again and refit.
+    // The map may mount while folded (zero size); once shown, measure again. It keeps the view the reader
+    // left it at; it refits only when the town, radius or "back to … km" changed while it was closed.
     const onShown = () => {
+      const c = map.getCenter(), z = map.getZoom();
       map.invalidateSize();
       if (fixed) return fitFixed();
-      last = "";
+      fitting = true;
+      map.setView(c, z, { animate: false });
+      fitting = false;
       if (window.loFiltered) update(window.loFiltered);
     };
     const onMoved = () => {

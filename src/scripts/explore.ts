@@ -44,6 +44,8 @@ const home = $<HTMLButtonElement>("#home");
 
 // The chosen day, distance and chips last for this tab's session, so a refresh or a trip to
 // a card and back keeps them. The town is kept elsewhere (as home); no location is ever stored here.
+// The map area the reader picked by moving the map is kept too, with the town it belongs to, so the
+// list and the map come back where they were; picking another town drops it.
 const KEPT = ["when", "rain", "outdoor", "farm", "free", "animals", "changing", "nogerman", "season", "radius", "kind", "tag", "order"] as const;
 const FLAGS = ["rain", "outdoor", "farm", "free", "animals", "changing", "nogerman"] as const;
 type Flag = (typeof FLAGS)[number];
@@ -65,9 +67,13 @@ function restore() {
     state.kind = saved.kind;
     if (saved.kind === "event" && typeof saved.tag === "string" && has(`[data-tag-chip="${CSS.escape(saved.tag)}"]`)) state.tag = saved.tag;
   }
+  const a = saved.area;
+  if (Array.isArray(a) && a.length === 4 && a.every((n) => typeof n === "number" && isFinite(n)) && saved.areaHome === getHome()) state.area = a;
 }
 function keep() {
-  try { sessionStorage.setItem("lo-filters", JSON.stringify(Object.fromEntries(KEPT.map((k) => [k, state[k]])))); } catch { /* storage blocked */ }
+  const kept: Record<string, unknown> = Object.fromEntries(KEPT.map((k) => [k, state[k]]));
+  if (state.area) { kept.area = state.area; kept.areaHome = getHome(); }
+  try { sessionStorage.setItem("lo-filters", JSON.stringify(kept)); } catch { /* storage blocked */ }
 }
 
 // Dates in Germany, as YYYY-MM-DD strings, so they compare with the data-start/data-end attributes.
@@ -396,7 +402,7 @@ function apply() {
   more.textContent = ui.showMore.replace("{n}", String(Math.min(PAGE, list.length - state.limit)));
 
   // Tell the map on this page what to draw: everything the other filters let through, wherever it is.
-  const filtered = { ids: onMap.map((r) => r.d.id!), home: getHome(), radius: state.radius, view: state.view };
+  const filtered = { ids: onMap.map((r) => r.d.id!), home: getHome(), radius: state.radius, view: state.view, area: state.area };
   window.loFiltered = filtered;
   document.dispatchEvent(new CustomEvent("lo:filtered", { detail: filtered }));
   const chipCount = (b: HTMLElement, n: number) => { const el = b.querySelector("[data-n]"); if (el) el.textContent = String(n); b.classList.toggle("none", n === 0); };
@@ -437,7 +443,7 @@ document.addEventListener("click", (ev) => {
   if (m) {
     const on = $("#explore-map").hidden;
     if (on) { track("map"); showMap(true); }
-    // Closing the full-height map goes back through history, so the phone's back button does the same.
+    // Closing the phone's map goes back through history, so the phone's back button does the same.
     else if (history.state?.loMap) history.back();
     else showMap(false);
   }
@@ -583,37 +589,35 @@ $<HTMLButtonElement>("[data-locate]").addEventListener("click", async (e) => {
 document.addEventListener("lo:area", (e) => { state.limit = PAGE; state.area = (e as CustomEvent<number[]>).detail; apply(); });
 
 // The map starts folded; the "Show on map" button opens it, and the choice is remembered on this device.
-// On a phone it opens full height between the top and the tab bar (the list under a 290 px map was hard to
-// use), with a floating "List" switch; the phone's back button closes it. That is not remembered, so
-// Discover never opens as a map.
+// On a phone the floating "Map" switch opens it pinned to the top of the screen, with the list scrolling
+// underneath: moving the map narrows the list as it goes. The switch then reads "List"; it and the phone's
+// back button close the map, and the list keeps the area it showed (with the "back to … km" line). That is
+// not remembered, so Discover never opens as a map.
 const phone = () => matchMedia("(max-width: 899px)").matches;
 function showMap(on: boolean, remember = true) {
   const box = $("#explore-map");
-  const wasFull = box.classList.contains("full");
-  const full = on && phone();
-  if (full) {
+  const wasSplit = box.classList.contains("split");
+  const split = on && phone();
+  if (split) {
     const tabs = document.querySelector<HTMLElement>(".tabs");
     document.documentElement.style.setProperty("--tabs-h", `${tabs?.offsetHeight ?? 0}px`);
-    // The legend under the map, measured once it shows (the switch sits just above it).
-    requestAnimationFrame(() => {
-      const legend = box.querySelector<HTMLElement>(".legend");
-      if (legend) document.documentElement.style.setProperty("--legend-h", `${legend.offsetHeight}px`);
-    });
     if (!history.state?.loMap) history.pushState({ ...(history.state ?? {}), loMap: 1 }, "");
   }
-  box.classList.toggle("full", full);
-  document.documentElement.classList.toggle("map-full", full);
+  box.classList.toggle("split", split);
   const fab = document.querySelector<HTMLButtonElement>("[data-map-fab]");
   if (fab) {
     fab.setAttribute("aria-pressed", String(on));
     fab.querySelector<HTMLElement>("[data-fab-map]")!.hidden = on;
     fab.querySelector<HTMLElement>("[data-fab-list]")!.hidden = !on;
   }
-  document.dispatchEvent(new CustomEvent("lo:map-full", { detail: full }));
-  if (wasFull && !on) document.getElementById("ideas-h")?.scrollIntoView({ block: "start" });
-  if (full) remember = false;
+  // Pinned on a phone: nothing to scroll past, so one finger moves the map (OutingsMap).
+  document.dispatchEvent(new CustomEvent("lo:map-full", { detail: split }));
+  if (split) remember = false;
   box.hidden = !on;
-  if (!on && state.area) { state.area = null; apply(); }
+  if (split && !wasSplit) requestAnimationFrame(() => box.scrollIntoView({ block: "start" }));
+  if (wasSplit && !on) document.getElementById("ideas-h")?.scrollIntoView({ block: "start" });
+  // Hiding the map beside the list on a computer drops its area; closing it on a phone keeps it.
+  if (!on && !wasSplit && state.area) { state.area = null; apply(); }
   $("[data-map-toggle]").setAttribute("aria-expanded", String(on));
   $("[data-map-label]").textContent = on ? ui.mapHide : ui.mapShow;
   $("[data-map-short]").textContent = ui.mapShort[on ? 1 : 0];
@@ -657,6 +661,6 @@ if (hashSeason && seasonBtn(hashSeason)) { state.season = hashSeason; state.when
 else if (hashSeason === "soon") state.when = "soon";
 if (location.hash === "#map" || new URLSearchParams(location.search).get("ev") === "1") showMap(true, false);
 else try { if (!phone() && localStorage.getItem("lo-map") === "1") showMap(true, false); } catch { /* storage blocked */ }
-// The phone's back button closes the full-height map.
-addEventListener("popstate", () => { if ($("#explore-map").classList.contains("full") && !history.state?.loMap) showMap(false); });
+// The phone's back button closes the pinned map.
+addEventListener("popstate", () => { if ($("#explore-map").classList.contains("split") && !history.state?.loMap) showMap(false); });
 loadTiles();
