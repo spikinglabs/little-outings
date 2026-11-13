@@ -63,21 +63,37 @@ test("the Instagram pass-through only serves /ig/ JPEGs", async () => {
 test("the Posts API lists posts newest first and serves only post pictures", async () => {
   const { onRequestGet: posts } = await import("../admin/functions/api/posts.js");
   const objects = {
-    "little-outings/posts/TK9C/post.json": JSON.stringify({ code: "TK9C", id: "toys", title: "t", caption: "c", pictures: ["toys-1.png"], updated: "2026-11-12T15:00:00Z" }),
+    "little-outings/posts/TK9C/post.json": JSON.stringify({ code: "TK9C", id: "toys", title: "t", caption: "c", pictures: ["toys-1.png"], video: "toys.mp4", updated: "2026-11-12T15:00:00Z" }),
     "little-outings/posts/TK9C/toys-1.png": "png",
+    "little-outings/posts/TK9C/toys.mp4": "0123456789",
     "little-outings/posts/73HQ/post.json": JSON.stringify({ code: "73HQ", id: "koeln", title: "k", caption: "c", pictures: ["koeln-1.png"], updated: "2026-11-12T14:00:00Z" }),
     "little-outings/decisions.json": "{}",
   };
   const body = (v) => ({ body: new Blob([v]).stream(), json: async () => JSON.parse(v), text: async () => v });
   const OUTINGS = {
     list: async ({ prefix }) => ({ objects: Object.keys(objects).filter((k) => k.startsWith(prefix)).map((key) => ({ key })), truncated: false }),
-    get: async (key) => (key in objects ? body(objects[key]) : null),
+    get: async (key, opts) => {
+      if (!(key in objects)) return null;
+      const v = objects[key];
+      // R2 answers a range with the slice and what it covered.
+      const m = /bytes=(\d+)-(\d*)/.exec(opts?.range?.get("range") ?? "");
+      if (!m) return { ...body(v), size: v.length };
+      const offset = +m[1], length = (m[2] ? +m[2] : v.length - 1) - offset + 1;
+      return { ...body(v.slice(offset, offset + length)), size: v.length, range: { offset, length } };
+    },
   };
   const res = await posts({ env: { OUTINGS }, request: new Request("https://admin.example/api/posts") });
   const out = await res.json();
   assert.equal(out.site, "/api/posts?pic=");
   assert.deepEqual(out.sets.map((s) => s.code), ["TK9C", "73HQ"]);
   assert.deepEqual(out.sets[0].pictures, ["TK9C/toys-1.png"]);
+  assert.equal(out.sets[0].video, "TK9C/toys.mp4");
+  assert.equal(out.sets[1].video, undefined);
+  const video = await posts({ env: { OUTINGS }, request: new Request(`https://admin.example/api/posts?pic=${encodeURIComponent("TK9C/toys.mp4")}`, { headers: { range: "bytes=0-1" } }) });
+  assert.equal(video.status, 206);
+  assert.equal(video.headers.get("content-type"), "video/mp4");
+  assert.equal(video.headers.get("content-range"), "bytes 0-1/10");
+  assert.equal(await video.text(), "01");
   const pic = await posts({ env: { OUTINGS }, request: new Request(`https://admin.example/api/posts?pic=${encodeURIComponent("TK9C/toys-1.png")}`) });
   assert.equal(pic.status, 200);
   assert.equal(pic.headers.get("content-type"), "image/png");

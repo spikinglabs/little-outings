@@ -6,10 +6,12 @@
 # The Chinese font is cut here from Noto Sans SC with every character the posts use, so a post with new
 # characters needs no font commit. Needs the same bucket token as the nightly jobs: the secret R2_SORT_TOKEN
 # or CLOUDFLARE_API_TOKEN with "Workers R2 Storage: Edit", plus CLOUDFLARE_ACCOUNT_ID.
+# Each running post also gets its short video (src/lib/video.ts, recorded by scripts/video.mjs), which needs
+# Chromium, ffmpeg and the emoji font: installed here only, so the site's own build stays as it was.
 name: Posts
 on:
   push:
-    paths: ["posts/**", "scripts/posts.mts", "src/lib/sheet.ts", "src/lib/rednote.ts", ".github/workflows/posts.yml"]
+    paths: ["posts/**", "scripts/posts.mts", "scripts/video.mjs", "src/lib/sheet.ts", "src/lib/rednote.ts", "src/lib/video.ts", ".github/workflows/posts.yml"]
   workflow_dispatch:
 permissions:
   contents: read
@@ -37,7 +39,7 @@ jobs:
           # new branch, or when started by hand.
           if [ "$GITHUB_EVENT_NAME" = push ] && [ -n "$BEFORE" ] && ! echo "$BEFORE" | grep -qE '^0+$' \
             && git cat-file -e "$BEFORE^{commit}" 2>/dev/null \
-            && git diff --quiet "$BEFORE" HEAD -- scripts/posts.mts src/lib/sheet.ts src/lib/rednote.ts; then
+            && git diff --quiet "$BEFORE" HEAD -- scripts/posts.mts scripts/video.mjs src/lib/sheet.ts src/lib/rednote.ts src/lib/video.ts; then
             files=$(git diff --name-only --diff-filter=AMR "$BEFORE" HEAD -- 'posts/*.yaml' | tr '\n' ' ')
           else
             files=$(ls posts/*.yaml | tr '\n' ' ')
@@ -54,8 +56,16 @@ jobs:
           mkdir -p .cache/font
           (cd .cache/font && npm pack --silent @fontsource/noto-sans-sc && tar xzf fontsource-noto-sans-sc-*.tgz)
           python3 scripts/og-font.py .cache/font/package/files
+      - name: Install what the videos need
+        if: steps.which.outputs.files != ''
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg fonts-noto-color-emoji > /dev/null
+          npm install --no-save --silent playwright@1.49.1
+          npx playwright install --with-deps chromium > /dev/null
       - name: Draw
         if: steps.which.outputs.files != ''
+        env:
+          VIDEO: "1"
         run: node scripts/posts.mts .cache/posts ${{ steps.which.outputs.files }}
       - name: Upload for the admin
         if: steps.which.outputs.files != ''
@@ -66,6 +76,9 @@ jobs:
           cd .cache/posts
           for f in */*.png; do
             npx wrangler r2 object put "$BUCKET/little-outings/posts/$f" --file "$f" --content-type image/png > /dev/null
+          done
+          for f in $(ls */*.mp4 2>/dev/null); do
+            npx wrangler r2 object put "$BUCKET/little-outings/posts/$f" --file "$f" --content-type video/mp4 > /dev/null
           done
           # post.json last: the panel lists a post only once its pictures are there.
           for f in */post.json; do
