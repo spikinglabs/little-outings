@@ -1,6 +1,6 @@
 # Sorts new events with AI and publishes them (scripts/sort-events.mjs), finds venues for events that came without one (scripts/find-venues.mjs, data/venues.json) and
 # translates new event titles and place names into Chinese, and event titles into English, every night, before the deploy
-# (02:15) builds the site, and commits data/translations/zh.json and en.json. Each text is translated once per language.
+# (02:15) builds the site, and commits data/translations/zh.json, en.json and the time-line caches time-zh.json, time-en.json. Each text is translated once per language.
 # Needs a repository secret GEMINI_API_KEY (Gemini) or ANTHROPIC_API_KEY (Claude); with both, Gemini
 # is used first and Claude takes over when Gemini runs out of credits, unless the variable LLM_PROVIDER names one. The variable TRANSLATE_MODEL picks the
 # model (defaults in src/lib/llm.ts), SORT_MODEL the one that sorts events, SORT_LIMIT how many new titles it sorts per night (default 3000),
@@ -134,7 +134,7 @@ jobs:
         run: npx wrangler r2 object put "$BUCKET/little-outings/weekend.json" --file .cache/outings/weekend.json --content-type application/json
       - name: Commit the outings, venues, translations and past events
         run: |
-          git add data/translations/zh.json data/translations/en.json data/venues.json data/outings.jsonl data/weekend data/alerts.json data/past-events
+          git add data/translations/zh.json data/translations/en.json data/translations/time-zh.json data/translations/time-en.json data/venues.json data/outings.jsonl data/weekend data/alerts.json data/past-events
           if git diff --cached --quiet; then echo "No changes."; exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

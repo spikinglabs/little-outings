@@ -10,6 +10,7 @@ import { tasksOf } from "./gaps.ts";
 import { whereGuesser } from "./where-guess.ts";
 import type { Event, Place, Tally } from "./types.ts";
 import { pack, type Packed } from "./weather.ts";
+import { withTimes } from "./time-text.ts";
 
 /** The build date in Germany. The site is rebuilt every night, so "upcoming" stays true. */
 export const TODAY = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Berlin" }).format(new Date());
@@ -52,6 +53,9 @@ async function load(): Promise<Data> {
 
   const tallies = inboxTallies();
   const tr = { en: translations("en"), zh: translations("zh") };
+  const trTime = { en: translations("time-en"), zh: translations("time-zh") };
+  // Events get their title and their time line translated.
+  const local = (ev: Event) => withTimes(applyTranslations(ev, tr), trTime);
   // Places parents suggested (inbox-<n>) name their town as typed; "Cologne" is the site's Köln.
   const raw = rawPlaces.map((p) => {
     const id = slug(p.id);
@@ -74,8 +78,8 @@ async function load(): Promise<Data> {
     const ev = normalizeEvent(id, e.data, { answer: answer.get(id), override: override.get(id) }, placeById, towns);
     if (!ev) continue;
     if (demoShift) Object.assign(ev, { start: shiftDays(ev.start, demoShift), end: shiftDays(ev.end, demoShift) });
-    if (ev.end >= TODAY) events.push(applyEventTally(applyTranslations(ev, tr), tallies[id], placeById));
-    else gone.set(id, applyTranslations(ev, tr));
+    if (ev.end >= TODAY) events.push(applyEventTally(local(ev), tallies[id], placeById));
+    else gone.set(id, local(ev));
   }
   // Fixtures (Christmas markets, fairs) are events too; one without a pin sits at its town's centre.
   const seasons = loadSeasons("content/seasons.yaml", ROOT);
@@ -84,10 +88,10 @@ async function load(): Promise<Data> {
     if (seen.has(ev.id)) throw new Error(`duplicate id "${ev.id}"`);
     seen.add(ev.id);
     if (ev.end < TODAY) {
-      gone.set(ev.id, applyTranslations({ ...ev, geo: resolveGeo(f.geo, file.town, towns) }, tr));
+      gone.set(ev.id, local({ ...ev, geo: resolveGeo(f.geo, file.town, towns) }));
       continue;
     }
-    events.push(applyEventTally(applyTranslations({ ...ev, geo: resolveGeo(f.geo, file.town, towns) }, tr), tallies[ev.id], placeById));
+    events.push(applyEventTally(local({ ...ev, geo: resolveGeo(f.geo, file.town, towns) }), tallies[ev.id], placeById));
   }
   for (const p of places) {
     const of = seasons.seasons.filter((s) => s.kinds?.includes(p.kind)).map((s) => s.id);
@@ -97,7 +101,7 @@ async function load(): Promise<Data> {
   if (!demoShift) for (const a of pastEvents()) {
     if (seen.has(a.id) || gone.has(a.id)) continue;
     const ev = normalizeEvent(a.id, { ...a, origin: "cityklub", trust: { level: "official", source: a.attribution } }, {}, placeById, towns);
-    if (ev) gone.set(a.id, applyTranslations(ev, tr));
+    if (ev) gone.set(a.id, local(ev));
   }
   for (const e of [...events, ...gone.values()]) {
     const found = seasonsOf(typeof e.title === "string" ? e.title : e.title.de, seasons.seasons);

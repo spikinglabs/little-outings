@@ -15,6 +15,7 @@ import { readFileSync, readdirSync, writeFileSync, mkdirSync, existsSync, statSy
 import { dirname, join } from "node:path";
 import { load } from "js-yaml";
 import { complete, pickLlm } from "../src/lib/llm.ts";
+import { ruleKnows } from "../src/lib/time-text.ts";
 
 export const CACHE = "data/translations/zh.json";
 const BATCH = 60;
@@ -39,10 +40,23 @@ export const PROMPT_EN = `You translate German titles of family events in German
 - No ALL CAPS: "KINDERFLOHMARKT" → "Kids' flea market".
 You get a JSON array of {"text", "kind"} objects. Return only a JSON array of strings, one translation per object, the same length and in the same order: ["…", "…"].`;
 
-/** Each language's cache, prompt and which texts it covers: Chinese everything, English event titles (places keep their German names). */
+const TIME_RULES = `- Keep every number, time and date exactly; write times as 24-hour (16:30), weekdays short (Mon / 周一), dates as "22 Nov" / "11月22日".
+- "zu" or "geschlossen" means closed. "Stände" are the stalls, "Bühne" the stage, "Eisbahn" the ice rink, "Umzug" the parade, "Vernissage" / "Ausstellungseröffnung" the opening.
+- Keep it as short as the original. Never add facts that are not in it.
+You get a JSON array of {"text", "kind"} objects. Return only a JSON array of strings, one translation per object, the same length and in the same order: ["…", "…"].`;
+
+export const PROMPT_TIME_ZH = `You translate German time and opening-hour lines of family events and Christmas markets in Germany into Simplified Chinese, for Chinese-speaking parents: "Sa–So 12–20 Uhr; Eisbahn mit eigenen Zeiten" → "周六至周日 12–20；溜冰场时间另计".
+${TIME_RULES}`;
+
+export const PROMPT_TIME_EN = `You translate German time and opening-hour lines of family events and Christmas markets in Germany into English, for English-speaking parents: "Sa–So 12–20 Uhr; Eisbahn mit eigenen Zeiten" → "Sat–Sun 12–20; ice rink has its own times".
+${TIME_RULES}`;
+
+/** Each language's cache, prompt and which texts it covers: Chinese everything, English event titles (places keep their German names), and in both the time lines the rules in src/lib/time-text.ts can't read. */
 export const LANGUAGES = [
-  { lang: "zh", cache: CACHE, prompt: PROMPT, wants: () => true },
+  { lang: "zh", cache: CACHE, prompt: PROMPT, wants: (x) => x.kind !== "time" },
   { lang: "en", cache: "data/translations/en.json", prompt: PROMPT_EN, wants: (x) => x.kind === "event" },
+  { lang: "time-zh", cache: "data/translations/time-zh.json", prompt: PROMPT_TIME_ZH, wants: (x) => x.kind === "time" },
+  { lang: "time-en", cache: "data/translations/time-en.json", prompt: PROMPT_TIME_EN, wants: (x) => x.kind === "time" },
 ];
 
 /** Every untranslated event title and place name in the content folder as { text, kind }, in a stable order. */
@@ -59,10 +73,18 @@ export function textsIn(root) {
         // Places have a plain-string name; events a title that may already carry { de, zh }.
         const s = doc?.title ?? doc?.name;
         if (typeof s === "string" && s.trim() && !out.has(s)) out.set(s, doc.title ? "event" : doc.kind ?? "place");
+        // Season fixtures (Christmas markets): a list of items with a name and opening hours.
+        for (const it of Array.isArray(doc?.items) ? doc.items : []) {
+          if (typeof it?.name === "string" && it.name.trim() && !out.has(it.name)) out.set(it.name, "event");
+          addTime(it?.hours);
+        }
+        addTime(doc?.time);
       }
     }
   };
-  for (const d of ["events", "imported", "places"]) walk(join(root, d));
+  // Time lines the rules can't read ("Vernissage: 7. November, 18 Uhr …") are translated like titles.
+  const addTime = (t) => { if (typeof t === "string" && /[a-zäöüß]{2}/i.test(t) && !ruleKnows(t.trim()) && !out.has(t.trim())) out.set(t.trim(), "time"); };
+  for (const d of ["events", "imported", "places", "seasons"]) walk(join(root, d));
   return [...out].sort(([a], [b]) => (a < b ? -1 : 1)).map(([text, kind]) => ({ text, kind }));
 }
 

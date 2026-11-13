@@ -9,6 +9,7 @@ import { getData } from "../lib/data";
 import type { Item } from "../lib/types";
 import { runsLong } from "../lib/running";
 import { indoorGuess } from "../lib/search";
+import { timeOf } from "../lib/time-text";
 
 interface Props { item: Item; t: T; hidden?: boolean }
 const { item, t, hidden } = Astro.props;
@@ -30,7 +31,7 @@ const where = item.type === "event" ? [item.venue, town].filter(Boolean).join(",
 // A long run (an exhibition) reads by when it ends: "until 6 Dec", not since when it started.
 const long = item.type === "event" && runsLong(item.start, item.end);
 const meta = item.type === "event"
-  ? [long ? t("runsUntil", { date: shortDate(t, item.end) }) : item.end !== item.start ? dateRange(t, item) : "", item.time, where].filter(Boolean).join(" · ")
+  ? [long ? t("runsUntil", { date: shortDate(t, item.end) }) : item.end !== item.start ? dateRange(t, item) : "", timeOf(item, lang), where].filter(Boolean).join(" · ")
   : where;
 // Once parents have added to a place, say so.
 const answers = parentInput(item);

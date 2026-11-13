@@ -21,6 +21,7 @@ import { addDays } from "../../lib/weekend";
 import { inWindow, seasonPages, seasonPath } from "../../lib/seasons";
 import { giftsPath } from "../../lib/gifts";
 import { rednoteSets } from "../../lib/rednote-data";
+import { timeOf } from "../../lib/time-text";
 
 export const getStaticPaths = () => LANGS.map((lang) => ({ params: { lang } }));
 const lang = Astro.params.lang as Lang;
@@ -216,7 +217,7 @@ const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
       <div>
         <div class="kicker" data-tip-kicker></div>
         <h2>{tr(e.title, lang)}</h2>
-        <p>{[e.venue, townName(e.town, lang, homes), e.time].filter(Boolean).join(" · ")}<span data-km></span></p>
+        <p>{[e.venue, townName(e.town, lang, homes), timeOf(e, lang)].filter(Boolean).join(" · ")}<span data-km></span></p>
       </div>
     </a>
   ))}
