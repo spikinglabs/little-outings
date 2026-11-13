@@ -5,19 +5,29 @@
 //
 //   node scripts/posts.mts [out dir] [posts/a.yaml …]   draw the named posts (default: all) into <out>/<code>/
 //   node scripts/posts.mts --check                     only check every post
+//   VIDEO=1 node scripts/posts.mts …                    also record each post's video (scripts/video.mjs)
 //
 // Each post becomes <code>/<id>-<n>.png per card and <code>/post.json (code, id, title, caption with its
-// hashtags, until, pictures, updated), written last so the panel never lists a post whose pictures are missing.
+// hashtags, until, pictures, video, updated), written last so the panel never lists a post whose pictures are missing.
 import { mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
-import { basename, join } from "node:path";
+import { basename, join, resolve } from "node:path";
+import { pathToFileURL } from "node:url";
 import { load } from "js-yaml";
 import { checkSetFile, fileSet, POST_CODE, type SetFile } from "../src/lib/rednote.ts";
 import { sheetSvg } from "../src/lib/sheet.ts";
+import { checkVideo, scenesFromCards, videoPage, type VideoSpec } from "../src/lib/video.ts";
 
 export const DIR = "posts";
 const ID = /^[a-z0-9][a-z0-9-]*$/;
 
-export interface PostFile extends SetFile { id: string }
+/** video: the scenes of its short video (src/lib/video.ts); without it the video is made from the cards. */
+export interface PostFile extends SetFile { id: string; video?: VideoSpec }
+
+/** A post's video scenes: its own `video:` block, or its cards. Christmas posts get falling snow. */
+export function postVideo(p: PostFile): VideoSpec {
+  if (p.video) return p.video;
+  return { snow: /圣诞|Weihnacht|Advent/i.test(`${p.title} ${p.id}`), scenes: scenesFromCards(p.cards) };
+}
 
 /** Every post in posts/, by file name. */
 export function readPosts(dir = DIR): PostFile[] {
@@ -38,12 +48,13 @@ export function checkPosts(posts: PostFile[]): string[] {
       seen.set(code, p.id);
     }
     for (const problem of checkSetFile(p)) out.push(`${p.id}: ${problem}`);
+    if (p.video !== undefined) for (const problem of checkVideo(p.video)) out.push(`${p.id}: ${problem}`);
   }
   return out;
 }
 
 /** What post.json holds for one post. */
-export function postJson(p: PostFile, updated: string) {
+export function postJson(p: PostFile, updated: string, video?: string) {
   const set = fileSet(p.id, p);
   return {
     code: String(p.code),
@@ -52,6 +63,7 @@ export function postJson(p: PostFile, updated: string) {
     caption: set.caption,
     ...(p.until ? { until: String(p.until) } : {}),
     pictures: set.sheets.map((_, i) => `${p.id}-${i + 1}.png`),
+    ...(video ? { video } : {}),
     updated,
   };
 }
@@ -79,7 +91,18 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     mkdirSync(dir, { recursive: true });
     const set = fileSet(p.id, p);
     set.sheets.forEach((s, i) => writeFileSync(join(dir, `${p.id}-${i + 1}.png`), renderPng(sheetSvg(s, `${i + 1}/${set.sheets.length}`), fonts)));
-    writeFileSync(join(dir, "post.json"), JSON.stringify(postJson(p, updated), null, 1));
+    // The video, for posts still running: about 1.5 s of recording per second of video.
+    let video: string | undefined;
+    if (process.env.VIDEO && !(p.until && String(p.until) < updated.slice(0, 10))) {
+      // @ts-ignore: plain JavaScript module
+      const { recordVideo } = await import("./video.mjs");
+      const font = (w: number) => pathToFileURL(resolve(`design/og/noto-sans-sc-${w}.ttf`)).href;
+      const { html } = videoPage(postVideo(p), { regular: font(400), bold: font(700) });
+      video = `${p.id}.mp4`;
+      const seconds = await recordVideo(html, join(dir, video));
+      console.log(`${p.code}  video ${seconds} s`);
+    }
+    writeFileSync(join(dir, "post.json"), JSON.stringify(postJson(p, updated, video), null, 1));
     console.log(`${p.code}  ${p.id}  ${set.sheets.length} cards`);
   }
 }

@@ -9,6 +9,7 @@
 # - 2026-11-12 held back: no official 2026 children's programme yet (frankfurt.de blocks reads, tourism URLs 404).
 # - 2026-11-13 L: the Christmas market posts are missing Frankfurt. The official page now lists the children's
 #   market and the boat programme, so this set is built from it. No brand names; performers named by kind of show.
+# - 2026-11-13 L asked to try video posts; this post's 28 s video (the `video:` block below) was the sample, L: "看起来可以".
 code: FA5E
 title: 法兰克福圣诞市场带娃攻略｜2026
 until: 2026-12-22
@@ -109,3 +110,65 @@ cards:
     search: 小鹿出游 Allo Outings
     note: 搜索后选法兰克福，点「圣诞市场」。
     foot: 节目以官方为准，出发前请再确认
+# The short video (src/lib/video.ts): beats for watching, all from the cards above; the dates stay in the caption.
+video:
+  snow: true
+  scenes:
+    - tone: red
+      tag: 2026 · 法兰克福
+      title: "法兰克福\n圣诞市场\n带娃怎么逛？"
+      hook: true
+      chips: [🎠 儿童专区, ⛴️ 圣诞船节目, 🎅 尼古拉斯]
+      sub: 按官方节目单整理 · 最后投票
+      seconds: 3.4
+    - tone: red
+      tag: 开门时间
+      title: 什么时候、在哪？
+      items:
+        - { icon: 🎁, k: 开门, v: 11-23（周一）到 12-22 }
+        - { icon: 🕙, k: 时间, v: "周一至周六 10–21点\n周日 11–21点" }
+        - { icon: 📍, k: 地点, v: 罗马广场、保罗广场、美因河岸、Hauptwache、Roßmarkt }
+    - tone: green
+      tag: 儿童圣诞市场
+      title: 美因河边的孩子专区
+      items:
+        - { icon: 🎠, v: 旋转木马、小摩天轮, s: 在 Eiserner Steg 铁桥东边的河岸 }
+        - { icon: ✂️, v: 圣诞手工坊 }
+        - { icon: 🎄, v: 100棵圣诞树, s: 小学和幼儿园的孩子装饰 }
+        - { icon: 🚪, v: 降临日历外墙, s: 历史博物馆，每天17点开一扇门 }
+    - tone: blue
+      tag: 圣诞船上的孩子节目
+      title: 几乎每天下午都有
+      grid:
+        - { letter: A, icon: 📖, name: 讲童话 }
+        - { letter: B, icon: 🎵, name: 儿童音乐会 }
+        - { letter: C, icon: 🎭, name: 互动童话剧 }
+        - { letter: D, icon: 🎩, name: 魔术秀 }
+        - { letter: E, icon: 🎪, name: 剧场故事 }
+        - { letter: F, icon: 🎶, name: 圣诞歌儿童秀 }
+      sub: 每类节目的日期写在正文里
+    - tone: red
+      tag: 别错过
+      big: 12-06
+      lines: [周日 17:10 · 罗马广场舞台, 🎅 尼古拉斯来了]
+      items:
+        - { icon: 🚂, v: 12-12、12-13 老火车, s: 从 Eiserner Steg 出发绕城一圈 }
+    - tone: green
+      tag: 带娃小提示
+      title: 出门前看一眼
+      items:
+        - { icon: 🚼, v: 罗马广场换尿布, s: "约90米的公厕有换尿布间\n收费，6–23:45点" }
+        - { icon: 🏷️, v: 防走失手环, s: "在儿童游乐设施免费领\n写上手机号" }
+        - { icon: 👶, v: 晚上人多, s: 推车难走，背带更轻松 }
+    - tone: ink
+      title: 你家最想看哪个？
+      vote:
+        - { letter: A, name: 讲童话 }
+        - { letter: B, name: 音乐会 }
+        - { letter: C, name: 童话剧 }
+        - { letter: D, name: 魔术秀 }
+        - { letter: E, name: 剧场 }
+        - { letter: F, name: 圣诞歌 }
+      cta: 评论区留字母 👇
+      search: 小鹿出游 Allo Outings
+      foot: 节目以官方为准，出发前请再确认

@@ -5,6 +5,8 @@
 // opens it, anything else lists up to MAX matches to tap. With the box empty only the newest few show, so the
 // panel stays short however many posts there are. "Post" hands the pictures to the phone's share menu (pick
 // 小红书) and copies the title, then the caption; the Copy buttons copy either again. ?post=<code> opens one.
+// A running post also has a short video (9:16, no sound, made by the same job): "Post video" hands it to the
+// share menu the same way, or downloads it on a computer. Pick the music in the Rednote app.
 import { cardBox } from "./cards.js";
 const $ = (id) => document.getElementById(id);
 const esc = (value) =>
@@ -21,6 +23,15 @@ const box = cardBox({
   visible: (s) => s.code === open,
   empty: "",
   saveLabel: (n) => `Post (${n} pictures)`,
+  decorate: (s) => s.video ? `
+    <div class="post-video">
+      <video src="/api/posts?pic=${esc(s.video)}" controls muted playsinline preload="metadata" width="180" height="320"></video>
+      <div>
+        <button class="primary" data-video="${esc(s.video)}" data-title="${esc(s.title)}">Post video</button>
+        <a class="ghost" href="/api/posts?pic=${esc(s.video)}" download="${esc(s.video.split("/")[1])}">Download video</a>
+        <p class="sub" data-video-note>No sound: pick music in the Rednote app when posting. Use the same title and caption.</p>
+      </div>
+    </div>` : "",
   onLoad: () => queueMicrotask(list),
 });
 
@@ -57,7 +68,36 @@ function show(c) {
 
 $("posts-q").value = query;
 $("posts-q").addEventListener("input", (ev) => { query = ev.target.value; list(); });
+/** Hands the video to the phone's share menu (pick 小红书) and copies the title; a computer downloads it. */
+async function postVideo(btn) {
+  const note = btn.parentElement.querySelector("[data-video-note]");
+  const url = `/api/posts?pic=${btn.dataset.video}`;
+  const name = btn.dataset.video.split("/")[1];
+  btn.disabled = true;
+  try {
+    navigator.clipboard?.writeText(btn.dataset.title).catch(() => {});
+    note.textContent = "Loading the video…";
+    const blob = await (await fetch(url)).blob();
+    const file = new File([blob], name, { type: "video/mp4" });
+    if (navigator.canShare?.({ files: [file] })) {
+      await navigator.share({ files: [file] });
+      note.textContent = "Shared. The title is copied; the caption is under Copy caption.";
+    } else {
+      const a = Object.assign(document.createElement("a"), { href: URL.createObjectURL(blob), download: name });
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(a.href), 10000);
+      note.textContent = "Downloaded. The title is copied.";
+    }
+  } catch (error) {
+    if (error?.name !== "AbortError") note.textContent = `Could not share the video: ${error.message}`;
+  } finally {
+    btn.disabled = false;
+  }
+}
+
 document.addEventListener("click", (ev) => {
+  const vid = ev.target.closest?.("#posts-panel [data-video]");
+  if (vid) return void postVideo(vid);
   const btn = ev.target.closest?.("#posts-panel [data-post]");
   if (btn) show(btn.dataset.post === open ? "" : btn.dataset.post);
 });

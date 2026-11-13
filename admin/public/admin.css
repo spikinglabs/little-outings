@@ -187,6 +187,11 @@ dialog label { display: grid; gap: 2px; font-size: 13px; color: var(--ink-soft);
 .weekend-now { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin: 0 0 14px; }
 .error-text { color: var(--rot); }
 .rednote-save { display: flex; gap: 8px; flex-wrap: wrap; margin: 2px 0 6px; }
+.post-video { display: flex; gap: 12px; align-items: flex-start; margin: 4px 0 8px; }
+.post-video video { border-radius: 8px; background: #000; flex: none; }
+.post-video > div { display: flex; flex-wrap: wrap; gap: 8px; align-content: flex-start; }
+.post-video a.ghost { text-decoration: none; color: inherit; display: inline-block; }
+.post-video .sub { flex-basis: 100%; margin: 0; }
 .rednote-hint { margin: 0 0 8px; font-size: 13px; }
 .rednote-copy { display: flex; gap: 8px; align-items: flex-start; }
 .rednote-copy input, .rednote-copy textarea { flex: 1; min-width: 0; }
