@@ -1,0 +1,29 @@
+---
+// One facility chip on a place page. Tapping it asks one quick question: "Is there …?" while parents
+// decide, "Still right?" for sourced facts.
+import { FEATURE_ICON, svg } from "../lib/icons";
+import type { T } from "../lib/i18n";
+
+interface Props {
+  id: string;
+  f: string;
+  status: "yes" | "no" | "unknown";
+  confirmed: number;
+  votes?: { yes: number; no: number };
+  byVotes?: boolean;
+  t: T;
+}
+const { id, f, status, confirmed, votes, byVotes, t } = Astro.props;
+const open = status === "unknown" || byVotes; // votes may still move it (live in app.ts)
+const sub = votes && votes.yes + votes.no > 0 ? t("chipAsk.votes", { y: votes.yes, n: votes.no })
+  : status === "yes" && confirmed > 0 ? t("confirmedBy", { n: confirmed }) : "";
+const name = t(`features.${f}`);
+---
+<li class={status}>
+  <button type="button" data-ask={`${id}:fac:${f}`} data-unknown={status === "unknown" ? "" : undefined}
+    data-open={open ? "" : undefined} data-icon={open ? svg(FEATURE_ICON[f]) : undefined}
+    data-q={open ? t(`chipAsk.q.${f}`) : t("chipAsk.still", { f: name })}>
+    <span class="dot" set:html={status === "unknown" ? "?" : svg(FEATURE_ICON[f])} />
+    <span>{name}<small data-ask-sub>{sub}</small></span>
+  </button>
+</li>

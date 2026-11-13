@@ -11,7 +11,7 @@ const t = useT(lang);
 ---
 <Base lang={lang} title={SLOT.title} description={SLOT.description}>
   <article class="detail gone">
-    <a class="back" href={`/${lang}/`}>← {t("back")}</a>
+    <a class="back" href={`/${lang}/`} data-history>← {t("back")}</a>
     <Fragment set:html={SLOT.body} />
   </article>
 </Base>

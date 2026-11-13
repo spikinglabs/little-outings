@@ -549,12 +549,17 @@ export default function OutingsMap({ pinsBase, toiletsUrl, lang = "de", center, 
     document.addEventListener("lo:filtered", onFiltered);
     document.addEventListener("lo:map-shown", onShown);
     document.addEventListener("lo:tiles", onTiles);
+    // Full height on a phone: nothing to scroll past, so one finger moves the map.
+    const gh = (map as unknown as { gestureHandling?: { enable(): void; disable(): void } }).gestureHandling;
+    const onFull = (e: Event) => { if ((e as CustomEvent<boolean>).detail) gh?.disable(); else gh?.enable(); };
+    document.addEventListener("lo:map-full", onFull);
     if (window.loFiltered && !folded()) update(window.loFiltered);
     if (window.loTiles) onTiles(new CustomEvent("lo:tiles", { detail: window.loTiles }));
     return () => {
       document.removeEventListener("lo:filtered", onFiltered);
       document.removeEventListener("lo:tiles", onTiles);
       document.removeEventListener("lo:map-shown", onShown);
+      document.removeEventListener("lo:map-full", onFull);
       document.removeEventListener("lo:here", onHere);
       ideas?.removeEventListener("mouseover", onPoint);
       ideas?.removeEventListener("focusin", onPoint);

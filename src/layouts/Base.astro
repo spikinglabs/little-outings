@@ -14,6 +14,8 @@ import { FEATURES } from "../content.config";
 import { getData } from "../lib/data";
 import { tileKeys } from "../lib/tiles";
 import { ldJson } from "../lib/seo";
+import CityAlerts from "../components/CityAlerts.astro";
+import RecallLine from "../components/RecallLine.astro";
 import { HOME_KEY, OG, ogBase } from "../lib/og";
 
 interface Props {
@@ -178,14 +180,16 @@ const ui = {
           {tabs.map(([k, p]) => <a href={`/${lang}/${p}`} aria-current={tab === k ? "page" : undefined} data-tab={k}>{t(`tabs.${k}`)}</a>)}
         </nav>
         <div class="top-right">
-          {Astro.slots.has("notices") && (
+          {/* The bell is on every page: Discover and the weekend pages fill it themselves, every other page
+              gets the home town's alerts (scripts/alerts.ts) and recent recalls. */}
+          {(
             <details class="notices" data-notices hidden>
               <summary aria-label={t("notices.button")} title={t("notices.button")}>
                 <span set:html={svg(UI_ICON.bell)} />
                 <i class="notices-dot" data-notices-dot hidden><span class="sr-only">{t("notices.new")}</span></i>
               </summary>
               <div class="notices-panel" role="region" aria-label={t("notices.button")}>
-                <slot name="notices" />
+                {Astro.slots.has("notices") ? <slot name="notices" /> : <><CityAlerts lang={lang} t={t} home /><RecallLine lang={lang} t={t} /></>}
               </div>
             </details>
           )}
@@ -218,14 +222,17 @@ const ui = {
       <footer class="foot">
         <p class="foot-links">{footLinks.map((l, i) => <>{i > 0 && " · "}<a href={l.href}>{l.label}</a></>)}</p>
         <p>{t("footer")} <a href={`/${lang}/hilfe/`}>{t("help.link")}</a> · <a href={`/${lang}/daten`}>{t("about.link")}</a> · <a href={`/${lang}/ki/`}>{t("assistant.footer")}</a> · <a href={`/${lang}/impressum`}>{t("legal.link")}</a></p>
-        <nav class="family" aria-labelledby="family-h">
-          <h2 id="family-h">{t("allo.more")}</h2>
-          <ul>
-            {alloSites(lang).map((site) => (
-              <li><a href={site.url}><b>{t(`allo.${site.id}.name`)}</b><span>{t(`allo.${site.id}.blurb`)}</span></a></li>
-            ))}
-          </ul>
-        </nav>
+{/* "More from Allo" only on Discover and the More tab; elsewhere it was taller than an event page. */}
+        {(tab === "explore" || tab === "more") && (
+                  <nav class="family" aria-labelledby="family-h">
+            <h2 id="family-h">{t("allo.more")}</h2>
+            <ul>
+              {alloSites(lang).map((site) => (
+                <li><a href={site.url}><b>{t(`allo.${site.id}.name`)}</b><span>{t(`allo.${site.id}.blurb`)}</span></a></li>
+              ))}
+            </ul>
+          </nav>
+        )}
         <p class="maker" set:html={t("byLine", { maker: `<a href="${MAKER_URL}" target="_blank" rel="noopener">Spiking Labs</a>` })} />
         <p class="install" data-install hidden>
           <button type="button" class="btn install-btn" data-install-btn>{t("install.button")}</button>

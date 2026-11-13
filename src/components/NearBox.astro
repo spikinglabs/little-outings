@@ -1,0 +1,57 @@
+---
+// "Toilets nearby": the nearest public toilet, changing table and drinking water (OpenStreetMap), for an
+// exact point. On event pages also "Nearby for after": the closest playground and family café.
+import type { T } from "../lib/i18n";
+import { FEATURE_ICON, UI_ICON, KIND_ICON, svg } from "../lib/icons";
+import { NEAR_M, nearby, type Nearby } from "../lib/toilets";
+import { afterNear } from "../lib/after-near";
+import { nameOf, pathFor } from "../lib/format";
+import type { Place } from "../lib/types";
+
+interface Props { lat?: number; lon?: number; t: T; after?: Place[]; skip?: string }
+const { lat, lon, t, after, skip } = Astro.props;
+const lang = t.lang;
+const near = nearby(lat, lon);
+const nearLabel = (x: Nearby) => (x.kind === "toilets" ? t("toiletsNear.toilets") : x.kind === "water" ? t("toiletsNear.water") : t("toiletsNear.changing"));
+const nearNotes = (x: Nearby) => [
+  x.name && x.kind !== "toilets" ? x.name : "",
+  x.kind === "toilets" && x.changing_table ? t("toiletsNear.table") : "",
+  x.kind !== "water" && x.changing_table_location ? t(`toiletsNear.tableIn.${x.changing_table_location}`) : "",
+  x.free === true ? t("toiletsNear.free") : x.free === false ? t("toiletsNear.paid") : "",
+  x.wheelchair === "yes" ? t("toiletsNear.wheelchair") : "",
+  x.customers_only ? t("toiletsNear.customers") : "",
+  x.hours ?? "",
+].filter(Boolean).join(" · ");
+const nearIcon = (x: Nearby) => (x.kind === "water" ? UI_ICON.water : x.kind === "toilets" ? FEATURE_ICON.toilets : FEATURE_ICON.changing_table);
+const walkTo = (x: { lat: number; lon: number }) => `https://www.google.com/maps/dir/?api=1&travelmode=walking&destination=${x.lat.toFixed(5)},${x.lon.toFixed(5)}`;
+const picks = after && lat != null && lon != null ? afterNear(lat, lon, after, skip) : [];
+---
+{near.length > 0 && (
+  <>
+    <h2>{t("toiletsNear.title")}</h2>
+    <ul class="near">
+      {near.map((x) => (
+        <li>
+          <span class="dot" set:html={svg(nearIcon(x))} />
+          <span><b>{nearLabel(x)}</b> · {t("toiletsNear.away", { n: x.m })}{nearNotes(x) && <small>{nearNotes(x)}</small>}</span>
+          <a href={walkTo(x)} target="_blank" rel="noopener" data-count="maps">{t("toiletsNear.route")} ↗</a>
+        </li>
+      ))}
+    </ul>
+    <p class="small">{t("toiletsNear.source", { n: NEAR_M })}</p>
+  </>
+)}
+{picks.length > 0 && (
+  <>
+    <h2>{t("afterNear.title")}</h2>
+    <ul class="near">
+      {picks.map(({ p, m }) => (
+        <li>
+          <span class="dot" set:html={svg(KIND_ICON[p.kind])} />
+          <span><a href={pathFor(lang, p)}><b>{nameOf(p, lang)}</b></a> · {t("toiletsNear.away", { n: m })}<small>{t(`kinds.${p.kind}`)}</small></span>
+          <a href={walkTo({ lat: p.geo.lat!, lon: p.geo.lon! })} target="_blank" rel="noopener" data-count="maps">{t("toiletsNear.route")} ↗</a>
+        </li>
+      ))}
+    </ul>
+  </>
+)}

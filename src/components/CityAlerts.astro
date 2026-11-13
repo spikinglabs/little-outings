@@ -6,14 +6,14 @@ import { getAlerts } from "../lib/data";
 import { whenText, type Alert } from "../lib/alerts";
 import type { Lang, T } from "../lib/i18n";
 
-interface Props { lang: Lang; t: T; town?: string }
-const { lang, t, town } = Astro.props;
+interface Props { lang: Lang; t: T; town?: string; home?: boolean }
+const { lang, t, town, home } = Astro.props;
 const alerts = getAlerts().filter((a) => !town || a.city === town);
 const num = new Intl.NumberFormat(t.locale);
 const hasMore = (a: Alert) => !!(a.about || a.expected || a.where || a.route || a.lines?.length || a.points);
 ---
 {alerts.length > 0 && (
-  <aside class="alerts" data-alerts data-alerts-town={town} hidden={!town} aria-label={t("alerts.title")}>
+  <aside class="alerts" data-alerts data-alerts-town={town} data-alerts-home={home ? "" : undefined} hidden={!town} aria-label={t("alerts.title")}>
     <p class="notices-h">{t("alerts.title")}</p>
     <ul>
       {alerts.map((a) => (
@@ -43,4 +43,6 @@ const hasMore = (a: Alert) => !!(a.about || a.expected || a.where || a.route || 
   import { showAlerts } from "../scripts/alerts";
   const box = document.querySelector<HTMLElement>("[data-alerts][data-alerts-town]");
   if (box) showAlerts(box.dataset.alertsTown);
+  // Any other page: the reader's home town.
+  else if (document.querySelector("[data-alerts][data-alerts-home]")) import("../scripts/app").then(({ getHome }) => showAlerts(getHome()));
 </script>

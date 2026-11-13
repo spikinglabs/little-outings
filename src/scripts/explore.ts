@@ -433,8 +433,14 @@ document.addEventListener("click", (ev) => {
     apply();
   }
   if (t.closest("[data-area-reset]")) { state.area = null; state.view++; apply(); }
-  const m = t.closest<HTMLButtonElement>("[data-map-toggle]");
-  if (m) { const on = m.getAttribute("aria-expanded") !== "true"; if (on) track("map"); showMap(on); }
+  const m = t.closest<HTMLButtonElement>("[data-map-toggle], [data-map-fab]");
+  if (m) {
+    const on = $("#explore-map").hidden;
+    if (on) { track("map"); showMap(true); }
+    // Closing the full-height map goes back through history, so the phone's back button does the same.
+    else if (history.state?.loMap) history.back();
+    else showMap(false);
+  }
   // "Pools & lakes" in the weather line: on and off again, unlike the kind chips below.
   if (t.closest('[data-wx-btn="water"]')) { state.kind = state.kind === "pool" ? "" : "pool"; state.tag = ""; state.limit = PAGE; apply(); }
   const k = t.closest<HTMLButtonElement>("[data-kind-chip]");
@@ -577,8 +583,31 @@ $<HTMLButtonElement>("[data-locate]").addEventListener("click", async (e) => {
 document.addEventListener("lo:area", (e) => { state.limit = PAGE; state.area = (e as CustomEvent<number[]>).detail; apply(); });
 
 // The map starts folded; the "Show on map" button opens it, and the choice is remembered on this device.
+// On a phone it opens full height between the top and the tab bar (the list under a 290 px map was hard to
+// use), with a floating "List" switch; the phone's back button closes it. That is not remembered, so
+// Discover never opens as a map.
+const phone = () => matchMedia("(max-width: 899px)").matches;
 function showMap(on: boolean, remember = true) {
-  $("#explore-map").hidden = !on;
+  const box = $("#explore-map");
+  const wasFull = box.classList.contains("full");
+  const full = on && phone();
+  if (full) {
+    const tabs = document.querySelector<HTMLElement>(".tabs");
+    document.documentElement.style.setProperty("--tabs-h", `${tabs?.offsetHeight ?? 0}px`);
+    if (!history.state?.loMap) history.pushState({ ...(history.state ?? {}), loMap: 1 }, "");
+  }
+  box.classList.toggle("full", full);
+  document.documentElement.classList.toggle("map-full", full);
+  const fab = document.querySelector<HTMLButtonElement>("[data-map-fab]");
+  if (fab) {
+    fab.setAttribute("aria-pressed", String(on));
+    fab.querySelector<HTMLElement>("[data-fab-map]")!.hidden = on;
+    fab.querySelector<HTMLElement>("[data-fab-list]")!.hidden = !on;
+  }
+  document.dispatchEvent(new CustomEvent("lo:map-full", { detail: full }));
+  if (wasFull && !on) document.getElementById("ideas-h")?.scrollIntoView({ block: "start" });
+  if (full) remember = false;
+  box.hidden = !on;
   if (!on && state.area) { state.area = null; apply(); }
   $("[data-map-toggle]").setAttribute("aria-expanded", String(on));
   $("[data-map-label]").textContent = on ? ui.mapHide : ui.mapShow;
@@ -622,5 +651,7 @@ if (hashSeason && seasonBtn(hashSeason)) { state.season = hashSeason; state.when
 // A city page's "all events" button: the next two weeks, not just the weekend.
 else if (hashSeason === "soon") state.when = "soon";
 if (location.hash === "#map" || new URLSearchParams(location.search).get("ev") === "1") showMap(true, false);
-else try { if (localStorage.getItem("lo-map") === "1") showMap(true, false); } catch { /* storage blocked */ }
+else try { if (!phone() && localStorage.getItem("lo-map") === "1") showMap(true, false); } catch { /* storage blocked */ }
+// The phone's back button closes the full-height map.
+addEventListener("popstate", () => { if ($("#explore-map").classList.contains("full") && !history.state?.loMap) showMap(false); });
 loadTiles();
