@@ -41,3 +41,15 @@ test("places shuffle for mixed and go nearest first otherwise", () => {
   assert.deepEqual([...mixed].sort(), ["a", "b", "c"]);
   assert.deepEqual(orderPlaces(pls, "mixed", "2026-10-26|Köln").map((r) => r.id), mixed);
 });
+
+test("mixed lists what's close first, within a part of the day and for places", () => {
+  const evs = [
+    { id: "bonn", start: "2026-11-14", end: "2026-11-14", time: "10:00", dist: 25 },
+    { id: "koeln", start: "2026-11-14", end: "2026-11-14", time: "10:30", dist: 3 },
+    { id: "koeln-pm", start: "2026-11-14", end: "2026-11-14", time: "15:00", dist: 2 },
+  ];
+  assert.deepEqual(orderEvents(evs, "mixed", "2026-11-14", "2026-11-12", "x").map((r) => r.id), ["koeln", "bonn", "koeln-pm"]);
+  const pls = [{ id: "far", dist: 19 }, { id: "near", dist: 4 }, { id: "farther", dist: 29 }, { id: "close", dist: 1 }];
+  const out = orderPlaces(pls, "mixed", "x").map((r) => r.id);
+  assert.deepEqual(out.slice(2), ["far", "farther"]);
+});

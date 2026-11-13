@@ -93,6 +93,8 @@ export interface Event {
   start: string; // YYYY-MM-DD
   end: string;
   time?: string;
+  /** The time line in English and Chinese (src/lib/time-text.ts); a language left out hides the time (00:00). */
+  times?: Partial<Record<"en" | "zh", string>>;
   price?: { free: boolean; text?: Text };
   ages?: [number, number];
   indoor?: boolean;

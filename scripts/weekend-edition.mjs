@@ -76,7 +76,7 @@ export function weekendEvents(rows, { town, towns, sat }) {
     byKey.set(key, {
       id: ev.id, type: "event", title: e.title, venue, district: row.location?.district, days, time: e.time,
       free: e.price?.free || undefined, price: e.price?.text, book: row.registration_required === true || undefined,
-      indoor: indoorOf(e.title, venue, tags), tags, source: `${row.source_id ?? ""} ${row.source_name ?? ""}`,
+      indoor: indoorOf(e.title, venue, tags), tags, language: e.language, source: `${row.source_id ?? ""} ${row.source_name ?? ""}`,
     });
   }
   return { events: [...byKey.values()], still };

@@ -161,8 +161,11 @@ h1, h2, h3, .meta, .de-name, .orig, .trust { overflow-wrap: anywhere; }
 .pill.free { background: var(--ink); color: var(--paper); font-weight: 700; }
 .pill.loc { background: transparent; border: 1px dashed var(--ink-soft); color: var(--ink-soft); }
 .item .de-name { font-size: .78rem; color: var(--ink-soft); margin-top: 1px; }
-.pill.speech { background: transparent; border: 1px solid var(--blau); color: var(--blau); font-weight: 700; }
-.pill.speech.de { border: 1px dashed var(--ink-soft); color: var(--ink-soft); font-weight: 400; }
+/* "Do I need German?" as a small bubble: DE, EN or ✓. Dashed while it's only a guess from the title. */
+.pill.speech { display: inline-flex; align-items: center; gap: 3px; background: transparent; border: 1px solid var(--blau); color: var(--blau); font-weight: 700; font-family: var(--sign); letter-spacing: .02em; }
+.pill.speech .ic { width: 14px; height: 14px; }
+.pill.speech.de { border-color: var(--ink-soft); color: var(--ink-soft); }
+.pill.speech.guess { border-style: dashed; }
 .trust { font-size: .78rem; color: var(--ink-soft); margin-top: 6px; }
 .trust b { color: var(--ink); font-weight: 700; }
 .save { position: relative; z-index: 1; flex: none; border: 0; background: none; cursor: pointer; padding: 4px; color: var(--ink-soft); border-radius: 8px; }
@@ -655,6 +658,9 @@ footer.foot { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--l
 .season-page h2 { font-size: 1.25rem; margin-top: 12px; }
 .season-page .btn { justify-self: start; }
 .season-page .pills.kids .pill { background: var(--gold-bg); }
+.season-page .open-line { margin: 0.25rem 0 0; font-size: 0.9rem; font-weight: 600; color: var(--ink-soft); }
+.season-page .open-line.on { color: var(--ink); }
+.season-page .open-line.on::before { content: "● "; color: var(--rot); }
 .season-past { margin: 0; padding-left: 1.1em; display: grid; gap: 4px; color: var(--ink-soft); }
 .season-hub { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
 .season-hub a { display: grid; gap: 2px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); text-decoration: none; color: var(--ink); }

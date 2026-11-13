@@ -9,6 +9,7 @@ import { getData } from "../lib/data";
 import type { Item } from "../lib/types";
 import { runsLong } from "../lib/running";
 import { indoorGuess } from "../lib/search";
+import { timeOf } from "../lib/time-text";
 
 interface Props { item: Item; t: T; hidden?: boolean }
 const { item, t, hidden } = Astro.props;
@@ -25,12 +26,15 @@ const german = germanName(item, lang);
 // "Do I need German?" only matters to readers who don't read German.
 const speech = lang !== "de" && item.type === "event" ? item.language : undefined;
 const guessed = item.type === "event" && item.languageFrom === "guess";
+// A small bubble with DE, EN or ✓ instead of a phrase; the full words are its label (and in the Help page's key).
+const SPEECH_CODE: Record<string, string> = { de: "DE", en: "EN", none: "✓" };
+const speechLabel = speech && (guessed ? t("speechGuess", { s: t(`speech.${speech}`) }) : t(`speech.${speech}`));
 const town = townName(item.town, lang, region.towns);
 const where = item.type === "event" ? [item.venue, town].filter(Boolean).join(", ") : [t(`kinds.${item.kind}`), areaName(item, lang, region.towns)].join(" · ");
 // A long run (an exhibition) reads by when it ends: "until 6 Dec", not since when it started.
 const long = item.type === "event" && runsLong(item.start, item.end);
 const meta = item.type === "event"
-  ? [long ? t("runsUntil", { date: shortDate(t, item.end) }) : item.end !== item.start ? dateRange(t, item) : "", item.time, where].filter(Boolean).join(" · ")
+  ? [long ? t("runsUntil", { date: shortDate(t, item.end) }) : item.end !== item.start ? dateRange(t, item) : "", timeOf(item, lang), where].filter(Boolean).join(" · ")
   : where;
 // Once parents have added to a place, say so.
 const answers = parentInput(item);
@@ -80,7 +84,11 @@ const search = [
     )}
     <div class="pills">
       {long && <span class="pill last" data-last hidden>{t("lastChance")}</span>}
-      {speech && <span class:list={["pill", "speech", speech]}>{guessed ? t("speechGuess", { s: t(`speech.${speech}`) }) : t(`speech.${speech}`)}</span>}
+      {speech && (
+        <span class:list={["pill", "speech", speech, guessed && "guess"]} title={speechLabel} aria-label={speechLabel} role="img">
+          <Fragment set:html={icon("u", "speech")} />{SPEECH_CODE[speech]}
+        </span>
+      )}
       {(prec === "venue" || prec === "area") && <span class="pill loc">📍 {t(`locPill.${prec}`)}</span>}
       {item.indoor && <span class="pill rain">{t("indoorPill")}</span>}
       {isFree(item) && <span class="pill free">{t("free")}</span>}
