@@ -33,7 +33,7 @@ const itemOf = (task: (typeof tasks)[number]) => (task.type === "event" ? eventB
 const gapCodes = (item: ReturnType<typeof itemOf>) => gapsOf(item).map((g) => (g.feature ? `${g.type}:${g.feature}` : g.type));
 const allCodes = [...new Set(tasks.flatMap((task) => gapCodes(itemOf(task))))];
 // Filters use what is known about each outing: its town and its dates.
-const towns = [...new Set(tasks.map((task) => itemOf(task).town).filter(Boolean))]
+const towns = [...new Set(tasks.map((task) => itemOf(task).town).filter((x): x is string => !!x))]
   .sort((a, b) => townName(a, lang, region.towns).localeCompare(townName(b, lang, region.towns), lang));
 // Two towns with one short name (Frankfurt am Main and the places-only "Frankfurt am Main" spelled differently)
 // show their German names, so the list never has the same entry twice.

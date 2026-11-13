@@ -1,6 +1,6 @@
 import type { Lang, T, Text } from "./i18n";
 import type { Event, Item } from "./types";
-import { MORE_TOWN_NAMES } from "./town-names";
+import { MORE_TOWN_NAMES } from "./town-names.ts";
 
 type TownRec = { name: string; zh?: string; en?: string };
 
