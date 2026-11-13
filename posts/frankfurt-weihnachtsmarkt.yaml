@@ -9,6 +9,9 @@
 # - 2026-11-12 held back: no official 2026 children's programme yet (frankfurt.de blocks reads, tourism URLs 404).
 # - 2026-11-13 L: the Christmas market posts are missing Frankfurt. The official page now lists the children's
 #   market and the boat programme, so this set is built from it. No brand names; performers named by kind of show.
+# - 2026-11-13 L asked whether the facts were checked. Rechecked every date against the official page: all boat
+#   show dates and times match. Wording fixed: the market also covers Friedrich-Stoltze-Platz ("等"), the old train runs
+#   on the harbour railway (not through the city), and the tower horns run until 12-19.
 code: FA5E
 title: 法兰克福圣诞市场带娃攻略｜2026
 until: 2026-12-22
@@ -44,7 +47,7 @@ cards:
     rows:
       - { when: "开门", name: 11-23（周一）到 12-22 }
       - { when: "时间", name: 周一至周六 10–21点，周日 11–21点 }
-      - { when: "地点", name: 罗马广场、保罗广场、美因河岸、Hauptwache、Roßmarkt }
+      - { when: "地点", name: 罗马广场、保罗广场、美因河岸、Hauptwache、Roßmarkt 等 }
     note: 11-23 17:10 罗马广场舞台开幕，17:25 歌剧院的儿童合唱团演唱。
   - tone: green
     tag: 儿童圣诞市场
@@ -84,8 +87,8 @@ cards:
     title: 尼古拉斯和老火车
     lines:
       - 12-06（周日）17:10 尼古拉斯来罗马广场舞台。
-      - 12-12、12-13：老火车从 Eiserner Steg 出发，在城里绕一圈。
-      - 每周三、周六18点，圣尼古拉教堂屋顶上吹圣诞号角。
+      - 12-12、12-13：坐老火车沿河边的港口铁路走一圈，从 Eiserner Steg 出发和回来。
+      - 每周三、周六18点（到12-19），圣尼古拉教堂屋顶上吹圣诞号角。
   - tone: paper
     tag: 换尿布 · 小提示
     title: 宝宝要换尿布？
