@@ -12,6 +12,7 @@ import { runsOn } from "../lib/open-now";
 import { tr, type T } from "../lib/i18n";
 import { weekendCounts } from "../lib/weekend-data";
 import RednoteShare from "./RednoteShare.astro";
+import PageMap from "./PageMap.astro";
 import { rednoteSets } from "../lib/rednote-data";
 import { addDays, chatText, isRainy, skyWord, telegramChannel, textIn, weekendRange, type Edition, type Pick } from "../lib/weekend";
 
@@ -144,6 +145,9 @@ const xhs = lang === "zh" && !archived ? (await rednoteSets()).sets.find((s) => 
   )}
 
   {xhs && <RednoteShare set={xhs} />}
+
+  {/* The picks (and the season's fixtures open this weekend) on their own map. */}
+  {!archived && <PageMap t={t} items={[...picks.map((p) => itemOf(p)!), ...also.slice(0, 6)]} />}
 
   <p class="small wk-how">{t("weekend.how", { town })}{ed.weather && <> {t("weekend.weather")}</>}</p>
   <link rel="alternate" type="application/rss+xml" title={t("weekend.title", { town })} href={`${page}rss.xml`} />

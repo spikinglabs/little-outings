@@ -1,0 +1,38 @@
+---
+// The weekend and season pages' own map: the same map as Discover's, with only the page's picks on it.
+// A floating "Map" switch at the bottom opens it full height (on a computer too); there the switch
+// reads "List" and stays where it was, and the phone's back button closes the map (page-map.ts).
+import OutingsMap from "../islands/OutingsMap";
+import { UI_ICON, svg } from "../lib/icons";
+import { mapLabels, pinsOf } from "../lib/pins";
+import { getData } from "../lib/data";
+import type { T } from "../lib/i18n";
+import type { Item } from "../lib/types";
+
+interface Props { items: Item[]; t: T }
+const { items, t } = Astro.props;
+const lang = t.lang;
+const { region } = await getData();
+const pins = pinsOf([...new Map(items.map((i) => [i.id, i])).values()], lang, t, region.towns);
+const hasPlaces = pins.some((p) => p.type === "place");
+const c = pins[0] ?? { lat: 50.94, lon: 6.96 };
+---
+{pins.length > 0 && (
+  <>
+    <div class="mapwrap explore-map page-map" id="page-map" hidden>
+      <OutingsMap client:only="preact" pinsBase="" toiletsUrl="/toilets.json" lang={lang} center={[c.lat, c.lon]}
+        towns={region.towns.map((x) => [x.name, x.lat, x.lon])} locale={t.locale} labels={mapLabels(t)} fixed={pins} />
+      <div class="legend">
+        <span><i style="background:#ffcc00"></i>{t("legend.event")}</span>
+        {hasPlaces && <span><i style="background:#6f4a2a"></i>{t("legend.place")}</span>}
+        <span data-here-legend hidden><i class="here-key"></i>{t("legend.here")}</span>
+      </div>
+    </div>
+    <button class="map-fab page-fab" type="button" data-page-map aria-controls="page-map" aria-pressed="false">
+      <span data-fab-map><Fragment set:html={svg(UI_ICON.map, 'stroke-width="2"')} />{t("mapShowShort")}</span>
+      <span data-fab-list hidden><span aria-hidden="true">☰</span>{t("mapList")}</span>
+    </button>
+    <div class="fab-space" aria-hidden="true"></div>
+    <script>import "../scripts/page-map";</script>
+  </>
+)}

@@ -1,0 +1,23 @@
+{
+ "https://www.stadt-koeln.de/leben-in-koeln/veranstaltungen/daten/40461/index.html | MINT-Vorlesen am Samstag": {
+  "de": "Vorlesen zu Mathematik, Naturwissenschaft und Technik, danach wenn möglich ein kleines Experiment oder Basteln.",
+  "en": "A reading about maths, science and technology, followed by a small experiment or craft when possible.",
+  "zh": "给孩子读数学、科学和技术主题的书，之后视情况做个小实验或手工。",
+  "ages": [4, 8],
+  "age_quote": "4 bis 8 Jahre"
+ },
+ "https://www.stadt-koeln.de/leben-in-koeln/veranstaltungen/daten/41308/index.html | Vorlesezeit": {
+  "de": "Gemeinsam Bilderbücher anschauen und Geschichten hören, mit Findus, Lieselotte, Zilly und neuen Büchern.",
+  "en": "Looking at picture books together and listening to stories, with Findus, Lieselotte, Zilly and new books.",
+  "zh": "一起看绘本听故事，有 Findus、Lieselotte、Zilly 等熟悉角色，也有新书。",
+  "ages": [3, 18],
+  "age_quote": "Für Kinder ab 3 Jahren."
+ },
+ "https://www.stadt-koeln.de/leben-in-koeln/veranstaltungen/daten/41501/index.html | MINT-Vorlesen": {
+  "de": "Vorlesen über Mathematik, Informatik, Naturwissenschaften und Technik, danach wird gebastelt und experimentiert.",
+  "en": "A reading about maths, computing, science and technology, followed by crafts and experiments.",
+  "zh": "给孩子读数学、信息、科学和技术主题的书，之后一起做手工和小实验。",
+  "ages": [4, 8],
+  "age_quote": "Für Kinder von 4 bis 8 Jahren."
+ }
+}

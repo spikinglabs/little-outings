@@ -58,7 +58,9 @@ export function dateRange(t: T, e: Event) {
 
 export function ageText(t: T, ages?: [number, number]) {
   if (!ages) return "";
-  return ages[0] === 0 && ages[1] >= 12 ? t("allAges") : t("years", { a: ages[0], b: ages[1] });
+  if (ages[0] === 0 && ages[1] >= 12) return t("allAges");
+  // "ab 6 Jahren": a page that gives only the youngest age is stored as [6, 18].
+  return ages[1] >= 18 ? t("agesFrom", { a: ages[0] }) : t("years", { a: ages[0], b: ages[1] });
 }
 
 export const pathFor = (lang: Lang, item: Pick<Item, "type" | "id">) =>

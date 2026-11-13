@@ -89,6 +89,8 @@ const eventFields = {
   time: z.string().optional(),
   price: price.optional(),
   ages: ages.optional(),
+  /** One sentence on what happens there; for imported events the AI's summary of the organiser's page (scripts/describe-events.mjs). */
+  about: text.optional(),
   indoor: z.boolean().optional(),
   tags: z.array(z.enum(TAGS)).default([]),
   language: z.enum(LANGUAGE).optional(),

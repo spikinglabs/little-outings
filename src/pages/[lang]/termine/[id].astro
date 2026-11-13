@@ -53,7 +53,9 @@ const seasonPage = seasonPageFor(e, seasons);
 const where = [place ? nameOf(place, lang) : e.venue, town].filter(Boolean).join(", ");
 // The time line in the reader's language (src/lib/time-text.ts).
 const when = timeOf(e, lang);
+const about = e.about && tr(e.about, lang);
 const description = [
+  about,
   [dateRange(t, e), when, where].filter(Boolean).join(" · "),
   [e.price?.free && t("free"), ...e.tags.filter((g) => g !== "other").map((g) => t(`tags.${g}`))].filter(Boolean).join(", "),
   e.note && tr(e.note, lang),
@@ -82,6 +84,8 @@ const ld = eventLd(e, {
         {german && <p class="orig"><span lang="de">{german}</span> · {t("machine")}</p>}
       </div>
     </div>
+    {/* What it is, in one sentence: the AI's summary of the organiser's page, labelled as such. */}
+    {about && <div class="about"><p>{about}</p>{e.aboutFrom === "ai" && <p class="small">✨ {t("aboutAi")}</p>}</div>}
     <ul class="facts">
       <li><span>📅</span><span>{dateRange(t, e)}{when && ` · ${when}`}</span></li>
       <li><span>📍</span><span>
