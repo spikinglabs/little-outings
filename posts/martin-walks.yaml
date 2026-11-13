@@ -4,6 +4,7 @@
 # offering the explainer).
 # Drawn and uploaded by .github/workflows/posts.yml on push; the admin's Posts panel opens it by its code.
 # The posting job cuts the Chinese font itself, so new characters need no font commit.
+# - 2026-11-13 L: "德语地名不用翻译". Squares, streets, buildings and venues now keep their German names (towns keep 科隆/汉堡 etc.).
 code: NF4S
 title: 圣马丁灯笼游行｜德国6城时间地点
 until: 2026-11-14
@@ -12,7 +13,7 @@ caption: |
   大多数免费，不用报名
 
   📍科隆
-  ①【11.6 周五 17:00】大教堂礼拜后游行到 Groß St. Martin，发 Weckmann
+  ①【11.6 周五 17:00】Kölner Dom 礼拜后游行到 Groß St. Martin，发 Weckmann
   ②【11.6 周五 17:45】FC 足球场游行，RheinEnergieSTADION（免费送灯笼和 Weckmann）
   ③【11.7 周六 17:00】Gut Leidenhausen 森林灯笼徒步
   ④【11.8 周日 18:00】Auweiler，Doktorshof 出发
@@ -57,7 +58,7 @@ cards:
     tag: 科隆 · 11月6日 – 11月12日
     title: 科隆
     lines:
-      - 【11.6 周五 17点】大教堂礼拜后游行到 Groß St. Martin
+      - 【11.6 周五 17点】Kölner Dom 礼拜后游行到 Groß St. Martin
       - 【11.6 周五 17:45】FC 足球场游行，送灯笼和 Weckmann
       - 【11.7 周六 17点】Gut Leidenhausen 森林灯笼徒步
       - 【11.8 周日 18点】Auweiler，Doktorshof 出发
@@ -80,7 +81,7 @@ cards:
       - 【10.31 周六 16点起，18:30出发】Niendorf，Fuhlsbütteler Weg 5
       - 【11.7 周六 18点】Berne，三支队伍在 Berner Gutspark 会合，有烟花
       - 【11.7 周六 17点】Osdorf，消防站 Blomkamp 11
-      - 【11.8 周日 17:30起】Harburg 大游行，19点左右市政厅广场有烟花
+      - 【11.8 周日 17:30起】Harburg 大游行，19点左右 Rathausplatz 有烟花
       - 【11.14 周六 15点】Volksdorf，有骑马的圣马丁，终点 Museumsdorf
     foot: 信息以主办方为准，出发前请再确认
   - tone: paper

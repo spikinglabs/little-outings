@@ -17,6 +17,7 @@
 //   ALERTS_LIMIT=…    new alerts screened per night at most (default 600)
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { complete, pickLlm } from "../src/lib/llm.ts";
+import { ZH_NAMES } from "../src/lib/zh-names.ts";
 import { eachLimit } from "../src/lib/pool.ts";
 import { pageText } from "./find-venues.mjs";
 import { confirmedAlerts } from "../admin/lib/alerts.js";
@@ -60,7 +61,8 @@ Answer with only JSON:
 - about: one or two sentences, at most 240 characters, on the background: what the event is about or why it happens, and who organises it when the page names an organisation (never private persons), as the page states it.
 - points: up to 4 short items, at most 140 characters each, with the concrete facts a parent needs: closed streets, squares and bridges, diverted or stopped lines and stops, other events the same day that the police mention, when it is expected to end. Only what the page says.
 - Facts only, from the notice and page. No reassurance ("no need to worry", "the police expect it to stay peaceful"), no advice on how to plan the day, no opinion on the cause.
-- German for "de", English for "en", Simplified Chinese for "zh" (keep German street, place and line names as they are).`;
+- German for "de", English for "en", Simplified Chinese for "zh" (keep German street, place and line names as they are).
+${ZH_NAMES}`;
 
 const iso = (d) => d.toISOString().slice(0, 10);
 const addDays = (day, n) => iso(new Date(Date.parse(`${day}T12:00:00Z`) + n * 864e5));

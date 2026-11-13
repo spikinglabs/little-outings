@@ -4,6 +4,8 @@
 // Telegram post, so the page, the copy texts and the post always say the same thing.
 // Plain TypeScript without enums or other non-erasable syntax, so Node runs it directly.
 
+import { ZH_NAMES } from "./zh-names.ts";
+
 export type L = "de" | "en" | "zh";
 export type Texts = { de: string; en?: string; zh?: string };
 
@@ -463,11 +465,13 @@ Choose exactly {n} events a family with young children would most enjoy, with a 
 - if rain is likely, mostly indoors; if it is dry, something outdoors
 - most readers are Chinese- and English-speaking parents who read little German: prefer what needs little German (hands-on, animals, markets, shows without words); at most one story time or reading in German
 For each pick write a short name (at most 40 characters; keep German proper names, translate what the event is) and one friendly line (at most 90 characters) saying why it's a good pick, each in German (de), English (en) and Simplified Chinese (zh). Don't invent facts that aren't in the list.
-Return only JSON: {"picks": [{"i": 0, "label": {"de": "", "en": "", "zh": ""}, "why": {"de": "", "en": "", "zh": ""}}]}`;
+Return only JSON: {"picks": [{"i": 0, "label": {"de": "", "en": "", "zh": ""}, "why": {"de": "", "en": "", "zh": ""}}]}
+${ZH_NAMES}`;
 
 export const PLACE_PROMPT = `You write for Allo Outings, a website where parents in Germany find outings with their children.
 For each numbered place or event, write a short name (at most 40 characters; keep German proper names) and one friendly line (at most 90 characters) on why a family might go this weekend, in German (de), English (en) and Simplified Chinese (zh). Use only the facts given. When a line ends with "say:", use that German sentence and translate it.
-Return only JSON: {"items": [{"i": 0, "label": {"de": "", "en": "", "zh": ""}, "why": {"de": "", "en": "", "zh": ""}}]}`;
+Return only JSON: {"items": [{"i": 0, "label": {"de": "", "en": "", "zh": ""}, "why": {"de": "", "en": "", "zh": ""}}]}
+${ZH_NAMES}`;
 
 /** One shortlist line for the AI. */
 export function describe(p: Pick, i: number): string {

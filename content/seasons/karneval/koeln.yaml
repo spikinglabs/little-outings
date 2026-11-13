@@ -32,7 +32,7 @@ items:
     note:
       de: "Sehr voll in der Innenstadt. Mit kleinen Kindern lieber an den Anfang des Zugwegs in der Südstadt oder an breite Stellen der Ringe, früh da sein."
       en: "Very crowded in the city centre. With small children pick the start of the route in the Südstadt or a wide spot on the Ringe, and come early."
-      zh: "市中心非常拥挤。带小孩最好去南城的游行起点或环路较宽的路段，早点到。"
+      zh: "市中心非常拥挤。带小孩最好去 Südstadt 的游行起点或 Ringe 较宽的路段，早点到。"
   - id: poll
     name: Veedelszug Poll
     from: 2027-02-07

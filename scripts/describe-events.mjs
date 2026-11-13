@@ -28,6 +28,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { dirname } from "node:path";
 import { complete, pickLlm } from "../src/lib/llm.ts";
+import { ZH_NAMES } from "../src/lib/zh-names.ts";
 import { eachLimit } from "../src/lib/pool.ts";
 import { lastDay } from "../src/lib/horizon.ts";
 import { pageText } from "./find-venues.mjs";
@@ -45,7 +46,8 @@ Return only JSON: {"found": true, "de": "...", "en": "...", "zh": "...", "age_qu
 - de, en, zh: one short plain sentence in German, English and Simplified Chinese saying what happens there: what children do, see or hear. At most 20 words (zh at most 40 characters). Only what the page says. No date, time, price, address or booking details, no praise or advertising words ("toll", "spannend", "unforgettable"). When found is false, "" for all three.
 - age_quote: the exact words on the page that give the age for this event (e.g. "für Kinder von 4 bis 8 Jahren", "ab 6 Jahren", "Kinder bis 3 Jahre"). Copy them letter for letter. "" when the page gives no age for this event.
 - age_min, age_max: the ages in years from age_quote. age_max null when only a lower bound is given, age_min 0 when only an upper bound is given. School grades or "Familien" without years: both null.
-- Never estimate an age or a description from the kind of event or from the title alone.`;
+- Never estimate an age or a description from the kind of event or from the title alone.
+${ZH_NAMES}`;
 
 const squash = (s) => String(s ?? "").toLowerCase().replace(/[^\p{L}\p{N}]+/gu, "");
 export const keyOf = (row) => `${row.source_url} | ${String(row.title).trim()}`;

@@ -146,7 +146,7 @@ jobs:
         run: npx wrangler r2 object put "$BUCKET/little-outings/weekend.json" --file .cache/outings/weekend.json --content-type application/json
       - name: Commit the outings, venues, translations and past events
         run: |
-          git add data/translations/zh.json data/translations/en.json data/translations/time-zh.json data/translations/time-en.json data/venues.json data/about.json data/outings.jsonl data/weekend data/alerts.json data/past-events
+          git add data/translations data/venues.json data/about.json data/outings.jsonl data/weekend data/alerts.json data/past-events
           if git diff --cached --quiet; then echo "No changes."; exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

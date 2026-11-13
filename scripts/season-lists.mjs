@@ -15,6 +15,7 @@ import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 
 import { dirname } from "node:path";
 import { load as parseYaml } from "js-yaml";
 import { complete, pickLlm } from "../src/lib/llm.ts";
+import { ZH_NAMES } from "../src/lib/zh-names.ts";
 import { loadSeasons } from "../src/lib/seasons.ts";
 import { lookup, saveCache } from "./nominatim.mjs";
 import { KIDS, cleanItem, uniqueItems } from "../admin/lib/season-lists.js";
@@ -50,11 +51,13 @@ const KIDS_HELP = `kids: what children find there, only from this list: ${KIDS.j
 export const LIST_PROMPT = (what, today) => `You read a German city web page that lists ${what}, for the website "Allo Outings" where parents find outings with children.
 Today is ${today}. Extract every one with a date on or after today. Skip anything without a date, and anything whose date is from an earlier year or season.
 Return only JSON: {"items": [{"name": "...", "from": "YYYY-MM-DD", "to": "YYYY-MM-DD", "hours": "short German opening hours or null", "street": "street or square, or null", "district": "Stadtteil or null", "website": "the link to its own page from the links list, or null", ${KIDS_HELP.replace(/^kids/, '"kids": [...]')}, "free": true/false/null for free entry, "note": {"de": "one sentence on what children find there", "en": "the same in English", "zh": "the same in Simplified Chinese"} or null}]}.
-Use only facts on the page. Keep names as the page writes them.`;
+Use only facts on the page. Keep names as the page writes them.
+${ZH_NAMES}`;
 
 export const DETAIL_PROMPT = (today) => `You read the web page of one Christmas market, parade, fair or similar, for parents who go with children. Today is ${today}; give the next dates on or after today.
 Return only JSON: {"from": "YYYY-MM-DD" or null, "to": "YYYY-MM-DD" or null, "hours": "short German opening hours, e.g. \\"So–Mi 11–21, Do–Sa 11–22 Uhr; 22.11. zu\\"" or null, "street": "street, square or address without town" or null, "district": "Stadtteil" or null, ${KIDS_HELP.replace(/^kids/, '"kids": [...]')}, "free": true/false/null for free entry, "note": {"de": "one or two short sentences on what children find there and anything families should know", "en": "...", "zh": "..."} or null}.
-Use only facts on the page; null when the page doesn't say.`;
+Use only facts on the page; null when the page doesn't say.
+${ZH_NAMES}`;
 
 /** The JSON object in a model's answer, or null. */
 export function parseJson(text) {

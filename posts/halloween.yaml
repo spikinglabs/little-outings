@@ -1,6 +1,7 @@
 # A Rednote (小红书) set of real Halloween events for families, from the site's own listings (checked 2026-10-29).
 # Drawn and uploaded by .github/workflows/posts.yml on push; the admin's Posts panel opens it by its code.
 # The posting job cuts the Chinese font itself, so new characters need no font commit.
+# - 2026-11-13 L: "德语地名不用翻译". Squares, streets, buildings and venues now keep their German names (towns keep 科隆/法兰克福 etc.).
 code: P527
 title: 万圣节带娃去哪｜德国6城活动
 until: 2026-10-31
@@ -30,7 +31,7 @@ caption: |
   📍科隆 · 波恩
   ①【周五 12:00–18:00】万圣节活动日，Stadtteilbibliothek Mülheim（免费）
   ②【周六 10:00–14:00】儿童万圣节派对，勒沃库森 Marimars Tanztempel
-  ③【周六 19:00】波恩儿童万圣节，老市政厅前
+  ③【周六 19:00】波恩儿童万圣节，Altes Rathaus 前
 
   小提示：Süßes oder Saures! 一般只敲门口有南瓜装饰的人家。
 
@@ -86,7 +87,7 @@ cards:
     lines:
       - 【周五 12–18点】万圣节活动日，科隆 Stadtteilbibliothek Mülheim，免费
       - 【周六 10–14点】儿童万圣节派对，勒沃库森 Marimars Tanztempel
-      - 【周六 19点】波恩儿童万圣节，老市政厅前 Markt 2
+      - 【周六 19点】波恩儿童万圣节，Altes Rathaus 前 Markt 2
     foot: 信息以主办方为准，出发前请再确认
   - tone: ink
     title: "还有更多\n万圣节活动"

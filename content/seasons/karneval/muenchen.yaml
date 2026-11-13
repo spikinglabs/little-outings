@@ -29,7 +29,7 @@ items:
     note:
       de: "Vom Isartor über das Rosental in die Kaufingerstraße, danach Bühnenprogramm am Marienplatz."
       en: "From Isartor via Rosental into Kaufingerstraße, then a stage show on Marienplatz."
-      zh: "从伊萨尔门经罗森塔尔到考芬格大街，之后在玛利亚广场有舞台表演。"
+      zh: "从 Isartor 经 Rosental 到 Kaufingerstraße，之后在 Marienplatz 有舞台表演。"
   - id: muenchen-narrisch
     name: München narrisch
     from: 2027-02-07
@@ -41,7 +41,7 @@ items:
     note:
       de: "Straßenfasching in der Fußgängerzone mit Bühnen am Marienplatz und Stachus; Kostüme willkommen."
       en: "Street carnival in the pedestrian zone with stages at Marienplatz and Stachus; costumes welcome."
-      zh: "步行街上的街头狂欢，玛利亚广场和卡尔广场设有舞台，欢迎穿服装。"
+      zh: "步行街上的街头狂欢，Marienplatz 和 Stachus 设有舞台，欢迎穿服装。"
   - id: tanz-der-marktweiber
     name: Tanz der Marktweiber
     from: 2027-02-09
@@ -54,4 +54,4 @@ items:
     note:
       de: "Die Marktfrauen tanzen am Faschingsdienstag auf dem Viktualienmarkt."
       en: "The market women dance on the Viktualienmarkt on Shrove Tuesday."
-      zh: "狂欢节星期二，市场女摊主们在维克图阿利恩市场跳舞。"
+      zh: "狂欢节星期二，市场女摊主们在 Viktualienmarkt 跳舞。"

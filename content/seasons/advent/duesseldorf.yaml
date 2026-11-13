@@ -33,7 +33,7 @@ items:
     note:
       de: "Mit Kinderkarussell; am Gustaf-Gründgens-Platz spielt an vier Terminen das Kasperletheater."
       en: "With a children's carousel; a Punch and Judy show plays four times on Gustaf-Gründgens-Platz."
-      zh: "有儿童旋转木马；Gustaf-Gründgens广场上的木偶剧会演出四场。"
+      zh: "有儿童旋转木马；Gustaf-Gründgens-Platz 上的木偶剧会演出四场。"
   - id: roncalli
     name: Roncalli's Weihnachtspromenade
     from: 2026-11-19
@@ -48,7 +48,7 @@ items:
     note:
       de: "Alte Zirkuswagen, Artistik und Musik zwischen Burgplatz und Altem Hafen; nebenan das Riesenrad am Burgplatz (55 m)."
       en: "Old circus wagons, acrobatics and music between Burgplatz and the old harbour; the 55-metre Ferris wheel is next door."
-      zh: "城堡广场到老港口之间有老式马戏车、杂技和音乐；旁边是55米高的摩天轮。"
+      zh: "Burgplatz 到 Alter Hafen 之间有老式马戏车、杂技和音乐；旁边是 Burgplatz 55米高的摩天轮。"
   - id: koe
     name: Kö-Markt und Eislaufbahn am Corneliusplatz
     from: 2026-11-19
@@ -63,7 +63,7 @@ items:
     note:
       de: "Kö on Ice: Schlittschuhlaufen am Ende der Königsallee, dazu der Lichterdom und das neue Winter Village."
       en: "Kö on Ice: skating at the end of the Königsallee, plus the light dome and the new Winter Village."
-      zh: "Kö on Ice：在国王大道尽头滑冰，还有灯光穹顶和新的冬日村。"
+      zh: "Kö on Ice：在 Königsallee 尽头滑冰，还有灯光穹顶和新的冬日村。"
   - id: altstadtmarkt
     name: Altstadt-Markt
     from: 2026-11-19

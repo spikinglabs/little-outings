@@ -16,6 +16,7 @@ import { dirname, join } from "node:path";
 import { load } from "js-yaml";
 import { complete, pickLlm } from "../src/lib/llm.ts";
 import { ruleKnows } from "../src/lib/time-text.ts";
+import { ZH_NAMES } from "../src/lib/zh-names.ts";
 
 export const CACHE = "data/translations/zh.json";
 const BATCH = 60;
@@ -25,9 +26,9 @@ export const PROMPT = `You translate German names of family events and kid-frien
 - Say plainly what it is, short like a title: "Regelmäßige Vorlesestunde" → "定期亲子读书会"; "Sonntagsmalerei" → "周日绘画活动".
 - Never add facts that are not in the original (no ages, prices, places that aren't there).
 - Towns use their standard Chinese names: Köln 科隆, Bonn 波恩, Aachen 亚琛, Düsseldorf 杜塞尔多夫, Essen 埃森, Wuppertal 伍珀塔尔.
-- Street names, people's names, brand names and proper names without an established Chinese form stay in Latin letters, with the descriptive part translated: "Spielplatz Weegen" → "Weegen 游乐场"; "Käthe-Kollwitz-Weg (KSP)" → "Käthe-Kollwitz-Weg 儿童游乐场" (KSP = Kinderspielplatz).
-- A place name that is only a street or area gets its kind added: playground "Schanzenweg" → "Schanzenweg 游乐场".
-- Well-known institutions may use their Chinese name: "Kölnisches Stadtmuseum" → "科隆城市博物馆".
+${ZH_NAMES}
+- People's names and brand names stay in Latin letters too, with the descriptive part translated: "Käthe-Kollwitz-Weg (KSP)" → "Käthe-Kollwitz-Weg 儿童游乐场" (KSP = Kinderspielplatz); "Frankfurter Weihnachtsmarkt (Römerberg)" → "法兰克福圣诞市场（Römerberg）".
+- A place name that is only a street or area gets its kind added: playground "Schanzenweg" → "Schanzenweg 游乐场". A museum or venue keeps its German name with its kind: "Kölnisches Stadtmuseum" → "Kölnisches Stadtmuseum 博物馆".
 You get a JSON array of {"text", "kind"} objects (kind is "event" or the kind of place). Return only a JSON array of strings, one translation per object, the same length and in the same order: ["…", "…"].`;
 
 export const PROMPT_EN = `You translate German titles of family events in Germany (Köln, Bonn, Aachen, Düsseldorf, Essen, Bergisches Land, Berlin, München, Frankfurt am Main, Hamburg) into English, for English-speaking parents who live there and read little German.
@@ -109,17 +110,20 @@ function asText(item) {
 
 /**
  * Fill the cache for `items` ({ text, kind }), at most `limit` new ones, and drop entries neither
- * `items` nor `keep` (a Set of texts) uses. Returns how many were missing and how many got translated.
+ * `items` nor `keep` (a Set of texts) uses. Texts in `recheck` (a Set) are asked again after the new ones,
+ * keeping their old translation until the new one arrives; each one done leaves the set.
+ * Returns how many were missing and how many got translated.
  */
 export async function update(items, cache, opts) {
-  const missing = items.filter((x) => !cache[x.text]);
+  const recheck = opts.recheck ?? new Set();
+  const missing = [...items.filter((x) => !cache[x.text]), ...items.filter((x) => cache[x.text] && recheck.has(x.text))];
   let done = 0;
   if (opts.llm) {
     const todo = missing.slice(0, opts.limit ?? LIMIT);
     for (let i = 0; i < todo.length; i += BATCH) {
       const part = todo.slice(i, i + BATCH);
       try {
-        (await translateBatch(part, opts)).forEach((zh, j) => (cache[part[j].text] = zh));
+        (await translateBatch(part, opts)).forEach((zh, j) => { cache[part[j].text] = zh; recheck.delete(part[j].text); });
         done += part.length;
       } catch (e) {
         console.warn(String(e)); // a bad batch is retried next night
@@ -148,9 +152,13 @@ async function main() {
   for (const { lang, cache: file, prompt, wants } of LANGUAGES) {
     const items = texts.filter(wants);
     const cache = existsSync(file) ? JSON.parse(readFileSync(file, "utf8")) : {};
-    const r = await update(items, cache, { llm, model: process.env.TRANSLATE_MODEL, prompt, limit, keep });
+    // Texts to ask again after a prompt change (data/translations/zh-recheck.json, a list of German texts).
+    const recheckFile = file.replace(/\.json$/, "-recheck.json");
+    const recheck = new Set(existsSync(recheckFile) ? JSON.parse(readFileSync(recheckFile, "utf8")) : []);
+    const r = await update(items, cache, { llm, model: process.env.TRANSLATE_MODEL, prompt, limit, keep, recheck });
     mkdirSync(dirname(file), { recursive: true });
     writeFileSync(file, JSON.stringify(r.cache, null, 1) + "\n");
+    if (existsSync(recheckFile)) writeFileSync(recheckFile, JSON.stringify([...recheck].filter((t) => t in r.cache).sort(), null, 1) + "\n");
     lines.push(llm ? `${lang} ${items.length} texts, ${r.missing} new, ${r.done} translated` : `${lang} ${r.missing} of ${items.length} missing`);
   }
   console.log(llm
