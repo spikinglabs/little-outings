@@ -1,12 +1,13 @@
 import type { Lang, T, Text } from "./i18n";
 import type { Event, Item } from "./types";
+import { MORE_TOWN_NAMES } from "./town-names";
 
 type TownRec = { name: string; zh?: string; en?: string };
 
 /** Town names in the reader's language, from the region file (e.g. Köln → Cologne / 科隆). */
 export const townName = (name: string | undefined, lang: Lang, towns: TownRec[]) => {
   if (!name) return "";
-  const t = towns.find((x) => x.name === name);
+  const t = towns.find((x) => x.name === name) ?? (MORE_TOWN_NAMES[name] && { name, ...MORE_TOWN_NAMES[name] });
   return (lang !== "de" && t?.[lang]) || name;
 };
 /** "Neustadt-Süd, Cologne" when the district is known, else the town. Districts stay German, like street names. */
