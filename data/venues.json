@@ -321,6 +321,10 @@
   "venue": "Hauptbahnhof Köln, Bahnhofsvorplatz",
   "street": "Trankgasse 11"
  },
+ "https://koelnerkarneval.de/session/veranstaltungen/veranstaltung/duennwalder-veedelszoch-4": {
+  "venue": "Dünnwald",
+  "street": "Leuchterstr."
+ },
  "https://koelnerkarneval.de/session/veranstaltungen/veranstaltung/familienkostuemsitzung-1": {
   "venue": "Theater am Tanzbrunnen",
   "street": "Rheinparkweg 1"
@@ -336,6 +340,10 @@
  "https://koelnerkarneval.de/session/veranstaltungen/veranstaltung/fastelovend-famos-die-familiensitzung-1": {
   "venue": "Stadthalle Mülheim",
   "street": "Jan-Wellem-Straße 2"
+ },
+ "https://koelnerkarneval.de/session/veranstaltungen/veranstaltung/fastelovendsitzung": {
+  "venue": "Sartory",
+  "street": "Friesenstraße 44-48"
  },
  "https://koelnerkarneval.de/session/veranstaltungen/veranstaltung/flohzirkus": {
   "venue": "St. Anna",
@@ -750,14 +758,6 @@
   "venue": "Theater Düren im Haus der Stadt",
   "street": "Stefan-Schwer-Straße 4-6"
  },
- "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/die-werkstatt-der-schmetterlinge": {
-  "venue": "Schloss Burgau",
-  "street": "Von-Aue-Straße 1"
- },
- "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/die-werkstatt-der-schmetterlinge-08-11-2026": {
-  "venue": "Schloss Burgau",
-  "street": "Von-Aue-Straße 1"
- },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/du-und-ich-und-alle-reden-mit": {
   "venue": "Das Lumen Filmtheater",
   "street": "Fritz-Erler Straße 21"
@@ -945,6 +945,10 @@
   "venue": "Theater Düren im Haus der Stadt",
   "street": "Stefan-Schwer-Straße 4-6"
  },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/lieder-unseres-lebens": {
+  "venue": "Haus der Stadt",
+  "street": "Stefan-Schwer-Straße 4-6"
+ },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/lotta-kann-fast-alles": {
   "venue": "Theater Düren im Haus der Stadt",
   "street": "Stefan-Schwer-Straße 4-6"
@@ -1024,6 +1028,10 @@
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/stadtfuehrung-der-duerener-hauptfriedhof_copy": {
   "venue": "Hauptfriedhof Düren Ost",
   "street": "Friedenstraße 76"
+ },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/tag-der-offenen-tuer-der-heinrich-boell-gesamtschule-dueren": {
+  "venue": "Heinrich-Böll-Gesamtschule",
+  "street": "Girbelsrather Str. 120"
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/tauschen-statt-verstauben-die-spieletauschboerse-in-der-stadtbuecherei": {
   "venue": "Stadtbücherei Düren",

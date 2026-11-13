@@ -5,20 +5,6 @@
   "week": 46,
   "published_at": "2026-11-09T08:50:53.320Z",
   "by": "ai",
-  "weather": [
-    {
-      "day": "2026-11-14",
-      "code": 0,
-      "max": 5.1,
-      "rain": 15
-    },
-    {
-      "day": "2026-11-15",
-      "code": 2,
-      "max": 9,
-      "rain": 3
-    }
-  ],
   "picks": [
     {
       "id": "ck-evt-1809fb17a1b1719ec481",
@@ -158,6 +144,21 @@
         "en": "Free playground fun for families, open daily from 9:00 to 20:00.",
         "zh": "适合家庭的免费游乐场，每日9:00至20:00开放。"
       }
+    }
+  ],
+  "refreshed_at": "2026-11-13T08:56:29.701Z",
+  "weather": [
+    {
+      "day": "2026-11-14",
+      "code": 45,
+      "max": 6.5,
+      "rain": 0
+    },
+    {
+      "day": "2026-11-15",
+      "code": 45,
+      "max": 8.7,
+      "rain": 0
     }
   ],
   "still": [

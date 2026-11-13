@@ -5,20 +5,6 @@
   "week": 46,
   "published_at": "2026-11-09T08:51:25.214Z",
   "by": "score",
-  "weather": [
-    {
-      "day": "2026-11-14",
-      "code": 45,
-      "max": 7.7,
-      "rain": 0
-    },
-    {
-      "day": "2026-11-15",
-      "code": 3,
-      "max": 9.3,
-      "rain": 6
-    }
-  ],
   "picks": [
     {
       "id": "ck-evt-25d0ff4309439eedbdcd",
@@ -99,6 +85,21 @@
       "district": "Bockenheim",
       "venue": "Kasseler Straße",
       "days": []
+    }
+  ],
+  "refreshed_at": "2026-11-13T08:56:29.727Z",
+  "weather": [
+    {
+      "day": "2026-11-14",
+      "code": 45,
+      "max": 7.7,
+      "rain": 0
+    },
+    {
+      "day": "2026-11-15",
+      "code": 61,
+      "max": 11.3,
+      "rain": 55
     }
   ]
 }

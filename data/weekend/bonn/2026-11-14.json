@@ -5,20 +5,6 @@
   "week": 46,
   "published_at": "2026-11-09T08:50:44.477Z",
   "by": "score",
-  "weather": [
-    {
-      "day": "2026-11-14",
-      "code": 0,
-      "max": 8.8,
-      "rain": 4
-    },
-    {
-      "day": "2026-11-15",
-      "code": 53,
-      "max": 10.8,
-      "rain": 14
-    }
-  ],
   "picks": [
     {
       "id": "ck-evt-671aa4126a620bd3c451",
@@ -158,6 +144,21 @@
         "en": "This park at Regina-Pacis-Weg in Bonn is a green destination for families.",
         "zh": "这座位于波恩Regina-Pacis-Weg的公园很适合周末走走。"
       }
+    }
+  ],
+  "refreshed_at": "2026-11-13T08:56:29.608Z",
+  "weather": [
+    {
+      "day": "2026-11-14",
+      "code": 3,
+      "max": 8.8,
+      "rain": 1
+    },
+    {
+      "day": "2026-11-15",
+      "code": 61,
+      "max": 11.2,
+      "rain": 71
     }
   ]
 }

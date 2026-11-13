@@ -5,20 +5,6 @@
   "week": 46,
   "published_at": "2026-11-09T08:50:53.122Z",
   "by": "score",
-  "weather": [
-    {
-      "day": "2026-11-14",
-      "code": 0,
-      "max": 7.3,
-      "rain": 4
-    },
-    {
-      "day": "2026-11-15",
-      "code": 53,
-      "max": 10.4,
-      "rain": 6
-    }
-  ],
   "picks": [
     {
       "id": "ck-evt-760cc74974b90d92a67e",
@@ -170,6 +156,21 @@
         "en": "Enjoy indoor play in Wersten all weekend from 10:00 to 19:00.",
         "zh": "周末10:00至19:00在韦尔斯滕享受室内玩乐时光。"
       }
+    }
+  ],
+  "refreshed_at": "2026-11-13T08:56:29.641Z",
+  "weather": [
+    {
+      "day": "2026-11-14",
+      "code": 3,
+      "max": 8.9,
+      "rain": 0
+    },
+    {
+      "day": "2026-11-15",
+      "code": 55,
+      "max": 10.7,
+      "rain": 82
     }
   ],
   "still": [

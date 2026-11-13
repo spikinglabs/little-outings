@@ -5,20 +5,6 @@
   "week": 46,
   "published_at": "2026-11-09T08:50:21.330Z",
   "by": "score",
-  "weather": [
-    {
-      "day": "2026-11-14",
-      "code": 45,
-      "max": 7.9,
-      "rain": 4
-    },
-    {
-      "day": "2026-11-15",
-      "code": 51,
-      "max": 10.7,
-      "rain": 11
-    }
-  ],
   "picks": [
     {
       "id": "ck-evt-ecd318cadaee0d57c66c",
@@ -109,6 +95,21 @@
       "district": "Höhenberg",
       "venue": "Schwarzburger Straße 4",
       "days": []
+    }
+  ],
+  "refreshed_at": "2026-11-13T08:56:29.566Z",
+  "weather": [
+    {
+      "day": "2026-11-14",
+      "code": 3,
+      "max": 9.1,
+      "rain": 0
+    },
+    {
+      "day": "2026-11-15",
+      "code": 55,
+      "max": 11.1,
+      "rain": 76
     }
   ]
 }

@@ -5,20 +5,6 @@
   "week": 46,
   "published_at": "2026-11-09T08:50:53.221Z",
   "by": "score",
-  "weather": [
-    {
-      "day": "2026-11-14",
-      "code": 2,
-      "max": 7.8,
-      "rain": 3
-    },
-    {
-      "day": "2026-11-15",
-      "code": 3,
-      "max": 7.4,
-      "rain": 0
-    }
-  ],
   "picks": [
     {
       "id": "ck-evt-8b9dc65cd95a9073ca6b",
@@ -173,6 +159,21 @@
         "en": "This zoo in Tegel is open 24/7 and completely free to visit.",
         "zh": "位于泰格尔的这座动物园全天24小时开放，且免费参观。"
       }
+    }
+  ],
+  "refreshed_at": "2026-11-13T08:56:29.673Z",
+  "weather": [
+    {
+      "day": "2026-11-14",
+      "code": 3,
+      "max": 8.7,
+      "rain": 0
+    },
+    {
+      "day": "2026-11-15",
+      "code": 3,
+      "max": 8.3,
+      "rain": 22
     }
   ]
 }

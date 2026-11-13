@@ -5,20 +5,6 @@
   "week": 46,
   "published_at": "2026-11-09T08:52:05.641Z",
   "by": "score",
-  "weather": [
-    {
-      "day": "2026-11-14",
-      "code": 0,
-      "max": 8.1,
-      "rain": 4
-    },
-    {
-      "day": "2026-11-15",
-      "code": 51,
-      "max": 10.8,
-      "rain": 10
-    }
-  ],
   "picks": [
     {
       "id": "ck-evt-4cccec18fce00981d3c5",
@@ -154,6 +140,21 @@
         "en": "Free playground fun for kids at Ceresstraat.",
         "zh": "位于Ceresstraat的免费儿童游乐场。"
       }
+    }
+  ],
+  "refreshed_at": "2026-11-13T08:56:29.812Z",
+  "weather": [
+    {
+      "day": "2026-11-14",
+      "code": 3,
+      "max": 10,
+      "rain": 0
+    },
+    {
+      "day": "2026-11-15",
+      "code": 53,
+      "max": 10.9,
+      "rain": 70
     }
   ],
   "still": [
