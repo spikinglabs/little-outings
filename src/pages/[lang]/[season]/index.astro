@@ -34,7 +34,7 @@ const intro = tr(page.intro, lang).replace(/\{town\}/g, towns.map((x) => x.name)
 ---
 <Base lang={lang} title={title} description={intro} og={seasonKey(seasonId)}>
   <div class="season-page">
-    <a class="back" href={`/${lang}/`}>← {t("back")}</a>
+    <a class="back" href={`/${lang}/`}>← {t("tabs.explore")}</a>
     <p class="eyebrow">{season.emoji} {tr(season.label, lang)}</p>
     <h1 class="page-title">{title}</h1>
     <p class="page-sub">{intro}</p>

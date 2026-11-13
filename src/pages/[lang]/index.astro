@@ -209,6 +209,12 @@ const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
     </div>
   </div>
 
+  <!-- Phones: one thumb-sized switch between the list and a full-height map (explore.ts). -->
+  <button class="map-fab" type="button" data-map-fab aria-controls="explore-map" aria-pressed="false">
+    <span data-fab-map><Fragment set:html={svg(UI_ICON.map, 'stroke-width="2"')} />{t("mapShowShort")}</span>
+    <span data-fab-list hidden><span aria-hidden="true">☰</span>{t("mapList")}</span>
+  </button>
+
   <p class="area-note" data-area-note hidden>{t("mapAreaOn")} <button type="button" class="link-btn" data-area-reset></button></p>
 
   {tips.map((e) => (

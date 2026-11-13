@@ -142,6 +142,8 @@ approxKm: "about {d} km"
 nearby: nearby
 thePlace: The place
 forFamilies: For families
+afterNear:
+  title: "Nearby for afterwards"
 toiletsNear:
   title: Toilets nearby
   toilets: Public toilet
@@ -170,6 +172,8 @@ chargersMap:
   customers: customers only
   route: Directions
   more: On Allo Cars
+unknownMore: "{n} more not known yet. Been there?"
+unknownAll: "{n} things not known yet. Been there?"
 unknownNote: "? means we don't know yet. Been there? Tap it."
 confirmedBy: "confirmed {n}×"
 upcomingHere: Coming up here
@@ -177,6 +181,7 @@ parentsSay: "Parents say · ★ {r} from {n} reviews"
 onPoster: On the poster
 speech: { none: No German needed, en: In English, de: Mostly German }
 speechGuess: "{s}?"
+speechGuessLine: "{s} (guessed from the title)"
 speechAsk: { title: "Do you need German?", guess: "Guessed from the title. Been there? Tap what's right.", parents: "What {n} parents say. Been there? Tap what's right.", unknown: "Not known yet. Been there? Tap what's right.", thanks: "Thanks! Other parents will see this. Tap it again to take it back.", undone: "Answer taken back." }
 machine: machine-translated
 translated: Translated from German.
@@ -200,6 +205,7 @@ mapShowMore: "Show {n} more"
 mapMore: "and {n} more"
 mapShow: "Show on map"
 mapShowShort: Map
+mapList: List
 mapHideShort: Hide map
 shortcuts: Shortcuts
 mapHide: "Hide map"
@@ -215,7 +221,7 @@ savedEmpty: Nothing saved yet. Tap the bookmark on an event or place.
 events: Events
 places: Places
 addTitle: Add
-addSub: "Tell other families about something good, or plan an outing with friends. English, German or Chinese all work."
+addSub: "Tell other families about something good: an event, a place, or what you know about one. English, German or Chinese all work."
 posterTitle: Saw a poster? Just snap it.
 posterSub: Or paste a link or a message. We read the name, date, time and place automatically; you just give it a quick check.
 posterBtn: Take a photo of the poster

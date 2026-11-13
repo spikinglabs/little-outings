@@ -656,3 +656,13 @@ if (!standalone && related) {
   }).catch(() => {});
 }
 window.addEventListener("appinstalled", () => { if (installBox) installBox.hidden = true; closeHint(); count("install"); });
+
+// "← Back" on event and place pages goes back to wherever the parent came from on this site (the weekend
+// page, Mine, a season page), with its scroll position; opened from a shared link, it goes to Discover.
+document.addEventListener("click", (ev) => {
+  const a = (ev.target as Element).closest<HTMLAnchorElement>("a.back[data-history]");
+  if (!a || ev.metaKey || ev.ctrlKey || ev.shiftKey) return;
+  let same = false;
+  try { same = !!document.referrer && new URL(document.referrer).origin === location.origin; } catch { /* no referrer */ }
+  if (same && history.length > 1) { ev.preventDefault(); history.back(); }
+});

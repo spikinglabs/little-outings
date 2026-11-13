@@ -141,6 +141,8 @@ approxKm: "约 {d} 公里"
 nearby: 就在附近
 thePlace: 活动地点
 forFamilies: 亲子设施
+afterNear:
+  title: 结束后附近还能去
 toiletsNear:
   title: 附近的厕所和尿布台
   toilets: 公共厕所
@@ -169,6 +171,8 @@ chargersMap:
   customers: 仅限顾客
   route: 路线
   more: 在 Allo Cars 查看
+unknownMore: "还有 {n} 项不清楚，去过吗？"
+unknownAll: "{n} 项设施还不清楚，去过吗？"
 unknownNote: "“?” 表示暂不确定。去过的话，点一下告诉我们。"
 confirmedBy: "{n} 位家长确认"
 upcomingHere: 近期活动
@@ -176,6 +180,7 @@ parentsSay: "家长评价 · ★ {r}（{n} 条评价）"
 onPoster: 海报上的德文名称
 speech: { none: 无需德语, en: 有英语, de: 主要说德语 }
 speechGuess: "{s}？"
+speechGuessLine: "{s}（根据标题猜的）"
 speechAsk: { title: 需要会德语吗？, guess: 这是根据活动标题猜的。去过的话，点一下正确的选项。, parents: "{n} 位家长这样说。去过的话，点一下正确的选项。", unknown: 还不清楚。去过的话，点一下正确的选项。, thanks: "谢谢！其他家长会看到。再点一次可以撤回。", undone: "已撤回你的回答。" }
 machine: 机器翻译
 translated: 译自德文。
@@ -199,6 +204,7 @@ mapShowMore: "再显示 {n} 项"
 mapMore: "还有 {n} 个"
 mapShow: "在地图上显示"
 mapShowShort: 地图
+mapList: 列表
 mapHideShort: 收起地图
 shortcuts: 常用入口
 mapHide: "隐藏地图"
@@ -214,7 +220,7 @@ savedEmpty: 还没有收藏。点击活动或地点上的书签即可收藏。
 events: 活动
 places: 地点
 addTitle: 添加
-addSub: "告诉其他家庭好去处，或和朋友约一次出游。中文、德语、英语都可以。"
+addSub: "把好去处告诉其他家庭：一个活动、一个地方，或你知道的情况。中文、德语、英语都可以。"
 posterTitle: 看到海报了？拍下来就行。
 posterSub: 也可以粘贴链接或消息。我们会自动识别名称、日期、时间和地点，你只需快速确认。
 posterBtn: 拍摄海报照片

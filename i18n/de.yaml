@@ -142,6 +142,8 @@ approxKm: "ca. {d} km"
 nearby: ganz in der Nähe
 thePlace: Der Ort
 forFamilies: Für Familien
+afterNear:
+  title: "Gleich nebenan, für danach"
 toiletsNear:
   title: Toilette, Wickeln, Wasser in der Nähe
   toilets: Öffentliche Toilette
@@ -170,6 +172,8 @@ chargersMap:
   customers: nur für Kunden
   route: Route
   more: Bei Allo Cars
+unknownMore: "{n} weitere noch unbekannt. Wart ihr da?"
+unknownAll: "{n} Dinge noch unbekannt. Wart ihr da?"
 unknownNote: "? heißt: wissen wir noch nicht. Wart ihr da? Tippt drauf."
 confirmedBy: "{n}× bestätigt"
 upcomingHere: Hier demnächst
@@ -177,6 +181,7 @@ parentsSay: "Eltern sagen · ★ {r} aus {n} Bewertungen"
 onPoster: Auf dem Plakat
 speech: { none: Ohne Deutsch, en: Auf Englisch, de: Viel Deutsch }
 speechGuess: "{s}?"
+speechGuessLine: "{s} (aus dem Titel geschätzt)"
 speechAsk: { title: "Braucht man Deutsch?", guess: "Aus dem Titel geschätzt. Wart ihr dort? Tippt an, was stimmt.", parents: "So sagen {n} Eltern. Wart ihr dort? Tippt an, was stimmt.", unknown: "Noch unbekannt. Wart ihr dort? Tippt an, was stimmt.", thanks: "Danke! Andere Eltern sehen das. Nochmal tippen nimmt es zurück.", undone: "Antwort zurückgenommen." }
 machine: maschinell übersetzt
 translated: ""
@@ -200,6 +205,7 @@ mapShowMore: "{n} weitere zeigen"
 mapMore: "und {n} weitere"
 mapShow: "Auf der Karte zeigen"
 mapShowShort: Karte
+mapList: Liste
 mapHideShort: Karte zu
 shortcuts: Abkürzungen
 mapHide: "Karte ausblenden"
@@ -215,7 +221,7 @@ savedEmpty: Noch nichts gemerkt. Tippt bei einem Termin oder Ort auf das Lesezei
 events: Termine
 places: Orte
 addTitle: Neu eintragen
-addSub: "Erzählt anderen Familien von etwas Schönem oder plant einen Ausflug mit Freunden. Auf Deutsch, Englisch oder Chinesisch."
+addSub: "Erzählt anderen Familien von etwas Schönem: einem Termin, einem Ort oder dem, was ihr darüber wisst. Auf Deutsch, Englisch oder Chinesisch."
 posterTitle: Plakat gesehen? Einfach fotografieren.
 posterSub: Oder einen Link oder eine Nachricht einfügen. Wir lesen Name, Datum, Uhrzeit und Ort automatisch aus, ihr prüft nur kurz.
 posterBtn: Plakat fotografieren

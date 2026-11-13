@@ -1,10 +1,10 @@
 ---
 // Recalls of children's products sold in Germany from the last 30 days (data/recalls.json, from Allo Recalls),
-// inside the header bell on Discover and the weekend pages (layouts/Base.astro, slot "notices"). Lists the
+// inside the header bell on every page (layouts/Base.astro, slot "notices"). Lists the
 // newest, each linking to its page on recalls.allo.land. Recalls cover all of Germany, so every town sees the
 // same. Nothing without the file.
 import { getRecalls } from "../lib/data";
-import { recallCode, recallsHome, recallUrl } from "../lib/recalls";
+import { recallCode, recallsHome, recallUrl, shortTitle } from "../lib/recalls";
 import type { Lang, T } from "../lib/i18n";
 
 interface Props { lang: Lang; t: T }
@@ -18,7 +18,7 @@ const day = (d: string) => new Intl.DateTimeFormat(t.locale, { timeZone: "UTC", 
     <p class="small">{t("recalls.line", { n: recalls.length })}</p>
     <ul>
       {recalls.slice(0, 6).map((r) => (
-        <li data-notice={`r:${recallCode(r.id)}`}><a href={recallUrl(r, lang)} target="_blank" rel="noopener">{r.title[lang]}</a> <small>{day(r.published)}</small></li>
+        <li data-notice={`r:${recallCode(r.id)}`}><a href={recallUrl(r, lang)} target="_blank" rel="noopener">{shortTitle(r.title[lang])}</a> <small>{day(r.published)}</small></li>
       ))}
     </ul>
     <p class="small">{t("recalls.from")}</p>

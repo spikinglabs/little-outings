@@ -3,7 +3,8 @@
 // and the share box with the texts parents copy into WhatsApp or WeChat. Used by the current edition
 // (/<lang>/wochenende/<town>/) and the archive (/<lang>/wochenende/<town>/<saturday>/).
 import Card from "./Card.astro";
-import { getData } from "../lib/data";
+import { getData, getWeather } from "../lib/data";
+import { dayAt } from "../lib/weather";
 import { nameOf, pathFor, townName } from "../lib/format";
 import { timeOf } from "../lib/time-text";
 import { seasonPageFor, seasonPath } from "../lib/seasons";
@@ -29,6 +30,9 @@ const days = [addDays(ed.weekend, -1), ed.weekend, addDays(ed.weekend, 1)]
   .map((d) => ({ d, picks: picks.filter((p) => p.type === "event" && p.days[0] === d) }))
   .filter((x) => x.picks.length);
 const places = picks.filter((p) => p.type === "place");
+// The forecast from this build, like Discover's, not the one from when the edition came out (they differed).
+const packed = archived ? undefined : await getWeather();
+const weather = ed.weather?.map((w) => { const f = dayAt(packed, ed.town, w.day); return f ? { ...w, code: f.code, max: f.max, min: f.min, rain: f.rain } : w; });
 const still = (ed.still ?? []).filter((s) => eventById.has(s.id));
 // Season fixtures (Christmas markets, parades) open on Saturday or Sunday in this town and not already a pick,
 // so a parent sees the whole weekend here instead of checking the season page too.
@@ -58,7 +62,7 @@ const xhs = lang === "zh" && !archived ? (await rednoteSets()).sets.find((s) => 
     <p class="page-sub">{t("weekend.sub", { range })}</p>
     {archived && <p class="wk-archived">{t("weekend.archiveNote", { range: weekendRange(ed.weekend, lang) })} <a href={`/${lang}/wochenende/${ed.slug}/`}>{t("weekend.current")} →</a></p>}
     <div class="pills wk-pills">
-      {ed.weather?.map((w) => <span class:list={["pill", isRainy(w) && "rain"]}>{dayName(w.day, { weekday: "short" })} {skyWord(w.code, lang)} {Math.round(w.max)}°</span>)}
+      {weather?.map((w) => <span class:list={["pill", isRainy(w) && "rain"]}>{dayName(w.day, { weekday: "short" })} {skyWord(w.code, lang)} {Math.round(w.max)}°</span>)}
       {holiday && <span class="pill wk-holiday">{holiday}</span>}
     </div>
   </header>

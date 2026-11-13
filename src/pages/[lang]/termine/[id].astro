@@ -19,6 +19,7 @@ import { eventLd } from "../../../lib/seo";
 import { seasonPageFor, seasonPath } from "../../../lib/seasons";
 import { eventKey } from "../../../lib/og";
 import ShareButton from "../../../components/ShareButton.astro";
+import NearBox from "../../../components/NearBox.astro";
 import { shareCard } from "../../../lib/share-card";
 import { pageCodes } from "../../../lib/item-codes";
 import { timeOf } from "../../../lib/time-text";
@@ -30,7 +31,7 @@ export async function getStaticPaths() {
 const { event: e } = Astro.props as { event: Event };
 const lang = Astro.params.lang as Lang;
 const t = useT(lang);
-const { region, placeById, seasons } = await getData();
+const { region, placeById, seasons, places } = await getData();
 const place = e.place ? placeById.get(e.place) : undefined;
 const title = nameOf(e, lang);
 const german = germanName(e, lang);
@@ -72,7 +73,7 @@ const ld = eventLd(e, {
 ---
 <Base lang={lang} title={title} description={description} ld={ld} og={eventKey(e)}>
   <article class="detail" data-lat={e.geo.lat} data-lon={e.geo.lon} data-precision={prec}>
-    <a class="back" href={`/${lang}/`}>← {t("back")}</a>
+    <a class="back" href={`/${lang}/`} data-history>← {t("back")}</a>
     <div class="lead">
       <Stamp item={e} t={t} />
       <div>
@@ -92,28 +93,14 @@ const ld = eventLd(e, {
       {e.ages && <li><span>👧</span><span>{ageText(t, e.ages)}</span></li>}
       {wx && <li><span>{skyIcon(wx.code)}</span><span>{t("wx.forecast")}: {skyWord(wx.code, lang)}, {wx.max}° / {wx.min}°{wx.rain >= 30 && ` · ${t("wx.rainChance", { n: wx.rain })}`}
         {" "}<a class="small" href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a></span></li>}
+      {/* The answer stays up here in one line; the question (three chips) moved below the buttons. */}
+      {lang !== "de" && e.language && <li><span>💬</span><span>{e.languageFrom === "guess" ? t("speechGuessLine", { s: t(`speech.${e.language}`) }) : t(`speech.${e.language}`)}</span></li>}
       {e.indoor != null && <li><span>{e.indoor ? "☂" : "☀"}</span><span>{e.indoor ? t("indoor") : t("outdoor")}</span></li>}
       <li><span>✓</span><span class="small">
         {e.trust.level === "community" ? (e.by ? t("trust.byNick", { by: e.by }) : t("trust.community")) : <>{t(`trust.${e.trust.level}`)}{e.trust.source && ` · ${tr(e.trust.source, lang)}`}</>}
       </span></li>
     </ul>
 
-    {/* How much German it needs: a guess from the title until parents tap one of the chips. */}
-    <section class="speech-ask" data-lang-ask={e.id} data-votes={JSON.stringify(e.languageVotes ?? {})}>
-      <h2>💬 {t("speechAsk.title")}</h2>
-      <div class="speech-chips">
-        {LANGUAGE.map((k) => (
-          <button type="button" class:list={["chip", { current: e.language === k, guess: e.languageFrom === "guess" }]} data-lang-answer={k} aria-pressed="false">
-            {t(`speech.${k}`)}<small data-n>{e.languageVotes?.[k] ? ` · ${e.languageVotes[k]}` : ""}</small>
-          </button>
-        ))}
-      </div>
-      <p class="small" data-lang-note>{
-        e.languageFrom === "parents" ? t("speechAsk.parents", { n: Object.values(e.languageVotes ?? {}).reduce((a, b) => a + (b ?? 0), 0) })
-        : e.languageFrom === "guess" ? t("speechAsk.guess")
-        : !e.language ? t("speechAsk.unknown") : ""
-      }</p>
-    </section>
     {seasonNotes.map((s) => <p class="note season-note">{s.emoji} {tr(s.note, lang)}</p>)}
     {e.note && <p class="note">{tr(e.note, lang)}</p>}
     {e.kids && <p class="note">{t("kids.label")}: {e.kids.map((k) => t(`kids.${k}`)).join(", ")}</p>}
@@ -144,6 +131,25 @@ const ld = eventLd(e, {
       {e.website && <a class="btn" href={e.website} data-count="website" target="_blank" rel="noopener">{t("website")} ↗</a>}
     </div>
     {e.origin && <p class="small">{t("source")}: <a href={e.origin.url} target="_blank" rel="noopener">{e.origin.name}</a></p>}
+    {/* Toilets near the venue, and a playground or family café for afterwards (only for an exact spot). */}
+    {prec === "exact" && <NearBox lat={e.geo.lat} lon={e.geo.lon} t={t} after={places} skip={e.place} />}
+
+    {/* How much German it needs: a guess from the title until parents tap one of the chips. Below the buttons: answering it is for after a visit. */}
+    <section class="speech-ask" data-lang-ask={e.id} data-votes={JSON.stringify(e.languageVotes ?? {})}>
+      <h2>💬 {t("speechAsk.title")}</h2>
+      <div class="speech-chips">
+        {LANGUAGE.map((k) => (
+          <button type="button" class:list={["chip", { current: e.language === k, guess: e.languageFrom === "guess" }]} data-lang-answer={k} aria-pressed="false">
+            {t(`speech.${k}`)}<small data-n>{e.languageVotes?.[k] ? ` · ${e.languageVotes[k]}` : ""}</small>
+          </button>
+        ))}
+      </div>
+      <p class="small" data-lang-note>{
+        e.languageFrom === "parents" ? t("speechAsk.parents", { n: Object.values(e.languageVotes ?? {}).reduce((a, b) => a + (b ?? 0), 0) })
+        : e.languageFrom === "guess" ? t("speechAsk.guess")
+        : !e.language ? t("speechAsk.unknown") : ""
+      }</p>
+    </section>
 
     <GapBox item={e} t={t} />
     <VisitBox item={e} t={t} />

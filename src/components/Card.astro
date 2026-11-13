@@ -77,9 +77,10 @@ const search = [
     <h3><a href={pathFor(lang, item)}>{name}</a></h3>
     {german && <div class="de-name" lang="de">{german}</div>}
     <div class="meta">{meta}<span data-km></span>{item.type === "place" && item.rating && ` · ★ ${item.rating.stars.toLocaleString(t.locale)}`}</div>
-    {item.type === "place" && (
+    {item.type === "place" && rowFor(place!.kind).some((f) => facilities[f]?.status === "yes") && (
       // The kind's facilities as key:digit (1 = yes); app.ts draws the icons once the card is on screen.
       // Thousands of cards each carrying seven labelled icons made every list page heavy.
+      // A row of only empty icons says "nobody knows anything here", so it's left off.
       <div class="frow" data-fac={rowFor(place!.kind).map((f) => `${f}:${facilities[f]?.status === "yes" ? 1 : 0}`).join(" ")} />
     )}
     <div class="pills">

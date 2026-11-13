@@ -25,3 +25,6 @@ export function recallCode(id: string): string {
 
 export const recallsHome = (lang: Lang) => `${SITE}${DIR[lang]}`;
 export const recallUrl = (r: Recall, lang: Lang) => `${SITE}${DIR[lang]}r/${recallCode(r.id)}/`;
+
+/** A recall's title without the trailing model or batch code ("游泳船 (S03ED098CZI)" → "游泳船"); the code stays on the recall page. */
+export const shortTitle = (s: string) => s.replace(/\s*[(（][^()（）]*\d[^()（）]*[)）]\s*$/, "").trim() || s;
