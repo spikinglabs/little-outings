@@ -17,6 +17,7 @@
     "tally:inbox": "node scripts/tally-inbox.mjs",
     "translate": "node scripts/translate.mjs",
     "find:venues": "node scripts/find-venues.mjs",
+    "describe:events": "node scripts/describe-events.mjs",
     "sort:events": "node scripts/sort-events.mjs",
     "check:alerts": "node scripts/check-alerts.mjs",
     "fetch:recalls": "node scripts/fetch-recalls.mjs",

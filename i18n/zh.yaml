@@ -125,6 +125,8 @@ nothingMore: 这段时间内没有更多活动了。
 soonAt: { one: "近期有 1 个活动", other: "近期有 {n} 个活动" }
 allAges: 适合所有年龄
 years: "{a}–{b} 岁"
+agesFrom: "{a} 岁以上"
+aboutAi: "AI 根据主办方页面概括，可能有误"
 indoorPill: 雨天可去
 indoor: 室内，下雨也没问题
 outdoor: 户外

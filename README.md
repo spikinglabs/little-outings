@@ -59,6 +59,13 @@ chooses from the top 30) into the bucket for the admin's Weekend panel; on Frida
 posts it to Telegram on Friday morning once `TELEGRAM_BOT_TOKEN` is set and the town has a channel
 in `TELEGRAM`. Places come from `PLACES_EXPORT` (every town), else the snapshot. Run a step by hand with `WEEKEND_MODE=draft|publish npm run weekend`.
 
+## What an event is
+
+The export has only titles, so `scripts/describe-events.mjs` (nightly, in the Translate workflow) reads each
+upcoming event's own page once and writes one sentence in DE/EN/ZH to `data/about.json`; the event page shows
+it labelled as an AI summary. An age range is kept only when the page states it in words the model quotes and
+that stand near the event's title; nothing is guessed from the kind of event. `ABOUT_LIMIT` caps pages per night (400).
+
 ## Static API
 
 Built with the site, for the future spikinglabs app and other tools:

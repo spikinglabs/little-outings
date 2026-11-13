@@ -45,6 +45,9 @@ interface Props {
   lang?: Lang;
   center: [number, number];
   towns: [string, number, number][];
+  /** A page's own short list (the weekend picks, a town's Christmas markets): drawn as given, the map fits
+   * them, and moving it filters nothing. Without it the map follows Discover's filters and tiles. */
+  fixed?: Pin[];
   locale: string;
   labels: {
     one: string; other: string; more: string; here: string; places: { one?: string; other: string };
@@ -81,7 +84,7 @@ const esc = (s: string) => s.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`)
 type ToiletRow = [number, number, "t" | "c" | "w", string, string?];
 const TOILET_COLOR = { t: "#3d6a9e", c: "#3d6a9e", w: "#2b8a7e" };
 
-export default function OutingsMap({ pinsBase, toiletsUrl, lang = "de", center, towns, locale, labels }: Props) {
+export default function OutingsMap({ pinsBase, toiletsUrl, lang = "de", center, towns, locale, labels, fixed }: Props) {
   const el = useRef<HTMLDivElement>(null);
   useEffect(() => {
     let stop = () => {};
@@ -110,7 +113,7 @@ export default function OutingsMap({ pinsBase, toiletsUrl, lang = "de", center, 
       return want.length > 0;
     };
     let home = center;
-    try {
+    if (!fixed) try {
       const h = localStorage.getItem("lo-home");
       const t = towns.find(([n]) => n === h);
       if (t) home = [t[1], t[2]];
@@ -174,7 +177,7 @@ export default function OutingsMap({ pinsBase, toiletsUrl, lang = "de", center, 
     L.DomEvent.disableClickPropagation(card);
     L.DomEvent.disableScrollPropagation(card);
     let selected: { id: string; m: L.Marker } | null = null;
-    const listCard = (id: string) => document.querySelector<HTMLElement>(`#ideas .item[data-id="${CSS.escape(id)}"]`);
+    const listCard = (id: string) => document.querySelector<HTMLElement>(`${fixed ? "" : "#ideas "}.item[data-id="${CSS.escape(id)}"]`);
     const unselect = () => {
       card.hidden = true;
       if (!selected) return;
@@ -299,11 +302,13 @@ export default function OutingsMap({ pinsBase, toiletsUrl, lang = "de", center, 
     map.on("moveend", cull);
 
     // Draw what the filters show, with the search radius around the home town.
-    const ring = L.circle(home, { radius: 1, className: "radius-ring", weight: 1, dashArray: "2 6", fill: false, interactive: false }).addTo(map);
+    const ring = L.circle(home, { radius: 1, className: "radius-ring", weight: 1, dashArray: "2 6", fill: false, interactive: false });
+    if (!fixed) ring.addTo(map);
     let last = "";
     // Moves the page makes (fitting the radius, centring on the reader) don't count as the reader choosing an area.
     let fitting = false;
     const update = (f: Filtered) => {
+      if (fixed) return;
       const ids = new Set(f.ids);
       draw(pins.filter((p) => ids.has(p.id)));
       const town = towns.find(([n]) => n === f.home);
@@ -331,16 +336,18 @@ export default function OutingsMap({ pinsBase, toiletsUrl, lang = "de", center, 
       queued = (e as CustomEvent<Filtered>).detail;
     };
     const onTiles = async (e: Event) => {
+      if (fixed) return;
       if ((await loadPins((e as CustomEvent<string[]>).detail)) && !folded() && window.loFiltered) update(window.loFiltered);
     };
     // The map may mount while folded (zero size); once shown, measure again and refit.
     const onShown = () => {
       map.invalidateSize();
+      if (fixed) return fitFixed();
       last = "";
       if (window.loFiltered) update(window.loFiltered);
     };
     const onMoved = () => {
-      if (fitting) return;
+      if (fitting || fixed) return;
       const b = map.getBounds();
       document.dispatchEvent(new CustomEvent("lo:area", { detail: [b.getSouth(), b.getWest(), b.getNorth(), b.getEast()] }));
     };
@@ -384,7 +391,7 @@ export default function OutingsMap({ pinsBase, toiletsUrl, lang = "de", center, 
         return b;
       },
     });
-    new Locate({ position: "topright" }).addTo(map);
+    if (!fixed) new Locate({ position: "topright" }).addTo(map); // it works through Discover's location button
 
     // "Show toilets": public toilets, changing tables and drinking water as small blue and green dots,
     // drawn on one canvas (thousands of them) and fetched the first time a parent asks for them.
@@ -553,6 +560,13 @@ export default function OutingsMap({ pinsBase, toiletsUrl, lang = "de", center, 
     const gh = (map as unknown as { gestureHandling?: { enable(): void; disable(): void } }).gestureHandling;
     const onFull = (e: Event) => { if ((e as CustomEvent<boolean>).detail) gh?.disable(); else gh?.enable(); };
     document.addEventListener("lo:map-full", onFull);
+    // A page's own list: draw it once and fit the view around it.
+    function fitFixed() {
+      const pts = fixed!.map((p) => L.latLng(p.lat, p.lon));
+      if (pts.length === 1) map.setView(pts[0], 14, { animate: false });
+      else if (pts.length) map.fitBounds(L.latLngBounds(pts), { padding: [36, 36], maxZoom: 15, animate: false });
+    }
+    if (fixed) { pins.push(...fixed); draw(fixed); fitFixed(); }
     if (window.loFiltered && !folded()) update(window.loFiltered);
     if (window.loTiles) onTiles(new CustomEvent("lo:tiles", { detail: window.loTiles }));
     return () => {

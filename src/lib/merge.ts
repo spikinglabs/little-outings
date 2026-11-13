@@ -124,6 +124,7 @@ export function normalizeEvent(
     time: raw.time,
     price: raw.price ?? (place?.free ? { free: true } : undefined),
     ages: raw.ages ?? place?.ages,
+    ...(raw.about ? { about: raw.about, aboutFrom: base.origin === "cityklub" && !layers.override?.about && !layers.answer?.fields?.about ? "ai" : "editor" } : {}),
     indoor: raw.indoor ?? place?.indoor,
     tags: raw.tags ?? [],
     language: raw.language,

@@ -126,6 +126,8 @@ nothingMore: That's everything in this period.
 soonAt: { one: "1 upcoming event", other: "{n} upcoming events" }
 allAges: All ages
 years: "Ages {a}–{b}"
+agesFrom: "Ages {a}+"
+aboutAi: "AI summary of the organiser's page, may contain mistakes"
 indoorPill: Rain-proof
 indoor: Indoors, fine when it rains
 outdoor: Outdoors

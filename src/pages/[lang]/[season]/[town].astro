@@ -12,6 +12,7 @@ import { eventLd } from "../../../lib/seo";
 import { seasonKey } from "../../../lib/og";
 import { giftsPath } from "../../../lib/gifts";
 import { hoursOn, until } from "../../../lib/open-now";
+import PageMap from "../../../components/PageMap.astro";
 
 export async function getStaticPaths() {
   const { seasons } = await getData();
@@ -105,6 +106,9 @@ const ld = {
     {seasonId === "advent" && <p><a class="chip" href={giftsPath(lang)}>🎁 {t("gifts.nav")}</a></p>}
 
     <p class="note">{t("season.missing")} <a href={`/${lang}/mitmachen/#event`}>{t("season.missingLink")}</a></p>
+
+    {/* This town's markets (and the season's other events here) on their own map. */}
+    <PageMap t={t} items={[...current.map(({ e }) => e), ...also]} />
 
     {others.length > 0 && (
       <nav class="season-towns" aria-label={t("season.towns")}>

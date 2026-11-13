@@ -97,6 +97,10 @@ export interface Event {
   times?: Partial<Record<"en" | "zh", string>>;
   price?: { free: boolean; text?: Text };
   ages?: [number, number];
+  /** One sentence on what happens there. */
+  about?: Text;
+  /** "ai": summarised by the AI from the organiser's page (scripts/describe-events.mjs), so the page says so. */
+  aboutFrom?: "ai" | "editor";
   indoor?: boolean;
   tags: string[];
   /** How much German it needs: "none", "en" (held in English) or "de" (mostly German). */

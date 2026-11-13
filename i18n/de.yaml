@@ -126,6 +126,8 @@ nothingMore: Mehr gibt's in diesem Zeitraum nicht.
 soonAt: { one: "1 Termin demnächst", other: "{n} Termine demnächst" }
 allAges: Alle Altersstufen
 years: "{a}–{b} Jahre"
+agesFrom: "ab {a} Jahren"
+aboutAi: "KI-Zusammenfassung der Veranstalterseite, kann Fehler enthalten"
 indoorPill: Auch bei Regen
 indoor: Drinnen, auch bei Regen
 outdoor: Draußen

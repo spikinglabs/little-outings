@@ -23,6 +23,7 @@ const FAMILY = new Set(["children_mentioned", "family_mentioned"]);
 const ONLINE = /^online\b/i;
 const PUBLISHED = process.env.OUTINGS_FILE || "data/outings.jsonl";
 const VENUES = process.env.VENUES_FILE || "data/venues.json"; // written by scripts/find-venues.mjs
+const ABOUT = process.env.ABOUT_FILE || "data/about.json"; // written by scripts/describe-events.mjs
 
 const slug = (s) =>
   String(s).toLowerCase().normalize("NFKD").replace(/[̀-ͯ]/g, "").replace(/ß/g, "ss")
@@ -34,7 +35,7 @@ const slug = (s) =>
  * Location precision follows cityklub's map levels:
  * recorded point → exact, otherwise the town centre (area), otherwise unknown.
  */
-export function fromExport(row, { towns, today, until, venues = {}, addresses = {} }) {
+export function fromExport(row, { towns, today, until, venues = {}, addresses = {}, about = {} }) {
   if ((row.status && row.status !== "scheduled") || row.expired === true) return null;
   if (!row.event_id || !row.title || !row.start_date || !row.source_url) return null;
   if ((row.end_date || row.start_date) < today) return null;
@@ -72,6 +73,10 @@ export function fromExport(row, { towns, today, until, venues = {}, addresses = 
     tags: tagsOf(row.title, row.venue),
   };
   out.language = languageOf(row.title, out.tags);
+  // What it is and the ages, read from the organiser's page (scripts/describe-events.mjs).
+  const said = about[`${row.source_url} | ${out.title}`];
+  if (said?.de) out.about = { de: said.de, en: said.en, zh: said.zh };
+  if (said?.ages) out.ages = said.ages;
   if (!out.tags.length) delete out.tags;
   for (const k of Object.keys(out)) if (out[k] === undefined) delete out[k];
   // No venue on the page either: the AI's best guess rides along, only ever offered as a question.
@@ -151,6 +156,7 @@ async function main() {
   const until = lastDay(today);
   const rows = await readExport(location);
   const venues = existsSync(VENUES) ? JSON.parse(readFileSync(VENUES, "utf8")) : {};
+  const about = existsSync(ABOUT) ? JSON.parse(readFileSync(ABOUT, "utf8")) : {};
   const addressFile = join(root, "venue-addresses.yaml");
   const addresses = existsSync(addressFile) ? load(readFileSync(addressFile, "utf8")) ?? {} : {};
   const out = join(root, "imported", "cityklub");
@@ -161,7 +167,7 @@ async function main() {
   let pinned = 0, missed = 0, failed = "";
   const perTown = new Map(); // town → [events, events still on the town centre]
   for (const row of rows) {
-    const ev = fromExport(row, { towns, today, until, venues, addresses });
+    const ev = fromExport(row, { towns, today, until, venues, addresses, about });
     if (!ev || keep.has(ev.id)) continue;
     keep.add(ev.id);
     if (pin && ev.ask.length && !failed) {

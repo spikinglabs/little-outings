@@ -1,4 +1,5 @@
-# Sorts new events with AI and publishes them (scripts/sort-events.mjs), finds venues for events that came without one (scripts/find-venues.mjs, data/venues.json) and
+# Sorts new events with AI and publishes them (scripts/sort-events.mjs), finds venues for events that came without one (scripts/find-venues.mjs, data/venues.json),
+# writes one sentence on what each event is from its page (scripts/describe-events.mjs, data/about.json) and
 # translates new event titles and place names into Chinese, and event titles into English, every night, before the deploy
 # (02:15) builds the site, and commits data/translations/zh.json, en.json and the time-line caches time-zh.json, time-en.json. Each text is translated once per language.
 # Needs a repository secret GEMINI_API_KEY (Gemini) or ANTHROPIC_API_KEY (Claude); with both, Gemini
@@ -94,6 +95,17 @@ jobs:
         run: |
           out=$(npm run --silent find:venues 2>&1) || { echo "$out"; exit 1; }
           echo "$out"; echo "::notice title=Venues::$(echo "$out" | tail -1)"
+      # One sentence on what each event is (and the ages, when the page states them), read from the organiser's page.
+      - name: Describe events from their pages
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          LLM_PROVIDER: ${{ vars.LLM_PROVIDER }}
+          ABOUT_MODEL: ${{ vars.ABOUT_MODEL }}
+          ABOUT_LIMIT: ${{ vars.ABOUT_LIMIT }}
+        run: |
+          out=$(npm run --silent describe:events 2>&1) || { echo "$out"; exit 1; }
+          echo "$out"; echo "::notice title=About::$(echo "$out" | tail -1)"
       - name: Import events and places
         env:
           CITYKLUB_EXPORT: ${{ vars.CITYKLUB_EXPORT }}
@@ -134,7 +146,7 @@ jobs:
         run: npx wrangler r2 object put "$BUCKET/little-outings/weekend.json" --file .cache/outings/weekend.json --content-type application/json
       - name: Commit the outings, venues, translations and past events
         run: |
-          git add data/translations/zh.json data/translations/en.json data/translations/time-zh.json data/translations/time-en.json data/venues.json data/outings.jsonl data/weekend data/alerts.json data/past-events
+          git add data/translations/zh.json data/translations/en.json data/translations/time-zh.json data/translations/time-en.json data/venues.json data/about.json data/outings.jsonl data/weekend data/alerts.json data/past-events
           if git diff --cached --quiet; then echo "No changes."; exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
