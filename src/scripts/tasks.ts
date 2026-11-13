@@ -1,7 +1,8 @@
 // Search and filters (by what is known: words, town, dates) for outings that still need a detail, 30 at a time.
 import { fold } from "../lib/fold";
 import { lastDay } from "../lib/horizon";
-import { renderKm } from "./app";
+import { distanceAt, getHome, renderKm } from "./app";
+import { band } from "../lib/order";
 
 type Plural = { one?: string; other: string };
 const ui = JSON.parse(document.getElementById("tasks-ui")!.textContent!) as { count: Plural; more: string };
@@ -11,14 +12,21 @@ const state = { q: "", when: "", town: "", limit: PAGE };
 const ymd = (d: Date) => new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Berlin" }).format(d);
 const today = ymd(new Date());
 const in2w = lastDay(today);
+// An event today that started more than two hours ago (or, without a time, after 20:00) is over for this list.
+const hourNow = Number(new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Berlin", hour: "2-digit", hourCycle: "h23" }).format(new Date()));
+const over = (d: DOMStringMap) => d.type === "event" && d.end === today && (d.hour ? hourNow >= Number(d.hour) + 2 : hourNow >= 20);
 function whenOk(d: DOMStringMap) {
+  if (over(d)) return false;
   if (!state.when) return true;
   if (state.when === "place") return d.type === "place";
   if (d.type !== "event") return false;
   return state.when === "soon" ? d.start! <= in2w && d.end! >= today : d.start! > in2w;
 }
 // Hundreds of tasks in the live page made phones slow, so they wait in a <template> until shown.
-const cards = [...document.querySelector<HTMLTemplateElement>("#tasks-pool")!.content.querySelectorAll<HTMLElement>(".task")];
+// Close to the parent's town first (up to 10 km, up to 20 km, then the rest), soonest first within each band.
+const distOf = (c: HTMLElement) => distanceAt(Number(c.dataset.lat), Number(c.dataset.lon)) ?? 1e9;
+const cards = [...document.querySelector<HTMLTemplateElement>("#tasks-pool")!.content.querySelectorAll<HTMLElement>(".task")]
+  .map((c, i) => ({ c, i, d: band(distOf(c)) })).sort((a, b) => a.d - b.d || a.i - b.i).map((x) => x.c);
 const grid = document.getElementById("tasks")!;
 // One blank form per kind of question, keyed "@:<code>"; a task's forms are cloned from these when it is shown.
 const forms = new Map([...document.querySelector<HTMLTemplateElement>("#gap-forms")!.content.querySelectorAll<HTMLFormElement>("form")]
@@ -71,4 +79,8 @@ document.addEventListener("click", (e) => {
 });
 document.getElementById("task-town")!.addEventListener("change", (e) => { state.town = (e.target as HTMLSelectElement).value; state.limit = PAGE; apply(); });
 moreEl.addEventListener("click", () => { state.limit += PAGE; apply(); });
+// Start on the parent's own town when it has outings to ask about; "All towns" is one tap away.
+const townSelect = document.getElementById("task-town") as HTMLSelectElement;
+const home = getHome();
+if ([...townSelect.options].some((o) => o.value === home)) { townSelect.value = home; state.town = home; }
 apply();
