@@ -38,6 +38,7 @@ export const FEATURE_ICON: Record<string, string> = {
 };
 
 export const UI_ICON: Record<string, string> = {
+  speech: '<path d="M4 5h16v11H10l-5 4v-4H4z"/>',
   explore: '<circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/>',
   map: '<path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/>',
   saved: '<path d="M6 3h12v18l-6-4-6 4z"/>',

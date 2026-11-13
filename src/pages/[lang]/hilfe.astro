@@ -4,6 +4,7 @@
 import Base from "../../layouts/Base.astro";
 import { LANGS, useT, type Lang } from "../../lib/i18n";
 import { OPERATOR } from "../../lib/legal";
+import { icon } from "../../lib/icons";
 
 export const getStaticPaths = () => LANGS.map((lang) => ({ params: { lang } }));
 const lang = Astro.params.lang as Lang;
@@ -60,6 +61,13 @@ const TOPICS = ["profile", "nick", "marks", "add", "contact"];
         <dt>{t("trust.official")}</dt><dd>{h("marks.official")}</dd>
         <dt><b>{t("trust.parents", { n: 3 })}</b></dt><dd>{h("marks.parents")}</dd>
         <dt>{h("marks.noneLabel")}</dt><dd>{h("marks.none")}</dd>
+        {(["none", "en", "de"] as const).map((k) => (
+          <>
+            <dt><span class:list={["pill", "speech", k]}><Fragment set:html={icon("u", "speech")} />{({ de: "DE", en: "EN", none: "✓" })[k]}</span></dt>
+            <dd>{t(`speech.${k}`)}</dd>
+          </>
+        ))}
+        <dt><span class="pill speech de guess"><Fragment set:html={icon("u", "speech")} />DE</span></dt><dd>{h("marks.speechGuess")}</dd>
       </dl>
     </section>
 
