@@ -1,0 +1,32 @@
+name: Wake the Allo API (hourly)
+
+# Moved here from spikinglabs/alloland-rebirth: this repository is public, so its Actions minutes
+# are free, while the same job on the private repo cost ~1 minute per run of the org's 2,000.
+# It holds no secrets or logic: one request to the public /health endpoint.
+#
+# The Allo API sleeps when idle (alloland-rebirth backend/fly.toml) and its email/timer worker only
+# runs while it is awake. One request an hour wakes it so booking reminders, expiries and queued
+# emails go out even when nobody visits. Fly stops it again a few minutes later.
+#
+# GitHub pauses scheduled workflows in a public repository after 60 days without commits;
+# this repository is pushed to most days.
+
+on:
+  schedule:
+    - cron: "7 * * * *"
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  wake:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Call /health (retries while the machine starts)
+        run: |
+          for i in $(seq 1 10); do
+            curl -fsS --max-time 20 https://api.allo.land/health && exit 0
+            sleep 6
+          done
+          echo "API did not answer"; exit 1
