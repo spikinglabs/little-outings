@@ -4,6 +4,7 @@ import type { Lang, T } from "./i18n";
 import { areaName, dateRange, nameOf, pathFor } from "./format";
 import type { getData } from "./data";
 import type { Item } from "./types";
+import type { ParkingLabels } from "../islands/OutingsMap";
 type Town = Parameters<typeof areaName>[2][number];
 
 type Data = Awaited<ReturnType<typeof getData>>;
@@ -42,6 +43,7 @@ export function mapLabels(t: T) {
       open247: t("chargersMap.open247"), card: t("chargersMap.card"), free: t("chargersMap.free"), customers: t("chargersMap.customers"),
       route: t("chargersMap.route"), more: t("chargersMap.more"),
     },
+    parking: t.group("parkingMap") as unknown as ParkingLabels,
   };
 }
 
