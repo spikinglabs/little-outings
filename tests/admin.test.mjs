@@ -200,3 +200,15 @@ test("usage adds the daily counts up per week, newest first, one language if ask
   // Every action the site counts has a name in the panel.
   assert.deepEqual(EVENTS.filter((e) => !ACTIONS.some(([a]) => a === e)), []);
 });
+
+test("facility answers carry the place name and say whether the page already shows them", async () => {
+  const { withPages } = await import("../admin/functions/api/facility-answers.js");
+  const places = [{ id: "zoo-a", name: "Zoo", town: "Köln", facilities: { animals: { status: "yes" }, parking: { status: "yes" } } }];
+  const rows = withPages([
+    { item: "zoo-a", feature: "birthday", yes: 1, no: 0, unsure: 0, last: "2026-11-14T19:19:00Z" },
+    { item: "zoo-a", feature: "parking", yes: 2, no: 0, unsure: 0, last: "2026-11-10T10:00:00Z" },
+    { item: "gone", feature: "toilets", yes: 0, no: 1, unsure: 0, last: "2026-11-01T10:00:00Z" },
+  ], places, "https://s");
+  assert.deepEqual(rows.map((r) => [r.name, r.live, r.onPage]), [["Zoo", "yes", "unknown"], ["Zoo", "yes", "yes"], [null, "no", "unknown"]]);
+  assert.equal(rows[0].url, "https://s/de/orte/zoo-a/");
+});
