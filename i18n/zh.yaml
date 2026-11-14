@@ -173,6 +173,25 @@ chargersMap:
   customers: 仅限顾客
   route: 路线
   more: 在 Allo Cars 查看
+parkingMap:
+  show: 显示停车场
+  hide: 隐藏停车场
+  zoom: 放大地图即可看到停车场。
+  carPark: 停车场
+  surface: 露天停车场
+  multi: 立体停车楼
+  underground: 地下停车场
+  rooftop: 屋顶停车场
+  spaces: "{n} 个车位"
+  parent: "{n} 个亲子车位"
+  parentAny: 有亲子车位
+  disabled: 有无障碍车位
+  free: 免费
+  paid: 收费
+  parkRide: P+R 换乘停车
+  customers: 仅限顾客
+  maxheight: "限高 {h} 米"
+  route: 路线
 unknownMore: "还有 {n} 项不清楚，去过吗？"
 unknownAll: "{n} 项设施还不清楚，去过吗？"
 unknownNote: "“?” 表示暂不确定。去过的话，点一下告诉我们。"
