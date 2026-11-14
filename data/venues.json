@@ -138,11 +138,6 @@
   },
   "read": 3
  },
- "https://events.timely.fun/ewx8j2kb/event/78461298/20261113153000": {
-  "venue": null,
-  "guess": null,
-  "read": 3
- },
  "https://events.timely.fun/ewx8j2kb/event/78461299/20261118100000": {
   "venue": null,
   "guess": null,
@@ -503,10 +498,6 @@
  },
  "https://museen-tempelhof-schoeneberg.de/events/alarm-notes/": {
   "venue": "Marlene-Dietrich-Kinosaal im Rathaus Schöneberg",
-  "street": "John-F.-Kennedy-Platz 1"
- },
- "https://museen-tempelhof-schoeneberg.de/events/eroeffnung-crosskultur-2026/": {
-  "venue": "Willy-Brandt-Saal im Rathaus Schöneberg",
   "street": "John-F.-Kennedy-Platz 1"
  },
  "https://suermondt-ludwig-museum.de/event/abenteuer-wunderkammer-2/": {
@@ -991,10 +982,6 @@
   "venue": "Papiermuseum Düren",
   "street": "Wallstraße 2-8"
  },
- "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/peace-food-oder-die-letzte-suppe-schulvorstellung": {
-  "venue": "KOMM – Kulturzentrum Pleußmühle",
-  "street": "August-Klotz Straße 21"
- },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/rundgang-gruenguertel": {
   "venue": "Sitzbänke vor dem Haus Grüngürtel Nr. 31",
   "street": "Grüngürtel Nr. 31"
@@ -1064,6 +1051,10 @@
   "venue": "SPRUNG.RAUM",
   "street": "Junkersring 28"
  },
+ "https://www.koeln.de/event/spielzeugbasar-in-worringen/": {
+  "venue": "Kita KiKu Kinderland Worringen",
+  "street": "Josef-Gödecke-Straße 10a"
+ },
  "https://www.mfk-frankfurt.de/mc-events/offene-kinderwerkstatt-15/?mc_id=4147": {
   "venue": null,
   "guess": {
@@ -1079,9 +1070,6 @@
    "why": "The organiser is the Museum für Kommunikation Frankfurt, so the workshop most likely takes place in that museum."
   },
   "read": 3
- },
- "https://www.schauburg.net/de/programm/just-listen": {
-  "venue": "Musiktheater für die Turnhalle"
  },
  "https://www.visitduesseldorf.de/redirect/event/01a157f4-5e8c-7323-8858-f322ffed3103/de": {
   "venue": "Gustav-Adolf-Kirche"
