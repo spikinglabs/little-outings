@@ -112,3 +112,22 @@ test("tapping the same answer again takes it back, for facility chips and German
     { fac: { highchairs: { yes: 1, no: 0 }, toys: { yes: 0, no: 1 } }, lang: { de: 1 } });
   assert.equal((await tap({ kind: "fac", feature: "pool", undo: true, voter: "browser-one" })).status, 400);
 });
+
+test("the admin sees recent facility answers per place, only with the admin key", async () => {
+  const key = "k".repeat(40);
+  const env = { DB: fakeD1(), MEETUP_ADMIN_KEY: key };
+  const vote = (voter: string, item: string, feature: string, answer: string) =>
+    onRequestPost({ env, request: post({ kind: "fac", item, feature, answer, voter }) });
+  await vote("browser-one", "zoo-a", "parking", "yes");
+  await vote("browser-two", "zoo-a", "parking", "no");
+  await vote("browser-two", "zoo-a", "birthday", "unsure");
+  await onRequestPost({ env, request: post({ kind: "lang", item: "evt-a", answer: "de", voter: "browser-one" }) });
+  const ask = (k?: string) => onRequestGet({ env, request: new Request("https://x/api/taps?recent=30", { headers: k ? { "x-admin-key": k } : {} }) });
+  assert.equal((await ask()).status, 403);
+  assert.equal((await ask("wrong")).status, 403);
+  const lines = await (await ask(key)).json();
+  assert.deepEqual(lines.map(({ last, ...l }: { last: string }) => l).sort((a: any, b: any) => a.feature.localeCompare(b.feature)), [
+    { item: "zoo-a", feature: "birthday", yes: 0, no: 0, unsure: 1 },
+    { item: "zoo-a", feature: "parking", yes: 1, no: 1, unsure: 0 },
+  ]);
+});

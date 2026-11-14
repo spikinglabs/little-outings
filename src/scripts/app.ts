@@ -447,6 +447,29 @@ if (sheet) {
     const status = v.yes > v.no ? "yes" : v.no > v.yes ? "no" : "unknown";
     b.closest("li")!.className = status;
     b.querySelector(".dot")!.innerHTML = status === "unknown" ? "?" : b.dataset.icon!;
+    moveChip(b.closest("li")!, status);
+  };
+  // An answered "?" moves up into "For families" at once, the way tonight's rebuild will show it,
+  // instead of staying in the folded "not known yet" box. Taken back, it goes down again.
+  const knownBox = document.querySelector<HTMLElement>("[data-known]");
+  const knownList = knownBox?.querySelector("ul.checks");
+  const unknowns = document.querySelector<HTMLDetailsElement>("details.unknowns");
+  const unknownList = unknowns?.querySelector("ul.checks");
+  const moveChip = (li: HTMLElement, status: string) => {
+    if (!knownList || !unknownList) return;
+    if (status !== "unknown" && li.parentElement === unknownList) {
+      // Yes before no, as the page orders them.
+      const firstNo = status === "yes" ? knownList.querySelector(":scope > li.no") : null;
+      knownList.insertBefore(li, firstNo);
+    } else if (status === "unknown" && li.parentElement === knownList && li.querySelector("[data-unknown]")) {
+      unknownList.append(li);
+    } else return;
+    const left = unknownList.children.length;
+    const known = knownList.children.length;
+    knownBox!.hidden = known === 0;
+    unknowns!.hidden = left === 0;
+    const summary = unknowns!.querySelector<HTMLElement>("summary")!;
+    summary.textContent = (known ? summary.dataset.more! : summary.dataset.all!).replace("{n}", String(left));
   };
   const refreshCounts = () => {
     if (!item) return;

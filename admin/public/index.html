@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="admin.css">
   <script type="module" src="admin.js"></script>
   <script type="module" src="inbox.js"></script>
+  <script type="module" src="facility-answers.js"></script>
   <script type="module" src="weekend.js"></script>
   <script type="module" src="alerts.js"></script>
   <script type="module" src="rednote.js"></script>
@@ -130,10 +131,19 @@
     <section class="panel" id="inbox-panel">
       <div class="panel-head">
         <h2>Inbox <span class="badge out" id="inbox-count"></span></h2>
-        <p>Tips, reports, suggestions and answers from parents. Approved tips and answers show on the site after the next nightly rebuild; rejected items never count. An answer two parents agree on goes live without you, so only lone or conflicting answers wait here. Taps like “We went” are counted without review.</p>
+        <p>Tips, reports, suggestions and answers from parents. Approved tips and answers show on the site after the next nightly rebuild; rejected items never count. An answer two parents agree on goes live without you, so only lone or conflicting answers wait here. Taps like “We went” and facility answers are counted without review; facility answers are listed below.</p>
       </div>
       <div class="banner" id="inbox-banner" hidden></div>
       <ol class="inbox" id="inbox"></ol>
+    </section>
+
+    <section class="panel" id="facans-panel">
+      <div class="panel-head">
+        <h2>Facility answers <span class="badge out" id="facans-count"></span></h2>
+        <p>What parents tapped on place pages in the last 30 days (“Is there parking?”). Nothing to approve: more yes than no counts as yes. It moves into “For families” on the place page straight away; lists, search and the map follow after the nightly rebuild. Facts from a source are never overruled.</p>
+      </div>
+      <div class="banner" id="facans-banner" hidden></div>
+      <div id="facans"></div>
     </section>
 
     <section class="panel" id="seasons-panel" hidden>

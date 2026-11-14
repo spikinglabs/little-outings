@@ -10,6 +10,8 @@
 //                    { kind: "fac" | "lang", item, feature?, undo: true, voter }   takes this browser's answer back
 //   GET  /api/taps?item=<id>   live counts for one place
 //   GET  /api/taps?all=1       counts for every place (read by the nightly build)
+//   GET  /api/taps?recent=30   with header x-admin-key: <MEETUP_ADMIN_KEY>   facility answers of the
+//                              last days, per place and question, for the admin's "Facility answers" list
 //   POST /api/taps?mine=1  { voter }   this browser's own taps, for "Download my data"
 //   DELETE /api/taps  { voter }      removes this browser's taps ("Delete my data")
 //
@@ -17,10 +19,11 @@
 //   DB        D1 database binding (the table is created on first use)
 //   TAP_SALT  optional secret mixed into the hashed IP used for rate limiting
 // Without DB it answers 503, and the site falls back to the inbox.
+import { isAdmin } from "../../src/lib/admin-key.ts";
 
 interface D1Stmt { bind(...v: unknown[]): D1Stmt; run(): Promise<unknown>; all<T = any>(): Promise<{ results: T[] }>; first<T = any>(): Promise<T | null> }
 export interface D1 { prepare(sql: string): D1Stmt; batch(s: D1Stmt[]): Promise<unknown> }
-interface Env { DB?: D1; TAP_SALT?: string }
+interface Env { DB?: D1; TAP_SALT?: string; MEETUP_ADMIN_KEY?: string }
 type Ctx = { request: Request; env: Env };
 
 // Same lists as src/content.config.ts (functions can't import Astro's zod config).
@@ -132,6 +135,7 @@ export async function onRequestPost({ request, env }: Ctx) {
 export async function onRequestGet({ request, env }: Ctx) {
   if (!env.DB) return json(503, { error: "taps not configured" });
   const url = new URL(request.url);
+  if (url.searchParams.has("recent")) return recent(request, env, env.DB, Number(url.searchParams.get("recent")) || 30);
   const item = url.searchParams.get("item");
   const all = url.searchParams.get("all") === "1";
   if (!all && (!item || !ID.test(item))) return json(400, { error: "item or all=1" });
@@ -141,6 +145,33 @@ export async function onRequestGet({ request, env }: Ctx) {
   const { results } = await (all ? stmt : stmt.bind(item)).all<Count>();
   const counts = countsFrom(results);
   return json(200, all ? counts : counts[item!] ?? {}, "public, max-age=60");
+}
+
+export type Recent = { item: string; feature: string; yes: number; no: number; unsure: number; last: string };
+/** Grouped rows → one line per place and facility, newest first. */
+export function recentFrom(rows: { item: string; key: string; value: string; n: number; last: number }[]): Recent[] {
+  const by = new Map<string, Recent & { at: number }>();
+  for (const r of rows) {
+    if (!r.key.startsWith("fac:") || !["yes", "no", "unsure"].includes(r.value)) continue;
+    const id = `${r.item}\n${r.key}`;
+    const line = by.get(id) ?? { item: r.item, feature: r.key.slice(4), yes: 0, no: 0, unsure: 0, last: "", at: 0 };
+    line[r.value as "yes" | "no" | "unsure"] += r.n;
+    line.at = Math.max(line.at, r.last);
+    by.set(id, line);
+  }
+  return [...by.values()].sort((a, b) => b.at - a.at || a.item.localeCompare(b.item))
+    .map(({ at, ...line }) => ({ ...line, last: new Date(at).toISOString() }));
+}
+
+/** Facility answers on places someone answered lately: all their votes, not only the recent ones. Admin only. */
+async function recent(request: Request, env: Env, db: D1, days: number) {
+  if (!(await isAdmin(request, env))) return json(403, { error: "admin key needed" });
+  await schema(db);
+  const since = Date.now() - Math.min(365, Math.max(1, days)) * 86400_000;
+  const { results } = await db.prepare(`SELECT item, key, value, COUNT(*) AS n, MAX(at) AS last FROM taps
+    WHERE key LIKE 'fac:%' AND (item, key) IN (SELECT item, key FROM taps WHERE key LIKE 'fac:%' AND at > ?)
+    GROUP BY item, key, value`).bind(since).all<{ item: string; key: string; value: string; n: number; last: number }>();
+  return json(200, recentFrom(results));
 }
 
 async function voterOf(request: Request) {

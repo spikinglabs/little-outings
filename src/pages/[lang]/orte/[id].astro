@@ -92,11 +92,12 @@ const ld = placeLd(p, { url: `${site}${Astro.url.pathname}`, name: nameOf(p, lan
     {p.note && <p class="note">{tr(p.note, lang)}</p>}
     {isFallback(p.note, lang) && <p class="orig">{t("translated")}</p>}
 
-    {known.length > 0 && (
-      <>
+    {/* Always there (hidden while empty): a "?" a parent answers moves up here at once (app.ts). */}
+    {(known.length > 0 || unknown.length > 0) && (
+      <div data-known hidden={known.length === 0}>
         <h2>{t("forFamilies")}</h2>
         <ul class="checks">{known.map((x) => <FacChip id={p.id} t={t} {...x} />)}</ul>
-      </>
+      </div>
     )}
 
     {p.geo.precision === "exact" && <NearBox lat={p.geo.lat} lon={p.geo.lon} t={t} />}
@@ -125,7 +126,7 @@ const ld = placeLd(p, { url: `${site}${Astro.url.pathname}`, name: nameOf(p, lan
     {/* What nobody has told us yet sits below the buttons, folded into one line with a count. */}
     {unknown.length > 0 && (
       <details class="unknowns">
-        <summary>{t(known.length > 0 ? "unknownMore" : "unknownAll", { n: unknown.length })}</summary>
+        <summary data-more={t("unknownMore")} data-all={t("unknownAll")}>{t(known.length > 0 ? "unknownMore" : "unknownAll", { n: unknown.length })}</summary>
         <ul class="checks">{unknown.map((x) => <FacChip id={p.id} t={t} {...x} />)}</ul>
         <p class="small">{t("unknownNote")}</p>
       </details>
