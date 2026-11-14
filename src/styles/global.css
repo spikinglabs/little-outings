@@ -341,6 +341,10 @@ h1, h2, h3, .meta, .de-name, .orig, .trust { overflow-wrap: anywhere; }
 .map-card-mark.ev { background: var(--gold); color: var(--gold-ink); }
 .map-card-mark.wc { background: #3d6a9e; }
 .map-wc[aria-pressed="true"] { background: #3d6a9e; color: #fff; border-color: #3d6a9e; }
+/* Car parks (OpenStreetMap): the blue of a German parking sign. Dimmed while on but too far out to show. */
+.map-park[aria-pressed="true"] { background: #2463c7; color: #fff; border-color: #2463c7; }
+.map-park.far { opacity: .6; }
+.map-card-mark.park { background: #2463c7; }
 /* EV chargers from Allo Cars, in its colours: blue up to 49 kW, yellow 50 to 149 kW, black 150 kW and more. */
 .map-ev[aria-pressed="true"] { background: #17191b; color: #ffcc00; border-color: #17191b; }
 .map-card-mark.ev-ac { background: #1d4f91; }

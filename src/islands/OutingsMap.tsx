@@ -8,8 +8,9 @@
 // card at the bottom of the map and outlines the same idea in the list; pointing at a list card lights up
 // its mark. On phones one finger scrolls the page and two move the map. After the reader taps a location
 // button (and only then), a blue dot with an accuracy halo shows where the phone is ("lo:here").
-// Two buttons add layers on request: toilets (with changing tables and water) and public EV chargers,
-// the latter read from Allo Cars' open charger data in the squares on screen (lib/chargers.ts).
+// Three buttons add layers on request: toilets (with changing tables and water), car parks (OpenStreetMap,
+// in squares on screen, lib/parking.ts) and public EV chargers, read from Allo Cars' open charger data in
+// the squares on screen (lib/chargers.ts).
 import { useEffect, useRef } from "preact/hooks";
 import L from "../lib/leaflet";
 import "leaflet/dist/leaflet.css";
@@ -18,7 +19,13 @@ import "leaflet-gesture-handling/dist/leaflet-gesture-handling.css";
 import { FEATURE_ICON, KIND_ICON, UI_ICON, icon as useIcon, svg } from "../lib/icons";
 import { markSaved, renderKm } from "../scripts/app";
 import { CARS, CHARGERS_DATA, CHARGER_ZOOM, FLAG, dotRadius, POWER_STYLE, carsMapUrl, cellsIn, parseCell, plugNames, powerClass, type Charger, type ChargerCell } from "../lib/chargers";
+import { PARKING_COLOR, PARKING_ZOOM, cellsIn as parkingCellsIn, markSize, type ParkingRow } from "../lib/parking";
 import type { Lang } from "../lib/i18n";
+
+export interface ParkingLabels {
+  show: string; hide: string; zoom: string; carPark: string; surface: string; multi: string; underground: string; rooftop: string;
+  spaces: string; parent: string; parentAny: string; disabled: string; free: string; paid: string; parkRide: string; customers: string; maxheight: string; route: string;
+}
 
 export interface Pin {
   id: string;
@@ -54,6 +61,7 @@ interface Props {
     touch: string; zoom: string; zoomMac: string; locate: string; close: string; save: string;
     toilets?: { show: string; hide: string; toilets: string; changing: string; water: string; table: string; free: string; paid: string; wheelchair: string; customers: string; route: string };
     chargers?: { show: string; hide: string; zoom: string; points: string; point: string; open247: string; card: string; free: string; customers: string; route: string; more: string };
+    parking?: ParkingLabels;
   };
 }
 
@@ -83,6 +91,31 @@ const esc = (s: string) => s.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`)
 
 type ToiletRow = [number, number, "t" | "c" | "w", string, string?];
 const TOILET_COLOR = { t: "#3d6a9e", c: "#3d6a9e", w: "#2b8a7e" };
+
+// A car park's mark: a small blue rounded square, with a white "P" once it is big enough to read, drawn on
+// the shared canvas like the toilets' dots (a circle marker's hit area, a different shape so the two differ).
+const ParkingMark = L.CircleMarker.extend({
+  _updatePath(this: L.CircleMarker & { _renderer: any; _point: L.Point; _radius: number; _empty(): boolean }) {
+    const r = this._renderer;
+    if (!r._drawing || this._empty()) return;
+    const ctx: CanvasRenderingContext2D = r._ctx, p = this._point, h = this._radius;
+    ctx.beginPath();
+    if (ctx.roundRect) ctx.roundRect(p.x - h, p.y - h, 2 * h, 2 * h, h * 0.4);
+    else ctx.rect(p.x - h, p.y - h, 2 * h, 2 * h);
+    ctx.fillStyle = PARKING_COLOR;
+    ctx.fill();
+    ctx.lineWidth = 1.5;
+    ctx.strokeStyle = "#fff";
+    ctx.stroke();
+    if (h >= 6) {
+      ctx.fillStyle = "#fff";
+      ctx.font = `700 ${Math.round(h * 1.45)}px system-ui, sans-serif`;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText("P", p.x, p.y + h * 0.08);
+    }
+  },
+}) as unknown as new (latlng: L.LatLngExpression, options?: L.CircleMarkerOptions) => L.CircleMarker;
 
 export default function OutingsMap({ pinsBase, toiletsUrl, lang = "de", center, towns, locale, labels, fixed }: Props) {
   const el = useRef<HTMLDivElement>(null);
@@ -399,12 +432,18 @@ export default function OutingsMap({ pinsBase, toiletsUrl, lang = "de", center, 
     });
     if (!fixed) new Locate({ position: "topright" }).addTo(map); // it works through Discover's location button
 
+    // The extra layers' dots go in a pane of their own above the town circles of events known only by
+    // town (an SVG ring of 2.5 km that otherwise caught every tap on a toilet, charger or car park inside it)
+    // and below the pins.
+    map.createPane("extras").style.zIndex = "450";
+    const extrasCanvas = () => L.canvas({ padding: 0.3, pane: "extras" });
+
     // "Show toilets": public toilets, changing tables and drinking water as small blue and green dots,
     // drawn on one canvas (thousands of them) and fetched the first time a parent asks for them.
     const tl = labels.toilets;
     if (toiletsUrl && tl) {
       const dots = L.layerGroup();
-      const canvas = L.canvas({ padding: 0.3 });
+      const canvas = extrasCanvas();
       let loaded: Promise<void> | null = null;
       const toiletCard = (r: ToiletRow) => {
         unselect();
@@ -464,7 +503,7 @@ export default function OutingsMap({ pinsBase, toiletsUrl, lang = "de", center, 
     const cl = labels.chargers;
     if (cl) {
       const plugs = L.layerGroup();
-      const canvas = L.canvas({ padding: 0.3 });
+      const canvas = extrasCanvas();
       const cells = new Map<string, Promise<void>>();
       let known: Promise<Set<string>> | null = null;
       const chargerDots: [L.CircleMarker, number][] = [];
@@ -535,6 +574,94 @@ export default function OutingsMap({ pinsBase, toiletsUrl, lang = "de", center, 
       });
       new Chargers({ position: "topright" }).addTo(map);
       if (evOn) { plugs.addTo(map); map.attributionControl.addAttribution(CREDIT); loadView(); map.fire("zoomend"); }
+    }
+    // "Show car parks": OpenStreetMap car parks as small blue "P" squares. The build splits them into squares
+    // of 0.1 degrees (/parking/<id>.json); those on screen are fetched while the layer is on and close enough
+    // in (PARKING_ZOOM), each only once.
+    const pl = labels.parking;
+    if (pl) {
+      const lots = L.layerGroup();
+      const canvas = extrasCanvas();
+      const cells = new Map<string, Promise<void>>();
+      let known: Promise<Set<string>> | null = null;
+      const marks: [L.CircleMarker, number][] = [];
+      const TYPE_NAME: Record<string, string> = { s: pl.surface, m: pl.multi, u: pl.underground, r: pl.rooftop };
+      map.on("zoomend", () => { const z = map.getZoom(); for (const [m, cap] of marks) m.setRadius(markSize(z, cap)); });
+      const parkingCard = (row: ParkingRow) => {
+        unselect();
+        const [lat, lon, type, f, cap, parent, name, height, hours] = row;
+        const kind = TYPE_NAME[type] ?? pl.carPark;
+        const notes = [
+          name ? kind : "",
+          cap ? fill(pl.spaces, cap) : "",
+          parent ? fill(pl.parent, parent) : f.includes("e") ? pl.parentAny : "",
+          f.includes("r") ? pl.parkRide : "",
+          f.includes("f") ? pl.free : f.includes("p") ? pl.paid : "",
+          f.includes("k") ? pl.customers : "",
+          f.includes("d") ? pl.disabled : "",
+          height ? pl.maxheight.replace("{h}", height.toLocaleString(locale)) : "",
+        ].filter(Boolean).join(" · ");
+        const route = `https://www.google.com/maps/dir/?api=1&travelmode=driving&destination=${lat.toFixed(5)},${lon.toFixed(5)}`;
+        card.innerHTML = `<span class="map-card-mark park">${svg(FEATURE_ICON.parking, 'stroke-width="2"')}</span>`
+          + `<div class="map-card-body" data-lat="${lat}" data-lon="${lon}" data-precision="exact"><b>${esc(name || kind)}</b>`
+          + `<small>${esc(notes)}</small>${hours ? `<small>${esc(hours)}</small>` : ""}`
+          + `<small><a href="${route}" target="_blank" rel="noopener" data-count="maps">${esc(pl.route)} ↗</a><span data-km></span></small></div>${closeBtn}`;
+        card.hidden = false;
+        renderKm();
+      };
+      const loadCell = (id: string) => {
+        if (!cells.has(id)) cells.set(id, fetch(`/parking/${id}.json`).then((r) => (r.ok ? r.json() : [])).then((rows: ParkingRow[]) => {
+          for (const row of rows) {
+            const m = new ParkingMark([row[0], row[1]], { renderer: canvas, radius: markSize(map.getZoom(), row[4]) })
+              .on("click", (e) => { L.DomEvent.stopPropagation(e); parkingCard(row); }).addTo(lots);
+            marks.push([m, row[4]]);
+          }
+        }).catch(() => { cells.delete(id); }));
+        return cells.get(id)!;
+      };
+      const loadView = async () => {
+        if (!map.hasLayer(lots) || map.getZoom() < PARKING_ZOOM) return;
+        known ??= fetch("/parking/index.json").then((r) => r.json()).then((l: { cells?: string[] }) => new Set(l.cells ?? [])).catch(() => { known = null; return new Set<string>(); });
+        const have = await known;
+        const b = map.getBounds().pad(0.2);
+        await Promise.all(parkingCellsIn(b.getSouth(), b.getWest(), b.getNorth(), b.getEast()).filter((id) => have.has(id)).map(loadCell));
+      };
+      map.on("moveend", loadView);
+      const Parking = L.Control.extend({
+        onAdd() {
+          const b = L.DomUtil.create("button", "map-locate map-park");
+          b.type = "button";
+          const mark = () => {
+            const on = map.hasLayer(lots);
+            const far = map.getZoom() < PARKING_ZOOM;
+            b.title = on ? (far ? `${pl.hide}. ${pl.zoom}` : pl.hide) : far ? `${pl.show}. ${pl.zoom}` : pl.show;
+            b.setAttribute("aria-label", b.title);
+            b.setAttribute("aria-pressed", String(on));
+            b.classList.toggle("far", on && far);
+          };
+          b.innerHTML = svg(FEATURE_ICON.parking, 'stroke-width="2"');
+          mark();
+          map.on("zoomend", mark);
+          L.DomEvent.disableClickPropagation(b);
+          b.addEventListener("click", () => {
+            // Leave the view alone (as the toilets do): a zoom here would turn the lists to "map area".
+            if (map.hasLayer(lots)) lots.remove();
+            else {
+              lots.addTo(map);
+              loadView();
+              // Turned on from far out nothing shows yet, so say why (a phone shows no button titles).
+              if (map.getZoom() < PARKING_ZOOM) {
+                unselect();
+                card.innerHTML = `<span class="map-card-mark park">${svg(FEATURE_ICON.parking, 'stroke-width="2"')}</span><div class="map-card-body"><b>${esc(pl.zoom)}</b></div>${closeBtn}`;
+                card.hidden = false;
+              }
+            }
+            mark();
+          });
+          return b;
+        },
+      });
+      new Parking({ position: "topright" }).addTo(map);
     }
     const onHere = (e: Event) => showHere((e as CustomEvent<Here | null>).detail);
     try { showHere(JSON.parse(sessionStorage.getItem("lo-here") || "null")); } catch { /* storage blocked */ }

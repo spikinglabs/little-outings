@@ -71,6 +71,14 @@ jobs:
         run: |
           out=$(npm run --silent import:toilets 2>&1); echo "$out"
           echo "::notice title=Toilets::$(echo "$out" | tail -1)"
+      # Car parks for the map's parking button: next to PLACES_EXPORT unless PARKING_EXPORT says otherwise.
+      - name: Import car parks (OpenStreetMap)
+        env:
+          PLACES_EXPORT: ${{ vars.PLACES_EXPORT }}
+          PARKING_EXPORT: ${{ vars.PARKING_EXPORT }}
+        run: |
+          out=$(npm run --silent import:parking 2>&1); echo "$out"
+          echo "::notice title=Parking::$(echo "$out" | tail -1)"
       # The next week's weather per town for Discover and event pages (free, no key). Never fails the build.
       - name: Fetch the weather (Open-Meteo)
         run: |
