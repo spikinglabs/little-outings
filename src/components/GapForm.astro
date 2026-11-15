@@ -38,6 +38,7 @@ const pick = (a: Ask) => (a.at ? { "data-lat": a.at.lat, "data-lon": a.at.lon, "
           </div>
         </div>
       ))}
+      {said.length > 0 && <small class="gap-other">{t("gapAsk.other")}</small>}
       <div class="gap-row">
         {type === "price" && <button class="chip" type="submit" name="answer" value="free">{t("free")}</button>}
         <input id={inputId} name="text" placeholder={t(`ph.${type}`)} data-ph-named={type === "where" ? t("gapAsk.mapName") : undefined} autocomplete="off" />
