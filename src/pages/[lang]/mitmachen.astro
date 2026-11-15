@@ -31,6 +31,15 @@ const itemOf = (task: (typeof tasks)[number]) => (task.type === "event" ? eventB
 // Each task lists its questions as short codes ("where", "fac:toys"); tasks.ts clones the matching form
 // from #gap-forms when the task comes on screen. Thousands of full forms made this page megabytes heavy.
 const gapCodes = (item: ReturnType<typeof itemOf>) => gapsOf(item).map((g) => (g.feature ? `${g.type}:${g.feature}` : g.type));
+// Answers other parents already gave go along as options to confirm with one tap, as on the outing's
+// own page. Only the few cards that have any carry them, so the page stays small.
+const asksOf = (item: ReturnType<typeof itemOf>) => {
+  const out: Record<string, { v: string; lat?: number; lon?: number; place?: string }[]> = {};
+  for (const [type, list] of Object.entries(item.asks ?? {})) {
+    if (list?.length) out[type] = list.map((a) => ({ v: a.value, ...(a.at ? { lat: a.at.lat, lon: a.at.lon, ...(a.at.place ? { place: a.at.place } : {}) } : {}) }));
+  }
+  return Object.keys(out).length ? JSON.stringify(out) : undefined;
+};
 const allCodes = [...new Set(tasks.flatMap((task) => gapCodes(itemOf(task))))];
 // Filters use what is known about each outing: its town and its dates.
 const towns = [...new Set(tasks.map((task) => itemOf(task).town).filter((x): x is string => !!x))]
@@ -100,7 +109,7 @@ const placeUi = { ...Object.fromEntries(placeKeys.map((k) => [k, t(k)])), ...nic
               {s ? <span class="mini-stamp">{s}</span> : <span class="mini-stamp place" set:html={svg(KIND_ICON[(item as any).kind])} />}
               <span><b>{title}</b><span class="meta">{townName(item.town, lang, region.towns)}<span data-km></span></span></span>
             </a>
-            <div data-gaps={gapCodes(item).join(" ")} />
+            <div data-gaps={gapCodes(item).join(" ")} data-asks={asksOf(item)} />
           </div>
         );
       })}
@@ -110,7 +119,7 @@ const placeUi = { ...Object.fromEntries(placeKeys.map((k) => [k, t(k)])), ...nic
     </template>
     <p class="empty" data-task-empty hidden>{t("tasksNone")}</p>
     <button class="more-btn" type="button" data-task-more hidden></button>
-    <script is:inline type="application/json" id="tasks-ui" set:html={JSON.stringify({ count: t.group("tasksCount"), more: t("mapShowMore") })} />
+    <script is:inline type="application/json" id="tasks-ui" set:html={JSON.stringify({ count: t.group("tasksCount"), more: t("mapShowMore"), said: t("gapAsk.said"), saidMany: t("gapAsk.saidMany"), other: t("gapAsk.other"), free: t("free") })} />
   </section>
   <script>
     import "../../scripts/tasks";

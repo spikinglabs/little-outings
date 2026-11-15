@@ -5,7 +5,7 @@ import { distanceAt, getHome, renderKm } from "./app";
 import { band } from "../lib/order";
 
 type Plural = { one?: string; other: string };
-const ui = JSON.parse(document.getElementById("tasks-ui")!.textContent!) as { count: Plural; more: string };
+const ui = JSON.parse(document.getElementById("tasks-ui")!.textContent!) as { count: Plural; more: string; said: string; saidMany: string; other: string; free: string };
 const pr = new Intl.PluralRules(document.body.dataset.lang);
 const PAGE = 30;
 const state = { q: "", when: "", town: "", limit: PAGE };
@@ -31,11 +31,50 @@ const grid = document.getElementById("tasks")!;
 // One blank form per kind of question, keyed "@:<code>"; a task's forms are cloned from these when it is shown.
 const forms = new Map([...document.querySelector<HTMLTemplateElement>("#gap-forms")!.content.querySelectorAll<HTMLFormElement>("form")]
   .map((f) => [f.dataset.gap!.slice(2), f]));
+type Said = { v: string; lat?: number; lon?: number; place?: string };
+const FREE = /^(free|frei|kostenlos|gratis|免费)$/i;
+/**
+ * What other parents already answered shows above the text box, the same as GapForm draws it on an
+ * outing's page: one ✓ chip per answer (a tap sends it, which makes two that agree), then the box
+ * for something else.
+ */
+function addSaid(form: HTMLFormElement, type: string, said: Said[]) {
+  const stack = form.querySelector(".gap-stack");
+  if (!stack || !said.length) return;
+  const picks = document.createElement("div");
+  picks.className = "gap-picks";
+  const label = document.createElement("small");
+  label.textContent = said.length > 1 ? ui.saidMany : ui.said;
+  picks.append(label);
+  for (const a of said) {
+    const b = document.createElement("button");
+    b.className = "chip pick";
+    b.type = "submit";
+    b.name = "answer";
+    b.value = a.v;
+    if (said.length === 1) b.dataset.agrees = "";
+    if (a.lat != null && a.lon != null) Object.assign(b.dataset, { lat: String(a.lat), lon: String(a.lon), ...(a.place ? { place: a.place } : {}) });
+    const tick = document.createElement("span");
+    tick.setAttribute("aria-hidden", "true");
+    tick.textContent = "✓";
+    b.append(tick, " " + (type === "price" && FREE.test(a.v) ? ui.free : a.v));
+    picks.append(b);
+  }
+  const other = document.createElement("small");
+  other.className = "gap-other";
+  other.textContent = ui.other;
+  stack.prepend(picks);
+  stack.querySelector(".gap-row")?.before(other);
+}
+
 function fillGaps(card: HTMLElement) {
   const box = card.querySelector<HTMLElement>("[data-gaps]");
   if (!box) return;
   const codes = box.dataset.gaps!.split(" ").filter(Boolean);
+  let asks: Record<string, Said[]> = {};
+  try { asks = box.dataset.asks ? JSON.parse(box.dataset.asks) : {}; } catch { /* a broken attribute only loses the options */ }
   box.removeAttribute("data-gaps");
+  box.removeAttribute("data-asks");
   box.replaceChildren(...codes.flatMap((code) => {
     const blank = forms.get(code);
     if (!blank) return [];
@@ -45,6 +84,8 @@ function fillGaps(card: HTMLElement) {
     form.dataset.gap = key;
     form.querySelector("input")?.setAttribute("id", id);
     form.querySelector("label")?.setAttribute("for", id);
+    const type = code.split(":")[0];
+    addSaid(form, type, asks[type] ?? []);
     return [form];
   }));
 }
