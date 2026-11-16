@@ -1,0 +1,168 @@
+{
+  "town": "Hamburg",
+  "slug": "hamburg",
+  "weekend": "2026-11-21",
+  "week": 47,
+  "published_at": "2026-11-16T08:46:12.736Z",
+  "by": "ai",
+  "weather": [
+    {
+      "day": "2026-11-21",
+      "code": 3,
+      "max": 7.1,
+      "rain": 8
+    },
+    {
+      "day": "2026-11-22",
+      "code": 3,
+      "max": 6,
+      "rain": 49
+    }
+  ],
+  "picks": [
+    {
+      "id": "ck-evt-3361b7de218a852a9302",
+      "type": "event",
+      "title": "Brick Saturday - Kreativ mit LEGO®",
+      "venue": "Bücherhalle Wilhelmsburg",
+      "days": [
+        "2026-11-21"
+      ],
+      "time": "11:00–12:30",
+      "indoor": true,
+      "tags": [
+        "diy"
+      ],
+      "language": "none",
+      "label": {
+        "de": "Brick Saturday – Kreativ mit LEGO®",
+        "en": "Brick Saturday – creative LEGO® building",
+        "zh": "Brick Saturday – LEGO® 创意搭建"
+      },
+      "why": {
+        "de": "Bauen mit LEGO® ohne Deutschkenntnisse – drinnen und trocken, ideal für den Samstagvormittag.",
+        "en": "Building with LEGO® needs no German, and it's indoors, so it suits a dry Saturday morning.",
+        "zh": "用 LEGO® 搭建无需德语，在室内进行，适合干爽的周六上午。"
+      }
+    },
+    {
+      "id": "ck-evt-008234d5824f459e446a",
+      "type": "event",
+      "title": "Papierautomaten basteln",
+      "venue": "Bücherhalle Alstertal",
+      "days": [
+        "2026-11-21"
+      ],
+      "time": "11:00–12:30",
+      "indoor": true,
+      "tags": [
+        "diy"
+      ],
+      "language": "none",
+      "label": {
+        "de": "Papierautomaten basteln",
+        "en": "Making paper machines",
+        "zh": "制作纸质自动机"
+      },
+      "why": {
+        "de": "Basteln mit Papier ganz ohne Sprachhürde – ein ruhiger, kreativer Samstag in der Bücherhalle.",
+        "en": "Hands-on paper crafts with no language barrier, a calm creative Saturday at the library.",
+        "zh": "无语言障碍的动手纸艺，在图书馆度过安静又有创意的周六。"
+      }
+    },
+    {
+      "id": "ck-evt-a62945a0f76c81e2a08b",
+      "type": "event",
+      "title": "Kinderschminken",
+      "venue": "Bücherhalle Bergedorf",
+      "days": [
+        "2026-11-21"
+      ],
+      "time": "11:00–13:30",
+      "indoor": true,
+      "tags": [],
+      "label": {
+        "de": "Kinderschminken",
+        "en": "Face painting",
+        "zh": "儿童彩绘"
+      },
+      "why": {
+        "de": "Gesicht bemalen lassen – ein fröhlicher Samstag in der Bücherhalle Bergedorf.",
+        "en": "Get your face painted at Bücherhalle Bergedorf, a fun and colourful Saturday outing.",
+        "zh": "在 Bücherhalle Bergedorf 图书馆做脸部彩绘，周六的欢乐小活动。"
+      }
+    },
+    {
+      "id": "ck-evt-8f94b9dcf625545d1c86",
+      "type": "event",
+      "title": "Die Nachrichtenredaktion. Stop-Motion-Experimente.",
+      "venue": "Museum der Arbeit",
+      "days": [
+        "2026-11-21"
+      ],
+      "time": "15:00",
+      "indoor": true,
+      "tags": [
+        "diy",
+        "tour"
+      ],
+      "language": "none",
+      "label": {
+        "de": "Stop-Motion-Experimente",
+        "en": "Stop-motion experiments",
+        "zh": "定格动画实验"
+      },
+      "why": {
+        "de": "Eigene Stop-Motion-Filme drehen – ohne Deutsch nötig, im Museum der Arbeit.",
+        "en": "Make your own stop-motion films at the Museum der Arbeit, no German needed.",
+        "zh": "在 Museum der Arbeit 博物馆拍摄自己的定格动画，无需德语。"
+      }
+    },
+    {
+      "id": "ck-evt-4b382a7b6c8c60e7e17d",
+      "type": "event",
+      "title": "Märchenstunde im Museum: Es war einmal in Hamburg…",
+      "venue": "Archäologisches Museum Hamburg, Harburger Rathausplatz 5",
+      "days": [
+        "2026-11-22"
+      ],
+      "time": "15:00",
+      "indoor": true,
+      "tags": [
+        "reading",
+        "tour"
+      ],
+      "language": "de",
+      "label": {
+        "de": "Märchenstunde im Museum",
+        "en": "Fairy-tale hour at the museum",
+        "zh": "博物馆童话时间"
+      },
+      "why": {
+        "de": "Märchen im Archäologischen Museum – sonntags drinnen, mit nur einer Vorlesestunde auf Deutsch.",
+        "en": "Fairy tales at the Archäologisches Museum Hamburg, indoors on Sunday, with just one German reading.",
+        "zh": "周日在 Archäologisches Museum Hamburg 室内听童话，仅一场德语朗读。"
+      }
+    },
+    {
+      "id": "osm-way-143062885",
+      "type": "place",
+      "title": "Paulinenplatz",
+      "kind": "playground",
+      "free": true,
+      "district": "St. Pauli",
+      "venue": "Paulinenplatz",
+      "days": [],
+      "label": {
+        "de": "Spielplatz Paulinenplatz",
+        "en": "Paulinenplatz playground",
+        "zh": "Paulinenplatz 游乐场"
+      },
+      "why": {
+        "de": "Kostenloser Spielplatz in St. Pauli, ideal für einen entspannten Nachmittag.",
+        "en": "Free playground in St. Pauli, perfect for a relaxed afternoon out with the kids.",
+        "zh": "St. Pauli 区的免费游乐场，适合带孩子轻松度过一个下午。"
+      }
+    }
+  ]
+}

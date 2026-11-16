@@ -11,9 +11,6 @@
   "venue": "Klangbrücke Altes Kurhaus",
   "street": "Kurhausstraße 2"
  },
- "https://centre-charlemagne.eu/termin/25-km-industriegeschiche-die-juelicher-strasse-11/2026-11-15/": {
-  "venue": "Centre Charlemagne"
- },
  "https://centre-charlemagne.eu/termin/25-km-industriegeschiche-die-juelicher-strasse-11/2026-12-06/": {
   "venue": "Centre Charlemagne"
  },
@@ -509,14 +506,6 @@
  "https://suermondt-ludwig-museum.de/event/falsch-faelscher-faelschungen-die-kunst-der-faelschung-die-faelschung-der-kunst/2027-01-14/": {
   "venue": "SLM"
  },
- "https://suermondt-ludwig-museum.de/event/familienangebot-fuer-grosse-und-kleine-kuenstlerinnen-3-2-2/": {
-  "venue": null,
-  "guess": {
-   "venue": "Suermondt-Ludwig-Museum",
-   "why": "The event is hosted on the Suermondt-Ludwig-Museum website and includes viewing artworks and paying museum admission."
-  },
-  "read": 3
- },
  "https://suermondt-ludwig-museum.de/event/finderlohn-schmuck-skulptur-raum-2/": {
   "venue": null,
   "guess": {
@@ -777,10 +766,6 @@
   "venue": "Theater Düren im Haus der Stadt",
   "street": "Stefan-Schwer-Straße 4-6"
  },
- "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/familienfuehrung-15-11-2026": {
-  "venue": "Papiermuseum Düren",
-  "street": "Wallstraße 2-8"
- },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/familienfuehrung-20-12-2026": {
   "venue": "Papiermuseum Düren",
   "street": "Wallstraße 2-8"
@@ -1007,10 +992,6 @@
   "venue": "SPRUNG.RAUM",
   "street": "Junkersring 28"
  },
- "https://www.koeln.de/event/spielzeugbasar-in-worringen/": {
-  "venue": "Kita KiKu Kinderland Worringen",
-  "street": "Josef-Gödecke-Straße 10a"
- },
  "https://www.mfk-frankfurt.de/mc-events/offene-kinderwerkstatt-15/?mc_id=4147": {
   "venue": null,
   "guess": {
@@ -1032,10 +1013,5 @@
  },
  "https://www.visitduesseldorf.de/redirect/event/01a1a54c-6944-7127-8f69-192a5b63354e/de": {
   "venue": "Schloss Eller"
- },
- "https://www.visitduesseldorf.de/redirect/event/aaaa5662-47b5-43d7-905c-fdcd1ed28fec/de": {
-  "venue": null,
-  "guess": null,
-  "read": 3
  }
 }

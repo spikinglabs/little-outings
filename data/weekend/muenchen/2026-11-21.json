@@ -1,0 +1,173 @@
+{
+  "town": "München",
+  "slug": "muenchen",
+  "weekend": "2026-11-21",
+  "week": 47,
+  "published_at": "2026-11-16T08:46:12.672Z",
+  "by": "score",
+  "weather": [
+    {
+      "day": "2026-11-21",
+      "code": 61,
+      "max": 7.9,
+      "rain": 74
+    },
+    {
+      "day": "2026-11-22",
+      "code": 61,
+      "max": 3.2,
+      "rain": 49
+    }
+  ],
+  "picks": [
+    {
+      "id": "ck-evt-ceeb0ae9e232ef92d4b9",
+      "type": "event",
+      "title": "Feenparty – Ein magischer Tag",
+      "venue": "Stadtbibliothek Maxvorstadt",
+      "days": [
+        "2026-11-20"
+      ],
+      "time": "16:00",
+      "indoor": true,
+      "tags": [
+        "fest"
+      ],
+      "language": "none",
+      "label": {
+        "de": "Feenparty – Ein magischer Tag",
+        "en": "Fairy Party – A Magical Day",
+        "zh": "仙女派对 – 神奇一天"
+      },
+      "why": {
+        "de": "Freitag um 16 Uhr in der Stadtbibliothek Maxvorstadt, drinnen und ganz ohne Deutschkenntnisse.",
+        "en": "Friday at 16:00 at Stadtbibliothek Maxvorstadt, indoors, with no German needed.",
+        "zh": "周五16点在Stadtbibliothek Maxvorstadt图书馆室内举行，无需懂德语。"
+      }
+    },
+    {
+      "id": "ck-evt-c6a78267cfed9cf29a49",
+      "type": "event",
+      "title": "Bauen, staunen, kreativ sein!",
+      "venue": "Deutsches Museum, Museumsinsel 1",
+      "district": "Ludwigsvorstadt-Isarvorstadt",
+      "days": [
+        "2026-11-21",
+        "2026-11-22"
+      ],
+      "time": "11:00–16:00",
+      "indoor": true,
+      "tags": [
+        "diy",
+        "tour"
+      ],
+      "language": "none",
+      "label": {
+        "de": "Bauen, staunen, kreativ sein!",
+        "en": "Build, Wonder, Be Creative!",
+        "zh": "动手搭建、惊叹、发挥创意！"
+      },
+      "why": {
+        "de": "Samstag und Sonntag 11–16 Uhr im Deutschen Museum, drinnen und ohne Deutschkenntnisse.",
+        "en": "Saturday and Sunday 11:00–16:00 at the Deutsches Museum, indoors, with no German needed.",
+        "zh": "周六和周日11点至16点，在Deutsches Museum博物馆室内进行，无需懂德语。"
+      }
+    },
+    {
+      "id": "ck-evt-d33959f8a1208e268293",
+      "type": "event",
+      "title": "Kindertheater",
+      "venue": "KJW Pasinger Fabrik @ 1 August-Exter-Straße, München, Bayern, 81245, Deutschland",
+      "days": [
+        "2026-11-21"
+      ],
+      "time": "15:00–16:00",
+      "indoor": true,
+      "tags": [
+        "stage"
+      ],
+      "language": "de",
+      "label": {
+        "de": "Kindertheater",
+        "en": "Children's Theatre",
+        "zh": "儿童剧场"
+      },
+      "why": {
+        "de": "Samstag 15–16 Uhr in der KJW Pasinger Fabrik, drinnen; die Sprache ist überwiegend Deutsch.",
+        "en": "Saturday 15:00–16:00 at KJW Pasinger Fabrik, indoors; mostly in German.",
+        "zh": "周六15至16点在KJW Pasinger Fabrik场馆室内演出，主要使用德语。"
+      }
+    },
+    {
+      "id": "ck-evt-1e59631a6a4ae38c8a85",
+      "type": "event",
+      "title": "Als der kleine Koriander kam Figurentheaterstück für Kinder ab drei Jahren",
+      "venue": "Hadern",
+      "days": [
+        "2026-11-21"
+      ],
+      "time": "16:00",
+      "indoor": true,
+      "tags": [
+        "stage"
+      ],
+      "language": "de",
+      "label": {
+        "de": "Als der kleine Koriander kam",
+        "en": "When Little Coriander Came",
+        "zh": "Als der kleine Koriander kam 木偶剧"
+      },
+      "why": {
+        "de": "Figurentheater ab drei Jahren, Samstag 16 Uhr in Hadern, drinnen; überwiegend auf Deutsch.",
+        "en": "Puppet theatre for ages three and up, Saturday 16:00 in Hadern, indoors; mostly in German.",
+        "zh": "适合三岁以上儿童的木偶剧，周六16点在Hadern室内上演，主要使用德语。"
+      }
+    },
+    {
+      "id": "ck-evt-3886a683af4f042fc84c",
+      "type": "event",
+      "title": "Familien-Zaubershow mit Rene",
+      "venue": "Münchner Theater für Kinder",
+      "days": [
+        "2026-11-22"
+      ],
+      "time": "15:00–17:00",
+      "indoor": true,
+      "tags": [
+        "stage"
+      ],
+      "language": "de",
+      "label": {
+        "de": "Familien-Zaubershow mit Rene",
+        "en": "Family Magic Show with Rene",
+        "zh": "Familien-Zaubershow mit Rene 魔术表演"
+      },
+      "why": {
+        "de": "Sonntag 15–17 Uhr im Münchner Theater für Kinder, drinnen; überwiegend auf Deutsch.",
+        "en": "Sunday 15:00–17:00 at Münchner Theater für Kinder, indoors; mostly in German.",
+        "zh": "周日15至17点在Münchner Theater für Kinder室内表演，主要使用德语。"
+      }
+    },
+    {
+      "id": "osm-node-13351756335",
+      "type": "place",
+      "title": "Das Kinderzimmer",
+      "kind": "indoor",
+      "hours": "09:00-13:00,14:00-18:00",
+      "indoor": true,
+      "district": "Sendling-Westpark",
+      "venue": "Hansastraße 136",
+      "days": [],
+      "label": {
+        "de": "Das Kinderzimmer",
+        "en": "Das Kinderzimmer",
+        "zh": "Das Kinderzimmer 室内儿童空间"
+      },
+      "why": {
+        "de": "Drinnen spielen in der Hansastraße 136 in Sendling-Westpark, geöffnet 9–13 und 14–18 Uhr.",
+        "en": "Indoor play at Hansastraße 136 in Sendling-Westpark, open 9:00–13:00 and 14:00–18:00.",
+        "zh": "位于Sendling-Westpark的Hansastraße 136室内游玩，开放时间为9–13点和14–18点。"
+      }
+    }
+  ]
+}

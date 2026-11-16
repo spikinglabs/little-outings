@@ -1,0 +1,164 @@
+{
+  "town": "Berlin",
+  "slug": "berlin",
+  "weekend": "2026-11-21",
+  "week": 47,
+  "published_at": "2026-11-16T08:46:12.639Z",
+  "by": "score",
+  "weather": [
+    {
+      "day": "2026-11-21",
+      "code": 3,
+      "max": 5.6,
+      "rain": 19
+    },
+    {
+      "day": "2026-11-22",
+      "code": 3,
+      "max": 5.3,
+      "rain": 43
+    }
+  ],
+  "picks": [
+    {
+      "id": "ck-evt-4a8c42a13972d3a04f2d",
+      "type": "event",
+      "title": "Familienführung: »Unser Klangschiff«",
+      "venue": "Philharmonie Berlin, Herbert-von-Karajan-Straße 1",
+      "district": "Mitte",
+      "days": [
+        "2026-11-21"
+      ],
+      "time": "14:00",
+      "indoor": true,
+      "tags": [
+        "tour"
+      ],
+      "language": "de",
+      "label": {
+        "de": "Familienführung: »Unser Klangschiff«",
+        "en": "Family tour: »Unser Klangschiff«",
+        "zh": "Familienführung: »Unser Klangschiff«"
+      },
+      "why": {
+        "de": "Samstag um 14 Uhr in der Philharmonie Berlin, eine Familienführung, überwiegend auf Deutsch.",
+        "en": "Saturday at 14:00 at the Philharmonie Berlin: a family tour, mostly in German.",
+        "zh": "周六14:00在Philharmonie Berlin，家庭导览，主要使用德语。"
+      }
+    },
+    {
+      "id": "ck-evt-a717e9827782c353580e",
+      "type": "event",
+      "title": "Weihnachten der Tiere",
+      "venue": "Zeiss-Großplanetarium",
+      "days": [
+        "2026-11-21"
+      ],
+      "time": "14:15",
+      "indoor": true,
+      "tags": [
+        "animals",
+        "season"
+      ],
+      "language": "none",
+      "label": {
+        "de": "Weihnachten der Tiere",
+        "en": "Weihnachten der Tiere",
+        "zh": "Weihnachten der Tiere 节目"
+      },
+      "why": {
+        "de": "Samstag um 14:15 im Zeiss-Großplanetarium, ganz ohne Deutschkenntnisse zu verstehen.",
+        "en": "Saturday at 14:15 at the Zeiss-Großplanetarium; no German needed to follow along.",
+        "zh": "周六14:15在Zeiss-Großplanetarium，无需德语即可观看。"
+      }
+    },
+    {
+      "id": "ck-evt-cf76339269121a5b542e",
+      "type": "event",
+      "title": "Kreativwerkstatt – Bastelspaß für Kinder und Familien",
+      "venue": "Deutsches Technikmuseum, Trebbiner Straße 9",
+      "district": "Friedrichshain-Kreuzberg",
+      "days": [
+        "2026-11-22"
+      ],
+      "time": "10:30–13:30",
+      "indoor": true,
+      "tags": [
+        "diy",
+        "tour"
+      ],
+      "language": "none",
+      "label": {
+        "de": "Kreativwerkstatt – Bastelspaß",
+        "en": "Kreativwerkstatt – Bastelspaß",
+        "zh": "Kreativwerkstatt – Bastelspaß"
+      },
+      "why": {
+        "de": "Sonntag 10:30–13:30 im Deutschen Technikmuseum basteln, ganz ohne Deutschkenntnisse.",
+        "en": "Sunday 10:30–13:30 at the Deutsches Technikmuseum; crafting fun, no German needed.",
+        "zh": "周日10:30–13:30在Deutsches Technikmuseum动手制作，无需德语。"
+      }
+    },
+    {
+      "id": "osm-way-132382129",
+      "type": "place",
+      "title": "Muffelwildgehege",
+      "kind": "zoo",
+      "hours": "24/7",
+      "free": true,
+      "district": "Tegel",
+      "venue": "Schwarzer Weg",
+      "days": [],
+      "label": {
+        "de": "Muffelwildgehege (Zoo)",
+        "en": "Muffelwildgehege (zoo)",
+        "zh": "Muffelwildgehege 动物园"
+      },
+      "why": {
+        "de": "Kostenlos und rund um die Uhr geöffnet, ideal für einen spontanen Familienausflug in Tegel.",
+        "en": "Free and open 24/7 in Tegel, perfect for a spontaneous family outing.",
+        "zh": "在Tegel，免费且全天开放，适合家庭临时出游。"
+      }
+    },
+    {
+      "id": "osm-way-1389835106",
+      "type": "place",
+      "title": "Ackerlabor",
+      "kind": "park",
+      "free": true,
+      "district": "Baumschulenweg",
+      "venue": "Ligusterweg",
+      "days": [],
+      "label": {
+        "de": "Ackerlabor im Park",
+        "en": "Ackerlabor (park)",
+        "zh": "Ackerlabor 公园"
+      },
+      "why": {
+        "de": "Kostenloser Park in Baumschulenweg mit einem Ackerlabor zum Entdecken für die ganze Familie.",
+        "en": "A free park in Baumschulenweg with an Ackerlabor to explore as a family.",
+        "zh": "Baumschulenweg的免费公园，有Ackerlabor，适合全家一起探索。"
+      }
+    },
+    {
+      "id": "osm-way-23418650",
+      "type": "place",
+      "title": "Boxi-Spielplatz",
+      "kind": "playground",
+      "free": true,
+      "district": "Friedrichshain",
+      "venue": "Krossener Straße",
+      "days": [],
+      "label": {
+        "de": "Boxi-Spielplatz",
+        "en": "Boxi-Spielplatz",
+        "zh": "Boxi-Spielplatz 游乐场"
+      },
+      "why": {
+        "de": "Kostenloser Spielplatz in der Krossener Straße in Friedrichshain, perfekt für einen Spielnachmittag.",
+        "en": "A free playground on Krossener Straße in Friedrichshain, great for an afternoon of play.",
+        "zh": "Friedrichshain的Krossener Straße免费游乐场，适合一个下午的玩耍。"
+      }
+    }
+  ]
+}

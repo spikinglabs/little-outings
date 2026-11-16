@@ -1,0 +1,167 @@
+{
+  "town": "Aachen",
+  "slug": "aachen",
+  "weekend": "2026-11-21",
+  "week": 47,
+  "published_at": "2026-11-16T08:46:12.802Z",
+  "by": "score",
+  "weather": [
+    {
+      "day": "2026-11-21",
+      "code": 2,
+      "max": 6.7,
+      "rain": 36
+    },
+    {
+      "day": "2026-11-22",
+      "code": 3,
+      "max": 5.6,
+      "rain": 37
+    }
+  ],
+  "picks": [
+    {
+      "id": "ck-evt-08f9016f1e89ec470140",
+      "type": "event",
+      "title": "Jahreszeit bezogenes Basteln und Malen",
+      "venue": "Mütterzentrum Mamma Mia e. V., Vaalser Strasse 547",
+      "days": [
+        "2026-11-20"
+      ],
+      "time": "16:00",
+      "indoor": true,
+      "tags": [
+        "diy"
+      ],
+      "language": "none",
+      "label": {
+        "de": "Jahreszeitliches Basteln und Malen",
+        "en": "Seasonal crafts and painting",
+        "zh": "应季手工与绘画 Mütterzentrum Mamma Mia e. V."
+      },
+      "why": {
+        "de": "Freitag um 16 Uhr drinnen im Mütterzentrum Mamma Mia, ganz ohne Deutschkenntnisse.",
+        "en": "Friday at 4 pm indoors at Mütterzentrum Mamma Mia, no German needed.",
+        "zh": "周五16点在室内的 Mütterzentrum Mamma Mia e. V. 举行，无需德语。"
+      }
+    },
+    {
+      "id": "ck-evt-fb6a7e659505e8cd5eb9",
+      "type": "event",
+      "title": "Adventsmarkt Prodia",
+      "venue": "Prodia Kolping WfbM gGmbH, Karl-Kuck-Straße 21-23",
+      "days": [
+        "2026-11-21"
+      ],
+      "time": "11:00",
+      "indoor": false,
+      "tags": [
+        "market",
+        "season"
+      ],
+      "language": "none",
+      "label": {
+        "de": "Adventsmarkt Prodia",
+        "en": "Adventsmarkt Prodia",
+        "zh": "Adventsmarkt Prodia 圣诞市场"
+      },
+      "why": {
+        "de": "Samstag ab 11 Uhr draußen in der Karl-Kuck-Straße 21-23, ohne Deutsch möglich.",
+        "en": "Saturday from 11 am outdoors at Karl-Kuck-Straße 21-23, no German needed.",
+        "zh": "周六11点起在 Karl-Kuck-Straße 21-23 户外举行，无需德语。"
+      }
+    },
+    {
+      "id": "ck-evt-0f5016f6a2749227b52e",
+      "type": "event",
+      "title": "Weihnachtsdekotausch",
+      "venue": "Friedrich-Wilhelm-Platz",
+      "days": [
+        "2026-11-21"
+      ],
+      "time": "11:00–15:00",
+      "tags": [
+        "season"
+      ],
+      "label": {
+        "de": "Weihnachtsdekotausch",
+        "en": "Christmas decoration swap",
+        "zh": "Friedrich-Wilhelm-Platz 圣诞装饰交换"
+      },
+      "why": {
+        "de": "Samstag von 11 bis 15 Uhr auf dem Friedrich-Wilhelm-Platz zum Tauschen von Weihnachtsdeko.",
+        "en": "Saturday 11 am to 3 pm at Friedrich-Wilhelm-Platz to swap Christmas decorations.",
+        "zh": "周六11至15点在 Friedrich-Wilhelm-Platz 交换圣诞装饰。"
+      }
+    },
+    {
+      "id": "ck-evt-8717b5a9682c8677c6ed",
+      "type": "event",
+      "title": "Zwischen Ideal und Wirklichkeit - Landschaftsmalerei vom 15. bis zum 20. Jahrhundert",
+      "days": [
+        "2026-11-22"
+      ],
+      "time": "12:00–13:00",
+      "tags": [
+        "diy"
+      ],
+      "language": "none",
+      "label": {
+        "de": "Zwischen Ideal und Wirklichkeit",
+        "en": "Between Ideal and Reality",
+        "zh": "理想与现实之间 风景绘画展"
+      },
+      "why": {
+        "de": "Sonntag von 12 bis 13 Uhr, Landschaftsmalerei vom 15. bis zum 20. Jahrhundert, ohne Deutsch.",
+        "en": "Sunday 12 to 1 pm, landscape painting from the 15th to 20th century, no German needed.",
+        "zh": "周日12至13点，展示15至20世纪的风景绘画，无需德语。"
+      }
+    },
+    {
+      "id": "ck-evt-918d8877d328307a7f2a",
+      "type": "event",
+      "title": "Familienbande",
+      "days": [
+        "2026-11-22"
+      ],
+      "time": "14:00–16:00",
+      "tags": [],
+      "label": {
+        "de": "Familienbande",
+        "en": "Familienbande",
+        "zh": "Familienbande 活动"
+      },
+      "why": {
+        "de": "Sonntag von 14 bis 16 Uhr, ein passender Nachmittag für einen gemeinsamen Ausflug.",
+        "en": "Sunday 2 to 4 pm, a good afternoon slot for a family outing.",
+        "zh": "周日14至16点，适合一家人下午一起外出。"
+      }
+    },
+    {
+      "id": "osm-way-871751381",
+      "type": "place",
+      "title": "Speelplek \"Dr Kengertreff\"",
+      "kind": "playground",
+      "free": true,
+      "venue": "Ceresstraat",
+      "days": [],
+      "label": {
+        "de": "Speelplek \"Dr Kengertreff\"",
+        "en": "Speelplek \"Dr Kengertreff\"",
+        "zh": "Speelplek \"Dr Kengertreff\" 游乐场"
+      },
+      "why": {
+        "de": "Kostenloser Spielplatz in der Ceresstraat, ideal für einen entspannten Nachmittag.",
+        "en": "Free playground on Ceresstraat, ideal for a relaxed afternoon.",
+        "zh": "位于 Ceresstraat 的免费游乐场，适合放松的下午。"
+      }
+    }
+  ],
+  "still": [
+    {
+      "id": "ck-evt-2c4ff94b78c4d713a95e",
+      "title": "Lufonauten - Museumsclub für Kinder",
+      "end": "2026-12-16"
+    }
+  ]
+}

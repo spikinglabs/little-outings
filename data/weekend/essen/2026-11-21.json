@@ -1,0 +1,176 @@
+{
+  "town": "Essen",
+  "slug": "essen",
+  "weekend": "2026-11-21",
+  "week": 47,
+  "published_at": "2026-11-16T08:46:12.769Z",
+  "by": "score",
+  "weather": [
+    {
+      "day": "2026-11-21",
+      "code": 51,
+      "max": 6.7,
+      "rain": 27
+    },
+    {
+      "day": "2026-11-22",
+      "code": 3,
+      "max": 6.1,
+      "rain": 24
+    }
+  ],
+  "picks": [
+    {
+      "id": "ck-evt-245496866700fd6133df",
+      "type": "event",
+      "title": "Traditioneller Weihnachtsmarkt",
+      "venue": "Franz Sales Haus, Steeler Str. 261",
+      "days": [
+        "2026-11-20",
+        "2026-11-21"
+      ],
+      "time": "14:00–19:00",
+      "indoor": false,
+      "tags": [
+        "market",
+        "season"
+      ],
+      "language": "none",
+      "label": {
+        "de": "Traditioneller Weihnachtsmarkt",
+        "en": "Traditional Christmas Market",
+        "zh": "Franz Sales Haus 传统圣诞市场"
+      },
+      "why": {
+        "de": "Fr und Sa 14–19 Uhr draußen Weihnachtsstimmung genießen – ganz ohne Deutschkenntnisse.",
+        "en": "Fri and Sat 2–7 pm outdoors: Christmas cheer that needs no German at all.",
+        "zh": "周五和周六14–19点户外感受圣诞氛围，无需德语也能轻松参加。"
+      }
+    },
+    {
+      "id": "ck-evt-689b554cc8c1511222cf",
+      "type": "event",
+      "title": "Carls Garten Winterfest Machen",
+      "venue": "Zeche Carl, Wilhelm-Nieswandt-Allee 100",
+      "days": [
+        "2026-11-21"
+      ],
+      "time": "14:00–18:00",
+      "indoor": false,
+      "tags": [
+        "fest",
+        "outside"
+      ],
+      "language": "none",
+      "label": {
+        "de": "Carls Garten Winterfest",
+        "en": "Carls Garten Winter Festival",
+        "zh": "Carls Garten 冬季节庆"
+      },
+      "why": {
+        "de": "Sa 14–18 Uhr im Freien bei der Zeche Carl feiern, ganz ohne Deutsch.",
+        "en": "Sat 2–6 pm outdoors at Zeche Carl; no German needed for a winter afternoon out.",
+        "zh": "周六14–18点在Zeche Carl户外举办，无需德语，适合冬日下午同游。"
+      }
+    },
+    {
+      "id": "ck-evt-167062bd2407f0e5be98",
+      "type": "event",
+      "title": "Familienschicht in der Mitmachzeche",
+      "venue": "Denkmalpfad Zollverein, Gelsenkirchener Straße 181",
+      "district": "Stoppenberg",
+      "days": [
+        "2026-11-22"
+      ],
+      "time": "13:00",
+      "indoor": true,
+      "tags": [
+        "diy"
+      ],
+      "language": "none",
+      "label": {
+        "de": "Familienschicht in der Mitmachzeche",
+        "en": "Family Shift at the Mitmachzeche",
+        "zh": "Mitmachzeche 亲子互动活动"
+      },
+      "why": {
+        "de": "So 13 Uhr drinnen im Denkmalpfad Zollverein mitmachen – ganz ohne Deutschkenntnisse.",
+        "en": "Sun 1 pm indoors at Denkmalpfad Zollverein, hands-on fun with no German needed.",
+        "zh": "周日13点在Denkmalpfad Zollverein室内动手体验，无需德语。"
+      }
+    },
+    {
+      "id": "ck-evt-d90fb4ca36ff0013c1a6",
+      "type": "event",
+      "title": "Familientag – MUSTER, FARBEN, SCHRIFTEN",
+      "venue": "Museum Folkwang, Museumsplatz 1",
+      "district": "Südviertel",
+      "days": [
+        "2026-11-22"
+      ],
+      "time": "14:00–18:00",
+      "indoor": true,
+      "tags": [
+        "diy",
+        "tour"
+      ],
+      "language": "none",
+      "label": {
+        "de": "Familientag – MUSTER, FARBEN, SCHRIFTEN",
+        "en": "Family Day – Patterns, Colours, Letters",
+        "zh": "Museum Folkwang 家庭日：图案、色彩、文字"
+      },
+      "why": {
+        "de": "So 14–18 Uhr drinnen im Museum Folkwang Muster, Farben und Schriften entdecken.",
+        "en": "Sun 2–6 pm indoors at Museum Folkwang to explore patterns, colours and lettering.",
+        "zh": "周日14–18点在Museum Folkwang室内探索图案、色彩与文字，无需德语。"
+      }
+    },
+    {
+      "id": "ck-evt-41eb7624099e1b372d8b",
+      "type": "event",
+      "title": "Orgelvorführung für Kinder",
+      "venue": "Alfried Krupp Saal, Opernplatz 10",
+      "days": [
+        "2026-11-22"
+      ],
+      "time": "15:01–16:00",
+      "indoor": true,
+      "tags": [
+        "tour"
+      ],
+      "language": "de",
+      "label": {
+        "de": "Orgelvorführung für Kinder",
+        "en": "Organ Demonstration for Children",
+        "zh": "Alfried Krupp Saal 儿童管风琴表演"
+      },
+      "why": {
+        "de": "So 15:01–16:00 Uhr drinnen Orgel erleben – die Vorführung läuft meist auf Deutsch.",
+        "en": "Sun 3:01–4:00 pm indoors: hear the organ up close, though it's mostly in German.",
+        "zh": "周日15:01–16:00在室内近距离聆听管风琴，演出大多使用德语。"
+      }
+    },
+    {
+      "id": "osm-node-469326100",
+      "type": "place",
+      "title": "Grugapark Therme",
+      "kind": "pool",
+      "hours": "Mo-Th 09:00-22:00; Fr,Sa 09:00-23:00; Su,PH 09:00-19:00",
+      "indoor": true,
+      "district": "Rüttenscheid",
+      "venue": "Lührmannstraße 70",
+      "days": [],
+      "label": {
+        "de": "Grugapark Therme",
+        "en": "Grugapark Therme",
+        "zh": "Grugapark Therme 温泉浴场"
+      },
+      "why": {
+        "de": "Fr und Sa bis 23 Uhr, So bis 19 Uhr: Schwimmen im Warmen, drinnen und ohne Deutsch.",
+        "en": "Fri–Sat 9 am–11 pm, Sun 9 am–7 pm: warm indoor swimming, no German needed.",
+        "zh": "周五、周六9–23点，周日9–19点：室内温暖泳池，无需德语。"
+      }
+    }
+  ]
+}

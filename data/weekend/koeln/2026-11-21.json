@@ -1,0 +1,121 @@
+{
+  "town": "Köln",
+  "slug": "koeln",
+  "weekend": "2026-11-21",
+  "week": 47,
+  "published_at": "2026-11-16T08:46:12.534Z",
+  "by": "score",
+  "weather": [
+    {
+      "day": "2026-11-21",
+      "code": 51,
+      "max": 7.8,
+      "rain": 20
+    },
+    {
+      "day": "2026-11-22",
+      "code": 3,
+      "max": 6,
+      "rain": 31
+    }
+  ],
+  "picks": [
+    {
+      "id": "ck-evt-b4d7583ba59adf31968c",
+      "type": "event",
+      "title": "Vorlesezeit auf Türkisch",
+      "venue": "Stadtteilbibliothek Mülheim, Wiener Platz 2a",
+      "district": "Mülheim",
+      "days": [
+        "2026-11-20"
+      ],
+      "time": "16 bis 17 Uhr Saat 16.00’dan 17.00’a kadar",
+      "free": true,
+      "price": "Der Eintritt ist frei. Giriş ücretsiz",
+      "indoor": true,
+      "tags": [
+        "reading"
+      ]
+    },
+    {
+      "id": "ck-evt-5de24d52db2cc7743264",
+      "type": "event",
+      "title": "3D-Druck am Samstag",
+      "venue": "Interim Zentralbibliothek, Hohe Straße 68-82",
+      "days": [
+        "2026-11-21"
+      ],
+      "time": "10 bis 15 Uhr",
+      "free": true,
+      "price": "Die Veranstaltung ist kostenfrei.",
+      "indoor": true,
+      "tags": [
+        "diy"
+      ],
+      "language": "none"
+    },
+    {
+      "id": "ck-evt-b3de342336018b394eed",
+      "type": "event",
+      "title": "Zum Mondjahr des Pferdes",
+      "venue": "Museum für Ostasiatische Kunst, Universitätsstraße 100",
+      "days": [
+        "2026-11-21",
+        "2026-11-22"
+      ],
+      "time": "11:00",
+      "price": "9,50€",
+      "indoor": true,
+      "tags": [
+        "animals",
+        "tour"
+      ],
+      "language": "none"
+    },
+    {
+      "id": "ck-evt-444967ebe9347fb6dbfc",
+      "type": "event",
+      "title": "Familienworkshop »Im Zauberwald«",
+      "venue": "Kölner Philharmonie, Bischofsgartenstr. 1",
+      "days": [
+        "2026-11-21"
+      ],
+      "time": "11:00",
+      "price": "9.00€",
+      "indoor": false,
+      "tags": [
+        "diy",
+        "stage",
+        "outside"
+      ],
+      "language": "de"
+    },
+    {
+      "id": "ck-evt-06b2ead62e320e523ae3",
+      "type": "event",
+      "title": "Kinder Workshop r e t u r n: Archiv für eine unbekannte Zukunft",
+      "venue": "Rautenstrauch-Joest-Museum - Kulturen der Welt",
+      "days": [
+        "2026-11-22"
+      ],
+      "time": "15:00",
+      "indoor": true,
+      "tags": [
+        "diy",
+        "tour"
+      ],
+      "language": "none"
+    },
+    {
+      "id": "osm-way-44066322",
+      "type": "place",
+      "title": "Ossendorfbad",
+      "kind": "pool",
+      "hours": "Mo-Fr 06:30-22:00; We 06:30-08:00, Sa-Su 09:00-21:00",
+      "indoor": true,
+      "district": "Ossendorf",
+      "venue": "Äußere Kanalstraße 191",
+      "days": []
+    }
+  ]
+}

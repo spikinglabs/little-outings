@@ -1,0 +1,200 @@
+{
+  "town": "Düsseldorf",
+  "slug": "duesseldorf",
+  "weekend": "2026-11-21",
+  "week": 47,
+  "published_at": "2026-11-16T08:46:12.607Z",
+  "by": "score",
+  "weather": [
+    {
+      "day": "2026-11-21",
+      "code": 51,
+      "max": 7.4,
+      "rain": 23
+    },
+    {
+      "day": "2026-11-22",
+      "code": 3,
+      "max": 5.7,
+      "rain": 29
+    }
+  ],
+  "picks": [
+    {
+      "id": "ck-evt-261e2442f33ce725f92f",
+      "type": "event",
+      "title": "Familienklettern in der Kletterhalle",
+      "venue": "Flingern Süd Familienzentrum Krahestraße, Krahestr. 13 a-b",
+      "days": [
+        "2026-11-21"
+      ],
+      "time": "09:30",
+      "book": true,
+      "indoor": true,
+      "tags": [
+        "sport"
+      ],
+      "language": "none",
+      "label": {
+        "de": "Familienklettern in der Kletterhalle",
+        "en": "Family climbing in the climbing hall",
+        "zh": "Familienklettern in der Kletterhalle（攀岩馆）"
+      },
+      "why": {
+        "de": "Samstag 9:30, drinnen, ohne Deutsch nötig – gemeinsam klettern, bitte anmelden.",
+        "en": "Saturday 09:30, indoors, no German needed – climb together; registration required.",
+        "zh": "周六 09:30，室内，无需德语——一起攀爬，需提前报名。"
+      }
+    },
+    {
+      "id": "ck-evt-080c01625ae0ad1208fa",
+      "type": "event",
+      "title": "Eltern-Kind-Workshop: Snacks & Häppchen für Weihnachten und Silvester Für Eltern und Kinder von 3 bis 6 Jahren",
+      "venue": "Familienzentrum des SKFM Wittenberger Weg, Wittenberger Weg 108",
+      "days": [
+        "2026-11-21"
+      ],
+      "time": "10:00",
+      "book": true,
+      "indoor": true,
+      "tags": [
+        "diy",
+        "season"
+      ],
+      "language": "none",
+      "label": {
+        "de": "Eltern-Kind-Workshop: Snacks & Häppchen",
+        "en": "Parent-child workshop: snacks & bites",
+        "zh": "Eltern-Kind-Workshop: Snacks & Häppchen（亲子工作坊）"
+      },
+      "why": {
+        "de": "Samstag 10:00 – gemeinsam Häppchen für Weihnachten und Silvester machen; Anmeldung nötig.",
+        "en": "Saturday 10:00 – make festive snacks together for Christmas and New Year's; registration needed.",
+        "zh": "周六 10:00——一起准备圣诞和新年的小点心，需报名。"
+      }
+    },
+    {
+      "id": "ck-evt-122cf61a26546e2fc024",
+      "type": "event",
+      "title": "Aerial Yoga im Tuch Für Familien mit Kindern von 4 bis 6 Jahren",
+      "venue": "Städtisches Familienzentrum Hülsmeyerstraße, Hülsmeyerstraße 28",
+      "days": [
+        "2026-11-21"
+      ],
+      "time": "10:30",
+      "price": "10,00 €",
+      "book": true,
+      "indoor": true,
+      "tags": [
+        "sport"
+      ],
+      "language": "none",
+      "label": {
+        "de": "Aerial Yoga im Tuch",
+        "en": "Aerial Yoga in the fabric",
+        "zh": "Aerial Yoga im Tuch（空中瑜伽）"
+      },
+      "why": {
+        "de": "Samstag 10:30, 10 €, für Kinder von 4 bis 6 – Yoga im Tuch, Anmeldung nötig.",
+        "en": "Saturday 10:30, €10, for ages 4–6 – aerial yoga with fabric; registration needed.",
+        "zh": "周六 10:30，10 欧元，适合 4–6 岁儿童——布带空中瑜伽，需报名。"
+      }
+    },
+    {
+      "id": "ck-evt-dcbcfa3c9f2fc65a373a",
+      "type": "event",
+      "title": "Weihnachtsbacken im efa- Stadtteiltreff für Eltern und Kinder von 5 bis 12 Jahren",
+      "venue": "Pempelfort, Collenbachstr. 10, efa-Stadtteiltreff, Collenbachstr. 10",
+      "days": [
+        "2026-11-21"
+      ],
+      "time": "15:00",
+      "price": "21,60 €",
+      "book": true,
+      "tags": [
+        "diy",
+        "season"
+      ],
+      "language": "none",
+      "label": {
+        "de": "Weihnachtsbacken im efa-Stadtteiltreff",
+        "en": "Christmas baking at efa-Stadtteiltreff",
+        "zh": "Weihnachtsbacken im efa-Stadtteiltreff（社区活动中心）"
+      },
+      "why": {
+        "de": "Samstag 15:00, 5–12 Jahre, 21,60 € – gemeinsam Weihnachtsplätzchen backen; Anmeldung nötig.",
+        "en": "Saturday 15:00, ages 5–12, €21.60 – bake Christmas treats together; registration needed.",
+        "zh": "周六 15:00，5–12 岁，21.60 欧元——一起烘焙圣诞饼干，需报名。"
+      }
+    },
+    {
+      "id": "ck-evt-f432d25fd7d4684071e0",
+      "type": "event",
+      "title": "„Die Lichtmaschinerie!“ – Mitmach-Ausstellung für Familien",
+      "venue": "Akki – Aktion & Kultur mit Kindern, Siegburger Straße 25",
+      "district": "Wersten",
+      "days": [
+        "2026-11-22"
+      ],
+      "time": "10:00",
+      "indoor": true,
+      "tags": [
+        "diy",
+        "tour"
+      ],
+      "language": "none",
+      "label": {
+        "de": "Die Lichtmaschinerie!",
+        "en": "Die Lichtmaschinerie!",
+        "zh": "Die Lichtmaschinerie!（互动展览）"
+      },
+      "why": {
+        "de": "Sonntag 10:00, drinnen, ohne Deutsch nötig – Mitmach-Ausstellung für Familien in Wersten.",
+        "en": "Sunday 10:00, indoors, no German needed – a hands-on exhibition for families in Wersten.",
+        "zh": "周日 10:00，室内，无需德语——适合家庭参与的互动展览，位于 Wersten 区。"
+      }
+    },
+    {
+      "id": "osm-node-6284480266",
+      "type": "place",
+      "title": "Classic Remise Düsseldorf",
+      "kind": "museum",
+      "hours": "Mo-Sa 08:00-20:00; Su,PH 10:00-20:00",
+      "free": true,
+      "indoor": true,
+      "district": "Oberbilk",
+      "venue": "Harffstraße 110a",
+      "days": [],
+      "label": {
+        "de": "Classic Remise Düsseldorf",
+        "en": "Classic Remise Düsseldorf",
+        "zh": "Classic Remise Düsseldorf（博物馆）"
+      },
+      "why": {
+        "de": "Kostenlos, drinnen, sonntags 10–20 Uhr – ein Museum in Oberbilk zum Stöbern.",
+        "en": "Free, indoors, open Sunday 10:00–20:00 – a museum in Oberbilk to explore.",
+        "zh": "免费，室内，周日 10:00–20:00 开放——位于 Oberbilk 的博物馆，可以慢慢参观。"
+      }
+    }
+  ],
+  "still": [
+    {
+      "id": "ck-evt-3157d2e0ec93aeccc761",
+      "title": "Farbenzauber und Klangreise für Eltern und Kinder ab 2 Jahren",
+      "venue": "Stadtmitte, Hohenzollernstr. 24, efa, Hohenzollernstr. 24",
+      "end": "2026-12-16"
+    },
+    {
+      "id": "ck-evt-bf5a3f4efa0505f5b9a6",
+      "title": "Natürlich bunt! Malen & Matschen mit essbaren Farben Für Eltern und Kinder von 1,5 bis 2 Jahren",
+      "venue": "Familientreff Oberkassel, Wildenbruchstraße 27",
+      "end": "2026-12-02"
+    },
+    {
+      "id": "ck-evt-6d24c5dbc157d2edc7f5",
+      "title": "Kreativer Kindertanz für Kinder von 3-4 Jahren",
+      "venue": "FZ Pusteblume Bewegungs- und Spielraum, Liststr. 2",
+      "end": "2026-12-09"
+    }
+  ]
+}

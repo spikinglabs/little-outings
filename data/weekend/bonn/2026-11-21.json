@@ -1,0 +1,169 @@
+{
+  "town": "Bonn",
+  "slug": "bonn",
+  "weekend": "2026-11-21",
+  "week": 47,
+  "published_at": "2026-11-16T08:46:12.574Z",
+  "by": "score",
+  "weather": [
+    {
+      "day": "2026-11-21",
+      "code": 2,
+      "max": 8.2,
+      "rain": 33
+    },
+    {
+      "day": "2026-11-22",
+      "code": 3,
+      "max": 5.5,
+      "rain": 29
+    }
+  ],
+  "picks": [
+    {
+      "id": "ck-evt-4d3563f1108a2498c64d",
+      "type": "event",
+      "title": "Puppentheater „Oskar Orange und die Spielplatzsaue",
+      "venue": "Haus der Natur, An der Waldau 48",
+      "days": [
+        "2026-11-20"
+      ],
+      "time": "16:00",
+      "indoor": false,
+      "tags": [
+        "stage"
+      ],
+      "language": "de",
+      "label": {
+        "de": "Puppentheater „Oskar Orange“",
+        "en": "Puppet show: Oskar Orange",
+        "zh": "Oskar Orange 木偶剧"
+      },
+      "why": {
+        "de": "Freitag um 16 Uhr draußen im Haus der Natur, meist auf Deutsch.",
+        "en": "Friday at 16:00 outdoors at Haus der Natur, mostly in German.",
+        "zh": "周五16:00在Haus der Natur户外举行，主要使用德语。"
+      }
+    },
+    {
+      "id": "ck-evt-679e52e00015f36deb9e",
+      "type": "event",
+      "title": "Nikolausmarkt Bad Godesberg",
+      "venue": "Bad Godesberg Innenstadt, Theaterplatz",
+      "days": [
+        "2026-11-21"
+      ],
+      "time": "12:00",
+      "indoor": false,
+      "tags": [
+        "market",
+        "season"
+      ],
+      "language": "none",
+      "label": {
+        "de": "Nikolausmarkt Bad Godesberg",
+        "en": "Nikolausmarkt Bad Godesberg",
+        "zh": "Nikolausmarkt Bad Godesberg 市集"
+      },
+      "why": {
+        "de": "Samstag um 12 Uhr draußen auf dem Theaterplatz, ganz ohne Deutschkenntnisse.",
+        "en": "Saturday at 12:00 outdoors on Theaterplatz; no German needed.",
+        "zh": "周六12:00在Theaterplatz广场户外举行，无需德语。"
+      }
+    },
+    {
+      "id": "ck-evt-ab5a7f230ae4bb51ea0d",
+      "type": "event",
+      "title": "Keramikwerkstatt | Lieblingstasse",
+      "venue": "Selbstwerk Bonn gUG, In den Wiesen 17A",
+      "days": [
+        "2026-11-21"
+      ],
+      "time": "15:00",
+      "tags": [
+        "diy"
+      ],
+      "language": "none",
+      "label": {
+        "de": "Keramikwerkstatt: Lieblingstasse",
+        "en": "Pottery workshop: Lieblingstasse",
+        "zh": "Lieblingstasse 陶艺工作坊"
+      },
+      "why": {
+        "de": "Samstag um 15 Uhr im Selbstwerk Bonn die eigene Lieblingstasse gestalten.",
+        "en": "Saturday at 15:00 at Selbstwerk Bonn, make your own favourite mug.",
+        "zh": "周六15:00在Selbstwerk Bonn工作坊制作自己的心爱杯子，无需德语。"
+      }
+    },
+    {
+      "id": "ck-evt-6f5f276cd84911899d0b",
+      "type": "event",
+      "title": "Familienworkshop mit ZWEITZEUGEN e.V.",
+      "venue": "Bundeskunsthalle, Helmut-Kohl-Allee 4",
+      "days": [
+        "2026-11-22"
+      ],
+      "time": "11:00",
+      "indoor": true,
+      "tags": [
+        "diy"
+      ],
+      "language": "none",
+      "label": {
+        "de": "Familienworkshop mit ZWEITZEUGEN e.V.",
+        "en": "Family workshop with ZWEITZEUGEN e.V.",
+        "zh": "ZWEITZEUGEN e.V. 家庭工作坊"
+      },
+      "why": {
+        "de": "Sonntag um 11 Uhr drinnen in der Bundeskunsthalle, ohne Deutschkenntnisse.",
+        "en": "Sunday at 11:00 indoors at the Bundeskunsthalle; no German needed.",
+        "zh": "周日11:00在Bundeskunsthalle艺术馆室内举行，无需德语。"
+      }
+    },
+    {
+      "id": "ck-evt-ba5670a3237845388e04",
+      "type": "event",
+      "title": "Beethoven unter Druck",
+      "venue": "Beethoven-Haus Bonn, Bonngasse 18-26",
+      "days": [
+        "2026-11-22"
+      ],
+      "time": "14:30",
+      "indoor": true,
+      "tags": [
+        "diy"
+      ],
+      "language": "none",
+      "label": {
+        "de": "Beethoven unter Druck",
+        "en": "Beethoven unter Druck",
+        "zh": "Beethoven unter Druck 活动"
+      },
+      "why": {
+        "de": "Sonntag um 14:30 drinnen im Beethoven-Haus Bonn, ohne Deutschkenntnisse.",
+        "en": "Sunday at 14:30 indoors at the Beethoven-Haus Bonn; no German needed.",
+        "zh": "周日14:30在Beethoven-Haus Bonn博物馆室内举行，无需德语。"
+      }
+    },
+    {
+      "id": "osm-way-175854090",
+      "type": "place",
+      "title": "Aussichtspunkt Böhling",
+      "kind": "park",
+      "hours": "24/7",
+      "district": "Alfter",
+      "venue": "Kemmertsgasse",
+      "days": [],
+      "label": {
+        "de": "Aussichtspunkt Böhling",
+        "en": "Böhling viewpoint",
+        "zh": "Böhling 观景点"
+      },
+      "why": {
+        "de": "Rund um die Uhr geöffnet: ein Aussichtspunkt im Park an der Kemmertsgasse in Alfter.",
+        "en": "Open 24/7: a viewpoint in the park on Kemmertsgasse in Alfter.",
+        "zh": "全天24小时开放，位于Alfter的Kemmertsgasse公园观景点。"
+      }
+    }
+  ]
+}

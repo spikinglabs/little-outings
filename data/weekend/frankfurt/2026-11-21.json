@@ -1,0 +1,171 @@
+{
+  "town": "Frankfurt am Main",
+  "slug": "frankfurt",
+  "weekend": "2026-11-21",
+  "week": 47,
+  "published_at": "2026-11-16T08:46:12.704Z",
+  "by": "ai",
+  "weather": [
+    {
+      "day": "2026-11-21",
+      "code": 2,
+      "max": 5.8,
+      "rain": 56
+    },
+    {
+      "day": "2026-11-22",
+      "code": 61,
+      "max": 5.2,
+      "rain": 60
+    }
+  ],
+  "picks": [
+    {
+      "id": "ck-evt-b3562c28301abd6f9715",
+      "type": "event",
+      "title": "Abenteuer Museum: Algen – die Superhelden aus dem Wasser",
+      "venue": "Senckenberg Naturmuseum Frankfurt",
+      "days": [
+        "2026-11-21"
+      ],
+      "time": "10:00",
+      "indoor": true,
+      "tags": [
+        "tour"
+      ],
+      "label": {
+        "de": "Abenteuer Museum: Algen",
+        "en": "Adventure Museum: Algae",
+        "zh": "Senckenberg Naturmuseum 冒险博物馆：藻类"
+      },
+      "why": {
+        "de": "Ein Mitmach-Abenteuer über Algen im Naturmuseum, Samstag um 10 Uhr.",
+        "en": "A hands-on adventure about algae at the nature museum, Saturday at 10am.",
+        "zh": "周六上午10点，在自然博物馆里探索藻类的小冒险。"
+      }
+    },
+    {
+      "id": "ck-evt-a5b02e34d2dd4cbf5fef",
+      "type": "event",
+      "title": "Die Prinzessin auf der Erbse",
+      "venue": "Galli Theater Frankfurt",
+      "days": [
+        "2026-11-21",
+        "2026-11-22"
+      ],
+      "time": "16:00",
+      "indoor": true,
+      "tags": [
+        "stage"
+      ],
+      "language": "de",
+      "label": {
+        "de": "Die Prinzessin auf der Erbse",
+        "en": "The Princess and the Pea (Theatre)",
+        "zh": "Galli Theater 《豌豆公主》"
+      },
+      "why": {
+        "de": "Märchen im Theater, Sa und So um 16 Uhr; Deutsch-Vorkenntnisse helfen.",
+        "en": "A fairy-tale show at the Galli Theater, Saturday and Sunday at 4pm, mostly in German.",
+        "zh": "周六和周日下午4点在Galli Theater演出童话，以德语为主。"
+      }
+    },
+    {
+      "id": "ck-evt-268b2ce42fbd70b8215e",
+      "type": "event",
+      "title": "Offene Kinderwerkstatt",
+      "venue": "Museum für Kommunikation Frankfurt am Main Schaumainkai 53 Frankfurt am Main 60596",
+      "days": [
+        "2026-11-21",
+        "2026-11-22"
+      ],
+      "time": "All day",
+      "indoor": true,
+      "tags": [
+        "diy",
+        "tour"
+      ],
+      "language": "none",
+      "label": {
+        "de": "Offene Kinderwerkstatt",
+        "en": "Open Children's Workshop",
+        "zh": "Museum für Kommunikation 开放式儿童工坊"
+      },
+      "why": {
+        "de": "Basteln und Ausprobieren ohne Deutsch nötig, samstags und sonntags, perfekt für den Regentag.",
+        "en": "Hands-on making with no German needed, open Saturday and Sunday. Great for a rainy day.",
+        "zh": "动手创作，无需德语，周六和周日都有，雨天非常适合。"
+      }
+    },
+    {
+      "id": "ck-evt-149e2b53808d2f5cfa28",
+      "type": "event",
+      "title": "Kinderstunde XS",
+      "venue": "Städel Museum",
+      "days": [
+        "2026-11-22"
+      ],
+      "time": "11:00",
+      "indoor": true,
+      "tags": [
+        "tour"
+      ],
+      "label": {
+        "de": "Kinderstunde XS",
+        "en": "Little Kids' Hour XS",
+        "zh": "Städel Museum 小小儿童时光"
+      },
+      "why": {
+        "de": "Die Kleinsten im Blick: Kinderstunde XS am Sonntag um 11 Uhr im Städel.",
+        "en": "Made for the youngest: a short Sunday children's session at 11am at the Städel.",
+        "zh": "专为最小的孩子设计，周日上午11点在Städel博物馆举行。"
+      }
+    },
+    {
+      "id": "ck-evt-7efb8bf54c6c5e3a5f91",
+      "type": "event",
+      "title": "Offene Werkstatt Sonntag Kaufladen",
+      "venue": "Junges Museum Frankfurt",
+      "days": [
+        "2026-11-22"
+      ],
+      "time": "14:00–17:00",
+      "indoor": true,
+      "tags": [
+        "diy",
+        "tour"
+      ],
+      "language": "none",
+      "label": {
+        "de": "Offene Werkstatt Kaufladen",
+        "en": "Open Workshop: Play Shop",
+        "zh": "Junges Museum Frankfurt 开放工坊：过家家小商店"
+      },
+      "why": {
+        "de": "Spielen im Kaufladen ohne Deutschkenntnisse, Sonntag von 14 bis 17 Uhr.",
+        "en": "Play-shop fun with no German needed, Sunday 2–5pm, a cosy rainy-day pick.",
+        "zh": "无需德语，周日14–17点在过家家小商店玩耍，雨天很适合。"
+      }
+    },
+    {
+      "id": "osm-node-11042957844",
+      "type": "place",
+      "title": "Roly Poly Spielhaus",
+      "kind": "indoor",
+      "hours": "Su-Th 10:00-18:00; Fr-Sa 10:00-19:00",
+      "indoor": true,
+      "venue": "Hauptstraße 56",
+      "days": [],
+      "label": {
+        "de": "Roly Poly Spielhaus",
+        "en": "Roly Poly Spielhaus",
+        "zh": "Roly Poly Spielhaus 室内游乐场"
+      },
+      "why": {
+        "de": "Indoor-Spielspaß in der Hauptstraße 56, Fr und Sa sogar bis 19 Uhr geöffnet.",
+        "en": "Indoor play fun at Hauptstraße 56, open until 19:00 on Fridays and Saturdays.",
+        "zh": "Hauptstraße 56 的室内游乐空间，周五和周六营业至19:00，适合全天陪孩子玩耍。"
+      }
+    }
+  ]
+}
