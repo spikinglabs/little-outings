@@ -15,13 +15,14 @@ export const GET: APIRoute = async ({ params, props, site }) => {
   const lang = params.lang as Lang;
   const t = useT(lang);
   const base = site?.toString().replace(/\/$/, "") ?? "";
-  const { region } = await getData();
+  const { region, placeById } = await getData();
   const editions = (props as { editions: Edition[] }).editions.slice(0, 20);
   const town = townName(editions[0].town, lang, region.towns);
   const page = `${base}/${lang}/wochenende/${editions[0].slug}/`;
   const items = editions.map((e, i) => {
     const link = i === 0 ? page : `${page}${e.weekend}/`;
-    const list = e.picks.map((p) => {
+    // Places hidden since (a Therme that lets no children in) drop out of old items too.
+    const list = e.picks.filter((p) => p.type === "event" || placeById.has(p.id)).map((p) => {
       const url = `${base}/${lang}/${p.type === "place" ? "orte" : "termine"}/${p.id}/`;
       const when = p.type === "place" ? t("weekend.always") : [p.days.map((d) => dayShort(d, lang)).join("+"), clockText(p.time)].filter(Boolean).join(" ");
       return `<li>${esc(when)}: <a href="${esc(url)}">${esc(textIn(p.label, lang, p.title))}</a>${p.why ? ` – ${esc(textIn(p.why, lang))}` : ""}</li>`;

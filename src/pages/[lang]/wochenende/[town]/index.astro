@@ -35,7 +35,8 @@ const nextDay = new Intl.DateTimeFormat(t.locale, { timeZone: "UTC", weekday: "l
 const keep = !live && last ? last.picks.filter((p) => p.type === "place" && placeById.has(p.id)) : [];
 const ld = live && {
   "@context": "https://schema.org", "@type": "ItemList", name: title, url: `${site}/${lang}/wochenende/${live.slug}/`,
-  itemListElement: live.picks.map((p, i) => ({
+  // A hidden place (say a Therme that lets no children in) is left out, as on the page.
+  itemListElement: live.picks.filter((p) => p.type === "event" || placeById.has(p.id)).map((p, i) => ({
     "@type": "ListItem", position: i + 1, name: textIn(p.label, lang, p.title),
     url: `${site}/${lang}/${p.type === "place" ? "orte" : "termine"}/${p.id}/`,
   })),
