@@ -1013,5 +1013,10 @@
  },
  "https://www.visitduesseldorf.de/redirect/event/01a1a54c-6944-7127-8f69-192a5b63354e/de": {
   "venue": "Schloss Eller"
+ },
+ "https://www.visitduesseldorf.de/redirect/event/aaaa5662-47b5-43d7-905c-fdcd1ed28fec/de": {
+  "venue": null,
+  "guess": null,
+  "read": 3
  }
 }
