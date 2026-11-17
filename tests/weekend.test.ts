@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
-  chatText, clockText, isoWeek, openOnWeekend, parsePicks, pickMix, placeCandidates, scoreEvent, telegramText, townSlug, weekendOf,
+  chatText, clockText, featuredIn, isoWeek, openOnWeekend, otherLanguage, parsePicks, pickMix, placeCandidates, scoreEvent, telegramText, townSlug, wasFeatured, weekendOf,
   type Edition, type Pick,
 } from "../src/lib/weekend.ts";
 import { liveEdition, nextEditionDay } from "../src/lib/weekend-data.ts";
@@ -86,6 +86,42 @@ test("the five picks mix: one venue and title once, one Friday at most, both day
   assert.ok(ids.includes("8"), "Sunday is covered");
   const wet = pickMix(cands, { sat, sun, rain: true });
   assert.ok(wet.filter((p) => p.indoor).length >= 3);
+});
+
+test("a weekly series featured lately waits behind new events, and fills in only when there are too few", () => {
+  const sat = "2026-11-21", sun = "2026-11-22";
+  // Last week's edition: the library's story time and the mine's family shift, under last week's ids.
+  const past = [{ picks: [
+    ev("old-1", "Vorlesezeit am Samstag", { venue: "Stadtteilbibliothek Kalk, Kalker Hauptstraße 1" }),
+    ev("old-2", "Familienschicht in der Mitmachzeche", { venue: "Zeche Zollverein" }),
+    { id: "osm-way-1", type: "place", title: "Speelplek \"Dr Kengertreff\"", days: [] } as Pick,
+  ] }];
+  const recent = featuredIn(past, 6);
+  const story = ev("new-1", "Vorlesezeit", { venue: "Stadtteilbibliothek Kalk", score: 9, days: [sat] });
+  const shift = ev("new-2", "Familienschicht in der Mitmachzeche", { venue: "Zeche Zollverein", score: 8, days: [sun] });
+  assert.ok(wasFeatured(story, recent) && wasFeatured(shift, recent), "a new id doesn't make the same series new");
+  assert.ok(wasFeatured({ id: "osm-way-2", type: "place", title: "Speelplek \"Dr Kengertreff\"", days: [] }, recent), "one playground under two OSM ids");
+  const fresh = [
+    ev("a", "Laternenbasteln", { venue: "Kita A", score: 4, days: [sat] }),
+    ev("b", "Kinderflohmarkt", { venue: "Platz B", score: 3, days: [sat] }),
+    ev("c", "Zoo-Rallye", { venue: "Zoo", score: 3, days: [sun] }),
+    ev("d", "Kindertheater", { venue: "Theater D", score: 3, days: [sun] }),
+    ev("e", "Bastelnachmittag", { venue: "Haus E", score: 2, days: [sat] }),
+  ];
+  const many = pickMix([story, shift, ...fresh], { sat, sun, recent }).map((p) => p.id);
+  assert.deepEqual(many.sort(), ["a", "b", "c", "d", "e"], "five new events: no repeats");
+  const few = pickMix([story, shift, ...fresh.slice(0, 3)], { sat, sun, recent }).map((p) => p.id);
+  assert.equal(few.length, 5, "only three new events: last week's fill the weekend");
+  assert.ok(few.includes("new-1") && few.includes("new-2"));
+});
+
+test("events held in another language stay out of the edition", () => {
+  assert.ok(otherLanguage("Vorlesezeit auf Türkisch"));
+  assert.ok(otherLanguage("Bilderbuchkino auf Arabisch und Deutsch"));
+  assert.ok(otherLanguage("Türkisch-deutsche Vorlesestunde"));
+  assert.ok(!otherLanguage("Vorlesezeit"));
+  assert.ok(!otherLanguage("Storytime in English"));
+  assert.ok(!otherLanguage("Chinesisches Neujahrsfest für Kinder"));
 });
 
 test("places: only the zoo itself, open on the weekend, not featured lately", () => {
