@@ -150,6 +150,16 @@ test("places: farms only when made for a visit, no farm shops or seasonal stalls
   assert.deepEqual(placeCandidates(rows, { town: "Bonn", month: 10 }).map((p) => p.id), ["osm-node-3"]);
 });
 
+test("places: no Thermen, saunas, spas or places with an age limit in the picks", () => {
+  const rows = [
+    { osm: "node/1", kind: "pool", name: "Grugapark Therme", town: "Essen", hours: "Mo-Su 09:00-22:00" },
+    { osm: "node/2", kind: "pool", name: "Hamam – Wellness & Spa", town: "Essen", hours: "Mo-Su 09:00-22:00" },
+    { osm: "node/3", kind: "pool", name: "Hallenbad", town: "Essen", hours: "Mo-Su 09:00-22:00", min_age: 16 },
+    { osm: "node/4", kind: "pool", name: "Oase Freizeitbad", town: "Essen", hours: "Mo-Su 09:00-22:00" },
+  ];
+  assert.deepEqual(placeCandidates(rows, { town: "Essen", month: 11, rain: true }).map((p) => p.id), ["osm-node-4"]);
+});
+
 test("weekend events: one pick per title and venue across days, long runs set apart, sold out dropped", () => {
   const towns = [{ name: "Köln", lat: 50.9, lon: 6.9 }];
   const row = (id: string, title: string, start: string, extra = {}) => ({
