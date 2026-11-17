@@ -9,6 +9,7 @@
 # History (find a post by its code: grep -l "code: 6EAH" posts/):
 # - 2026-11-17 recheck: no official children's programme with dates for Düsseldorf; offered L a simple version.
 # - 2026-11-17 L asked for this week's special post; built the simple version from official facts only.
+# - 2026-11-17 L: "做视频么？" Added the `video:` block below (card-made video was text-heavy).
 code: 6EAH
 title: 杜塞圣诞市场带娃先玩哪个？｜2026
 until: 2026-12-30
@@ -85,3 +86,55 @@ cards:
     search: 小鹿出游 Allo Outings
     note: 搜索后选杜塞尔多夫，点「圣诞市场」。
     foot: 信息以官方为准，出发前请再确认
+# The short video (src/lib/video.ts): beats for watching, all from the cards above; the details stay in the caption.
+video:
+  snow: true
+  scenes:
+    - tone: red
+      tag: 2026 · 杜塞尔多夫
+      title: "杜塞尔多夫\n圣诞市场\n先玩哪个？"
+      hook: true
+      chips: [🎡 摩天轮, ⛸️ 溜冰, 🎭 木偶剧]
+      sub: 按官方信息整理 · 最后投票
+      seconds: 3.4
+    - tone: red
+      tag: 开门时间
+      title: 什么时候开？
+      items:
+        - { icon: 🎁, k: 开放, v: 11-19（周四）到 12-30 }
+        - { icon: 🕚, k: 时间, v: "周日至周四 11–20点\n周五周六 11–21点" }
+        - { icon: ⛔, k: 不开, v: 11-22（周日）、12-25 }
+        - { icon: 🎟️, k: 门票, v: 免费入场 }
+    - tone: blue
+      tag: A 摩天轮
+      big: 55米
+      lines: [Burgplatz · 老城, 🎡 42个吊舱，每个坐8人]
+      sub: 风大的时候可能临时停开
+    - tone: green
+      tag: B 溜冰场
+      title: 在 Kö 上溜冰
+      items:
+        - { icon: ⛸️, v: 真冰溜冰场, s: Corneliusplatz，11-06 已经开了 }
+        - { icon: 🥌, v: 还可以玩冰壶, s: 在特别的塑料面上滑 }
+    - tone: gold
+      tag: C 木偶剧
+      title: 给小朋友的木偶剧
+      chips: [🎭 讲好玩的故事, 🧒 给小朋友]
+      sub: 具体场次官方还没公布，出发前看一眼官网
+    - tone: green
+      tag: 带娃小提示
+      title: 出门前看一眼
+      items:
+        - { icon: 🚇, v: 坐地铁最方便, s: Heinrich-Heine-Allee 站 }
+        - { icon: 🅿️, v: 周六免费停车, s: "12-05、12-12、12-19\nHohensandweg 41 停车楼" }
+        - { icon: 🚼, v: 换尿布, s: "Burgplatz 旁约70米的餐厅\nKö 附近约210米的母婴室" }
+    - tone: ink
+      title: 你家先玩哪个？
+      vote:
+        - { letter: A, name: 摩天轮 }
+        - { letter: B, name: 溜冰 }
+        - { letter: C, name: 木偶剧 }
+        - { letter: D, name: 主题市场 }
+      cta: 评论区留字母 👇
+      search: 小鹿出游 Allo Outings
+      foot: 信息以官方为准，出发前请再确认
