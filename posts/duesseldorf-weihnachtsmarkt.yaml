@@ -1,0 +1,87 @@
+# A Rednote (小红书) set: Düsseldorf's Christmas market with children, simple version. The official site has no
+# dated children's programme yet, so the vote is over the three things it does name (Ferris wheel, ice rink,
+# puppet theatre) plus strolling the themed markets, without show times.
+# Facts from visitduesseldorf.de (Visit Düsseldorf, read 2026-11-17): /erleben/veranstaltungen/weihnachten-in-duesseldorf
+# (+ /faq, /programm), /attraktionen/riesenrad-wheel-of-vision-7176a064d7, /attraktionen/eisbahn-koe-on-ice-2900b3b21a.
+# Changing tables from OpenStreetMap (places/toilets.jsonl, 2026-11-12).
+# Drawn and uploaded by .github/workflows/posts.yml on push; the admin's Posts panel opens it by its code.
+# Ends on a vote so parents talk in the comments (public: ask for favourites and tips, never about their kids).
+# History (find a post by its code: grep -l "code: 6EAH" posts/):
+# - 2026-11-17 recheck: no official children's programme with dates for Düsseldorf; offered L a simple version.
+# - 2026-11-17 L asked for this week's special post; built the simple version from official facts only.
+code: 6EAH
+title: 杜塞圣诞市场带娃先玩哪个？｜2026
+until: 2026-12-30
+caption: |
+  杜塞尔多夫圣诞市场 11-19（周四）开门，一直到 12-30🎄 整个市中心都是圣诞市场，免费入场。按官方信息整理了带娃能玩的，看完来评论区投票（A–D）👇
+
+  A Burgplatz 的55米摩天轮
+  B Kö 的溜冰场
+  C 木偶剧
+  D 几个主题市场一路逛过去
+
+  小提示：11-22（周日）和 12-25 不开；12-24 只开到15点。
+
+  🗳 你家先玩哪个？评论区留字母就行。
+  也想听听大家的经验：杜塞带娃白天去还是晚上去？在哪里停车？有没有人少的小角落？
+
+  时间以官方为准，出发前请再确认～
+  更多市场：浏览器搜索「小鹿出游 Allo Outings」，选杜塞尔多夫，点「圣诞市场」。
+tags: [杜塞尔多夫带娃, 杜塞尔多夫圣诞市场, 德国圣诞市场, 圣诞市场, 德国带娃, 德国生活, 德国妈妈, 德国爸爸, 留德]
+cards:
+  - tone: gold
+    tag: 2026 · 杜塞尔多夫
+    title: "杜塞尔多夫\n圣诞市场\n带娃先玩哪个？"
+    lines:
+      - 摩天轮、溜冰、木偶剧：按官方信息整理。
+      - 最后一张投票，评论区见！
+    foot: 德国带娃 · 圣诞季
+  - tone: paper
+    tag: 开门时间
+    title: 什么时候开？
+    rows:
+      - { when: "开放", name: 11-19（周四）到 12-30 }
+      - { when: "时间", name: 周日至周四 11–20点，周五周六 11–21点 }
+      - { when: "不开", name: 11-22（周日）、12-25 }
+      - { when: "特别", name: 12-24 11–15点，12-26 14–21点 }
+    note: 免费入场。几个主题市场大小差不多，离得很近，可以一路逛过去。
+  - tone: sky
+    tag: A 摩天轮
+    title: 55米高看全城
+    lines:
+      - 在老城的 Burgplatz，55米高，42个吊舱，每个最多坐8人。
+      - 票可以现场买，也可以网上买。
+      - 风大的时候可能临时停开。
+  - tone: mint
+    tag: B 溜冰场
+    title: 在 Kö 上溜冰
+    lines:
+      - Königsallee 的 Corneliusplatz，11-06 已经开了。
+      - 有真冰的溜冰场，还可以玩冰壶（在特别的塑料面上滑）。
+  - tone: rose
+    tag: C 木偶剧
+    title: 给小朋友的木偶剧
+    lines:
+      - 官方节目单写了有木偶剧，讲好玩的故事给小朋友听。
+      - 具体场次官方还没公布，出发前看一眼官网。
+  - tone: paper
+    tag: 交通 · 换尿布
+    title: 去之前看一眼
+    lines:
+      - 坐地铁到 Heinrich-Heine-Allee 最方便，就在市场中间。
+      - 12-05、12-12、12-19（周六）10–22点，Hohensandweg 41 的停车楼免费停车，再坐公交进城。
+      - 换尿布：Burgplatz 旁边约70米的餐厅有（在女厕）；Kö 附近约210米有免费的母婴室。
+    note: 晚上人多推车难走，背带更轻松。
+    foot: 换尿布台位置来自 © OpenStreetMap 贡献者
+  - tone: ink
+    title: "你家先玩哪个？"
+    lines:
+      - 评论区留字母，也欢迎分享杜塞带娃的小经验。
+    rows:
+      - { when: "A", name: 摩天轮 }
+      - { when: "B", name: 溜冰 }
+      - { when: "C", name: 木偶剧 }
+      - { when: "D", name: 主题市场一路逛 }
+    search: 小鹿出游 Allo Outings
+    note: 搜索后选杜塞尔多夫，点「圣诞市场」。
+    foot: 信息以官方为准，出发前请再确认
