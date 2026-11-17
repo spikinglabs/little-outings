@@ -235,16 +235,55 @@ export function scoreEvent(p: Pick, o: { source?: string; rain?: boolean; dry?: 
 export const seriesOf = (title: string) =>
   title.toLowerCase().replace(/\s+(am|an|zum|jeden)\s+(montag|dienstag|mittwoch|donnerstag|freitag|samstag|sonntag|wochenende)s?\b.*$/, "").replace(/[^\p{L}\p{N}]+/gu, " ").trim();
 
-export const recentKey = (p: Pick) => `${p.title.toLowerCase()}|${(p.venue ?? "").split(",")[0].toLowerCase()}`;
+/**
+ * What makes two picks "the same thing" across weeks: the series at the venue. A weekly story time gets a
+ * new id every week, and "Vorlesezeit am Samstag" is the same series as "Vorlesezeit".
+ */
+export const recentKey = (p: Pick) => `${seriesOf(p.title)}|${(p.venue ?? "").split(",")[0].trim().toLowerCase()}`;
+
+/**
+ * Everything the last `n` editions featured: each event's series at its venue, each place's id and name
+ * (OSM sometimes maps one playground twice, under two ids).
+ */
+export function featuredIn(past: { picks: Pick[] }[], n: number): Set<string> {
+  const out = new Set<string>();
+  for (const e of past.slice(0, n)) for (const p of e.picks) {
+    if (p.type === "place") { out.add(p.id); out.add(`place:${p.title.toLowerCase()}`); }
+    else out.add(recentKey(p));
+  }
+  return out;
+}
+
+/** Was this featured lately (see featuredIn)? */
+export const wasFeatured = (p: Pick, recent?: Set<string>) =>
+  !!recent && (p.type === "place" ? recent.has(p.id) || recent.has(`place:${p.title.toLowerCase()}`) : recent.has(recentKey(p)));
+
+/**
+ * The shortlist with what wasn't featured lately first. Events from recent editions only come after the
+ * fresh clear family events (score 2 and up), so they fill a weekend only when there aren't enough new
+ * ones: a town with few events can still show its weekly favourite rather than nothing.
+ */
+export function freshFirst<T extends Pick>(cands: T[], recent?: Set<string>): T[] {
+  const tier = (p: T) => (!wasFeatured(p, recent) && (p.score ?? 0) >= 2 ? 0 : 1);
+  return [...cands].sort((a, b) => tier(a) - tier(b) || (b.score ?? 0) - (a.score ?? 0));
+}
+
+/**
+ * Held in a language other than German, English or Chinese ("Vorlesezeit auf Türkisch"). The edition's
+ * readers, and all of Rednote, are Chinese- and English-speaking parents: these aren't for them.
+ */
+const OTHER_LANGUAGE = /\b(auf|in) (t(ü|ue)rkisch|arabisch|ukrainisch|russisch|polnisch|spanisch|franz(ö|oe)sisch|italienisch|griechisch|persisch|farsi|dari|kurdisch|portugiesisch|rum(ä|ae)nisch|bulgarisch|kroatisch|serbisch|albanisch|tigrinya|vietnamesisch)\b|\b(t(ü|ue)rkisch|arabisch|ukrainisch|russisch|polnisch|persisch|kurdisch)[- ](deutsch|sprachig)|\bauf deutsch und (t(ü|ue)rkisch|arabisch|ukrainisch|russisch|polnisch|persisch)/i;
+export const otherLanguage = (title: string) => OTHER_LANGUAGE.test(title);
 
 /**
  * Five picks that mix well, best score first: one venue and title only once, at most two at the same hour,
  * at most one on Friday afternoon,
  * Saturday and Sunday both covered when possible, and mostly indoors when it rains.
  */
-export function pickMix(cands: Pick[], o: { n?: number; rain?: boolean; sat: string; sun: string }): Pick[] {
+export function pickMix(cands: Pick[], o: { n?: number; rain?: boolean; sat: string; sun: string; recent?: Set<string> }): Pick[] {
   const n = o.n ?? PICKS;
-  const sorted = [...cands].filter((c) => (c.score ?? 0) >= 1).sort((a, b) => (b.score ?? 0) - (a.score ?? 0));
+  // Not featured lately first; see freshFirst.
+  const sorted = freshFirst(cands.filter((c) => (c.score ?? 0) >= 1), o.recent);
   const venue = (p: Pick) => (p.venue ?? p.id).split(",")[0].toLowerCase();
   // Events without a time don't count toward "the same hour".
   const slot = (p: Pick) => { const c = clockText(p.time); return c ? `${p.days[0]}|${c.slice(0, 2)}` : `${p.id}|?`; };
@@ -307,7 +346,7 @@ export function placeCandidates(rows: OsmRow[], o: { town: string; month: number
   for (const r of rows) {
     if (r.town !== o.town || !r.name || !kinds.includes(r.kind)) continue;
     const id = `osm-${r.osm.replace("/", "-")}`;
-    if (o.hidden?.has(id) || o.recent?.has(id)) continue;
+    if (o.hidden?.has(id) || o.recent?.has(id) || o.recent?.has(`place:${r.name.toLowerCase()}`)) continue;
     if (r.kind === "zoo" && !ZOO_NAME.test(r.name)) continue;
     if ((r.kind === "farm" && !FARM_VISIT.test(r.name)) || NOT_FOR_VISITORS.test(r.name)) continue;
     const open = openOnWeekend(r.hours, o.month);
@@ -464,6 +503,7 @@ Choose exactly {n} events a family with young children would most enjoy, with a 
 - one venue only once, different parts of town, something for under-4s if there is one
 - if rain is likely, mostly indoors; if it is dry, something outdoors
 - most readers are Chinese- and English-speaking parents who read little German: prefer what needs little German (hands-on, animals, markets, shows without words); at most one story time or reading in German
+- parents follow these picks every week: an event marked "featured recently" was in one of the last weeks' picks; choose it only when there aren't enough good other events
 For each pick write a short name (at most 40 characters; keep German proper names, translate what the event is) and one friendly line (at most 90 characters) saying why it's a good pick, each in German (de), English (en) and Simplified Chinese (zh). Don't invent facts that aren't in the list.
 Return only JSON: {"picks": [{"i": 0, "label": {"de": "", "en": "", "zh": ""}, "why": {"de": "", "en": "", "zh": ""}}]}
 ${ZH_NAMES}`;
@@ -474,12 +514,13 @@ Return only JSON: {"items": [{"i": 0, "label": {"de": "", "en": "", "zh": ""}, "
 ${ZH_NAMES}`;
 
 /** One shortlist line for the AI. */
-export function describe(p: Pick, i: number): string {
+export function describe(p: Pick, i: number, recent?: Set<string>): string {
   const facts = [
     p.type === "place" ? `place: ${p.kind}` : p.days.map((d) => dayShort(d, "en")).join("+"),
     clockText(p.time), p.venue, p.district, p.free ? "free" : p.price, p.book ? "registration needed" : "",
     p.indoor === true ? "indoors" : p.indoor === false ? "outdoors" : "", p.hours ? `hours ${p.hours}` : "",
     p.language === "de" ? "mostly German" : p.language === "en" ? "in English" : p.language === "none" ? "no German needed" : "",
+    wasFeatured(p, recent) ? "featured recently" : "",
   ].filter(Boolean);
   return `${i}. ${p.title} | ${facts.join(" | ")}`;
 }

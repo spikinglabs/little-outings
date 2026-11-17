@@ -27,7 +27,7 @@ import { download } from "./import-places.mjs";
 import { complete, pickLlm } from "../src/lib/llm.ts";
 import {
   LONG_RUN, MIN_EVENTS, PICKS, PICK_PROMPT, PLACE_PROMPT, RECENT_EVENTS, RECENT_PLACES, SHORTLIST, WEEKEND_TOWNS,
-  addDays, byWhen, describe, madeForKids, dow, indoorOf, isDry, isRainy, isoWeek, parsePicks, pickMix, placeCandidates, recentKey,
+  addDays, byWhen, describe, featuredIn, freshFirst, madeForKids, otherLanguage, dow, indoorOf, isDry, isRainy, isoWeek, parsePicks, pickMix, placeCandidates, recentKey, wasFeatured,
   scoreEvent, townSlug, weekendOf,
 } from "../src/lib/weekend.ts";
 
@@ -59,6 +59,8 @@ export function weekendEvents(rows, { town, towns, sat }) {
     if (row.sold_out === true || row.expired === true) continue;
     const ev = fromExport(row, { towns, today: fri, until: sun });
     if (!ev || ev.data.town !== town) continue;
+    // Held in Turkish, Arabic …: not for the edition's (and Rednote's) Chinese- and English-speaking readers.
+    if (otherLanguage(ev.data.title)) continue;
     const e = ev.data, end = e.end ?? e.start;
     if (end < fri) continue;
     const span = (Date.parse(end) - Date.parse(e.start)) / 864e5;
@@ -128,14 +130,18 @@ async function addLines(llm, picks) {
 export async function draftTown({ town, rows, places, towns, sat, weather, holiday, past, hidden, llm }) {
   const rain = isRainy(weather?.[0]) || isRainy(weather?.[1]);
   const dry = !rain && isDry(weather?.[0]) && isDry(weather?.[1]);
-  const recent = new Set(past.slice(0, RECENT_EVENTS).flatMap((e) => e.picks.map(recentKey)));
-  const recentPlaces = new Set(past.slice(0, RECENT_PLACES).flatMap((e) => e.picks.filter((p) => p.type === "place").map((p) => p.id)));
+  const recent = featuredIn(past, RECENT_EVENTS);
+  const recentPlaces = featuredIn(past, RECENT_PLACES);
   const { events, still } = weekendEvents(rows, { town, towns, sat });
   for (const e of events) e.score = scoreEvent(e, { source: e.source, rain, dry, recent });
-  const shortlist = events.filter((e) => e.score >= 1).sort((a, b) => b.score - a.score).slice(0, SHORTLIST);
+  // Not featured in the last weeks first; the AI sees the recent ones only when the fresh ones don't
+  // fill the weekend, and then marked "featured recently".
+  const ranked = freshFirst(events.filter((e) => e.score >= 1), recent);
+  const fresh = ranked.filter((e) => !wasFeatured(e, recent) && e.score >= 2).length;
+  const shortlist = (fresh >= PICKS + 2 ? ranked.filter((e) => !wasFeatured(e, recent)) : ranked).slice(0, SHORTLIST);
   const sun = addDays(sat, 1);
 
-  let picks = pickMix(shortlist, { rain, sat, sun });
+  let picks = pickMix(shortlist, { rain, sat, sun, recent });
   let by = "score";
   const header = [
     `Town: ${town}. Weekend: Saturday ${sat}, Sunday ${sun}.`,
@@ -143,12 +149,12 @@ export async function draftTown({ town, rows, places, towns, sat, weather, holid
     holiday ? `School holidays (${holiday.name})${holiday.last ? ", ending this weekend" : ""}.` : "",
   ].filter(Boolean).join("\n");
   const want = Math.min(PICKS, shortlist.length);
-  const answer = want ? await ask(llm, PICK_PROMPT.replace("{n}", String(want)), `${header}\n\n${shortlist.map(describe).join("\n")}`) : null;
+  const answer = want ? await ask(llm, PICK_PROMPT.replace("{n}", String(want)), `${header}\n\n${shortlist.map((p, i) => describe(p, i, recent)).join("\n")}`) : null;
   const chosen = answer ? parsePicks(answer, shortlist.length) : [];
   if (want && chosen.length >= Math.min(3, want)) {
     picks = chosen.slice(0, PICKS).map((c) => ({ ...shortlist[c.i], label: c.label, why: c.why }));
     // Fill up from the plain score if the AI gave fewer than asked.
-    for (const p of pickMix(shortlist, { rain, sat, sun })) if (picks.length < want && !picks.includes(p)) picks.push(p);
+    for (const p of pickMix(shortlist, { rain, sat, sun, recent })) if (picks.length < want && !picks.includes(p)) picks.push(p);
     by = "ai";
   }
 
@@ -268,7 +274,7 @@ export async function refresh({ sat, llm }) {
     const rain = isRainy(weather?.[0]) || isRainy(weather?.[1]);
     const dry = !rain && isDry(weather?.[0]) && isDry(weather?.[1]);
     const past = pastEditions(OUT, townSlug(town), sat);
-    const recent = new Set(past.slice(0, RECENT_EVENTS).flatMap((e) => e.picks.map(recentKey)));
+    const recent = featuredIn(past, RECENT_EVENTS);
     const { events, still } = weekendEvents(rows, { town, towns, sat });
     const on = new Set(events.map((e) => e.id));
     const gone = ed.picks.filter((p) => p.type === "event" && !on.has(p.id)).length;
@@ -276,8 +282,9 @@ export async function refresh({ sat, llm }) {
     const taken = new Set(ed.picks.map(recentKey));
     const venues = new Set(ed.picks.map((p) => (p.venue ?? "").toLowerCase()).filter(Boolean));
     const added = [];
-    for (const e of events.map((e) => ({ ...e, score: scoreEvent(e, { source: e.source, rain, dry, recent }) })).sort((a, b) => b.score - a.score)) {
-      if (added.length >= gone || e.score < 2) break;
+    for (const e of freshFirst(events.map((e) => ({ ...e, score: scoreEvent(e, { source: e.source, rain, dry, recent }) })), recent)) {
+      if (added.length >= gone) break;
+      if (e.score < 2) continue;
       const venue = (e.venue ?? "").toLowerCase();
       if (ed.picks.some((p) => p.id === e.id) || taken.has(recentKey(e)) || (venue && venues.has(venue))) continue;
       if (venue) venues.add(venue);
