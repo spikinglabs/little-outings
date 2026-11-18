@@ -44,11 +44,12 @@ test("the importer writes, hides and prunes place files", () => {
   mkdirSync(join(content, "places", "imported"), { recursive: true });
   writeFileSync(join(content, "places", "imported", "osm-node-999.yaml"), "kind: farm\n");
   writeFileSync(join(content, "hidden-places.yaml"), "- osm-node-8\n");
-  const rows = [row(7), row(8)];
+  // A hammam and a Therme "ab 16" are left out like a hidden place.
+  const rows = [row(7), row(8), row(10, { kind: "pool", name: "Sultan Hamam" }), row(11, { kind: "pool", name: "Therme", min_age: 16 })];
   writeFileSync(join(dir, "osm.jsonl"), rows.map((r) => JSON.stringify(r)).join("\n"));
   writeFileSync(join(dir, "outings.jsonl"), JSON.stringify(ev("Gut Hixholz")) + "\n");
   const run = (env) => execFileSync("node", ["scripts/import-places.mjs"], { env: { ...process.env, CONTENT_DIR: content, OSM_FILE: join(dir, "osm.jsonl"), OUTINGS_FILE: join(dir, "outings.jsonl"), PLACES_EXPORT: "", ...env } }).toString();
-  assert.match(run(), /\(the snapshot\)/);
+  assert.match(run(), /\(the snapshot, 2 not for children\)/);
   const files = readdirSync(join(content, "places", "imported")).sort();
   assert.deepEqual(files, ["farm-velbert-gut-hixholz.yaml", "osm-node-7.yaml"]);
   assert.match(readFileSync(join(content, "places", "imported", "osm-node-7.yaml"), "utf8"), /^# Generated/);
@@ -57,7 +58,7 @@ test("the importer writes, hides and prunes place files", () => {
   writeFileSync(join(dir, "export.jsonl"), JSON.stringify(row(9)) + "\n");
   assert.match(run({ PLACES_EXPORT: join(dir, "export.jsonl") }), /\(the places bucket\)/);
   assert.ok(readdirSync(join(content, "places", "imported")).includes("osm-node-9.yaml"));
-  assert.match(run({ PLACES_EXPORT: join(dir, "missing.jsonl") }), /::warning title=Places::[\s\S]*\(the snapshot\)/);
+  assert.match(run({ PLACES_EXPORT: join(dir, "missing.jsonl") }), /::warning title=Places::[\s\S]*\(the snapshot, 2 not for children\)/);
 });
 
 test("a place without an address gets the nearest road and its district", () => {

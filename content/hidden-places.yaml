@@ -1,4 +1,8 @@
 # Imported places that must not appear on the site, by id (the file name in
 # content/places/imported/ without .yaml), e.g. a closed playground:
 #   - osm-way-123456
-[]
+# Places children aren't let into, checked on their own sites where OpenStreetMap has no min_age
+# (spikinglabs/osm-family-data lists the same ones in config/places.yaml, not_for_children):
+- osm-node-469326100 # Grugapark Therme, Essen: "Kinder unter 16 Jahren haben keinen Zutritt" (grugaparktherme.de, 2026-11-17)
+- osm-way-1018653595 # MediTherme, Bochum: no children under 14 (2026-11-17)
+- osm-node-500076460 # Kaiser-Friedrich-Therme, Wiesbaden: from 16, textile-free (2026-11-17)

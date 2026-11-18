@@ -5,6 +5,7 @@
 // Plain TypeScript without enums or other non-erasable syntax, so Node runs it directly.
 
 import { ZH_NAMES } from "./zh-names.ts";
+import { notForWeekendPicks } from "./adults-only.ts";
 
 export type L = "de" | "en" | "zh";
 export type Texts = { de: string; en?: string; zh?: string };
@@ -334,7 +335,7 @@ const ZOO_NAME = /zoo|tierpark|wildpark|tiergehege|wildgehege|vogelpark|tiergart
 const FARM_VISIT = /kinderbauernhof|jugendfarm|kinderfarm|erlebnis|streichel|ponyhof|abenteuer|lernbauernhof/i;
 const NOT_FOR_VISITORS = /senior|pflege/i;
 
-export interface OsmRow { osm: string; kind: string; name?: string; town: string; hours?: string; free?: boolean; indoor?: boolean; facilities?: string[]; street?: string; nearby?: { road?: string; district?: string } }
+export interface OsmRow { osm: string; kind: string; name?: string; min_age?: number; town: string; hours?: string; free?: boolean; indoor?: boolean; facilities?: string[]; street?: string; nearby?: { road?: string; district?: string } }
 
 /**
  * The place that's always a good idea this weekend: the right kind for the weather, open on Saturday or
@@ -347,6 +348,8 @@ export function placeCandidates(rows: OsmRow[], o: { town: string; month: number
     if (r.town !== o.town || !r.name || !kinds.includes(r.kind)) continue;
     const id = `osm-${r.osm.replace("/", "-")}`;
     if (o.hidden?.has(id) || o.recent?.has(id) || o.recent?.has(`place:${r.name.toLowerCase()}`)) continue;
+    // No Thermen, saunas or spas: many let no children in (Grugapark Therme, Essen), OSM rarely says so.
+    if (notForWeekendPicks(r)) continue;
     if (r.kind === "zoo" && !ZOO_NAME.test(r.name)) continue;
     if ((r.kind === "farm" && !FARM_VISIT.test(r.name)) || NOT_FOR_VISITORS.test(r.name)) continue;
     const open = openOnWeekend(r.hours, o.month);
