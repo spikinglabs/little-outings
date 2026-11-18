@@ -1,0 +1,140 @@
+# A Rednote (小红书) set: three easy German Christmas cookies (Plätzchen) to bake with children, with a vote at the end.
+# Recipes: the butter cut-outs use the classic German "1-2-3" shortcrust (flour : butter : sugar = 3 : 2 : 1, plus an
+# egg); oven as lecker.de's "Kinder-Butterplätzchen" (175 °C / fan 150 °C), time given as "until the edges colour".
+# Vanillekipferl: lecker.de/vanillekipferl-12060 (275 g flour, 100 g ground blanched almonds, 75 g sugar, 2 yolks,
+# 200 g cold butter, salt, vanilla pod; 1 h cold; 175 °C / fan 160 °C, 10-12 min; roll in 50 g icing sugar + vanilla
+# sugar). Kokosmakronen: lecker.de/kokosmakronen-10139 (3 whites, salt, 150 g sugar, vanilla sugar, 200 g desiccated
+# coconut; 170 °C / fan 150 °C, 10-12 min). Read 2026-11-18. No brand names.
+# History (find a post by its code: grep -l "code: PZ3K" posts/):
+# - 2026-11-18 L: "再另外做一个跟圣诞饼干有关的，也许可以发一些好用的圣诞饼干菜谱".
+code: PZ3K
+title: 和娃一起烤德国圣诞饼干｜3个简单菜谱
+until: 2026-12-24
+caption: |
+  德国人12月家家都烤 Plätzchen（圣诞小饼干）🍪 挑了3个最简单、孩子也能上手的经典款，菜谱都在图里，收藏起来周末烤～
+
+  A 黄油压模饼干 Butterplätzchen：孩子负责压模和撒糖珠
+  B 香草月牙 Vanillekipferl：孩子负责搓小月牙
+  C 椰子球 Kokosmakronen：只用蛋白，正好用掉做B剩下的蛋白
+
+  小提示：烤箱温度按自家烤箱调整，看颜色出炉；有坚果过敏的注意B里有杏仁粉。
+
+  🗳 你家今年先烤哪个？评论区留字母就行。
+  还有什么简单好吃的圣诞饼干？欢迎分享你的菜谱～
+tags: [圣诞饼干, 德国圣诞饼干, Plätzchen, 圣诞烘焙, 亲子烘焙, 德国带娃, 德国生活, 德国妈妈, 德国爸爸]
+cards:
+  - tone: gold
+    tag: 德国带娃 · 圣诞季
+    title: "德国圣诞饼干\n和娃一起烤"
+    lines:
+      - 3个最简单的经典款，孩子也能上手。
+      - 菜谱都在后面，最后一张投票！
+    foot: 德国带娃 · 圣诞季
+  - tone: red
+    tag: A 黄油压模饼干
+    title: Butterplätzchen
+    rows:
+      - { when: "面粉", name: 300 g }
+      - { when: "冷黄油", name: 200 g（切小块） }
+      - { when: "糖", name: 100 g }
+      - { when: "鸡蛋", name: 1 个，再加一小撮盐 }
+    note: 经典的“3-2-1”配方：面粉、黄油、糖 3:2:1，好记。
+  - tone: rose
+    tag: A 怎么做
+    title: 擀、压、烤
+    lines:
+      - 1 揉成团，包好冷藏30分钟。
+      - 2 擀到3–4毫米厚，用模具压出星星、小树。
+      - 3 175°C（热风150°C），烤到边缘微微发黄。
+      - 孩子来压模、刷蛋液、撒糖珠。
+  - tone: green
+    tag: B 香草月牙
+    title: Vanillekipferl
+    rows:
+      - { when: "面粉", name: 275 g }
+      - { when: "杏仁粉", name: 100 g（去皮） }
+      - { when: "冷黄油", name: 200 g }
+      - { when: "糖", name: 75 g，加一小撮盐 }
+      - { when: "蛋黄", name: 2 个，加1根香草荚的籽 }
+    note: 裹粉：50 g 糖粉 + 2 小包香草糖。
+  - tone: mint
+    tag: B 怎么做
+    title: 搓成小月牙
+    lines:
+      - 1 揉成团，冷藏1小时。
+      - 2 搓成小条，弯成月牙，尖头别太细。
+      - 3 175°C（热风160°C）烤10–12分钟，尖头微黄就好。
+      - 4 趁热滚一层香草糖粉。
+    note: 孩子来搓月牙。剩下的2个蛋白，正好做C。
+  - tone: sky
+    tag: C 椰子球
+    title: Kokosmakronen
+    rows:
+      - { when: "蛋白", name: 3 个，加一小撮盐 }
+      - { when: "糖", name: 150 g + 1 小包香草糖 }
+      - { when: "椰蓉", name: 200 g }
+    note: 只用蛋白，不用面粉和黄油。
+  - tone: sky
+    tag: C 怎么做
+    title: 打发、挖小堆
+    lines:
+      - 1 蛋白加盐打发，糖慢慢加进去，打到硬挺。
+      - 2 拌入椰蓉，用两个小勺挖成小堆，放在烘焙纸上。
+      - 3 170°C（热风150°C）烤10–12分钟。
+    note: 孩子来挖小堆，大小差不多就行。
+  - tone: paper
+    tag: 小提示
+    title: 烤之前看一眼
+    lines:
+      - 每家烤箱不一样，温度时间做参考，看颜色出炉。
+      - 黄油要冷的，面团软了就放回冰箱。
+      - B里有杏仁粉，有坚果过敏的注意。
+      - 放凉后装进铁盒，能放好几周。
+  - tone: ink
+    title: 你家今年先烤哪个？
+    lines:
+      - 评论区留字母，也欢迎分享你的菜谱。
+    rows:
+      - { when: "A", name: 黄油压模饼干 }
+      - { when: "B", name: 香草月牙 }
+      - { when: "C", name: 椰子球 }
+      - { when: "D", name: 别的（评论区说说） }
+video:
+  snow: true
+  scenes:
+    - tone: gold
+      tag: 德国带娃 · 圣诞季
+      title: "德国圣诞饼干\n和娃一起烤"
+      hook: true
+      chips: [⭐ 压模饼干, 🌙 香草月牙, 🥥 椰子球]
+      sub: 3个简单菜谱 · 最后投票
+      seconds: 3.4
+    - tone: red
+      tag: A 黄油压模饼干
+      title: Butterplätzchen
+      items:
+        - { icon: 🧈, v: 面粉 300 g · 冷黄油 200 g, s: 糖 100 g · 鸡蛋 1 个 }
+        - { icon: ⭐, v: 冷藏30分钟，擀薄压模, s: 孩子来压模、撒糖珠 }
+        - { icon: 🔥, v: 175°C（热风150°C）, s: 烤到边缘微微发黄 }
+    - tone: green
+      tag: B 香草月牙
+      title: Vanillekipferl
+      items:
+        - { icon: 🌰, v: 面粉 275 g · 杏仁粉 100 g, s: 冷黄油 200 g · 糖 75 g · 蛋黄 2 个 }
+        - { icon: 🌙, v: 冷藏1小时，搓成小月牙, s: 孩子来搓 }
+        - { icon: 🔥, v: 175°C（热风160°C）10–12分钟, s: 趁热滚香草糖粉 }
+    - tone: blue
+      tag: C 椰子球
+      title: Kokosmakronen
+      items:
+        - { icon: 🥚, v: 蛋白 3 个打发, s: 加糖 150 g + 香草糖 }
+        - { icon: 🥥, v: 拌入椰蓉 200 g, s: 用小勺挖成小堆 }
+        - { icon: 🔥, v: 170°C（热风150°C）10–12分钟 }
+    - tone: ink
+      title: 你家今年先烤哪个？
+      vote:
+        - { letter: A, name: 压模饼干 }
+        - { letter: B, name: 香草月牙 }
+        - { letter: C, name: 椰子球 }
+        - { letter: D, name: 别的 }
+      cta: 评论区留字母 👇

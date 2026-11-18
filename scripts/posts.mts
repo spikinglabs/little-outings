@@ -9,7 +9,7 @@
 //
 // Each post becomes <code>/<id>-<n>.png per card and <code>/post.json (code, id, title, caption with its
 // hashtags, until, pictures, video, updated), written last so the panel never lists a post whose pictures are missing.
-import { mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { basename, join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import { load } from "js-yaml";
@@ -19,6 +19,10 @@ import { checkVideo, scenesFromCards, videoPage, type VideoSpec } from "../src/l
 
 export const DIR = "posts";
 const ID = /^[a-z0-9][a-z0-9-]*$/;
+/** A card's photo: a file in posts/photos/, drawn into the card (sheet.ts) as a data: URL. */
+const PHOTO = /^photos\/[a-z0-9][a-z0-9-]*\.(jpg|png)$/;
+const withPhoto = <T extends { photo?: string }>(c: T): T =>
+  c.photo ? { ...c, photo: `data:image/${c.photo.endsWith(".png") ? "png" : "jpeg"};base64,${readFileSync(join(DIR, c.photo)).toString("base64")}` } : c;
 
 /** video: the scenes of its short video (src/lib/video.ts); without it the video is made from the cards. */
 export interface PostFile extends SetFile { id: string; video?: VideoSpec }
@@ -49,6 +53,9 @@ export function checkPosts(posts: PostFile[]): string[] {
     }
     for (const problem of checkSetFile(p)) out.push(`${p.id}: ${problem}`);
     if (p.video !== undefined) for (const problem of checkVideo(p.video)) out.push(`${p.id}: ${problem}`);
+    for (const [i, c] of (p.cards ?? []).entries()) {
+      if (c.photo !== undefined && !(PHOTO.test(String(c.photo)) && existsSync(join(DIR, String(c.photo))))) out.push(`${p.id}: card ${i + 1}: photo must be a .jpg or .png in ${DIR}/photos/`);
+    }
   }
   return out;
 }
@@ -90,7 +97,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     const dir = join(out, String(p.code));
     mkdirSync(dir, { recursive: true });
     const set = fileSet(p.id, p);
-    set.sheets.forEach((s, i) => writeFileSync(join(dir, `${p.id}-${i + 1}.png`), renderPng(sheetSvg(s, `${i + 1}/${set.sheets.length}`), fonts)));
+    set.sheets.forEach((s, i) => writeFileSync(join(dir, `${p.id}-${i + 1}.png`), renderPng(sheetSvg(withPhoto(s), `${i + 1}/${set.sheets.length}`), fonts)));
     // The video, for posts still running: about 1.5 s of recording per second of video.
     let video: string | undefined;
     if (process.env.VIDEO && !(p.until && String(p.until) < updated.slice(0, 10))) {

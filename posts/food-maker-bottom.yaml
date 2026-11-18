@@ -1,0 +1,63 @@
+# A Rednote (小红书) post from L's own kitchen (2026-11-18): the 4-in-1 steamer-blender's jar, if it goes into the
+# dishwasher without a rinse first, ends up with food bits washed into its sealed bottom, which is hard to open.
+# The photo is L's (posts/photos/food-maker-bottom.jpg, cropped, residue ringed in our yellow).
+# The fix is the brand's own support page ("Food is stuck on the inside of my ... baby food maker",
+# philips.co.uk/c-t/XC000004699, read 2026-11-18): rinse every part under the tap before the dishwasher; to flush the
+# jar, line up the hole in its bottom with the tap, rinse with warm water, shake 15 s, pour out, repeat.
+# Brand named on purpose: L asked for this product by name (2026-11-18), unlike the no-brands rule for other posts.
+# Ends on a public question about how people wash it (never about their kids).
+# History (find a post by its code: grep -l "code: AV4B" posts/):
+# - 2026-11-18 L: "做一个新的 post，就说 Philips avent 4 in 1 的一个潜在问题……可以用这个配图，但是做成我们的风格".
+code: AV4B
+title: 4合1辅食机杯底藏残渣？先冲再洗
+until: 2027-06-30
+caption: |
+  家里用飞利浦新安怡 4合1 蒸煮辅食机的注意啦⚠️ 我们家这次图省事，用完直接放进洗碗机，结果杯子底部的夹层里被冲进了食物残渣（第1张图），这个底部又很难打开清理😭
+
+  官方客服页上其实写了：
+  ✅ 放洗碗机之前，所有零件先在水龙头下冲一遍
+  ✅ 杯底有个小孔：拿下盖子和刀片，把小孔对准水龙头，用温水冲
+  ✅ 摇15秒，把残渣连水倒掉，重复到冲干净
+  ✅ 晾干再装回去
+
+  🗳 你家辅食机怎么洗？评论区留字母：
+  A 手洗
+  B 先冲再进洗碗机
+  C 直接进洗碗机
+  D 没用过辅食机
+
+  有没有其他清洗小技巧？欢迎分享～
+tags: [辅食机, 辅食, 宝宝辅食, 新手妈妈, 育儿经验, 德国带娃, 德国生活, 德国妈妈, 德国爸爸]
+cards:
+  - tone: gold
+    tag: 用过才知道
+    title: "辅食机杯底\n藏了残渣？"
+    big: false
+    photo: photos/food-maker-bottom.jpg
+    foot: 没先冲水就进洗碗机，黄圈里是冲进杯底夹层的残渣
+  - tone: paper
+    tag: 怎么回事
+    title: 杯底夹层很难打开
+    lines:
+      - 飞利浦新安怡 4合1 蒸煮辅食机，杯子底部是个夹层。
+      - 用完没冲水，直接放进洗碗机，食物残渣会被冲进底部。
+      - 底部不好拆，进去了就很难清理。
+    note: 所以关键是：进洗碗机之前先冲一遍。
+  - tone: mint
+    tag: 官方清洗方法
+    title: 先冲，再洗
+    lines:
+      - 1 杯子拿下来，取下盖子和刀片。
+      - 2 杯底有个小孔，对准水龙头，用温水冲。
+      - 3 摇15秒，把残渣连水倒掉，重复到冲干净。
+      - 4 所有零件先冲一遍再放洗碗机，晾干再装回。
+    foot: 来源：品牌官方客服页
+  - tone: ink
+    title: 你家辅食机怎么洗？
+    lines:
+      - 评论区留字母，也欢迎分享清洗小技巧。
+    rows:
+      - { when: "A", name: 手洗 }
+      - { when: "B", name: 先冲再进洗碗机 }
+      - { when: "C", name: 直接进洗碗机 }
+      - { when: "D", name: 没用过辅食机 }

@@ -29,6 +29,8 @@ export interface Sheet {
   rows?: { when: string; name: string }[];
   /** The name next to the logo; "小鹿出游 Allo Outings" by default. */
   brand?: string;
+  /** A photo (an image href, usually a data: URL) in a rounded frame, filling the space left above the small print. */
+  photo?: string;
 }
 
 // ---------- drawing ----------
@@ -177,6 +179,14 @@ export function sheetSvg(s: Sheet, page?: string, size: { w: number; h: number }
       y += noteLh;
       out.push(text(x, y, i === fit - 1 && fit < all.length ? `${l.replace(/[，。、,.;:\s]+$/, "")}…` : l, noteSize, c.ink));
     }
+  }
+
+  if (s.photo && floor - y - 50 >= 240) {
+    // The photo is cut to fill its frame (centred), with a white border so it reads as a picture on any tone.
+    const top = y + 50, ph = floor - top;
+    out.push(`<rect x="${x - 10}" y="${top - 10}" width="${width + 20}" height="${ph + 20}" rx="34" fill="#ffffff"/>`);
+    out.push(`<clipPath id="photo"><rect x="${x}" y="${top}" width="${width}" height="${ph}" rx="26"/></clipPath>`);
+    out.push(`<image x="${x}" y="${top}" width="${width}" height="${ph}" href="${esc(s.photo)}" preserveAspectRatio="xMidYMid slice" clip-path="url(#photo)"/>`);
   }
 
   // Bottom: the brand on the left, the code on the right, the small print above them.
