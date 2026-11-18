@@ -1,0 +1,133 @@
+# A Rednote (小红书) set: the Advent calendar (Adventskalender) and Advent wreath, a German custom many Chinese
+# families meet for the first time. Ends on a vote (ready-made chocolate, toy calendar, DIY gifts, DIY "one small
+# thing a day", none) so parents share ideas in the comments (public: ask for choices and ideas, never about their kids).
+# Facts are calendar facts only: Advent Sundays 2026 are 11-29, 12-06, 12-13, 12-20 (Christmas Eve is a Thursday);
+# 12-06 Nikolaus falls on the 2nd Advent Sunday. No brand names, no prices.
+# Drawn and uploaded by .github/workflows/posts.yml on push; the admin's Posts panel opens it by its code.
+# History (find a post by its code: grep -l "code: AK7D" posts/):
+# - 2026-11-18 weekly topic post (Kunla AL-8), picked from the toy ideas list ("Adventskalender buy vs DIY").
+code: AK7D
+title: 圣诞倒数日历，买还是自己做？
+until: 2026-12-01
+caption: |
+  德国家里很常见的 Adventskalender（圣诞倒数日历）：12-01 到 12-24，每天开一个小门🎄 今年你家打算买现成的，还是自己做？看完来评论区投票（A–E）👇
+
+  A 巧克力日历，每天一小块
+  B 玩具日历，每天一个小玩具
+  C 自己做，24个小袋子装小礼物
+  D 自己做，每天一张纸条写一件小事
+  E 不做
+
+  顺便说一下降临花环 Adventskranz：四根蜡烛，每个降临周日多点一根。今年是 11-29、12-06、12-13、12-20，12-06 尼古拉斯节正好是第二个周日。
+
+  🗳 你家今年选哪个？评论区留字母就行。
+  自己做的话，里面都放什么？纸条上写过哪些好点子？欢迎分享～
+  圣诞季带娃去哪：浏览器搜索「小鹿出游 Allo Outings」，点「圣诞市场」。
+tags: [圣诞倒数日历, 降临日历, Adventskalender, 德国圣诞, 德国带娃, 德国生活, 德国妈妈, 德国爸爸, 留德]
+cards:
+  - tone: gold
+    tag: 德国带娃 · 圣诞季
+    title: "圣诞倒数日历\n买现成的\n还是自己做？"
+    lines:
+      - 德国家里很常见的 Adventskalender。
+      - 最后一张投票，评论区见！
+    foot: 德国带娃 · 圣诞季
+  - tone: paper
+    tag: Adventskalender
+    title: 是什么？
+    rows:
+      - { when: "从哪天", name: 12-01 到 12-24 }
+      - { when: "每天", name: 开一个小门或小袋子 }
+      - { when: "里面", name: 小巧克力、小玩具或小纸条 }
+    note: 在德国很常见，11月商店里就开始卖了。
+  - tone: green
+    tag: Adventskranz 降临花环
+    title: 四根蜡烛，四个周日
+    rows:
+      - { when: "第一根", name: 11-29（周日） }
+      - { when: "第二根", name: 12-06（周日） }
+      - { when: "第三根", name: 12-13（周日） }
+      - { when: "第四根", name: 12-20（周日） }
+    note: 今年 12-06 尼古拉斯节正好是第二个降临周日。
+  - tone: rose
+    tag: A 巧克力 · B 玩具
+    title: 买现成的
+    lines:
+      - A 巧克力日历：每天一小块，超市就有，最省事。
+      - B 玩具日历：每天一个小玩具或拼装件，贵一些，大一点的孩子更喜欢。
+  - tone: mint
+    tag: C 自己做小礼物
+    title: 24个小袋子
+    lines:
+      - 小袋子、小盒子或信封，写上 1 到 24，挂在绳子上。
+      - 里面放贴纸、小零食、发夹、小画笔这些小东西。
+      - 好处：可以按自家口味来，少吃点糖。
+  - tone: sky
+    tag: D 每天一件小事
+    title: 不花钱的倒数日历
+    lines:
+      - 每天一张纸条，写一件一起做的小事：
+      - 今天一起烤饼干 · 今晚读圣诞故事
+      - 今天去看圣诞灯 · 今天一起做贺卡
+    note: 周末的纸条可以写去圣诞市场。
+  - tone: ink
+    title: "你家今年选哪个？"
+    lines:
+      - 评论区留字母，也欢迎分享好点子。
+    rows:
+      - { when: "A", name: 巧克力日历 }
+      - { when: "B", name: 玩具日历 }
+      - { when: "C", name: 自己做小礼物 }
+      - { when: "D", name: 每天一件小事 }
+      - { when: "E", name: 不做 }
+    search: 小鹿出游 Allo Outings
+    note: 圣诞季带娃去哪：搜索后点「圣诞市场」。
+# The short video (src/lib/video.ts): beats for watching, all from the cards above.
+video:
+  snow: true
+  scenes:
+    - tone: gold
+      tag: 德国带娃 · 圣诞季
+      title: "圣诞倒数日历\n买现成的\n还是自己做？"
+      hook: true
+      chips: [🍫 巧克力, 🧸 小玩具, ✂️ 自己做]
+      sub: 最后投票
+      seconds: 3.4
+    - tone: red
+      tag: Adventskalender
+      big: "24"
+      lines: [12-01 到 12-24, 🎁 每天开一个小门]
+    - tone: green
+      tag: Adventskranz 降临花环
+      title: 四根蜡烛，四个周日
+      items:
+        - { icon: 🕯️, k: 第一根, v: 11-29 }
+        - { icon: 🕯️, k: 第二根, v: "12-06", s: 正好是尼古拉斯节 }
+        - { icon: 🕯️, k: 第三根, v: 12-13 }
+        - { icon: 🕯️, k: 第四根, v: 12-20 }
+    - tone: blue
+      tag: 四种做法
+      title: 你家选哪种？
+      grid:
+        - { letter: A, icon: 🍫, name: 巧克力日历 }
+        - { letter: B, icon: 🧸, name: 玩具日历 }
+        - { letter: C, icon: ✂️, name: 自己做小礼物 }
+        - { letter: D, icon: 📝, name: 每天一件小事 }
+    - tone: red
+      tag: D 不花钱
+      title: 纸条上写一件小事
+      items:
+        - { icon: 🍪, v: 今天一起烤饼干 }
+        - { icon: 📖, v: 今晚读圣诞故事 }
+        - { icon: ✨, v: 今天去看圣诞灯 }
+        - { icon: 💌, v: 今天一起做贺卡 }
+    - tone: ink
+      title: 你家今年选哪个？
+      vote:
+        - { letter: A, name: 巧克力 }
+        - { letter: B, name: 玩具 }
+        - { letter: C, name: 小礼物 }
+        - { letter: D, name: 小事 }
+        - { letter: E, name: 不做 }
+      cta: 评论区留字母 👇
+      search: 小鹿出游 Allo Outings
