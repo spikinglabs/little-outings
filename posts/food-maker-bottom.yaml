@@ -8,11 +8,12 @@
 # Ends on a public question about how people wash it (never about their kids).
 # History (find a post by its code: grep -l "code: AV4B" posts/):
 # - 2026-11-18 L: "做一个新的 post，就说 Philips avent 4 in 1 的一个潜在问题……可以用这个配图，但是做成我们的风格".
+# - 2026-11-19 L: "做的更吸引人一点，比如你家有这个辅食机么？开头". Cover, title and caption now open with that question.
 code: AV4B
-title: 4合1辅食机杯底藏残渣？先冲再洗
+title: 你家有这个辅食机吗？杯底可能藏残渣
 until: 2027-06-30
 caption: |
-  家里用飞利浦新安怡 4合1 蒸煮辅食机的注意啦⚠️ 我们家这次图省事，用完直接放进洗碗机，结果杯子底部的夹层里被冲进了食物残渣（第1张图），这个底部又很难打开清理😭
+  你家有这个辅食机吗？👀 用飞利浦新安怡 4合1 蒸煮辅食机的注意啦⚠️ 我们家这次图省事，用完直接放进洗碗机，结果杯子底部的夹层里被冲进了食物残渣（第1张图），这个底部又很难打开清理😭
 
   官方客服页上其实写了：
   ✅ 放洗碗机之前，所有零件先在水龙头下冲一遍
@@ -31,10 +32,10 @@ tags: [辅食机, 辅食, 宝宝辅食, 新手妈妈, 育儿经验, 德国带娃
 cards:
   - tone: gold
     tag: 用过才知道
-    title: "辅食机杯底\n藏了残渣？"
+    title: "你家有这个\n辅食机吗？"
     big: false
     photo: photos/food-maker-bottom.jpg
-    foot: 没先冲水就进洗碗机，黄圈里是冲进杯底夹层的残渣
+    foot: 洗完一看：黄圈里是冲进杯底夹层的残渣
   - tone: paper
     tag: 怎么回事
     title: 杯底夹层很难打开
