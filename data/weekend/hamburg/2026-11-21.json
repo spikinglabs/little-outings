@@ -5,20 +5,6 @@
   "week": 47,
   "published_at": "2026-11-16T08:46:12.736Z",
   "by": "ai",
-  "weather": [
-    {
-      "day": "2026-11-21",
-      "code": 3,
-      "max": 7.1,
-      "rain": 8
-    },
-    {
-      "day": "2026-11-22",
-      "code": 3,
-      "max": 6,
-      "rain": 49
-    }
-  ],
   "picks": [
     {
       "id": "ck-evt-3361b7de218a852a9302",
@@ -163,6 +149,21 @@
         "en": "Free playground in St. Pauli, perfect for a relaxed afternoon out with the kids.",
         "zh": "St. Pauli 区的免费游乐场，适合带孩子轻松度过一个下午。"
       }
+    }
+  ],
+  "refreshed_at": "2026-11-20T09:17:01.415Z",
+  "weather": [
+    {
+      "day": "2026-11-21",
+      "code": 80,
+      "max": 6.3,
+      "rain": 63
+    },
+    {
+      "day": "2026-11-22",
+      "code": 61,
+      "max": 4.8,
+      "rain": 15
     }
   ]
 }

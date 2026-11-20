@@ -5,20 +5,6 @@
   "week": 47,
   "published_at": "2026-11-16T08:46:12.802Z",
   "by": "score",
-  "weather": [
-    {
-      "day": "2026-11-21",
-      "code": 2,
-      "max": 6.7,
-      "rain": 36
-    },
-    {
-      "day": "2026-11-22",
-      "code": 3,
-      "max": 5.6,
-      "rain": 37
-    }
-  ],
   "picks": [
     {
       "id": "ck-evt-08f9016f1e89ec470140",
@@ -155,6 +141,21 @@
         "en": "Free playground on Ceresstraat, ideal for a relaxed afternoon.",
         "zh": "位于 Ceresstraat 的免费游乐场，适合放松的下午。"
       }
+    }
+  ],
+  "refreshed_at": "2026-11-20T09:17:01.487Z",
+  "weather": [
+    {
+      "day": "2026-11-21",
+      "code": 3,
+      "max": 7.6,
+      "rain": 0
+    },
+    {
+      "day": "2026-11-22",
+      "code": 3,
+      "max": 5.7,
+      "rain": 4
     }
   ],
   "still": [

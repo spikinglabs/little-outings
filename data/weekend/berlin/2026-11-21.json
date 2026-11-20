@@ -5,20 +5,6 @@
   "week": 47,
   "published_at": "2026-11-16T08:46:12.639Z",
   "by": "score",
-  "weather": [
-    {
-      "day": "2026-11-21",
-      "code": 3,
-      "max": 5.6,
-      "rain": 19
-    },
-    {
-      "day": "2026-11-22",
-      "code": 3,
-      "max": 5.3,
-      "rain": 43
-    }
-  ],
   "picks": [
     {
       "id": "ck-evt-4a8c42a13972d3a04f2d",
@@ -159,6 +145,21 @@
         "en": "A free playground on Krossener Straße in Friedrichshain, great for an afternoon of play.",
         "zh": "Friedrichshain的Krossener Straße免费游乐场，适合一个下午的玩耍。"
       }
+    }
+  ],
+  "refreshed_at": "2026-11-20T09:17:01.318Z",
+  "weather": [
+    {
+      "day": "2026-11-21",
+      "code": 80,
+      "max": 6.5,
+      "rain": 18
+    },
+    {
+      "day": "2026-11-22",
+      "code": 80,
+      "max": 5,
+      "rain": 30
     }
   ]
 }

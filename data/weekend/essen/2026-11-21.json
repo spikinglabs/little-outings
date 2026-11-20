@@ -5,20 +5,6 @@
   "week": 47,
   "published_at": "2026-11-16T08:46:12.769Z",
   "by": "score",
-  "weather": [
-    {
-      "day": "2026-11-21",
-      "code": 51,
-      "max": 6.7,
-      "rain": 27
-    },
-    {
-      "day": "2026-11-22",
-      "code": 3,
-      "max": 6.1,
-      "rain": 24
-    }
-  ],
   "picks": [
     {
       "id": "ck-evt-245496866700fd6133df",
@@ -171,6 +157,21 @@
         "en": "Fri–Sat 9 am–11 pm, Sun 9 am–7 pm: warm indoor swimming, no German needed.",
         "zh": "周五、周六9–23点，周日9–19点：室内温暖泳池，无需德语。"
       }
+    }
+  ],
+  "refreshed_at": "2026-11-20T09:17:01.451Z",
+  "weather": [
+    {
+      "day": "2026-11-21",
+      "code": 3,
+      "max": 7.3,
+      "rain": 10
+    },
+    {
+      "day": "2026-11-22",
+      "code": 3,
+      "max": 7.3,
+      "rain": 2
     }
   ]
 }
