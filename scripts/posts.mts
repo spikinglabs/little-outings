@@ -9,7 +9,7 @@
 //   node scripts/posts.mts --check                     only check every post
 //   VIDEO=1 node scripts/posts.mts …                    also record each post's video (scripts/video.mjs)
 //
-// Each post becomes <code>/<id>-<n>.png per card and <code>/post.json (code, id, title, caption with its
+// Each post becomes <code>/<id>-<n>.png per card and <code>/post.json (code, id, label, title, caption with its
 // hashtags, until, pictures, video, updated), written last so the panel never lists a post whose pictures are missing.
 // A card with `picture: <file>` is a ready-made 1080×1440 PNG in posts/pictures/ (e.g. a chart drawn elsewhere),
 // copied as it is; its title is still required and names it in the video made from the cards.
@@ -100,6 +100,7 @@ export function postJson(p: PostFile, updated: string, video?: string) {
   return {
     code: String(p.code),
     id: p.id,
+    ...(p.label ? { label: String(p.label).trim() } : {}),
     title: set.title,
     caption: set.caption,
     ...(p.until ? { until: String(p.until) } : {}),

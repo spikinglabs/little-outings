@@ -1,7 +1,8 @@
 // Posts box: Rednote topic posts (Christmas markets, toy votes, St. Martin …), each with a four-character
-// code. Claude writes them in posts/ of the site repository and the posts job draws them here within minutes
+// code and the label after it (its admin name, e.g. "搞笑 带娃 · …"; the Rednote title when it has none). Claude
+// writes them in posts/ of the site repository and the posts job draws them here within minutes
 // of a push, without a site deploy (.github/workflows/posts.yml). One search box finds a post by its code,
-// a word of its title or a date (the day it was made or its last day, e.g. 11-12 or 2026-12): an exact code
+// a word of its label or title or a date (the day it was made or its last day, e.g. 11-12 or 2026-12): an exact code
 // opens it, anything else lists up to MAX matches to tap. With the box empty only the newest few show, so the
 // panel stays short however many posts there are. "Post" hands the pictures to the phone's share menu (pick
 // 小红书) and copies the title, then the caption; the Copy buttons copy either again. ?post=<code> opens one.
@@ -35,11 +36,11 @@ const box = cardBox({
   onLoad: () => queueMicrotask(list),
 });
 
-/** Posts whose code, title or dates contain every word typed, newest first (the API's order). */
+/** Posts whose code, label, title or dates contain every word typed, newest first (the API's order). */
 function search(sets, q) {
   const words = q.trim().toLowerCase().split(/\s+/).filter(Boolean);
   return sets.filter((s) => {
-    const hay = `${s.code} ${s.title} ${made(s)} ${s.until ?? ""}`.toLowerCase();
+    const hay = `${s.code} ${s.label ?? ""} ${s.title} ${made(s)} ${s.until ?? ""}`.toLowerCase();
     return words.every((w) => hay.includes(w));
   });
 }
@@ -52,7 +53,7 @@ function list() {
   if (exact) open = exact.code;
   const hits = q ? search(sets, q) : sets.slice(0, NEWEST);
   $("posts-list").innerHTML = (q ? "" : `<p class="sub">Newest:</p>`) + (hits.length
-    ? hits.slice(0, MAX).map((s) => `<button class="${s.code === open ? "primary" : "ghost"}" data-post="${esc(s.code)}">${esc(s.code)} · ${esc(s.title)} <span class="sub">${esc(made(s))}</span></button>`).join("")
+    ? hits.slice(0, MAX).map((s) => `<button class="${s.code === open ? "primary" : "ghost"}" data-post="${esc(s.code)}">${esc(s.code)} · ${esc(s.label || s.title)} <span class="sub">${esc(made(s))}</span></button>`).join("")
     : q ? `<p class="sub">No post matches “${esc(q)}”. A new one shows a few minutes after Claude pushes it.</p>` : `<p class="sub">No posts yet.</p>`);
   $("posts-found").textContent = hits.length > MAX ? `${hits.length} matches, showing ${MAX}: type more to narrow.` : "";
   box.render();

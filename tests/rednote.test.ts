@@ -117,6 +117,15 @@ test("post.json names the pictures in order, with the hashtags in the caption", 
   assert.match(j.caption, /\n#小鹿出游 #/);
 });
 
+test("a post's label goes into post.json for the admin, apart from the Rednote title", () => {
+  const base = { id: "a", code: "AB2C", title: "娃崩溃的理由", caption: "c", cards: [{ tone: "paper" as const, title: "x" }] };
+  const j = postJson({ ...base, label: " 搞笑 带娃 · 崩溃理由 " }, "2026-11-21T20:00:00.000Z");
+  assert.equal(j.label, "搞笑 带娃 · 崩溃理由");
+  assert.equal(j.title, "娃崩溃的理由");
+  assert.equal("label" in postJson(base, "2026-11-21T20:00:00.000Z"), false);
+  assert.match(checkPosts([{ ...base, label: "" }]).join(), /label must be text/);
+});
+
 test("a pick that dropped out leaves the other codes as posted", () => {
   const live = { ...edition, picks: edition.picks.slice(1) };
   const s = weeklySet(live, { townZh: "科隆", kindName, more: { events: 1, places: 1 }, codes: ["K31-2"] });
