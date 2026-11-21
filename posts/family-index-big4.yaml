@@ -1,0 +1,122 @@
+# A Rednote (小红书) set: which of Germany's four Millionenstädte is best for families, from the Allo Family
+# Index (official BBSR INKAR 2025 data 60% + Allo Outings events and OSM places 40%). Method, data and scripts:
+# project files family-index/ (METHOD.md, v2/V2.md, v2/ranking_big4.csv). Numbers as of 2026-11-21.
+# The posting job cuts the Chinese font itself, so new characters need no font commit.
+# History (find a post by its code: grep -l "code: W7KB" posts/):
+# - 2026-11-21 L asked for a family-friendly index; only the four big cities; per person/child/family views;
+#   the "doable without German" event metric removed; then asked to add it to the admin's Posts panel.
+code: W7KB
+title: 德国四大城市哪个最适合带娃？
+until: 2026-12-31
+caption: |
+  德国四个百万人口大城市，哪个最适合带娃？我们用官方数据（60%）+ 小鹿出游自己的遛娃数据（40%）比了一下👇
+
+  🥇 慕尼黑 49.5：最安全、学校好、工作好找；但托育分数最低，房租最贵
+  🥈 科隆 48.9：全天托育最普及（3–6 岁 89%），亲子活动最多；但交通事故最多
+  🥉 汉堡 44.3：房租负担最轻，绿地多；周末亲子活动偏少
+  4️⃣ 柏林 42.9：遛娃去处、雨天去处和换尿布点都最多；但房租负担最重（90 平房租约占家庭平均收入 75%）
+
+  👉 换个算法排名就变：按人头（每个居民、每个孩子、每个家庭）算，慕尼黑掉到第 3，科隆按每个孩子、每个家庭都是第 1，汉堡按每个居民第 1。柏林怎么算都是第 4。
+
+  🧮 分到每 1,000 个孩子：游乐场 汉堡 2.9、科隆 2.6、柏林 2.5、慕尼黑 1.2；未来 90 天亲子活动 科隆 5.0、慕尼黑 3.8、汉堡 3.7、柏林 2.1
+
+  📊 官方数据：托育、房租负担、学校、儿科医生、安全、绿地、工作
+  🧸 遛娃数据：未来 90 天的亲子活动（数量、周末占比、种类），市中心 5 公里内的游乐场、雨天去处、换尿布点
+
+  ⚠️ 只比城市整体，不比街区；活动数量也受我们收录的活动来源多少影响。
+
+  你住在哪个城市？觉得准不准？评论区聊聊～
+  想找身边的亲子活动：浏览器搜索「小鹿出游 Allo Outings」，选你的城市。
+
+  数据来源：BBSR INKAR 2025、小鹿出游活动数据、OpenStreetMap，2026 年 11 月
+tags: [德国生活, 德国育儿, 德国带娃, 柏林, 慕尼黑, 汉堡, 科隆, 德国妈妈, 德国爸爸, 留德]
+cards:
+  - tone: gold
+    tag: 带娃城市榜 · 四大城市
+    title: "四大城市\n谁最适合\n带娃？"
+    big: true
+    lines:
+      - 柏林、汉堡、慕尼黑、科隆，谁最适合带娃？
+      - 官方数据 60% + 小鹿出游遛娃数据 40%，满分 100。
+      - 按人头算，排名还会变。
+    foot: 德国带娃 · 城市对比
+  - tone: paper
+    tag: 总排名
+    title: 慕尼黑和科隆只差 0.6 分
+    rows:
+      - { when: "1 慕尼黑", name: "49.5 分" }
+      - { when: "2 科隆", name: "48.9 分" }
+      - { when: "3 汉堡", name: "44.3 分" }
+      - { when: "4 柏林", name: "42.9 分" }
+    note: 前两名几乎打平，选哪个要看你家最看重什么。
+  - tone: sky
+    tag: 第 1 名 · 49.5 分
+    title: 慕尼黑 München
+    lines:
+      - + 四个城市里最安全
+      - + 学校分数最高，没拿到毕业证的学生最少
+      - + 失业率最低，工作好找
+      - – 托育分数最低
+      - – 房租最贵，每平方米 21 欧
+  - tone: mint
+    tag: 第 2 名 · 48.9 分
+    title: 科隆 Köln
+    lines:
+      - + 全天托育最普及：3–6 岁 89% 的孩子全天入托
+      - + 儿科医生最多
+      - + 每个孩子分到的亲子活动最多，周末活动也最多
+      - – 交通事故最多，安全分最低
+  - tone: rose
+    tag: 第 3 名 · 44.3 分
+    title: 汉堡 Hamburg
+    lines:
+      - + 房租负担最轻
+      - + 绿地和休闲用地多
+      - + 换尿布点多
+      - – 周末的亲子活动偏少
+  - tone: paper
+    tag: 第 4 名 · 42.9 分
+    title: 柏林 Berlin
+    lines:
+      - + 游乐场、雨天去处、换尿布点都最多
+      - + 3 岁以下入托率比慕尼黑、科隆高
+      - – 房租负担最重：90 平房租约占家庭平均收入 75%
+      - – 学校分数最低，失业率最高
+  - tone: paper
+    tag: 各项冠军
+    title: 每一项谁最强？
+    rows:
+      - { when: "托育", name: 科隆 }
+      - { when: "房租负担", name: 汉堡 }
+      - { when: "学校", name: 慕尼黑 }
+      - { when: "儿科医生", name: 科隆 }
+      - { when: "安全", name: 慕尼黑 }
+      - { when: "绿地", name: 汉堡 }
+      - { when: "工作", name: 慕尼黑 }
+      - { when: "亲子活动", name: 科隆 }
+      - { when: "遛娃去处", name: 柏林 }
+      - { when: "换尿布方便", name: 柏林 }
+  - tone: gold
+    tag: 按人头算
+    title: 排名变了吗？
+    rows:
+      - { when: "按面积", name: 慕尼黑 › 科隆 › 汉堡 › 柏林 }
+      - { when: "每个居民", name: 汉堡 › 科隆 › 慕尼黑 › 柏林 }
+      - { when: "每个孩子", name: 科隆 › 汉堡 › 慕尼黑 › 柏林 }
+      - { when: "每个家庭", name: 科隆 › 汉堡 › 慕尼黑 › 柏林 }
+    note: 慕尼黑人口最密，每 1,000 个孩子只有 1.2 个游乐场（其他城市 2.5–2.9 个），所以按人头算掉到第 3。
+  - tone: paper
+    tag: 怎么打分
+    title: 看了哪些数据？
+    lines:
+      - 官方数据（60%）：托育、房租负担、学校、儿科医生、安全、绿地、工作，来自德国联邦建筑城市与空间研究所 BBSR。
+      - 遛娃数据（40%）：未来 90 天的亲子活动数量、周末占比、种类；市中心 5 公里内的游乐场、雨天去处、换尿布点。
+    note: 只比城市整体，不比街区；活动数量也受我们收录的活动来源多少影响。
+  - tone: ink
+    tag: 评论区聊聊
+    title: 你住在哪个城市？
+    lines:
+      - 觉得这个排名准不准？
+      - 你最看重托育、房租、学校，还是遛娃去处？
+    search: 小鹿出游 Allo Outings
+    foot: 数据：BBSR INKAR 2025 · 小鹿出游 · OpenStreetMap · 2026-11
