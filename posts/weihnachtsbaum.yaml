@@ -1,0 +1,105 @@
+# A Rednote (小红书) explainer: buying a Christmas tree in Germany with kids. General advice: Nordmanntanne is the
+# most common tree (soft needles, keeps them long), Blaufichte and Fichte cheaper/prickly or shed sooner; farms
+# offer cutting your own in December; cities collect trees in January on dates that differ by town (told to check).
+# No prices (they vary), no farm or shop names.
+# History (find a post by its code: grep -l "code: X7TG" posts/):
+# - 2026-11-21 written with its video block (20 video posts for L).
+code: X7TG
+title: 在德国买圣诞树怎么选
+until: 2026-12-20
+caption: |
+  德国家庭一般12月中买圣诞树，很多家庭会带孩子一起去挑🌲 第一次买可以看看：
+
+  ① 最常见的是 Nordmanntanne：针软不扎手，掉针慢，放到1月也还行。
+  ② Blaufichte 颜色偏蓝、针硬扎手；Fichte 便宜，但掉针快。
+  ③ 挑的时候轻轻抖一抖，掉针多的不要；看切口是不是新鲜。
+  ④ 很多农场12月开放“自己砍树”（Weihnachtsbaum selber schlagen），带上手套，孩子很喜欢。
+  ⑤ 回家先放在阳台或凉快的地方，网先别拆；用能加水的树架，记得每天加水。
+  ⑥ 1月城市会统一收旧树，日期每个城市不一样，装饰要全部拿掉。
+
+  🗳 你家今年怎么选？评论区留字母（A–F）。
+tags: [圣诞树, 德国圣诞, 德国生活, 德国带娃, 德国妈妈, 德国爸爸, 留德, 德国节日]
+cards:
+  - tone: green
+    tag: 圣诞树 · 实用
+    title: "在德国\n买圣诞树\n怎么选？"
+    big: true
+    lines:
+      - 哪种树、怎么挑、1月怎么扔。
+      - 最后一张投票！
+    foot: 德国带娃 · 圣诞季
+  - tone: paper
+    tag: 哪种树？
+    title: 3种常见的
+    rows:
+      - { when: "Nordmanntanne", name: 针软，掉针慢，最常见 }
+      - { when: "Blaufichte", name: 偏蓝，针硬扎手 }
+      - { when: "Fichte", name: 便宜，掉针快 }
+  - tone: mint
+    tag: 怎么挑？
+    title: 抖一抖，看切口
+    lines:
+      - 轻轻抖一抖，掉针多的不要。
+      - 切口新鲜、颜色浅的比较好。
+      - 很多农场12月可以自己砍树，带上手套。
+  - tone: sky
+    tag: 回家以后
+    title: 加水，1月统一收
+    lines:
+      - 先放凉快的地方，网先别拆。
+      - 用能加水的树架，每天加水。
+      - 1月城市统一收旧树，日期每个城市不一样。
+  - tone: ink
+    title: 你家今年怎么选？
+    lines:
+      - 评论区留字母，也欢迎分享买树的小经验。
+    rows:
+      - { when: "A", name: Nordmanntanne }
+      - { when: "B", name: 去农场自己砍 }
+      - { when: "C", name: 小盆栽树 }
+      - { when: "D", name: 假树年年用 }
+      - { when: "E", name: 不放树 }
+      - { when: "F", name: 还没想好 }
+    search: 小鹿出游 Allo Outings
+video:
+  snow: true
+  scenes:
+    - tone: green
+      tag: 圣诞树 · 实用
+      title: "在德国\n买圣诞树怎么选？"
+      hook: true
+      chips: [🌲 哪种树, 🪓 自己砍, ♻️ 1月回收]
+      sub: 最后投票
+      seconds: 3.4
+    - tone: ink
+      tag: 哪种树？
+      title: 3种常见的
+      items:
+        - { icon: 🌲, k: Nordmanntanne, v: 针软、掉针慢, s: 最常见 }
+        - { icon: 💙, k: Blaufichte, v: 偏蓝、针硬扎手 }
+        - { icon: 🌿, k: Fichte, v: 便宜、掉针快 }
+    - tone: gold
+      tag: 怎么挑？
+      title: 抖一抖，看切口
+      items:
+        - { icon: 👋, v: 掉针多的不要 }
+        - { icon: 🪵, v: 切口新鲜的好 }
+        - { icon: 🧤, v: 农场自己砍, s: 12月很多农场开放 }
+    - tone: blue
+      tag: 回家以后
+      title: 让它撑到新年
+      items:
+        - { icon: 🥶, v: 先放凉快的地方 }
+        - { icon: 💧, v: 树架每天加水 }
+        - { icon: ♻️, v: 1月城市统一收, s: 日期每个城市不一样 }
+    - tone: ink
+      title: 你家今年怎么选？
+      vote:
+        - { letter: A, name: Nordmann }
+        - { letter: B, name: 自己砍 }
+        - { letter: C, name: 小盆栽 }
+        - { letter: D, name: 假树 }
+        - { letter: E, name: 不放 }
+        - { letter: F, name: 没想好 }
+      cta: 评论区留字母 👇
+      search: 小鹿出游 Allo Outings

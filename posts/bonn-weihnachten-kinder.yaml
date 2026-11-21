@@ -1,0 +1,116 @@
+# A Rednote (小红书) set: bonn-weihnachten-kinder — children's Christmas programme in 波恩 2026, 6 picks.
+# Events from data/outings.jsonl (organisers' listings, read 2026-11-21): bonn.de Veranstaltungskalender (0883a7, 972fef, 1e9636, 2fcf1d, da4860, 2e0893).
+# None of these events is in another post. Ends on a vote (public: favourites only, never about the kids).
+# History (find a post by its code: grep -l "code: B6RY" posts/):
+# - 2026-11-21 written with its video block (20 video posts for L: "Create 20 videos for future posts").
+code: B6RY
+title: 波恩圣诞带娃活动｜2026
+until: 2027-01-03
+caption: |
+  波恩今年圣诞季的儿童剧、手工和马戏，按城市活动日历挑了6个🎄
+
+  A Bonner Weihnachtscircus 圣诞马戏：12-17 到 01-03 每天。在 Pützchens Marktwiesen 的大帐篷，时间看官网。
+  B Haus der Familie 黑光圣诞音乐剧：12-05（周六）17点。Schwarzlichttheater，暗场里发光的人偶。
+  C Haus der Natur 降临节手工：12-13（周日）13:30。用木头边角料做圣诞小物，在 Waldau 森林边。
+  D Frauenmuseum 童话下午：12-18（周五）16点。Knusperschloss im Märchenwald，童话森林里的糖果城堡。
+  E Brotfabrik 儿童剧：12-20（周日）11点。Der kleine Weihnachtsmann，小圣诞老人的故事。
+  F Altes Rathaus Oberkassel 儿童剧：01-03（周日）16点。Die Weihnachtsgans Auguste，圣诞鹅 Auguste。
+
+  Bad Godesberg 的尼古拉斯市场和 Münsterplatz 的圣诞市场在网站「圣诞市场」里。
+
+  时间和票价以主办方为准，出发前请再确认。
+  更多活动：浏览器搜索「小鹿出游 Allo Outings」，选波恩。
+
+  🗳 你家最想去哪个？评论区留字母（A–F）。
+tags: [波恩带娃, 波恩圣诞, 德国圣诞, 德国带娃, 德国生活, 德国妈妈, 德国爸爸, 留德]
+cards:
+  - tone: red
+    tag: 2026 · 波恩
+    title: "波恩\n圣诞季\n带娃去哪"
+    big: true
+    lines:
+      - 按主办方节目单挑了6个，日期时间都写好了。
+      - 最后一张投票！
+    foot: 德国带娃 · 圣诞季
+  - tone: paper
+    tag: "A 圣诞马戏 · B 黑光音乐剧"
+    title: "圣诞马戏、黑光音乐剧"
+    lines:
+      - "A Bonner Weihnachtscircus 圣诞马戏"
+      - "12-17 到 01-03 每天"
+      - "B Haus der Familie 黑光圣诞音乐剧"
+      - "12-05（周六）17点"
+    note: 详细介绍在正文里。
+  - tone: green
+    tag: "C 木头手工 · D 童话下午"
+    title: "木头手工、童话下午"
+    lines:
+      - "C Haus der Natur 降临节手工"
+      - "12-13（周日）13:30"
+      - "D Frauenmuseum 童话下午"
+      - "12-18（周五）16点"
+    note: 详细介绍在正文里。
+  - tone: sky
+    tag: "E 小圣诞老人 · F 圣诞鹅"
+    title: "小圣诞老人、圣诞鹅"
+    lines:
+      - "E Brotfabrik 儿童剧"
+      - "12-20（周日）11点"
+      - "F Altes Rathaus Oberkassel 儿童剧"
+      - "01-03（周日）16点"
+    note: 详细介绍在正文里。
+  - tone: gold
+    tag: 还有
+    title: 别错过
+    lines:
+      - "Bad Godesberg 的尼古拉斯市场和 Münsterplatz 的圣诞市场在网站「圣诞市场」里。"
+  - tone: ink
+    title: 你家最想去哪个？
+    lines:
+      - 评论区留字母，也欢迎分享波恩带娃的好去处。
+    rows:
+      - { when: "A", name: "圣诞马戏" }
+      - { when: "B", name: "黑光音乐剧" }
+      - { when: "C", name: "木头手工" }
+      - { when: "D", name: "童话下午" }
+      - { when: "E", name: "小圣诞老人" }
+      - { when: "F", name: "圣诞鹅" }
+    search: 小鹿出游 Allo Outings
+    note: 搜索后选波恩，看更多活动。
+    foot: 以主办方为准，出发前请再确认
+video:
+  snow: true
+  scenes:
+    - tone: red
+      tag: 2026 · 波恩
+      title: "波恩\n圣诞季\n带娃去哪"
+      hook: true
+      chips: [🎭 儿童剧, ✂️ 手工, 🎪 圣诞马戏]
+      sub: 按主办方节目单挑了6个 · 最后投票
+      seconds: 3.4
+    - tone: ink
+      tag: A–C
+      title: "圣诞马戏、黑光音乐剧、木头手工"
+      items:
+        - { icon: 🎪, k: "A 12-17 到 01-03 每天", v: "Bonner Weihnachtscircus 圣诞马戏" }
+        - { icon: ✨, k: "B 12-05（周六）17点", v: "Haus der Familie 黑光圣诞音乐剧" }
+        - { icon: 🪵, k: "C 12-13（周日）13:30", v: "Haus der Natur 降临节手工" }
+    - tone: green
+      tag: D–F
+      title: "童话下午、小圣诞老人、圣诞鹅"
+      items:
+        - { icon: 🏰, k: "D 12-18（周五）16点", v: "Frauenmuseum 童话下午" }
+        - { icon: 🎅, k: "E 12-20（周日）11点", v: "Brotfabrik 儿童剧" }
+        - { icon: 🪿, k: "F 01-03（周日）16点", v: "Altes Rathaus Oberkassel 儿童剧" }
+    - tone: ink
+      title: 你家最想去哪个？
+      vote:
+        - { letter: A, name: "圣诞马戏" }
+        - { letter: B, name: "黑光音乐剧" }
+        - { letter: C, name: "木头手工" }
+        - { letter: D, name: "童话下午" }
+        - { letter: E, name: "小圣诞老人" }
+        - { letter: F, name: "圣诞鹅" }
+      cta: 评论区留字母 👇
+      search: 小鹿出游 Allo Outings
+      foot: 以主办方为准，出发前请再确认

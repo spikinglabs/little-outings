@@ -1,0 +1,104 @@
+# A Rednote (小红书) explainer: dressing children for the German winter. Common Kita and safety advice: layers
+# (Zwiebelprinzip), waterproof Matschhose, snowsuit for snow, tube scarf instead of a long scarf, no thick jacket
+# under car-seat straps (safety advice from car clubs and paediatricians), spare clothes at the Kita, feel the neck
+# to judge warmth. No brands.
+# History (find a post by its code: grep -l "code: E8PQ" posts/):
+# - 2026-11-21 written with its video block (20 video posts for L).
+code: E8PQ
+title: 德国冬天给娃怎么穿
+until: 2027-02-28
+caption: |
+  德国冬天又湿又冷，幼儿园每天都要出去玩🧤 给娃穿衣服，德国家长常说这几条：
+
+  ① 洋葱式穿法（Zwiebelprinzip）：几层薄的比一件厚的好，热了能脱。
+  ② 防水裤（Matschhose）：下雨天踩水坑必备，很多幼儿园要求放一条。
+  ③ 下雪天穿连体雪服（Schneeanzug）。
+  ④ 帽子、手套，围巾换成套头围脖（Schlauchschal），玩的时候不容易被挂住。
+  ⑤ 坐儿童座椅时别穿厚羽绒服：安全带会离身体太远，上车脱外套，盖毯子。
+  ⑥ 幼儿园放一套备用衣服（Wechselkleidung）。
+  ⑦ 冷不冷摸后颈：后颈暖、不出汗就刚好。
+
+  🗳 你觉得哪件最必备？评论区留字母（A–F）。
+tags: [德国育儿, 德国幼儿园, 德国冬天, 德国带娃, 德国生活, 德国妈妈, 德国爸爸, 留德]
+cards:
+  - tone: sky
+    tag: 冬天 · 育儿
+    title: "德国冬天\n给娃\n怎么穿？"
+    big: true
+    lines:
+      - 幼儿园每天都要出去玩，下雨也一样。
+      - 最后一张投票！
+    foot: 德国带娃 · 冬天
+  - tone: paper
+    tag: 基本穿法
+    title: 洋葱式，分几层
+    rows:
+      - { when: "分层", name: 几层薄的比一件厚的好 }
+      - { when: "防水裤", name: Matschhose，踩水坑必备 }
+      - { when: "下雪天", name: 连体雪服 Schneeanzug }
+      - { when: "围脖", name: Schlauchschal 代替长围巾 }
+  - tone: red
+    tag: 安全
+    title: 坐车别穿厚羽绒服
+    lines:
+      - 安全带会离身体太远。
+      - 上车先脱外套，扣好后盖毯子。
+  - tone: mint
+    tag: 小提示
+    title: 摸后颈
+    lines:
+      - 后颈暖、不出汗就刚好。
+      - 幼儿园放一套备用衣服（Wechselkleidung）。
+  - tone: ink
+    title: 哪件最必备？
+    lines:
+      - 评论区留字母，也欢迎分享冬天穿衣的经验。
+    rows:
+      - { when: "A", name: 防水裤 }
+      - { when: "B", name: 连体雪服 }
+      - { when: "C", name: 防水手套 }
+      - { when: "D", name: 套头围脖 }
+      - { when: "E", name: 羊毛内衣 }
+      - { when: "F", name: 防水鞋 }
+    search: 小鹿出游 Allo Outings
+    note: 搜索后看下雨天室内去处。
+video:
+  scenes:
+    - tone: blue
+      tag: 冬天 · 育儿
+      title: "德国冬天\n给娃怎么穿？"
+      hook: true
+      chips: [🧅 洋葱式, 👖 防水裤, 🚗 坐车别穿厚]
+      sub: 最后投票
+      seconds: 3.4
+    - tone: ink
+      tag: 基本穿法
+      title: 洋葱式，分几层
+      items:
+        - { icon: 🧅, v: 几层薄的比一件厚的好 }
+        - { icon: 👖, k: Matschhose, v: 防水裤，踩水坑必备 }
+        - { icon: ⛄, k: Schneeanzug, v: 下雪天穿连体雪服 }
+        - { icon: 🧣, k: Schlauchschal, v: 套头围脖不容易挂住 }
+    - tone: red
+      tag: 安全
+      title: 坐车别穿厚羽绒服
+      items:
+        - { icon: 🚗, v: 安全带会离身体太远 }
+        - { icon: 🧥, v: 上车先脱外套, s: 扣好后盖毯子 }
+    - tone: green
+      tag: 小提示
+      title: 冷不冷？
+      items:
+        - { icon: ✋, v: 摸后颈, s: 暖、不出汗就刚好 }
+        - { icon: 🎒, v: 幼儿园放备用衣服 }
+    - tone: ink
+      title: 哪件最必备？
+      vote:
+        - { letter: A, name: 防水裤 }
+        - { letter: B, name: 雪服 }
+        - { letter: C, name: 手套 }
+        - { letter: D, name: 围脖 }
+        - { letter: E, name: 羊毛内衣 }
+        - { letter: F, name: 防水鞋 }
+      cta: 评论区留字母 👇
+      search: 小鹿出游 Allo Outings

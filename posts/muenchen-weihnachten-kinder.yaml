@@ -1,0 +1,109 @@
+# A Rednote (小红书) set: muenchen-weihnachten-kinder — children's Christmas programme in 慕尼黑 2026, 6 picks.
+# Events from data/outings.jsonl (organisers' listings, read 2026-11-21): muenchen.de Familie/Kinder calendar, hellabrunn.de, muema-theater.de, galli-muenchen.de (24a1f8, b2ae1a, ad4d15, 190efd, 4268f7, 44ec21).
+# None of these events is in another post. Ends on a vote (public: favourites only, never about the kids).
+# History (find a post by its code: grep -l "code: H3MZ" posts/):
+# - 2026-11-21 written with its video block (20 video posts for L: "Create 20 videos for future posts").
+code: H3MZ
+title: 慕尼黑圣诞儿童剧｜2026
+until: 2026-12-24
+caption: |
+  慕尼黑今年圣诞季给孩子看的剧和音乐会，按主办方节目单挑了6个🎄 圣诞市场的儿童活动在之前那篇。
+
+  A Münchner Theater für Kinder：11-27 到 01-10 多场，15点。Eine kleine Weihnachtsgeschichte，小小圣诞故事。
+  B Tierpark Hellabrunn 动物园：12-06（周日）10–12点。尼古拉斯来动物园。
+  C Münchner Marionettentheater：12-12、12-13 14点。提线木偶演狄更斯的《圣诞颂歌》。
+  D Galli Theater 互动剧：12-21 到 12-24 16点。圣诞故事，孩子可以上台一起演。
+  E Alte Kongresshalle 儿童芭蕾：12-20（周日）14点。孩子们跳的《胡桃夹子》。
+  F Gasteig HP8 儿童音乐会：12-13（周日）16点。mini.musik 系列：Ein Engel fällt aus allen Wolken。
+
+  时间和票价以主办方为准，出发前请再确认。
+  更多活动：浏览器搜索「小鹿出游 Allo Outings」，选慕尼黑。
+
+  🗳 你家最想去哪个？评论区留字母（A–F）。
+tags: [慕尼黑带娃, 慕尼黑圣诞, 德国圣诞, 德国带娃, 德国生活, 德国妈妈, 德国爸爸, 留德]
+cards:
+  - tone: red
+    tag: 2026 · 慕尼黑
+    title: "慕尼黑\n圣诞季\n儿童剧"
+    big: true
+    lines:
+      - 按主办方节目单挑了6个，日期时间都写好了。
+      - 最后一张投票！
+    foot: 德国带娃 · 圣诞季
+  - tone: paper
+    tag: "A 小小圣诞故事 · B 动物园尼古拉斯"
+    title: "小小圣诞故事、动物园尼古拉斯"
+    lines:
+      - "A Münchner Theater für Kinder"
+      - "11-27 到 01-10 多场，15点"
+      - "B Tierpark Hellabrunn 动物园"
+      - "12-06（周日）10–12点"
+    note: 详细介绍在正文里。
+  - tone: green
+    tag: "C 提线木偶 · D 互动剧"
+    title: "提线木偶、互动剧"
+    lines:
+      - "C Münchner Marionettentheater"
+      - "12-12、12-13 14点"
+      - "D Galli Theater 互动剧"
+      - "12-21 到 12-24 16点"
+    note: 详细介绍在正文里。
+  - tone: sky
+    tag: "E 儿童芭蕾 · F 儿童音乐会"
+    title: "儿童芭蕾、儿童音乐会"
+    lines:
+      - "E Alte Kongresshalle 儿童芭蕾"
+      - "12-20（周日）14点"
+      - "F Gasteig HP8 儿童音乐会"
+      - "12-13（周日）16点"
+    note: 详细介绍在正文里。
+  - tone: ink
+    title: 你家最想去哪个？
+    lines:
+      - 评论区留字母，也欢迎分享慕尼黑带娃的好去处。
+    rows:
+      - { when: "A", name: "小小圣诞故事" }
+      - { when: "B", name: "动物园尼古拉斯" }
+      - { when: "C", name: "提线木偶" }
+      - { when: "D", name: "互动剧" }
+      - { when: "E", name: "儿童芭蕾" }
+      - { when: "F", name: "儿童音乐会" }
+    search: 小鹿出游 Allo Outings
+    note: 搜索后选慕尼黑，看更多活动。
+    foot: 以主办方为准，出发前请再确认
+video:
+  snow: true
+  scenes:
+    - tone: red
+      tag: 2026 · 慕尼黑
+      title: "慕尼黑\n圣诞季\n儿童剧"
+      hook: true
+      chips: [🎭 儿童剧, 🪆 提线木偶, 🩰 胡桃夹子]
+      sub: 按主办方节目单挑了6个 · 最后投票
+      seconds: 3.4
+    - tone: ink
+      tag: A–C
+      title: "小小圣诞故事、动物园尼古拉斯、提线木偶"
+      items:
+        - { icon: 🎭, k: "A 11-27 到 01-10 多场，15点", v: "Münchner Theater für Kinder" }
+        - { icon: 🎅, k: "B 12-06（周日）10–12点", v: "Tierpark Hellabrunn 动物园" }
+        - { icon: 🪆, k: "C 12-12、12-13 14点", v: "Münchner Marionettentheater" }
+    - tone: green
+      tag: D–F
+      title: "互动剧、儿童芭蕾、儿童音乐会"
+      items:
+        - { icon: 🙋, k: "D 12-21 到 12-24 16点", v: "Galli Theater 互动剧" }
+        - { icon: 🩰, k: "E 12-20（周日）14点", v: "Alte Kongresshalle 儿童芭蕾" }
+        - { icon: 🎶, k: "F 12-13（周日）16点", v: "Gasteig HP8 儿童音乐会" }
+    - tone: ink
+      title: 你家最想去哪个？
+      vote:
+        - { letter: A, name: "小小圣诞故事" }
+        - { letter: B, name: "动物园尼古拉斯" }
+        - { letter: C, name: "提线木偶" }
+        - { letter: D, name: "互动剧" }
+        - { letter: E, name: "儿童芭蕾" }
+        - { letter: F, name: "儿童音乐会" }
+      cta: 评论区留字母 👇
+      search: 小鹿出游 Allo Outings
+      foot: 以主办方为准，出发前请再确认

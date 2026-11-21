@@ -1,0 +1,109 @@
+# A Rednote (小红书) set: duesseldorf-weihnachten-kinder — children's Christmas programme in 杜塞尔多夫 2026, 6 picks.
+# Events from data/outings.jsonl (organisers' listings, read 2026-11-21): visitduesseldorf.de, fruehehilfen-online.nrw.de, kunstsammlung.de (04c87a, f81c50, e29d35, d4fd4e, 7914f1, fcd48f).
+# None of these events is in another post. Ends on a vote (public: favourites only, never about the kids).
+# History (find a post by its code: grep -l "code: T5UX" posts/):
+# - 2026-11-21 written with its video block (20 video posts for L: "Create 20 videos for future posts").
+code: T5UX
+title: 杜塞圣诞带娃活动｜2026
+until: 2026-12-23
+caption: |
+  杜塞尔多夫今年圣诞季的儿童剧、亲子活动和假期工作坊，按主办方信息挑了6个🎄 圣诞市场在之前那篇。
+
+  A Puppentheater Helmholtzstraße：12-03（周四）10:30。木偶剧 Charlotte und die Weihnachtsgans。
+  B Gerresheim 纸芝居：12-02（周三）15点。Kamishibai 讲故事：圣诞精灵的许愿机。
+  C Bunker Paulsmühle：12-05（周六）14点。Kinder-Nikolaus，儿童尼古拉斯活动。
+  D Grafenberger Wald 亲子活动：12-12（周六）10点。森林里过圣诞，4岁以上，要报名。
+  E Bürgerhaus Reisholz 儿童剧：12-16（周三）15点。Das Märchen vom Pfefferkuchenherz，姜饼心的童话。
+  F K21 假期工作坊：12-23（周三）10–14点。8到10岁，艺术馆里画精灵和怪物，要报名。
+
+  时间和票价以主办方为准，出发前请再确认。
+  更多活动：浏览器搜索「小鹿出游 Allo Outings」，选杜塞尔多夫。
+
+  🗳 你家最想去哪个？评论区留字母（A–F）。
+tags: [杜塞带娃, 杜塞尔多夫圣诞, 德国圣诞, 德国带娃, 德国生活, 德国妈妈, 德国爸爸, 留德]
+cards:
+  - tone: red
+    tag: 2026 · 杜塞尔多夫
+    title: "杜塞尔多夫\n圣诞季\n带娃去哪"
+    big: true
+    lines:
+      - 按主办方节目单挑了6个，日期时间都写好了。
+      - 最后一张投票！
+    foot: 德国带娃 · 圣诞季
+  - tone: paper
+    tag: "A 木偶剧 · B 纸芝居"
+    title: "木偶剧、纸芝居"
+    lines:
+      - "A Puppentheater Helmholtzstraße"
+      - "12-03（周四）10:30"
+      - "B Gerresheim 纸芝居"
+      - "12-02（周三）15点"
+    note: 详细介绍在正文里。
+  - tone: green
+    tag: "C 儿童尼古拉斯 · D 森林圣诞"
+    title: "儿童尼古拉斯、森林圣诞"
+    lines:
+      - "C Bunker Paulsmühle"
+      - "12-05（周六）14点"
+      - "D Grafenberger Wald 亲子活动"
+      - "12-12（周六）10点"
+    note: 详细介绍在正文里。
+  - tone: sky
+    tag: "E 姜饼心童话 · F 艺术工作坊"
+    title: "姜饼心童话、艺术工作坊"
+    lines:
+      - "E Bürgerhaus Reisholz 儿童剧"
+      - "12-16（周三）15点"
+      - "F K21 假期工作坊"
+      - "12-23（周三）10–14点"
+    note: 详细介绍在正文里。
+  - tone: ink
+    title: 你家最想去哪个？
+    lines:
+      - 评论区留字母，也欢迎分享杜塞尔多夫带娃的好去处。
+    rows:
+      - { when: "A", name: "木偶剧" }
+      - { when: "B", name: "纸芝居" }
+      - { when: "C", name: "儿童尼古拉斯" }
+      - { when: "D", name: "森林圣诞" }
+      - { when: "E", name: "姜饼心童话" }
+      - { when: "F", name: "艺术工作坊" }
+    search: 小鹿出游 Allo Outings
+    note: 搜索后选杜塞尔多夫，看更多活动。
+    foot: 以主办方为准，出发前请再确认
+video:
+  snow: true
+  scenes:
+    - tone: red
+      tag: 2026 · 杜塞尔多夫
+      title: "杜塞尔多夫\n圣诞季\n带娃去哪"
+      hook: true
+      chips: [🎭 木偶剧, 🌲 森林圣诞, 🎅 尼古拉斯]
+      sub: 按主办方节目单挑了6个 · 最后投票
+      seconds: 3.4
+    - tone: ink
+      tag: A–C
+      title: "木偶剧、纸芝居、儿童尼古拉斯"
+      items:
+        - { icon: 🎭, k: "A 12-03（周四）10:30", v: "Puppentheater Helmholtzstraße" }
+        - { icon: 📜, k: "B 12-02（周三）15点", v: "Gerresheim 纸芝居" }
+        - { icon: 🎅, k: "C 12-05（周六）14点", v: "Bunker Paulsmühle" }
+    - tone: green
+      tag: D–F
+      title: "森林圣诞、姜饼心童话、艺术工作坊"
+      items:
+        - { icon: 🌲, k: "D 12-12（周六）10点", v: "Grafenberger Wald 亲子活动" }
+        - { icon: ❤️, k: "E 12-16（周三）15点", v: "Bürgerhaus Reisholz 儿童剧" }
+        - { icon: 🎨, k: "F 12-23（周三）10–14点", v: "K21 假期工作坊" }
+    - tone: ink
+      title: 你家最想去哪个？
+      vote:
+        - { letter: A, name: "木偶剧" }
+        - { letter: B, name: "纸芝居" }
+        - { letter: C, name: "儿童尼古拉斯" }
+        - { letter: D, name: "森林圣诞" }
+        - { letter: E, name: "姜饼心童话" }
+        - { letter: F, name: "艺术工作坊" }
+      cta: 评论区留字母 👇
+      search: 小鹿出游 Allo Outings
+      foot: 以主办方为准，出发前请再确认

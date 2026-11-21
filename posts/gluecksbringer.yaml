@@ -1,0 +1,103 @@
+# A Rednote (小红书) explainer: German New Year lucky charms (Glücksbringer) that families give each other and kids
+# see in shops around 31 Dec: chimney sweep, lucky pig (often marzipan), four-leaf clover, horseshoe, fly agaric,
+# ladybird, lucky cent. General custom, no brands.
+# History (find a post by its code: grep -l "code: D9RU" posts/):
+# - 2026-11-21 written with its video block (20 video posts for L).
+code: D9RU
+title: 德国新年为什么送小猪
+until: 2027-01-03
+caption: |
+  德国跨年前后，商店里突然到处是小猪、四叶草和烟囱清扫工🐷🍀 这些都是新年的幸运符（Glücksbringer），德国人互相送，祝新年好运：
+
+  🐷 幸运猪：常见的是杏仁糖（Marzipan）做的小猪。“Schwein gehabt”就是“走运了”。
+  🧹 烟囱清扫工：以前烟囱通了，家里才暖和安全；新年碰到他，据说一年好运。
+  🍀 四叶草：难找，所以代表幸运。
+  🧲 马蹄铁：挂在门上保平安。
+  🍄 毒蝇伞（红底白点的蘑菇）：只做装饰和图案，真的蘑菇有毒，别让孩子摘。
+  🐞 七星瓢虫、幸运硬币也常见。
+
+  可以和孩子一起做小卡片，画上这些图案送给邻居和老师。
+
+  🗳 你觉得哪个最可爱？评论区留字母（A–F）。
+tags: [德国新年, 德国节日, 德国文化, 德国带娃, 德国生活, 德国妈妈, 德国爸爸, 留德]
+cards:
+  - tone: gold
+    tag: 新年 · 德国习俗
+    title: "德国新年\n为什么\n送小猪？"
+    big: true
+    lines:
+      - 这些都是新年的幸运符（Glücksbringer）。
+      - 最后一张投票！
+    foot: 德国带娃 · 新年
+  - tone: rose
+    tag: 幸运猪 · 烟囱清扫工
+    title: 最常见的两个
+    lines:
+      - 杏仁糖小猪：“Schwein gehabt”就是“走运了”。
+      - 烟囱清扫工：以前烟囱通了家里才暖和安全，碰到他据说一年好运。
+  - tone: mint
+    tag: 还有这些
+    title: 四叶草、马蹄铁……
+    lines:
+      - 四叶草：难找，所以代表幸运。
+      - 马蹄铁：挂在门上保平安。
+      - 七星瓢虫、幸运硬币也常见。
+  - tone: red
+    tag: 注意
+    title: 红蘑菇只是图案
+    lines:
+      - 红底白点的毒蝇伞是幸运图案。
+      - 真蘑菇有毒，别让孩子摘。
+    note: 可以和孩子画张小卡片，送邻居和老师。
+  - tone: ink
+    title: 哪个最可爱？
+    lines:
+      - 评论区留字母，也欢迎分享你家的新年习惯。
+    rows:
+      - { when: "A", name: 幸运猪 }
+      - { when: "B", name: 烟囱清扫工 }
+      - { when: "C", name: 四叶草 }
+      - { when: "D", name: 马蹄铁 }
+      - { when: "E", name: 红蘑菇 }
+      - { when: "F", name: 七星瓢虫 }
+    search: 小鹿出游 Allo Outings
+video:
+  scenes:
+    - tone: gold
+      tag: 新年 · 德国习俗
+      title: "德国新年\n为什么到处是小猪？"
+      hook: true
+      chips: [🐷 幸运猪, 🧹 烟囱清扫工, 🍀 四叶草]
+      sub: 德国的新年幸运符 · 最后投票
+      seconds: 3.4
+    - tone: red
+      tag: 最常见的两个
+      title: 小猪和清扫工
+      items:
+        - { icon: 🐷, v: 杏仁糖小猪, s: “Schwein gehabt”＝走运了 }
+        - { icon: 🧹, v: 烟囱清扫工, s: 烟囱通了家里才暖和安全 }
+    - tone: green
+      tag: 还有这些
+      title: 都代表好运
+      grid:
+        - { icon: 🍀, name: 四叶草 }
+        - { icon: 🧲, name: 马蹄铁 }
+        - { icon: 🐞, name: 七星瓢虫 }
+        - { icon: 🪙, name: 幸运硬币 }
+    - tone: blue
+      tag: 注意
+      title: 红蘑菇只是图案
+      items:
+        - { icon: 🍄, v: 毒蝇伞是幸运图案, s: 真蘑菇有毒，别让孩子摘 }
+        - { icon: ✏️, v: 和孩子画张小卡片, s: 送邻居和老师 }
+    - tone: ink
+      title: 哪个最可爱？
+      vote:
+        - { letter: A, name: 小猪 }
+        - { letter: B, name: 清扫工 }
+        - { letter: C, name: 四叶草 }
+        - { letter: D, name: 马蹄铁 }
+        - { letter: E, name: 红蘑菇 }
+        - { letter: F, name: 瓢虫 }
+      cta: 评论区留字母 👇
+      search: 小鹿出游 Allo Outings

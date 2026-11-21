@@ -1,0 +1,108 @@
+# A Rednote (小红书) explainer: New Year's Eve with children in Germany. Fireworks rules from the Sprengstoffverordnung
+# as explained by the IHKs and Verbraucherzentrale: category F2 sold only on the last three working days of the
+# year (2026: Tue 29 – Thu 31 Dec) to adults, used 31 Dec – 1 Jan; F1 (sparklers, snaps) sold all year from age 12.
+# Lead pouring (Bleigießen) banned since 2018 (EU REACH); wax or tin instead. Many cities announce no-firework
+# zones each year: told to check, no zones named.
+# History (find a post by its code: grep -l "code: Q5ZE" posts/):
+# - 2026-11-21 written with its video block (20 video posts for L).
+code: Q5ZE
+title: 德国带娃跨年要知道这些
+until: 2026-12-31
+caption: |
+  德国的跨年夜（Silvester）到处放烟花🎆 带娃过年前，这几件事先知道：
+
+  ① 烟花只在 12-29 到 12-31 卖（今年是周二到周四），只卖给18岁以上；放的时间是 12-31 到 01-01。
+  ② 仙女棒、摔炮这类小东西全年都能买，12岁以上可以买。
+  ③ 很多城市市中心有禁放区，每年城市会公布，出门前查一下。
+  ④ 烟花声很大，小宝宝可以戴儿童耳罩；不少家庭傍晚先给孩子“提前跨年”。
+  ⑤ 01-01 早上路上有很多烟花残骸，别让孩子捡没炸的。
+
+  传统小活动：以前的“熔铅占卜”（Bleigießen）2018年起禁用铅，现在用蜡（Wachsgießen）；孩子喝无酒精的 Kinderpunsch 一起倒数。
+
+  🗳 你家跨年怎么过？评论区留字母（A–F）。
+tags: [德国跨年, 德国新年, 德国生活, 德国带娃, 德国妈妈, 德国爸爸, 留德, 德国节日]
+cards:
+  - tone: ink
+    tag: 12-31 · 跨年
+    title: "德国跨年\n带娃前\n先知道这些"
+    big: true
+    lines:
+      - 烟花什么时候买、宝宝怕吵怎么办。
+      - 最后一张投票！
+    foot: 德国带娃 · 新年
+  - tone: paper
+    tag: 烟花规定
+    title: 什么时候能买？
+    lines:
+      - 烟花只在 12-29 到 12-31 卖，18岁以上。
+      - 放的时间：12-31 到 01-01。
+      - 仙女棒、摔炮全年能买，12岁以上。
+    note: 很多城市市中心有禁放区，出门前查城市公告。
+  - tone: sky
+    tag: 带宝宝
+    title: 怕吵怎么办？
+    lines:
+      - 小宝宝可以戴儿童耳罩。
+      - 不少家庭傍晚先“提前跨年”。
+      - 01-01 早上别让孩子捡没炸的烟花。
+  - tone: gold
+    tag: 传统小活动
+    title: 熔蜡占卜
+    lines:
+      - 以前熔铅（Bleigießen），2018年起禁用铅。
+      - 现在用蜡（Wachsgießen），看形状猜新年运气。
+      - 孩子喝无酒精的 Kinderpunsch 一起倒数。
+  - tone: ink
+    title: 你家跨年怎么过？
+    lines:
+      - 评论区留字母，也欢迎分享带娃跨年的经验。
+    rows:
+      - { when: "A", name: 在家看窗外烟花 }
+      - { when: "B", name: 自己放仙女棒 }
+      - { when: "C", name: 傍晚提前跨年 }
+      - { when: "D", name: 去朋友家聚会 }
+      - { when: "E", name: 早早睡觉 }
+      - { when: "F", name: 去看城市烟花 }
+    search: 小鹿出游 Allo Outings
+    foot: 规定以城市公告为准
+video:
+  scenes:
+    - tone: ink
+      tag: 12-31 · 跨年
+      title: "德国跨年\n带娃先知道这些"
+      hook: true
+      chips: [🎆 烟花规定, 👶 宝宝怕吵, 🕯️ 熔蜡占卜]
+      sub: 最后投票
+      seconds: 3.4
+    - tone: red
+      tag: 烟花规定
+      big: 12-29 – 12-31
+      lines: [只有这3天卖烟花, 18岁以上才能买]
+      items:
+        - { icon: ✨, v: 仙女棒、摔炮, s: 全年能买，12岁以上 }
+        - { icon: 🚫, v: 市中心常有禁放区, s: 出门前查城市公告 }
+    - tone: blue
+      tag: 带宝宝
+      title: 怕吵怎么办？
+      items:
+        - { icon: 🎧, v: 儿童耳罩 }
+        - { icon: 🕖, v: 傍晚先提前跨年 }
+        - { icon: ⚠️, v: 01-01 早上别捡烟花, s: 可能还没炸 }
+    - tone: gold
+      tag: 传统小活动
+      title: 熔蜡猜新年运气
+      items:
+        - { icon: 🕯️, v: Wachsgießen 熔蜡, s: 2018年起不再用铅 }
+        - { icon: 🧃, v: Kinderpunsch, s: 无酒精，孩子一起倒数 }
+    - tone: ink
+      title: 你家跨年怎么过？
+      vote:
+        - { letter: A, name: 看窗外 }
+        - { letter: B, name: 仙女棒 }
+        - { letter: C, name: 提前跨年 }
+        - { letter: D, name: 聚会 }
+        - { letter: E, name: 早睡 }
+        - { letter: F, name: 看烟花 }
+      cta: 评论区留字母 👇
+      search: 小鹿出游 Allo Outings
+      foot: 规定以城市公告为准

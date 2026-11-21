@@ -1,0 +1,116 @@
+# A Rednote (小红书) set: koeln-weihnachten-kinder — children's Christmas programme in 科隆 2026, 6 picks.
+# Events from data/outings.jsonl (organisers' listings, read 2026-11-21): koeln.de event listings and museen.koeln (Hänneschen 7d7e44, Philharmonie cf9b22 + 870868, Volksbühne dcbee3, Kulturkirche a88f9f, MAKK 121736, Weihnachtscircus 701d8b).
+# None of these events is in another post. Ends on a vote (public: favourites only, never about the kids).
+# History (find a post by its code: grep -l "code: V2JC" posts/):
+# - 2026-11-21 written with its video block (20 video posts for L: "Create 20 videos for future posts").
+code: V2JC
+title: 科隆圣诞儿童演出｜2026
+until: 2026-12-24
+caption: |
+  科隆今年圣诞季给孩子看的演出，按主办方节目单挑了6个，日期时间都写好了🎄
+
+  A Hänneschen-Theater 木偶剧：11-25 到 12-20 多场，15点。科隆方言的圣诞木偶剧 E Leech zom Chressfess，在 Altstadt 的 Eisenmarkt。
+  B Kölner Philharmonie 家庭音乐会：12-13（周日）14点。Das Geheimnis der Weihnachtswichtel，圣诞小精灵的故事。
+  C Volksbühne am Rudolfplatz：12-13、12-20、12-23、12-24 11点。天使和驴讲圣诞故事 Die Weihnachtsgeschichte。
+  D Kulturkirche 儿童圣诞音乐会：12-04（周五）15点。科隆本地给孩子唱歌的乐队，圣诞专场。
+  E MAKK 博物馆手工：12-12（周六）14点。做冬天的喂鸟小屋，要提前报名。
+  F Kölner Weihnachtscircus 圣诞马戏：11-27 到 01-03 多场。在 Palastzelt，时间看官网。
+
+  12-24（周四）15点 Kölner Philharmonie 还有一场 Wir warten aufs Christkind，平安夜下午等圣诞的音乐会。
+
+  时间和票价以主办方为准，出发前请再确认。
+  更多活动：浏览器搜索「小鹿出游 Allo Outings」，选科隆。
+
+  🗳 你家最想去哪个？评论区留字母（A–F）。
+tags: [科隆带娃, 科隆圣诞, 德国圣诞, 德国带娃, 德国生活, 德国妈妈, 德国爸爸, 留德]
+cards:
+  - tone: red
+    tag: 2026 · 科隆
+    title: "科隆\n圣诞季\n儿童演出"
+    big: true
+    lines:
+      - 按主办方节目单挑了6个，日期时间都写好了。
+      - 最后一张投票！
+    foot: 德国带娃 · 圣诞季
+  - tone: paper
+    tag: "A 木偶剧 · B 家庭音乐会"
+    title: "木偶剧、家庭音乐会"
+    lines:
+      - "A Hänneschen-Theater 木偶剧"
+      - "11-25 到 12-20 多场，15点"
+      - "B Kölner Philharmonie 家庭音乐会"
+      - "12-13（周日）14点"
+    note: 详细介绍在正文里。
+  - tone: green
+    tag: "C 圣诞故事 · D 儿童音乐会"
+    title: "圣诞故事、儿童音乐会"
+    lines:
+      - "C Volksbühne am Rudolfplatz"
+      - "12-13、12-20、12-23、12-24 11点"
+      - "D Kulturkirche 儿童圣诞音乐会"
+      - "12-04（周五）15点"
+    note: 详细介绍在正文里。
+  - tone: sky
+    tag: "E 喂鸟小屋 · F 圣诞马戏"
+    title: "喂鸟小屋、圣诞马戏"
+    lines:
+      - "E MAKK 博物馆手工"
+      - "12-12（周六）14点"
+      - "F Kölner Weihnachtscircus 圣诞马戏"
+      - "11-27 到 01-03 多场"
+    note: 详细介绍在正文里。
+  - tone: gold
+    tag: 还有
+    title: 别错过
+    lines:
+      - "12-24（周四）15点 Kölner Philharmonie 还有一场 Wir warten aufs Christkind，平安夜下午等圣诞的音乐会。"
+  - tone: ink
+    title: 你家最想去哪个？
+    lines:
+      - 评论区留字母，也欢迎分享科隆带娃的好去处。
+    rows:
+      - { when: "A", name: "木偶剧" }
+      - { when: "B", name: "家庭音乐会" }
+      - { when: "C", name: "圣诞故事" }
+      - { when: "D", name: "儿童音乐会" }
+      - { when: "E", name: "喂鸟小屋" }
+      - { when: "F", name: "圣诞马戏" }
+    search: 小鹿出游 Allo Outings
+    note: 搜索后选科隆，看更多活动。
+    foot: 以主办方为准，出发前请再确认
+video:
+  snow: true
+  scenes:
+    - tone: red
+      tag: 2026 · 科隆
+      title: "科隆\n圣诞季\n儿童演出"
+      hook: true
+      chips: [🎭 木偶剧, 🎻 家庭音乐会, 🎪 圣诞马戏]
+      sub: 按主办方节目单挑了6个 · 最后投票
+      seconds: 3.4
+    - tone: ink
+      tag: A–C
+      title: "木偶剧、家庭音乐会、圣诞故事"
+      items:
+        - { icon: 🎭, k: "A 11-25 到 12-20 多场，15点", v: "Hänneschen-Theater 木偶剧" }
+        - { icon: 🧝, k: "B 12-13（周日）14点", v: "Kölner Philharmonie 家庭音乐会" }
+        - { icon: 👼, k: "C 12-13、12-20、12-23、12-24 11点", v: "Volksbühne am Rudolfplatz" }
+    - tone: green
+      tag: D–F
+      title: "儿童音乐会、喂鸟小屋、圣诞马戏"
+      items:
+        - { icon: 🎵, k: "D 12-04（周五）15点", v: "Kulturkirche 儿童圣诞音乐会" }
+        - { icon: 🐦, k: "E 12-12（周六）14点", v: "MAKK 博物馆手工" }
+        - { icon: 🎪, k: "F 11-27 到 01-03 多场", v: "Kölner Weihnachtscircus 圣诞马戏" }
+    - tone: ink
+      title: 你家最想去哪个？
+      vote:
+        - { letter: A, name: "木偶剧" }
+        - { letter: B, name: "家庭音乐会" }
+        - { letter: C, name: "圣诞故事" }
+        - { letter: D, name: "儿童音乐会" }
+        - { letter: E, name: "喂鸟小屋" }
+        - { letter: F, name: "圣诞马戏" }
+      cta: 评论区留字母 👇
+      search: 小鹿出游 Allo Outings
+      foot: 以主办方为准，出发前请再确认

@@ -1,0 +1,102 @@
+# A Rednote (小红书) explainer: Sternsinger around 6 January. Facts from sternsinger.de (Kindermissionswerk / BDKJ,
+# Aktion Dreikönigssingen): children dressed as the three kings bring the blessing C+M+B ("Christus mansionem
+# benedicat") written in chalk with the year and collect for children's projects worldwide; the 2027 theme is
+# healthy food for children, example country Guatemala. 6 Jan is a public holiday in Bayern, Baden-Württemberg
+# and Sachsen-Anhalt. The 2027 chalk line follows the published pattern (20*C+M+B+26 in 2026).
+# History (find a post by its code: grep -l "code: M4WK" posts/):
+# - 2026-11-21 written with its video block (20 video posts for L).
+code: M4WK
+title: 门上的20*C+M+B+27是什么
+until: 2027-01-06
+caption: |
+  1月初在德国，可能会有一群戴王冠的孩子来按门铃⭐ 他们是“星星歌者”（Sternsinger）：
+
+  ① 孩子们扮成东方三王，举着星星挨家挨户唱歌、祝福。
+  ② 他们在门框上用粉笔写 20*C+M+B+27：C+M+B 是拉丁语“基督保佑这个家”，前后是年份。
+  ③ 同时为世界各地的孩子募捐，2027年的主题是儿童健康饮食。
+  ④ 大多在 01-06 三王节前后几天，由当地天主教堂区组织，愿意的话可以开门、听歌、自愿捐款。
+  ⑤ 01-06 在巴伐利亚、巴登-符腾堡、萨克森-安哈尔特是法定假日。
+
+  门上的粉笔字一般留一整年，不用擦。
+
+  🗳 你家孩子更想当哪个？评论区留字母（A–F）。
+tags: [德国节日, 三王节, 德国文化, 德国带娃, 德国生活, 德国妈妈, 德国爸爸, 留德]
+cards:
+  - tone: gold
+    tag: 01-06 · 三王节
+    title: "门上的\n20*C+M+B+27\n是什么？"
+    big: true
+    lines:
+      - 1月初，戴王冠的孩子会来按门铃。
+      - 最后一张投票！
+    foot: 德国带娃 · 节日
+  - tone: paper
+    tag: 星星歌者
+    title: Sternsinger
+    lines:
+      - 孩子们扮成东方三王，举着星星挨家唱歌。
+      - 为世界各地的孩子募捐，2027年主题是儿童健康饮食。
+      - 当地天主教堂区组织，捐款自愿。
+  - tone: sky
+    tag: 粉笔字
+    title: C+M+B 什么意思？
+    lines:
+      - 拉丁语“基督保佑这个家”。
+      - 前面的20和后面的27合起来是年份。
+      - 一般留一整年，不用擦。
+  - tone: green
+    tag: 小知识
+    title: 01-06 三王节
+    lines:
+      - 巴伐利亚、巴登-符腾堡、萨克森-安哈尔特放假。
+      - 歌者大多在 01-06 前后几天来。
+  - tone: ink
+    title: 孩子更想当哪个？
+    lines:
+      - 评论区留字母，也欢迎分享你家遇到的星星歌者。
+    rows:
+      - { when: "A", name: 举星星的人 }
+      - { when: "B", name: 三王之一 }
+      - { when: "C", name: 写粉笔字的 }
+      - { when: "D", name: 唱歌的 }
+      - { when: "E", name: 开门听歌的 }
+      - { when: "F", name: 都想试试 }
+    search: 小鹿出游 Allo Outings
+video:
+  snow: true
+  scenes:
+    - tone: gold
+      tag: 01-06 · 三王节
+      title: "门上的粉笔字\n20*C+M+B+27"
+      hook: true
+      chips: [⭐ 星星歌者, 👑 东方三王, ✏️ 粉笔祝福]
+      sub: 1月初戴王冠的孩子来按门铃
+      seconds: 3.4
+    - tone: ink
+      tag: 星星歌者
+      title: Sternsinger
+      items:
+        - { icon: 👑, v: 孩子扮成东方三王, s: 举着星星挨家唱歌 }
+        - { icon: 🌍, v: 为各地的孩子募捐, s: 2027年主题：儿童健康饮食 }
+        - { icon: ⛪, v: 当地天主教堂区组织, s: 捐款自愿 }
+    - tone: blue
+      tag: 粉笔字
+      big: C+M+B
+      lines: [拉丁语“基督保佑这个家”, 20 和 27 合起来是年份]
+    - tone: green
+      tag: 小知识
+      title: 01-06 三王节
+      items:
+        - { icon: 📅, v: 巴伐利亚、巴符、萨安放假 }
+        - { icon: 🚪, v: 粉笔字留一整年, s: 不用擦 }
+    - tone: ink
+      title: 孩子更想当哪个？
+      vote:
+        - { letter: A, name: 举星星 }
+        - { letter: B, name: 三王 }
+        - { letter: C, name: 写粉笔字 }
+        - { letter: D, name: 唱歌 }
+        - { letter: E, name: 开门听 }
+        - { letter: F, name: 都想 }
+      cta: 评论区留字母 👇
+      search: 小鹿出游 Allo Outings

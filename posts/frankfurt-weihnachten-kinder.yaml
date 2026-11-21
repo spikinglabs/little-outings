@@ -1,0 +1,109 @@
+# A Rednote (小红书) set: frankfurt-weihnachten-kinder — children's Christmas programme in 法兰克福 2026, 6 picks.
+# Events from data/outings.jsonl (organisers' listings, read 2026-11-21): galli-frankfurt.de, zoo-frankfurt.de, staedelmuseum.de, historisches-museum-frankfurt.de (cdb07b, f9f166, 2be17a, bdc08d, 21d869, 643087).
+# None of these events is in another post. Ends on a vote (public: favourites only, never about the kids).
+# History (find a post by its code: grep -l "code: Y6DV" posts/):
+# - 2026-11-21 written with its video block (20 video posts for L: "Create 20 videos for future posts").
+code: Y6DV
+title: 法兰圣诞儿童活动｜2026
+until: 2026-12-31
+caption: |
+  法兰克福圣诞市场之外，今年圣诞季还有这些儿童活动，按主办方节目单挑了6个🎄
+
+  A Galli Theater 童话剧：11-29 到 01-03 每周日 11点。Märchenkarussell，童话旋转木马。
+  B Zoo Frankfurt 降临节手工：12-06（周日）10点。Adventsbasteln。
+  C Städel Museum：12-06（周日）11点。Märchenreise，在美术馆里听童话。
+  D Junges Museum 假期工作坊：12-22、12-29、01-05、01-07 14:30。Offene Werkstatt，放假时的开放手工坊。
+  E Zoo Frankfurt：12-24（周四）11点。Warten aufs Christkind，平安夜上午等圣诞。
+  F Galli Theater 儿童跨年：12-31（周四）12点。Kinder-Silvester-Party，中午就跨年。
+
+  时间和票价以主办方为准，出发前请再确认。
+  更多活动：浏览器搜索「小鹿出游 Allo Outings」，选法兰克福。
+
+  🗳 你家最想去哪个？评论区留字母（A–F）。
+tags: [法兰克福带娃, 法兰克福圣诞, 德国圣诞, 德国带娃, 德国生活, 德国妈妈, 德国爸爸, 留德]
+cards:
+  - tone: red
+    tag: 2026 · 法兰克福
+    title: "法兰克福\n圣诞季\n带娃去哪"
+    big: true
+    lines:
+      - 按主办方节目单挑了6个，日期时间都写好了。
+      - 最后一张投票！
+    foot: 德国带娃 · 圣诞季
+  - tone: paper
+    tag: "A 童话剧 · B 动物园手工"
+    title: "童话剧、动物园手工"
+    lines:
+      - "A Galli Theater 童话剧"
+      - "11-29 到 01-03 每周日 11点"
+      - "B Zoo Frankfurt 降临节手工"
+      - "12-06（周日）10点"
+    note: 详细介绍在正文里。
+  - tone: green
+    tag: "C 美术馆童话 · D 假期手工"
+    title: "美术馆童话、假期手工"
+    lines:
+      - "C Städel Museum"
+      - "12-06（周日）11点"
+      - "D Junges Museum 假期工作坊"
+      - "12-22、12-29、01-05、01-07 14:30"
+    note: 详细介绍在正文里。
+  - tone: sky
+    tag: "E 平安夜动物园 · F 儿童跨年"
+    title: "平安夜动物园、儿童跨年"
+    lines:
+      - "E Zoo Frankfurt"
+      - "12-24（周四）11点"
+      - "F Galli Theater 儿童跨年"
+      - "12-31（周四）12点"
+    note: 详细介绍在正文里。
+  - tone: ink
+    title: 你家最想去哪个？
+    lines:
+      - 评论区留字母，也欢迎分享法兰克福带娃的好去处。
+    rows:
+      - { when: "A", name: "童话剧" }
+      - { when: "B", name: "动物园手工" }
+      - { when: "C", name: "美术馆童话" }
+      - { when: "D", name: "假期手工" }
+      - { when: "E", name: "平安夜动物园" }
+      - { when: "F", name: "儿童跨年" }
+    search: 小鹿出游 Allo Outings
+    note: 搜索后选法兰克福，看更多活动。
+    foot: 以主办方为准，出发前请再确认
+video:
+  snow: true
+  scenes:
+    - tone: red
+      tag: 2026 · 法兰克福
+      title: "法兰克福\n圣诞季\n带娃去哪"
+      hook: true
+      chips: [🎠 童话剧, 🦁 动物园, 🎉 儿童跨年]
+      sub: 按主办方节目单挑了6个 · 最后投票
+      seconds: 3.4
+    - tone: ink
+      tag: A–C
+      title: "童话剧、动物园手工、美术馆童话"
+      items:
+        - { icon: 🎠, k: "A 11-29 到 01-03 每周日 11点", v: "Galli Theater 童话剧" }
+        - { icon: ✂️, k: "B 12-06（周日）10点", v: "Zoo Frankfurt 降临节手工" }
+        - { icon: 🖼️, k: "C 12-06（周日）11点", v: "Städel Museum" }
+    - tone: green
+      tag: D–F
+      title: "假期手工、平安夜动物园、儿童跨年"
+      items:
+        - { icon: 🧩, k: "D 12-22、12-29、01-05、01-07 14:30", v: "Junges Museum 假期工作坊" }
+        - { icon: 👼, k: "E 12-24（周四）11点", v: "Zoo Frankfurt" }
+        - { icon: 🎉, k: "F 12-31（周四）12点", v: "Galli Theater 儿童跨年" }
+    - tone: ink
+      title: 你家最想去哪个？
+      vote:
+        - { letter: A, name: "童话剧" }
+        - { letter: B, name: "动物园手工" }
+        - { letter: C, name: "美术馆童话" }
+        - { letter: D, name: "假期手工" }
+        - { letter: E, name: "平安夜动物园" }
+        - { letter: F, name: "儿童跨年" }
+      cta: 评论区留字母 👇
+      search: 小鹿出游 Allo Outings
+      foot: 以主办方为准，出发前请再确认

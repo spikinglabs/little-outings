@@ -1,0 +1,111 @@
+# A Rednote (小红书) explainer: kid-friendly food and drinks at German Christmas markets, plus the mug deposit
+# (Tassenpfand). General; deposit amounts vary by market so none is given. No stall or product brands.
+# History (find a post by its code: grep -l "code: S3HN" posts/):
+# - 2026-11-21 written with its video block (20 video posts for L).
+code: S3HN
+title: 圣诞市场带娃吃什么
+until: 2026-12-23
+caption: |
+  第一次带娃逛德国圣诞市场，不知道点什么？孩子能吃能喝的整理好了🍭
+
+  🧃 Kinderpunsch：热的果汁饮料，不含酒精。和大人的 Glühwein（热红酒）长得很像，点的时候说清楚。
+  🥜 Gebrannte Mandeln：糖炒杏仁，现炒的整条街都香。
+  🥔 Reibekuchen：炸土豆饼，配苹果泥（Apfelmus）。
+  🌰 Heiße Maronen：烤栗子。
+  🥞 Crêpes：可丽饼，巧克力或糖粉。
+  🍓 Schokofrüchte：巧克力裹的水果串。
+  ❤️ Lebkuchenherz：姜饼心，上面写字，多数是挂着当纪念的。
+
+  小提示：热饮装在杯子里要付杯子押金（Pfand），还杯子退钱，也可以把杯子带回家做纪念。
+  小宝宝注意整颗坚果和硬糖，容易呛到。
+
+  🗳 你家孩子最爱哪个？评论区留字母（A–F）。
+tags: [圣诞市场, 德国圣诞市场, 德国美食, 德国带娃, 德国生活, 德国妈妈, 德国爸爸, 留德]
+cards:
+  - tone: red
+    tag: 圣诞市场 · 吃喝
+    title: "圣诞市场\n带娃\n吃什么？"
+    big: true
+    lines:
+      - 孩子能吃能喝的，一张看完。
+      - 最后一张投票！
+    foot: 德国带娃 · 圣诞季
+  - tone: paper
+    tag: 喝的
+    title: Kinderpunsch
+    lines:
+      - 热的果汁饮料，不含酒精。
+      - 和 Glühwein（热红酒）长得很像，点的时候说清楚。
+      - 杯子要付押金（Pfand），还杯退钱，也能带走。
+  - tone: gold
+    tag: 吃的
+    title: 甜的咸的
+    rows:
+      - { when: "糖炒杏仁", name: Gebrannte Mandeln }
+      - { when: "土豆饼", name: Reibekuchen }
+      - { when: "烤栗子", name: Heiße Maronen }
+      - { when: "可丽饼", name: Crêpes }
+      - { when: "巧克力水果", name: Schokofrüchte }
+  - tone: rose
+    tag: 小提示
+    title: 姜饼心和小宝宝
+    lines:
+      - 姜饼心（Lebkuchenherz）多数挂着当纪念。
+      - 小宝宝注意整颗坚果和硬糖，容易呛到。
+  - tone: ink
+    title: 孩子最爱哪个？
+    lines:
+      - 评论区留字母，也欢迎分享你家的必点。
+    rows:
+      - { when: "A", name: Kinderpunsch }
+      - { when: "B", name: 糖炒杏仁 }
+      - { when: "C", name: 土豆饼 }
+      - { when: "D", name: 烤栗子 }
+      - { when: "E", name: 可丽饼 }
+      - { when: "F", name: 巧克力水果 }
+    search: 小鹿出游 Allo Outings
+    note: 搜索后选城市，点「圣诞市场」。
+video:
+  snow: true
+  scenes:
+    - tone: red
+      tag: 圣诞市场 · 吃喝
+      title: "圣诞市场\n带娃吃什么？"
+      hook: true
+      chips: [🧃 不含酒精, 🥜 现炒杏仁, 🥔 土豆饼]
+      sub: 最后投票
+      seconds: 3.4
+    - tone: ink
+      tag: 喝的
+      title: Kinderpunsch
+      items:
+        - { icon: 🧃, v: 热果汁饮料, s: 不含酒精 }
+        - { icon: ⚠️, v: 和 Glühwein 长得像, s: 点的时候说清楚 }
+        - { icon: ☕, v: 杯子要付押金 Pfand, s: 还杯退钱，也能带走 }
+    - tone: gold
+      tag: 吃的
+      title: 甜的咸的
+      grid:
+        - { icon: 🥜, name: 糖炒杏仁 }
+        - { icon: 🥔, name: 土豆饼 }
+        - { icon: 🌰, name: 烤栗子 }
+        - { icon: 🥞, name: 可丽饼 }
+        - { icon: 🍓, name: 巧克力水果 }
+        - { icon: ❤️, name: 姜饼心 }
+    - tone: green
+      tag: 小提示
+      title: 带小宝宝
+      items:
+        - { icon: 👶, v: 整颗坚果和硬糖, s: 容易呛到 }
+        - { icon: ❤️, v: 姜饼心多数当纪念 }
+    - tone: ink
+      title: 孩子最爱哪个？
+      vote:
+        - { letter: A, name: 热果汁 }
+        - { letter: B, name: 杏仁 }
+        - { letter: C, name: 土豆饼 }
+        - { letter: D, name: 栗子 }
+        - { letter: E, name: 可丽饼 }
+        - { letter: F, name: 巧克力果 }
+      cta: 评论区留字母 👇
+      search: 小鹿出游 Allo Outings

@@ -1,0 +1,109 @@
+# A Rednote (小红书) set: hamburg-weihnachten-kinder — children's Christmas programme in 汉堡 2026, 6 picks.
+# Events from data/outings.jsonl (organisers' listings, read 2026-11-21): planetarium-hamburg.de, hamburgerpuppentheater.de, shmh.de, buecherhallen.de, die-hamburgische-staatsoper.de (fb19b9, b77ff1, 199562, 62be50, 3c7053, b3f9a7).
+# None of these events is in another post. Ends on a vote (public: favourites only, never about the kids).
+# History (find a post by its code: grep -l "code: K9WA" posts/):
+# - 2026-11-21 written with its video block (20 video posts for L: "Create 20 videos for future posts").
+code: K9WA
+title: 汉堡圣诞带娃活动｜2026
+until: 2027-01-01
+caption: |
+  汉堡今年圣诞季的儿童剧、博物馆和图书馆活动，按主办方节目单挑了6个🎄 圣诞市场在之前那篇。
+
+  A Planetarium Hamburg：12-19（周六）14点。Weihnachten unterm Sternenzelt，星空下的圣诞。
+  B Hamburger Puppentheater 木偶剧：12-05 到 12-10 11点。Weihnachtsfest mitohne Gans，在 Barmbek。
+  C Altonaer Museum 冬日周末：12-05、12-06 10–18点。Winterliches Wochenende。
+  D Bücherhalle Kirchdorf 儿童剧：12-05（周六）16点。Oberwichtel dringend gesucht，找精灵头头。
+  E Bücherhalle Altona：12-08（周二）15点。毛绒玩具在图书馆过夜，圣诞特别场。
+  F Staatsoper 芭蕾：12-27（周日）、01-01 14点。《胡桃夹子》下午场。
+
+  时间和票价以主办方为准，出发前请再确认。
+  更多活动：浏览器搜索「小鹿出游 Allo Outings」，选汉堡。
+
+  🗳 你家最想去哪个？评论区留字母（A–F）。
+tags: [汉堡带娃, 汉堡圣诞, 德国圣诞, 德国带娃, 德国生活, 德国妈妈, 德国爸爸, 留德]
+cards:
+  - tone: red
+    tag: 2026 · 汉堡
+    title: "汉堡\n圣诞季\n带娃去哪"
+    big: true
+    lines:
+      - 按主办方节目单挑了6个，日期时间都写好了。
+      - 最后一张投票！
+    foot: 德国带娃 · 圣诞季
+  - tone: paper
+    tag: "A 星空圣诞 · B 木偶剧"
+    title: "星空圣诞、木偶剧"
+    lines:
+      - "A Planetarium Hamburg"
+      - "12-19（周六）14点"
+      - "B Hamburger Puppentheater 木偶剧"
+      - "12-05 到 12-10 11点"
+    note: 详细介绍在正文里。
+  - tone: green
+    tag: "C 博物馆周末 · D 精灵儿童剧"
+    title: "博物馆周末、精灵儿童剧"
+    lines:
+      - "C Altonaer Museum 冬日周末"
+      - "12-05、12-06 10–18点"
+      - "D Bücherhalle Kirchdorf 儿童剧"
+      - "12-05（周六）16点"
+    note: 详细介绍在正文里。
+  - tone: sky
+    tag: "E 玩具过夜 · F 胡桃夹子"
+    title: "玩具过夜、胡桃夹子"
+    lines:
+      - "E Bücherhalle Altona"
+      - "12-08（周二）15点"
+      - "F Staatsoper 芭蕾"
+      - "12-27（周日）、01-01 14点"
+    note: 详细介绍在正文里。
+  - tone: ink
+    title: 你家最想去哪个？
+    lines:
+      - 评论区留字母，也欢迎分享汉堡带娃的好去处。
+    rows:
+      - { when: "A", name: "星空圣诞" }
+      - { when: "B", name: "木偶剧" }
+      - { when: "C", name: "博物馆周末" }
+      - { when: "D", name: "精灵儿童剧" }
+      - { when: "E", name: "玩具过夜" }
+      - { when: "F", name: "胡桃夹子" }
+    search: 小鹿出游 Allo Outings
+    note: 搜索后选汉堡，看更多活动。
+    foot: 以主办方为准，出发前请再确认
+video:
+  snow: true
+  scenes:
+    - tone: red
+      tag: 2026 · 汉堡
+      title: "汉堡\n圣诞季\n带娃去哪"
+      hook: true
+      chips: [🪐 天文馆, 🎭 木偶剧, 🩰 胡桃夹子]
+      sub: 按主办方节目单挑了6个 · 最后投票
+      seconds: 3.4
+    - tone: ink
+      tag: A–C
+      title: "星空圣诞、木偶剧、博物馆周末"
+      items:
+        - { icon: 🪐, k: "A 12-19（周六）14点", v: "Planetarium Hamburg" }
+        - { icon: 🎭, k: "B 12-05 到 12-10 11点", v: "Hamburger Puppentheater 木偶剧" }
+        - { icon: 🏛️, k: "C 12-05、12-06 10–18点", v: "Altonaer Museum 冬日周末" }
+    - tone: green
+      tag: D–F
+      title: "精灵儿童剧、玩具过夜、胡桃夹子"
+      items:
+        - { icon: 🧝, k: "D 12-05（周六）16点", v: "Bücherhalle Kirchdorf 儿童剧" }
+        - { icon: 🧸, k: "E 12-08（周二）15点", v: "Bücherhalle Altona" }
+        - { icon: 🩰, k: "F 12-27（周日）、01-01 14点", v: "Staatsoper 芭蕾" }
+    - tone: ink
+      title: 你家最想去哪个？
+      vote:
+        - { letter: A, name: "星空圣诞" }
+        - { letter: B, name: "木偶剧" }
+        - { letter: C, name: "博物馆周末" }
+        - { letter: D, name: "精灵儿童剧" }
+        - { letter: E, name: "玩具过夜" }
+        - { letter: F, name: "胡桃夹子" }
+      cta: 评论区留字母 👇
+      search: 小鹿出游 Allo Outings
+      foot: 以主办方为准，出发前请再确认

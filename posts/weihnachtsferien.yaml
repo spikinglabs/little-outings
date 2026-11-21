@@ -1,0 +1,103 @@
+# A Rednote (小红书) save-for-later post: Christmas school holidays 2026/27 in the states of the site's cities.
+# Dates from data/school-holidays.json (openholidaysapi.org, the same data as the site's holidays button):
+# NW 2026-12-23–2027-01-06, BE 12-23–01-02, BY 12-24–01-08, HE 12-23–01-12, HH 12-21–01-01. Plus the next short
+# break where one comes before Easter: BE Winterferien 02-01–02-06, BY Frühjahrsferien 02-08–02-12.
+# History (find a post by its code: grep -l "code: J2PA" posts/):
+# - 2026-11-21 written with its video block (20 video posts for L).
+code: J2PA
+title: 2026圣诞假期各州日期
+until: 2026-12-23
+caption: |
+  2026/27 圣诞学校假期（Weihnachtsferien），按州整理好了📅 先收藏，安排出行和托管：
+
+  北威州（科隆、杜塞、波恩、埃森、亚琛）：12-23 – 01-06
+  柏林：12-23 – 01-02
+  巴伐利亚（慕尼黑）：12-24 – 01-08
+  黑森（法兰克福）：12-23 – 01-12
+  汉堡：12-21 – 01-01
+
+  再往后：
+  柏林冬假 02-01 – 02-06
+  巴伐利亚 02-08 – 02-12 放一周
+
+  日期写的是假期第一天和最后一天，个别学校会多放一两天，以学校通知为准。
+  假期里的活动：浏览器搜索「小鹿出游 Allo Outings」，点「学校假期」。
+
+  🗳 圣诞假期你家一般怎么过？评论区留字母（A–F）。
+tags: [德国学校假期, 圣诞假期, 德国带娃, 德国生活, 德国妈妈, 德国爸爸, 留德, 德国上学]
+cards:
+  - tone: gold
+    tag: 2026/27 · 学校假期
+    title: "圣诞假期\n各州日期\n先收藏"
+    big: true
+    lines:
+      - 北威、柏林、巴伐利亚、黑森、汉堡。
+      - 最后一张投票！
+    foot: 德国带娃 · 假期
+  - tone: paper
+    tag: 圣诞假期
+    title: 哪天到哪天？
+    rows:
+      - { when: "北威州", name: 12-23 – 01-06 }
+      - { when: "柏林", name: 12-23 – 01-02 }
+      - { when: "巴伐利亚", name: 12-24 – 01-08 }
+      - { when: "黑森", name: 12-23 – 01-12 }
+      - { when: "汉堡", name: 12-21 – 01-01 }
+    note: 北威州包括科隆、杜塞、波恩、埃森、亚琛。
+  - tone: sky
+    tag: 再往后
+    title: 2月的短假
+    rows:
+      - { when: "柏林", name: 冬假 02-01 – 02-06 }
+      - { when: "巴伐利亚", name: 02-08 – 02-12 }
+    note: 个别学校会多放一两天，以学校通知为准。
+  - tone: ink
+    title: 圣诞假期怎么过？
+    lines:
+      - 评论区留字母，也欢迎分享假期去处。
+    rows:
+      - { when: "A", name: 回国过年 }
+      - { when: "B", name: 在德国旅行 }
+      - { when: "C", name: 去邻国玩 }
+      - { when: "D", name: 去山里滑雪 }
+      - { when: "E", name: 在家附近转转 }
+      - { when: "F", name: 上班，找托管 }
+    search: 小鹿出游 Allo Outings
+    note: 搜索后点「学校假期」，看假期活动。
+video:
+  snow: true
+  scenes:
+    - tone: gold
+      tag: 2026/27 · 学校假期
+      title: "圣诞假期\n各州日期"
+      hook: true
+      chips: [📅 5个州, 🏫 第一天和最后一天, 🎿 2月短假]
+      sub: 先收藏，安排出行和托管
+      seconds: 3.4
+    - tone: ink
+      tag: 圣诞假期
+      title: 哪天到哪天？
+      items:
+        - { icon: 📍, k: 北威州, v: 12-23 – 01-06, s: 科隆、杜塞、波恩、埃森、亚琛 }
+        - { icon: 📍, k: 柏林, v: 12-23 – 01-02 }
+        - { icon: 📍, k: 巴伐利亚, v: 12-24 – 01-08 }
+        - { icon: 📍, k: 黑森, v: 12-23 – 01-12 }
+        - { icon: 📍, k: 汉堡, v: 12-21 – 01-01 }
+    - tone: blue
+      tag: 再往后
+      title: 2月的短假
+      items:
+        - { icon: ⛄, k: 柏林, v: 冬假 02-01 – 02-06 }
+        - { icon: ⛄, k: 巴伐利亚, v: 02-08 – 02-12 }
+      sub: 以学校通知为准
+    - tone: ink
+      title: 圣诞假期怎么过？
+      vote:
+        - { letter: A, name: 回国 }
+        - { letter: B, name: 德国旅行 }
+        - { letter: C, name: 去邻国 }
+        - { letter: D, name: 滑雪 }
+        - { letter: E, name: 家附近 }
+        - { letter: F, name: 找托管 }
+      cta: 评论区留字母 👇
+      search: 小鹿出游 Allo Outings

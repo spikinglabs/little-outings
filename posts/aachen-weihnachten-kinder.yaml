@@ -1,0 +1,109 @@
+# A Rednote (小红书) set: aachen-weihnachten-kinder — children's Christmas programme in 亚琛 2026, 6 picks.
+# Events from data/outings.jsonl (organisers' listings, read 2026-11-21): aachenerkinder.de, theateraachen.de, suermondt-ludwig-museum.de, centre-charlemagne.eu (0532f6, 1f9ce1, 8aceb9, 08d5e2/bcfaeb/69289d/451b7e, 1fcd3c, eb9837).
+# None of these events is in another post. Ends on a vote (public: favourites only, never about the kids).
+# History (find a post by its code: grep -l "code: U4SH" posts/):
+# - 2026-11-21 written with its video block (20 video posts for L: "Create 20 videos for future posts").
+code: U4SH
+title: 亚琛圣诞带娃活动｜2026
+until: 2026-12-20
+caption: |
+  亚琛今年圣诞季的木偶剧、博物馆手工和童话歌剧，按主办方节目单挑了6个🎄
+
+  A Die Kleine Theaterfabrik 木偶剧：12-12、12-13 15点。Puppenspiel Wintermärchen，冬天的童话。
+  B Die Kleine Theaterfabrik 人偶剧：12-20（周日）15点。Ein total verhextes Weihnachtsfest，被施了魔法的圣诞节。
+  C Eurogress 童话歌剧：12-20（周日）18点。Theater Aachen 圣诞音乐会：《糖果屋》Hänsel und Gretel。
+  D Suermondt-Ludwig-Museum：11-29、12-06、12-13、12-20 下午14点。家庭降临节手工：圣诞树挂饰、贺卡等。
+  E Centre Charlemagne 杖偶工作坊：12-05（周六）15–17点。圣诞市场旁边，做杖头木偶。
+  F Centre Charlemagne 宝箱工作坊：12-12（周六）15–17点。做自己的小宝箱。
+
+  时间和票价以主办方为准，出发前请再确认。
+  更多活动：浏览器搜索「小鹿出游 Allo Outings」，选亚琛。
+
+  🗳 你家最想去哪个？评论区留字母（A–F）。
+tags: [亚琛带娃, 亚琛圣诞, 德国圣诞, 德国带娃, 德国生活, 德国妈妈, 德国爸爸, 留德]
+cards:
+  - tone: red
+    tag: 2026 · 亚琛
+    title: "亚琛\n圣诞季\n带娃去哪"
+    big: true
+    lines:
+      - 按主办方节目单挑了6个，日期时间都写好了。
+      - 最后一张投票！
+    foot: 德国带娃 · 圣诞季
+  - tone: paper
+    tag: "A 冬天童话 · B 魔法圣诞"
+    title: "冬天童话、魔法圣诞"
+    lines:
+      - "A Die Kleine Theaterfabrik 木偶剧"
+      - "12-12、12-13 15点"
+      - "B Die Kleine Theaterfabrik 人偶剧"
+      - "12-20（周日）15点"
+    note: 详细介绍在正文里。
+  - tone: green
+    tag: "C 糖果屋 · D 博物馆手工"
+    title: "糖果屋、博物馆手工"
+    lines:
+      - "C Eurogress 童话歌剧"
+      - "12-20（周日）18点"
+      - "D Suermondt-Ludwig-Museum"
+      - "11-29、12-06、12-13、12-20 下午14点"
+    note: 详细介绍在正文里。
+  - tone: sky
+    tag: "E 杖头木偶 · F 小宝箱"
+    title: "杖头木偶、小宝箱"
+    lines:
+      - "E Centre Charlemagne 杖偶工作坊"
+      - "12-05（周六）15–17点"
+      - "F Centre Charlemagne 宝箱工作坊"
+      - "12-12（周六）15–17点"
+    note: 详细介绍在正文里。
+  - tone: ink
+    title: 你家最想去哪个？
+    lines:
+      - 评论区留字母，也欢迎分享亚琛带娃的好去处。
+    rows:
+      - { when: "A", name: "冬天童话" }
+      - { when: "B", name: "魔法圣诞" }
+      - { when: "C", name: "糖果屋" }
+      - { when: "D", name: "博物馆手工" }
+      - { when: "E", name: "杖头木偶" }
+      - { when: "F", name: "小宝箱" }
+    search: 小鹿出游 Allo Outings
+    note: 搜索后选亚琛，看更多活动。
+    foot: 以主办方为准，出发前请再确认
+video:
+  snow: true
+  scenes:
+    - tone: red
+      tag: 2026 · 亚琛
+      title: "亚琛\n圣诞季\n带娃去哪"
+      hook: true
+      chips: [🎭 木偶剧, 🎨 博物馆手工, 🍭 童话歌剧]
+      sub: 按主办方节目单挑了6个 · 最后投票
+      seconds: 3.4
+    - tone: ink
+      tag: A–C
+      title: "冬天童话、魔法圣诞、糖果屋"
+      items:
+        - { icon: 🎭, k: "A 12-12、12-13 15点", v: "Die Kleine Theaterfabrik 木偶剧" }
+        - { icon: 🫧, k: "B 12-20（周日）15点", v: "Die Kleine Theaterfabrik 人偶剧" }
+        - { icon: 🍭, k: "C 12-20（周日）18点", v: "Eurogress 童话歌剧" }
+    - tone: green
+      tag: D–F
+      title: "博物馆手工、杖头木偶、小宝箱"
+      items:
+        - { icon: 🎨, k: "D 11-29、12-06、12-13、12-20 下午14点", v: "Suermondt-Ludwig-Museum" }
+        - { icon: 🪄, k: "E 12-05（周六）15–17点", v: "Centre Charlemagne 杖偶工作坊" }
+        - { icon: 💎, k: "F 12-12（周六）15–17点", v: "Centre Charlemagne 宝箱工作坊" }
+    - tone: ink
+      title: 你家最想去哪个？
+      vote:
+        - { letter: A, name: "冬天童话" }
+        - { letter: B, name: "魔法圣诞" }
+        - { letter: C, name: "糖果屋" }
+        - { letter: D, name: "博物馆手工" }
+        - { letter: E, name: "杖头木偶" }
+        - { letter: F, name: "小宝箱" }
+      cta: 评论区留字母 👇
+      search: 小鹿出游 Allo Outings
+      foot: 以主办方为准，出发前请再确认

@@ -1,0 +1,102 @@
+# A Rednote (小红书) explainer: how German families spend Christmas (Heiligabend, Krippenspiel, Bescherung,
+# Christkind vs Weihnachtsmann, the two holidays, the tree until 6 January). General customs; 2026 weekdays from
+# the calendar (24 Dec is a Thursday).
+# History (find a post by its code: grep -l "code: R8HT" posts/):
+# - 2026-11-21 written with its video block (20 video posts for L).
+code: R8HT
+title: 德国人怎么过圣诞节
+until: 2026-12-26
+caption: |
+  在德国，圣诞最重要的是 12-24 平安夜（Heiligabend），不是 12-25🎄 第一次在德国过圣诞的家庭可以看看：
+
+  ① 12-24（今年周四）：下午很多教堂有孩子演的 Krippenspiel（耶稣诞生的小剧），晚上全家吃饭、拆礼物（Bescherung）。
+  ② 礼物是谁送的？南部和西部很多家庭说是 Christkind（圣婴），北部和东部多说 Weihnachtsmann（圣诞老人）。
+  ③ 12-25、12-26 两天都是法定假日，走亲戚、吃大餐。
+  ④ 圣诞树常常在 12-24 前几天才装饰，一直放到 01-06 前后。
+  ⑤ 这几天商店都关门，提前买好吃的。
+
+  🗳 你家圣诞最期待哪一刻？评论区留字母（A–F）。
+tags: [德国圣诞, 平安夜, 德国节日, 德国带娃, 德国生活, 德国妈妈, 德国爸爸, 留德]
+cards:
+  - tone: red
+    tag: 德国节日 · 圣诞
+    title: "德国人\n怎么过\n圣诞节？"
+    big: true
+    lines:
+      - 最重要的是 12-24 晚上，不是 12-25。
+      - 看完最后一张投票！
+    foot: 德国带娃 · 圣诞季
+  - tone: paper
+    tag: 12-24 平安夜
+    title: 一年最重要的晚上
+    lines:
+      - 下午：很多教堂有孩子演的 Krippenspiel。
+      - 晚上：全家吃饭，拆礼物（Bescherung）。
+      - 今年 12-24 是周四，商店最晚14点关门。
+  - tone: gold
+    tag: 礼物谁送的？
+    title: 圣婴还是圣诞老人
+    lines:
+      - 南部西部很多家庭说 Christkind（圣婴）。
+      - 北部东部多说 Weihnachtsmann（圣诞老人）。
+      - 孩子问起来，可以问问幼儿园怎么说。
+  - tone: green
+    tag: 12-25 · 12-26
+    title: 两天法定假日
+    lines:
+      - 走亲戚、吃大餐，商店都关门。
+      - 圣诞树常在 12-24 前几天装饰，放到 01-06 前后。
+  - tone: ink
+    title: 你家最期待哪一刻？
+    lines:
+      - 评论区留字母，也欢迎分享你家怎么过。
+    rows:
+      - { when: "A", name: 装饰圣诞树 }
+      - { when: "B", name: 看孩子演的小剧 }
+      - { when: "C", name: 平安夜大餐 }
+      - { when: "D", name: 拆礼物 }
+      - { when: "E", name: 走亲访友 }
+      - { when: "F", name: 在家休息 }
+    search: 小鹿出游 Allo Outings
+    foot: 搜索后看圣诞活动
+video:
+  snow: true
+  scenes:
+    - tone: red
+      tag: 德国节日 · 圣诞
+      title: "德国圣诞\n最重要的是哪天？"
+      hook: true
+      chips: [🎄 12-24 平安夜, 🎁 拆礼物, 🍽️ 两天假日]
+      sub: 第一次在德国过圣诞看这里
+      seconds: 3.4
+    - tone: ink
+      tag: 12-24 平安夜
+      big: 12-24
+      lines: [今年是周四]
+      items:
+        - { icon: ⛪, k: 下午, v: 孩子演的 Krippenspiel }
+        - { icon: 🎁, k: 晚上, v: 全家吃饭、拆礼物 }
+    - tone: gold
+      tag: 礼物谁送的？
+      title: 南北说法不一样
+      items:
+        - { icon: 👼, k: 南部西部, v: Christkind 圣婴 }
+        - { icon: 🎅, k: 北部东部, v: Weihnachtsmann 圣诞老人 }
+    - tone: green
+      tag: 12-25 · 12-26
+      title: 两天法定假日
+      items:
+        - { icon: 👨‍👩‍👧, v: 走亲戚、吃大餐 }
+        - { icon: 🛒, v: 商店都关门, s: 提前买好吃的 }
+        - { icon: 🎄, v: 圣诞树放到 01-06 前后 }
+    - tone: ink
+      title: 你家最期待哪一刻？
+      vote:
+        - { letter: A, name: 装饰树 }
+        - { letter: B, name: 看小剧 }
+        - { letter: C, name: 大餐 }
+        - { letter: D, name: 拆礼物 }
+        - { letter: E, name: 走亲戚 }
+        - { letter: F, name: 休息 }
+      cta: 评论区留字母 👇
+      search: 小鹿出游 Allo Outings

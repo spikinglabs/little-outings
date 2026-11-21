@@ -1,0 +1,117 @@
+# A Rednote (小红书) save-for-later post: shop opening around Christmas and New Year 2026/27. 24 Dec on a weekday:
+# shops close by 14:00 under the state shop-hours laws (IHK München; guides for 2026). 25, 26 Dec and 1 Jan are
+# public holidays everywhere; 27 Dec is a Sunday. 31 Dec: 14:00 by law only in Hessen, Bremen and Thüringen
+# (IHK München), elsewhere shops set their own hours. 6 Jan a holiday only in Bayern, Baden-Württemberg and
+# Sachsen-Anhalt. Everything hedged with "大多数"; no brand names.
+# History (find a post by its code: grep -l "code: C7VM" posts/):
+# - 2026-11-21 written with its video block (20 video posts for L).
+code: C7VM
+title: 德国圣诞商店连关3天
+until: 2027-01-06
+caption: |
+  今年 12-25（周五）、12-26（周六）、12-27（周日）商店连关3天🛒 提前收藏，别到时候冰箱空了：
+
+  12-24（周四）平安夜：大多数商店最晚14点关门
+  12-25（周五）圣诞节：法定假日，关门
+  12-26（周六）圣诞第二天：法定假日，关门
+  12-27（周日）：关门
+  12-31（周四）：黑森州14点关门，其他州很多店也提前关
+  01-01（周五）元旦：法定假日，关门
+  01-06（周三）三王节：只在巴伐利亚、巴登-符腾堡、萨克森-安哈尔特放假
+
+  小提示：
+  ① 12-23 超市人最多，能早买就早买。
+  ② 大火车站里和加油站的小店一般还开，但东西少、价格高。
+  ③ 生病买药：有值班药房（Notdienst），门口和网上都能查。
+
+  具体时间以各家店为准。
+  🗳 你家一般什么时候去囤货？评论区留字母（A–F）。
+tags: [德国生活, 德国圣诞, 商店营业时间, 德国带娃, 德国妈妈, 德国爸爸, 留德, 德国新年]
+cards:
+  - tone: red
+    tag: 2026 圣诞 · 新年
+    title: "商店\n连关3天\n先收藏！"
+    big: true
+    lines:
+      - 12-25 到 12-27 商店都不开门。
+      - 圣诞到新年每天的营业情况，一张看完。
+    foot: 德国生活 · 实用
+  - tone: paper
+    tag: 圣诞
+    title: 12-24 到 12-27
+    rows:
+      - { when: "12-24 周四", name: 大多数店最晚14点关 }
+      - { when: "12-25 周五", name: 法定假日，关门 }
+      - { when: "12-26 周六", name: 法定假日，关门 }
+      - { when: "12-27 周日", name: 关门 }
+  - tone: sky
+    tag: 新年
+    title: 12-31 到 01-06
+    rows:
+      - { when: "12-31 周四", name: 黑森州14点关，别处很多店也提前 }
+      - { when: "01-01 周五", name: 法定假日，关门 }
+      - { when: "01-06 周三", name: 巴伐利亚、巴符、萨安放假 }
+  - tone: green
+    tag: 小提示
+    title: 别让冰箱空了
+    lines:
+      - 12-23 超市人最多，能早买就早买。
+      - 大火车站和加油站的小店一般还开。
+      - 生病买药找值班药房（Notdienst）。
+    note: 具体时间以各家店为准。
+  - tone: ink
+    title: 你家什么时候囤货？
+    lines:
+      - 评论区留字母，也欢迎分享囤货清单。
+    rows:
+      - { when: "A", name: 提前一周 }
+      - { when: "B", name: 12-22 或 12-23 }
+      - { when: "C", name: 12-24 上午 }
+      - { when: "D", name: 网上下单 }
+      - { when: "E", name: 不囤，出去吃 }
+      - { when: "F", name: 走亲戚不用囤 }
+    search: 小鹿出游 Allo Outings
+    foot: 搜索后看假期带娃去哪
+video:
+  scenes:
+    - tone: red
+      tag: 2026 圣诞 · 新年
+      title: "12-25 到 12-27\n商店连关3天"
+      hook: true
+      chips: [🛒 关门日期, 🕑 提前关门, 💊 值班药房]
+      sub: 先收藏，别让冰箱空了
+      seconds: 3.4
+    - tone: ink
+      tag: 圣诞
+      title: 每天开不开？
+      items:
+        - { icon: 🕑, k: 12-24 周四, v: 大多数店最晚14点关 }
+        - { icon: 🚫, k: 12-25 周五, v: 法定假日，关门 }
+        - { icon: 🚫, k: 12-26 周六, v: 法定假日，关门 }
+        - { icon: 🚫, k: 12-27 周日, v: 关门 }
+    - tone: blue
+      tag: 新年
+      title: 跨年那几天
+      items:
+        - { icon: 🕑, k: 12-31 周四, v: 很多店提前关门, s: 黑森州14点关 }
+        - { icon: 🚫, k: 01-01 周五, v: 法定假日，关门 }
+        - { icon: 👑, k: 01-06 周三, v: 巴伐利亚、巴符、萨安放假 }
+    - tone: green
+      tag: 小提示
+      title: 提前准备
+      items:
+        - { icon: 🛍️, v: 12-23 超市人最多, s: 能早买就早买 }
+        - { icon: 🚉, v: 大火车站和加油站的小店, s: 一般还开，东西少 }
+        - { icon: 💊, v: 值班药房 Notdienst, s: 门口和网上能查 }
+    - tone: ink
+      title: 你家什么时候囤货？
+      vote:
+        - { letter: A, name: 提前一周 }
+        - { letter: B, name: 22或23号 }
+        - { letter: C, name: 24号上午 }
+        - { letter: D, name: 网上下单 }
+        - { letter: E, name: 出去吃 }
+        - { letter: F, name: 走亲戚 }
+      cta: 评论区留字母 👇
+      search: 小鹿出游 Allo Outings
+      foot: 具体时间以各家店为准

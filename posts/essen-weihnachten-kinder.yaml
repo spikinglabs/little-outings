@@ -1,0 +1,109 @@
+# A Rednote (小红书) set: essen-weihnachten-kinder — children's Christmas programme in 埃森 2026, 6 picks.
+# Events from data/outings.jsonl (organisers' listings, read 2026-11-21): zollverein.de, visitessen.de, theater-essen.de (14396c, 362136, 5450ed, b0186b, 92bcc8, 4014f3).
+# None of these events is in another post. Ends on a vote (public: favourites only, never about the kids).
+# History (find a post by its code: grep -l "code: P2NG" posts/):
+# - 2026-11-21 written with its video block (20 video posts for L: "Create 20 videos for future posts").
+code: P2NG
+title: 埃森圣诞带娃去哪｜2026
+until: 2026-12-30
+caption: |
+  埃森今年圣诞季的溜冰、演出和博物馆活动，按主办方节目单挑了6个🎄
+
+  A Zollverein 溜冰场：12-05 起。在老焦化厂旁边溜冰；工作日15点起，周末10点起。
+  B Aalto-Theater 芭蕾：11-29 到 12-30 多场。《胡桃夹子》。
+  C Bürgerhaus Oststadt：12-12（周六）16点。家庭剧场和音乐会 Weißt du, was Weihnachten ist?。
+  D Philharmonie Essen：12-26（周六）14点。给孩子的《圣诞清唱剧》。
+  E Ruhr Museum 导览：12-06（周日）12点。展览 überLeben in der Eiszeit，冰河时期。
+  F Schloss Hugenpoet 尼古拉斯市场：12-03 到 12-06 16–22点。城堡里的小圣诞市场。
+
+  时间和票价以主办方为准，出发前请再确认。
+  更多活动：浏览器搜索「小鹿出游 Allo Outings」，选埃森。
+
+  🗳 你家最想去哪个？评论区留字母（A–F）。
+tags: [埃森带娃, 埃森圣诞, 德国圣诞, 德国带娃, 德国生活, 德国妈妈, 德国爸爸, 留德]
+cards:
+  - tone: red
+    tag: 2026 · 埃森
+    title: "埃森\n圣诞季\n带娃去哪"
+    big: true
+    lines:
+      - 按主办方节目单挑了6个，日期时间都写好了。
+      - 最后一张投票！
+    foot: 德国带娃 · 圣诞季
+  - tone: paper
+    tag: "A 溜冰 · B 胡桃夹子"
+    title: "溜冰、胡桃夹子"
+    lines:
+      - "A Zollverein 溜冰场"
+      - "12-05 起"
+      - "B Aalto-Theater 芭蕾"
+      - "11-29 到 12-30 多场"
+    note: 详细介绍在正文里。
+  - tone: green
+    tag: "C 家庭音乐会 · D 儿童清唱剧"
+    title: "家庭音乐会、儿童清唱剧"
+    lines:
+      - "C Bürgerhaus Oststadt"
+      - "12-12（周六）16点"
+      - "D Philharmonie Essen"
+      - "12-26（周六）14点"
+    note: 详细介绍在正文里。
+  - tone: sky
+    tag: "E 冰河时期 · F 城堡市场"
+    title: "冰河时期、城堡市场"
+    lines:
+      - "E Ruhr Museum 导览"
+      - "12-06（周日）12点"
+      - "F Schloss Hugenpoet 尼古拉斯市场"
+      - "12-03 到 12-06 16–22点"
+    note: 详细介绍在正文里。
+  - tone: ink
+    title: 你家最想去哪个？
+    lines:
+      - 评论区留字母，也欢迎分享埃森带娃的好去处。
+    rows:
+      - { when: "A", name: "溜冰" }
+      - { when: "B", name: "胡桃夹子" }
+      - { when: "C", name: "家庭音乐会" }
+      - { when: "D", name: "儿童清唱剧" }
+      - { when: "E", name: "冰河时期" }
+      - { when: "F", name: "城堡市场" }
+    search: 小鹿出游 Allo Outings
+    note: 搜索后选埃森，看更多活动。
+    foot: 以主办方为准，出发前请再确认
+video:
+  snow: true
+  scenes:
+    - tone: red
+      tag: 2026 · 埃森
+      title: "埃森\n圣诞季\n带娃去哪"
+      hook: true
+      chips: [⛸️ 煤矿溜冰场, 🩰 胡桃夹子, 🦣 冰河时期]
+      sub: 按主办方节目单挑了6个 · 最后投票
+      seconds: 3.4
+    - tone: ink
+      tag: A–C
+      title: "溜冰、胡桃夹子、家庭音乐会"
+      items:
+        - { icon: ⛸️, k: "A 12-05 起", v: "Zollverein 溜冰场" }
+        - { icon: 🩰, k: "B 11-29 到 12-30 多场", v: "Aalto-Theater 芭蕾" }
+        - { icon: 🎵, k: "C 12-12（周六）16点", v: "Bürgerhaus Oststadt" }
+    - tone: green
+      tag: D–F
+      title: "儿童清唱剧、冰河时期、城堡市场"
+      items:
+        - { icon: 🎼, k: "D 12-26（周六）14点", v: "Philharmonie Essen" }
+        - { icon: 🦣, k: "E 12-06（周日）12点", v: "Ruhr Museum 导览" }
+        - { icon: 🎅, k: "F 12-03 到 12-06 16–22点", v: "Schloss Hugenpoet 尼古拉斯市场" }
+    - tone: ink
+      title: 你家最想去哪个？
+      vote:
+        - { letter: A, name: "溜冰" }
+        - { letter: B, name: "胡桃夹子" }
+        - { letter: C, name: "家庭音乐会" }
+        - { letter: D, name: "儿童清唱剧" }
+        - { letter: E, name: "冰河时期" }
+        - { letter: F, name: "城堡市场" }
+      cta: 评论区留字母 👇
+      search: 小鹿出游 Allo Outings
+      foot: 以主办方为准，出发前请再确认

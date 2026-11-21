@@ -1,0 +1,113 @@
+# A Rednote (小红书) explainer: the four Advent Sundays and the customs around them (Adventskranz, Adventskalender,
+# Barbarazweige on 4 Dec). Dates from the 2026 calendar: Christmas Day is a Friday, so Advent Sundays are
+# 11-29, 12-06, 12-13, 12-20. The Advent calendar itself has its own post (AK7D), so it is only mentioned here.
+# History (find a post by its code: grep -l "code: W3XB" posts/):
+# - 2026-11-21 written with its video block (20 video posts for L).
+code: W3XB
+title: 德国降临节4根蜡烛怎么点
+until: 2026-12-20
+caption: |
+  德国的圣诞季从“降临节”（Advent）开始：圣诞前的4个星期天，每周多点一根蜡烛🕯️ 今年的4个降临节星期天是：
+
+  第1个 11-29（周日）
+  第2个 12-06（周日，也是尼古拉斯节）
+  第3个 12-13（周日）
+  第4个 12-20（周日）
+
+  ① 降临节花环（Adventskranz）：常青枝编成圈，上面4根蜡烛，第1周点1根，第2周点2根……
+  ② 降临日历（Adventskalender）：12-01 到 12-24，每天开一个小门。
+  ③ 12-04 剪 Barbarazweig：剪一根樱桃树枝插在水里放在屋里，传说圣诞节开花会带来好运。
+  ④ 很多家庭这几个周末一起烤饼干、去圣诞市场。
+
+  点蜡烛时别离开房间，干枝子很容易着火。
+
+  🗳 你家今年准备做哪个？评论区留字母（A–F）。
+tags: [降临节, 德国圣诞, 德国节日, 德国带娃, 德国生活, 德国妈妈, 德国爸爸, 留德]
+cards:
+  - tone: green
+    tag: 2026 · 降临节
+    title: "圣诞前\n4个星期天\n点4根蜡烛"
+    big: true
+    lines:
+      - 德国的圣诞季从降临节开始。
+      - 今年的日期和习俗，最后一张投票！
+    foot: 德国带娃 · 圣诞季
+  - tone: paper
+    tag: 今年的日期
+    title: 4个降临节星期天
+    rows:
+      - { when: "第1个", name: 11-29（周日） }
+      - { when: "第2个", name: 12-06（周日） }
+      - { when: "第3个", name: 12-13（周日） }
+      - { when: "第4个", name: 12-20（周日） }
+    note: 第2个正好也是尼古拉斯节。
+  - tone: red
+    tag: 降临节花环
+    title: 每周多点一根
+    lines:
+      - 常青枝编成圈，上面放4根蜡烛。
+      - 第1周点1根，第2周点2根，到第4周全点亮。
+      - 点蜡烛时别离开房间，干枝子容易着火。
+  - tone: mint
+    tag: 还有这些
+    title: 降临日历和樱桃枝
+    lines:
+      - 降临日历：12-01 到 12-24，每天开一个小门。
+      - 12-04 剪 Barbarazweig：樱桃枝插水里，传说圣诞开花有好运。
+      - 周末一起烤饼干、逛圣诞市场。
+  - tone: ink
+    title: 你家今年做哪个？
+    lines:
+      - 评论区留字母，也欢迎分享你家的降临节习惯。
+    rows:
+      - { when: "A", name: 自己做花环 }
+      - { when: "B", name: 买现成花环 }
+      - { when: "C", name: 降临日历 }
+      - { when: "D", name: 剪樱桃枝 }
+      - { when: "E", name: 烤圣诞饼干 }
+      - { when: "F", name: 全都要 }
+    search: 小鹿出游 Allo Outings
+    foot: 搜索后看圣诞活动
+video:
+  snow: true
+  scenes:
+    - tone: green
+      tag: 2026 · 降临节
+      title: "圣诞前4个星期天\n每周多点一根蜡烛"
+      hook: true
+      chips: [🕯️ 降临节花环, 📅 降临日历, 🌸 樱桃枝]
+      sub: 今年的日期 · 最后投票
+      seconds: 3.4
+    - tone: red
+      tag: 今年的日期
+      title: 4个降临节星期天
+      items:
+        - { icon: 🕯️, k: 第1个, v: 11-29（周日） }
+        - { icon: 🕯️, k: 第2个, v: 12-06（周日）, s: 也是尼古拉斯节 }
+        - { icon: 🕯️, k: 第3个, v: 12-13（周日） }
+        - { icon: 🕯️, k: 第4个, v: 12-20（周日） }
+    - tone: green
+      tag: 降临节花环
+      title: 第几周点几根
+      items:
+        - { icon: 🌲, v: 常青枝编成圈, s: 上面放4根蜡烛 }
+        - { icon: 🔥, v: 第1周1根，第4周全亮 }
+        - { icon: ⚠️, v: 点着时别离开房间, s: 干枝子容易着火 }
+    - tone: blue
+      tag: 还有这些
+      title: 12月的小仪式
+      items:
+        - { icon: 📅, v: 降临日历, s: 12-01 到 12-24 每天开一扇门 }
+        - { icon: 🌸, v: 12-04 剪樱桃枝, s: 插在水里，传说圣诞开花有好运 }
+        - { icon: 🍪, v: 周末一起烤饼干 }
+    - tone: ink
+      title: 你家今年做哪个？
+      vote:
+        - { letter: A, name: 自己做花环 }
+        - { letter: B, name: 买花环 }
+        - { letter: C, name: 降临日历 }
+        - { letter: D, name: 樱桃枝 }
+        - { letter: E, name: 烤饼干 }
+        - { letter: F, name: 全都要 }
+      cta: 评论区留字母 👇
+      search: 小鹿出游 Allo Outings

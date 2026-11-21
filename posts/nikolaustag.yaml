@@ -1,0 +1,105 @@
+# A Rednote (小红书) explainer: Nikolaustag on 6 December, what German families and Kitas do. General custom, no
+# dates beyond the calendar (2026-12-06 is a Sunday). Written 2026-11-21 as one of 20 video posts (L: "Create 20
+# videos for future posts", topics left to Claude).
+# History (find a post by its code: grep -l "code: N6KD" posts/):
+# - 2026-11-21 written with its video block.
+code: N6KD
+title: 德国12月6日尼古拉斯节是什么
+until: 2026-12-06
+caption: |
+  12-05 晚上，德国的孩子会把擦干净的靴子放在门口；12-06（今年是周日）早上，靴子里会有巧克力、橘子和坚果。这就是尼古拉斯节（Nikolaustag）🎅
+
+  ① 圣尼古拉斯是4世纪 Myra（在今天的土耳其）的主教，传说他偷偷帮助穷人家的孩子。
+  ② 前一晚要把靴子擦干净，擦得越干净越好。
+  ③ 有的地方尼古拉斯身边跟着 Knecht Ruprecht，一身黑衣服。
+  ④ 幼儿园和学校常常在这几天请“尼古拉斯”来，给孩子发小袋子。
+  ⑤ 超市里的巧克力尼古拉斯就是为这一天准备的。
+
+  不是法定假日，商店照常营业（今年 12-06 是周日，商店本来就关门）。
+
+  🗳 你家靴子里一般放什么？评论区留字母（A–F）。
+tags: [尼古拉斯节, 德国节日, 德国带娃, 德国生活, 德国妈妈, 德国爸爸, 留德, 德国育儿]
+cards:
+  - tone: red
+    tag: 12-06 · 德国节日
+    title: "靴子里的\n巧克力\n尼古拉斯节"
+    big: true
+    lines:
+      - 12-05 晚上把靴子放门口，第二天早上有惊喜。
+      - 看完最后一张投票！
+    foot: 德国带娃 · 节日
+  - tone: paper
+    tag: 是谁？
+    title: 圣尼古拉斯
+    lines:
+      - 4世纪 Myra（今天的土耳其）的主教。
+      - 传说他偷偷帮助穷人家的孩子。
+      - 有的地方他身边跟着 Knecht Ruprecht。
+  - tone: green
+    tag: 怎么过？
+    title: 擦靴子，等早上
+    lines:
+      - 12-05 晚上，孩子把擦干净的靴子放在门口。
+      - 12-06 早上，靴子里有巧克力、橘子、坚果或小礼物。
+      - 幼儿园和学校常请“尼古拉斯”来发小袋子。
+  - tone: sky
+    tag: 小知识
+    title: 不是法定假日
+    lines:
+      - 不放假，商店照常（今年 12-06 是周日）。
+      - 超市的巧克力尼古拉斯就是为这天准备的。
+      - 和圣诞节不是同一天，圣诞礼物 12-24 才拆。
+  - tone: ink
+    title: 你家靴子里放什么？
+    lines:
+      - 评论区留字母，也欢迎分享你家的小传统。
+    rows:
+      - { when: "A", name: 巧克力 }
+      - { when: "B", name: 橘子和坚果 }
+      - { when: "C", name: 一本小书 }
+      - { when: "D", name: 小玩具 }
+      - { when: "E", name: 手写小卡片 }
+      - { when: "F", name: 什么都放一点 }
+    search: 小鹿出游 Allo Outings
+    foot: 搜索后看「尼古拉斯」活动
+video:
+  snow: true
+  scenes:
+    - tone: red
+      tag: 12-06 · 德国节日
+      title: "靴子里\n为什么有巧克力？"
+      hook: true
+      chips: [🥾 擦靴子, 🍫 巧克力, 🍊 橘子坚果]
+      sub: 德国的尼古拉斯节 · 最后投票
+      seconds: 3.4
+    - tone: ink
+      tag: 是谁？
+      title: 圣尼古拉斯
+      items:
+        - { icon: ⛪, v: 4世纪的主教, s: Myra，在今天的土耳其 }
+        - { icon: 🎁, v: 偷偷帮助穷孩子, s: 节日就从这个传说来 }
+        - { icon: 🖤, v: Knecht Ruprecht, s: 有的地方跟在他身边 }
+    - tone: green
+      tag: 怎么过？
+      title: 一晚上的等待
+      items:
+        - { icon: 🥾, k: 12-05 晚上, v: 擦干净靴子放门口 }
+        - { icon: 🍫, k: 12-06 早上, v: 巧克力、橘子、坚果 }
+        - { icon: 🏫, k: 前后几天, v: 幼儿园学校发小袋子 }
+    - tone: blue
+      tag: 小知识
+      big: 12-06
+      lines: [今年是周日, 不是法定假日]
+      items:
+        - { icon: 🎅, v: 和圣诞节不是同一天, s: 礼物在 12-24 才拆 }
+    - tone: ink
+      title: 你家靴子里放什么？
+      vote:
+        - { letter: A, name: 巧克力 }
+        - { letter: B, name: 橘子坚果 }
+        - { letter: C, name: 小书 }
+        - { letter: D, name: 小玩具 }
+        - { letter: E, name: 小卡片 }
+        - { letter: F, name: 都放一点 }
+      cta: 评论区留字母 👇
+      search: 小鹿出游 Allo Outings

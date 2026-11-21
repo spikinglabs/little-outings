@@ -1,0 +1,103 @@
+# A Rednote (小红书) set: berlin-weihnachten-kinder — children's Christmas programme in 柏林 2026, 5 picks.
+# Events from data/outings.jsonl (organisers' listings, read 2026-11-21): tierpark-berlin.de, zoo-berlin.de, berliner-philharmoniker.de, technikmuseum.berlin, planetarium.berlin (64c6eb, 984568, 4bb387, c543c3, e84065).
+# None of these events is in another post. Ends on a vote (public: favourites only, never about the kids).
+# History (find a post by its code: grep -l "code: Z8CE" posts/):
+# - 2026-11-21 written with its video block (20 video posts for L: "Create 20 videos for future posts").
+code: Z8CE
+title: 柏林圣诞带娃去哪｜2026
+until: 2026-12-27
+caption: |
+  柏林今年圣诞季的动物园、音乐会和博物馆活动，按主办方节目单挑了5个🎄 圣诞市场在之前那篇。
+
+  A Tierpark Berlin 冬季灯光：11-20 到 01-09 傍晚。Weihnachten im Tierpark，16:40 到 21点。
+  B Zoo Berlin 降临节导览：12-05 起周末和假期 11点。Advents- & Weihnachtstour，约1个半小时。
+  C Philharmonie 家庭音乐会：12-12、12-13 15点。《胡桃夹子》家庭场。
+  D Deutsches Technikmuseum：12-13（周日）10:30–13:30。工作坊：画冬天的图案。
+  E Archenhold-Sternwarte：11-29、12-05、12-13、12-19、12-22 13:30。在老天文台做圣诞星星。
+
+  时间和票价以主办方为准，出发前请再确认。
+  更多活动：浏览器搜索「小鹿出游 Allo Outings」，选柏林。
+
+  🗳 你家最想去哪个？评论区留字母（A–E）。
+tags: [柏林带娃, 柏林圣诞, 德国圣诞, 德国带娃, 德国生活, 德国妈妈, 德国爸爸, 留德]
+cards:
+  - tone: red
+    tag: 2026 · 柏林
+    title: "柏林\n圣诞季\n带娃去哪"
+    big: true
+    lines:
+      - 按主办方节目单挑了5个，日期时间都写好了。
+      - 最后一张投票！
+    foot: 德国带娃 · 圣诞季
+  - tone: paper
+    tag: "A 冬季灯光 · B 动物园导览"
+    title: "冬季灯光、动物园导览"
+    lines:
+      - "A Tierpark Berlin 冬季灯光"
+      - "11-20 到 01-09 傍晚"
+      - "B Zoo Berlin 降临节导览"
+      - "12-05 起周末和假期 11点"
+    note: 详细介绍在正文里。
+  - tone: green
+    tag: "C 胡桃夹子 · D 技术博物馆"
+    title: "胡桃夹子、技术博物馆"
+    lines:
+      - "C Philharmonie 家庭音乐会"
+      - "12-12、12-13 15点"
+      - "D Deutsches Technikmuseum"
+      - "12-13（周日）10:30–13:30"
+    note: 详细介绍在正文里。
+  - tone: sky
+    tag: "E 做星星"
+    title: "Archenhold-Sternwarte"
+    lines:
+      - "E Archenhold-Sternwarte"
+      - "11-29、12-05、12-13、12-19、12-22 13:30"
+    note: 详细介绍在正文里。
+  - tone: ink
+    title: 你家最想去哪个？
+    lines:
+      - 评论区留字母，也欢迎分享柏林带娃的好去处。
+    rows:
+      - { when: "A", name: "冬季灯光" }
+      - { when: "B", name: "动物园导览" }
+      - { when: "C", name: "胡桃夹子" }
+      - { when: "D", name: "技术博物馆" }
+      - { when: "E", name: "做星星" }
+    search: 小鹿出游 Allo Outings
+    note: 搜索后选柏林，看更多活动。
+    foot: 以主办方为准，出发前请再确认
+video:
+  snow: true
+  scenes:
+    - tone: red
+      tag: 2026 · 柏林
+      title: "柏林\n圣诞季\n带娃去哪"
+      hook: true
+      chips: [🦒 动物园, 🎻 家庭音乐会, ⭐ 做星星]
+      sub: 按主办方节目单挑了5个 · 最后投票
+      seconds: 3.4
+    - tone: ink
+      tag: A–C
+      title: "冬季灯光、动物园导览、胡桃夹子"
+      items:
+        - { icon: 💡, k: "A 11-20 到 01-09 傍晚", v: "Tierpark Berlin 冬季灯光" }
+        - { icon: 🦒, k: "B 12-05 起周末和假期 11点", v: "Zoo Berlin 降临节导览" }
+        - { icon: 🎻, k: "C 12-12、12-13 15点", v: "Philharmonie 家庭音乐会" }
+    - tone: green
+      tag: D–E
+      title: "技术博物馆、做星星"
+      items:
+        - { icon: 🎨, k: "D 12-13（周日）10:30–13:30", v: "Deutsches Technikmuseum" }
+        - { icon: ⭐, k: "E 11-29、12-05、12-13、12-19、12-22 13:30", v: "Archenhold-Sternwarte" }
+    - tone: ink
+      title: 你家最想去哪个？
+      vote:
+        - { letter: A, name: "冬季灯光" }
+        - { letter: B, name: "动物园导览" }
+        - { letter: C, name: "胡桃夹子" }
+        - { letter: D, name: "技术博物馆" }
+        - { letter: E, name: "做星星" }
+      cta: 评论区留字母 👇
+      search: 小鹿出游 Allo Outings
+      foot: 以主办方为准，出发前请再确认
