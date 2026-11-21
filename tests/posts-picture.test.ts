@@ -25,3 +25,14 @@ test("a ready-made card picture must be a 1080×1440 PNG in posts/pictures/", ()
   assert.match(checkPicture(dir, "missing.png")[0], /not in/);
   assert.match(checkPicture(dir, "../ok.png")[0], /file name/);
 });
+
+test("the house rules travel with the posts: hashtags, German names, video length", async () => {
+  const { checkContent, readPosts } = await import("../scripts/posts.mts");
+  const p = readPosts("tests/fixtures/posts")[0];
+  assert.deepEqual(checkContent(p), []);
+  assert.match(checkContent({ ...p, caption: `${p.caption} 罗马广场` }).join(), /keep the German name/);
+  assert.match(checkContent({ ...p, tags: ["德国妈妈"] }).join(), /德国爸爸/);
+  assert.match(checkContent({ ...p, caption: `${p.caption}\n#小鹿出游` }).join(), /once/);
+  const long = { ...p, video: { scenes: Array.from({ length: 12 }, () => ({ title: "x", seconds: 6 })) } };
+  assert.match(checkContent(long).join(), /video runs/);
+});

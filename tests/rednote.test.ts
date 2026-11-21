@@ -90,12 +90,12 @@ test("every card draws as an SVG", () => {
   for (const sheet of s.sheets) assert.match(sheetSvg(sheet, "1/4"), /^<svg [^>]+width="1080" height="1440"/);
 });
 
-// Topic posts (posts/, drawn for the admin by scripts/posts.mts; the posting job cuts its own font).
-const posts = readPosts();
+// Topic posts live on the rednote-posts branch (scripts/posts.mts); main keeps two of them as fixtures.
+const posts = readPosts("tests/fixtures/posts");
 
 test("topic posts are complete, carry no links and each has its own code", () => {
   assert.ok(posts.length > 0);
-  assert.deepEqual(checkPosts(posts), []);
+  assert.deepEqual(checkPosts(posts, "tests/fixtures/posts"), []);
   for (const p of posts) assert.match(fileSet(p.id, p).caption, /#/);
 });
 

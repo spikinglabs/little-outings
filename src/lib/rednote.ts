@@ -9,9 +9,9 @@
 //
 //   weekly   one set per town in REDNOTE_TOWNS from its weekend edition: cover, one card per pick, closing card
 //   alerts   three cards per confirmed city alert
-// Hand-written topic posts (Christmas markets, St. Martin …) are not in the site at all: they live in posts/<id>.yaml,
-// .github/workflows/posts.yml draws them (scripts/posts.mts) into the admin's bucket on every push, and the
-// admin's Posts panel opens each by its code. A new post needs no site deploy.
+// Hand-written topic posts (Christmas markets, St. Martin …) are not in the site at all: they live in posts/<id>.yaml
+// on the branch rednote-posts, .github/workflows/posts.yml draws the changed ones (scripts/posts.mts) into the
+// admin's bucket on every push there, and the admin's Posts panel opens each by its code. No deploy or merge.
 //
 // Cards are 1080×1440 (3:4, what Rednote shows uncropped), drawn by src/lib/sheet.ts. Plain TypeScript, so tests run it in Node.
 import { pageLines, TONES, XHS, type Sheet } from "./sheet.ts";

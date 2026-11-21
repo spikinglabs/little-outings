@@ -1,6 +1,6 @@
 // Build-time Rednote sets (src/lib/rednote.ts): each REDNOTE_TOWNS town's newest weekend edition, each
 // confirmed city alert still to come. Drawn by src/pages/xhs/[file].ts, listed with their captions in
-// /xhs/index.json for the admin's Rednote box. Hand-written topic posts live in posts/ instead (scripts/posts.mts).
+// /xhs/index.json for the admin's Rednote box. Hand-written topic posts live on the rednote-posts branch instead (scripts/posts.mts).
 import { getAlerts, getData } from "./data";
 import { townName } from "./format";
 import { useT } from "./i18n";
