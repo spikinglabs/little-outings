@@ -10,6 +10,7 @@
 # - L asked for a longer event window (now 8 Oct 2026 - 18 Feb 2027, all we have) and for absolute scores that
 #   don't move when a city is added: every indicator now has fixed 0 and 100 anchors (v2/absolute.py).
 #   Hamburg moved to first; the top three are within 1.1 points.
+# - Moved with every post to the rednote-posts branch (L: no PR per post, no redraw of old posts).
 code: W7KB
 title: 德国四大城市哪个最适合带娃？
 until: 2026-12-31
