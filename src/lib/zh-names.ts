@@ -1,6 +1,6 @@
 // German place names stay German in Chinese text (L, 2026-11-13: "德语地名不用翻译"). Parents find a place
 // on the map, a sign or a tram display by its German name, so 罗马广场 for Römerberg only gets in the way.
-// Every prompt that writes Chinese takes this rule; the Rednote posts in posts/ follow it by hand.
+// Every prompt that writes Chinese takes this rule; the Rednote posts (branch rednote-posts) follow it, checked by scripts/posts.mts.
 
 /** The rule, as a prompt line. */
 export const ZH_NAMES = `- In Chinese, German place names stay exactly as written in German, never translated or transliterated: squares, streets, districts, parks, rivers' banks, bridges, buildings, town halls, churches, castles, museums, venues, markets and stations (Römerberg, not 罗马广场; Marienplatz, not 玛利亚广场; Rotes Rathaus, not 红色市政厅; also Jungfernstieg, Schloss Charlottenburg, Kölner Dom, Mainkai). When the name alone doesn't say what kind of place or event it is, say that in Chinese next to the name: "Weihnachtsmarkt am Roten Rathaus" → "Rotes Rathaus 圣诞市场"; "Spielplatz Weegen" → "Weegen 游乐场"; "Beethovenpark" → "Beethovenpark 公园". Only towns and cities, federal states and the big rivers keep their usual Chinese names: 科隆, 法兰克福, 慕尼黑, 黑森州, 莱茵河, 美因河.`;

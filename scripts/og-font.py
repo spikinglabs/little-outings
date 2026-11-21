@@ -3,7 +3,8 @@
 # 10 MB font. The Rednote cards show event names, so the cut also keeps the 3,755 common characters
 # (GB 2312 level 1) and every character in data/translations/zh.json at the time of the cut; a rarer
 # character in a title translated later shows as a gap on its card until this runs again.
-# Rerun after adding Chinese text to i18n/zh.yaml, content/seasons.yaml or content/regions/:
+# Rerun after adding Chinese text to i18n/zh.yaml, content/seasons.yaml or content/regions/ (posts/*.yaml is
+# only there in the Posts job, which copies in the rednote-posts branch and cuts its own font):
 #   pip install fonttools brotli
 #   npm pack @fontsource/noto-sans-sc && tar xzf fontsource-noto-sans-sc-*.tgz
 #   python3 scripts/og-font.py package/files
