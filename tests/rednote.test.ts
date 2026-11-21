@@ -23,6 +23,7 @@ test("codes are town letter, Saturday's day and pick number", () => {
   assert.equal(codeOf("bonn", "2026-11-07", 2), "BN07-3");
   assert.equal(codeOf("essen", "2026-11-07", 0), "E07-1");
   assert.equal(codeOf("aachen", "2026-11-07", 4), "A07-5");
+  assert.equal(codeOf("stuttgart", "2026-11-28", 0), "S28-1");
 });
 
 test("typed codes are read loosely", () => {

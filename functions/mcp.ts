@@ -27,7 +27,7 @@ const LANGS = ["de", "en", "zh"];
 const TIP_TOPICS = ["bring", "bestTime", "parking", "ages", "other"];
 const REASONS = ["closed", "cancelled", "where", "notKids", "outdated", "other"];
 
-const INSTRUCTIONS = `Allo Outings (outings.allo.land) lists family events for children and kid-friendly places (playgrounds, pools, farms, zoos, museums, family cafés …) around Cologne, Düsseldorf, Bonn, Aachen, Essen and the Bergisches Land, and in Berlin, Munich, Frankfurt and Hamburg, Germany.
+const INSTRUCTIONS = `Allo Outings (outings.allo.land) lists family events for children and kid-friendly places (playgrounds, pools, farms, zoos, museums, family cafés …) around Cologne, Düsseldorf, Bonn, Aachen, Essen and the Bergisches Land, and in Berlin, Munich, Frankfurt, Hamburg and Stuttgart, Germany.
 search finds ideas for a town and dates; fetch gives the details of one. Every result has a page link (url). Times and prices come from organisers' public listings and can change, and a facility that isn't listed is unknown, not missing.
 suggest_event, suggest_place, add_tip and report_problem send what a parent knows to a moderator, who reviews it before anything appears. They are meant for things the parent asked to send, after the parent has seen the details.
 Docs: https://outings.allo.land/en/ki/ · Privacy: https://outings.allo.land/en/impressum#assistant`;
@@ -37,14 +37,14 @@ const TOOLS = [
   {
     name: "search",
     title: "Find family outings",
-    description: `Find events for kids and kid-friendly places near a town in Germany (Cologne, Düsseldorf, Bonn, Aachen, Essen and the towns around them, Berlin, Munich, Frankfurt, Hamburg). Returns up to 50 short results with an id (for fetch) and a link.
+    description: `Find events for kids and kid-friendly places near a town in Germany (Cologne, Düsseldorf, Bonn, Aachen, Essen and the towns around them, Berlin, Munich, Frankfurt, Hamburg, Stuttgart). Returns up to 50 short results with an id (for fetch) and a link.
 Events are filtered to the dates given (default: today and the next 6 days); places are always open-ended. Results include "today", so you can work out dates like "this Saturday".
 Place kinds: ${PLACE_KINDS.join(", ")}. Event kinds: ${EVENT_TAGS.join(", ")}.`,
     inputSchema: {
       type: "object",
       properties: {
         query: { type: "string", description: "Free text, e.g. \"puppet theatre\" or \"playground with sandpit in Cologne this weekend\". Town names, today/tomorrow/weekend and kind words are understood." },
-        town: { type: "string", description: "A town such as Köln (Cologne), Düsseldorf, Bonn, Aachen, Essen, Wuppertal, Berlin, München (Munich), Frankfurt, Hamburg." },
+        town: { type: "string", description: "A town such as Köln (Cologne), Düsseldorf, Bonn, Aachen, Essen, Wuppertal, Berlin, München (Munich), Frankfurt, Hamburg, Stuttgart." },
         lat: { type: "number" }, lon: { type: "number" },
         radius_km: { type: "number", description: "Around the town or point, default 10, at most 100." },
         from: { type: "string", description: "First day, YYYY-MM-DD." },

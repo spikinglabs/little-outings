@@ -202,6 +202,7 @@ const CITY_SOURCES = {
   "München": ["muenchen", "config/munich-sources/de/muenchen", "Bayern"],
   "Frankfurt am Main": ["frankfurt", "config/frankfurt-sources/de/frankfurt", "Hessen"],
   Hamburg: ["hamburg", "config/hamburg-sources/de/hamburg", "Hamburg"],
+  Stuttgart: ["stuttgart", "config/stuttgart-sources/de/stuttgart", "Baden-Württemberg"],
   // NRW folders are under config/sources/de/<slug>, except Cologne's English name.
   "Köln": ["", "config/sources/de/cologne", "Nordrhein-Westfalen"],
   "Düsseldorf": ["duesseldorf", "config/duesseldorf-sources/de/duesseldorf", "Nordrhein-Westfalen"],

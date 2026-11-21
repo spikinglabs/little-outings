@@ -91,3 +91,8 @@ towns:
   lat: 53.551
   lon: 9.993
   zh: 汉堡
+- name: Stuttgart
+  state: BW
+  lat: 48.776
+  lon: 9.183
+  zh: 斯图加特
