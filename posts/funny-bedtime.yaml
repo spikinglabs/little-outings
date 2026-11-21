@@ -1,0 +1,112 @@
+# A funny parenting (搞笑带娃) post kept in stock, no date: the many needs a child has after lights-out. Both
+# parents are "we" / "爸妈" (L, 2026-11-21: no group offended, respect women).
+# Find these in the admin by typing 搞笑 (every one of them has "搞笑 带娃" in its label).
+code: Z4HP
+label: 搞笑 带娃 · 关灯后一万个需求
+title: 关灯后，娃突然有一万个需求
+caption: |
+  每天晚上关灯后，娃都会突然变成一个有一万个需求的人😂
+
+  💧 要喝水。要再喝一口水。喝完要上厕所。
+  🌙 "月亮晚上睡在哪里？""恐龙有没有妈妈？"
+  🤗 再抱一下。刚才那个不算，要重新抱。
+  🛏️ 被子要盖到下巴。不对，要盖到鼻子。
+  🚪 门要开一条缝，"这么宽"。
+
+  21:50 娃终于睡着了。
+  21:51 爸妈突然精神了，开始刷手机🙃
+
+  你家娃睡前最常用的"拖延理由"是什么？评论区聊聊～
+tags: [带娃日常, 哄睡, 搞笑, 萌娃, 育儿, 亲子, 德国带娃, 留德]
+cards:
+  - tone: gold
+    tag: 睡前日常 · 真实现场
+    title: "关灯以后\n娃突然有\n一万个需求"
+    big: true
+    lines:
+      - 白天一个都想不起来，关灯后全都想起来了。
+    foot: 每天晚上准时上演
+  - tone: paper
+    tag: 需求一
+    title: 身体需求
+    lines:
+      - 要喝水。
+      - 要再喝一口水。
+      - 刚喝完水，要上厕所。
+  - tone: sky
+    tag: 需求二
+    title: 哲学问题
+    lines:
+      - 月亮晚上睡在哪里？
+      - 恐龙有没有妈妈？
+      - 为什么我要睡觉，你们不用睡？
+  - tone: rose
+    tag: 需求三
+    title: 感情需求
+    lines:
+      - 再抱一下。
+      - 刚才那个抱抱不算，要重新抱。
+      - 突然想起三天前没说完的一件事，现在必须说完。
+  - tone: mint
+    tag: 需求四
+    title: 管理需求
+    lines:
+      - 被子要盖到下巴。不对，要盖到鼻子。
+      - 门要开一条缝，"这么宽"，不能多也不能少。
+      - 小兔子要脸朝他睡，大熊要脸朝门口站岗。
+  - tone: paper
+    tag: 结局
+    title: 最后的时间线
+    rows:
+      - { when: "20:00", name: "说好的睡觉时间" }
+      - { when: "21:45", name: "爸妈的眼皮开始打架" }
+      - { when: "21:50", name: "娃终于睡着了" }
+      - { when: "21:51", name: "爸妈突然精神了，开始刷手机" }
+    note: 明天晚上，再来一遍。
+  - tone: ink
+    tag: 评论区聊聊
+    title: 你家娃睡前最常用的理由？
+    lines:
+      - 写在评论区，看看哪个理由最常见。
+      - 周末想带娃出门放电，可以搜：
+    search: 小鹿出游 Allo Outings
+video:
+  scenes:
+    - tone: gold
+      tag: 睡前日常 · 真实现场
+      title: "关灯以后\n娃突然有\n一万个需求"
+      hook: true
+      seconds: 3.5
+    - tone: ink
+      tag: 需求一
+      title: 身体需求
+      items:
+        - { icon: "💧", v: "要喝水", s: "要再喝一口水" }
+        - { icon: "🚽", v: "刚喝完水", s: "要上厕所" }
+    - tone: blue
+      tag: 需求二
+      title: 哲学问题
+      items:
+        - { icon: "🌙", v: "月亮晚上睡在哪里？" }
+        - { icon: "🦕", v: "恐龙有没有妈妈？" }
+    - tone: red
+      tag: 需求三
+      title: 感情需求
+      items:
+        - { icon: "🤗", v: "再抱一下", s: "刚才那个不算，要重新抱" }
+    - tone: green
+      tag: 需求四
+      title: 管理需求
+      items:
+        - { icon: "🛏️", v: "被子要盖到下巴", s: "不对，要盖到鼻子" }
+        - { icon: "🚪", v: "门要开一条缝", s: "\"这么宽\"" }
+    - tone: ink
+      tag: 结局
+      title: 最后的时间线
+      items:
+        - { k: "21:50", v: "娃终于睡着了 😴" }
+        - { k: "21:51", v: "爸妈突然精神了 📱" }
+    - tone: ink
+      tag: 评论区聊聊
+      title: 你家娃睡前最常用的理由？
+      lines: [写在评论区]

@@ -1,0 +1,115 @@
+# A funny parenting (搞笑带娃) post kept in stock, no date: the tiny reasons toddlers cry over. Light, about the
+# kids' own logic; no jokes about any group, no tired-mum or useless-dad roles (L, 2026-11-21).
+# Find these in the admin by typing 搞笑 (every one of them has "搞笑 带娃" in its label).
+code: K5XD
+label: 搞笑 带娃 · 娃崩溃的离谱理由
+title: 娃崩溃的理由，一个比一个离谱
+caption: |
+  当了爸妈才知道，眼泪可以来得这么快😂 以下全部来自真实带娃现场👇
+
+  🍌 香蕉断了。他要一根完整的香蕉。
+  🥤 给了蓝色杯子。他昨天最喜欢蓝色，今天不是了。
+  🛗 帮他按了电梯按钮。
+  🌧️ 雨停了，没法踩水坑了。
+  🌙 月亮刚才跟着车走，现在不见了。
+  🍪 最离谱：要我们把吃掉的饼干"变回去"。
+
+  我们做不到。他哭了二十分钟，然后高高兴兴吃了另一块饼干。
+
+  你家娃最离谱的崩溃理由是什么？评论区比一比～
+  周末想带娃出门换换心情：浏览器搜索「小鹿出游 Allo Outings」，选你的城市。
+tags: [带娃日常, 搞笑, 萌娃, 育儿, 德国带娃, 德国育儿, 亲子, 留德]
+cards:
+  - tone: gold
+    tag: 带娃日常 · 真实现场
+    title: "娃崩溃的理由\n一个比一个\n离谱"
+    big: true
+    lines:
+      - 当了爸妈才知道，眼泪可以来得这么快。
+      - 以下全部来自真实带娃现场。
+    foot: 看完你会说：我家也是！
+  - tone: paper
+    tag: 早餐篇
+    title: 早上 7 点，第一次崩溃
+    lines:
+      - 香蕉断了。他要一根完整的香蕉。
+      - 给了蓝色的杯子。他昨天最喜欢蓝色，今天不是了。
+      - 面包切成了三角形。他要的是"面包形状的面包"。
+  - tone: sky
+    tag: 出门篇
+    title: 还没出家门，又哭了
+    lines:
+      - 帮他按了电梯按钮。
+      - 鞋子穿对了左右脚。他想反着穿。
+      - 雨停了，没法踩水坑了。
+  - tone: mint
+    tag: 公园篇
+    title: 到了公园，继续哭
+    lines:
+      - 沙坑里有别的小朋友在"用"沙子。
+      - 秋千停下来了。他没说要停。
+      - 捡到一片完美的叶子，后来它被风吹走了。
+  - tone: rose
+    tag: 睡前篇
+    title: 关灯前的最后一哭
+    lines:
+      - 月亮刚才跟着车走，现在不见了。
+      - 绘本讲完了。他要再讲一遍，然后再一遍。
+      - 他说他不困，然后三分钟后睡着了。
+  - tone: paper
+    tag: 年度最离谱
+    title: 请把饼干变回去
+    lines:
+      - 他吃完了一块饼干，然后哭着要我们把那块饼干"变回去"。
+    note: 我们做不到。他哭了二十分钟，然后高高兴兴吃了另一块饼干。
+  - tone: ink
+    tag: 评论区比一比
+    title: 你家娃最离谱的崩溃理由？
+    lines:
+      - 写在评论区，看看谁家更离谱。
+      - 周末想带娃出门换换心情，可以搜：
+    search: 小鹿出游 Allo Outings
+    foot: 带娃日常 · 小鹿出游
+video:
+  scenes:
+    - tone: gold
+      tag: 带娃日常 · 真实现场
+      title: "娃崩溃的理由\n一个比一个\n离谱"
+      hook: true
+      sub: 以下全部来自真实带娃现场
+      seconds: 3.5
+    - tone: ink
+      tag: 早餐篇
+      title: 早上 7 点
+      items:
+        - { icon: "🍌", v: "香蕉断了", s: "他要一根完整的香蕉" }
+        - { icon: "🥤", v: "给了蓝色的杯子", s: "他昨天最喜欢蓝色，今天不是了" }
+    - tone: blue
+      tag: 出门篇
+      title: 还没出家门
+      items:
+        - { icon: "🛗", v: "帮他按了电梯按钮" }
+        - { icon: "🌧️", v: "雨停了", s: "没法踩水坑了" }
+    - tone: green
+      tag: 公园篇
+      title: 到了公园
+      items:
+        - { icon: "🛝", v: "秋千停下来了", s: "他没说要停" }
+        - { icon: "🍂", v: "完美的叶子被风吹走了" }
+    - tone: red
+      tag: 睡前篇
+      title: 关灯之前
+      items:
+        - { icon: "🌙", v: "月亮刚才跟着车走", s: "现在不见了" }
+        - { icon: "😴", v: "他说他不困", s: "三分钟后睡着了" }
+    - tone: gold
+      tag: 年度最离谱
+      title: 请把饼干变回去
+      items:
+        - { icon: "🍪", v: "吃完了，要我们把饼干变回去", s: "哭了二十分钟，然后吃了另一块" }
+      seconds: 4.5
+    - tone: ink
+      tag: 评论区比一比
+      title: 你家娃最离谱的崩溃理由？
+      lines: [写在评论区，看看谁家更离谱]
+      search: 小鹿出游 Allo Outings
