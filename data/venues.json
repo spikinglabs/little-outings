@@ -63,9 +63,6 @@
  "https://centre-charlemagne.eu/termin/karl-der-grosse-4/": {
   "venue": "Centre Charlemagne"
  },
- "https://centre-charlemagne.eu/termin/mehr-als-ein-biedermann-der-maler-johann-baptist-bastine-1783-1844/": {
-  "venue": "Centre Charlemagne"
- },
  "https://centre-charlemagne.eu/termin/monarchen-macht-moneten-kroenungen-in-aachen-10/": {
   "venue": "Centre Charlemagne"
  },
@@ -684,10 +681,6 @@
   "venue": "Theater Düren im Haus der Stadt",
   "street": "Stefan-Schwer-Straße 4-6"
  },
- "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/der-achtsame-tiger-so-ein-kuddelmuddel-bundesweiter-vorlesetag-lesung-fuer-kinder": {
-  "venue": "Stadtbücherei Düren",
-  "street": "Stefan-Schwer-Straße 4-6"
- },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/die-schneekoenigin": {
   "venue": "Theater Düren im Haus der Stadt",
   "street": "Stefan-Schwer-Straße 4-6"
@@ -727,10 +720,6 @@
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/duerens-geschichte-in-30-minuten-24-01-2027": {
   "venue": "Stadtmuseum Düren, Veranstaltungsraum EG",
   "street": "Arnoldsweilerstraße 38"
- },
- "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/ein-abend-voller-geschichten-bundesweiter-vorlesetag": {
-  "venue": "Stadtbücherei Düren",
-  "street": "Stefan-Schwer-Straße 4-6"
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/eintrittsfreier-donnerstag-im-lhm-03-12-2026": {
   "venue": "Leopold-Hoesch-Museum",
@@ -847,10 +836,6 @@
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/historischer-annamarkt": {
   "venue": "Innenstadt Düren"
  },
- "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/jim-will-nur-spielen-bundesweiter-vorlesetag-lesung-fuer-kinder": {
-  "venue": "Stadtbücherei Düren",
-  "street": "Stefan-Schwer-Straße 4-6"
- },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/kraeuter-diplom-fuer-kinder-ab-6-jahren-24-03-2027": {
   "venue": "Volkshochschule Rur-Eifel",
   "street": "Violengasse 2"
@@ -911,10 +896,6 @@
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/nikolaustour-des-vespen-nest-dueren": {
   "venue": "verschiedene Orte in Düren"
- },
- "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/papafant-angst-im-dunkeln-ich-doch-nicht-bundesweiter-vorlesetag-lesung-fuer-kinder": {
-  "venue": "Stadtbücherei Düren",
-  "street": "Stefan-Schwer-Straße 4-6"
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/papierwandel-eine-veranstaltung-des-projekts-zellulr": {
   "venue": "Papiermuseum Düren",
