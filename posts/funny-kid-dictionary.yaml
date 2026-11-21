@@ -1,0 +1,120 @@
+# A funny parenting (搞笑带娃) post kept in stock, no date: what kids say and what they mean. Gender-neutral
+# ("爸爸/妈妈"), the joke is on kid logic (L, 2026-11-21: no group offended, respect women).
+# Find these in the admin by typing 搞笑 (every one of them has "搞笑 带娃" in its label).
+code: Q6JY
+label: 搞笑 带娃 · 娃语翻译词典
+title: 娃语翻译词典，建议收藏
+caption: |
+  学了这么多年外语，最难的一门是娃语😂 整理了一本《娃语翻译词典》👇
+
+  😴「我不困」= 三分钟内会睡着
+  🙋「我自己来」= 接下来二十分钟，请不要催
+  🍽️「我不饿」= 等你开始吃，他就饿了
+  🤫 突然很安静 = 赶紧去看看
+  🧱「是它自己掉的」= 嗯……
+  🥰「你是全世界最好的爸爸/妈妈」= 刚刚多看了一集动画片
+
+  反过来，大人说的话，娃是这么听的：
+  「最后一次」= 还有很多次
+  「小心点」= 请加速
+
+  翻到最后发现，只有一句不用翻译：我爱你❤️
+
+  你家娃还有哪些神翻译？评论区补充～
+tags: [带娃日常, 搞笑, 萌娃, 育儿, 亲子, 双语宝宝, 德国带娃, 留德]
+cards:
+  - tone: gold
+    tag: 带娃必备 · 建议收藏
+    title: "娃语\n翻译词典"
+    big: true
+    lines:
+      - 学了这么多年外语，最难的一门是娃语。
+    foot: 新手爸妈速查版
+  - tone: paper
+    tag: 日常篇
+    title: 娃说的 = 真实意思
+    rows:
+      - { when: "我不困", name: "三分钟内会睡着" }
+      - { when: "我自己来", name: "接下来二十分钟，请不要催" }
+      - { when: "我不饿", name: "等你开始吃，他就饿了" }
+      - { when: "就玩一下下", name: "至少半小时" }
+  - tone: sky
+    tag: 警报篇
+    title: 听到这些，请立刻起身
+    rows:
+      - { when: "突然很安静", name: "赶紧去看看" }
+      - { when: "我什么都没干", name: "去看看墙" }
+      - { when: "是它自己掉的", name: "嗯……" }
+      - { when: "我帮你洗碗了", name: "去看看地板" }
+  - tone: rose
+    tag: 甜言蜜语篇
+    title: 也是真心的
+    rows:
+      - { when: "我最喜欢你了", name: "想再吃一块饼干（也是真心的）" }
+      - { when: "你是全世界最好的爸爸/妈妈", name: "刚刚多看了一集动画片" }
+      - { when: "我长大了要娶/嫁给你", name: "最高级别的表白，请珍惜" }
+  - tone: mint
+    tag: 反向翻译
+    title: 大人说的，娃听到的
+    rows:
+      - { when: "最后一次", name: "还有很多次" }
+      - { when: "五分钟后回家", name: "五分钟是什么？" }
+      - { when: "小心点", name: "请加速" }
+      - { when: "去问爸爸/妈妈", name: "去问另一个，直到有人说可以" }
+  - tone: gold
+    tag: 最后一页
+    title: 只有一句不用翻译
+    lines:
+      - 抱着你的脖子说"我爱你"的时候，什么词典都不用查。
+    foot: 带娃日常 · 小鹿出游
+  - tone: ink
+    tag: 评论区补充
+    title: 你家娃还有哪些神翻译？
+    lines:
+      - 写在评论区，我们一起把词典补全。
+      - 周末想带娃出门，可以搜：
+    search: 小鹿出游 Allo Outings
+video:
+  scenes:
+    - tone: gold
+      tag: 带娃必备 · 建议收藏
+      title: "娃语\n翻译词典"
+      hook: true
+      sub: 最难的一门外语
+      seconds: 3
+    - tone: ink
+      tag: 日常篇
+      title: 娃说的 = 真实意思
+      items:
+        - { icon: "😴", k: "我不困", v: "三分钟内会睡着" }
+        - { icon: "🙋", k: "我自己来", v: "请不要催" }
+        - { icon: "🍽️", k: "我不饿", v: "等你开始吃，他就饿了" }
+      seconds: 5
+    - tone: blue
+      tag: 警报篇
+      title: 听到这些，请立刻起身
+      items:
+        - { icon: "🤫", k: "突然很安静", v: "赶紧去看看" }
+        - { icon: "🖍️", k: "我什么都没干", v: "去看看墙" }
+    - tone: red
+      tag: 甜言蜜语篇
+      title: 也是真心的
+      items:
+        - { icon: "🍪", k: "我最喜欢你了", v: "想再吃一块饼干" }
+        - { icon: "📺", k: "你是最好的爸爸/妈妈", v: "刚刚多看了一集" }
+    - tone: green
+      tag: 反向翻译
+      title: 大人说的，娃听到的
+      items:
+        - { icon: "☝️", k: "最后一次", v: "还有很多次" }
+        - { icon: "⚡", k: "小心点", v: "请加速" }
+    - tone: gold
+      tag: 最后一页
+      title: 只有一句不用翻译
+      big: 我爱你
+      lines: [❤️]
+    - tone: ink
+      tag: 评论区补充
+      title: 你家娃还有哪些神翻译？
+      lines: [写在评论区]
+      search: 小鹿出游 Allo Outings

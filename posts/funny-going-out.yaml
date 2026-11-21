@@ -1,0 +1,128 @@
+# A funny parenting (搞笑带娃) post kept in stock, no date: weekend outing plans vs what really happens. Both
+# parents are "we"; the joke is on plans meeting a toddler's pace (L, 2026-11-21: no group offended, respect women).
+# Find these in the admin by typing 搞笑 (every one of them has "搞笑 带娃" in its label).
+code: V3BN
+label: 搞笑 带娃 · 出门计划vs现实
+title: 带娃出门：计划vs现实
+caption: |
+  每个周末都信心满满，每个周末都被现实教育😂
+
+  ⏰ 计划 10:00 出发，现实 11:47 出发
+  🎒 计划带一个包，现实带了三个包和一辆滑板车
+  🚧 计划路上 20 分钟，现实看挖掘机 15 分钟、看蜗牛 10 分钟
+  🦖 计划去博物馆看恐龙，现实在门口的水坑玩了一小时
+  🦁 计划去动物园看狮子，现实最喜欢的是动物园里的鸽子
+  🚗 计划回家路上睡着，现实到家门口才睡着，一下车就醒
+
+  然后他说：今天真好玩，明天还去！❤️
+
+  你家周末计划最大的翻车是什么？评论区聊聊～
+  下个周末去哪：浏览器搜索「小鹿出游 Allo Outings」，选你的城市。
+tags: [带娃日常, 周末遛娃, 遛娃, 搞笑, 萌娃, 德国带娃, 亲子, 留德]
+cards:
+  - tone: gold
+    tag: 周末遛娃 · 真实现场
+    title: "带娃出门\n计划 vs\n现实"
+    big: true
+    lines:
+      - 每个周末都信心满满，每个周末都被现实教育。
+    foot: 有娃的人都懂
+  - tone: paper
+    tag: 出发
+    title: 说好的 10 点出发
+    rows:
+      - { when: "计划", name: "10:00 出发" }
+      - { when: "现实", name: "11:47 出发" }
+      - { when: "计划", name: "带一个包" }
+      - { when: "现实", name: "三个包，外加一辆滑板车" }
+    note: 刚关上门，他说要上厕所。
+  - tone: sky
+    tag: 路上
+    title: 20 分钟的路
+    rows:
+      - { when: "计划", name: "直接走过去，20 分钟" }
+      - { when: "现实", name: "看挖掘机 15 分钟、看蜗牛 10 分钟、捡了一根很特别的树枝" }
+    note: 那根树枝我们今天也带回家了。
+  - tone: mint
+    tag: 到了
+    title: 说好的博物馆和动物园
+    rows:
+      - { when: "计划", name: "去博物馆看恐龙" }
+      - { when: "现实", name: "在博物馆门口的水坑玩了一小时" }
+      - { when: "计划", name: "去动物园看狮子" }
+      - { when: "现实", name: "最喜欢的是动物园里的鸽子" }
+  - tone: rose
+    tag: 吃饭
+    title: 优雅的午餐
+    rows:
+      - { when: "计划", name: "在咖啡馆安安静静吃个饭" }
+      - { when: "现实", name: "他吃了三口，然后要去看厨房" }
+    note: 最后两个大人轮流吃，一人五分钟。
+  - tone: paper
+    tag: 回家
+    title: 说好的车上睡觉
+    rows:
+      - { when: "计划", name: "回家路上睡着" }
+      - { when: "现实", name: "到家门口最后一分钟睡着，一下车就醒" }
+    note: 然后他说：今天真好玩，明天还去！
+  - tone: gold
+    tag: 结论
+    title: 计划永远赶不上变化
+    lines:
+      - 但他说"明天还去"的那一刻，一切都值了。
+    foot: 下周末，我们还会信心满满
+  - tone: ink
+    tag: 评论区聊聊
+    title: 你家周末计划最大的翻车？
+    lines:
+      - 写在评论区，大家一起笑一笑。
+      - 下个周末去哪，可以搜：
+    search: 小鹿出游 Allo Outings
+    foot: 周末遛娃 · 小鹿出游
+video:
+  scenes:
+    - tone: gold
+      tag: 周末遛娃 · 真实现场
+      title: "带娃出门\n计划 vs\n现实"
+      hook: true
+      sub: 每个周末都信心满满
+      seconds: 3.5
+    - tone: ink
+      tag: 出发
+      title: 说好的 10 点出发
+      items:
+        - { icon: "⏰", k: "计划", v: "10:00 出发" }
+        - { icon: "😅", k: "现实", v: "11:47 出发", s: "三个包，外加一辆滑板车" }
+    - tone: blue
+      tag: 路上
+      title: 20 分钟的路
+      items:
+        - { icon: "🚶", k: "计划", v: "直接走过去" }
+        - { icon: "🚜", k: "现实", v: "看挖掘机 15 分钟", s: "看蜗牛 10 分钟" }
+    - tone: green
+      tag: 到了
+      title: 说好的博物馆
+      items:
+        - { icon: "🦖", k: "计划", v: "去博物馆看恐龙" }
+        - { icon: "💦", k: "现实", v: "在门口的水坑玩了一小时" }
+    - tone: red
+      tag: 动物园
+      title: 说好的狮子
+      items:
+        - { icon: "🦁", k: "计划", v: "去动物园看狮子" }
+        - { icon: "🐦", k: "现实", v: "最喜欢动物园里的鸽子" }
+    - tone: ink
+      tag: 回家
+      title: 说好的车上睡觉
+      items:
+        - { icon: "🚗", k: "计划", v: "回家路上睡着" }
+        - { icon: "🙃", k: "现实", v: "到家门口才睡着", s: "一下车就醒" }
+    - tone: gold
+      tag: 结论
+      title: 然后他说…
+      big: 明天还去！
+      lines: [一切都值了 ❤️]
+    - tone: ink
+      tag: 评论区聊聊
+      title: 下个周末去哪？
+      search: 小鹿出游 Allo Outings

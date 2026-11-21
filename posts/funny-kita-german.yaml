@@ -1,0 +1,116 @@
+# A funny parenting (搞笑带娃) post kept in stock, no date: what kids bring home from a German Kita. Warm about
+# Germany and its habits, never mocking them; parents are "we" (L, 2026-11-21: no group offended, respect women).
+# Find these in the admin by typing 搞笑 (every one of them has "搞笑 带娃" in its label).
+code: M8RT
+label: 搞笑 带娃 · 娃上德国Kita以后
+title: 娃上了德国Kita以后…
+caption: |
+  娃上了德国 Kita 三个月，家里多了一位德语老师，和一位规矩督察😂
+
+  🗣️ 开始纠正我们的发音："是 Eichhörnchen！"
+  🧦 中文说一半，德语补一半："我要穿那个 Matschhose！"
+  👋 跟每个人说 Tschüss，包括邻居家的狗。
+  ♻️ 瓶子、盖子、纸盒，他分得比我们清楚。
+  🚦 红灯时整条街没车，他也坚决不走（这个请继续保持）。
+  🌧️ 下雨不想出门？"没有坏天气，只有不合适的衣服！"
+
+  娃的融入速度：三个月。我们的融入速度：还在努力中💪
+
+  你家娃从 Kita 学回来什么？评论区聊聊～
+  想找身边的亲子活动：浏览器搜索「小鹿出游 Allo Outings」，选你的城市。
+tags: [德国带娃, Kita, 德国育儿, 德国生活, 双语宝宝, 带娃日常, 搞笑, 留德]
+cards:
+  - tone: gold
+    tag: 德国带娃 · 真实现场
+    title: "娃上了\n德国 Kita\n以后…"
+    big: true
+    lines:
+      - 家里多了一位德语老师，和一位规矩督察。
+    foot: 在德国带娃的你，一定懂
+  - tone: paper
+    tag: 语言篇
+    title: 家里的德语老师
+    lines:
+      - 开始纠正我们的发音："是 Eichhörnchen，不是 Eich-什么！"
+      - 中文说一半，德语补一半："我要穿那个 Matschhose！"
+      - 跟每个人说 Tschüss，包括快递员、邻居家的狗和电梯。
+  - tone: sky
+    tag: 规矩篇
+    title: 家里的规矩督察
+    lines:
+      - 瓶子、盖子、纸盒要分开扔，他分得比我们清楚。
+      - 周日想吸个尘？"今天大家都要休息！"
+      - 红灯时整条街没车，他也坚决不走。
+    note: 这一条是真的好，请继续保持。
+  - tone: mint
+    tag: 天气篇
+    title: 下雨？照样出门
+    lines:
+      - 零度下小雨："为什么不去公园？Kita 都去的！"
+      - 一条 Matschhose，穿出了满身是泥的自由。
+      - 我们说天气不好，他说："没有坏天气，只有不合适的衣服。"
+  - tone: rose
+    tag: 吃饭篇
+    title: 完美的双语胃
+    lines:
+      - 回家第一句："今天 Kita 吃了土豆！"第二天：还是土豆。
+      - 早饭要吃 Brezel，晚饭要吃饺子。
+      - 生日要 Kuchen，过年要红包，一样都不能少。
+  - tone: paper
+    tag: 结论
+    title: 融入速度对比
+    rows:
+      - { when: "娃", name: "三个月" }
+      - { when: "我们", name: "还在努力中" }
+    note: 不过没关系，家里现在有一位免费的德语老师了。
+  - tone: ink
+    tag: 评论区聊聊
+    title: 你家娃从 Kita 学回来什么？
+    lines:
+      - 新词、新规矩、新歌，都可以写在评论区。
+      - 想找身边的亲子活动，可以搜：
+    search: 小鹿出游 Allo Outings
+    foot: 德国带娃 · 小鹿出游
+video:
+  scenes:
+    - tone: gold
+      tag: 德国带娃 · 真实现场
+      title: "娃上了\n德国 Kita\n以后…"
+      hook: true
+      sub: 家里多了一位德语老师，和一位规矩督察
+      seconds: 3.5
+    - tone: ink
+      tag: 语言篇
+      title: 家里的德语老师
+      items:
+        - { icon: "🗣️", v: "纠正我们的发音", s: "是 Eichhörnchen，不是 Eich-什么！" }
+        - { icon: "👋", v: "跟每个人说 Tschüss", s: "包括邻居家的狗和电梯" }
+    - tone: blue
+      tag: 规矩篇
+      title: 家里的规矩督察
+      items:
+        - { icon: "♻️", v: "瓶子盖子分开扔", s: "他分得比我们清楚" }
+        - { icon: "🚦", v: "红灯坚决不走", s: "这一条请继续保持" }
+    - tone: green
+      tag: 天气篇
+      title: 下雨？照样出门
+      items:
+        - { icon: "🌧️", v: "没有坏天气", s: "只有不合适的衣服" }
+        - { icon: "🧦", v: "一条 Matschhose", s: "穿出满身是泥的自由" }
+    - tone: red
+      tag: 吃饭篇
+      title: 完美的双语胃
+      items:
+        - { icon: "🥨", v: "早饭要吃 Brezel" }
+        - { icon: "🥟", v: "晚饭要吃饺子" }
+    - tone: gold
+      tag: 结论
+      title: 融入速度对比
+      items:
+        - { k: "娃", v: "三个月" }
+        - { k: "我们", v: "还在努力中 💪" }
+    - tone: ink
+      tag: 评论区聊聊
+      title: 你家娃从 Kita 学回来什么？
+      lines: [写在评论区]
+      search: 小鹿出游 Allo Outings
