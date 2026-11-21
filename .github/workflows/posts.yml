@@ -1,0 +1,112 @@
+# Rednote topic posts for the admin's Posts panel. The posts (posts/<id>.yaml, posts/pictures/) live on their
+# own branch, `rednote-posts`, and nothing here reaches the public site (L, 2026-11-21: a post goes live by pushing to
+# that branch, with no pull request and no site deploy; changing the drawing code never redraws old posts).
+#
+#   push to rednote-posts → check every post, draw only the posts this push added or changed (a changed
+#                           picture redraws the posts that use it), upload them; a few minutes later they are
+#                           in the admin under their code
+#   Run workflow (by hand) → redraw one post by its code (e.g. W7KB), or "all"
+#
+# The drawing code (scripts/posts.mts, src/lib/sheet.ts, video.ts, rednote.ts) always comes from main, so the
+# same file sits on both branches: main needs it for the Run workflow button, rednote-posts for its pushes.
+# The Chinese font is cut here from Noto Sans SC with every character the posts use, so a post with new
+# characters needs no font commit. Needs the same bucket token as the nightly jobs: the secret R2_SORT_TOKEN
+# or CLOUDFLARE_API_TOKEN with "Workers R2 Storage: Edit", plus CLOUDFLARE_ACCOUNT_ID.
+# Each running post also gets its short video (src/lib/video.ts, recorded by scripts/video.mjs), which needs
+# Chromium, ffmpeg and the emoji font: installed here only, so the site's own build stays as it was.
+name: Posts
+on:
+  push:
+    branches: [rednote-posts]
+  workflow_dispatch:
+    inputs:
+      code:
+        description: Code of the post to redraw (e.g. W7KB), or "all"
+        required: true
+permissions:
+  contents: read
+concurrency:
+  group: posts
+env:
+  BUCKET: spikinglabs-little-outings
+jobs:
+  draw:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Drawing code from main
+        uses: actions/checkout@v4
+        with: { ref: main }
+      - name: Posts from the rednote-posts branch
+        uses: actions/checkout@v4
+        with: { ref: rednote-posts, path: .posts, fetch-depth: 0 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - name: Use the rednote-posts branch's posts
+        run: rm -rf posts && cp -r .posts/posts posts
+      - name: Check every post
+        run: node scripts/posts.mts --check
+      - name: Which posts to draw
+        id: which
+        env:
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.event.after }}
+          CODE: ${{ inputs.code }}
+        run: |
+          if [ "$GITHUB_EVENT_NAME" = workflow_dispatch ]; then
+            if [ "$CODE" = all ]; then files=$(ls posts/*.yaml)
+            else files=$(grep -lE "^code: \"?$CODE\"?\s*$" posts/*.yaml || true)
+              [ -n "$files" ] || { echo "::error::No post has code $CODE"; exit 1; }
+            fi
+          elif [ -n "$BEFORE" ] && ! echo "$BEFORE" | grep -qE '^0+$' && git -C .posts cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
+            changed=$(git -C .posts diff --name-only --diff-filter=AMR "$BEFORE" "$AFTER" -- posts)
+            files=$(echo "$changed" | grep -E '^posts/[^/]+\.yaml$' || true)
+            for pic in $(echo "$changed" | grep -E '^posts/pictures/' | xargs -r -n1 basename); do
+              files="$files $(grep -l "picture: $pic" posts/*.yaml || true)"
+            done
+          else
+            # A new branch or a force push: nothing to compare with, so the posts in its last commit.
+            files=$(git -C .posts show --name-only --format= HEAD -- 'posts/*.yaml')
+          fi
+          files=$(echo $files | xargs -n1 | sort -u | xargs)
+          echo "files=$files" >> "$GITHUB_OUTPUT"
+          echo "To draw: ${files:-nothing}"
+      - uses: actions/setup-python@v5
+        if: steps.which.outputs.files != ''
+        with: { python-version: "3.12" }
+      - name: Cut the Chinese font
+        if: steps.which.outputs.files != ''
+        run: |
+          pip install --quiet fonttools brotli
+          mkdir -p .cache/font
+          (cd .cache/font && npm pack --silent @fontsource/noto-sans-sc && tar xzf fontsource-noto-sans-sc-*.tgz)
+          python3 scripts/og-font.py .cache/font/package/files
+      - name: Install what the videos need
+        if: steps.which.outputs.files != ''
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg fonts-noto-color-emoji > /dev/null
+          npm install --no-save --silent playwright@1.49.1
+          npx playwright install --with-deps chromium > /dev/null
+      - name: Draw
+        if: steps.which.outputs.files != ''
+        env:
+          VIDEO: "1"
+        run: node scripts/posts.mts .cache/posts ${{ steps.which.outputs.files }}
+      - name: Upload for the admin
+        if: steps.which.outputs.files != ''
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.R2_SORT_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID || vars.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          cd .cache/posts
+          for f in */*.png; do
+            npx wrangler r2 object put "$BUCKET/little-outings/posts/$f" --file "$f" --content-type image/png > /dev/null
+          done
+          for f in $(ls */*.mp4 2>/dev/null); do
+            npx wrangler r2 object put "$BUCKET/little-outings/posts/$f" --file "$f" --content-type video/mp4 > /dev/null
+          done
+          # post.json last: the panel lists a post only once its pictures are there.
+          for f in */post.json; do
+            npx wrangler r2 object put "$BUCKET/little-outings/posts/$f" --file "$f" --content-type application/json > /dev/null
+            echo "::notice title=Post ready::$(dirname "$f") in the admin's Posts panel"
+          done
