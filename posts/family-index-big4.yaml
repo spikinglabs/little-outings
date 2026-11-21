@@ -1,42 +1,43 @@
 # A Rednote (小红书) set: which of Germany's four Millionenstädte is best for families, from the Allo Family
-# Index (official BBSR INKAR 2025 data 60% + Allo Outings events and OSM places 40%). Method, data and scripts:
+# Index (official BBSR INKAR 2025 data 75% + OSM places near the centre 25%). Method, data and scripts:
 # project files family-index/ (METHOD.md, v2/V2.md, v2/absolute.py, v2/absolute_big4.csv). Numbers as of 2026-11-21.
-# The posting job cuts the Chinese font itself, so new characters need no font commit.
 # History (find a post by its code: grep -l "code: W7KB" posts/):
 # - 2026-11-21 L asked for a family-friendly index; only the four big cities; per person/child/family views;
 #   the "doable without German" event metric removed; then asked to add it to the admin's Posts panel.
 # - L asked for the numbers behind every score, then for one picture with all items' data and scores: card 7 is
 #   that picture, drawn by project files family-index/v2/rednote_big4_detail_zh.py.
-# - L asked for a longer event window (now 8 Oct 2026 - 18 Feb 2027, all we have) and for absolute scores that
-#   don't move when a city is added: every indicator now has fixed 0 and 100 anchors (v2/absolute.py).
-#   Hamburg moved to first; the top three are within 1.1 points.
+# - L asked for absolute scores that don't move when a city is added: every indicator has fixed 0 and 100
+#   anchors (v2/absolute.py).
 # - Moved with every post to the rednote-posts branch (L: no PR per post, no redraw of old posts).
+# - L: our event sources differ per city, so event counts compare our crawling; no source type exists in all
+#   four cities, so events are out. Weights now official 75% + places 25% (the old 60:20 kept in proportion).
 code: W7KB
+label: 带娃城市榜 · 四大城市（绝对打分）
 title: 德国四大城市哪个最适合带娃？
 until: 2026-12-31
 caption: |
-  德国四个百万人口大城市，哪个最适合带娃？我们用官方数据（60%）+ 小鹿出游自己的遛娃数据（40%）比了一下👇
+  德国四个百万人口大城市，哪个最适合带娃？我们用官方数据（75%）+ 市中心的遛娃去处（25%）比了一下👇
 
-  🥇 汉堡 56.5：房租负担最轻，3 岁以下入托率最高，换尿布点多；但周末亲子活动最少
-  🥈 慕尼黑 56.1：最安全、学校好、工作好找；但托育分数最低，绿地最少
-  🥉 科隆 55.4：全天托育最普及（3–6 岁 89%），儿科医生最多，亲子活动最多；但交通事故最多
-  4️⃣ 柏林 53.6：游乐场、雨天去处和换尿布点都最多；但房租负担最重（90 平房租约占家庭平均收入 75%）
+  🥇 汉堡 58.2：房租负担最轻，3 岁以下入托率最高，换尿布点多；但 3–6 岁全天托最少
+  🥈 柏林 56.2：游乐场、雨天去处和换尿布点都最多；但房租负担最重（90 平房租约占家庭平均收入 75%）
+  🥉 慕尼黑 55.6：最安全、学校好、工作好找；但托育分数最低，绿地最少
+  4️⃣ 科隆 51.1：全天托育最普及（3–6 岁 89%），儿科医生最多；但交通事故最多，市中心换尿布点最少
 
-  📏 每一项都按固定标准打分（0–100 分），比如 3 岁以下入托率 60% 得满分、房租占收入 30% 以下得满分。以后加新城市，这四个城市的分数也不会变。
+  📏 每一项都按固定标准打分（0–100 分），比如 3 岁以下入托率 60% 得满分、房租占收入 30% 以下得满分。以后加新城市，分数也不会变。
 
-  👉 前三名只差 1.1 分。打分标准上下调 20% 试了 2,000 次：汉堡七成第 1，柏林九成多第 4。按每个孩子算：汉堡、科隆、慕尼黑、柏林。
+  🙅 为什么不比亲子活动？我们收录的活动网站每个城市不一样：柏林六成来自天文馆，汉堡七成来自图书馆。数量比的是我们收录了多少，不是城市本身，所以这次不算。
 
-  🧸 亲子活动看的是 10 月 8 日到 2 月 18 日（我们现有最长的数据），按每 90 天算：每千个孩子 科隆 6.2 场、汉堡和慕尼黑 4.4 场、柏林 2.5 场
+  👉 打分标准上下调 20% 试了 2,000 次：汉堡 97% 第 1，科隆每次都是第 4。按每个孩子算：汉堡、科隆、柏林、慕尼黑。
 
   📊 官方数据：托育、房租负担、学校、儿科医生、安全、绿地、工作
-  🧸 遛娃数据：亲子活动（数量、周末占比、种类），市中心 5 公里内的游乐场、雨天去处、换尿布点
+  🛝 遛娃去处：市中心 5 公里内的游乐场、雨天去处、换尿布点
 
-  ⚠️ 只比城市整体，不比街区；活动数量也受我们收录的活动来源多少影响。
+  ⚠️ 只比城市整体，不比街区。
 
   你住在哪个城市？觉得准不准？评论区聊聊～
   想找身边的亲子活动：浏览器搜索「小鹿出游 Allo Outings」，选你的城市。
 
-  数据来源：BBSR INKAR 2025、小鹿出游活动数据、OpenStreetMap，2026 年 11 月
+  数据来源：BBSR INKAR 2025、OpenStreetMap，2026 年 11 月
 tags: [德国生活, 德国育儿, 德国带娃, 柏林, 慕尼黑, 汉堡, 科隆, 德国妈妈, 德国爸爸, 留德]
 cards:
   - tone: gold
@@ -45,28 +46,36 @@ cards:
     big: true
     lines:
       - 柏林、汉堡、慕尼黑、科隆，谁最适合带娃？
-      - 官方数据 60% + 小鹿出游遛娃数据 40%，满分 100。
+      - 官方数据 75% + 遛娃去处 25%，满分 100。
       - 每一项按固定标准打分。
     foot: 德国带娃 · 城市对比
   - tone: paper
     tag: 总排名
-    title: 前三名只差 1.1 分
+    title: 汉堡领先 2 分
     rows:
-      - { when: "1 汉堡", name: "56.5 分" }
-      - { when: "2 慕尼黑", name: "56.1 分" }
-      - { when: "3 科隆", name: "55.4 分" }
-      - { when: "4 柏林", name: "53.6 分" }
+      - { when: "1 汉堡", name: "58.2 分" }
+      - { when: "2 柏林", name: "56.2 分" }
+      - { when: "3 慕尼黑", name: "55.6 分" }
+      - { when: "4 科隆", name: "51.1 分" }
     note: 选哪个要看你家最看重什么。
   - tone: rose
-    tag: 第 1 名 · 56.5 分
+    tag: 第 1 名 · 58.2 分
     title: 汉堡 Hamburg
     lines:
       - + 房租负担最轻
       - + 3 岁以下入托率最高：53%
       - + 换尿布点多，树林水边多
-      - – 周末的亲子活动最少
+      - – 3–6 岁全天托最少：55%
+  - tone: paper
+    tag: 第 2 名 · 56.2 分
+    title: 柏林 Berlin
+    lines:
+      - + 游乐场、雨天去处、换尿布点都最多
+      - + 3 岁以下入托率 52%
+      - – 房租负担最重：90 平房租约占家庭平均收入 75%
+      - – 学校分数最低，失业率最高
   - tone: sky
-    tag: 第 2 名 · 56.1 分
+    tag: 第 3 名 · 55.6 分
     title: 慕尼黑 München
     lines:
       - + 四个城市里最安全
@@ -75,21 +84,13 @@ cards:
       - – 托育分数最低，绿地最少
       - – 房租最贵，每平方米 21 欧
   - tone: mint
-    tag: 第 3 名 · 55.4 分
+    tag: 第 4 名 · 51.1 分
     title: 科隆 Köln
     lines:
       - + 全天托育最普及：3–6 岁 89% 的孩子全天入托
       - + 儿科医生最多，休闲绿地最多
-      - + 每个孩子分到的亲子活动最多，周末活动也最多
       - – 交通事故最多，安全分最低
-  - tone: paper
-    tag: 第 4 名 · 53.6 分
-    title: 柏林 Berlin
-    lines:
-      - + 游乐场、雨天去处、换尿布点都最多
-      - + 3 岁以下入托率 52%，托育分和汉堡、科隆几乎一样
-      - – 房租负担最重：90 平房租约占家庭平均收入 75%
-      - – 学校分数最低，失业率最高
+      - – 市中心换尿布点最少
   - tone: paper
     tag: 细节数据
     title: 四大城市每一项打几分？
@@ -101,11 +102,11 @@ cards:
       - { when: "3岁以下入托", name: "0% 得 0 分 · 60% 得满分" }
       - { when: "房租占收入", name: "80% 得 0 分 · 30% 得满分" }
       - { when: "犯罪", name: "每 10 万人 15,000 起得 0 分 · 2,000 起得满分" }
-      - { when: "亲子活动", name: "每千个孩子 90 天 0 场得 0 分 · 10 场得满分" }
       - { when: "游乐场", name: "每平方公里 0 个得 0 分 · 2 个得满分" }
+      - { when: "换尿布点", name: "每平方公里 0 个得 0 分 · 2 个得满分" }
     note: 以后加新城市，分数也不会变。
   - tone: sky
-    tag: 托育 · 占 25%
+    tag: 托育 · 占 19%
     title: 入托率
     rows:
       - { when: "柏林 76分", name: "3 岁以下 52% · 3–6 岁全天托 60%" }
@@ -114,7 +115,7 @@ cards:
       - { when: "慕尼黑 67分", name: "3 岁以下 41% · 3–6 岁全天托 64%" }
     note: 全天托 = 每天 7 小时以上。
   - tone: rose
-    tag: 房租负担 · 占 25%
+    tag: 房租负担 · 占 19%
     title: 90 平的房租占收入多少？
     rows:
       - { when: "汉堡 48分", name: "每平米 14 欧 · 占收入 54%" }
@@ -123,7 +124,7 @@ cards:
       - { when: "柏林 18分", name: "每平米 17 欧 · 占收入 75%" }
     note: 收入 = 家庭平均月净收入，慕尼黑 2,975 欧最高。
   - tone: paper
-    tag: 学校 15% · 儿科医生 10%
+    tag: 学校 11% · 儿科医生 8%
     title: 学校和儿科医生
     rows:
       - { when: "慕尼黑", name: "没拿到毕业证 5.3% · 儿科医生 6.3" }
@@ -132,7 +133,7 @@ cards:
       - { when: "柏林", name: "没拿到毕业证 8.0% · 儿科医生 6.2" }
     note: 儿科医生 = 每 1 万个孩子有几位。
   - tone: mint
-    tag: 安全 · 占 10%
+    tag: 安全 · 占 8%
     title: 犯罪和交通事故
     rows:
       - { when: "慕尼黑 66分", name: "犯罪 5,813 · 交通伤亡 434" }
@@ -141,7 +142,7 @@ cards:
       - { when: "科隆 25分", name: "犯罪 12,481 · 交通伤亡 614" }
     note: 每 10 万居民每年；游客多的城市犯罪数偏高。
   - tone: paper
-    tag: 绿地 10% · 工作 5%
+    tag: 绿地 8% · 工作 4%
     title: 绿地和工作
     rows:
       - { when: "科隆", name: "休闲绿地每人 40 m² · 失业率 8.7%" }
@@ -149,38 +150,38 @@ cards:
       - { when: "柏林", name: "休闲绿地每人 33 m² · 失业率 9.1%" }
       - { when: "慕尼黑", name: "休闲绿地每人 26 m² · 失业率 4.5%" }
     note: 汉堡的树林水边最多，每人 51 m²。
-  - tone: sky
-    tag: 遛娃数据 · 亲子活动
-    title: 10 月 8 日到 2 月 18 日
-    rows:
-      - { when: "科隆 73分", name: "每千个孩子 6.2 场 · 周末 45%" }
-      - { when: "慕尼黑 58分", name: "每千个孩子 4.4 场 · 周末 33%" }
-      - { when: "汉堡 50分", name: "每千个孩子 4.4 场 · 周末 26%" }
-      - { when: "柏林 43分", name: "每千个孩子 2.5 场 · 周末 39%" }
-    note: 按每 90 天算；种类最多的是慕尼黑。
   - tone: mint
-    tag: 遛娃数据 · 市中心 5 公里
-    title: 遛娃去处和换尿布点
+    tag: 遛娃去处 · 占 25%
+    title: 市中心 5 公里内
     rows:
-      - { when: "柏林", name: "游乐场 136 · 雨天去处 33 · 换尿布 174" }
-      - { when: "汉堡", name: "游乐场 94 · 雨天去处 19 · 换尿布 133" }
-      - { when: "慕尼黑", name: "游乐场 73 · 雨天去处 24 · 换尿布 96" }
-      - { when: "科隆", name: "游乐场 82 · 雨天去处 11 · 换尿布 43" }
+      - { when: "柏林 92分", name: "游乐场 136 · 雨天去处 33 · 换尿布 174" }
+      - { when: "汉堡 69分", name: "游乐场 94 · 雨天去处 19 · 换尿布 133" }
+      - { when: "慕尼黑 63分", name: "游乐场 73 · 雨天去处 24 · 换尿布 96" }
+      - { when: "科隆 44分", name: "游乐场 82 · 雨天去处 11 · 换尿布 43" }
     note: 雨天去处 = 室内游乐场、博物馆、游泳馆。
+  - tone: sky
+    tag: 为什么不比亲子活动
+    title: 我们收录的网站不一样
+    rows:
+      - { when: "柏林", name: "59% 来自天文馆" }
+      - { when: "汉堡", name: "69% 来自公共图书馆" }
+      - { when: "科隆", name: "54% 来自城市活动日历" }
+      - { when: "慕尼黑", name: "最多的一家只占 22%" }
+    note: 比的是我们收录了多少，所以这次不算。
   - tone: gold
     tag: 稳不稳？
     title: 换个算法排名变吗？
     rows:
-      - { when: "固定标准", name: "汉堡 › 慕尼黑 › 科隆 › 柏林" }
-      - { when: "每个孩子", name: "汉堡 › 科隆 › 慕尼黑 › 柏林" }
-      - { when: "标准 ±20%", name: "汉堡七成第 1 · 柏林九成多第 4" }
+      - { when: "固定标准", name: "汉堡 › 柏林 › 慕尼黑 › 科隆" }
+      - { when: "每个孩子", name: "汉堡 › 科隆 › 柏林 › 慕尼黑" }
+      - { when: "标准 ±20%", name: "汉堡 97% 第 1 · 科隆每次第 4" }
     note: 慕尼黑每 1,000 个孩子只有 1.2 个游乐场。
   - tone: paper
     tag: 看了哪些数据
     title: 数据从哪来？
     lines:
-      - 官方数据（60%）：托育、房租负担、学校、儿科医生、安全、绿地、工作，来自德国联邦建筑城市与空间研究所 BBSR。
-      - 遛娃数据（40%）：10 月 8 日到 2 月 18 日的亲子活动；市中心 5 公里内的游乐场、雨天去处、换尿布点。
+      - 官方数据（75%）：托育、房租负担、学校、儿科医生、安全、绿地、工作，来自德国联邦建筑城市与空间研究所 BBSR。
+      - 遛娃去处（25%）：市中心 5 公里内的游乐场、雨天去处、换尿布点，来自 OpenStreetMap。
     note: 只比城市整体，不比街区。
   - tone: ink
     tag: 评论区聊聊
@@ -189,7 +190,7 @@ cards:
       - 觉得这个排名准不准？
       - 你最看重托育、房租、学校，还是遛娃去处？
     search: 小鹿出游 Allo Outings
-    foot: 数据：BBSR INKAR 2025 · 小鹿出游 · OpenStreetMap · 2026-11
+    foot: 数据：BBSR INKAR 2025 · OpenStreetMap · 2026-11
 # The video keeps to the summary (the 18 cards would run too long; the check allows 60 s).
 video:
   scenes:
@@ -198,40 +199,40 @@ video:
       title: "四大城市\n谁最适合\n带娃？"
       hook: true
       chips: [柏林, 汉堡, 慕尼黑, 科隆]
-      sub: 官方数据 60% + 小鹿出游遛娃数据 40%
+      sub: 官方数据 75% + 遛娃去处 25%
       seconds: 3.5
     - tone: ink
       tag: 总排名
-      title: 前三名只差 1.1 分
+      title: 汉堡领先 2 分
       items:
-        - { k: "1 汉堡", v: "56.5 分" }
-        - { k: "2 慕尼黑", v: "56.1 分" }
-        - { k: "3 科隆", v: "55.4 分" }
-        - { k: "4 柏林", v: "53.6 分" }
+        - { k: "1 汉堡", v: "58.2 分" }
+        - { k: "2 柏林", v: "56.2 分" }
+        - { k: "3 慕尼黑", v: "55.6 分" }
+        - { k: "4 科隆", v: "51.1 分" }
     - tone: red
-      tag: 第 1 名 · 56.5 分
+      tag: 第 1 名 · 58.2 分
       title: 汉堡
       items:
         - { v: "+ 房租负担最轻，3 岁以下入托率最高" }
-        - { v: "– 周末亲子活动最少" }
+        - { v: "– 3–6 岁全天托最少" }
+    - tone: ink
+      tag: 第 2 名 · 56.2 分
+      title: 柏林
+      items:
+        - { v: "+ 游乐场、雨天去处、换尿布点最多" }
+        - { v: "– 90 平房租约占收入 75%" }
     - tone: blue
-      tag: 第 2 名 · 56.1 分
+      tag: 第 3 名 · 55.6 分
       title: 慕尼黑
       items:
         - { v: "+ 最安全，学校分数最高，工作好找" }
         - { v: "– 托育分数最低，绿地最少" }
     - tone: green
-      tag: 第 3 名 · 55.4 分
+      tag: 第 4 名 · 51.1 分
       title: 科隆
       items:
-        - { v: "+ 3–6 岁 89% 全天入托，亲子活动最多" }
+        - { v: "+ 3–6 岁 89% 全天入托，儿科医生最多" }
         - { v: "– 交通事故最多" }
-    - tone: ink
-      tag: 第 4 名 · 53.6 分
-      title: 柏林
-      items:
-        - { v: "+ 游乐场、雨天去处、换尿布点最多" }
-        - { v: "– 90 平房租约占收入 75%" }
     - tone: ink
       tag: 各项分数 · 1/2
       title: 每一项打几分？
@@ -240,25 +241,22 @@ video:
         - { k: "房租负担", v: "汉堡 48 · 科隆 47 · 慕尼黑 34 · 柏林 18" }
         - { k: "学校", v: "慕尼黑 72 · 科隆 70 · 汉堡 67 · 柏林 60" }
         - { k: "儿科医生", v: "科隆 57 · 慕尼黑 53 · 汉堡 52 · 柏林 52" }
-        - { k: "安全", v: "慕尼黑 66 · 汉堡 39 · 柏林 32 · 科隆 25" }
       seconds: 5
     - tone: ink
       tag: 各项分数 · 2/2
       title: 每一项打几分？
       items:
+        - { k: "安全", v: "慕尼黑 66 · 汉堡 39 · 柏林 32 · 科隆 25" }
         - { k: "绿地", v: "科隆 27 · 汉堡 25 · 柏林 21 · 慕尼黑 17" }
         - { k: "工作", v: "慕尼黑 75 · 汉堡 46 · 科隆 33 · 柏林 29" }
-        - { k: "亲子活动", v: "科隆 73 · 慕尼黑 58 · 汉堡 50 · 柏林 43" }
-        - { k: "遛娃去处", v: "柏林 89 · 慕尼黑 63 · 汉堡 62 · 科隆 50" }
-        - { k: "换尿布", v: "柏林 100 · 汉堡 85 · 慕尼黑 61 · 科隆 28" }
+        - { k: "遛娃去处", v: "柏林 92 · 汉堡 69 · 慕尼黑 63 · 科隆 44" }
       seconds: 5
     - tone: gold
-      tag: 固定标准打分
-      title: 加新城市分数不变
+      tag: 为什么不比亲子活动
+      title: 各城市收录的网站不一样
       items:
-        - { k: "3岁以下入托", v: "60% 得满分" }
-        - { k: "房租占收入", v: "30% 以下得满分" }
-        - { k: "标准 ±20%", v: "汉堡七成第 1" }
+        - { k: "柏林", v: "59% 来自天文馆" }
+        - { k: "汉堡", v: "69% 来自图书馆" }
     - tone: ink
       tag: 评论区聊聊
       title: 你住在哪个城市？
