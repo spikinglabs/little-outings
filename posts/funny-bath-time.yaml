@@ -1,0 +1,112 @@
+# A funny parenting (搞笑带娃) post kept in stock, no date: 洗澡进去难出来更难. The joke is on kid logic; parents
+# are "we" / "爸妈", no tired-mum or useless-dad roles, no body jokes, no group mocked (L, 2026-11-21).
+# Find these in the admin by typing 搞笑 (every one of them has "搞笑 带娃" in its label).
+code: XXB6
+label: 搞笑 带娃 · 洗澡进去难出来更难
+title: "娃洗澡：进去难，出来更难"
+caption: |
+  娃洗澡：进去难，出来更难，中间只隔二十分钟😂
+
+  🐱 “我是一只小猫，小猫不洗澡。”
+  🦆 带了十二个玩具进浴缸，地上的水比浴缸里还多
+  🐟 “我是一条鱼，鱼不能离开水。”
+  🏃 出来后光着身子在家里跑了三圈
+
+  两个大人一个拖地一个吹头发，配合默契💪
+
+  你家娃用过什么理由不洗澡？评论区聊聊～
+  周末想带娃出门：浏览器搜索「小鹿出游 Allo Outings」，选你的城市。
+tags: [带娃日常, 搞笑, 萌娃, 睡前日常, 育儿, 德国带娃, 亲子, 留德]
+cards:
+  - tone: gold
+    tag: "睡前日常 · 真实现场"
+    title: "娃洗澡\n进去难\n出来更难"
+    big: true
+    lines:
+      - "每天晚上的两场战斗，中间只隔二十分钟。"
+    foot: "有娃的人都懂"
+  - tone: paper
+    tag: "第一场"
+    title: "不要洗澡"
+    lines:
+      - "“我今天不脏。”"
+      - "“我昨天洗过了。”"
+      - "“我是一只小猫，小猫不洗澡。”"
+  - tone: sky
+    tag: "中场"
+    title: "洗澡中"
+    lines:
+      - "一个人带了十二个玩具进浴缸。"
+      - "浴室地板上的水，比浴缸里还多。"
+      - "洗头的时候，像在演一出悲剧。"
+  - tone: mint
+    tag: "第二场"
+    title: "不要出来"
+    lines:
+      - "“再玩五分钟。”"
+      - "“我是一条鱼，鱼不能离开水。”"
+      - "手指已经皱成了小葡萄干。"
+  - tone: rose
+    tag: "收尾"
+    title: "终于出来了"
+    lines:
+      - "光着身子在家里跑了三圈。"
+      - "“抓不到我！”"
+      - "穿好睡衣，又说要喝水。"
+  - tone: gold
+    tag: "战后"
+    title: "浴室需要一个拖把"
+    big: false
+    lines:
+      - "两个大人一个拖地，一个吹头发，配合默契。"
+    foot: "带娃日常 · 小鹿出游"
+  - tone: ink
+    tag: "评论区聊聊"
+    title: "你家娃用过什么理由不洗澡？"
+    lines:
+      - "写在评论区，看看谁的理由最有创意。"
+      - "周末想带娃出门，可以搜："
+    search: "小鹿出游 Allo Outings"
+video:
+  scenes:
+    - tone: gold
+      tag: "睡前日常 · 真实现场"
+      title: "娃洗澡\n进去难\n出来更难"
+      hook: true
+      seconds: 3.5
+    - tone: ink
+      tag: "第一场"
+      title: "不要洗澡"
+      items:
+        - { icon: "🙅", v: "我今天不脏" }
+        - { icon: "🐱", v: "我是一只小猫", s: "小猫不洗澡" }
+    - tone: blue
+      tag: "中场"
+      title: "洗澡中"
+      items:
+        - { icon: "🦆", v: "带了十二个玩具进浴缸" }
+        - { icon: "💦", v: "地上的水比浴缸里还多" }
+    - tone: green
+      tag: "第二场"
+      title: "不要出来"
+      items:
+        - { icon: "🐟", v: "我是一条鱼", s: "鱼不能离开水" }
+        - { icon: "🍇", v: "手指皱成了葡萄干" }
+    - tone: red
+      tag: "收尾"
+      title: "终于出来了"
+      items:
+        - { icon: "🏃", v: "光着身子跑了三圈", s: "抓不到我！" }
+        - { icon: "💧", v: "穿好睡衣", s: "又说要喝水" }
+    - tone: gold
+      tag: "战后"
+      title: "浴室需要一个拖把"
+      big: "拖地"
+      lines:
+        - "两个大人一个拖地，一个吹头发，配合默契。"
+      seconds: 4.5
+    - tone: ink
+      tag: "评论区聊聊"
+      title: "你家娃用过什么理由不洗澡？"
+      lines: ["写在评论区"]
+      search: "小鹿出游 Allo Outings"

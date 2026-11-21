@@ -1,0 +1,114 @@
+# A funny parenting (搞笑带娃) post kept in stock, no date: 娃的谈判技巧. The joke is on kid logic; parents
+# are "we" / "爸妈", no tired-mum or useless-dad roles, no body jokes, no group mocked (L, 2026-11-21).
+# Find these in the admin by typing 搞笑 (every one of them has "搞笑 带娃" in its label).
+code: S5VT
+label: 搞笑 带娃 · 娃的谈判技巧
+title: "娃的谈判技巧，可以去上班了"
+caption: |
+  娃的谈判技巧，可以直接去上班了😂
+
+  🤝 再玩五分钟？“那七分钟，最后一次。”
+  👵 爸爸说不行问妈妈，妈妈说不行问奶奶
+  🥺 “我只是一个小孩子。”这一招基本没输过
+  📜 “你上次说下雨就可以看动画片。今天在下雨。”
+
+  将来可以当律师，我们先输几年😅
+
+  你家娃最厉害的谈判招数？评论区聊聊～
+  周末想带娃出门：浏览器搜索「小鹿出游 Allo Outings」，选你的城市。
+tags: [带娃日常, 搞笑, 萌娃, 育儿, 亲子沟通, 德国带娃, 亲子, 留德]
+cards:
+  - tone: gold
+    tag: "带娃日常 · 真实现场"
+    title: "娃的\n谈判技巧\n可以去上班了"
+    big: true
+    lines:
+      - "每一句“不行”，都是谈判的开始。"
+    foot: "有娃的人都懂"
+  - tone: paper
+    tag: "技巧一"
+    title: "讨价还价"
+    rows:
+      - { when: "我们", name: "再玩五分钟" }
+      - { when: "娃", name: "十分钟" }
+      - { when: "我们", name: "五分钟" }
+      - { when: "娃", name: "那七分钟，最后一次" }
+  - tone: sky
+    tag: "技巧二"
+    title: "找另一个大人"
+    lines:
+      - "爸爸说不行，去问妈妈。"
+      - "妈妈说不行，去问奶奶。"
+      - "奶奶说：可以。"
+  - tone: mint
+    tag: "技巧三"
+    title: "打感情牌"
+    lines:
+      - "“你是不是不爱我了？”"
+      - "“我只是一个小孩子。”"
+      - "抱着你的腿，眼睛看着你，一句话都不说。"
+    note: "最后这一招，基本没输过。"
+  - tone: rose
+    tag: "技巧四"
+    title: "引用条款"
+    lines:
+      - "“你上次说下雨就可以看动画片。”"
+      - "“今天在下雨。”"
+      - "我们查了一下天气，确实在下雨。"
+  - tone: gold
+    tag: "结论"
+    title: "将来可以当律师"
+    big: false
+    lines:
+      - "我们先输几年，等他长大了替我们谈。"
+    foot: "带娃日常 · 小鹿出游"
+  - tone: ink
+    tag: "评论区聊聊"
+    title: "你家娃最厉害的谈判招数？"
+    lines:
+      - "写在评论区，让大家提前防备。"
+      - "周末想带娃出门，可以搜："
+    search: "小鹿出游 Allo Outings"
+video:
+  scenes:
+    - tone: gold
+      tag: "带娃日常 · 真实现场"
+      title: "娃的\n谈判技巧\n可以去上班了"
+      hook: true
+      seconds: 3.5
+    - tone: ink
+      tag: "技巧一"
+      title: "讨价还价"
+      items:
+        - { icon: "⏳", k: "我们", v: "再玩五分钟" }
+        - { icon: "🤝", k: "娃", v: "那七分钟，最后一次" }
+    - tone: blue
+      tag: "技巧二"
+      title: "找另一个大人"
+      items:
+        - { icon: "🙅", v: "爸爸妈妈都说不行" }
+        - { icon: "👵", k: "奶奶", v: "可以" }
+    - tone: green
+      tag: "技巧三"
+      title: "打感情牌"
+      items:
+        - { icon: "🥺", v: "我只是一个小孩子" }
+        - { icon: "👀", v: "抱着腿看着你", s: "一句话都不说" }
+    - tone: red
+      tag: "技巧四"
+      title: "引用条款"
+      items:
+        - { icon: "📜", v: "你上次说下雨可以看动画片" }
+        - { icon: "🌧️", v: "今天确实在下雨" }
+    - tone: gold
+      tag: "结论"
+      title: "将来可以当律师"
+      big: "律师"
+      lines:
+        - "我们先输几年，等他长大了替我们谈。"
+      seconds: 4.5
+    - tone: ink
+      tag: "评论区聊聊"
+      title: "你家娃最厉害的谈判招数？"
+      lines: ["写在评论区"]
+      search: "小鹿出游 Allo Outings"

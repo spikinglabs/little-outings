@@ -1,0 +1,112 @@
+# A funny parenting (搞笑带娃) post kept in stock, no date: 办儿童生日派对. The joke is on kid logic; parents
+# are "we" / "爸妈", no tired-mum or useless-dad roles, no body jokes, no group mocked (L, 2026-11-21).
+# Find these in the admin by typing 搞笑 (every one of them has "搞笑 带娃" in its label).
+code: DNVA
+label: 搞笑 带娃 · 办儿童生日派对
+title: "给娃办生日派对，大人先累倒"
+caption: |
+  给娃办生日派对：两个小时的派对，准备了两个星期😂
+
+  🦖 蛋糕要恐龙的，还要独角兽，还要粉红色
+  🙈 小朋友都到了，寿星躲在桌子底下：“我害羞。”
+  📦 精心准备的游戏，最受欢迎的是装礼物的大纸箱
+  🙌 结束后两个大人瘫在沙发上，互相击掌
+
+  寿星说：“这是最好的生日！”所有的累都消失了🎂
+
+  你给娃办过什么样的派对？评论区聊聊～
+  周末想带娃出门：浏览器搜索「小鹿出游 Allo Outings」，选你的城市。
+tags: [带娃日常, 搞笑, 萌娃, 儿童生日, 德国带娃, 亲子, 留德]
+cards:
+  - tone: gold
+    tag: "带娃日常 · 生日派对"
+    title: "给娃办\n生日派对\n大人先累倒"
+    big: true
+    lines:
+      - "两个小时的派对，准备了两个星期。"
+    foot: "有娃的人都懂"
+  - tone: paper
+    tag: "准备"
+    title: "娃的要求"
+    lines:
+      - "蛋糕要恐龙的，还要有独角兽，还要粉红色。"
+      - "要请全班同学，还有楼下的猫。"
+      - "派对主题每天换一次。"
+  - tone: sky
+    tag: "派对开始"
+    title: "前十分钟"
+    lines:
+      - "十二个小朋友同时到。"
+      - "礼物还没拆，已经有两个在哭。"
+      - "寿星躲在桌子底下：“我害羞。”"
+  - tone: mint
+    tag: "游戏环节"
+    title: "精心准备的游戏"
+    lines:
+      - "寻宝游戏：三分钟就找完了。"
+      - "抢椅子：大家都哭了。"
+      - "最受欢迎的：装礼物的大纸箱。"
+  - tone: rose
+    tag: "派对结束"
+    title: "战场"
+    lines:
+      - "地上有蛋糕、彩纸和一只别人的袜子。"
+      - "寿星说：“明年还要办！”"
+      - "两个大人瘫在沙发上，互相击掌。"
+  - tone: gold
+    tag: "寿星点评"
+    title: "这是最好的生日"
+    big: false
+    lines:
+      - "所有的累，都在这一句话里消失了。"
+    foot: "带娃日常 · 小鹿出游"
+  - tone: ink
+    tag: "评论区聊聊"
+    title: "你给娃办过什么样的派对？"
+    lines:
+      - "写在评论区，分享你的经验或教训。"
+      - "周末想带娃出门，可以搜："
+    search: "小鹿出游 Allo Outings"
+video:
+  scenes:
+    - tone: gold
+      tag: "带娃日常 · 生日派对"
+      title: "给娃办\n生日派对\n大人先累倒"
+      hook: true
+      seconds: 3.5
+    - tone: ink
+      tag: "准备"
+      title: "娃的要求"
+      items:
+        - { icon: "🦖", v: "恐龙蛋糕，还要独角兽", s: "还要粉红色" }
+        - { icon: "🐈", v: "要请全班同学", s: "还有楼下的猫" }
+    - tone: blue
+      tag: "派对开始"
+      title: "前十分钟"
+      items:
+        - { icon: "👫", v: "十二个小朋友同时到" }
+        - { icon: "🙈", v: "寿星躲在桌子底下", s: "我害羞" }
+    - tone: green
+      tag: "游戏环节"
+      title: "精心准备的游戏"
+      items:
+        - { icon: "🗺️", v: "寻宝游戏", s: "三分钟就找完了" }
+        - { icon: "📦", v: "最受欢迎的", s: "装礼物的大纸箱" }
+    - tone: red
+      tag: "派对结束"
+      title: "战场"
+      items:
+        - { icon: "🎊", v: "蛋糕、彩纸和一只袜子" }
+        - { icon: "🙌", v: "两个大人互相击掌" }
+    - tone: gold
+      tag: "寿星点评"
+      title: "这是最好的生日"
+      big: "最好"
+      lines:
+        - "所有的累，都在这一句话里消失了。"
+      seconds: 4.5
+    - tone: ink
+      tag: "评论区聊聊"
+      title: "你给娃办过什么样的派对？"
+      lines: ["写在评论区"]
+      search: "小鹿出游 Allo Outings"

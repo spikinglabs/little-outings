@@ -1,0 +1,112 @@
+# A funny parenting (搞笑带娃) post kept in stock, no date: 早上穿衣服大战. The joke is on kid logic; parents
+# are "we" / "爸妈", no tired-mum or useless-dad roles, no body jokes, no group mocked (L, 2026-11-21).
+# Find these in the admin by typing 搞笑 (every one of them has "搞笑 带娃" in its label).
+code: UT5T
+label: 搞笑 带娃 · 早上穿衣服大战
+title: "早上给娃穿衣服，要一小时"
+caption: |
+  早上给娃穿衣服，八点出门，七点就得开始😂
+
+  🩳 零度要穿短裤，下雨要穿公主裙
+  🧦 袜子线硌脚，最后穿了两只不一样的
+  👟 鞋子左右反了，“这样跑得快”
+  🧤 终于出门，手套忘在家里了
+
+  Kita 老师说：很有个性👍
+
+  你家娃早上穿衣服要多久？评论区聊聊～
+  周末想带娃出门：浏览器搜索「小鹿出游 Allo Outings」，选你的城市。
+tags: [带娃日常, 搞笑, 萌娃, 早上日常, 育儿, 德国带娃, 亲子, 留德]
+cards:
+  - tone: gold
+    tag: "早上日常 · 真实现场"
+    title: "早上\n给娃穿衣服\n要一小时"
+    big: true
+    lines:
+      - "八点要出门，七点就开始了。"
+    foot: "有娃的人都懂"
+  - tone: paper
+    tag: "选衣服"
+    title: "今天穿什么"
+    lines:
+      - "零度：要穿短裤。"
+      - "下雨：要穿公主裙和雨靴。"
+      - "要穿昨天那件，已经在洗衣机里了。"
+  - tone: sky
+    tag: "穿袜子"
+    title: "最难的一关"
+    lines:
+      - "袜子的线硌脚。"
+      - "换一双，这双颜色不对。"
+      - "最后穿了两只不一样的。很好看。"
+  - tone: mint
+    tag: "自己来"
+    title: "我自己穿"
+    lines:
+      - "裤子穿成了围巾。"
+      - "毛衣穿反了，坚持说是故意的。"
+      - "鞋子左右反了，“这样跑得快”。"
+  - tone: rose
+    tag: "出门前"
+    title: "最后一分钟"
+    lines:
+      - "外套穿好了，要上厕所。"
+      - "上完厕所，要换一件外套。"
+      - "终于出门，手套忘在家里了。"
+  - tone: gold
+    tag: "今日搭配"
+    title: "Kita 老师说：很有个性"
+    big: false
+    lines:
+      - "两只不一样的袜子，反着穿的毛衣，自信满满。"
+    foot: "带娃日常 · 小鹿出游"
+  - tone: ink
+    tag: "评论区聊聊"
+    title: "你家娃早上穿衣服要多久？"
+    lines:
+      - "写在评论区，看看谁家最快。"
+      - "周末想带娃出门，可以搜："
+    search: "小鹿出游 Allo Outings"
+video:
+  scenes:
+    - tone: gold
+      tag: "早上日常 · 真实现场"
+      title: "早上\n给娃穿衣服\n要一小时"
+      hook: true
+      seconds: 3.5
+    - tone: ink
+      tag: "选衣服"
+      title: "今天穿什么"
+      items:
+        - { icon: "🩳", k: "零度", v: "要穿短裤" }
+        - { icon: "👗", k: "下雨", v: "要穿公主裙和雨靴" }
+    - tone: blue
+      tag: "穿袜子"
+      title: "最难的一关"
+      items:
+        - { icon: "🧦", v: "袜子的线硌脚" }
+        - { icon: "🎨", v: "穿了两只不一样的", s: "很好看" }
+    - tone: green
+      tag: "自己来"
+      title: "我自己穿"
+      items:
+        - { icon: "👖", v: "裤子穿成了围巾" }
+        - { icon: "👟", v: "鞋子穿反了", s: "这样跑得快" }
+    - tone: red
+      tag: "出门前"
+      title: "最后一分钟"
+      items:
+        - { icon: "🚽", v: "外套穿好了", s: "要上厕所" }
+        - { icon: "🧤", v: "终于出门", s: "手套忘在家里了" }
+    - tone: gold
+      tag: "今日搭配"
+      title: "Kita 老师说：很有个性"
+      big: "有个性"
+      lines:
+        - "两只不一样的袜子，反着穿的毛衣，自信满满。"
+      seconds: 4.5
+    - tone: ink
+      tag: "评论区聊聊"
+      title: "你家娃早上穿衣服要多久？"
+      lines: ["写在评论区"]
+      search: "小鹿出游 Allo Outings"

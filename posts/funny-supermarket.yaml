@@ -1,0 +1,113 @@
+# A funny parenting (搞笑带娃) post kept in stock, no date: 超市结账口心理战. The joke is on kid logic; parents
+# are "we" / "爸妈", no tired-mum or useless-dad roles, no body jokes, no group mocked (L, 2026-11-21).
+# Find these in the admin by typing 搞笑 (every one of them has "搞笑 带娃" in its label).
+code: G8RA
+label: 搞笑 带娃 · 超市结账口心理战
+title: "带娃逛超市，像打仗"
+caption: |
+  带娃逛超市，进去买牛奶，出来带了一车别的😂
+
+  🛒 要坐购物车，两分钟后要自己推，三米后撞到土豆
+  🥦 偷偷放进车里：饼干、塑料剑，和一棵西兰花
+  ⭐ 结账口危机，被收银员的一张贴纸解除
+  🥛 计划买牛奶，最后忘了买牛奶
+
+  明天再去一次，这次一个人去🏃
+
+  你家娃在超市干过什么？评论区聊聊～
+  周末想带娃出门：浏览器搜索「小鹿出游 Allo Outings」，选你的城市。
+tags: [带娃日常, 搞笑, 萌娃, 德国超市, 育儿, 德国带娃, 亲子, 留德]
+cards:
+  - tone: gold
+    tag: "带娃日常 · 真实现场"
+    title: "带娃\n逛超市\n像打仗"
+    big: true
+    lines:
+      - "进去买牛奶，出来带了一车别的。"
+    foot: "有娃的人都懂"
+  - tone: paper
+    tag: "进门"
+    title: "购物车之争"
+    lines:
+      - "要坐购物车。"
+      - "坐进去两分钟，要下来自己推。"
+      - "自己推了三米，撞到了一堆土豆。"
+  - tone: sky
+    tag: "货架"
+    title: "偷偷放进车里的"
+    lines:
+      - "一盒饼干。"
+      - "一把塑料剑。"
+      - "一棵西兰花。“我想试试。”"
+    note: "最后一样我们立刻买了。"
+  - tone: mint
+    tag: "结账口"
+    title: "最后的考验"
+    lines:
+      - "糖果摆在小朋友眼睛的高度。"
+      - "“就一个，就一个。”"
+      - "收银员阿姨给了一张贴纸，危机解除。"
+  - tone: rose
+    tag: "回家"
+    title: "清点战果"
+    rows:
+      - { when: "计划买", name: "牛奶" }
+      - { when: "实际买", name: "饼干、香蕉、贴纸书" }
+      - { when: "忘了买", name: "牛奶" }
+  - tone: gold
+    tag: "明天"
+    title: "再去一次超市"
+    big: false
+    lines:
+      - "这次一个人去，十分钟搞定。"
+    foot: "带娃日常 · 小鹿出游"
+  - tone: ink
+    tag: "评论区聊聊"
+    title: "你家娃在超市干过什么？"
+    lines:
+      - "写在评论区，大家一起笑一笑。"
+      - "周末想带娃出门，可以搜："
+    search: "小鹿出游 Allo Outings"
+video:
+  scenes:
+    - tone: gold
+      tag: "带娃日常 · 真实现场"
+      title: "带娃\n逛超市\n像打仗"
+      hook: true
+      seconds: 3.5
+    - tone: ink
+      tag: "进门"
+      title: "购物车之争"
+      items:
+        - { icon: "🛒", v: "要坐购物车", s: "两分钟后要自己推" }
+        - { icon: "🥔", v: "推了三米", s: "撞到一堆土豆" }
+    - tone: blue
+      tag: "货架"
+      title: "偷偷放进车里的"
+      items:
+        - { icon: "🗡️", v: "一把塑料剑" }
+        - { icon: "🥦", v: "一棵西兰花", s: "“我想试试”" }
+    - tone: green
+      tag: "结账口"
+      title: "最后的考验"
+      items:
+        - { icon: "🍬", v: "糖果在眼睛的高度" }
+        - { icon: "⭐", v: "收银员给了一张贴纸", s: "危机解除" }
+    - tone: red
+      tag: "回家"
+      title: "清点战果"
+      items:
+        - { icon: "🥛", k: "计划买", v: "牛奶" }
+        - { icon: "🤦", k: "忘了买", v: "牛奶" }
+    - tone: gold
+      tag: "明天"
+      title: "再去一次超市"
+      big: "十分钟"
+      lines:
+        - "这次一个人去，十分钟搞定。"
+      seconds: 4.5
+    - tone: ink
+      tag: "评论区聊聊"
+      title: "你家娃在超市干过什么？"
+      lines: ["写在评论区"]
+      search: "小鹿出游 Allo Outings"

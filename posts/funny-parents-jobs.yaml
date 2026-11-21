@@ -1,0 +1,112 @@
+# A funny parenting (搞笑带娃) post kept in stock, no date: 娃眼中爸妈的工作. The joke is on kid logic; parents
+# are "we" / "爸妈", no tired-mum or useless-dad roles, no body jokes, no group mocked (L, 2026-11-21).
+# Find these in the admin by typing 搞笑 (every one of them has "搞笑 带娃" in its label).
+code: JQWF
+label: 搞笑 带娃 · 娃眼中爸妈的工作
+title: "娃眼中，爸妈是做什么的"
+caption: |
+  Kita 老师问：你爸爸妈妈做什么工作？娃的回答👇😂
+
+  💻 “妈妈的工作是看电脑，然后叹气。”
+  💪 “妈妈修好了公司的一个大问题。”
+  📞 “爸爸的工作是打电话，说‘好的好的’。”
+  🥟 “爸爸会做很好吃的饺子，这也是工作。”
+
+  长大了想“像妈妈一样修大问题，像爸爸一样做饺子”❤️
+
+  你家娃怎么形容你的工作？评论区聊聊～
+  周末想带娃出门：浏览器搜索「小鹿出游 Allo Outings」，选你的城市。
+tags: [带娃日常, 搞笑, 萌娃, 童言童语, 职场爸妈, 德国带娃, 亲子, 留德]
+cards:
+  - tone: gold
+    tag: "童言童语 · 真实现场"
+    title: "娃眼中\n爸妈是\n做什么的"
+    big: true
+    lines:
+      - "Kita 老师问：你爸爸妈妈做什么工作？"
+    foot: "有娃的人都懂"
+  - tone: paper
+    tag: "妈妈的工作"
+    title: "她是这样说的"
+    lines:
+      - "“妈妈的工作是看电脑，然后叹气。”"
+      - "“妈妈在电脑里管很多人，他们都听她的。”"
+      - "“妈妈很厉害，修好了公司的一个大问题。”"
+  - tone: sky
+    tag: "爸爸的工作"
+    title: "她是这样说的"
+    lines:
+      - "“爸爸的工作是打电话，说‘好的好的’。”"
+      - "“爸爸每天坐火车去一个楼里，吃午饭，再回来。”"
+      - "“爸爸会做很好吃的饺子，这也是工作。”"
+  - tone: mint
+    tag: "居家办公"
+    title: "在家上班的时候"
+    lines:
+      - "开会时，娃从镜头后面爬过去。"
+      - "同事们都认识她了，还会跟她打招呼。"
+      - "“你们在电脑里干嘛呢？我也要开会。”"
+  - tone: rose
+    tag: "理想"
+    title: "我长大了要做什么"
+    lines:
+      - "“挖掘机司机。”"
+      - "“冰淇淋店老板，自己吃。”"
+      - "“像妈妈一样修大问题，像爸爸一样做饺子。”"
+  - tone: gold
+    tag: "结论"
+    title: "两个都想学"
+    big: false
+    lines:
+      - "在娃眼里，爸爸妈妈都很厉害。"
+    foot: "带娃日常 · 小鹿出游"
+  - tone: ink
+    tag: "评论区聊聊"
+    title: "你家娃怎么形容你的工作？"
+    lines:
+      - "写在评论区，看看谁最准。"
+      - "周末想带娃出门，可以搜："
+    search: "小鹿出游 Allo Outings"
+video:
+  scenes:
+    - tone: gold
+      tag: "童言童语 · 真实现场"
+      title: "娃眼中\n爸妈是\n做什么的"
+      hook: true
+      seconds: 3.5
+    - tone: ink
+      tag: "妈妈的工作"
+      title: "她是这样说的"
+      items:
+        - { icon: "💻", v: "看电脑，然后叹气" }
+        - { icon: "💪", v: "修好了公司的大问题" }
+    - tone: blue
+      tag: "爸爸的工作"
+      title: "她是这样说的"
+      items:
+        - { icon: "📞", v: "打电话说好的好的" }
+        - { icon: "🥟", v: "做饺子也是工作" }
+    - tone: green
+      tag: "居家办公"
+      title: "在家上班的时候"
+      items:
+        - { icon: "🎥", v: "开会时从镜头后面爬过去" }
+        - { icon: "👋", v: "同事们都跟她打招呼" }
+    - tone: red
+      tag: "理想"
+      title: "我长大了要做什么"
+      items:
+        - { icon: "🚜", v: "挖掘机司机" }
+        - { icon: "🍦", v: "冰淇淋店老板", s: "自己吃" }
+    - tone: gold
+      tag: "结论"
+      title: "两个都想学"
+      big: "都厉害"
+      lines:
+        - "在娃眼里，爸爸妈妈都很厉害。"
+      seconds: 4.5
+    - tone: ink
+      tag: "评论区聊聊"
+      title: "你家娃怎么形容你的工作？"
+      lines: ["写在评论区"]
+      search: "小鹿出游 Allo Outings"

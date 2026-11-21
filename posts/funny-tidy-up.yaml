@@ -1,0 +1,113 @@
+# A funny parenting (搞笑带娃) post kept in stock, no date: 收拾玩具的五个阶段. The joke is on kid logic; parents
+# are "we" / "爸妈", no tired-mum or useless-dad roles, no body jokes, no group mocked (L, 2026-11-21).
+# Find these in the admin by typing 搞笑 (every one of them has "搞笑 带娃" in its label).
+code: C89U
+label: 搞笑 带娃 · 收拾玩具的五个阶段
+title: "让娃收玩具的五个阶段"
+caption: |
+  让娃收拾玩具的五个阶段，你家到了第几个？😂
+
+  🏁 阶段一：比赛！娃收了一块积木，然后开始玩它
+  🎵 阶段二：唱了三遍收拾歌，娃跳了三遍舞
+  🤝 阶段三：谈判，“那收一半，看一半”
+  👷 阶段四：大人自己收，娃当监工
+
+  阶段五：五分钟后，又全倒出来了。有好办法请教教我们🙏
+
+  你家怎么让娃收玩具？评论区聊聊～
+  周末想带娃出门：浏览器搜索「小鹿出游 Allo Outings」，选你的城市。
+tags: [带娃日常, 搞笑, 萌娃, 育儿, 玩具, 德国带娃, 亲子, 留德]
+cards:
+  - tone: gold
+    tag: "带娃日常 · 真实现场"
+    title: "让娃\n收玩具的\n五个阶段"
+    big: true
+    lines:
+      - "从信心满满，到怀疑人生。"
+    foot: "有娃的人都懂"
+  - tone: paper
+    tag: "阶段一 · 温柔"
+    title: "我们来比赛吧！"
+    lines:
+      - "“看谁收得快！”"
+      - "娃收了一块积木，然后开始玩那块积木。"
+      - "比赛暂停。"
+  - tone: sky
+    tag: "阶段二 · 唱歌"
+    title: "收拾歌"
+    lines:
+      - "唱了三遍收拾歌。"
+      - "娃跟着跳了三遍舞。"
+      - "地上的玩具一个没少。"
+  - tone: mint
+    tag: "阶段三 · 谈判"
+    title: "收完可以……"
+    rows:
+      - { when: "收完可以", name: "看一集动画片" }
+      - { when: "娃", name: "先看再收" }
+      - { when: "我们", name: "不行" }
+      - { when: "娃", name: "那收一半，看一半" }
+  - tone: rose
+    tag: "阶段四 · 放弃"
+    title: "大人自己收"
+    lines:
+      - "娃在旁边当监工：“那个放错了。”"
+      - "“小熊不能跟恐龙放一起，它们吵架了。”"
+    note: "收完之后，娃说：我们配合得真好。"
+  - tone: gold
+    tag: "阶段五 · 接受"
+    title: "五分钟后，又全倒出来了"
+    big: false
+    lines:
+      - "这就是带娃：收拾是为了下一次倒出来。"
+    foot: "带娃日常 · 小鹿出游"
+  - tone: ink
+    tag: "评论区聊聊"
+    title: "你家怎么让娃收玩具？"
+    lines:
+      - "有好办法请写在评论区，我们真的需要。"
+      - "周末想带娃出门，可以搜："
+    search: "小鹿出游 Allo Outings"
+video:
+  scenes:
+    - tone: gold
+      tag: "带娃日常 · 真实现场"
+      title: "让娃\n收玩具的\n五个阶段"
+      hook: true
+      seconds: 3.5
+    - tone: ink
+      tag: "阶段一 · 温柔"
+      title: "我们来比赛吧！"
+      items:
+        - { icon: "🏁", v: "看谁收得快！" }
+        - { icon: "🧱", v: "收了一块积木", s: "然后开始玩它" }
+    - tone: blue
+      tag: "阶段二 · 唱歌"
+      title: "收拾歌"
+      items:
+        - { icon: "🎵", v: "唱了三遍收拾歌" }
+        - { icon: "💃", v: "娃跳了三遍舞", s: "玩具一个没少" }
+    - tone: green
+      tag: "阶段三 · 谈判"
+      title: "收完可以……"
+      items:
+        - { icon: "📺", k: "收完可以", v: "看一集动画片" }
+        - { icon: "🤝", k: "娃", v: "那收一半，看一半" }
+    - tone: red
+      tag: "阶段四 · 放弃"
+      title: "大人自己收"
+      items:
+        - { icon: "👷", v: "娃当监工", s: "那个放错了" }
+        - { icon: "🧸", v: "小熊不能跟恐龙放一起", s: "它们吵架了" }
+    - tone: gold
+      tag: "阶段五 · 接受"
+      title: "五分钟后，又全倒出来了"
+      big: "又倒了"
+      lines:
+        - "这就是带娃：收拾是为了下一次倒出来。"
+      seconds: 4.5
+    - tone: ink
+      tag: "评论区聊聊"
+      title: "你家怎么让娃收玩具？"
+      lines: ["写在评论区"]
+      search: "小鹿出游 Allo Outings"

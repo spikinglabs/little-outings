@@ -1,0 +1,112 @@
+# A funny parenting (搞笑带娃) post kept in stock, no date: 娃的神比喻. The joke is on kid logic; parents
+# are "we" / "爸妈", no tired-mum or useless-dad roles, no body jokes, no group mocked (L, 2026-11-21).
+# Find these in the admin by typing 搞笑 (every one of them has "搞笑 带娃" in its label).
+code: XRSX
+label: 搞笑 带娃 · 娃的神比喻
+title: "娃的比喻，比作家还厉害"
+caption: |
+  小孩的脑子里住着一位诗人✨ 收集了一些我们家娃的神比喻👇
+
+  ⛈️ 打雷：天上的人在搬家具
+  🦶 脚麻了：我的脚里有好多小汽水
+  🐸 打嗝：我肚子里有只小青蛙
+  🔋 “我现在电量很低，需要充电。”说完就睡着了
+
+  建议准备一个小本子记下来，等她长大了念给她听📒
+
+  你家娃说过什么神比喻？评论区聊聊～
+  周末想带娃出门：浏览器搜索「小鹿出游 Allo Outings」，选你的城市。
+tags: [带娃日常, 搞笑, 萌娃, 童言童语, 育儿, 德国带娃, 亲子, 留德]
+cards:
+  - tone: gold
+    tag: "带娃日常 · 童言童语"
+    title: "娃的比喻\n比作家\n还厉害"
+    big: true
+    lines:
+      - "小孩的脑子里，住着一位诗人。"
+    foot: "有娃的人都懂"
+  - tone: paper
+    tag: "看世界"
+    title: "她是这样形容的"
+    lines:
+      - "打雷：“天上的人在搬家具。”"
+      - "冰雹：“天上在下冰块，要不要拿杯子接？”"
+      - "彩虹：“天空的笑脸，只是笑歪了。”"
+  - tone: sky
+    tag: "看身体"
+    title: "认真描述"
+    lines:
+      - "脚麻了：“我的脚里有好多小汽水。”"
+      - "打嗝：“我肚子里有只小青蛙。”"
+      - "冷：“我的手变成冰淇淋了。”"
+  - tone: mint
+    tag: "看家人"
+    title: "家人肖像"
+    lines:
+      - "爸爸的胡子：“像刷子，刷得我脸好痒。”"
+      - "妈妈开会：“妈妈在电脑里跟很多小人说话。”"
+      - "外婆做的饭：“魔法饭。”"
+  - tone: rose
+    tag: "看自己"
+    title: "自我介绍"
+    lines:
+      - "“我是一个很大的小孩。”"
+      - "“我生气的时候，心里有一只小老虎。”"
+      - "“我现在电量很低，需要充电。”说完就睡着了。"
+  - tone: gold
+    tag: "建议"
+    title: "准备一个小本子"
+    big: false
+    lines:
+      - "把这些话记下来，等她长大了念给她听。"
+    foot: "带娃日常 · 小鹿出游"
+  - tone: ink
+    tag: "评论区聊聊"
+    title: "你家娃说过什么神比喻？"
+    lines:
+      - "写在评论区，一起收藏童言童语。"
+      - "周末想带娃出门，可以搜："
+    search: "小鹿出游 Allo Outings"
+video:
+  scenes:
+    - tone: gold
+      tag: "带娃日常 · 童言童语"
+      title: "娃的比喻\n比作家\n还厉害"
+      hook: true
+      seconds: 3.5
+    - tone: ink
+      tag: "看世界"
+      title: "她是这样形容的"
+      items:
+        - { icon: "⛈️", k: "打雷", v: "天上的人在搬家具" }
+        - { icon: "🌈", k: "彩虹", v: "天空的笑脸，笑歪了" }
+    - tone: blue
+      tag: "看身体"
+      title: "认真描述"
+      items:
+        - { icon: "🦶", k: "脚麻了", v: "脚里有好多小汽水" }
+        - { icon: "🐸", k: "打嗝", v: "肚子里有只小青蛙" }
+    - tone: green
+      tag: "看家人"
+      title: "家人肖像"
+      items:
+        - { icon: "🧔", k: "爸爸的胡子", v: "像刷子" }
+        - { icon: "💻", k: "妈妈开会", v: "在电脑里跟很多小人说话" }
+    - tone: red
+      tag: "看自己"
+      title: "自我介绍"
+      items:
+        - { icon: "🐯", v: "生气的时候心里有一只小老虎" }
+        - { icon: "🔋", v: "我现在电量很低", s: "说完就睡着了" }
+    - tone: gold
+      tag: "建议"
+      title: "准备一个小本子"
+      big: "📒"
+      lines:
+        - "把这些话记下来，等她长大了念给她听。"
+      seconds: 4.5
+    - tone: ink
+      tag: "评论区聊聊"
+      title: "你家娃说过什么神比喻？"
+      lines: ["写在评论区"]
+      search: "小鹿出游 Allo Outings"

@@ -1,0 +1,113 @@
+# A funny parenting (搞笑带娃) post kept in stock, no date: 跟爷爷奶奶视频. The joke is on kid logic; parents
+# are "we" / "爸妈", no tired-mum or useless-dad roles, no body jokes, no group mocked (L, 2026-11-21).
+# Find these in the admin by typing 搞笑 (every one of them has "搞笑 带娃" in its label).
+code: 3C3T
+label: 搞笑 带娃 · 跟爷爷奶奶视频
+title: "跟老家视频，娃的迷惑行为"
+caption: |
+  跟老家视频，爷爷奶奶想看孙子，结果看了半小时天花板😂
+
+  📱 镜头里：天花板、一只眼睛、高清鼻孔
+  🧦 “你们看，这是我的袜子。”
+  👵 奶奶：想奶奶吗？娃：我今天吃了面条
+  📞 挂了说还要聊，重新打过去，娃已经去玩了
+
+  哪怕只看到鼻孔，爷爷奶奶也看得很开心❤️
+
+  你家娃视频时有什么迷惑行为？评论区聊聊～
+  周末想带娃出门：浏览器搜索「小鹿出游 Allo Outings」，选你的城市。
+tags: [带娃日常, 搞笑, 萌娃, 海外生活, 隔代亲, 德国带娃, 亲子, 留德]
+cards:
+  - tone: gold
+    tag: "带娃日常 · 真实现场"
+    title: "跟老家视频\n娃的\n迷惑行为"
+    big: true
+    lines:
+      - "爷爷奶奶想看孙子，结果看了半小时天花板。"
+    foot: "有娃的人都懂"
+  - tone: paper
+    tag: "镜头篇"
+    title: "爷爷奶奶看到了什么"
+    lines:
+      - "天花板。"
+      - "一只眼睛，特写。"
+      - "娃的鼻孔，高清版。"
+  - tone: sky
+    tag: "展示篇"
+    title: "我给你们看个东西"
+    lines:
+      - "把每一个玩具都拿到镜头前，介绍了一遍。"
+      - "“你们看，这是我的袜子。”"
+      - "把手机带进厕所，被我们及时拦下。"
+  - tone: mint
+    tag: "对话篇"
+    title: "隔着时差聊天"
+    rows:
+      - { when: "奶奶", name: "宝宝想奶奶吗？" }
+      - { when: "娃", name: "我今天吃了面条" }
+      - { when: "爷爷", name: "在 Kita 好不好玩？" }
+      - { when: "娃", name: "拜拜！" }
+  - tone: rose
+    tag: "挂断篇"
+    title: "说好的再见"
+    lines:
+      - "说了二十次拜拜，还没挂。"
+      - "挂了以后：“我还要跟奶奶说话！”"
+      - "重新打过去：娃已经去玩了。"
+  - tone: gold
+    tag: "结论"
+    title: "爷爷奶奶说：真好看"
+    big: false
+    lines:
+      - "哪怕只看到鼻孔，他们也看得很开心。"
+    foot: "带娃日常 · 小鹿出游"
+  - tone: ink
+    tag: "评论区聊聊"
+    title: "你家娃视频时有什么迷惑行为？"
+    lines:
+      - "写在评论区，大家都一样。"
+      - "周末想带娃出门，可以搜："
+    search: "小鹿出游 Allo Outings"
+video:
+  scenes:
+    - tone: gold
+      tag: "带娃日常 · 真实现场"
+      title: "跟老家视频\n娃的\n迷惑行为"
+      hook: true
+      seconds: 3.5
+    - tone: ink
+      tag: "镜头篇"
+      title: "爷爷奶奶看到了什么"
+      items:
+        - { icon: "📱", v: "天花板" }
+        - { icon: "👁️", v: "一只眼睛，特写" }
+    - tone: blue
+      tag: "展示篇"
+      title: "我给你们看个东西"
+      items:
+        - { icon: "🧸", v: "每个玩具都介绍一遍" }
+        - { icon: "🧦", v: "你们看，这是我的袜子" }
+    - tone: green
+      tag: "对话篇"
+      title: "隔着时差聊天"
+      items:
+        - { icon: "👵", k: "奶奶", v: "宝宝想奶奶吗？" }
+        - { icon: "👋", k: "娃", v: "拜拜！" }
+    - tone: red
+      tag: "挂断篇"
+      title: "说好的再见"
+      items:
+        - { icon: "👋", v: "说了二十次拜拜" }
+        - { icon: "📞", v: "重新打过去", s: "娃已经去玩了" }
+    - tone: gold
+      tag: "结论"
+      title: "爷爷奶奶说：真好看"
+      big: "真好"
+      lines:
+        - "哪怕只看到鼻孔，他们也看得很开心。"
+      seconds: 4.5
+    - tone: ink
+      tag: "评论区聊聊"
+      title: "你家娃视频时有什么迷惑行为？"
+      lines: ["写在评论区"]
+      search: "小鹿出游 Allo Outings"

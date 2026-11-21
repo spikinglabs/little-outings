@@ -1,0 +1,113 @@
+# A funny parenting (搞笑带娃) post kept in stock, no date: 双语娃的混搭句子. The joke is on kid logic; parents
+# are "we" / "爸妈", no tired-mum or useless-dad roles, no body jokes, no group mocked (L, 2026-11-21).
+# Find these in the admin by typing 搞笑 (every one of them has "搞笑 带娃" in its label).
+code: YWV9
+label: 搞笑 带娃 · 双语娃的混搭句子
+title: "双语娃说话，全家要翻译"
+caption: |
+  双语娃说话，全家都需要翻译😂
+
+  🍎 “这个 Apfel 好 lecker 啊！”
+  🐌 自创新词：“Schnecke 牛”
+  📱 奶奶问：Kita 是什么？娃：“就是 Kita 啊。”
+  🎁 想要东西的时候，哪种语言好用就用哪种
+
+  混着说没关系，慢慢地两种语言都会长得很好🌱
+
+  你家娃说过什么混搭金句？评论区聊聊～
+  周末想带娃出门：浏览器搜索「小鹿出游 Allo Outings」，选你的城市。
+tags: [带娃日常, 搞笑, 萌娃, 双语宝宝, 德国育儿, 德国带娃, 亲子, 留德]
+cards:
+  - tone: gold
+    tag: "双语宝宝 · 真实现场"
+    title: "双语娃\n说话\n全家要翻译"
+    big: true
+    lines:
+      - "中文、德语、英语，一句话里全有。"
+    foot: "有娃的人都懂"
+  - tone: paper
+    tag: "混搭篇"
+    title: "一句话三种语言"
+    lines:
+      - "“妈妈，我要 noch mal 一次！”"
+      - "“这个 Apfel 好 lecker 啊！”"
+      - "“爸爸你 bitte 快点嘛！”"
+  - tone: sky
+    tag: "自创篇"
+    title: "新词诞生"
+    lines:
+      - "“Schnecke 牛”：蜗牛。"
+      - "“我 fahrradeln 去 Kita。”"
+      - "“你别 nerv 我了。”"
+    note: "德语老师和中文老师都表示没教过。"
+  - tone: mint
+    tag: "翻译官篇"
+    title: "家里的小翻译"
+    lines:
+      - "奶奶视频时问：Kita 是什么？娃：“就是 Kita 啊。”"
+      - "邻居问话，娃转头翻译给我们：“他说你好。”"
+      - "翻译得很自信，有一半是对的。"
+  - tone: rose
+    tag: "切换篇"
+    title: "语言开关"
+    lines:
+      - "跟我们吵架用中文。"
+      - "跟小朋友玩用德语。"
+      - "想要东西的时候，哪种语言好用就用哪种。"
+  - tone: gold
+    tag: "结论"
+    title: "混着说，没关系"
+    big: false
+    lines:
+      - "慢慢地，两种语言都会长得很好。"
+    foot: "带娃日常 · 小鹿出游"
+  - tone: ink
+    tag: "评论区聊聊"
+    title: "你家娃说过什么混搭金句？"
+    lines:
+      - "写在评论区，一起编一本双语娃词典。"
+      - "周末想带娃出门，可以搜："
+    search: "小鹿出游 Allo Outings"
+video:
+  scenes:
+    - tone: gold
+      tag: "双语宝宝 · 真实现场"
+      title: "双语娃\n说话\n全家要翻译"
+      hook: true
+      seconds: 3.5
+    - tone: ink
+      tag: "混搭篇"
+      title: "一句话三种语言"
+      items:
+        - { icon: "🍎", v: "这个 Apfel 好 lecker 啊！" }
+        - { icon: "🔁", v: "我要 noch mal 一次！" }
+    - tone: blue
+      tag: "自创篇"
+      title: "新词诞生"
+      items:
+        - { icon: "🐌", v: "Schnecke 牛", s: "蜗牛" }
+        - { icon: "🚲", v: "我 fahrradeln 去 Kita" }
+    - tone: green
+      tag: "翻译官篇"
+      title: "家里的小翻译"
+      items:
+        - { icon: "📱", v: "Kita 是什么？", s: "就是 Kita 啊" }
+        - { icon: "🗣️", v: "他说你好", s: "翻译得很自信" }
+    - tone: red
+      tag: "切换篇"
+      title: "语言开关"
+      items:
+        - { icon: "😤", v: "吵架用中文" }
+        - { icon: "🎁", v: "想要东西", s: "哪种好用用哪种" }
+    - tone: gold
+      tag: "结论"
+      title: "混着说，没关系"
+      big: "都会"
+      lines:
+        - "慢慢地，两种语言都会长得很好。"
+      seconds: 4.5
+    - tone: ink
+      tag: "评论区聊聊"
+      title: "你家娃说过什么混搭金句？"
+      lines: ["写在评论区"]
+      search: "小鹿出游 Allo Outings"

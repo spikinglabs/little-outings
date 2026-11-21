@@ -1,0 +1,114 @@
+# A funny parenting (搞笑带娃) post kept in stock, no date: 娃的画作解读. The joke is on kid logic; parents
+# are "we" / "爸妈", no tired-mum or useless-dad roles, no body jokes, no group mocked (L, 2026-11-21).
+# Find these in the admin by typing 搞笑 (every one of them has "搞笑 带娃" in its label).
+code: F8FW
+label: 搞笑 带娃 · 娃的画作解读
+title: "看懂娃的画，需要说明书"
+caption: |
+  看懂娃的画需要说明书，每一幅都是抽象派大作🎨
+
+  ⭕ 一个大圆圈四根线：“这是爸爸。”一个小点：“这是我，我在远处。”
+  🚗 我们猜是一只狗，实际是我们家的车
+  😆 画在纸上 30%，桌子上 30%，自己脸上 40%
+  🎂 “这不是乱画的，是一场下雨的生日派对。”
+
+  每一张都舍不得扔，冰箱挂满了就拍下来📸
+
+  你家娃画过什么看不懂的？评论区聊聊～
+  周末想带娃出门：浏览器搜索「小鹿出游 Allo Outings」，选你的城市。
+tags: [带娃日常, 搞笑, 萌娃, 儿童画, 育儿, 德国带娃, 亲子, 留德]
+cards:
+  - tone: gold
+    tag: "带娃日常 · 艺术现场"
+    title: "看懂娃的画\n需要\n说明书"
+    big: true
+    lines:
+      - "每一幅都是抽象派大作。"
+    foot: "有娃的人都懂"
+  - tone: paper
+    tag: "家人肖像"
+    title: "这是我们一家"
+    lines:
+      - "一个大圆圈，四根线：“这是爸爸。”"
+      - "一个更大的圆圈：“这是妈妈，她最厉害。”"
+      - "一个小点：“这是我，我在远处。”"
+  - tone: sky
+    tag: "猜一猜"
+    title: "我们猜的 vs 实际是"
+    rows:
+      - { when: "我们猜", name: "一只狗" }
+      - { when: "实际是", name: "我们家的车" }
+      - { when: "我们猜", name: "一朵花" }
+      - { when: "实际是", name: "生气的太阳" }
+  - tone: mint
+    tag: "创作场地"
+    title: "画在哪里"
+    lines:
+      - "纸上：30%。"
+      - "桌子上：30%。"
+      - "自己脸上：40%。"
+    note: "幸好买的是可以洗掉的笔。"
+  - tone: rose
+    tag: "艺术家态度"
+    title: "作品说明"
+    lines:
+      - "“这个不是乱画的，是一场下雨的生日派对。”"
+      - "“这幅画送给你，但是要挂在冰箱上。”"
+      - "冰箱已经挂满了。"
+  - tone: gold
+    tag: "收藏"
+    title: "每一张都舍不得扔"
+    big: false
+    lines:
+      - "冰箱挂满了，就拍下来存进相册。"
+    foot: "带娃日常 · 小鹿出游"
+  - tone: ink
+    tag: "评论区聊聊"
+    title: "你家娃画过什么看不懂的？"
+    lines:
+      - "写在评论区，让大家猜一猜。"
+      - "周末想带娃出门，可以搜："
+    search: "小鹿出游 Allo Outings"
+video:
+  scenes:
+    - tone: gold
+      tag: "带娃日常 · 艺术现场"
+      title: "看懂娃的画\n需要\n说明书"
+      hook: true
+      seconds: 3.5
+    - tone: ink
+      tag: "家人肖像"
+      title: "这是我们一家"
+      items:
+        - { icon: "⭕", v: "一个大圆圈", s: "这是爸爸" }
+        - { icon: "⚫", v: "一个小点", s: "这是我，我在远处" }
+    - tone: blue
+      tag: "猜一猜"
+      title: "我们猜的 vs 实际是"
+      items:
+        - { icon: "🐶", k: "我们猜", v: "一只狗" }
+        - { icon: "🚗", k: "实际是", v: "我们家的车" }
+    - tone: green
+      tag: "创作场地"
+      title: "画在哪里"
+      items:
+        - { icon: "📄", k: "纸上", v: "30%" }
+        - { icon: "😆", k: "自己脸上", v: "40%" }
+    - tone: red
+      tag: "艺术家态度"
+      title: "作品说明"
+      items:
+        - { icon: "🎂", v: "这是一场下雨的生日派对" }
+        - { icon: "🧊", v: "要挂在冰箱上", s: "冰箱已经挂满了" }
+    - tone: gold
+      tag: "收藏"
+      title: "每一张都舍不得扔"
+      big: "📸"
+      lines:
+        - "冰箱挂满了，就拍下来存进相册。"
+      seconds: 4.5
+    - tone: ink
+      tag: "评论区聊聊"
+      title: "你家娃画过什么看不懂的？"
+      lines: ["写在评论区"]
+      search: "小鹿出游 Allo Outings"

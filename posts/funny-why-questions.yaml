@@ -1,0 +1,115 @@
+# A funny parenting (搞笑带娃) post kept in stock, no date: 为什么连环问. The joke is on kid logic; parents
+# are "we" / "爸妈", no tired-mum or useless-dad roles, no body jokes, no group mocked (L, 2026-11-21).
+# Find these in the admin by typing 搞笑 (every one of them has "搞笑 带娃" in its label).
+code: JRUG
+label: 搞笑 带娃 · 为什么连环问
+title: "娃的十万个为什么，接不住了"
+caption: |
+  娃一天能问多少个为什么？我们数过，大概 300 个😂
+
+  🥛 为什么牛奶是白的，牛是黑白的？
+  🚦 为什么要等红灯？为什么危险？为什么车很快？为什么你不说话了？
+  🐟 小鱼会不会想妈妈？
+  😴 为什么我睡觉的时候，你们就不累了？
+
+  累是真的累，但每个问题都是她在认识这个世界❤️
+
+  你家娃最难回答的问题？评论区聊聊～
+  周末想带娃出门：浏览器搜索「小鹿出游 Allo Outings」，选你的城市。
+tags: [带娃日常, 搞笑, 萌娃, 育儿, 早教, 德国带娃, 亲子, 留德]
+cards:
+  - tone: gold
+    tag: "带娃日常 · 真实现场"
+    title: "十万个\n为什么\n接不住了"
+    big: true
+    lines:
+      - "三岁的娃，问题比搜索引擎还多。"
+    foot: "有娃的人都懂"
+  - tone: paper
+    tag: "早餐桌上"
+    title: "第一轮：为什么"
+    lines:
+      - "为什么天是蓝的？"
+      - "为什么牛奶是白的，牛是黑白的？"
+      - "为什么我不能吃一整盒巧克力当早饭？"
+  - tone: sky
+    tag: "路上"
+    title: "第二轮：追问"
+    rows:
+      - { when: "为什么要等红灯？", name: "因为危险" }
+      - { when: "为什么危险？", name: "因为车很快" }
+      - { when: "为什么车很快？", name: "因为……" }
+      - { when: "为什么你不说话了？", name: "因为在想" }
+  - tone: mint
+    tag: "睡前"
+    title: "第三轮：哲学"
+    lines:
+      - "我出生以前在哪里？"
+      - "小鱼会不会想妈妈？"
+      - "为什么我睡觉的时候，你们就不累了？"
+    note: "最后一个问题，我们假装没听见。"
+  - tone: rose
+    tag: "终极回合"
+    title: "我们的标准答案"
+    lines:
+      - "“你觉得呢？”"
+      - "“这个问题很好，明天我们一起查一查。”"
+      - "“去问另一个大人。”"
+    note: "第三个答案，家里两个大人都用过。"
+  - tone: gold
+    tag: "今日统计"
+    title: "一天 300 个为什么"
+    big: false
+    lines:
+      - "累是真的累，但每个问题都是她在认识这个世界。"
+    foot: "带娃日常 · 小鹿出游"
+  - tone: ink
+    tag: "评论区聊聊"
+    title: "你家娃最难回答的问题？"
+    lines:
+      - "写在评论区，大家一起想答案。"
+      - "周末想带娃出门，可以搜："
+    search: "小鹿出游 Allo Outings"
+video:
+  scenes:
+    - tone: gold
+      tag: "带娃日常 · 真实现场"
+      title: "十万个\n为什么\n接不住了"
+      hook: true
+      seconds: 3.5
+    - tone: ink
+      tag: "早餐桌上"
+      title: "第一轮：为什么"
+      items:
+        - { icon: "🥛", v: "为什么牛奶是白的？", s: "牛明明是黑白的" }
+        - { icon: "🍫", v: "为什么不能吃巧克力当早饭？" }
+    - tone: blue
+      tag: "路上"
+      title: "第二轮：追问"
+      items:
+        - { icon: "🚦", k: "为什么要等红灯？", v: "因为危险" }
+        - { icon: "🤔", k: "为什么你不说话了？", v: "因为在想" }
+    - tone: green
+      tag: "睡前"
+      title: "第三轮：哲学"
+      items:
+        - { icon: "🐟", v: "小鱼会不会想妈妈？" }
+        - { icon: "😴", v: "为什么我睡了你们就不累了？" }
+    - tone: red
+      tag: "终极回合"
+      title: "我们的标准答案"
+      items:
+        - { icon: "💡", v: "你觉得呢？" }
+        - { icon: "📚", v: "明天我们一起查一查" }
+    - tone: gold
+      tag: "今日统计"
+      title: "一天 300 个为什么"
+      big: "300"
+      lines:
+        - "累是真的累，但每个问题都是她在认识这个世界。"
+      seconds: 4.5
+    - tone: ink
+      tag: "评论区聊聊"
+      title: "你家娃最难回答的问题？"
+      lines: ["写在评论区"]
+      search: "小鹿出游 Allo Outings"

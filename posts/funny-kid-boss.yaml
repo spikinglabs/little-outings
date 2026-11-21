@@ -1,0 +1,113 @@
+# A funny parenting (搞笑带娃) post kept in stock, no date: 娃当老板指挥大人. The joke is on kid logic; parents
+# are "we" / "爸妈", no tired-mum or useless-dad roles, no body jokes, no group mocked (L, 2026-11-21).
+# Find these in the admin by typing 搞笑 (every one of them has "搞笑 带娃" in its label).
+code: 2TPU
+label: 搞笑 带娃 · 娃当老板指挥大人
+title: "家里来了一位小老板"
+caption: |
+  家里来了一位小老板：工资不发，要求很多，还不能辞职😂
+
+  🎬 “你当大灰狼，爸爸当小猪，我当导演。”
+  🐺 绩效考核：演大灰狼不够凶，重来
+  ⭐ 员工福利：一个贴纸，贴在额头上
+  😴 说好八点下班，八点半老板在沙发上睡着了
+
+  老板睡着前说：“你们是最好的员工。”值了❤️
+
+  你家小老板最常发什么指令？评论区聊聊～
+  周末想带娃出门：浏览器搜索「小鹿出游 Allo Outings」，选你的城市。
+tags: [带娃日常, 搞笑, 萌娃, 育儿, 亲子游戏, 德国带娃, 亲子, 留德]
+cards:
+  - tone: gold
+    tag: "带娃日常 · 真实现场"
+    title: "家里来了\n一位\n小老板"
+    big: true
+    lines:
+      - "工资不发，要求很多，还不能辞职。"
+    foot: "有娃的人都懂"
+  - tone: paper
+    tag: "工作安排"
+    title: "今天的任务"
+    lines:
+      - "“你当大灰狼，爸爸当小猪，我当导演。”"
+      - "“你坐这里，不对，坐那里。”"
+      - "“现在开始，谁也不许说话。”说完他自己先笑了。"
+  - tone: sky
+    tag: "绩效考核"
+    title: "老板的评价"
+    rows:
+      - { when: "演大灰狼", name: "不够凶，重来" }
+      - { when: "搭积木", name: "太慢了" }
+      - { when: "讲故事", name: "声音不对" }
+      - { when: "唱歌", name: "可以，再唱十遍" }
+  - tone: mint
+    tag: "员工福利"
+    title: "老板发的奖励"
+    lines:
+      - "一块咬过的饼干。"
+      - "一个贴纸，贴在额头上。"
+      - "“你今天表现很好，可以多陪我玩一会儿。”"
+  - tone: rose
+    tag: "下班时间"
+    title: "老板什么时候下班？"
+    lines:
+      - "说好八点下班。"
+      - "八点：“再玩一个游戏。”"
+      - "八点半：老板在沙发上睡着了。"
+  - tone: gold
+    tag: "员工心声"
+    title: "工资是一个拥抱"
+    big: false
+    lines:
+      - "老板睡着前说：“你们是最好的员工。”值了。"
+    foot: "带娃日常 · 小鹿出游"
+  - tone: ink
+    tag: "评论区聊聊"
+    title: "你家小老板最常发什么指令？"
+    lines:
+      - "写在评论区，看看谁家老板最难伺候。"
+      - "周末想带娃出门，可以搜："
+    search: "小鹿出游 Allo Outings"
+video:
+  scenes:
+    - tone: gold
+      tag: "带娃日常 · 真实现场"
+      title: "家里来了\n一位\n小老板"
+      hook: true
+      seconds: 3.5
+    - tone: ink
+      tag: "工作安排"
+      title: "今天的任务"
+      items:
+        - { icon: "🎬", v: "我当导演", s: "你当大灰狼" }
+        - { icon: "🪑", v: "你坐这里，不对，坐那里" }
+    - tone: blue
+      tag: "绩效考核"
+      title: "老板的评价"
+      items:
+        - { icon: "🐺", k: "演大灰狼", v: "不够凶，重来" }
+        - { icon: "🎤", k: "唱歌", v: "可以，再唱十遍" }
+    - tone: green
+      tag: "员工福利"
+      title: "老板发的奖励"
+      items:
+        - { icon: "🍪", v: "一块咬过的饼干" }
+        - { icon: "⭐", v: "一个贴纸", s: "贴在额头上" }
+    - tone: red
+      tag: "下班时间"
+      title: "老板什么时候下班？"
+      items:
+        - { icon: "🕗", v: "八点：再玩一个游戏" }
+        - { icon: "😴", v: "八点半", s: "老板在沙发上睡着了" }
+    - tone: gold
+      tag: "员工心声"
+      title: "工资是一个拥抱"
+      big: "值了"
+      lines:
+        - "老板睡着前说：“你们是最好的员工。”值了。"
+      seconds: 4.5
+    - tone: ink
+      tag: "评论区聊聊"
+      title: "你家小老板最常发什么指令？"
+      lines: ["写在评论区"]
+      search: "小鹿出游 Allo Outings"

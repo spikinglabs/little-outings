@@ -1,0 +1,113 @@
+# A funny parenting (搞笑带娃) post kept in stock, no date: 娃口袋里的宝藏. The joke is on kid logic; parents
+# are "we" / "爸妈", no tired-mum or useless-dad roles, no body jokes, no group mocked (L, 2026-11-21).
+# Find these in the admin by typing 搞笑 (every one of them has "搞笑 带娃" in its label).
+code: JJU3
+label: 搞笑 带娃 · 娃口袋里的宝藏
+title: "洗衣服前，先掏娃的口袋"
+caption: |
+  洗衣服前一定要先掏娃的口袋，别问我们怎么知道的😂
+
+  🌰 三颗栗子，一颗被咬过
+  🧾 一张超市小票，“是我的地图”
+  🪱 一条蚯蚓，还活着
+  🔑 爸爸找了三天的车钥匙，妈妈找了一周的耳机
+
+  最后我们给这些宝贝放了一个专门的盒子📦
+
+  你在娃口袋里掏到过什么？评论区聊聊～
+  周末想带娃出门：浏览器搜索「小鹿出游 Allo Outings」，选你的城市。
+tags: [带娃日常, 搞笑, 萌娃, 秋天遛娃, 育儿, 德国带娃, 亲子, 留德]
+cards:
+  - tone: gold
+    tag: "带娃日常 · 真实现场"
+    title: "洗衣服前\n先掏娃的\n口袋"
+    big: true
+    lines:
+      - "每个娃的口袋，都是一个小型博物馆。"
+    foot: "有娃的人都懂"
+  - tone: paper
+    tag: "大自然篇"
+    title: "公园带回来的"
+    lines:
+      - "三颗栗子，一颗被咬过。"
+      - "一块“长得像恐龙”的石头。"
+      - "很多很多沙子。"
+  - tone: sky
+    tag: "收藏篇"
+    title: "珍贵的宝贝"
+    lines:
+      - "一张超市小票，“是我的地图”。"
+      - "半块饼干，上周的。"
+      - "一个不知道哪来的乐高小人的头。"
+  - tone: mint
+    tag: "惊吓篇"
+    title: "掏到这些请冷静"
+    lines:
+      - "一条蚯蚓，还活着。"
+      - "爸爸找了三天的车钥匙。"
+      - "妈妈找了一周的耳机。"
+    note: "原来家里的东西都去这里了。"
+  - tone: rose
+    tag: "洗衣机篇"
+    title: "忘了掏的后果"
+    lines:
+      - "整个滚筒都是沙子。"
+      - "一张纸巾变成了一百张小纸片。"
+      - "石头在滚筒里敲了一个小时的鼓。"
+  - tone: gold
+    tag: "最后"
+    title: "全部扔掉？不行"
+    big: false
+    lines:
+      - "“那是我最好的石头！”我们最后给它们放了一个专门的盒子。"
+    foot: "带娃日常 · 小鹿出游"
+  - tone: ink
+    tag: "评论区聊聊"
+    title: "你在娃口袋里掏到过什么？"
+    lines:
+      - "写在评论区，看看谁家的最离谱。"
+      - "周末想带娃出门，可以搜："
+    search: "小鹿出游 Allo Outings"
+video:
+  scenes:
+    - tone: gold
+      tag: "带娃日常 · 真实现场"
+      title: "洗衣服前\n先掏娃的\n口袋"
+      hook: true
+      seconds: 3.5
+    - tone: ink
+      tag: "大自然篇"
+      title: "公园带回来的"
+      items:
+        - { icon: "🌰", v: "三颗栗子", s: "一颗被咬过" }
+        - { icon: "🪨", v: "一块像恐龙的石头" }
+    - tone: blue
+      tag: "收藏篇"
+      title: "珍贵的宝贝"
+      items:
+        - { icon: "🧾", v: "一张超市小票", s: "是我的地图" }
+        - { icon: "🍪", v: "半块饼干", s: "上周的" }
+    - tone: green
+      tag: "惊吓篇"
+      title: "掏到这些请冷静"
+      items:
+        - { icon: "🪱", v: "一条蚯蚓", s: "还活着" }
+        - { icon: "🔑", v: "找了三天的车钥匙" }
+    - tone: red
+      tag: "洗衣机篇"
+      title: "忘了掏的后果"
+      items:
+        - { icon: "🌀", v: "整个滚筒都是沙子" }
+        - { icon: "🥁", v: "石头敲了一个小时的鼓" }
+    - tone: gold
+      tag: "最后"
+      title: "全部扔掉？不行"
+      big: "📦"
+      lines:
+        - "“那是我最好的石头！”我们最后给它们放了一个专门的盒子。"
+      seconds: 4.5
+    - tone: ink
+      tag: "评论区聊聊"
+      title: "你在娃口袋里掏到过什么？"
+      lines: ["写在评论区"]
+      search: "小鹿出游 Allo Outings"

@@ -1,0 +1,112 @@
+# A funny parenting (搞笑带娃) post kept in stock, no date: 带娃坐火车. The joke is on kid logic; parents
+# are "we" / "爸妈", no tired-mum or useless-dad roles, no body jokes, no group mocked (L, 2026-11-21).
+# Find these in the admin by typing 搞笑 (every one of them has "搞笑 带娃" in its label).
+code: 2VN5
+label: 搞笑 带娃 · 带娃坐火车
+title: "带娃坐火车，娃最开心"
+caption: |
+  带娃坐火车：大人担心晚点，娃最开心🚆
+
+  🎉 火车晚点了，娃：“太好了，可以多看一会儿火车！”
+  🍪 前二十分钟吃完了带的所有零食
+  🐄 数窗外的牛：“第一百零七头！”
+  😴 下车前五分钟睡着了
+
+  大人在看时刻表，娃在看全世界🚂
+
+  你家娃坐火车有什么趣事？评论区聊聊～
+  周末想带娃出门：浏览器搜索「小鹿出游 Allo Outings」，选你的城市。
+tags: [带娃日常, 搞笑, 萌娃, 带娃出行, 德国火车, 德国带娃, 亲子, 留德]
+cards:
+  - tone: gold
+    tag: "出行日常 · 真实现场"
+    title: "带娃\n坐火车\n娃最开心"
+    big: true
+    lines:
+      - "大人担心晚点，娃担心火车开得太快。"
+    foot: "有娃的人都懂"
+  - tone: paper
+    tag: "站台"
+    title: "等车的时候"
+    lines:
+      - "每来一辆火车都要喊：“火车来了！”"
+      - "包括不停的那种。"
+      - "我们的火车晚点了，娃：“太好了，可以多看一会儿火车！”"
+  - tone: sky
+    tag: "车上"
+    title: "前二十分钟"
+    lines:
+      - "要坐窗边。"
+      - "要去看厕所。"
+      - "要吃完带的所有零食。"
+  - tone: mint
+    tag: "车上"
+    title: "剩下的两个小时"
+    lines:
+      - "跟对面的奶奶聊天，介绍了全家的情况。"
+      - "数窗外的牛：“第一百零七头！”"
+      - "在车厢里交了三个新朋友。"
+  - tone: rose
+    tag: "到站"
+    title: "下车的时候"
+    lines:
+      - "“我们还能再坐一次吗？”"
+      - "睡着了，在下车前五分钟。"
+      - "大人一人背娃，一人拿四个包。"
+  - tone: gold
+    tag: "结论"
+    title: "火车上最开心的乘客"
+    big: false
+    lines:
+      - "大人在看时刻表，娃在看全世界。"
+    foot: "带娃日常 · 小鹿出游"
+  - tone: ink
+    tag: "评论区聊聊"
+    title: "你家娃坐火车有什么趣事？"
+    lines:
+      - "写在评论区，一起分享。"
+      - "周末想带娃出门，可以搜："
+    search: "小鹿出游 Allo Outings"
+video:
+  scenes:
+    - tone: gold
+      tag: "出行日常 · 真实现场"
+      title: "带娃\n坐火车\n娃最开心"
+      hook: true
+      seconds: 3.5
+    - tone: ink
+      tag: "站台"
+      title: "等车的时候"
+      items:
+        - { icon: "🚆", v: "火车来了！", s: "包括不停的" }
+        - { icon: "🎉", v: "晚点了？", s: "太好了，多看一会儿" }
+    - tone: blue
+      tag: "车上"
+      title: "前二十分钟"
+      items:
+        - { icon: "🪟", v: "要坐窗边" }
+        - { icon: "🍪", v: "要吃完所有零食", s: "前二十分钟" }
+    - tone: green
+      tag: "车上"
+      title: "剩下的两个小时"
+      items:
+        - { icon: "👵", v: "跟对面的奶奶聊天", s: "介绍了全家的情况" }
+        - { icon: "🐄", v: "数窗外的牛", s: "第一百零七头！" }
+    - tone: red
+      tag: "到站"
+      title: "下车的时候"
+      items:
+        - { icon: "🔁", v: "还能再坐一次吗？" }
+        - { icon: "😴", v: "下车前五分钟", s: "睡着了" }
+    - tone: gold
+      tag: "结论"
+      title: "火车上最开心的乘客"
+      big: "🚂"
+      lines:
+        - "大人在看时刻表，娃在看全世界。"
+      seconds: 4.5
+    - tone: ink
+      tag: "评论区聊聊"
+      title: "你家娃坐火车有什么趣事？"
+      lines: ["写在评论区"]
+      search: "小鹿出游 Allo Outings"

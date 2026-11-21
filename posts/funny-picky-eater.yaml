@@ -1,0 +1,114 @@
+# A funny parenting (搞笑带娃) post kept in stock, no date: 吃饭斗智斗勇. The joke is on kid logic; parents
+# are "we" / "爸妈", no tired-mum or useless-dad roles, no body jokes, no group mocked (L, 2026-11-21).
+# Find these in the admin by typing 搞笑 (every one of them has "搞笑 带娃" in its label).
+code: 9WY4
+label: 搞笑 带娃 · 吃饭斗智斗勇
+title: "跟娃吃饭，是一场谈判"
+caption: |
+  每顿饭都是一场外交谈判，我们很少赢😂
+
+  🥦 不要绿色的东西，米饭和菜不能碰在一起
+  🤝 说好吃五口，成交价三口，实际一口半
+  🏫 家里的西兰花不吃，Kita 的西兰花吃了两份
+  🍦 刚说吃饱了，看到冰淇淋突然有了甜品胃
+
+  不过只要他开心地吃了一口新东西，我们就算赢❤️
+
+  你家娃有什么吃饭怪规矩？评论区聊聊～
+  周末想带娃出门：浏览器搜索「小鹿出游 Allo Outings」，选你的城市。
+tags: [带娃日常, 搞笑, 萌娃, 宝宝辅食, 育儿, 德国带娃, 亲子, 留德]
+cards:
+  - tone: gold
+    tag: "吃饭日常 · 真实现场"
+    title: "跟娃吃饭\n是一场\n谈判"
+    big: true
+    lines:
+      - "每顿饭都是一场外交谈判，我们很少赢。"
+    foot: "有娃的人都懂"
+  - tone: paper
+    tag: "开场"
+    title: "菜还没上，先提要求"
+    lines:
+      - "不要绿色的东西。"
+      - "米饭和菜不能碰在一起。"
+      - "要用那个有小熊的碗，不是那个有小熊的碗，是另一个。"
+  - tone: sky
+    tag: "谈判"
+    title: "吃几口？"
+    rows:
+      - { when: "我们说", name: "吃五口" }
+      - { when: "娃说", name: "吃两口" }
+      - { when: "成交价", name: "三口，小口的" }
+      - { when: "实际", name: "一口半" }
+  - tone: mint
+    tag: "神秘现象"
+    title: "同样的菜"
+    lines:
+      - "家里做的西兰花：不吃。"
+      - "Kita 的西兰花：吃了两份。"
+      - "邻居小朋友碗里的西兰花：抢着吃。"
+    note: "我们已经不想知道为什么了。"
+  - tone: rose
+    tag: "饭后"
+    title: "说不饿的人"
+    lines:
+      - "刚说吃饱了，看到冰淇淋，突然又有一个“甜品胃”。"
+      - "大人吃饭时，他饿了，要吃大人碗里的。"
+      - "收完桌子十分钟后：我饿了。"
+  - tone: gold
+    tag: "结论"
+    title: "饭吃得少，戏很多"
+    big: false
+    lines:
+      - "不过只要他开心地吃了一口新东西，我们就算赢。"
+    foot: "带娃日常 · 小鹿出游"
+  - tone: ink
+    tag: "评论区聊聊"
+    title: "你家娃有什么吃饭怪规矩？"
+    lines:
+      - "写在评论区，看看谁家规矩最多。"
+      - "周末想带娃出门，可以搜："
+    search: "小鹿出游 Allo Outings"
+video:
+  scenes:
+    - tone: gold
+      tag: "吃饭日常 · 真实现场"
+      title: "跟娃吃饭\n是一场\n谈判"
+      hook: true
+      seconds: 3.5
+    - tone: ink
+      tag: "开场"
+      title: "菜还没上，先提要求"
+      items:
+        - { icon: "🥦", v: "不要绿色的东西" }
+        - { icon: "🍚", v: "米饭和菜不能碰在一起" }
+    - tone: blue
+      tag: "谈判"
+      title: "吃几口？"
+      items:
+        - { icon: "🤝", k: "我们说", v: "吃五口" }
+        - { icon: "😏", k: "实际", v: "一口半" }
+    - tone: green
+      tag: "神秘现象"
+      title: "同样的菜"
+      items:
+        - { icon: "🏠", v: "家里的西兰花：不吃" }
+        - { icon: "🏫", v: "Kita 的西兰花：两份" }
+    - tone: red
+      tag: "饭后"
+      title: "说不饿的人"
+      items:
+        - { icon: "🍦", v: "吃饱了，但还有甜品胃" }
+        - { icon: "⏰", v: "收完桌子十分钟后", s: "我饿了" }
+    - tone: gold
+      tag: "结论"
+      title: "饭吃得少，戏很多"
+      big: "赢了！"
+      lines:
+        - "不过只要他开心地吃了一口新东西，我们就算赢。"
+      seconds: 4.5
+    - tone: ink
+      tag: "评论区聊聊"
+      title: "你家娃有什么吃饭怪规矩？"
+      lines: ["写在评论区"]
+      search: "小鹿出游 Allo Outings"

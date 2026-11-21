@@ -1,0 +1,111 @@
+# A funny parenting (搞笑带娃) post kept in stock, no date: 德国冬天带娃. The joke is on kid logic; parents
+# are "we" / "爸妈", no tired-mum or useless-dad roles, no body jokes, no group mocked (L, 2026-11-21).
+# Find these in the admin by typing 搞笑 (every one of them has "搞笑 带娃" in its label).
+code: FRX9
+label: 搞笑 带娃 · 德国冬天带娃
+title: "德国冬天带娃，下午四点天就黑"
+caption: |
+  德国冬天带娃，下午四点天就黑了，主要靠意志力😂
+
+  🧥 雪服帽子围巾手套雪靴，穿完说要上厕所
+  🌃 “现在是晚上了吗？”才四点半
+  🛷 雪只有两厘米，雪橇滑得很认真
+  🏰 雨天在家，沙发变成了城堡
+
+  好消息：圣诞市场开了🎄 想找冬天的室内去处：浏览器搜索「小鹿出游 Allo Outings」。
+
+  你家冬天带娃去哪？评论区聊聊～
+tags: [带娃日常, 搞笑, 萌娃, 德国冬天, 德国生活, 德国带娃, 亲子, 留德]
+cards:
+  - tone: gold
+    tag: "德国带娃 · 冬天"
+    title: "德国冬天\n带娃\n四点天就黑"
+    big: true
+    lines:
+      - "冬天带娃，主要靠意志力和一条好的连体服。"
+    foot: "有娃的人都懂"
+  - tone: paper
+    tag: "穿衣"
+    title: "出门前的仪式"
+    lines:
+      - "连体雪服、帽子、围巾、手套、雪靴。"
+      - "穿完十五分钟，娃说要上厕所。"
+      - "全部脱掉，再来一遍。"
+  - tone: sky
+    tag: "天黑"
+    title: "下午四点"
+    lines:
+      - "“现在是晚上了吗？可以睡觉了吗？”"
+      - "不是，才四点半。"
+      - "但这句话娃从来不会在晚上八点说。"
+  - tone: mint
+    tag: "下雪"
+    title: "终于下雪了"
+    lines:
+      - "德国很多地方一个冬天就下一两次。"
+      - "下雪那天：全城的小朋友都在同一个小山坡上。"
+      - "雪只有两厘米，雪橇滑得很认真。"
+  - tone: rose
+    tag: "室内"
+    title: "雨天去哪"
+    lines:
+      - "室内游乐场：整个城市的娃都在这里。"
+      - "图书馆：安静了五分钟。"
+      - "家里：沙发变成了城堡。"
+  - tone: gold
+    tag: "好消息"
+    title: "圣诞市场开了"
+    big: false
+    lines:
+      - "热的苹果汁，亮晶晶的灯，冬天也没那么难熬。"
+    foot: "带娃日常 · 小鹿出游"
+  - tone: ink
+    tag: "评论区聊聊"
+    title: "你家冬天带娃去哪？"
+    lines:
+      - "写在评论区，给大家分享好去处。"
+      - "周末想带娃出门，可以搜："
+    search: "小鹿出游 Allo Outings"
+video:
+  scenes:
+    - tone: gold
+      tag: "德国带娃 · 冬天"
+      title: "德国冬天\n带娃\n四点天就黑"
+      hook: true
+      seconds: 3.5
+    - tone: ink
+      tag: "穿衣"
+      title: "出门前的仪式"
+      items:
+        - { icon: "🧥", v: "雪服帽子围巾手套雪靴" }
+        - { icon: "🚽", v: "穿完说要上厕所", s: "全部再来一遍" }
+    - tone: blue
+      tag: "天黑"
+      title: "下午四点"
+      items:
+        - { icon: "🌃", v: "现在是晚上了吗？", s: "才四点半" }
+        - { icon: "🤔", v: "但晚上八点从来不说" }
+    - tone: green
+      tag: "下雪"
+      title: "终于下雪了"
+      items:
+        - { icon: "❄️", v: "一个冬天就下一两次" }
+        - { icon: "🛷", v: "雪只有两厘米", s: "雪橇滑得很认真" }
+    - tone: red
+      tag: "室内"
+      title: "雨天去哪"
+      items:
+        - { icon: "🏰", v: "沙发变成了城堡" }
+        - { icon: "📚", v: "图书馆", s: "安静了五分钟" }
+    - tone: gold
+      tag: "好消息"
+      title: "圣诞市场开了"
+      big: "🎄"
+      lines:
+        - "热的苹果汁，亮晶晶的灯，冬天也没那么难熬。"
+      seconds: 4.5
+    - tone: ink
+      tag: "评论区聊聊"
+      title: "你家冬天带娃去哪？"
+      lines: ["写在评论区"]
+      search: "小鹿出游 Allo Outings"

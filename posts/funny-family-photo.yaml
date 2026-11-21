@@ -1,0 +1,113 @@
+# A funny parenting (搞笑带娃) post kept in stock, no date: 想拍全家福. The joke is on kid logic; parents
+# are "we" / "爸妈", no tired-mum or useless-dad roles, no body jokes, no group mocked (L, 2026-11-21).
+# Find these in the admin by typing 搞笑 (every one of them has "搞笑 带娃" in its label).
+code: N9TU
+label: 搞笑 带娃 · 想拍全家福
+title: "想给娃拍张好照片，太难了"
+caption: |
+  想给娃拍张好照片：拍了三百张，能用的一张，还是糊的😂
+
+  ✌️ “笑一个！”比了剪刀手，闭着眼睛
+  🙈 相册里都是鬼脸和后脑勺
+  🐕 全家福：娃在哭、爸爸闭眼、妈妈在擦脸、狗跑进来
+  🍦 最好的那张：娃吃冰淇淋吃得满脸都是，所有人都在笑
+
+  最好的照片不用摆拍，抓到真实的一秒就够了📸
+
+  晒一晒你家最搞笑的照片？评论区聊聊～
+  周末想带娃出门：浏览器搜索「小鹿出游 Allo Outings」，选你的城市。
+tags: [带娃日常, 搞笑, 萌娃, 亲子摄影, 育儿, 德国带娃, 亲子, 留德]
+cards:
+  - tone: gold
+    tag: "带娃日常 · 真实现场"
+    title: "想给娃\n拍张好照片\n太难了"
+    big: true
+    lines:
+      - "拍了三百张，能用的有一张，还是糊的。"
+    foot: "有娃的人都懂"
+  - tone: paper
+    tag: "准备"
+    title: "说好的配合"
+    lines:
+      - "“看镜头，笑一个！”"
+      - "娃：比了一个剪刀手，闭着眼睛。"
+      - "再来：转身跑了。"
+  - tone: sky
+    tag: "表情包"
+    title: "相册里都是这些"
+    lines:
+      - "做鬼脸的。"
+      - "只拍到一个后脑勺的。"
+      - "鼻涕和笑容同时出现的。"
+  - tone: mint
+    tag: "全家福"
+    title: "四个人，总有一个"
+    rows:
+      - { when: "第 1 张", name: "娃在哭" }
+      - { when: "第 2 张", name: "爸爸闭眼" }
+      - { when: "第 3 张", name: "妈妈在擦娃的脸" }
+      - { when: "第 4 张", name: "狗跑进来了" }
+  - tone: rose
+    tag: "意外"
+    title: "最好的那张"
+    lines:
+      - "不是摆拍的。"
+      - "是娃在吃冰淇淋，吃得满脸都是。"
+      - "所有人都在笑。"
+  - tone: gold
+    tag: "结论"
+    title: "最好的照片不用摆拍"
+    big: false
+    lines:
+      - "抓到真实的一秒，就是最好的全家福。"
+    foot: "带娃日常 · 小鹿出游"
+  - tone: ink
+    tag: "评论区聊聊"
+    title: "晒一晒你家最搞笑的照片？"
+    lines:
+      - "或者在评论区描述一下，我们来想象。"
+      - "周末想带娃出门，可以搜："
+    search: "小鹿出游 Allo Outings"
+video:
+  scenes:
+    - tone: gold
+      tag: "带娃日常 · 真实现场"
+      title: "想给娃\n拍张好照片\n太难了"
+      hook: true
+      seconds: 3.5
+    - tone: ink
+      tag: "准备"
+      title: "说好的配合"
+      items:
+        - { icon: "📸", v: "看镜头，笑一个！" }
+        - { icon: "✌️", v: "剪刀手，闭着眼睛" }
+    - tone: blue
+      tag: "表情包"
+      title: "相册里都是这些"
+      items:
+        - { icon: "😜", v: "做鬼脸的" }
+        - { icon: "🙈", v: "只拍到后脑勺的" }
+    - tone: green
+      tag: "全家福"
+      title: "四个人，总有一个"
+      items:
+        - { icon: "😭", k: "第 1 张", v: "娃在哭" }
+        - { icon: "🐕", k: "第 4 张", v: "狗跑进来了" }
+    - tone: red
+      tag: "意外"
+      title: "最好的那张"
+      items:
+        - { icon: "🍦", v: "吃冰淇淋吃得满脸都是" }
+        - { icon: "😂", v: "所有人都在笑" }
+    - tone: gold
+      tag: "结论"
+      title: "最好的照片不用摆拍"
+      big: "咔嚓"
+      lines:
+        - "抓到真实的一秒，就是最好的全家福。"
+      seconds: 4.5
+    - tone: ink
+      tag: "评论区聊聊"
+      title: "晒一晒你家最搞笑的照片？"
+      lines: ["写在评论区"]
+      search: "小鹿出游 Allo Outings"
