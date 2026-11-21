@@ -9,7 +9,9 @@
 //
 // Each post becomes <code>/<id>-<n>.png per card and <code>/post.json (code, id, title, caption with its
 // hashtags, until, pictures, video, updated), written last so the panel never lists a post whose pictures are missing.
-import { mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+// A card with `picture: <file>` is a ready-made 1080×1440 PNG in posts/pictures/ (e.g. a chart drawn elsewhere),
+// copied as it is; its title is still required and names it in the video made from the cards.
+import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { basename, join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import { load } from "js-yaml";
@@ -22,6 +24,20 @@ const ID = /^[a-z0-9][a-z0-9-]*$/;
 
 /** video: the scenes of its short video (src/lib/video.ts); without it the video is made from the cards. */
 export interface PostFile extends SetFile { id: string; video?: VideoSpec }
+
+/** Where a card's ready-made picture lives. */
+export const pictureFile = (dir: string, name: string) => join(dir, "pictures", name);
+
+/** Problems with a card's ready-made picture: it must be a PNG of 1080×1440 in posts/pictures/. */
+export function checkPicture(dir: string, name: unknown): string[] {
+  if (typeof name !== "string" || !/^[a-z0-9][a-z0-9-]*\.png$/.test(name)) return [`picture ${name} must be a lowercase .png file name`];
+  const file = pictureFile(dir, name);
+  if (!existsSync(file)) return [`picture ${name} is not in ${dir}/pictures/`];
+  const b = readFileSync(file);
+  if (b.toString("latin1", 1, 4) !== "PNG") return [`picture ${name} is not a PNG`];
+  const w = b.readUInt32BE(16), h = b.readUInt32BE(20);
+  return w === 1080 && h === 1440 ? [] : [`picture ${name} is ${w}×${h}; cards are 1080×1440`];
+}
 
 /** A post's video scenes: its own `video:` block, or its cards. Christmas posts get falling snow. */
 export function postVideo(p: PostFile): VideoSpec {
@@ -49,6 +65,10 @@ export function checkPosts(posts: PostFile[]): string[] {
     }
     for (const problem of checkSetFile(p)) out.push(`${p.id}: ${problem}`);
     if (p.video !== undefined) for (const problem of checkVideo(p.video)) out.push(`${p.id}: ${problem}`);
+    for (const [i, c] of (p.cards ?? []).entries()) {
+      const pic = (c as { picture?: unknown }).picture;
+      if (pic !== undefined) for (const problem of checkPicture(DIR, pic)) out.push(`${p.id}: card ${i + 1}: ${problem}`);
+    }
   }
   return out;
 }
@@ -90,7 +110,11 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     const dir = join(out, String(p.code));
     mkdirSync(dir, { recursive: true });
     const set = fileSet(p.id, p);
-    set.sheets.forEach((s, i) => writeFileSync(join(dir, `${p.id}-${i + 1}.png`), renderPng(sheetSvg(s, `${i + 1}/${set.sheets.length}`), fonts)));
+    set.sheets.forEach((s, i) => {
+      const to = join(dir, `${p.id}-${i + 1}.png`), pic = (s as { picture?: string }).picture;
+      if (pic) copyFileSync(pictureFile(DIR, pic), to);
+      else writeFileSync(to, renderPng(sheetSvg(s, `${i + 1}/${set.sheets.length}`), fonts));
+    });
     // The video, for posts still running: about 1.5 s of recording per second of video.
     let video: string | undefined;
     if (process.env.VIDEO && !(p.until && String(p.until) < updated.slice(0, 10))) {

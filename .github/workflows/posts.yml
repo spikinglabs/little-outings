@@ -39,7 +39,7 @@ jobs:
           # new branch, or when started by hand.
           if [ "$GITHUB_EVENT_NAME" = push ] && [ -n "$BEFORE" ] && ! echo "$BEFORE" | grep -qE '^0+$' \
             && git cat-file -e "$BEFORE^{commit}" 2>/dev/null \
-            && git diff --quiet "$BEFORE" HEAD -- scripts/posts.mts scripts/video.mjs src/lib/sheet.ts src/lib/rednote.ts src/lib/video.ts; then
+            && git diff --quiet "$BEFORE" HEAD -- scripts/posts.mts scripts/video.mjs src/lib/sheet.ts src/lib/rednote.ts src/lib/video.ts posts/pictures; then
             files=$(git diff --name-only --diff-filter=AMR "$BEFORE" HEAD -- 'posts/*.yaml' | tr '\n' ' ')
           else
             files=$(ls posts/*.yaml | tr '\n' ' ')
