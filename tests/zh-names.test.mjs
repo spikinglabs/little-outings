@@ -20,7 +20,7 @@ test("every prompt that writes Chinese keeps German place names", () => {
 
 test("posts and season notes use the German names", () => {
   const files = [
-    ...readdirSync("posts").filter((f) => f.endsWith(".yaml")).map((f) => join("posts", f)),
+    ...readdirSync("tests/fixtures/posts").map((f) => join("tests/fixtures/posts", f)),
     ...readdirSync("content/seasons").flatMap((d) => readdirSync(join("content/seasons", d)).map((f) => join("content/seasons", d, f))),
   ];
   for (const f of files) {

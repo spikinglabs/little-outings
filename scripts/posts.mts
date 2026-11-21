@@ -1,7 +1,9 @@
 // Hand-written Rednote topic posts (posts/<id>.yaml): checks them, then draws each one's cards for the
-// admin's Posts panel, which opens a post by its code. Run by .github/workflows/posts.yml on every push that
-// touches posts/, which uploads what this writes to the admin's bucket (little-outings/posts/<code>/…).
-// So a new post needs no site deploy, and it shows in the admin a few minutes after the push.
+// admin's Posts panel, which opens a post by its code. The posts live on their own branch, `rednote-posts`,
+// not on main (L, 2026-11-21: no pull request per post, and changing the drawing code doesn't redraw old posts).
+// .github/workflows/posts.yml runs on every push to that branch, copies its posts/ into a checkout of main,
+// draws only the posts the push changed and uploads them to the admin's bucket (little-outings/posts/<code>/…).
+// So a new post needs no site deploy or merge, and it shows in the admin a few minutes after the push.
 //
 //   node scripts/posts.mts [out dir] [posts/a.yaml …]   draw the named posts (default: all) into <out>/<code>/
 //   node scripts/posts.mts --check                     only check every post
@@ -18,6 +20,7 @@ import { load } from "js-yaml";
 import { checkSetFile, fileSet, POST_CODE, type SetFile } from "../src/lib/rednote.ts";
 import { sheetSvg } from "../src/lib/sheet.ts";
 import { checkVideo, scenesFromCards, videoPage, type VideoSpec } from "../src/lib/video.ts";
+import { TRANSLATED_NAMES } from "../src/lib/zh-names.ts";
 
 export const DIR = "posts";
 const ID = /^[a-z0-9][a-z0-9-]*$/;
@@ -45,14 +48,31 @@ export function postVideo(p: PostFile): VideoSpec {
   return { snow: /圣诞|Weihnacht|Advent/i.test(`${p.title} ${p.id}`), scenes: scenesFromCards(p.cards) };
 }
 
-/** Every post in posts/, by file name. */
+/** Every post in posts/, by file name (none on main, where posts/ is not checked in). */
 export function readPosts(dir = DIR): PostFile[] {
+  if (!existsSync(dir)) return [];
   return readdirSync(dir).filter((f) => f.endsWith(".yaml")).sort()
     .map((f) => ({ ...(load(readFileSync(join(dir, f), "utf8")) as SetFile), id: f.replace(/\.yaml$/, "") }));
 }
 
+/** House rules for what a post says, checked here so the rednote-posts branch keeps them without main's tests. */
+export function checkContent(p: PostFile): string[] {
+  const out: string[] = [];
+  const caption = fileSet(p.id, p).caption;
+  // Our own tag first and once; mums and dads alike.
+  if (!/\n#小鹿出游 #/.test(caption) || caption.split("#小鹿出游").length !== 2) out.push("caption must end in the hashtags with #小鹿出游 first, once");
+  if (caption.includes("#德国妈妈") !== caption.includes("#德国爸爸")) out.push("caption needs both #德国妈妈 and #德国爸爸, or neither");
+  // German place names stay German (L, 2026-11-13).
+  const text = JSON.stringify([p.caption, p.cards, p.video ?? null]);
+  for (const name of TRANSLATED_NAMES) if (text.includes(name)) out.push(`says ${name}; keep the German name`);
+  // The video: 10 to 60 seconds.
+  const { duration } = videoPage(postVideo(p), { regular: "", bold: "" });
+  if (duration < 10 || duration > 60) out.push(`video runs ${duration} s; give it a video: block of 10 to 60 s`);
+  return out;
+}
+
 /** Problems across all posts: each file's own, plus a missing or shared code. */
-export function checkPosts(posts: PostFile[]): string[] {
+export function checkPosts(posts: PostFile[], dir = DIR): string[] {
   const out: string[] = [];
   const seen = new Map<string, string>();
   for (const p of posts) {
@@ -67,8 +87,9 @@ export function checkPosts(posts: PostFile[]): string[] {
     if (p.video !== undefined) for (const problem of checkVideo(p.video)) out.push(`${p.id}: ${problem}`);
     for (const [i, c] of (p.cards ?? []).entries()) {
       const pic = (c as { picture?: unknown }).picture;
-      if (pic !== undefined) for (const problem of checkPicture(DIR, pic)) out.push(`${p.id}: card ${i + 1}: ${problem}`);
+      if (pic !== undefined) for (const problem of checkPicture(dir, pic)) out.push(`${p.id}: card ${i + 1}: ${problem}`);
     }
+    for (const problem of checkContent(p)) out.push(`${p.id}: ${problem}`);
   }
   return out;
 }

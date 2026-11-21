@@ -6,7 +6,7 @@ import { checkVideo, scenesFromCards, timeline, videoPage } from "../src/lib/vid
 const fonts = { regular: "file:///r.ttf", bold: "file:///b.ttf" };
 
 test("every post makes a video of a sensible length", () => {
-  for (const p of readPosts()) {
+  for (const p of readPosts("tests/fixtures/posts")) {
     const { duration, html } = videoPage(postVideo(p), fonts);
     assert.ok(duration >= 10 && duration <= 60, `${p.code}: ${duration} s`);
     assert.match(html, /window\.render = render/);
@@ -14,7 +14,7 @@ test("every post makes a video of a sensible length", () => {
 });
 
 test("the Frankfurt post keeps the sample's scenes, about half a minute", () => {
-  const p = readPosts().find((p) => p.code === "FA5E")!;
+  const p = readPosts("tests/fixtures/posts").find((p) => p.code === "FA5E")!;
   assert.ok(p.video, "has its own video block");
   const v = postVideo(p);
   assert.equal(v.snow, true);
@@ -55,12 +55,12 @@ test("a broken video block fails the check", () => {
   assert.match(checkVideo({ scenes: [{ tone: "pink", title: "x" }] })[0], /tone must be one of/);
   assert.match(checkVideo({ scenes: [{ tone: "red" }] })[0], /nothing to show/);
   assert.match(checkVideo({ scenes: [{ vote: [{ letter: "G", name: "x" }] }] })[0], /A to F/);
-  const p = { ...readPosts()[0], video: { scenes: [] } };
+  const p = { ...readPosts("tests/fixtures/posts")[0], video: { scenes: [] } };
   assert.ok(checkPosts([p]).some((m) => m.includes("video: needs scenes")));
 });
 
 test("post.json names the video only when there is one", () => {
-  const p = readPosts()[0];
+  const p = readPosts("tests/fixtures/posts")[0];
   assert.equal(postJson(p, "2026-11-13T10:00:00Z").video, undefined);
   assert.equal(postJson(p, "2026-11-13T10:00:00Z", `${p.id}.mp4`).video, `${p.id}.mp4`);
 });
