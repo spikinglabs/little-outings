@@ -669,7 +669,7 @@ assistant:
     review: "Nothing you send appears until we've checked it."
   covers:
     h: What's covered
-    p: "Events for the next two weeks around Cologne, Düsseldorf, Bonn, Aachen, Essen and the Bergisches Land, and in Berlin, Munich, Frankfurt and Hamburg, plus places like playgrounds, pools, farms, zoos and museums there. It's the same information as on the site, in German, English or Chinese. Times and prices come from the organisers and can change, so check the page before you go."
+    p: "Events for the next two weeks around Cologne, Düsseldorf, Bonn, Aachen, Essen and the Bergisches Land, and in Berlin, Munich, Frankfurt, Hamburg and Stuttgart, plus places like playgrounds, pools, farms, zoos and museums there. It's the same information as on the site, in German, English or Chinese. Times and prices come from the organisers and can change, so check the page before you go."
   trouble:
     h: If something doesn't work
     t1: "The assistant doesn't use it: check the connector is switched on for the chat, or mention “Allo Outings” in your question."

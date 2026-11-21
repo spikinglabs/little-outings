@@ -7,7 +7,7 @@ import { writeFileSync } from "node:fs";
 
 export const OUT = "data/school-holidays.json";
 // The states of the towns in content/regions (each town's `state`, or its region's).
-const STATES = ["NW", "BE", "BY", "HE", "HH"];
+const STATES = ["NW", "BE", "BY", "HE", "HH", "BW"];
 
 const DAY = 864e5;
 /**

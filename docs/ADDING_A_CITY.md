@@ -1,7 +1,7 @@
 # Adding a city
 
 A city touches three repos. With this list it is about two hours of work plus one night of runs.
-Berlin, Munich, Frankfurt, Hamburg and Düsseldorf were added this way (little-outings PRs 70, 73, 74;
+Berlin, Munich, Frankfurt, Hamburg, Düsseldorf and Stuttgart were added this way (little-outings PRs 70, 73, 74;
 cityklub-event-data PRs 9, 16, 17, 20). Do the steps in order: each one feeds the next.
 
 ## 0. Pick the city

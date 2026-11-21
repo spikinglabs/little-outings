@@ -669,7 +669,7 @@ assistant:
     review: "Was du schickst, erscheint erst, wenn wir es geprüft haben."
   covers:
     h: Was drin ist
-    p: "Termine für die nächsten zwei Wochen rund um Köln, Düsseldorf, Bonn, Aachen, Essen und im Bergischen Land sowie in Berlin, München, Frankfurt und Hamburg, dazu Orte wie Spielplätze, Bäder, Höfe, Zoos und Museen dort. Es sind dieselben Infos wie auf der Seite, auf Deutsch, Englisch oder Chinesisch. Zeiten und Preise kommen von den Veranstaltern und können sich ändern, schau also vorher auf die Seite."
+    p: "Termine für die nächsten zwei Wochen rund um Köln, Düsseldorf, Bonn, Aachen, Essen und im Bergischen Land sowie in Berlin, München, Frankfurt, Hamburg und Stuttgart, dazu Orte wie Spielplätze, Bäder, Höfe, Zoos und Museen dort. Es sind dieselben Infos wie auf der Seite, auf Deutsch, Englisch oder Chinesisch. Zeiten und Preise kommen von den Veranstaltern und können sich ändern, schau also vorher auf die Seite."
   trouble:
     h: Wenn etwas nicht klappt
     t1: "Der Assistent nutzt es nicht: Prüf, ob der Connector für den Chat eingeschaltet ist, oder nenne „Allo Outings“ in deiner Frage."

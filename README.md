@@ -50,7 +50,7 @@ Stadt bekannt", shaded circle), `unknown` (not listed or mapped; only a task).
 ## Weekend edition
 
 Every town in `WEEKEND_TOWNS` (`src/lib/weekend.ts`: Köln, Bonn, Düsseldorf, Berlin, München,
-Frankfurt, Hamburg) gets five picks plus one place each weekend; a town with fewer than three family
+Frankfurt, Hamburg, Essen, Aachen, Stuttgart) gets five picks plus one place each weekend; a town with fewer than three family
 events that weekend skips it at `/<lang>/wochenende/<town>/`, with a print sheet (`…/druck/`), an RSS
 feed (`…/rss.xml`) and short links (`/w/koeln`, `public/_redirects`). `scripts/weekend-edition.mjs`
 runs in the nightly Translate workflow: on Thursday it drafts the picks (plain score, then the AI
