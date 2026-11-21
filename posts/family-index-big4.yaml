@@ -5,6 +5,8 @@
 # History (find a post by its code: grep -l "code: W7KB" posts/):
 # - 2026-11-21 L asked for a family-friendly index; only the four big cities; per person/child/family views;
 #   the "doable without German" event metric removed; then asked to add it to the admin's Posts panel.
+# - L asked for the numbers behind every score, then for one picture with all items' data and scores: card 7 is
+#   that picture, drawn by project files family-index/v2/rednote_big4_detail_zh.py.
 code: W7KB
 title: 德国四大城市哪个最适合带娃？
 until: 2026-12-31
@@ -83,25 +85,9 @@ cards:
       - – 房租负担最重：90 平房租约占家庭平均收入 75%
       - – 学校分数最低，失业率最高
   - tone: paper
-    tag: 各项分数 · 1/2
-    title: 每一项打几分？
-    rows:
-      - { when: "托育", name: "科隆 64 · 柏林 62 · 汉堡 62 · 慕尼黑 51" }
-      - { when: "房租负担", name: "汉堡 19 · 科隆 18 · 慕尼黑 2 · 柏林 2" }
-      - { when: "学校", name: "慕尼黑 89 · 科隆 86 · 汉堡 79 · 柏林 67" }
-      - { when: "儿科医生", name: "科隆 35 · 慕尼黑 28 · 汉堡 27 · 柏林 26" }
-      - { when: "安全", name: "慕尼黑 82 · 汉堡 39 · 柏林 31 · 科隆 16" }
-    note: 106 个德国城市里比，满分 100。
-  - tone: paper
-    tag: 各项分数 · 2/2
-    title: 每一项打几分？
-    rows:
-      - { when: "绿地", name: "汉堡 16 · 科隆 16 · 柏林 8 · 慕尼黑 4" }
-      - { when: "工作", name: "慕尼黑 93 · 汉堡 52 · 科隆 36 · 柏林 29" }
-      - { when: "亲子活动", name: "科隆 69 · 慕尼黑 50 · 汉堡 22 · 柏林 14" }
-      - { when: "遛娃去处", name: "柏林 97 · 慕尼黑 67 · 汉堡 64 · 科隆 42" }
-      - { when: "换尿布", name: "柏林 100 · 汉堡 89 · 慕尼黑 78 · 科隆 67" }
-    note: 后 3 项是 10 个城市里的名次分。
+    tag: 细节数据
+    title: 四大城市每一项打几分？
+    picture: family-index-big4-detail.png
   - tone: sky
     tag: 托育 · 占 25%
     title: 入托率
