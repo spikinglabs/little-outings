@@ -172,8 +172,12 @@ export const codesOf = (ed: Edition, codes = ed.picks.map((_, i) => codeOf(ed.sl
 
 // ---------- hand-written sets ----------
 
-/** posts/<id>.yaml. `code`: POST_CODE, what the admin's Posts panel searches for; `until`: the last day it is listed. */
-export interface SetFile { code?: string; title: string; caption: string; tags?: string[]; until?: string; cards: Sheet[] }
+/**
+ * posts/<id>.yaml. `code`: POST_CODE, what the admin's Posts panel searches for; `until`: the last day it is listed;
+ * `label`: the admin's own name for the post, shown after its code and searched, never posted (L, 2026-11-21: fixed
+ * words such as "搞笑 带娃" in it find a kind of post later; the Rednote title stays `title`).
+ */
+export interface SetFile { code?: string; label?: string; title: string; caption: string; tags?: string[]; until?: string; cards: Sheet[] }
 
 /** A post's code: four letters or digits without the look-alikes 0/O, 1/I/L, easy to type on a phone. */
 export const POST_CODE = /^[A-HJKMNP-Z2-9]{4}$/;
@@ -186,6 +190,7 @@ export function fileSet(id: string, f: SetFile): XhsSet {
 export function checkSetFile(f: SetFile): string[] {
   const out: string[] = [];
   if (f.code !== undefined && !POST_CODE.test(String(f.code))) out.push(`code ${f.code} must be 4 letters or digits, without 0, O, 1, I or L`);
+  if (f.label !== undefined && (typeof f.label !== "string" || !f.label.trim())) out.push("label must be text");
   if ([...(f.title ?? "")].length > 20) out.push(`title has ${[...f.title].length} characters; Rednote allows 20`);
   if (!f.caption?.trim()) out.push("caption is empty");
   if (/https?:|www\.|\.de\b|\.com\b|allo\.land/i.test(`${f.caption} ${JSON.stringify(f.cards)}`)) out.push("contains a link; Rednote punishes those");
