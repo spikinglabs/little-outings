@@ -1,0 +1,16 @@
+# Suggested by a parent (inbox #36), approved in the admin.
+# Edit here to fix it.
+kind: cafe
+name: "Playcafé Heerlen"
+address: { street: "Zandweg 179, 6419 PK Heerlen, Netherlands", town: "Heerlen" }
+facilities:
+  playground: { status: "yes", confirmed: 1 }
+  changing_table: { status: "yes", confirmed: 1 }
+  highchairs: { status: "yes", confirmed: 1 }
+  kids_menu: { status: "yes", confirmed: 1 }
+  stroller_friendly: { status: "yes", confirmed: 1 }
+  indoor_play: { status: "yes", confirmed: 1 }
+website: "https://www.playcafeheerlen.nl/"
+by: "Allo.Land"
+by_id: "d5cb00e5"
+trust: { level: community }
