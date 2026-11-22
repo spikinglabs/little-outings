@@ -6,10 +6,6 @@
   "venue": "Klangbrücke Altes Kurhaus",
   "street": "Kurhausstraße 2"
  },
- "https://altes-kurhaus-aachen.de/veranstaltung/in-front-festival-2026-8164-trickster-orchester/": {
-  "venue": "Klangbrücke Altes Kurhaus",
-  "street": "Kurhausstraße 2"
- },
  "https://centre-charlemagne.eu/termin/25-km-industriegeschiche-die-juelicher-strasse-11/2026-12-06/": {
   "venue": "Centre Charlemagne"
  },
@@ -107,14 +103,6 @@
  },
  "https://couven-museum.de/event/zwischen-oeffentlichkeit-und-privatheit-portraits-im-couven-museum/": {
   "venue": "Couven-Museum"
- },
- "https://events.timely.fun/ewx8j2kb/event/78461289/20260926140000": {
-  "venue": null,
-  "guess": {
-   "venue": "KJW Pasinger Fabrik @ 1 August-Exter-Straße, München, Bayern, 81245, Deutschland",
-   "why": "The Werkstattgalerie is an exhibition space run by Kultur & Spielraum e.V. at the Kinder- und Jugendkulturwerkstatt in the Pasinger Fabrik."
-  },
-  "read": 3
  },
  "https://events.timely.fun/ewx8j2kb/event/78461314/20261111150000": {
   "venue": null,
@@ -322,10 +310,6 @@
  "https://koelnerkarneval.de/session/veranstaltungen/veranstaltung/jecke-paenz-famillich": {
   "venue": "Offene Schule Köln"
  },
- "https://koelnerkarneval.de/session/veranstaltungen/veranstaltung/jung-un-jeck-revival": {
-  "venue": "Josef-Barten-Halle (Schützenheim Dünnwald)",
-  "street": "Berliner Straße/Dünnwalder Mauspfad 437"
- },
  "https://koelnerkarneval.de/session/veranstaltungen/veranstaltung/kajuhu-puute-sitzung-2": {
   "venue": "Gesamtschule Holweide",
   "street": "Burgwiesenstraße 125"
@@ -396,10 +380,6 @@
  },
  "https://koelnerkarneval.de/session/veranstaltungen/veranstaltung/spill-oem-jan-un-griet-1": {
   "venue": "Chlodwigplatz"
- },
- "https://koelnerkarneval.de/session/veranstaltungen/veranstaltung/stage-foer-paenz": {
-  "venue": "Sartory",
-  "street": "Friesenstraße 44-48"
  },
  "https://koelnerkarneval.de/session/veranstaltungen/veranstaltung/tribuenen-schull-un-veedelszoech-2026": {
   "venue": null,
@@ -805,10 +785,6 @@
   "venue": "Papiermuseum Düren",
   "street": "Wallstraße 2-8"
  },
- "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/groer-buecherflohmarkt-des-foerdervereins-fuer-die-stadtbuecherei-24-01-2026_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy": {
-  "venue": "Stadtbücherei Düren",
-  "street": "Stefan-Schwer-Straße 4-6"
- },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/groer-buecherflohmarkt-des-foerdervereins-fuer-die-stadtbuecherei-24-01-2026_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy": {
   "venue": "Stadtbücherei Düren",
   "street": "Stefan-Schwer-Straße 4-6"
@@ -851,10 +827,6 @@
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/kreative-familienzeit-mit-mustermalkunst-familienkurs-fuer-familien-mit-neurodivergenten-kindern-13-05-2027": {
   "venue": "Volkshochschule Rur-Eifel",
   "street": "Violengasse 2"
- },
- "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/leben-lieben-lachen-und-klauen-an-der-lagune": {
-  "venue": "Theater Düren im Haus der Stadt",
-  "street": "Stefan-Schwer-Straße 4-6"
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/lieder-unseres-lebens": {
   "venue": "Haus der Stadt",
@@ -906,10 +878,6 @@
   "street": "Arnoldsweilerstraße 38"
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/rundgang-gruenguertel": {
-  "venue": "Sitzbänke vor dem Haus Grüngürtel Nr. 31",
-  "street": "Grüngürtel Nr. 31"
- },
- "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/rundgang-gruenguertel-zusatztermin_copy": {
   "venue": "Sitzbänke vor dem Haus Grüngürtel Nr. 31",
   "street": "Grüngürtel Nr. 31"
  },
