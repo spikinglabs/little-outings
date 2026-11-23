@@ -1,5 +1,7 @@
 // City alerts panel: what the nightly AI kept from city-anomalies' official notices. Confirm puts one on the
 // site (that town's Discover and weekend pages), Drop hides it here, Undo takes a confirmed one off. Talks to /api/alerts.
+import { passesFilter, sizeOf } from "./alert-filter.js";
+
 const $ = (id) => document.getElementById(id);
 const esc = (value) =>
   String(value ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
@@ -8,7 +10,33 @@ const dayFmt = new Intl.DateTimeFormat("en-GB", { weekday: "short", day: "numeri
 const LANGS = { zh: "Chinese", de: "German", en: "English" };
 const TYPES = { demonstration: "Demonstration", march: "March", police_operation: "Police operation", closure: "Closure", strike: "Strike", evacuation: "Evacuation", crowd_event: "Big crowd event", other: "Other" };
 
+const SIZES = { few: "Under 100", hundreds: "Hundreds", thousands: "Thousands", huge: "10,000+" };
+const IMPACTS = { none: "No effect on getting around", spot: "One street or square", area: "Several streets", city: "City-wide" };
+// Hides small and harmless ones by default; your choice is kept in this browser.
+const FILTER_KEY = "outings-admin-alert-filter";
+const DEFAULT_FILTER = { size: "hundreds", impact: "spot", unknown: true };
+
 let items = [], etag = null;
+let filter = readFilter();
+
+function readFilter() {
+  try { return { ...DEFAULT_FILTER, ...JSON.parse(localStorage.getItem(FILTER_KEY) || "{}") }; } catch { return { ...DEFAULT_FILTER }; }
+}
+
+function showFilter() {
+  const form = $("alerts-filter");
+  form.size.value = filter.size;
+  form.impact.value = filter.impact;
+  form.unknown.checked = filter.unknown;
+}
+
+$("alerts-filter").addEventListener("change", () => {
+  const form = $("alerts-filter");
+  filter = { size: form.size.value, impact: form.impact.value, unknown: form.unknown.checked };
+  try { localStorage.setItem(FILTER_KEY, JSON.stringify(filter)); } catch { /* not kept, still works */ }
+  render();
+});
+$("alerts-filter").addEventListener("submit", (ev) => ev.preventDefault());
 
 async function load() {
   try {
@@ -34,17 +62,22 @@ const when = (it) => [it.day ? dayFmt.format(new Date(`${it.day}T12:00:00Z`)) : 
   it.until ? `– ${dayFmt.format(new Date(`${it.until}T12:00:00Z`))}` : "", it.from ? `${it.from}${it.to ? `–${it.to}` : ""}` : ""].filter(Boolean).join(" ");
 
 function render() {
-  const open = items.filter((it) => it.status !== "confirmed").length;
+  const shown = items.filter((it) => passesFilter(it, filter));
+  const open = shown.filter((it) => it.status !== "confirmed").length;
+  const hidden = items.length - shown.length;
   $("alerts-count").textContent = open ? String(open) : "";
+  $("alerts-hidden").textContent = hidden ? `${hidden} hidden by the filter` : "";
   const box = $("alerts");
-  if (!items.length) {
-    box.innerHTML = `<li class="sub">Nothing to check. New notices come with the nightly run.</li>`;
+  if (!shown.length) {
+    box.innerHTML = `<li class="sub">${items.length ? "Nothing passes the filter." : "Nothing to check."} New notices come with the nightly run.</li>`;
     return;
   }
-  box.innerHTML = items.map((it) => `
+  box.innerHTML = shown.map((it) => `
     <li class="alert-item" data-id="${esc(it.id)}">
       <div><b>${esc(it.city)} · ${esc(when(it))}</b>
         ${it.type ? `<span class="badge edited">${esc(TYPES[it.type] ?? it.type)}</span>` : ""}
+        ${it.expected ? `<span class="badge">${esc(SIZES[sizeOf(it.expected)])}</span>` : it.size ? `<span class="badge">${esc(SIZES[it.size] ?? it.size)} (AI estimate)</span>` : ""}
+        ${it.impact ? `<span class="badge">${esc(IMPACTS[it.impact] ?? it.impact)}</span>` : ""}
         <span class="badge ${it.status === "confirmed" ? "cleared" : "out"}">${it.status === "confirmed" ? "on the site" : `AI: ${esc(it.verdict)}`}</span></div>
       <div class="sub"><a href="${esc(it.url)}" target="_blank" rel="noopener">${esc(it.title)}</a>${it.where ? ` · ${esc(it.where)}` : ""}</div>
       <div class="alert-when">
@@ -97,4 +130,5 @@ document.addEventListener("click", (ev) => {
   if (btn) decide(btn.closest("li"), btn.dataset.act);
 });
 
+showFilter();
 load();

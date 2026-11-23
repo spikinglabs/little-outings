@@ -5,7 +5,7 @@
 // the earlier verdicts the workflow downloaded from the Allo Outings bucket. Two steps per new alert:
 //   1. screen: the model reads the facts of many at once and keeps the few that could matter to families;
 //   2. detail: for each kept one it reads the official page (a police release) and writes the day, times,
-//      type, expected size, route, affected lines, and per language a short line, the background and the key points.
+//      type, expected size, size class and effect on getting around, route, affected lines, and per language a short line, the background and the key points.
 // Writes
 //   ALERTS_DIR/alerts.json  every verdict, uploaded back to the bucket so the admin's "City alerts" panel lists them
 //   data/alerts.json        the alerts someone confirmed in the admin (alert-decisions.json) that are not over yet
@@ -20,7 +20,7 @@ import { complete, pickLlm } from "../src/lib/llm.ts";
 import { ZH_NAMES } from "../src/lib/zh-names.ts";
 import { eachLimit } from "../src/lib/pool.ts";
 import { pageText } from "./find-venues.mjs";
-import { confirmedAlerts } from "../admin/lib/alerts.js";
+import { confirmedAlerts, IMPACTS, SIZES, sizeOf } from "../admin/lib/alerts.js";
 
 const DIR = process.env.ALERTS_DIR || ".cache/outings";
 const PUBLISHED = process.env.ALERTS_FILE || "data/alerts.json";
@@ -33,7 +33,7 @@ const RECENT = 10; // days: a release without a date counts while it is this fre
 const PAGE_MAX = 6000; // characters of the official page the model reads
 
 /** Bump when the rules below change: every stored alert from an older version is asked again (your decisions stay). */
-export const PROMPT_VERSION = 2;
+export const PROMPT_VERSION = 3;
 
 export const SCREEN = `You help "Allo Outings", a website where parents in Germany find outings with their children.
 You get a JSON list of city notices from official sources: police press releases, the list of registered assemblies, transit notices. Most are German.
@@ -51,12 +51,16 @@ Answer with only JSON:
  "day": "YYYY-MM-DD", "until": "YYYY-MM-DD" (only if it lasts several days), "from": "HH:MM", "to": "HH:MM",
  "where": "meeting point or place", "route": "the march route, streets in order", "expected": 15000,
  "lines": ["KVB 1", "KVB 7"],
+ "size": "few" | "hundreds" | "thousands" | "huge" | "unknown",
+ "impact": "none" | "spot" | "area" | "city",
  "line": {"de": "…", "en": "…", "zh": "…"},
  "about": {"de": "…", "en": "…", "zh": "…"},
  "points": {"de": ["…"], "en": ["…"], "zh": ["…"]}}
 - "relevant": "yes" if parents out with children that day should know (crowds, closures, diverted trams and buses, police operations), "no" if not after all.
 - "type": a march moves along a route; a demonstration or rally stays in one place.
 - day, from, to, where, route, expected (the number of people the organisers registered or the police expect), lines (bus, tram and train lines named as affected): only what the notice or page says; leave a key out when it doesn't say. Never guess a number.
+- size: how many people take part. When "expected" is known, the class it falls in: few (under 100), hundreds (100 to 999), thousands (1,000 to 9,999), huge (10,000 or more). Without a number, your best estimate from the kind of event, the title, the place and the route (a daily vigil or info stand is "few"; a march along a route through the centre is at least "hundreds"; a city-wide strike or a big annual march is "thousands" or "huge"); "unknown" only when you really can't tell.
+- impact: how much it changes getting around for a family that day: "none" (nothing noticeable, e.g. a vigil on a pavement or in a park corner), "spot" (one square, street or station entrance busy or closed), "area" (several streets or a march route closed, tram or bus lines diverted, a district affected), "city" (city-wide: a transit strike, many closures at once, a huge crowd event).
 - line: one sentence, at most 140 characters: what happens, where, and what it means for getting around.
 - about: one or two sentences, at most 240 characters, on the background: what the event is about or why it happens, and who organises it when the page names an organisation (never private persons), as the page states it.
 - points: up to 4 short items, at most 140 characters each, with the concrete facts a parent needs: closed streets, squares and bridges, diverted or stopped lines and stops, other events the same day that the police mention, when it is expected to end. Only what the page says.
@@ -148,6 +152,8 @@ export function parseDetail(text) {
     ...(clip(a.route, 300) ? { route: clip(a.route, 300) } : {}),
     ...(expected ? { expected } : {}),
     ...(lines.length ? { lines } : {}),
+    ...(expected ? { size: sizeOf(expected) } : SIZES.includes(a.size) ? { size: a.size } : {}),
+    ...(IMPACTS.includes(a.impact) ? { impact: a.impact } : {}),
     line,
     ...(about ? { about } : {}),
     ...(points ? { points } : {}),
@@ -222,6 +228,8 @@ export function itemOf(rec, verdict, found, now) {
     ...(found?.type ? { type: found.type } : {}),
     ...(found?.expected ? { expected: found.expected } : {}),
     ...(found?.lines ? { lines: found.lines } : {}),
+    ...(found?.size ? { size: found.size } : {}),
+    ...(found?.impact ? { impact: found.impact } : {}),
     verdict: found ? found.relevant : verdict,
     ...(found?.line ? { line: found.line } : {}),
     ...(found?.about ? { about: found.about } : {}),
