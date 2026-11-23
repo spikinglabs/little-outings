@@ -1,0 +1,108 @@
+# A Rednote (小红书) explainer: car child safety locks (汽车童锁): why they matter, the kinds, the first patent,
+# and a question that invites parents' own stories. No car brand named anywhere (L: 我们不涉及品牌), so the
+# carmaker said to be first to fit rear child locks is left out on purpose.
+# History (find a post by its code: grep -l "code: KS4D" posts/):
+# - 2026-11-23 L: "做一期跟汽车童锁有关的小红书帖子，讲一下重要性，种类，发明人，历史等等", "信息要准确",
+#   "后面要吸引大家评论，让大家有什么故事，讨论自己家的车". Written with these sources:
+#   - Patent US 2,629,246 "Safety door latch", Joseph M. Schumann, Inglewood, Calif.; filed 1949-03-07, granted
+#     1953-02-24: https://patents.google.com/patent/US2629246A/en . Its text: "a child alone in the rear seat can
+#     readily raise the button and then unlatch the door while the vehicle is in motion." (Wikipedia's
+#     "patented 7 June 1949" does not match the patent, so the post gives the patent's own dates.)
+#     Said "最早的童锁专利之一", not "the first": no source proves nothing came earlier.
+#   - UN ECE Regulation No. 11, para 2.7 (German text, umwelt-online.de): Kindersicherung = a lock engaged and
+#     released on its own that stops the inner door handle from working.
+#   - ADAC "Elektrischer Fensterheber: Gefahr für Kinder" (2019-04-26): closing force up to 300 N, up to 30 kg on
+#     a child's hand or head; Kinderschutz-Schalter at the driver's door for the rear windows; Einklemmschutz;
+#     tennis ball test; don't leave children alone in the car, take the key.
+#   - Door lock and rear window lock are separate settings in some cars (owners' manuals; no brand named).
+#   Left out as unconfirmed: which year carmakers first fitted rear child locks, and whether EU law requires them.
+code: KS4D
+label: 汽车童锁 · 种类 发明 小故事
+title: 后门从里面打不开？那是童锁
+caption: |
+  坐后排拉门把手，门却打不开？多半是童锁开着。这个小开关，是为了防止孩子在车里自己开门🚗
+
+  ① 为什么重要：童锁打开后，后门只能从车外打开。车窗关闭时的力量最高约 300 牛顿，压在小手上相当于约 30 公斤（ADAC）。
+  ② 机械童锁：在后门侧边，关上门就看不到；用钥匙或拨片切换，左右门要分别设。
+  ③ 电子童锁：驾驶座车门上的按键，或车机菜单里的选项。
+  ④ 车窗锁：驾驶座上锁住后排车窗开关的按键。有的车门锁和窗锁是两项设置，要分别打开。
+  ⑤ 发明：1949-03-07，美国加州 Inglewood 的 Joseph M. Schumann 申请了“安全车门锁”专利，1953 年获批（US 2,629,246），是最早的童锁专利之一。专利里写的就是：孩子独自坐后排，车开着时也可能自己打开车门。
+
+  小提醒：孩子上车前看一眼童锁；不要把孩子单独留在车里，下车拔走钥匙（ADAC）。防夹功能可以用网球测试，别用手。
+
+  💬 你有没有被童锁“关”在后排过？你家车的童锁是哪种？评论区说说你的小故事。
+tags: [汽车童锁, 儿童安全, 带娃出行, 德国带娃, 德国生活, 德国妈妈, 德国爸爸, 留德, 育儿]
+cards:
+  - tone: red
+    tag: 带娃出行 · 安全
+    title: "后门\n从里面\n打不开？"
+    big: true
+    lines:
+      - 那是童锁：防止孩子在车里自己开门。
+      - 最后一张：说说你家的童锁故事！
+    foot: 汽车童锁 · 种类和来历
+  - tone: paper
+    tag: 为什么重要
+    title: 一个小开关，很关键
+    lines:
+      - 童锁开着，后门只能从车外打开。
+      - 车窗关闭力最高约 300 牛顿。
+      - 压在小手上，相当于约 30 公斤。
+    foot: 数据来源：ADAC
+  - tone: sky
+    tag: 种类一
+    title: 机械童锁
+    lines:
+      - 在后门侧边，关上门就看不到。
+      - 用钥匙或拨片切换。
+      - 左右两扇门要分别设置。
+  - tone: mint
+    tag: 种类二
+    title: 电子童锁
+    lines:
+      - 驾驶座车门上的一个按键，
+      - 或者在车机菜单里。
+      - 一按就锁住后排车门。
+  - tone: rose
+    tag: 种类三
+    title: 车窗锁
+    lines:
+      - 驾驶座上锁住后排车窗开关。
+      - 有的车门锁和窗锁是两项设置。
+      - 两个都要开，才算锁好。
+  - tone: gold
+    tag: 谁发明的？
+    title: 1949 年的专利
+    big: false
+    lines:
+      - 美国加州的 Joseph M. Schumann
+      - 1949-03-07 申请“安全车门锁”专利。
+      - 1953 年获批，是最早的童锁专利之一。
+  - tone: paper
+    tag: 专利里写了什么
+    title: 怕孩子自己开门
+    lines:
+      - 孩子独自坐后排，
+      - 车开着时也可能拔起按钮、打开车门。
+      - 今天的童锁，解决的还是这件事。
+    foot: 来源：美国专利 US 2,629,246
+  - tone: green
+    tag: 小提醒
+    title: 出门前看一眼
+    lines:
+      - 孩子上车前，确认童锁和窗锁开着。
+      - 不把孩子单独留在车里，下车拔钥匙。
+      - 测试防夹功能用网球，别用手。
+    foot: 建议来源：ADAC
+  - tone: ink
+    title: 你有童锁小故事吗？
+    lines:
+      - 评论区留字母，再说说你的故事。
+    rows:
+      - { when: "A", name: 我被童锁关在后排过 }
+      - { when: "B", name: 我家是门边的机械童锁 }
+      - { when: "C", name: 我家是驾驶座按键 }
+      - { when: "D", name: 我家在车机菜单里 }
+      - { when: "E", name: 还没找到在哪 }
+    search: 小鹿出游 Allo Outings
+    foot: 带娃出行，搜索后看你的城市
