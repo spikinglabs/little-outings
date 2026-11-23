@@ -15,7 +15,11 @@
 #     a child's hand or head; Kinderschutz-Schalter at the driver's door for the rear windows; Einklemmschutz;
 #     tennis ball test; don't leave children alone in the car, take the key.
 #   - Door lock and rear window lock are separate settings in some cars (owners' manuals; no brand named).
+#   - Central locking vs child lock: owners' manuals and German car sites say a locked door often opens by pulling
+#     the inside handle (rear doors: some need two pulls); said "很多车上", not every car.
 #   Left out as unconfirmed: which year carmakers first fitted rear child locks, and whether EU law requires them.
+# - 2026-11-23 L: "说一下不同锁的区别和真正的童锁是什么，并且解释并不是所有的车都有电子童锁": added the
+#   real child lock (UN R11), not every car has an electric one, central lock and window lock compared, 4-lock table.
 code: KS4D
 label: 汽车童锁 · 种类 发明 小故事
 title: 后门从里面打不开？那是童锁
@@ -23,10 +27,11 @@ caption: |
   坐后排拉门把手，门却打不开？多半是童锁开着。这个小开关，是为了防止孩子在车里自己开门🚗
 
   ① 为什么重要：童锁打开后，后门只能从车外打开。车窗关闭时的力量最高约 300 牛顿，压在小手上相当于约 30 公斤（ADAC）。
-  ② 机械童锁：在后门侧边，关上门就看不到；用钥匙或拨片切换，左右门要分别设。
-  ③ 电子童锁：驾驶座车门上的按键，或车机菜单里的选项。
-  ④ 车窗锁：驾驶座上锁住后排车窗开关的按键。有的车门锁和窗锁是两项设置，要分别打开。
-  ⑤ 发明：1949-03-07，美国加州 Inglewood 的 Joseph M. Schumann 申请了“安全车门锁”专利，1953 年获批（US 2,629,246），是最早的童锁专利之一。专利里写的就是：孩子独自坐后排，车开着时也可能自己打开车门。
+  ② 真正的童锁：一个单独开关的锁，锁上后，后门在车里的门把手不起作用，只能从车外开（联合国 UN R11 车门锁法规里的定义）。
+  ③ 两种开法：机械童锁在后门侧边，关上门就看不到，用钥匙或拨片切换，左右门分别设；电子童锁是驾驶座车门上的按键或车机菜单。作用一样。
+  ④ 不是每辆车都有电子童锁：很多车只有门边的机械童锁。驾驶座有车窗锁按键，不代表有电子童锁，不确定就看车主手册。
+  ⑤ 容易混：中控锁是一起锁门，很多车锁着时从里面拉门把手也能开（有的要拉两下），拦不住孩子；车窗锁只锁后排车窗开关，门照样能开。
+  ⑥ 发明：1949-03-07，美国加州 Inglewood 的 Joseph M. Schumann 申请了“安全车门锁”专利，1953 年获批（US 2,629,246），是最早的童锁专利之一。专利里写的就是：孩子独自坐后排，车开着时也可能自己打开车门。
 
   小提醒：孩子上车前看一眼童锁；不要把孩子单独留在车里，下车拔走钥匙（ADAC）。防夹功能可以用网球测试，别用手。
 
@@ -50,41 +55,58 @@ cards:
       - 压在小手上，相当于约 30 公斤。
     foot: 数据来源：ADAC
   - tone: sky
-    tag: 种类一
-    title: 机械童锁
+    tag: 真正的童锁
+    title: 只管后门的门把手
     lines:
-      - 在后门侧边，关上门就看不到。
-      - 用钥匙或拨片切换。
-      - 左右两扇门要分别设置。
+      - 法规里的童锁：一个单独开关的锁。
+      - 锁上后，后门在车里的门把手不起作用。
+      - 门只能由大人从车外打开。
+    foot: 定义来源：联合国 UN R11 车门锁法规
   - tone: mint
-    tag: 种类二
-    title: 电子童锁
-    lines:
-      - 驾驶座车门上的一个按键，
-      - 或者在车机菜单里。
-      - 一按就锁住后排车门。
+    tag: 童锁的两种开法
+    title: 机械的，电子的
+    rows:
+      - { when: "机械", name: 后门侧边的小拨片或钥匙槽，关门就看不到 }
+      - { when: "电子", name: 驾驶座车门的按键，或车机菜单 }
+      - { when: "作用", name: 一样：后门从里面打不开 }
   - tone: rose
-    tag: 种类三
-    title: 车窗锁
+    tag: 注意
+    title: 不是每辆车都有电子童锁
     lines:
-      - 驾驶座上锁住后排车窗开关。
-      - 有的车门锁和窗锁是两项设置。
-      - 两个都要开，才算锁好。
+      - 很多车只有门边的机械童锁。
+      - 驾驶座有窗锁按键，不代表有电子童锁。
+      - 不确定：看车主手册，或打开后门看侧边。
+  - tone: paper
+    tag: 容易混的 1
+    title: 中控锁不是童锁
+    lines:
+      - 中控锁：一起锁上所有车门。
+      - 很多车锁着也能从里面拉开，
+      - 有的要拉两下。
+      - 所以它拦不住孩子。
+  - tone: sky
+    tag: 容易混的 2
+    title: 车窗锁不是童锁
+    lines:
+      - 只锁后排的车窗开关，门照样能开。
+      - 有的电子童锁会顺带锁车窗，
+      - 有的要分别设，两个都开才算锁好。
   - tone: gold
+    tag: 一张图分清
+    title: 别再搞混了
+    big: false
+    rows:
+      - { when: "童锁", name: 后门从里面打不开 }
+      - { when: "中控锁", name: 一起锁门，里面多半能开 }
+      - { when: "车窗锁", name: 只锁后排车窗开关 }
+      - { when: "防夹", name: 车窗碰到阻力会停下 }
+  - tone: paper
     tag: 谁发明的？
     title: 1949 年的专利
-    big: false
     lines:
-      - 美国加州的 Joseph M. Schumann
-      - 1949-03-07 申请“安全车门锁”专利。
-      - 1953 年获批，是最早的童锁专利之一。
-  - tone: paper
-    tag: 专利里写了什么
-    title: 怕孩子自己开门
-    lines:
-      - 孩子独自坐后排，
-      - 车开着时也可能拔起按钮、打开车门。
-      - 今天的童锁，解决的还是这件事。
+      - 美国加州的 Joseph M. Schumann 1949-03-07 申请，1953 年获批。
+      - 专利里写：孩子独自坐后排，车开着时也可能自己打开车门。
+      - 这是最早的童锁专利之一。
     foot: 来源：美国专利 US 2,629,246
   - tone: green
     tag: 小提醒
