@@ -67,6 +67,22 @@
         <h2>City alerts <span class="badge out" id="alerts-count"></span></h2>
         <p>Rare things in a big city that parents should know before they go out: big demos and marches, evacuations, transit strikes. Every night the AI reads the official notices collected by city-anomalies and keeps the ones that could matter to families. Check the line in each language (facts only, no reassurance), fix the day or time if needed, and press Confirm: it shows as "Good to know" on that town's Discover and weekend pages a few minutes later, until its day is over, and a Rednote poster set for it (three cards and a caption, in Chinese) appears in the Rednote panel. <span id="alerts-when"></span></p>
       </div>
+      <form class="filters alert-filter" id="alerts-filter">
+        <label>People <select name="size">
+          <option value="">Any number</option>
+          <option value="hundreds">100 or more</option>
+          <option value="thousands">1,000 or more</option>
+          <option value="huge">10,000 or more</option>
+        </select></label>
+        <label>Effect on getting around <select name="impact">
+          <option value="">Any, even none</option>
+          <option value="spot">At least one street or square</option>
+          <option value="area">Several streets, diverted lines</option>
+          <option value="city">City-wide</option>
+        </select></label>
+        <label class="check"><input type="checkbox" name="unknown" checked> Show ones the AI couldn't rate</label>
+        <span class="sub" id="alerts-hidden"></span>
+      </form>
       <div class="banner" id="alerts-banner" hidden></div>
       <ol class="alerts-list" id="alerts"></ol>
     </section>

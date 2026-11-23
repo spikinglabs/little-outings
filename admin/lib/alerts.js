@@ -6,6 +6,8 @@
 // Like candidates and decisions, each file has one writer, so the nightly run never undoes a click.
 // Plain JS: the admin, the script and the tests share it.
 
+export { IMPACTS, passesFilter, SIZES, sizeOf } from "../public/alert-filter.js";
+
 /** A per-language field with your changes laid over the AI's, or nothing when neither has it. */
 const lang = (it, d, key) => (it[key] || d[key] ? { [key]: { ...it[key], ...d[key] } } : {});
 

@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { alertsToCheck, applyAlertDecision, confirmedAlerts } from "../admin/lib/alerts.js";
+import { alertsToCheck, applyAlertDecision, confirmedAlerts, passesFilter, sizeOf } from "../admin/lib/alerts.js";
 import { detail, describe, itemOf, ownPage, PROMPT_VERSION, parseDetail, parseScreen, prune, screen, toCheck } from "../scripts/check-alerts.mjs";
 
 const TODAY = "2026-10-30";
@@ -141,4 +141,31 @@ test("the site gets the facts, and your edits to them win", () => {
   assert.deepEqual(shown.points.zh, ["要点1", "要点2"]);
   assert.deepEqual(shown.points.de, ["P1"]);
   assert.throws(() => applyAlertDecision(rich, null, { id: "a", status: "confirmed", expected: "lots" }, user), /whole number/);
+});
+
+test("the detail step rates size and effect; a known number sets the size", () => {
+  const found = parseDetail(JSON.stringify({ relevant: "yes", size: "few", impact: "area", expected: 2500, line: lines }));
+  assert.equal(found.size, "thousands"); // the number wins over the class
+  assert.equal(found.impact, "area");
+  const guessed = parseDetail(JSON.stringify({ relevant: "yes", size: "hundreds", impact: "huge", line: lines }));
+  assert.equal(guessed.size, "hundreds");
+  assert.equal(guessed.impact, undefined); // not a level
+  assert.equal(parseDetail(JSON.stringify({ relevant: "yes", size: "unknown", line: lines })).size, undefined);
+  const item = itemOf(march, "yes", found, "t");
+  assert.deepEqual([item.size, item.impact], ["thousands", "area"]);
+});
+
+test("the admin filter hides small and harmless alerts, never confirmed ones", () => {
+  const f = { size: "hundreds", impact: "spot", unknown: true };
+  assert.equal(passesFilter({ size: "few", impact: "area" }, f), false);
+  assert.equal(passesFilter({ size: "hundreds", impact: "none" }, f), false);
+  assert.equal(passesFilter({ size: "thousands", impact: "spot" }, f), true);
+  assert.equal(passesFilter({ size: "few", impact: "none", expected: 5000 }, f), false, "still no effect");
+  assert.equal(passesFilter({ size: "few", impact: "area", expected: 5000 }, f), true, "your number wins over the AI's class");
+  assert.equal(passesFilter({}, f), true, "not rated yet: shown");
+  assert.equal(passesFilter({}, { ...f, unknown: false }), false);
+  assert.equal(passesFilter({ size: "few", impact: "none", status: "confirmed" }, f), true);
+  assert.equal(passesFilter({ size: "few", impact: "none" }, {}), true, "no filter");
+  assert.equal(sizeOf(99), "few");
+  assert.equal(sizeOf(10_000), "huge");
 });
