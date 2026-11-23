@@ -1,3 +1,47 @@
 {
-  "alerts": []
+  "alerts": [
+    {
+      "id": "rec_f7678f5b51717fc4dc0e",
+      "city": "Berlin",
+      "day": "2026-11-09",
+      "until": "2026-11-30",
+      "from": "17:30",
+      "to": "19:00",
+      "kind": "assembly",
+      "type": "march",
+      "where": "Savignyplatz, Nordseite (Startpunkt und Endpunkt)",
+      "route": "Savignyplatz (Nordseite) – Kantstraße Richtung Westen – Kehre Kaiser-Friedrich-Straße – Kantstraße – Kehre Joachimsthaler Straße – Kantstraße – Kehre Kaiser-Friedrich-Straße – Kantstraße – Zwischenkehre zwischen Wilmersdorfer Straße und Krumme Straße – Kantstraße – Kehre Joachimsthaler Straße – Kant",
+      "line": {
+        "de": "Jeden Montag im November 2026 fährt eine Radfahrer-Versammlung auf der Kantstraße in Charlottenburg hin und her und endet am Savignyplatz.",
+        "en": "Every Monday in November 2026, a cyclists' assembly rides back and forth along Kantstraße in Charlottenburg, ending at Savignyplatz.",
+        "zh": "2026年11月每周一，骑行集会在夏洛滕堡的Kantstraße来回行进，最后在Savignyplatz 广场结束。"
+      },
+      "about": {
+        "de": "Die Versammlung „Gemeinsam sicher auf der Kantstraße“ fordert sicheres Radfahren in Charlottenburg und in ganz Berlin. Sie findet an den Montagen von 09.11. bis 30.11.2026 statt.",
+        "en": "The assembly \"Together safe on Kantstraße\" calls for safe cycling in Charlottenburg and all of Berlin. It takes place on Mondays from 9 to 30 November 2026.",
+        "zh": "集会名为“Gemeinsam sicher auf der Kantstraße”，要求在夏洛滕堡及整个柏林实现安全骑行。活动于2026年11月9日至30日的每周一举行。"
+      },
+      "points": {
+        "de": [
+          "Montags, 17:30–19:00, 09.11.–30.11.2026",
+          "Start und Ende: Savignyplatz, Nordseite",
+          "Strecke: Kantstraße mit mehreren Wendepunkten in Kaiser-Friedrich-Straße und Joachimsthaler Straße",
+          "Zwischenkehre zwischen Wilmersdorfer Straße und Krumme Straße"
+        ],
+        "en": [
+          "Mondays, 17:30–19:00, 9–30 November 2026",
+          "Start and end: Savignyplatz, north side",
+          "Route: Kantstraße with several turns into Kaiser-Friedrich-Straße and Joachimsthaler Straße",
+          "Turn-around between Wilmersdorfer Straße and Krumme Straße"
+        ],
+        "zh": [
+          "每周一 17:30–19:00，2026年11月9日至30日",
+          "起点和终点：Savignyplatz 广场北侧",
+          "路线：Kantstraße，多次转入Kaiser-Friedrich-Straße和Joachimsthaler Straße",
+          "在Wilmersdorfer Straße与Krumme Straße之间有一个折返点"
+        ]
+      },
+      "url": "https://www.berlin.de/polizei/service/versammlungsbehoerde/versammlungen-aufzuege/"
+    }
+  ]
 }
