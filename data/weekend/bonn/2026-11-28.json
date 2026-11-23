@@ -1,0 +1,169 @@
+{
+  "town": "Bonn",
+  "slug": "bonn",
+  "weekend": "2026-11-28",
+  "week": 48,
+  "published_at": "2026-11-23T10:00:16.004Z",
+  "by": "ai",
+  "weather": [
+    {
+      "day": "2026-11-28",
+      "code": 3,
+      "max": 2.6,
+      "rain": 9
+    },
+    {
+      "day": "2026-11-29",
+      "code": 51,
+      "max": 2.5,
+      "rain": 25
+    }
+  ],
+  "picks": [
+    {
+      "id": "ck-evt-cede5961d822417b2dc9",
+      "type": "event",
+      "title": "Arithmeum - rechnen einst und heute",
+      "venue": "Arithmeum - rechnen einst und heute, Lennéstraße 2",
+      "days": [
+        "2026-11-28",
+        "2026-11-29"
+      ],
+      "time": "11:00",
+      "tags": [],
+      "label": {
+        "de": "Arithmeum – Rechnen einst und heute",
+        "en": "Arithmeum – calculating then and now",
+        "zh": "Arithmeum 数学博物馆"
+      },
+      "why": {
+        "de": "Indoor-Ausflug am Samstag und Sonntag um 11 Uhr, ein guter Regenplan für beide Tage.",
+        "en": "An indoor outing on both Saturday and Sunday at 11:00, a good backup for rainy weather.",
+        "zh": "周六和周日 11 点室内参观，是两天都适合的雨天备选。"
+      }
+    },
+    {
+      "id": "ck-evt-d39846c0c0d4f56d9868",
+      "type": "event",
+      "title": "Adventsmarkt im Veedel",
+      "venue": "Frankenbadplatz, Adolfstraße 45",
+      "days": [
+        "2026-11-28"
+      ],
+      "time": "14:00",
+      "indoor": false,
+      "tags": [
+        "market",
+        "season"
+      ],
+      "language": "none",
+      "label": {
+        "de": "Adventsmarkt im Veedel",
+        "en": "Veedel Advent market",
+        "zh": "Frankenbadplatz 圣诞市集"
+      },
+      "why": {
+        "de": "Samstag um 14 Uhr draußen am Frankenbadplatz, ohne Deutsch. Bei trockenem Wetter ideal zum Bummeln.",
+        "en": "Saturday 14:00 outdoors at Frankenbadplatz, no German needed. Ideal for a stroll in the dry.",
+        "zh": "周六 14 点在户外 Frankenbadplatz 举行，无需德语。天气干燥，适合散步逛逛。"
+      }
+    },
+    {
+      "id": "ck-evt-2604c5f00d33531bba1c",
+      "type": "event",
+      "title": "Adventsbasar",
+      "venue": "Kindergarten St. Martin, Vaclav Havel Platz 12",
+      "days": [
+        "2026-11-28"
+      ],
+      "time": "15:00",
+      "indoor": false,
+      "tags": [
+        "market",
+        "season"
+      ],
+      "language": "none",
+      "label": {
+        "de": "Adventsbasar im Kindergarten St. Martin",
+        "en": "Advent bazaar at Kindergarten St. Martin",
+        "zh": "St. Martin 幼儿园圣诞义卖集市"
+      },
+      "why": {
+        "de": "Samstag draußen auf dem Vaclav-Havel-Platz, ohne Deutschkenntnisse. Kleine Bude und Adventsstimmung.",
+        "en": "Outdoor on Saturday with no German needed. A small bazaar with real Advent feeling.",
+        "zh": "周六在户外的 Vaclav-Havel-Platz 举行，无需德语。小型集市，很有圣诞氛围。"
+      }
+    },
+    {
+      "id": "ck-evt-224668cfc9641af6650e",
+      "type": "event",
+      "title": "Offline-Club: Kreativnachmittag",
+      "venue": "Evangelische Friedenskirche Bonn, Franz-Bücheler-Str. 10",
+      "days": [
+        "2026-11-29"
+      ],
+      "time": "14:00",
+      "indoor": true,
+      "tags": [
+        "diy"
+      ],
+      "language": "none",
+      "label": {
+        "de": "Offline-Club: Kreativnachmittag",
+        "en": "Offline Club: creative afternoon",
+        "zh": "Offline-Club 创意下午"
+      },
+      "why": {
+        "de": "Sonntag um 14 Uhr in der Friedenskirche, drinnen und ohne Deutsch. Zum Basteln und Malen bei kaltem Wetter.",
+        "en": "Sunday 14:00 at Friedenskirche, indoors and no German needed. Crafting when it's cold outside.",
+        "zh": "周日 14 点在 Friedenskirche 室内举行，无需德语。天气寒冷时可以一起动手创作。"
+      }
+    },
+    {
+      "id": "ck-evt-4e0a8613df1048166c23",
+      "type": "event",
+      "title": "Engel&Esel-Produktionen - Remmidemmi unter Baum Nr. 5",
+      "venue": "Haus der Springmaus, Frongasse 8",
+      "days": [
+        "2026-11-29"
+      ],
+      "time": "14:30",
+      "indoor": true,
+      "tags": [
+        "animals"
+      ],
+      "language": "none",
+      "label": {
+        "de": "Remmidemmi unter Baum Nr. 5",
+        "en": "Remmidemmi under Tree No. 5",
+        "zh": "Baum Nr. 5 下的儿童演出"
+      },
+      "why": {
+        "de": "Sonntag um 14:30 im Haus der Springmaus, ohne Deutsch nötig. Eine Kinderproduktion zum Anschauen und Staunen.",
+        "en": "Sunday 14:30 at Haus der Springmaus, no German needed. A children's production to watch and enjoy.",
+        "zh": "周日 14:30 在 Haus der Springmaus 演出，无需德语。适合孩子观看和欣赏的儿童节目。"
+      }
+    },
+    {
+      "id": "osm-node-6297602534",
+      "type": "place",
+      "title": "Baby Bee",
+      "kind": "indoor",
+      "hours": "Mo-Su 08:30-18:15",
+      "indoor": true,
+      "district": "Stadtbezirk Bonn",
+      "venue": "Theaterstraße 18",
+      "days": [],
+      "label": {
+        "de": "Baby Bee, Theaterstraße 18, Bonn",
+        "en": "Baby Bee, Theaterstraße 18, Bonn",
+        "zh": "Baby Bee 室内场所, Theaterstraße 18, Bonn"
+      },
+      "why": {
+        "de": "Drinnen und täglich von 8:30 bis 18:15 Uhr geöffnet, ideal für einen Ausflug bei jedem Wetter.",
+        "en": "Indoors and open daily 8:30–18:15, so it's easy to fit into any weekend plan.",
+        "zh": "室内场所，每天8:30至18:15开放，无论天气如何，周末带孩子去都很方便。"
+      }
+    }
+  ]
+}

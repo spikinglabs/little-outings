@@ -24,9 +24,6 @@
  "https://centre-charlemagne.eu/termin/25-km-industriegeschiche-die-juelicher-strasse-4/": {
   "venue": "Centre Charlemagne"
  },
- "https://centre-charlemagne.eu/termin/25-km-industriegeschiche-die-juelicher-strasse-6/2026-11-22/": {
-  "venue": "Centre Charlemagne"
- },
  "https://centre-charlemagne.eu/termin/25-km-industriegeschiche-die-juelicher-strasse-6/2026-11-29/": {
   "venue": "Centre Charlemagne"
  },
@@ -69,9 +66,6 @@
   "venue": "Centre Charlemagne"
  },
  "https://centre-charlemagne.eu/termin/von-aquae-granni-bis-roma-secunda-6/": {
-  "venue": "Centre Charlemagne"
- },
- "https://centre-charlemagne.eu/termin/von-der-frontstadt-zur-europastadt-aachen-2/": {
   "venue": "Centre Charlemagne"
  },
  "https://centre-charlemagne.eu/termin/von-koenigen-pilgerinnen-und-anderen-gaesten-die-welt-zu-besuch-in-aachen-3/": {
@@ -394,10 +388,6 @@
   "guess": null,
   "read": 3
  },
- "https://ludwigforum.de/event/familienbande-2/": {
-  "venue": "Ludwig Forum Aachen",
-  "street": "Jülicher Straße 97–109"
- },
  "https://ludwigforum.de/event/lufonauten-museumsclub-fuer-kinder/": {
   "venue": "Kunstwerkstatt des Ludwig Forum",
   "street": "Jülicher Straße 97–109"
@@ -481,14 +471,6 @@
  },
  "https://suermondt-ludwig-museum.de/event/kunst-croissants-und-konfituere-5-2-2/": {
   "venue": "Suermondt-Ludwig-Museum"
- },
- "https://suermondt-ludwig-museum.de/event/schoenheit-und-vergaenglichkeit-in-der-malerei-2-2/": {
-  "venue": null,
-  "guess": {
-   "venue": "Suermondt-Ludwig-Museum",
-   "why": "The event is hosted on the Suermondt-Ludwig-Museum website and meets at the museum ticket desk."
-  },
-  "read": 3
  },
  "https://suermondt-ludwig-museum.de/event/suermondt-museumsclub-12-2-2/2026-11-24/": {
   "venue": null,

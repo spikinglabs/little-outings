@@ -1,0 +1,133 @@
+{
+  "town": "Düsseldorf",
+  "slug": "duesseldorf",
+  "weekend": "2026-11-28",
+  "week": 48,
+  "published_at": "2026-11-23T10:00:32.805Z",
+  "by": "score",
+  "weather": [
+    {
+      "day": "2026-11-28",
+      "code": 3,
+      "max": 3,
+      "rain": 8
+    },
+    {
+      "day": "2026-11-29",
+      "code": 51,
+      "max": 2.1,
+      "rain": 29
+    }
+  ],
+  "picks": [
+    {
+      "id": "ck-evt-63c591bbcc05e38ee3a8",
+      "type": "event",
+      "title": "Eltern-Kind-Turnworkshop: Tatütata, die Feuerwehr ist da! Für Eltern und Kinder von 2 bis 4 Jahren",
+      "venue": "Familienzentrum Heilige Familie, Carl-Sonnenschein-Straße 61",
+      "days": [
+        "2026-11-28"
+      ],
+      "time": "10:00",
+      "price": "5,00 €",
+      "book": true,
+      "indoor": true,
+      "tags": [
+        "diy"
+      ],
+      "language": "none"
+    },
+    {
+      "id": "ck-evt-32a45ddf4427acc504d9",
+      "type": "event",
+      "title": "Eltern-Kind-Workshop: Bunte Flugsaurier aus Holz Für Eltern und Kinder ab 4 Jahren",
+      "venue": "Städtisches Familienzentrum Gustav-Kneist-Weg, Gustav-Kneist-Weg 4",
+      "days": [
+        "2026-11-28"
+      ],
+      "time": "10:00",
+      "book": true,
+      "indoor": true,
+      "tags": [
+        "diy"
+      ],
+      "language": "none"
+    },
+    {
+      "id": "ck-evt-97860f22bf8c7770b5a6",
+      "type": "event",
+      "title": "WORKSHOP | Adventskranz-Werkstatt",
+      "venue": "Schloss Benrath, Benrather Schlossallee 100-108",
+      "district": "Benrath",
+      "days": [
+        "2026-11-28"
+      ],
+      "time": "14:00",
+      "tags": [
+        "diy",
+        "season"
+      ],
+      "language": "none"
+    },
+    {
+      "id": "ck-evt-1e8a09ea610378a60601",
+      "type": "event",
+      "title": "Lichterkinder - Live - Millionen Sterne Tour",
+      "venue": "Mitsubishi Electric HALLE",
+      "days": [
+        "2026-11-28"
+      ],
+      "time": "15:30:00",
+      "indoor": true,
+      "tags": [
+        "music"
+      ],
+      "language": "none"
+    },
+    {
+      "id": "ck-evt-c90145e4746f790097e7",
+      "type": "event",
+      "title": "Adventsdörfchen in Wersten",
+      "venue": "Ev. Familienzentrum Holthausen, Kaldenberger Straße 31",
+      "days": [
+        "2026-11-29"
+      ],
+      "time": "10:30",
+      "indoor": true,
+      "tags": [
+        "season"
+      ]
+    },
+    {
+      "id": "osm-way-290832761",
+      "type": "place",
+      "title": "Gino's Kinderland Indoor-Spielplatz",
+      "kind": "indoor",
+      "hours": "Mo, We-Fr 14:00-19:00; Sa-Su 10:30-19:00; SH 10:30-19:00",
+      "indoor": true,
+      "district": "Mörsenbroich",
+      "venue": "Stieglitzstraße",
+      "days": []
+    }
+  ],
+  "still": [
+    {
+      "id": "ck-evt-3157d2e0ec93aeccc761",
+      "title": "Farbenzauber und Klangreise für Eltern und Kinder ab 2 Jahren",
+      "venue": "Stadtmitte, Hohenzollernstr. 24, efa, Hohenzollernstr. 24",
+      "end": "2026-12-16"
+    },
+    {
+      "id": "ck-evt-bf5a3f4efa0505f5b9a6",
+      "title": "Natürlich bunt! Malen & Matschen mit essbaren Farben Für Eltern und Kinder von 1,5 bis 2 Jahren",
+      "venue": "Familientreff Oberkassel, Wildenbruchstraße 27",
+      "end": "2026-12-02"
+    },
+    {
+      "id": "ck-evt-6d24c5dbc157d2edc7f5",
+      "title": "Kreativer Kindertanz für Kinder von 3-4 Jahren",
+      "venue": "FZ Pusteblume Bewegungs- und Spielraum, Liststr. 2",
+      "end": "2026-12-09"
+    }
+  ]
+}

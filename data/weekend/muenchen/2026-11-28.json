@@ -1,0 +1,173 @@
+{
+  "town": "München",
+  "slug": "muenchen",
+  "weekend": "2026-11-28",
+  "week": 48,
+  "published_at": "2026-11-23T10:00:32.826Z",
+  "by": "score",
+  "weather": [
+    {
+      "day": "2026-11-28",
+      "code": 3,
+      "max": -2.1,
+      "rain": 9
+    },
+    {
+      "day": "2026-11-29",
+      "code": 61,
+      "max": 3,
+      "rain": 22
+    }
+  ],
+  "picks": [
+    {
+      "id": "ck-evt-ea3c0ce57bac18baefd7",
+      "type": "event",
+      "title": "Holzwerkstatt",
+      "venue": "KJW Pasinger Fabrik @ 1 August-Exter-Straße, München, Bayern, 81245, Deutschland",
+      "days": [
+        "2026-11-27",
+        "2026-11-28"
+      ],
+      "time": "15:00–18:00",
+      "tags": [
+        "diy"
+      ],
+      "language": "none",
+      "label": {
+        "de": "Holzwerkstatt",
+        "en": "Holzwerkstatt (wood workshop)",
+        "zh": "Holzwerkstatt 木工工坊"
+      },
+      "why": {
+        "de": "Fr & Sa 15–18 Uhr in der KJW Pasinger Fabrik – keine Deutschkenntnisse nötig.",
+        "en": "Fri & Sat 15–18h at KJW Pasinger Fabrik; no German needed.",
+        "zh": "周五和周六15–18点，在KJW Pasinger Fabrik场所举行，无需德语。"
+      }
+    },
+    {
+      "id": "ck-evt-3b03254a977d89e527ef",
+      "type": "event",
+      "title": "Weltkinder",
+      "venue": "Stadtbibliothek Ramersdorf",
+      "days": [
+        "2026-11-27"
+      ],
+      "time": "16:00",
+      "indoor": true,
+      "tags": [],
+      "label": {
+        "de": "Weltkinder",
+        "en": "Weltkinder",
+        "zh": "Weltkinder 活动"
+      },
+      "why": {
+        "de": "Freitag um 16 Uhr in der Stadtbibliothek Ramersdorf – drinnen, für einen gemütlichen Nachmittag.",
+        "en": "Friday 16:00 at Stadtbibliothek Ramersdorf, indoors – a cozy afternoon out.",
+        "zh": "周五16点在Stadtbibliothek Ramersdorf图书馆室内举行，适合舒适的下午。"
+      }
+    },
+    {
+      "id": "ck-evt-86d823447697dc24aa42",
+      "type": "event",
+      "title": "Himmelswerkstatt",
+      "venue": "Neues Rathaus",
+      "days": [
+        "2026-11-27",
+        "2026-11-28",
+        "2026-11-29"
+      ],
+      "time": "16:30–18:00",
+      "indoor": true,
+      "tags": [
+        "diy"
+      ],
+      "language": "none",
+      "label": {
+        "de": "Himmelswerkstatt",
+        "en": "Himmelswerkstatt",
+        "zh": "Himmelswerkstatt 工坊"
+      },
+      "why": {
+        "de": "Fr–So 16:30–18 Uhr im Neuen Rathaus, drinnen – keine Deutschkenntnisse nötig.",
+        "en": "Fri–Sun 16:30–18:00 in the Neues Rathaus, indoors; no German needed.",
+        "zh": "周五至周日16:30–18:00在Neues Rathaus市政厅室内举行，无需德语。"
+      }
+    },
+    {
+      "id": "ck-evt-3705c28603af651437f0",
+      "type": "event",
+      "title": "Papageno und die kleine Zauberflöte",
+      "venue": "Gasteig HP8",
+      "days": [
+        "2026-11-29"
+      ],
+      "time": "11:00–12:15",
+      "indoor": true,
+      "tags": [
+        "stage"
+      ],
+      "language": "de",
+      "label": {
+        "de": "Papageno und die kleine Zauberflöte",
+        "en": "Papageno und die kleine Zauberflöte",
+        "zh": "Papageno und die kleine Zauberflöte 演出"
+      },
+      "why": {
+        "de": "So 11–12:15 Uhr im Gasteig HP8, drinnen – meist auf Deutsch, also gut für Deutschsprachige.",
+        "en": "Sun 11:00–12:15 at Gasteig HP8, indoors; mostly German.",
+        "zh": "周日11:00–12:15在Gasteig HP8场馆室内演出，主要使用德语。"
+      }
+    },
+    {
+      "id": "ck-evt-2f7eba383e8ae874c7f1",
+      "type": "event",
+      "title": "Anschauen, Erleben, Darstellen Kabuki-Kamishibai auf Japanisch Workshop mit Momo Nishimura und Otone Sato für Kinder ab 5 Jahren in Begleitung eines Erwachsenen",
+      "venue": "Museum Fünf Kontinente, Maximilianstraße 42",
+      "district": "Altstadt-Lehel",
+      "days": [
+        "2026-11-29"
+      ],
+      "time": "13:00",
+      "indoor": true,
+      "tags": [
+        "reading",
+        "diy",
+        "tour"
+      ],
+      "language": "de",
+      "label": {
+        "de": "Kabuki-Kamishibai Workshop",
+        "en": "Kabuki-Kamishibai workshop",
+        "zh": "Kabuki-Kamishibai 工作坊"
+      },
+      "why": {
+        "de": "So 13 Uhr im Museum Fünf Kontinente, ab 5 Jahren mit Erwachsenem – meist auf Deutsch.",
+        "en": "Sun 13:00 at Museum Fünf Kontinente; ages 5+ with an adult; mostly German.",
+        "zh": "周日13:00在Museum Fünf Kontinente博物馆举行，5岁以上需有成人陪同，主要为德语。"
+      }
+    },
+    {
+      "id": "osm-node-443435665",
+      "type": "place",
+      "title": "Feuerwehrmuseum",
+      "kind": "museum",
+      "hours": "Sa 10:00-17:00; PH off",
+      "free": true,
+      "indoor": true,
+      "district": "Altstadt-Lehel",
+      "venue": "Unterer Anger 9",
+      "days": [],
+      "label": {
+        "de": "Feuerwehrmuseum",
+        "en": "Feuerwehrmuseum (fire brigade museum)",
+        "zh": "Feuerwehrmuseum 消防博物馆"
+      },
+      "why": {
+        "de": "Sa 10–17 Uhr, kostenlos, drinnen; an Feiertagen geschlossen.",
+        "en": "Sat 10:00–17:00, free, indoors; closed on public holidays.",
+        "zh": "周六10:00–17:00开放，免费，室内；法定节假日闭馆。"
+      }
+    }
+  ]
+}

@@ -1,0 +1,169 @@
+{
+  "town": "Hamburg",
+  "slug": "hamburg",
+  "weekend": "2026-11-28",
+  "week": 48,
+  "published_at": "2026-11-23T10:00:32.845Z",
+  "by": "score",
+  "weather": [
+    {
+      "day": "2026-11-28",
+      "code": 3,
+      "max": -1.3,
+      "rain": 3
+    },
+    {
+      "day": "2026-11-29",
+      "code": 66,
+      "max": 4.3,
+      "rain": 35
+    }
+  ],
+  "picks": [
+    {
+      "id": "ck-evt-a0c673ce3945bf497262",
+      "type": "event",
+      "title": "Fuhlsbasteln: Tannenzapfenbastelei",
+      "venue": "Bücherhalle Fuhlsbüttel",
+      "days": [
+        "2026-11-27"
+      ],
+      "time": "15:00–16:00",
+      "indoor": true,
+      "tags": [
+        "diy"
+      ],
+      "language": "none",
+      "label": {
+        "de": "Fuhlsbasteln: Tannenzapfenbastelei",
+        "en": "Fuhlsbasteln: pinecone crafting",
+        "zh": "Fuhlsbasteln：松果手工"
+      },
+      "why": {
+        "de": "Freitag 15–16 Uhr in der Bücherhalle Fuhlsbüttel, drinnen – ganz ohne Deutschkenntnisse.",
+        "en": "Friday 15–16h at Bücherhalle Fuhlsbüttel, indoors, and no German needed.",
+        "zh": "周五15:00–16:00，在Bücherhalle Fuhlsbüttel图书馆室内进行，无需德语基础。"
+      }
+    },
+    {
+      "id": "ck-evt-097411367b00e5575ade",
+      "type": "event",
+      "title": "Familienzeit",
+      "venue": "Hamburger Kunsthalle, Glockengießerwall 5",
+      "days": [
+        "2026-11-28"
+      ],
+      "time": "11:00",
+      "indoor": true,
+      "tags": [],
+      "label": {
+        "de": "Familienzeit in der Hamburger Kunsthalle",
+        "en": "Family time at Hamburger Kunsthalle",
+        "zh": "Hamburger Kunsthalle 家庭时光"
+      },
+      "why": {
+        "de": "Samstag um 11 Uhr, drinnen – ein gemütlicher Familienvormittag mit Kunst.",
+        "en": "Saturday at 11, indoors: a relaxed family morning with art.",
+        "zh": "周六11点，室内进行，是一个适合全家的艺术上午。"
+      }
+    },
+    {
+      "id": "ck-evt-41ae095f81e48fe730cf",
+      "type": "event",
+      "title": "Mehrsprachiges Basteln",
+      "venue": "Bücherhalle Wandsbek",
+      "days": [
+        "2026-11-28"
+      ],
+      "time": "11:00–13:00",
+      "indoor": true,
+      "tags": [
+        "diy"
+      ],
+      "label": {
+        "de": "Mehrsprachiges Basteln",
+        "en": "Multilingual crafting",
+        "zh": "Bücherhalle Wandsbek 多语言手工"
+      },
+      "why": {
+        "de": "Samstag 11–13 Uhr in der Bücherhalle Wandsbek – basteln in mehreren Sprachen, drinnen.",
+        "en": "Saturday 11–13h at Bücherhalle Wandsbek: crafting in several languages, indoors.",
+        "zh": "周六11:00–13:00，在Bücherhalle Wandsbek图书馆室内进行，用多种语言一起手工。"
+      }
+    },
+    {
+      "id": "ck-evt-ee88bb4d281fc6b4950b",
+      "type": "event",
+      "title": "Die Himmelskinder-Weihnacht",
+      "venue": "Planetarium Hamburg, Linnering 1",
+      "district": "Winterhude",
+      "days": [
+        "2026-11-28",
+        "2026-11-29"
+      ],
+      "time": "15:00",
+      "indoor": true,
+      "tags": [
+        "season"
+      ],
+      "label": {
+        "de": "Die Himmelskinder-Weihnacht",
+        "en": "Die Himmelskinder-Weihnacht",
+        "zh": "Die Himmelskinder-Weihnacht 活动"
+      },
+      "why": {
+        "de": "Sa und So um 15 Uhr im Planetarium Hamburg in Winterhude – drinnen unter dem Sternenhimmel.",
+        "en": "Saturday and Sunday at 15h in the Planetarium Hamburg, Winterhude, indoors under the stars.",
+        "zh": "周六和周日15:00，在Planetarium Hamburg天文馆（Winterhude区）室内进行，仰望星空。"
+      }
+    },
+    {
+      "id": "ck-evt-a3c2cbb4dd8e2a0a955d",
+      "type": "event",
+      "title": "Bilderbuchkino",
+      "venue": "Zentralbibliothek",
+      "days": [
+        "2026-11-29"
+      ],
+      "time": "13:30–14:30",
+      "indoor": true,
+      "tags": [
+        "reading",
+        "stage"
+      ],
+      "language": "de",
+      "label": {
+        "de": "Bilderbuchkino in der Zentralbibliothek",
+        "en": "Picture book cinema at Zentralbibliothek",
+        "zh": "Zentralbibliothek 绘本电影放映"
+      },
+      "why": {
+        "de": "Sonntag 13:30–14:30 Uhr, drinnen – Bilderbücher auf der Leinwand, meist auf Deutsch.",
+        "en": "Sunday 13:30–14:30, indoors: picture books on screen, mostly in German.",
+        "zh": "周日13:30–14:30，室内进行，以绘本放映为主，内容大多为德语。"
+      }
+    },
+    {
+      "id": "osm-node-12549103870",
+      "type": "place",
+      "title": "Bambini City",
+      "kind": "indoor",
+      "hours": "Tu-Fr 09:30-11:30,12:30-14:30,15:30-17:30; Sa,Su,PH 09:00-11:30,12:30-15:00,16:00-18:30; Mo off",
+      "free": false,
+      "indoor": true,
+      "district": "Eppendorf",
+      "venue": "Christoph-Probst-Weg 1",
+      "days": [],
+      "label": {
+        "de": "Bambini City in Eppendorf",
+        "en": "Bambini City in Eppendorf",
+        "zh": "Bambini City 儿童游乐场（Eppendorf）"
+      },
+      "why": {
+        "de": "Sa und So ab 9 Uhr geöffnet, drinnen – Spielspaß für die Kleinen, mit kurzen Pausen.",
+        "en": "Open from 9 on Saturdays and Sundays, indoors: play fun for little ones, with short breaks.",
+        "zh": "周六、周日9:00起开放，室内进行，有短暂休息时段，适合小朋友玩耍。"
+      }
+    }
+  ]
+}

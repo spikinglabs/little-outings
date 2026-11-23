@@ -1,0 +1,172 @@
+{
+  "town": "Frankfurt am Main",
+  "slug": "frankfurt",
+  "weekend": "2026-11-28",
+  "week": 48,
+  "published_at": "2026-11-23T10:00:32.835Z",
+  "by": "score",
+  "weather": [
+    {
+      "day": "2026-11-28",
+      "code": 3,
+      "max": 1.4,
+      "rain": 9
+    },
+    {
+      "day": "2026-11-29",
+      "code": 80,
+      "max": 0.4,
+      "rain": 39
+    }
+  ],
+  "picks": [
+    {
+      "id": "ck-evt-1085d529db8db29e1ee7",
+      "type": "event",
+      "title": "Offene Werkstatt Samstag Musik",
+      "venue": "Junges Museum Frankfurt",
+      "days": [
+        "2026-11-28"
+      ],
+      "time": "14:00–17:00",
+      "indoor": true,
+      "tags": [
+        "diy",
+        "music",
+        "tour"
+      ],
+      "language": "none",
+      "label": {
+        "de": "Offene Werkstatt Samstag Musik",
+        "en": "Open Music Workshop, Saturday",
+        "zh": "Offene Werkstatt Musik 周六音乐工坊"
+      },
+      "why": {
+        "de": "Samstag von 14:00 bis 17:00 Uhr im Junges Museum Frankfurt, ganz ohne Deutschkenntnisse.",
+        "en": "Saturday 14:00–17:00 at Junges Museum Frankfurt; no German needed.",
+        "zh": "周六14:00–17:00在Junges Museum Frankfurt举行，无需懂德语。"
+      }
+    },
+    {
+      "id": "ck-evt-3cf2f7419777a7e37e3e",
+      "type": "event",
+      "title": "Weihnachtszeit um 1800",
+      "venue": "Deutsches Romantik-Museum",
+      "days": [
+        "2026-11-28"
+      ],
+      "time": "15:00",
+      "indoor": true,
+      "tags": [
+        "tour",
+        "season"
+      ],
+      "label": {
+        "de": "Weihnachtszeit um 1800",
+        "en": "Christmas Time Around 1800",
+        "zh": "1800年前后的圣诞时光"
+      },
+      "why": {
+        "de": "Samstag um 15:00 Uhr im Deutschen Romantik-Museum: Weihnachten, wie es um 1800 war.",
+        "en": "Saturday 15:00 at Deutsches Romantik-Museum: Christmas as it was around 1800.",
+        "zh": "周六15:00在Deutsches Romantik-Museum，感受1800年前后的圣诞时光。"
+      }
+    },
+    {
+      "id": "ck-evt-3226da7114c80756b657",
+      "type": "event",
+      "title": "Lichter, Farben, Chanukka",
+      "venue": "Museum Judengasse Frankfurt",
+      "days": [
+        "2026-11-29"
+      ],
+      "time": "11:00",
+      "indoor": true,
+      "tags": [
+        "diy",
+        "tour"
+      ],
+      "language": "none",
+      "label": {
+        "de": "Lichter, Farben, Chanukka",
+        "en": "Lights, Colours, Chanukah",
+        "zh": "Lichter, Farben, Chanukka 活动"
+      },
+      "why": {
+        "de": "Sonntag um 11:00 Uhr im Museum Judengasse Frankfurt, ganz ohne Deutschkenntnisse.",
+        "en": "Sunday 11:00 at Museum Judengasse Frankfurt; no German needed.",
+        "zh": "周日11:00在Museum Judengasse Frankfurt举行，无需懂德语。"
+      }
+    },
+    {
+      "id": "ck-evt-9969d5ef2666b2e5606b",
+      "type": "event",
+      "title": "Familienvielfalt-Brunch",
+      "venue": "Museum für Kommunikation Frankfurt am Main Schaumainkai 53 Frankfurt am Main 60596",
+      "days": [
+        "2026-11-29"
+      ],
+      "time": "11:00–13:30",
+      "indoor": true,
+      "tags": [
+        "tour"
+      ],
+      "label": {
+        "de": "Familienvielfalt-Brunch",
+        "en": "Family Diversity Brunch",
+        "zh": "Familienvielfalt-Brunch 家庭多样性早午餐"
+      },
+      "why": {
+        "de": "Sonntag von 11:00 bis 13:30 Uhr im Museum für Kommunikation, Schaumainkai 53.",
+        "en": "Sunday 11:00–13:30 at Museum für Kommunikation, Schaumainkai 53.",
+        "zh": "周日11:00–13:30，在Schaumainkai 53的Museum für Kommunikation享用早午餐。"
+      }
+    },
+    {
+      "id": "ck-evt-96ec4689d6e6d7bb19ae",
+      "type": "event",
+      "title": "„Chanukkatz oder Ruth, Chanukka und das Katzenwunder“",
+      "venue": "Bibliothek im Jüdischen Museum",
+      "days": [
+        "2026-11-29"
+      ],
+      "time": "14:00",
+      "indoor": true,
+      "tags": [
+        "tour"
+      ],
+      "label": {
+        "de": "Ruth, Chanukka und das Katzenwunder",
+        "en": "Ruth, Chanukah and the Cat Miracle",
+        "zh": "Ruth, Chanukka und das Katzenwunder 活动"
+      },
+      "why": {
+        "de": "Sonntag um 14:00 Uhr in der Bibliothek im Jüdischen Museum, eine Chanukka-Geschichte.",
+        "en": "Sunday 14:00 at the Bibliothek im Jüdischen Museum: a Hanukkah cat-miracle story.",
+        "zh": "周日14:00在Bibliothek im Jüdischen Museum，听一个关于猫咪奇迹的光明节故事。"
+      }
+    },
+    {
+      "id": "osm-node-11144591858",
+      "type": "place",
+      "title": "Nori Kids Center",
+      "kind": "indoor",
+      "hours": "Mo-Th 10:00-20:00; Fr,Sa 10:00-21:00; Su 12:00-18:00",
+      "free": false,
+      "indoor": true,
+      "district": "Innenstadt",
+      "venue": "Zeil",
+      "days": [],
+      "label": {
+        "de": "Nori Kids Center",
+        "en": "Nori Kids Center",
+        "zh": "Nori Kids Center 儿童中心"
+      },
+      "why": {
+        "de": "Indoor-Spielangebot an der Zeil; Fr und Sa bis 21:00 Uhr, So 12:00–18:00 Uhr.",
+        "en": "Indoor kids' centre on Zeil; open until 21:00 Fri and Sat, Sun 12:00–18:00.",
+        "zh": "Zeil 街上的室内儿童中心，周五、周六营业至21:00，周日12:00–18:00。"
+      }
+    }
+  ]
+}

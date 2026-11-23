@@ -1,0 +1,174 @@
+{
+  "town": "Berlin",
+  "slug": "berlin",
+  "weekend": "2026-11-28",
+  "week": 48,
+  "published_at": "2026-11-23T10:00:32.816Z",
+  "by": "ai",
+  "weather": [
+    {
+      "day": "2026-11-28",
+      "code": 3,
+      "max": 0,
+      "rain": 0
+    },
+    {
+      "day": "2026-11-29",
+      "code": 61,
+      "max": 1.5,
+      "rain": 30
+    }
+  ],
+  "picks": [
+    {
+      "id": "ck-evt-f9e7ea4ebd1720992f39",
+      "type": "event",
+      "title": "Das Farbenmonster",
+      "venue": "ATZE Musiktheater, Luxemburger Straße 20",
+      "district": "Mitte",
+      "days": [
+        "2026-11-28",
+        "2026-11-29"
+      ],
+      "time": "11:00",
+      "indoor": true,
+      "tags": [
+        "diy",
+        "stage"
+      ],
+      "language": "de",
+      "label": {
+        "de": "Das Farbenmonster",
+        "en": "The Colour Monster",
+        "zh": "颜色怪兽（儿童剧场）"
+      },
+      "why": {
+        "de": "Musiktheater für die Kleinen am Samstagvormittag, drinnen im Warmen.",
+        "en": "Children's musical theatre on Saturday morning, indoors and warm.",
+        "zh": "周六上午的儿童音乐剧，在室内温暖的剧场里进行。"
+      }
+    },
+    {
+      "id": "ck-evt-905c59852bbe5d3711dc",
+      "type": "event",
+      "title": "Antarctica 3D",
+      "venue": "Zeiss-Großplanetarium",
+      "days": [
+        "2026-11-28"
+      ],
+      "time": "12:15",
+      "indoor": true,
+      "tags": [],
+      "label": {
+        "de": "Antarctica 3D",
+        "en": "Antarctica 3D",
+        "zh": "南极 3D（天象馆）"
+      },
+      "why": {
+        "de": "3D-Reise in die Antarktis im Zeiss-Großplanetarium, Sa 12:15, ohne Deutsch nötig.",
+        "en": "A 3D trip to Antarctica at the Zeiss-Großplanetarium, Saturday 12:15, no German needed.",
+        "zh": "在 Zeiss-Großplanetarium 天象馆的南极3D影片，周六12:15，无需德语。"
+      }
+    },
+    {
+      "id": "ck-evt-020cca8edd32ecc155bb",
+      "type": "event",
+      "title": "Kurioses Experimentekabinett",
+      "venue": "Deutsches Technikmuseum, Trebbiner Straße 9",
+      "district": "Friedrichshain-Kreuzberg",
+      "days": [
+        "2026-11-28",
+        "2026-11-29"
+      ],
+      "time": "12:30–12:50",
+      "indoor": true,
+      "tags": [
+        "diy",
+        "tour"
+      ],
+      "language": "none",
+      "label": {
+        "de": "Kurioses Experimentekabinett",
+        "en": "Quirky Science Cabinet",
+        "zh": "奇妙实验柜（德国技术博物馆）"
+      },
+      "why": {
+        "de": "Experimente zum Anfassen im Technikmuseum, Sa und So, drinnen und ohne Deutsch nötig.",
+        "en": "Hands-on experiments at the Technikmuseum, Saturday and Sunday, indoors and needing no German.",
+        "zh": "德国技术博物馆内可动手做的实验，周六周日都有，在室内进行，不需要懂德语。"
+      }
+    },
+    {
+      "id": "ck-evt-32bffb4b86337533a730",
+      "type": "event",
+      "title": "Familienkonzert: »Pini di Roma«",
+      "venue": "Philharmonie Berlin, Herbert-von-Karajan-Straße 1",
+      "district": "Mitte",
+      "days": [
+        "2026-11-29"
+      ],
+      "time": "11:00",
+      "tags": [
+        "music"
+      ],
+      "language": "none",
+      "label": {
+        "de": "Familienkonzert: »Pini di Roma«",
+        "en": "Family concert: Pini di Roma",
+        "zh": "家庭音乐会：《罗马松》（音乐厅）"
+      },
+      "why": {
+        "de": "Ein Familienkonzert in der Philharmonie, So 11:00, mit Musik ganz ohne Worte.",
+        "en": "A family concert at the Philharmonie, Sunday 11:00, with music that needs no words.",
+        "zh": "Philharmonie Berlin 的家庭音乐会，周日11:00，以音乐为主，无需语言。"
+      }
+    },
+    {
+      "id": "ck-evt-e96993ed7a70f9e84065",
+      "type": "event",
+      "title": "Weihnachtssterne basteln",
+      "venue": "Archenhold-Sternwarte",
+      "days": [
+        "2026-11-29"
+      ],
+      "time": "13:30",
+      "tags": [
+        "diy",
+        "season"
+      ],
+      "language": "none",
+      "label": {
+        "de": "Weihnachtssterne basteln",
+        "en": "Make Christmas stars",
+        "zh": "制作圣诞星星（天文台）"
+      },
+      "why": {
+        "de": "Basteln für Kinder an der Archenhold-Sternwarte, So 13:30, ganz ohne Deutschkenntnisse.",
+        "en": "Craft session for kids at the Archenhold-Sternwarte, Sunday 13:30, no German needed.",
+        "zh": "在 Archenhold-Sternwarte 天文台的儿童手工活动，周日13:30，无需德语。"
+      }
+    },
+    {
+      "id": "osm-node-10804128222",
+      "type": "place",
+      "title": "Kindermuseum unterm Dach",
+      "kind": "museum",
+      "hours": "Mo-Fr 14:00-18:00; Sa, Su 11:00-17:00",
+      "free": true,
+      "indoor": true,
+      "district": "Lichtenrade",
+      "venue": "Steinstraße 41",
+      "days": [],
+      "label": {
+        "de": "Kindermuseum unterm Dach",
+        "en": "Kindermuseum unterm Dach",
+        "zh": "Kindermuseum unterm Dach 博物馆"
+      },
+      "why": {
+        "de": "Kostenlos und drinnen, am Samstag und Sonntag ab 11 Uhr geöffnet.",
+        "en": "Free and indoors, open Saturday and Sunday from 11:00 to 17:00.",
+        "zh": "免费且在室内，周六和周日11:00至17:00开放。"
+      }
+    }
+  ]
+}

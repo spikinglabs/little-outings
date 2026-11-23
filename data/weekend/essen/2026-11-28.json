@@ -1,0 +1,124 @@
+{
+  "town": "Essen",
+  "slug": "essen",
+  "weekend": "2026-11-28",
+  "week": 48,
+  "published_at": "2026-11-23T10:00:32.854Z",
+  "by": "score",
+  "weather": [
+    {
+      "day": "2026-11-28",
+      "code": 3,
+      "max": 3.8,
+      "rain": 6
+    },
+    {
+      "day": "2026-11-29",
+      "code": 51,
+      "max": 2.6,
+      "rain": 26
+    }
+  ],
+  "picks": [
+    {
+      "id": "ck-evt-ca8035a2eb9f00d13e71",
+      "type": "event",
+      "title": "XMAS-Express",
+      "venue": "Essen Hbf - Haus der Technik, Hollestr. 1",
+      "days": [
+        "2026-11-28",
+        "2026-11-29"
+      ],
+      "time": "12:00–16:30",
+      "indoor": true,
+      "tags": [],
+      "label": {
+        "de": "XMAS-Express",
+        "en": "XMAS-Express",
+        "zh": "XMAS-Express 圣诞活动"
+      },
+      "why": {
+        "de": "Am Wochenende 12–16:30 Uhr drinnen: festliche Weihnachtsstimmung für die ganze Familie.",
+        "en": "Open Saturday and Sunday, 12:00–16:30, indoors: a festive Christmas outing for the whole family.",
+        "zh": "周六和周日12:00–16:30室内开放，全家一起感受节日氛围。"
+      }
+    },
+    {
+      "id": "ck-evt-1293393a2051c69b15e0",
+      "type": "event",
+      "title": "Familienschicht in der Mitmachzeche",
+      "venue": "Denkmalpfad Zollverein, Gelsenkirchener Straße 181",
+      "district": "Stoppenberg",
+      "days": [
+        "2026-11-28",
+        "2026-11-29"
+      ],
+      "time": "13:00",
+      "indoor": true,
+      "tags": [
+        "diy"
+      ],
+      "language": "none",
+      "label": {
+        "de": "Familienschicht in der Mitmachzeche",
+        "en": "Family shift at the Mitmachzeche",
+        "zh": "Mitmachzeche 家庭体验活动"
+      },
+      "why": {
+        "de": "Sa und So um 13 Uhr, drinnen und ganz ohne Deutschkenntnisse: Mitmachen für Kleine und Große.",
+        "en": "Saturday and Sunday at 13:00, indoors, no German needed: hands-on fun for kids and parents.",
+        "zh": "周六和周日13:00，室内进行，无需德语，适合大人和孩子一起动手体验。"
+      }
+    },
+    {
+      "id": "ck-evt-5a53f069a3ef19b26b6d",
+      "type": "event",
+      "title": "Carl für Kinder: Theater Kreuz & Quer",
+      "venue": "Zeche Carl, Wilhelm-Nieswandt-Allee 100",
+      "days": [
+        "2026-11-29"
+      ],
+      "time": "11:00–13:00",
+      "indoor": true,
+      "tags": [
+        "stage"
+      ],
+      "language": "de",
+      "label": {
+        "de": "Carl für Kinder: Theater Kreuz & Quer",
+        "en": "Carl for Kids: Theatre Kreuz & Quer",
+        "zh": "Zeche Carl 儿童剧 Kreuz & Quer"
+      },
+      "why": {
+        "de": "Sonntags 11–13 Uhr drinnen, meist auf Deutsch: Theater für Kinder in der Zeche Carl.",
+        "en": "Sunday 11:00–13:00 indoors, mostly in German: children's theatre at Zeche Carl.",
+        "zh": "周日11:00–13:00室内演出，主要为德语，适合喜欢看儿童剧的家庭。"
+      }
+    },
+    {
+      "id": "ck-evt-1cfa581ae26c444ff719",
+      "type": "event",
+      "title": "Familien sprechen über Kunst – Nach Damaskus ...",
+      "venue": "Museum Folkwang, Museumsplatz 1",
+      "district": "Südviertel",
+      "days": [
+        "2026-11-29"
+      ],
+      "time": "13:00–14:00",
+      "indoor": true,
+      "tags": [
+        "tour"
+      ],
+      "label": {
+        "de": "Familien sprechen über Kunst",
+        "en": "Families talk about art",
+        "zh": "Museum Folkwang 家庭艺术谈话"
+      },
+      "why": {
+        "de": "Sonntag 13–14 Uhr drinnen: Familien sprechen gemeinsam über Kunst im Museum Folkwang.",
+        "en": "Sunday 13:00–14:00 indoors: families talk about art together at Museum Folkwang.",
+        "zh": "周日13:00–14:00室内进行，全家一起在Museum Folkwang谈论艺术。"
+      }
+    }
+  ]
+}

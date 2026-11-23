@@ -1,0 +1,172 @@
+{
+  "town": "Aachen",
+  "slug": "aachen",
+  "weekend": "2026-11-28",
+  "week": 48,
+  "published_at": "2026-11-23T10:00:32.864Z",
+  "by": "ai",
+  "weather": [
+    {
+      "day": "2026-11-28",
+      "code": 3,
+      "max": 3.5,
+      "rain": 10
+    },
+    {
+      "day": "2026-11-29",
+      "code": 51,
+      "max": 5,
+      "rain": 33
+    }
+  ],
+  "picks": [
+    {
+      "id": "ck-evt-cc7254a7b29994a162f6",
+      "type": "event",
+      "title": "Wochenmarkt Brand",
+      "venue": "Marktplatz Brand",
+      "days": [
+        "2026-11-28"
+      ],
+      "time": "07:00–13:00",
+      "indoor": false,
+      "tags": [
+        "market"
+      ],
+      "language": "none",
+      "label": {
+        "de": "Wochenmarkt Brand",
+        "en": "Brand weekly market",
+        "zh": "Wochenmarkt Brand 周集市"
+      },
+      "why": {
+        "de": "Samstagmorgen Marktstände erkunden, Obst und Gemüse anschauen, Markttreiben erleben.",
+        "en": "Saturday morning stalls to explore, with fruit and vegetables to look at.",
+        "zh": "周六上午逛逛摊位，看看水果蔬菜，感受集市热闹氛围。"
+      }
+    },
+    {
+      "id": "ck-evt-cfc0c24544a77a882ead",
+      "type": "event",
+      "title": "Wochenmarkt Frankenberger Viertel",
+      "venue": "Neumarkt Frankenberger Viertel",
+      "days": [
+        "2026-11-28"
+      ],
+      "time": "07:00–13:00",
+      "indoor": false,
+      "tags": [
+        "market"
+      ],
+      "language": "none",
+      "label": {
+        "de": "Wochenmarkt Frankenberger Viertel",
+        "en": "Frankenberger Viertel weekly market",
+        "zh": "Wochenmarkt Frankenberger Viertel 周集市"
+      },
+      "why": {
+        "de": "Ein zweiter Samstagsmarkt in einem anderen Viertel, ohne Deutschkenntnisse nötig.",
+        "en": "A second Saturday market in a different district, no German needed.",
+        "zh": "另一个街区的周六集市，无需德语即可逛。"
+      }
+    },
+    {
+      "id": "ck-evt-e235ea44034c6a1b91cb",
+      "type": "event",
+      "title": "Aachen zur Römerzeit",
+      "days": [
+        "2026-11-28"
+      ],
+      "time": "14:00–15:00",
+      "indoor": true,
+      "tags": [
+        "tour"
+      ],
+      "label": {
+        "de": "Aachen zur Römerzeit",
+        "en": "Aachen in Roman times",
+        "zh": "罗马时代的亚琛"
+      },
+      "why": {
+        "de": "Eine Stunde Römerzeit in Aachen, drinnen und im Warmen, passend zum kalten Samstag.",
+        "en": "An hour of Roman-era Aachen indoors and warm, good for a chilly Saturday.",
+        "zh": "在室内温暖地度过一小时，了解罗马时代的亚琛，适合寒冷的周六。"
+      }
+    },
+    {
+      "id": "ck-evt-800845f78b329f18f9cc",
+      "type": "event",
+      "title": "Der Taschengeld-Flohmarkt: Große Freude für kleine Preise",
+      "venue": "Depot",
+      "days": [
+        "2026-11-29"
+      ],
+      "time": "10:00–15:00",
+      "indoor": false,
+      "tags": [
+        "market"
+      ],
+      "language": "none",
+      "label": {
+        "de": "Taschengeld-Flohmarkt",
+        "en": "Pocket-money flea market",
+        "zh": "零花钱跳蚤市场（Depot）"
+      },
+      "why": {
+        "de": "Kinder kaufen und verkaufen mit ihrem Taschengeld, ganz ohne Deutsch nötig.",
+        "en": "Kids shop and sell with their pocket money, no German needed.",
+        "zh": "孩子们用零花钱买卖物品，无需德语即可参加。"
+      }
+    },
+    {
+      "id": "ck-evt-e93d9c88e5443c08d5e2",
+      "type": "event",
+      "title": "Vorweihnachtszeit für Familien",
+      "days": [
+        "2026-11-29"
+      ],
+      "time": "14:00–16:30",
+      "tags": [
+        "season"
+      ],
+      "label": {
+        "de": "Vorweihnachtszeit für Familien",
+        "en": "Family Christmas season",
+        "zh": "家庭圣诞季活动"
+      },
+      "why": {
+        "de": "Weihnachtsstimmung für Familien am Sonntagnachmittag, bis 16:30 Uhr.",
+        "en": "Festive family fun on Sunday afternoon, running until 16:30.",
+        "zh": "周日下午的家庭圣诞氛围活动，持续至16:30。"
+      }
+    },
+    {
+      "id": "osm-way-103451925",
+      "type": "place",
+      "title": "Schwimmhalle Süd",
+      "kind": "pool",
+      "hours": "Mo-We,Fr 06:30-21:00; Th 12:00-21:00; Sa-Su 07:00-20:00; Jan 01 10:30-17:30; Dec 24 07:00-12:30; Dec 25 off; Dec 26 10:30-17:30; Dec 31 07:00-12:30; PH 10:00-17:00",
+      "indoor": true,
+      "district": "Burtscheid",
+      "venue": "Amyastraße 8",
+      "days": [],
+      "label": {
+        "de": "Schwimmhalle Süd",
+        "en": "Schwimmhalle Süd (swimming pool)",
+        "zh": "Schwimmhalle Süd 游泳馆"
+      },
+      "why": {
+        "de": "Hallenbad in Burtscheid, Sa–So 7:00–20:00 – perfekt für einen nassen Familienausflug.",
+        "en": "Indoor pool in Burtscheid, open Sat–Sun 7:00–20:00 – great for a splashy family day.",
+        "zh": "Burtscheid 区的室内泳池，周六至周日 7:00–20:00 开放，适合全家一起戏水。"
+      }
+    }
+  ],
+  "still": [
+    {
+      "id": "ck-evt-2c4ff94b78c4d713a95e",
+      "title": "Lufonauten - Museumsclub für Kinder",
+      "end": "2026-12-16"
+    }
+  ]
+}
