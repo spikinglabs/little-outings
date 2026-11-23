@@ -42,6 +42,47 @@
         ]
       },
       "url": "https://www.berlin.de/polizei/service/versammlungsbehoerde/versammlungen-aufzuege/"
+    },
+    {
+      "id": "rec_19734459e09278705ca9",
+      "city": "Berlin",
+      "day": "2026-11-23",
+      "from": "11:00",
+      "to": "13:30",
+      "kind": "assembly",
+      "type": "demonstration",
+      "where": "Paul-Löbe-Allee, 10557 Berlin",
+      "line": {
+        "de": "Versammlung an der Paul-Löbe-Allee in Berlin-Mitte; der Hinweis nennt keine Straßensperrungen oder Linienänderungen.",
+        "en": "Assembly on Paul-Löbe-Allee in Berlin; the notice names no road closures or line changes.",
+        "zh": "柏林 Paul-Löbe-Allee 大街有集会；通知未提及道路封闭或公交线路变更。"
+      },
+      "about": {
+        "de": "Die Versammlung steht unter dem Titel „MFR/GAP-Budget: Wir haben einen Plan“ und geht um den EU-Haushalt (MFR) und die Agrarförderung (GAP). Der Veranstalter wird im Hinweis nicht genannt.",
+        "en": "The assembly is titled “MFR/GAP-Budget: Wir haben einen Plan” and concerns the EU budget (MFR) and agricultural funding (GAP). The notice does not name the organiser.",
+        "zh": "集会主题为“MFR/GAP-Budget: Wir haben einen Plan”，涉及欧盟预算（MFR）和农业补贴（GAP）。通知未注明主办方。"
+      },
+      "points": {
+        "de": [
+          "Versammlung am 23.11.2026, 11:00 bis 13:30 Uhr",
+          "Ort: Paul-Löbe-Allee, 10557 Berlin",
+          "Teilnehmerzahl wird im Hinweis nicht genannt",
+          "Keine Angaben zu Straßensperrungen oder Linien"
+        ],
+        "en": [
+          "Assembly on 23 Nov 2026, 11:00 to 13:30",
+          "Place: Paul-Löbe-Allee, 10557 Berlin",
+          "The notice gives no expected number of participants",
+          "No information on road closures or lines"
+        ],
+        "zh": [
+          "集会时间：2026年11月23日 11:00至13:30",
+          "地点：Paul-Löbe-Allee, 10557 柏林",
+          "通知未给出预计人数",
+          "通知未提供道路封闭或公交线路信息"
+        ]
+      },
+      "url": "https://www.berlin.de/polizei/service/versammlungsbehoerde/versammlungen-aufzuege/"
     }
   ]
 }
