@@ -22,16 +22,27 @@
 #     Z3 21–33 months), Fluoridlack; since January 2026 in the Gelbes Heft. (KZBV and BIÖG differ on how long the
 #     Fluoridlack applies, so the post gives no end age.)
 #   Pictures teeth-*.png drawn by hand (HTML + SVG, scratch script), sources printed on each.
+# - 2026-11-23 L: "时间真的对么？…去搜索更多文献，检查一下". Re-checked against studies (PubMed):
+#   - Zhang et al., Sci Rep 2024, doi 10.1038/s41598-024-59044-0 (China nine-city surveys, 88,875 children <2 y in
+#     2015): first tooth median 6.6 mo, P3–P97 4.1–10.6 mo; median teeth 2 at 8–10 mo, 8 at 12–15 mo, 16 at 18–24 mo,
+#     all 20 at about 28–32 mo. Matches BIÖG's group ranges.
+#   - Dodo et al., Children 2023 (Japan JECS, parents' records): median lower central 7.1/7.6, upper central 8.7/9.2,
+#     upper lateral 10.0/10.3, lower lateral 10.4/10.8 months (boys/girls); parents' dates earlier than check-ups.
+#   - Woodroffe et al., Aust Dent J 2010: first 8.6, last 27.9 months; order central, lateral, first molar, canine,
+#     second molar. Li et al. 2017 (Chongqing): first tooth 2–15 mo (median 8), lower incisor first in 95%.
+#   - Muthu et al., Arch Oral Biol 2024 meta-analysis (42 studies): Europe earliest, Asia/South America later.
+#   Changed: card 3 no longer says all lower teeth come first (upper laterals often precede lower); card 5 uses the
+#   2015 China percentiles; caption ① and ④.
 code: YA6T
 label: 宝宝长牙顺序 · 乳牙 恒牙 牙医
 title: 宝宝先长哪颗牙？长牙顺序一张图看懂
 caption: |
   宝宝长牙先长哪颗、几个月长？我们对照了德国、美国、英国四个权威来源，画成了图🦷
 
-  ① 顺序：下中切牙 → 上中切牙 → 侧切牙 → 第一乳磨牙 → 乳尖牙 → 第二乳磨牙。尖牙比第一乳磨牙晚，所以中间会先空一个位置。
+  ① 顺序：下中切牙 → 上中切牙 → 侧切牙（常常上面先长）→ 第一乳磨牙 → 乳尖牙 → 第二乳磨牙。尖牙比第一乳磨牙晚，所以中间会先空一个位置。
   ② 月龄（德国 BIÖG）：中切牙 6–8 个月，侧切牙 8–12 个月，第一乳磨牙 12–16 个月，乳尖牙 16–20 个月，第二乳磨牙 20–30 个月。约 2 岁半 20 颗乳牙长齐（NHS：2 到 3 岁）。
   ③ 来源之间的差别：美国儿童牙科学会 AAPD 下中切牙 5–8 个月；美国牙医协会 ADA 下中切牙 6–10 个月、上中切牙 8–12 个月，第二乳磨牙到 33 个月。顺序一致，月份能差几个月。
-  ④ 早晚都常见：NHS 说大多数约 6 个月开始，有的 4 个月前，有的 1 岁以后，少数出生就有牙。AAPD：很多完全正常的宝宝不严格按表长。
+  ④ 早晚都常见：中国 2015 年九城市调查（约 9 万名 2 岁以下儿童）第一颗牙中位数 6.6 个月，97% 的宝宝在 4.1–10.6 个月之间；12–15 个月一般 8 颗左右。NHS：有的 4 个月前，有的 1 岁以后，少数出生就有牙。日本一项大型出生队列发现，父母自己记录的出牙时间比体检时查到的早。AAPD：很多完全正常的宝宝不严格按表长。
   ⑤ 长牙时：牙龈红、口水多、爱咬东西、烦躁睡不好，体温可能略高。高烧或腹泻不是长牙引起的，要看儿科医生（BIÖG、NHS、美国儿科学会 AAP）。
   ⑥ 安抚：美国儿科学会建议用硬橡胶牙胶，冷冻的可能弊大于利；不用琥珀牙链（不止痛，发生过窒息和勒颈）；不用麻醉牙龈的凝胶。
   ⑦ 在德国看牙医：法定医保从 6 个月到 6 岁有 6 次儿童牙科早期检查（Z1–Z6）。Z1 在 6–9 个月，Z2 10–20 个月，Z3 21–33 个月，检查时可涂氟保护漆。2026 年起记在黄本里（KZBV）。美国儿科学会：第一颗牙后 6 个月内、最晚 1 岁看牙医。
@@ -61,8 +72,9 @@ cards:
       - 先长第一乳磨牙，再长尖牙。
       - 所以门牙和磨牙之间，
       - 会先空着一个位置。
-      - 下面的牙通常比上面的早。
-    foot: 来源：BIÖG、NHS、AAPD
+      - 门牙通常下面先长，
+      - 侧切牙常常上面先长。
+    foot: 来源：BIÖG、ADA、日本 JECS 研究
   - tone: paper
     tag: 权威来源对照
     title: 四家说法不完全一样
@@ -71,11 +83,11 @@ cards:
     tag: 早一点晚一点都常见
     title: 不用和别人家比
     lines:
-      - 大多数约 6 个月开始长牙。
-      - 有的 4 个月前，有的 1 岁以后，
-      - 少数出生就有牙。
+      - 第一颗牙：一半宝宝在 6.6 个月前，
+      - 97% 在 4.1–10.6 个月之间。
+      - 12–15 个月：一般 8 颗左右，
       - 20 颗长齐：约 2 岁半（2–3 岁）。
-    foot: 来源：NHS、BIÖG
+    foot: 来源：中国九城市调查 2015（Sci Rep 2024）、BIÖG、NHS
   - tone: rose
     tag: 长牙时
     title: 可能会这样
