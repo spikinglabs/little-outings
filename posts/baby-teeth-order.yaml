@@ -1,0 +1,123 @@
+# A Rednote (小红书) explainer: the order and timing of baby teeth (乳牙萌出顺序和时间), the permanent teeth, and
+# what the German statutory insurance covers at the dentist. Ends with a vote that invites parents' teething stories.
+# History (find a post by its code: grep -l "code: YA6T" posts/):
+# - 2026-11-23 L: "小孩子长牙的顺序和时间，要找到权威的信息再详细并且提供图片和动画的方式来解释". Written with:
+#   - BIÖG (ex BZgA) kindergesundheit-info.de, Zahnentwicklung + Infografik "Die ersten Zähne" (2025-05-20):
+#     first teeth mostly 6–8 months, lower then upper central incisors first; ranges 6–8 / 8–12 / 12–16 (first
+#     molars) / 16–20 (canines) / 20–30 (second molars); all 20 at about 2.5 years; red gums, drooling, unrest,
+#     slightly raised temperature; diarrhoea or high fever have other causes, see the paediatrician.
+#   - AAPD Reference Manual "Dental Growth and Development" (Logan & Kronfeld 1933, adapted 2003), r_dentalgrowth26.pdf:
+#     eruption maxillary/mandibular 6-10/5-8, 8-12/7-10, canines 16-20, first molars 11-18, second molars 20-30;
+#     permanent order; "Many otherwise normal infants do not conform strictly to the stated schedule."
+#   - ADA mouthhealthy.org eruption charts (images read): primary upper 8-12, 9-13, 16-22, 13-19, 25-33 mo; lower
+#     6-10, 10-16, 17-23, 14-18, 23-31 mo; permanent upper 7-8, 8-9, 11-12, 10-11, 10-12, 6-7, 12-13, 17-21 y;
+#     lower 6-7, 7-8, 9-10, 10-12, 11-12, 6-7, 11-13, 17-21 y. "start to come in at about 6 months".
+#   - NHS "Baby teething symptoms" (reviewed 2026-05-14): ~6, ~8, ~12, ~18, ~24 months; some before 4 months, some
+#     after 12, some born with teeth; bottom often before top; all by 2 to 3 years; temperature slightly raised but
+#     under 38 °C; no evidence teething causes diarrhoea.
+#   - AAP healthychildren.org "Teething: 4 to 7 Months" (2024-06-26): over 38.3 °C probably not teething; firm rubber
+#     rings, frozen ones can do more harm; amber necklaces don't help and caused choking/strangulation; never numbing
+#     gels; dentist within 6 months after the first tooth, no later than 12 months.
+#   - KZBV "Gesunde Kinderzähne" + BIÖG Früherkennung: six check-ups Z1–Z6 from month 6 to 72 (Z1 6–9, Z2 10–20,
+#     Z3 21–33 months), Fluoridlack; since January 2026 in the Gelbes Heft. (KZBV and BIÖG differ on how long the
+#     Fluoridlack applies, so the post gives no end age.)
+#   Pictures teeth-*.png drawn by hand (HTML + SVG, scratch script), sources printed on each.
+code: YA6T
+label: 宝宝长牙顺序 · 乳牙 恒牙 牙医
+title: 宝宝先长哪颗牙？长牙顺序一张图看懂
+caption: |
+  宝宝长牙先长哪颗、几个月长？我们对照了德国、美国、英国四个权威来源，画成了图🦷
+
+  ① 顺序：下中切牙 → 上中切牙 → 侧切牙 → 第一乳磨牙 → 乳尖牙 → 第二乳磨牙。尖牙比第一乳磨牙晚，所以中间会先空一个位置。
+  ② 月龄（德国 BIÖG）：中切牙 6–8 个月，侧切牙 8–12 个月，第一乳磨牙 12–16 个月，乳尖牙 16–20 个月，第二乳磨牙 20–30 个月。约 2 岁半 20 颗乳牙长齐（NHS：2 到 3 岁）。
+  ③ 来源之间的差别：美国儿童牙科学会 AAPD 下中切牙 5–8 个月；美国牙医协会 ADA 下中切牙 6–10 个月、上中切牙 8–12 个月，第二乳磨牙到 33 个月。顺序一致，月份能差几个月。
+  ④ 早晚都常见：NHS 说大多数约 6 个月开始，有的 4 个月前，有的 1 岁以后，少数出生就有牙。AAPD：很多完全正常的宝宝不严格按表长。
+  ⑤ 长牙时：牙龈红、口水多、爱咬东西、烦躁睡不好，体温可能略高。高烧或腹泻不是长牙引起的，要看儿科医生（BIÖG、NHS、美国儿科学会 AAP）。
+  ⑥ 安抚：美国儿科学会建议用硬橡胶牙胶，冷冻的可能弊大于利；不用琥珀牙链（不止痛，发生过窒息和勒颈）；不用麻醉牙龈的凝胶。
+  ⑦ 在德国看牙医：法定医保从 6 个月到 6 岁有 6 次儿童牙科早期检查（Z1–Z6）。Z1 在 6–9 个月，Z2 10–20 个月，Z3 21–33 个月，检查时可涂氟保护漆。2026 年起记在黄本里（KZBV）。美国儿科学会：第一颗牙后 6 个月内、最晚 1 岁看牙医。
+  ⑧ 换牙：6–7 岁长出第一恒磨牙（六龄齿），它长在乳牙后面，不换掉任何乳牙；门牙 6–8 岁开始换，最后是第二恒磨牙 11–13 岁（ADA）。
+
+  每个宝宝不一样，担心长得早或晚，就在检查时问问牙医。
+
+  💬 你家宝宝的第一颗牙是几个月长的？先冒出来的是上面还是下面？评论区说说你家的长牙小故事。
+tags: [宝宝长牙, 出牙顺序, 乳牙, 换牙, 育儿知识, 德国带娃, 德国生活, 德国妈妈, 德国爸爸, 留德]
+cards:
+  - tone: red
+    tag: 育儿知识 · 长牙
+    title: "宝宝长牙\n先长哪颗？"
+    big: true
+    lines:
+      - 乳牙 20 颗的顺序和月龄，四个权威来源对照。
+      - 最后一张：说说你家的第一颗牙！
+    foot: 来源：德国 BIÖG · 美国 AAPD、ADA、AAP · 英国 NHS
+  - tone: paper
+    tag: 乳牙 20 颗
+    title: 按数字 1→5 长出来
+    picture: teeth-primary.png
+  - tone: sky
+    tag: 顺序里的小意外
+    title: 尖牙比磨牙晚
+    lines:
+      - 先长第一乳磨牙，再长尖牙。
+      - 所以门牙和磨牙之间，
+      - 会先空着一个位置。
+      - 下面的牙通常比上面的早。
+    foot: 来源：BIÖG、NHS、AAPD
+  - tone: paper
+    tag: 权威来源对照
+    title: 四家说法不完全一样
+    picture: teeth-compare.png
+  - tone: mint
+    tag: 早一点晚一点都常见
+    title: 不用和别人家比
+    lines:
+      - 大多数约 6 个月开始长牙。
+      - 有的 4 个月前，有的 1 岁以后，
+      - 少数出生就有牙。
+      - 20 颗长齐：约 2 岁半（2–3 岁）。
+    foot: 来源：NHS、BIÖG
+  - tone: rose
+    tag: 长牙时
+    title: 可能会这样
+    lines:
+      - 牙龈红、口水多、爱咬东西，
+      - 烦躁睡不好，体温略高但不到 38°C。
+      - 高烧、腹泻不是长牙引起的，
+      - 要找儿科医生看。
+    foot: 来源：BIÖG、NHS、美国儿科学会 AAP
+  - tone: gold
+    tag: 安抚
+    title: 这些别用
+    big: false
+    rows:
+      - { when: "琥珀牙链", name: 不止痛，发生过窒息和勒颈 }
+      - { when: "麻醉凝胶", name: 美国儿科学会建议不用 }
+      - { when: "冷冻牙胶", name: 可能弊大于利，用硬橡胶的 }
+    foot: 来源：美国儿科学会 AAP
+  - tone: green
+    tag: 在德国
+    title: 带宝宝看牙医
+    rows:
+      - { when: "Z1", name: 6–9 个月 }
+      - { when: "Z2", name: 10–20 个月 }
+      - { when: "Z3", name: 21–33 个月 }
+    lines:
+      - 法定医保到 6 岁共 6 次检查，可涂氟。
+    foot: 来源：KZBV · 2026 年起记在黄本里
+  - tone: paper
+    tag: 换牙
+    title: 6 岁左右开始换牙
+    picture: teeth-permanent.png
+  - tone: ink
+    title: 你家宝宝第一颗牙几个月？
+    lines:
+      - 评论区留字母，再说说长牙的小故事。
+    rows:
+      - { when: "A", name: 出生就有 }
+      - { when: "B", name: 4 个月前 }
+      - { when: "C", name: 4–6 个月 }
+      - { when: "D", name: 7–9 个月 }
+      - { when: "E", name: 10–12 个月 }
+      - { when: "F", name: 1 岁以后 }
+    search: 小鹿出游 Allo Outings
+    foot: 带娃出行，搜索后看你的城市
