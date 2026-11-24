@@ -59,6 +59,10 @@
  "https://centre-charlemagne.eu/termin/monarchen-macht-moneten-kroenungen-in-aachen-10/": {
   "venue": "Centre Charlemagne"
  },
+ "https://centre-charlemagne.eu/termin/rom-in-bronze-kaiserportraets-von-wil-van-der-laan-2/": {
+  "venue": "Centre Charlemagne",
+  "street": "Katschhof"
+ },
  "https://centre-charlemagne.eu/termin/schatzkisten-werkstatt-rahmenprogramm-weihnachtsmarkt-2/": {
   "venue": "Centre Charlemagne"
  },
@@ -907,6 +911,10 @@
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/weihnachtshaus-der-stadt": {
   "venue": "Theater Düren im Haus der Stadt",
   "street": "Stefan-Schwer-Straße 4-6"
+ },
+ "https://www.koeln.de/event/konzert-des-jugendsinfonieorchesters-der-rheinischen-musikschule-koeln/": {
+  "venue": "Hochschule für Musik und Tanz Köln",
+  "street": "Unter Krahnenbäumen 87"
  },
  "https://www.koeln.de/event/nikolaus-kinder-disco/": {
   "venue": "SPRUNG.RAUM",

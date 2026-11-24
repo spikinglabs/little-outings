@@ -9,77 +9,36 @@
       "to": "19:00",
       "kind": "assembly",
       "type": "march",
-      "where": "Savignyplatz, Nordseite (Startpunkt und Endpunkt)",
-      "route": "Savignyplatz (Nordseite) – Kantstraße Richtung Westen – Kehre Kaiser-Friedrich-Straße – Kantstraße – Kehre Joachimsthaler Straße – Kantstraße – Kehre Kaiser-Friedrich-Straße – Kantstraße – Zwischenkehre zwischen Wilmersdorfer Straße und Krumme Straße – Kantstraße – Kehre Joachimsthaler Straße – Kant",
+      "where": "Savignyplatz, Nordseite (Kantstraße)",
+      "route": "Savignyplatz, Kantstraße Richtung Westen, Kehre Kaiser-Friedrich-Straße, Kantstraße, Kehre Joachimsthaler Straße, Kantstraße, Kehre Kaiser-Friedrich-Straße, Kantstraße, Zwischenkehre zwischen Wilmersdorfer Straße und Krumme Straße, Kantstraße, Kehre Joachimsthaler Straße, Kantstraße, Kehre Kaiser-Fr",
       "line": {
-        "de": "Jeden Montag im November 2026 fährt eine Radfahrer-Versammlung auf der Kantstraße in Charlottenburg hin und her und endet am Savignyplatz.",
-        "en": "Every Monday in November 2026, a cyclists' assembly rides back and forth along Kantstraße in Charlottenburg, ending at Savignyplatz.",
-        "zh": "2026年11月每周一，骑行集会在夏洛滕堡的Kantstraße来回行进，最后在Savignyplatz 广场结束。"
+        "de": "Monatliche Radfahr-Runde auf der Kantstraße jeweils montags 17:30–19:00 mit wiederholten Kehren; Straßenverkehr auf dem Abschnitt betroffen.",
+        "en": "Weekly Monday bike ride on Kantstraße, 17:30–19:00, with repeated turns; road traffic on the section affected.",
+        "zh": "每周一17:30–19:00在Kantstraße街道举行骑行活动，多次掉头，该路段交通受影响。"
       },
       "about": {
-        "de": "Die Versammlung „Gemeinsam sicher auf der Kantstraße“ fordert sicheres Radfahren in Charlottenburg und in ganz Berlin. Sie findet an den Montagen von 09.11. bis 30.11.2026 statt.",
-        "en": "The assembly \"Together safe on Kantstraße\" calls for safe cycling in Charlottenburg and all of Berlin. It takes place on Mondays from 9 to 30 November 2026.",
-        "zh": "集会名为“Gemeinsam sicher auf der Kantstraße”，要求在夏洛滕堡及整个柏林实现安全骑行。活动于2026年11月9日至30日的每周一举行。"
+        "de": "Aktion für sicheres Radfahren in Charlottenburg und ganz Berlin. Die Runde wiederholt sich jeden Montag im November 2026.",
+        "en": "An action for safe cycling in Charlottenburg and all of Berlin. The ride repeats every Monday in November 2026.",
+        "zh": "为在夏洛滕堡及整个柏林安全骑行而开展的活动。该骑行每周一重复，时间为2026年11月。"
       },
       "points": {
         "de": [
-          "Montags, 17:30–19:00, 09.11.–30.11.2026",
           "Start und Ende: Savignyplatz, Nordseite",
-          "Strecke: Kantstraße mit mehreren Wendepunkten in Kaiser-Friedrich-Straße und Joachimsthaler Straße",
-          "Zwischenkehre zwischen Wilmersdorfer Straße und Krumme Straße"
+          "Mehrere Kehren auf Kantstraße, Kaiser-Friedrich-Straße und Joachimsthaler Straße",
+          "Zwischenkehre zwischen Wilmersdorfer Straße und Krumme Straße",
+          "Jeweils montags 17:30–19:00, 09.11. bis 30.11.2026"
         ],
         "en": [
-          "Mondays, 17:30–19:00, 9–30 November 2026",
           "Start and end: Savignyplatz, north side",
-          "Route: Kantstraße with several turns into Kaiser-Friedrich-Straße and Joachimsthaler Straße",
-          "Turn-around between Wilmersdorfer Straße and Krumme Straße"
+          "Several turns on Kantstraße, Kaiser-Friedrich-Straße and Joachimsthaler Straße",
+          "Turn between Wilmersdorfer Straße and Krumme Straße",
+          "Every Monday 17:30–19:00, 9 to 30 November 2026"
         ],
         "zh": [
-          "每周一 17:30–19:00，2026年11月9日至30日",
-          "起点和终点：Savignyplatz 广场北侧",
-          "路线：Kantstraße，多次转入Kaiser-Friedrich-Straße和Joachimsthaler Straße",
-          "在Wilmersdorfer Straße与Krumme Straße之间有一个折返点"
-        ]
-      },
-      "url": "https://www.berlin.de/polizei/service/versammlungsbehoerde/versammlungen-aufzuege/"
-    },
-    {
-      "id": "rec_19734459e09278705ca9",
-      "city": "Berlin",
-      "day": "2026-11-23",
-      "from": "11:00",
-      "to": "13:30",
-      "kind": "assembly",
-      "type": "demonstration",
-      "where": "Paul-Löbe-Allee, 10557 Berlin",
-      "line": {
-        "de": "Versammlung an der Paul-Löbe-Allee in Berlin-Mitte; der Hinweis nennt keine Straßensperrungen oder Linienänderungen.",
-        "en": "Assembly on Paul-Löbe-Allee in Berlin; the notice names no road closures or line changes.",
-        "zh": "柏林 Paul-Löbe-Allee 大街有集会；通知未提及道路封闭或公交线路变更。"
-      },
-      "about": {
-        "de": "Die Versammlung steht unter dem Titel „MFR/GAP-Budget: Wir haben einen Plan“ und geht um den EU-Haushalt (MFR) und die Agrarförderung (GAP). Der Veranstalter wird im Hinweis nicht genannt.",
-        "en": "The assembly is titled “MFR/GAP-Budget: Wir haben einen Plan” and concerns the EU budget (MFR) and agricultural funding (GAP). The notice does not name the organiser.",
-        "zh": "集会主题为“MFR/GAP-Budget: Wir haben einen Plan”，涉及欧盟预算（MFR）和农业补贴（GAP）。通知未注明主办方。"
-      },
-      "points": {
-        "de": [
-          "Versammlung am 23.11.2026, 11:00 bis 13:30 Uhr",
-          "Ort: Paul-Löbe-Allee, 10557 Berlin",
-          "Teilnehmerzahl wird im Hinweis nicht genannt",
-          "Keine Angaben zu Straßensperrungen oder Linien"
-        ],
-        "en": [
-          "Assembly on 23 Nov 2026, 11:00 to 13:30",
-          "Place: Paul-Löbe-Allee, 10557 Berlin",
-          "The notice gives no expected number of participants",
-          "No information on road closures or lines"
-        ],
-        "zh": [
-          "集会时间：2026年11月23日 11:00至13:30",
-          "地点：Paul-Löbe-Allee, 10557 柏林",
-          "通知未给出预计人数",
-          "通知未提供道路封闭或公交线路信息"
+          "起点和终点：Savignyplatz北侧",
+          "在Kantstraße、Kaiser-Friedrich-Straße和Joachimsthaler Straße上多次掉头",
+          "在Wilmersdorfer Straße与Krumme Straße之间设掉头点",
+          "2026年11月9日至30日每周一17:30–19:00"
         ]
       },
       "url": "https://www.berlin.de/polizei/service/versammlungsbehoerde/versammlungen-aufzuege/"
