@@ -476,14 +476,6 @@
  "https://suermondt-ludwig-museum.de/event/kunst-croissants-und-konfituere-5-2-2/": {
   "venue": "Suermondt-Ludwig-Museum"
  },
- "https://suermondt-ludwig-museum.de/event/suermondt-museumsclub-12-2-2/2026-11-24/": {
-  "venue": null,
-  "guess": {
-   "venue": "Suermondt-Ludwig-Museum",
-   "why": "The event title, website URL, and mention of Café Wunderkammer indicate it takes place at the Suermondt-Ludwig-Museum."
-  },
-  "read": 3
- },
  "https://suermondt-ludwig-museum.de/event/suermondt-museumsclub-12-2-2/2026-12-01/": {
   "venue": null,
   "guess": {
@@ -797,6 +789,10 @@
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/historischer-annamarkt": {
   "venue": "Innenstadt Düren"
+ },
+ "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/kindersitzung-der-kg-juezzenije-plueme-1954-e-v": {
+  "venue": "Festzelt in Düren-Gürzenich",
+  "street": "Papiermühle 13"
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/kraeuter-diplom-fuer-kinder-ab-6-jahren-24-03-2027": {
   "venue": "Volkshochschule Rur-Eifel",
