@@ -1,88 +1,59 @@
-# A Rednote (小红书) discussion post: how parents help kids sit calmly and feel at ease in the car (car seat, long
-# drives). Mostly an invitation to share; the few safety facts are checked, and the tips are written as common
-# practice ("大家常用的办法"), not as advice we vouch for. No brands, no questions about anyone's kids.
+# A Rednote (小红书) discussion post: how parents help kids sit calmly and feel at ease in the car. Light and
+# peer-level: a relatable opener, a letter poll and open questions; no advice or safety lectures. No brands, no
+# questions about anyone's kids.
 # History (find a post by its code: grep -l "code: CR7H" posts/):
-# - 2026-11-25 L: "做一个大家讨论的小红书帖子，让大家分享如何让小朋友安心坐车的话题". Written with these sources:
-#   - § 21 Abs. 1a StVO: children under 12 who are smaller than 150 cm ride in a child seat (ADAC
-#     "Kindersitzpflicht": https://www.adac.de/verkehr/verkehrssicherheit/kindersicherheit/kindersitzberater/kindersitzpflicht/ ).
-#   - UN R129 (i-Size): rear-facing at least until 15 months (ADAC "Kindersitz-Normen":
-#     https://www.adac.de/verkehr/verkehrssicherheit/kindersicherheit/kindersitzberater/kindersitz-normen/ ).
-#     Said for i-Size seats only, since older R44 seats are still allowed in use.
-#   - ADAC "Warum die Winterjacke beim Autofahren gefährlich ist"
-#     (https://www.adac.de/verkehr/verkehrssicherheit/wetter/winterjacke-auto/ ): padded jackets leave the belt
-#     loose; take the jacket off, buckle up, then a jacket or blanket over the belt.
-#   - Stop before taking a crying child out of the seat, and soft toys rather than hard ones: general safety
-#     sense, worded as what to do, with no figures.
+# - 2026-11-25 L: "做一个大家讨论的小红书帖子，让大家分享如何让小朋友安心坐车的话题". First draft had safety and
+#   tip cards (StVO §21, R129, ADAC winter jacket).
+# - 2026-11-25 L: "方向错了，我们是想让大家讨论，不需要提供太多指导，这样看起来太过居高临下": rewritten as a pure
+#   discussion post; all guidance cards removed, so no facts left to source.
 code: CR7H
-label: 安心坐车 · 家长经验交流
-title: 娃一上车就哭闹？大家都怎么办
+label: 安心坐车 · 一起聊聊
+title: 带娃坐车，你家是哪种？
 caption: |
-  娃一上车就哭、扭、想下来？一起聊聊怎么让小朋友安心坐车🚗
+  有的娃一上车就睡，有的一路唱歌，有的五分钟问一次“到了吗？”🚗
 
-  ① 先说安全：在德国，12 岁以下、身高不到 150 厘米的孩子，坐车要用儿童座椅（StVO §21）。i-Size（R129）座椅至少到 15 个月要反向安装。
-  ② 冬天注意：厚外套会让安全带系不紧。先脱外套、系好安全带，再把外套或毯子盖在上面（ADAC）。
-  ③ 出发前：有的家长挑孩子平时睡觉的时间出发；先告诉孩子去哪、要坐多久；上车前换好尿布或上过厕所。
-  ④ 路上：听儿歌和故事，一起找窗外的车和动物，带软一点的小玩具。
-  ⑤ 长途：开一段就找休息站停一停，下车活动一下。孩子哭得厉害，先找地方停车，再把孩子抱出座椅。
+  想听听大家的：
+  你家娃坐车是哪一种？
+  有没有哪个小办法，让娃坐得安心一点？
+  开长途的时候，路上有没有什么难忘的小插曲？
 
-  💬 你家有什么让孩子安心坐车的小办法？长途开车有什么经验或趣事？评论区分享一下，帮到更多家长。
-tags: [带娃出行, 安全座椅, 儿童座椅, 带娃自驾, 德国带娃, 德国生活, 德国妈妈, 德国爸爸, 留德, 育儿]
+  💬 评论区留个字母，再说说你家的经验或趣事，一起交流～
+tags: [带娃出行, 带娃自驾, 安全座椅, 德国带娃, 德国生活, 德国妈妈, 德国爸爸, 留德, 育儿]
 cards:
   - tone: rose
     tag: 带娃出行 · 一起聊聊
-    title: "娃一上车\n就哭闹？"
+    title: "带娃坐车\n你家是\n哪种？"
     big: true
     lines:
-      - 怎么让小朋友安心坐车？
-      - 最后一张：说说你家的办法！
-    foot: 安心坐车 · 家长经验交流
-  - tone: paper
-    tag: 先说安全
-    title: 儿童座椅不能省
-    lines:
-      - 在德国，12 岁以下、不到 150 厘米，
-      - 坐车要用儿童座椅。
-      - i-Size 座椅至少到 15 个月要反向装。
-    foot: 来源：StVO §21、联合国 R129、ADAC
+      - 有的一上车就睡，有的一路问“到了吗？”
+      - 最后一张：来评论区聊聊！
+    foot: 安心坐车 · 家长交流
   - tone: sky
-    tag: 冬天特别注意
-    title: 上车先脱厚外套
-    lines:
-      - 厚外套会让安全带系不紧。
-      - 先系好安全带，
-      - 再把外套或毯子盖在上面。
-    foot: 建议来源：ADAC
+    tag: 你家娃上车后
+    title: 是哪一种？
+    rows:
+      - { when: "A", name: 一上车就睡着 }
+      - { when: "B", name: 一路唱歌聊天 }
+      - { when: "C", name: 五分钟问一次“到了吗” }
+      - { when: "D", name: 一坐上座椅就不乐意 }
+      - { when: "E", name: 每次都不一样 }
   - tone: mint
-    tag: 大家常用的办法 1
-    title: 出发前
-    rows:
-      - { when: "时间", name: 挑孩子平时睡觉的时间出发 }
-      - { when: "预告", name: 先说好去哪、要坐多久 }
-      - { when: "准备", name: 换好尿布，或先上厕所 }
+    tag: 想听听大家的
+    title: 有没有一招管用的？
+    lines:
+      - 一首歌、一个小游戏、一个出发时间……
+      - 你家有什么让娃安心坐车的小办法？
   - tone: gold
-    tag: 大家常用的办法 2
-    title: 路上
-    rows:
-      - { when: "听", name: 儿歌、故事，全家一起唱 }
-      - { when: "看", name: 找窗外的车、动物和颜色 }
-      - { when: "玩", name: 软一点的小玩具 }
-  - tone: green
     tag: 长途开车
-    title: 开一段，停一停
+    title: 路上有啥小插曲？
     lines:
-      - 找休息站停一下，下车活动活动。
-      - 孩子哭得厉害，先找地方停车，
-      - 再把孩子抱出座椅。
+      - 你们开过最远的一趟是去哪？
+      - 有没有全家都记得的小故事？
   - tone: ink
-    title: 你家娃坐车靠什么？
+    title: 评论区聊聊
     lines:
-      - 评论区留字母，再说说你的办法。
-    rows:
-      - { when: "A", name: 儿歌和故事 }
-      - { when: "B", name: 窗外找东西 }
-      - { when: "C", name: 挑睡觉时间出发 }
-      - { when: "D", name: 大人坐后排陪着 }
-      - { when: "E", name: 小玩具和小零食 }
-      - { when: "F", name: 还在找办法 }
+      - 先留个字母（A–E），
+      - 再说说你家的小办法或趣事。
+      - 一起交流，说不定就帮到别的家长。
     search: 小鹿出游 Allo Outings
     foot: 带娃出门去哪，搜索后看你的城市
