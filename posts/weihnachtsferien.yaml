@@ -1,0 +1,64 @@
+# A Rednote (小红书) set: Christmas school holidays 2026/27 in the states our followers live in, with a public vote on
+# holiday plans. Dates from the KMK holiday calendar (kmk.org/service/ferienregelung/ferienkalender.html,
+# "Ferien im Schuljahr 2026/2027", Stand 09.10.2025, read 2026-11-25; first and last holiday day):
+# NRW 23.12.-06.01., Berlin 23.12.-02.01., Bayern 24.12.-08.01., Hessen 23.12.-12.01., Hamburg 21.12.-01.01.,
+# Baden-Württemberg 23.12.-09.01.
+# History (find a post by its code: grep -l "code: WF7H" posts/):
+# - 2026-11-25 weekly topic post (Kunla AL-8): holiday reminder.
+code: WF7H
+title: 德国圣诞假期几号放？6个州一览｜2026
+until: 2026-12-23
+caption: |
+  德国各州圣诞假期时间不一样🎄 按文教部长联席会议（KMK）公布的假期表，整理了我们关注者最多的6个州（第一天到最后一天都是假期）👇
+
+  北威（NRW）：12-23 到 01-06
+  柏林：12-23 到 01-02
+  巴伐利亚：12-24 到 01-08
+  黑森：12-23 到 01-12
+  汉堡：12-21 到 01-01
+  巴符：12-23 到 01-09
+
+  具体以学校通知为准，幼儿园的关门时间各园不同，记得问一下～
+
+  🗳 今年圣诞假期你家怎么过？评论区留字母：
+  A 回国 B 德国境内旅行 C 去别的欧洲国家 D 在家附近玩
+
+  假期带娃去哪：浏览器搜索「小鹿出游 Allo Outings」，选城市就能看到。
+tags: [德国圣诞假期, 德国学校假期, Weihnachtsferien, 德国带娃, 德国上学, 德国生活, 德国妈妈, 德国爸爸, 留德]
+cards:
+  - tone: gold
+    tag: 2026/27 · 学校假期
+    title: "圣诞假期\n几号放？"
+    lines:
+      - 6个州一览，按官方假期表整理。
+      - 最后一张投票，评论区见！
+    foot: 来源：文教部长联席会议（KMK）假期表
+  - tone: red
+    tag: 圣诞假期 2026/27
+    title: 6个州一览
+    rows:
+      - { when: "北威 NRW", name: 12-23 到 01-06 }
+      - { when: "柏林", name: 12-23 到 01-02 }
+      - { when: "巴伐利亚", name: 12-24 到 01-08 }
+      - { when: "黑森", name: 12-23 到 01-12 }
+      - { when: "汉堡", name: 12-21 到 01-01 }
+      - { when: "巴符", name: 12-23 到 01-09 }
+    note: 写的是假期第一天和最后一天。
+  - tone: paper
+    tag: 小提示
+    title: 放假前看一眼
+    lines:
+      - 具体以学校通知为准。
+      - 幼儿园不按学校假期，关门时间各园不同，记得问一下。
+      - 汉堡最早放，12-21 就开始；黑森最晚开学，01-13。
+  - tone: ink
+    title: 圣诞假期你家怎么过？
+    lines:
+      - 评论区留字母，也欢迎分享好去处。
+    rows:
+      - { when: "A", name: 回国 }
+      - { when: "B", name: 德国境内旅行 }
+      - { when: "C", name: 去别的欧洲国家 }
+      - { when: "D", name: 在家附近玩 }
+    search: 小鹿出游 Allo Outings
+    note: 假期带娃去哪：搜索后选城市就能看到。

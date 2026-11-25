@@ -1,0 +1,109 @@
+# A Rednote (小红书) explainer: Nikolaustag (6 Dec), the boots put out the evening before, Nikolaus vs Weihnachtsmann,
+# Knecht Ruprecht. Festival explainers do well (the St. Martin one got the most likes). Ends on a public vote.
+# Sources (read 2026-11-25): planet-wissen.de/kultur/brauchtum/weihnachtsbraeuche/weihnachten-braeuche-feiertage-nikolaus-100.html
+# and stuttgarter-zeitung.de Nikolaus explainers (boots out on the evening of 5 Dec, filled overnight with small gifts,
+# sweets, nuts or fruit; some regions a plate; Nikolaus of Myra, a 4th-century bishop; Knecht Ruprecht as companion,
+# with regional names such as Krampus; the Weihnachtsmann is a later figure). 2026-12-06 is a Sunday (2nd Advent).
+# History (find a post by its code: grep -l "code: NK6D" posts/):
+# - 2026-11-25 weekly topic post (Kunla AL-8): festival explainer, posted before 12-05.
+code: NK6D
+title: 12-06尼古拉斯节，德国娃为啥放靴子？
+until: 2026-12-06
+caption: |
+  12-06 是德国的尼古拉斯节（Nikolaustag）🎅 前一天晚上，很多孩子会把靴子放在门口，第二天早上靴子里就有小礼物。第一次在德国过的家长，看这一篇就够了👇
+
+  📅 今年 12-05 是周六，12-06 是周日，正好也是第二个降临周日
+  👢 12-05 晚上把靴子放门口，有的地方放盘子
+  🍫 早上靴子里是巧克力、坚果、橘子这类小东西
+  🧔 尼古拉斯不是圣诞老人：他是一位主教，戴主教帽、拿权杖
+  🎄 12-24 送大礼物的是圣诞老人（Weihnachtsmann）或圣婴（Christkind）
+
+  🗳 你家靴子里放什么？评论区留字母：
+  A 巧克力 B 坚果和橘子 C 小玩具 D 我们不过这个节
+
+  你们那里的尼古拉斯还有什么讲究？欢迎分享～
+tags: [尼古拉斯节, Nikolaus, 德国节日, 德国习俗, 德国圣诞, 德国带娃, 德国生活, 德国妈妈, 德国爸爸]
+cards:
+  - tone: red
+    tag: 12-06 · 德国节日
+    title: "尼古拉斯节\n德国娃为啥\n放靴子？"
+    big: true
+    lines:
+      - 第一次在德国过的家长，看这一篇就够了。
+    foot: 德国带娃 · 圣诞季
+  - tone: paper
+    tag: Nikolaustag
+    title: 是什么节？
+    rows:
+      - { when: "日期", name: 每年 12-06 }
+      - { when: "今年", name: 12-06 是周日，正好也是第二个降临周日 }
+      - { when: "纪念", name: 圣尼古拉斯，4世纪米拉城的主教 }
+    note: 传说他悄悄帮助过穷人家，所以这一天孩子会收到小礼物。
+  - tone: gold
+    tag: 怎么过
+    title: 前一晚放靴子
+    big: false
+    lines:
+      - 12-05 晚上，孩子把靴子放在门口，有的地方放盘子。
+      - 第二天早上，靴子里有小礼物。
+      - 常见的是巧克力、坚果、橘子这类小东西。
+    note: 各家各地做法不太一样，小礼物就好。
+  - tone: green
+    tag: 别搞混
+    title: 他不是圣诞老人
+    rows:
+      - { when: "尼古拉斯", name: 一位主教，戴主教帽、拿权杖 }
+      - { when: "来的日子", name: 12-05 晚上到 12-06 }
+      - { when: "圣诞老人", name: 后来才有的形象 }
+      - { when: "送大礼", name: 12-24 平安夜，圣诞老人或圣婴 }
+  - tone: sky
+    tag: 他的同伴
+    title: 鲁普雷希特
+    lines:
+      - 传说尼古拉斯身边有个同伴 Knecht Ruprecht，拿着树枝，吓唬调皮的孩子。
+      - 不同地方叫法不同，奥地利那边叫 Krampus。
+    note: 现在大多只是故事，孩子听听就好。
+  - tone: ink
+    title: 你家靴子里放什么？
+    lines:
+      - 评论区留字母，也欢迎分享你们那里的讲究。
+    rows:
+      - { when: "A", name: 巧克力 }
+      - { when: "B", name: 坚果和橘子 }
+      - { when: "C", name: 小玩具 }
+      - { when: "D", name: 我们不过这个节 }
+video:
+  snow: true
+  scenes:
+    - tone: red
+      tag: 12-06 · 德国节日
+      title: "尼古拉斯节\n德国娃为啥放靴子？"
+      hook: true
+      chips: [👢 放靴子, 🍫 小礼物, 🎅 不是圣诞老人]
+      sub: 第一次在德国过，看这篇
+      seconds: 3.4
+    - tone: gold
+      tag: 怎么过
+      big: 12-05
+      lines: [晚上把靴子放门口, 🎁 第二天早上有小礼物]
+    - tone: green
+      tag: 靴子里有什么
+      title: 常见的小东西
+      items:
+        - { icon: 🍫, v: 巧克力 }
+        - { icon: 🥜, v: 坚果 }
+        - { icon: 🍊, v: 橘子 }
+    - tone: blue
+      tag: 别搞混
+      title: 他不是圣诞老人
+      items:
+        - { icon: 🧔, v: 尼古拉斯, s: "一位主教\n12-06 来" }
+        - { icon: 🎄, v: 圣诞老人或圣婴, s: 12-24 平安夜送大礼物 }
+    - tone: ink
+      title: 你家靴子里放什么？
+      vote:
+        - { letter: A, name: 巧克力 }
+        - { letter: B, name: 坚果橘子 }
+        - { letter: C, name: 小玩具 }
+        - { letter: D, name: 不过节 }
+      cta: 评论区留字母 👇
