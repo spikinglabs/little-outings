@@ -6,6 +6,8 @@
 #   tip cards (StVO §21, R129, ADAC winter jacket).
 # - 2026-11-25 L: "方向错了，我们是想让大家讨论，不需要提供太多指导，这样看起来太过居高临下": rewritten as a pure
 #   discussion post; all guidance cards removed, so no facts left to source.
+# - 2026-11-25 L: "鼓励大家给出车里带娃设备照片": new card 5 asks for photos of in-car kit (kit only, not the kids),
+#   caption and last card ask for a photo too.
 code: CR7H
 label: 安心坐车 · 一起聊聊
 title: 带娃坐车，你家是哪种？
@@ -16,8 +18,9 @@ caption: |
   你家娃坐车是哪一种？
   有没有哪个小办法，让娃坐得安心一点？
   开长途的时候，路上有没有什么难忘的小插曲？
+  你家车里有哪些带娃装备？挂在后座的、放在手边的、自己动手做的都算📸
 
-  💬 评论区留个字母，再说说你家的经验或趣事，一起交流～
+  💬 评论区留个字母，说说你家的经验或趣事，再晒一张车里带娃装备的照片，给大家参考参考～
 tags: [带娃出行, 带娃自驾, 安全座椅, 德国带娃, 德国生活, 德国妈妈, 德国爸爸, 留德, 育儿]
 cards:
   - tone: rose
@@ -49,11 +52,18 @@ cards:
     lines:
       - 你们开过最远的一趟是去哪？
       - 有没有全家都记得的小故事？
+  - tone: green
+    tag: 晒一晒
+    title: 车里的带娃装备
+    lines:
+      - 挂在后座的、放在手边的、自己做的……
+      - 评论区发张照片，给大家参考参考！
+      - 拍装备就好，不用拍到娃。
   - tone: ink
     title: 评论区聊聊
     lines:
       - 先留个字母（A–E），
-      - 再说说你家的小办法或趣事。
-      - 一起交流，说不定就帮到别的家长。
+      - 说说你家的小办法或趣事，
+      - 再晒一张车里带娃装备的照片。
     search: 小鹿出游 Allo Outings
     foot: 带娃出门去哪，搜索后看你的城市
