@@ -5,20 +5,6 @@
   "week": 48,
   "published_at": "2026-11-23T10:00:32.864Z",
   "by": "ai",
-  "weather": [
-    {
-      "day": "2026-11-28",
-      "code": 3,
-      "max": 3.5,
-      "rain": 10
-    },
-    {
-      "day": "2026-11-29",
-      "code": 51,
-      "max": 5,
-      "rain": 33
-    }
-  ],
   "picks": [
     {
       "id": "ck-evt-cc7254a7b29994a162f6",
@@ -160,6 +146,21 @@
         "en": "Indoor pool in Burtscheid, open Sat–Sun 7:00–20:00 – great for a splashy family day.",
         "zh": "Burtscheid 区的室内泳池，周六至周日 7:00–20:00 开放，适合全家一起戏水。"
       }
+    }
+  ],
+  "refreshed_at": "2026-11-27T10:11:02.554Z",
+  "weather": [
+    {
+      "day": "2026-11-28",
+      "code": 3,
+      "max": 4.9,
+      "rain": 0
+    },
+    {
+      "day": "2026-11-29",
+      "code": 55,
+      "max": 6.3,
+      "rain": 88
     }
   ],
   "still": [

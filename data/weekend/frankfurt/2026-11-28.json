@@ -5,20 +5,6 @@
   "week": 48,
   "published_at": "2026-11-23T10:00:32.835Z",
   "by": "score",
-  "weather": [
-    {
-      "day": "2026-11-28",
-      "code": 3,
-      "max": 1.4,
-      "rain": 9
-    },
-    {
-      "day": "2026-11-29",
-      "code": 80,
-      "max": 0.4,
-      "rain": 39
-    }
-  ],
   "picks": [
     {
       "id": "ck-evt-1085d529db8db29e1ee7",
@@ -167,6 +153,21 @@
         "en": "Indoor kids' centre on Zeil; open until 21:00 Fri and Sat, Sun 12:00–18:00.",
         "zh": "Zeil 街上的室内儿童中心，周五、周六营业至21:00，周日12:00–18:00。"
       }
+    }
+  ],
+  "refreshed_at": "2026-11-27T10:11:02.454Z",
+  "weather": [
+    {
+      "day": "2026-11-28",
+      "code": 2,
+      "max": 2.7,
+      "rain": 0
+    },
+    {
+      "day": "2026-11-29",
+      "code": 61,
+      "max": 1.6,
+      "rain": 70
     }
   ]
 }

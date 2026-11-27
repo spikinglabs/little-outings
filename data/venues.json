@@ -444,10 +444,6 @@
   "venue": "Ludwig Forum Aachen",
   "street": "Jülicher Straße 97–109"
  },
- "https://museen-tempelhof-schoeneberg.de/events/alarm-notes/": {
-  "venue": "Marlene-Dietrich-Kinosaal im Rathaus Schöneberg",
-  "street": "John-F.-Kennedy-Platz 1"
- },
  "https://suermondt-ludwig-museum.de/event/ars-longa-vita-brevis/": {
   "venue": null,
   "guess": {
@@ -846,10 +842,6 @@
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/nikolaustour-des-vespen-nest-dueren": {
   "venue": "verschiedene Orte in Düren"
- },
- "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/papierwandel-eine-veranstaltung-des-projekts-zellulr": {
-  "venue": "Papiermuseum Düren",
-  "street": "Wallstraße 2-8"
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/rundgang-durch-den-gruenguertel": {
   "venue": "Stadtmuseum",

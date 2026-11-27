@@ -5,20 +5,6 @@
   "week": 48,
   "published_at": "2026-11-23T10:00:32.805Z",
   "by": "score",
-  "weather": [
-    {
-      "day": "2026-11-28",
-      "code": 3,
-      "max": 3,
-      "rain": 8
-    },
-    {
-      "day": "2026-11-29",
-      "code": 51,
-      "max": 2.1,
-      "rain": 29
-    }
-  ],
   "picks": [
     {
       "id": "ck-evt-63c591bbcc05e38ee3a8",
@@ -108,6 +94,21 @@
       "district": "Mörsenbroich",
       "venue": "Stieglitzstraße",
       "days": []
+    }
+  ],
+  "refreshed_at": "2026-11-27T10:10:58.457Z",
+  "weather": [
+    {
+      "day": "2026-11-28",
+      "code": 3,
+      "max": 3.5,
+      "rain": 1
+    },
+    {
+      "day": "2026-11-29",
+      "code": 53,
+      "max": 4.1,
+      "rain": 85
     }
   ],
   "still": [

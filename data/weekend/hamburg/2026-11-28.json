@@ -5,20 +5,6 @@
   "week": 48,
   "published_at": "2026-11-23T10:00:32.845Z",
   "by": "score",
-  "weather": [
-    {
-      "day": "2026-11-28",
-      "code": 3,
-      "max": -1.3,
-      "rain": 3
-    },
-    {
-      "day": "2026-11-29",
-      "code": 66,
-      "max": 4.3,
-      "rain": 35
-    }
-  ],
   "picks": [
     {
       "id": "ck-evt-a0c673ce3945bf497262",
@@ -164,6 +150,21 @@
         "en": "Open from 9 on Saturdays and Sundays, indoors: play fun for little ones, with short breaks.",
         "zh": "周六、周日9:00起开放，室内进行，有短暂休息时段，适合小朋友玩耍。"
       }
+    }
+  ],
+  "refreshed_at": "2026-11-27T10:11:02.484Z",
+  "weather": [
+    {
+      "day": "2026-11-28",
+      "code": 3,
+      "max": 0.4,
+      "rain": 0
+    },
+    {
+      "day": "2026-11-29",
+      "code": 61,
+      "max": 1.6,
+      "rain": 54
     }
   ]
 }

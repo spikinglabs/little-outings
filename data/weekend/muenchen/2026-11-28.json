@@ -5,20 +5,6 @@
   "week": 48,
   "published_at": "2026-11-23T10:00:32.826Z",
   "by": "score",
-  "weather": [
-    {
-      "day": "2026-11-28",
-      "code": 3,
-      "max": -2.1,
-      "rain": 9
-    },
-    {
-      "day": "2026-11-29",
-      "code": 61,
-      "max": 3,
-      "rain": 22
-    }
-  ],
   "picks": [
     {
       "id": "ck-evt-ea3c0ce57bac18baefd7",
@@ -168,6 +154,48 @@
         "en": "Sat 10:00–17:00, free, indoors; closed on public holidays.",
         "zh": "周六10:00–17:00开放，免费，室内；法定节假日闭馆。"
       }
+    },
+    {
+      "id": "ck-evt-0cf800f6fbf2480f2d64",
+      "type": "event",
+      "title": "Tollwood-Winterfestival 2026",
+      "venue": "Theresienwiese",
+      "days": [
+        "2026-11-27",
+        "2026-11-28",
+        "2026-11-29"
+      ],
+      "time": "14:00–23:30",
+      "indoor": false,
+      "tags": [
+        "fest"
+      ],
+      "language": "none",
+      "label": {
+        "de": "Tollwood-Winterfestival 2026",
+        "en": "Tollwood Winter Festival 2026",
+        "zh": "Tollwood-Winterfestival 2026 冬季节"
+      },
+      "why": {
+        "de": "Fr–So 14:00–23:30 Uhr draußen auf der Theresienwiese, ganz ohne Deutschkenntnisse.",
+        "en": "Open Fri–Sun 14:00–23:30 outdoors at Theresienwiese, no German needed.",
+        "zh": "周五至周日 14:00–23:30，在户外 Theresienwiese 场地举办，无需德语。"
+      }
+    }
+  ],
+  "refreshed_at": "2026-11-27T10:11:02.424Z",
+  "weather": [
+    {
+      "day": "2026-11-28",
+      "code": 3,
+      "max": 1.2,
+      "rain": 0
+    },
+    {
+      "day": "2026-11-29",
+      "code": 45,
+      "max": -0.3,
+      "rain": 19
     }
   ]
 }
