@@ -107,16 +107,6 @@
   ],
   "sha": "e8449f6124aee162"
  },
- "https://aachenerkinder.de/veranstaltung/kinderchor-an-der-annakirche-singen-nix-wie-hin/2026-11-27/ | Kinderchor in Aachen: Singen? Nix wie hin!": {
-  "de": "Kinder singen neue und alte Lieder sowie Singspiele und Musicals, üben Stimmbildung und Bewegung.",
-  "en": "Children sing new and old songs, singing games and musicals, and practise voice training and movement.",
-  "zh": "孩子们演唱新老歌曲、歌唱游戏和音乐剧，并进行发声训练和律动。",
-  "ages": [
-   5,
-   18
-  ],
-  "sha": "45546c8958bb9325"
- },
  "https://aachenerkinder.de/veranstaltung/kinderchor-an-der-annakirche-singen-nix-wie-hin/2026-12-04/ | Kinderchor in Aachen: Singen? Nix wie hin!": {
   "de": "Kinder singen neue und alte Lieder, spielen Singspiele und Musicals, üben Stimmbildung und Bewegung.",
   "en": "Children sing new and old songs, perform singing games and musicals, and practise voice training and movement.",
@@ -126,6 +116,16 @@
    18
   ],
   "sha": "cad34f61d0d38e6b"
+ },
+ "https://aachenerkinder.de/veranstaltung/kinderchor-an-der-annakirche-singen-nix-wie-hin/2026-12-11/ | Kinderchor in Aachen: Singen? Nix wie hin!": {
+  "de": "Kinder singen im Chor, lernen neue und alte Lieder, Singspiele und Musicals und machen Bewegungsübungen.",
+  "en": "Children sing in a choir, learning old and new songs, singing games and musicals, plus voice training and movement.",
+  "zh": "孩子们在合唱团唱歌，学习新旧歌曲、歌唱游戏和音乐剧，并进行发声训练和律动。",
+  "ages": [
+   5,
+   18
+  ],
+  "sha": "eb0d1c902ecd865e"
  },
  "https://aachenerkinder.de/veranstaltung/kindertanzspiele/2026-12-01/ | Kindertanzspiele": {
   "de": "Kinder tanzen einfache Choreografien und spielen dazu lustige Spiele zu Musik und Rhythmus.",
@@ -219,6 +219,12 @@
   "zh": "参观者可以试玩 SPIEL 2026 展会的新款桌游。",
   "sha": "9bc3e556222e2eb4"
  },
+ "https://aachenerkinder.de/veranstaltung/weihnachtsdorf-st-donatus/2026-12-11/ | Weihnachtsdorf St. Donatus": {
+  "de": "Im Weihnachtsdorf gibt es ein Kinderkarussell, eine Süßwarenbude und Besuche des St. Nikolaus.",
+  "en": "The Christmas village has a children's carousel, a sweet stall and visits from St. Nicholas.",
+  "zh": "Weihnachtsdorf St. Donatus 设有儿童旋转木马和糖果摊，周末有圣尼古拉斯来访。",
+  "sha": "ea24ecb6da852b9f"
+ },
  "https://aachenweihnachtsmarkt.de/ | Aachener Weihnachtsmarkt": {
   "de": "Über 120 Händler, Handwerker und Künstler bieten Weihnachtsschmuck, festliche Musik, traditionelles Handwerk und Leckereien an.",
   "en": "Over 120 vendors, craftspeople, and artists offer holiday decorations, festive music, traditional crafts, and treats.",
@@ -233,12 +239,6 @@
    5,
    18
   ]
- },
- "https://altes-kurhaus-aachen.de/veranstaltung/filippo-bianchini-quartet/ | Federico Milone Quartet": {
-  "de": "Ein italienisches Jazz-Quartett spielt mit Saxophon, Klavier, Schlagzeug und Bass.",
-  "en": "An Italian jazz quartet performs with saxophone, piano, drums and bass.",
-  "zh": "一支意大利爵士四重奏演出，乐器有萨克斯风、钢琴、鼓和低音提琴。",
-  "sha": "cf1679c55dfcaa58"
  },
  "https://amh.de/veranstaltung/bastelstation-auf-dem-harburger-weihnachtsmarkt-2/ | Bastelstation auf dem Harburger Weihnachtsmarkt": {
   "de": "Kinder fertigen aus bunten Filzstoffen einen Beutel, der am Gürtel getragen werden kann.",
@@ -684,6 +684,16 @@
   "read": 1,
   "sha": "6b96e394b04e889c"
  },
+ "https://events.timely.fun/ewx8j2kb/event/78461407/20261211153000 | Filzwerkstatt": {
+  "de": "Man filzt aus Schafwolle winterliche Figuren wie Bären, Engel und Wichtel sowie Mützen und Handschuhe.",
+  "en": "Children felt sheep wool into winter figures such as bears, angels and gnomes, plus hats and mittens.",
+  "zh": "用羊毛毡制作冬季物品，如小熊、天使、小精灵，以及帽子和手套。",
+  "ages": [
+   7,
+   18
+  ],
+  "sha": "6c7c7715945d82c5"
+ },
  "https://events.timely.fun/ewx8j2kb/event/78461420/20260923150000 | Holzwerkstatt": {
   "de": "Kinder können unter fachkundiger Anleitung Möbel, Einrichtungsgegenstände, Spielgeräte oder Requisiten entwerfen, bauen und reparieren.",
   "en": "Children can design, build, and repair furniture, furnishings, play equipment, or props under expert guidance.",
@@ -694,15 +704,11 @@
   ],
   "sha": "d5868acd621715df"
  },
- "https://events.timely.fun/ewx8j2kb/event/78479872/20261127170000 | KinderUni-Vorlesung: 'Wie verändert Künstliche Intelligenz die Welt der Bilder und Videos?'": {
-  "none": true,
-  "read": 1,
-  "sha": "6b96e394b04e889c"
- },
- "https://events.timely.fun/ewx8j2kb/event/78479952/20261112150000 | Münchner Bücherschau: Workshop 'Wir führen was auf! - Bilderbücher live on stage'": {
-  "none": true,
-  "read": 1,
-  "sha": "6b96e394b04e889c"
+ "https://events.timely.fun/ewx8j2kb/event/78479913/20261211170000 | KinderUni-Vorlesung: 'Pflanzen als Vorbilder: Kann künstliche Photosynthese das Klima retten?'": {
+  "de": "Professorin Strunk erklärt, wie Forschende Pflanzen nachahmen, um Kohlendioxid in Kraftstoffe umzuwandeln.",
+  "en": "Professor Strunk explains how researchers copy plants to turn carbon dioxide into fuel.",
+  "zh": "斯特龙克教授讲解研究人员如何模仿植物，将二氧化碳转化为燃料。",
+  "sha": "b4d15cc301f0f252"
  },
  "https://events.timely.fun/ewx8j2kb/event/78479958/20261114140000 | Münchner Bücherschau: Offene Studios 'Wir führen was auf! - Bilderbücher live on stage'": {
   "none": true,
@@ -710,11 +716,6 @@
   "sha": "6b96e394b04e889c"
  },
  "https://events.timely.fun/ewx8j2kb/event/78479963/20261115110000 | Münchner Bücherschau: Offene Studios 'Wir führen was auf! - Bilderbücher live on stage'": {
-  "none": true,
-  "read": 1,
-  "sha": "6b96e394b04e889c"
- },
- "https://events.timely.fun/ewx8j2kb/event/78479971/20261116090000 | Münchner Bücherschau für Schulklassen 'Wir führen was auf! - Bilderbücher live on stage'": {
   "none": true,
   "read": 1,
   "sha": "6b96e394b04e889c"
@@ -750,12 +751,6 @@
   "en": "Katharina Schaaf reads Romantic texts about the sun, moon and stars, mixing reading, performance and interpretation.",
   "zh": "Katharina Schaaf朗读浪漫派关于太阳、月亮和星星的文字，并穿插表演与解读。",
   "sha": "f0f4f03517f559ce"
- },
- "https://freies-deutsches-hochstift.de/besuch/termine/-/einfuehrung-zum-deutschen-romantik-museum/1192/2026-11-27/6425 | Einführung zum Deutschen Romantik-Museum": {
-  "de": "Eine etwa 30-minütige Einführung gibt einen Einblick in das Ausstellungskonzept des Museums.",
-  "en": "A roughly 30-minute introduction gives an overview of the museum's exhibition concept.",
-  "zh": "约30分钟的导览介绍博物馆的展览理念。",
-  "sha": "38c4a1ef4f14165e"
  },
  "https://freies-deutsches-hochstift.de/besuch/termine/-/einfuehrung-zum-deutschen-romantik-museum/1192/2026-11-28/6426 | Einführung zum Deutschen Romantik-Museum": {
   "de": "Eine circa 30-minütige öffentliche Einführung in das Ausstellungskonzept des Museums.",
@@ -835,6 +830,12 @@
   "zh": "导览员带领参观 Deutsches Romantik-Museum 博物馆。",
   "sha": "f3ccaf3d39351b14"
  },
+ "https://freies-deutsches-hochstift.de/besuch/termine/-/einfuehrung-zum-deutschen-romantik-museum/1192/2026-12-11/6579/ | Einführung zum Deutschen Romantik-Museum": {
+  "de": "Eine Führung, die in das Deutsche Romantik-Museum einführt.",
+  "en": "A guided introductory tour of the Deutsches Romantik-Museum.",
+  "zh": "Deutsches Romantik-Museum 博物馆的导览介绍。",
+  "sha": "27da3d8b99593307"
+ },
  "https://freies-deutsches-hochstift.de/besuch/termine/-/familienfuehrung-im-goethehaus-2/59/2026-11-28/5848 | Familien-Führung im Goethe-Haus": {
   "de": "Familienführung durch Goethes Elternhaus mit Geschichten und Gegenständen zum Anfassen, zum Abschluss Schreiben mit der Gänsefeder.",
   "en": "Family tour of Goethe's childhood home with stories and objects to touch, ending with writing with a quill pen.",
@@ -856,12 +857,6 @@
   "en": "A guided tour of about 30 minutes gives an overview of the museum's exhibition concept.",
   "zh": "约30分钟的导览介绍博物馆的展览理念。",
   "sha": "84ab85fc189b127e"
- },
- "https://freies-deutsches-hochstift.de/besuch/termine/-/oeffentliche-fuehrung-goethe-haus/378/2026-11-27/6493 | Öffentliche Führung": {
-  "de": "Besucher nehmen an einer Führung durch das Goethe-Haus teil.",
-  "en": "Visitors take part in a guided tour of the Goethe-Haus.",
-  "zh": "参观者跟随导览参观 Goethe-Haus 歌德故居。",
-  "sha": "79da5f0467852362"
  },
  "https://freies-deutsches-hochstift.de/besuch/termine/-/oeffentliche-fuehrung-goethe-haus/378/2026-11-28/6495/ | Öffentliche Führung": {
   "de": "Führung durch das historisch eingerichtete Goethe-Haus, Goethes Geburtshaus, mit Einblicken in das Familienleben und das Frankfurt des 18. Jahrhunderts.",
@@ -940,25 +935,11 @@
   "zh": "参观 Goethe-Haus（歌德故居）的公开导览。",
   "sha": "f5ee447a2a21c472"
  },
- "https://freies-deutsches-hochstift.de/besuch/termine/-/vom-zwackelmann-zur-tigertatze-die-brueder-loewenherz/1961/2026-11-27/5049/ | Vom Zwackelmann zur Tigertatze: Die Brüder Löwenherz": {
-  "de": "Pirkko Cremer liest aus Astrid Lindgrens Geschichte „Die Brüder Löwenherz“ vor.",
-  "en": "Pirkko Cremer reads aloud Astrid Lindgren's story \"The Brothers Lionheart.\"",
-  "zh": "Pirkko Cremer 朗读阿斯特丽德·林格伦的故事《狮心兄弟》。",
-  "ages": [
-   10,
-   18
-  ],
-  "sha": "d37896f4501943bc"
- },
- "https://freies-deutsches-hochstift.de/besuch/termine/-/vom-zwackelmann-zur-tigertatze-von-hier-aus-kann-man-die-welt-sehen/1959/2026-11-27/5126/ | VOM ZWACKELMANN ZUR TIGERTATZE: Von hier aus kann man die Welt sehen": {
-  "de": "Kinder hören eine Lesung über Dee, die mit ihrem besten Freund Vito den Empfänger eines gefundenen Briefes sucht.",
-  "en": "Children hear a reading about Dee, who searches with her best friend Vito for the recipient of a found letter.",
-  "zh": "孩子们聆听朗读，故事讲述Dee和好友Vito寻找一封捡到的信的收件人。",
-  "ages": [
-   8,
-   18
-  ],
-  "sha": "4906b622859af89e"
+ "https://freies-deutsches-hochstift.de/besuch/termine/-/oeffentliche-fuehrung-goethe-haus/378/2026-12-11/6528/ | Öffentliche Führung": {
+  "de": "Jugendliche und Erwachsene machen eine Führung durch das Goethe-Haus.",
+  "en": "Teenagers and adults take a guided tour of the Goethe-Haus.",
+  "zh": "青少年和成人跟随导览参观 Goethe-Haus（歌德故居）。",
+  "sha": "21ed60217c2a7241"
  },
  "https://freies-deutsches-hochstift.de/besuch/termine/-/weihnachtszeit-um-1800/412/2026-11-28/5877 | Weihnachtszeit um 1800": {
   "de": "Rundgang für Familien erklärt, wie Weihnachten im 18. Jahrhundert gefeiert wurde, mit Tannenbaum, Essen und Geschenken.",
@@ -1218,11 +1199,6 @@
   "en": "A pre-Christmas art market by the artists of Atelier Etage 3, with small artworks called Pockets to browse.",
   "zh": "Atelier Etage 3 艺术家的圣诞前艺术市场，可以浏览小型艺术作品 Pockets。"
  },
- "https://lust-auf-leverkusen.de/veranstaltung/basteln-im-advent-fuer-gross-und-klein/ | Basteln im Advent für Groß und Klein": {
-  "de": "Gemeinsames Basteln vor der Adventszeit: selbstgemachte Karten oder Engel aus Kreisen.",
-  "en": "Children and adults craft together before Advent, making handmade cards or angels from circles.",
-  "zh": "孩子和大人一起在降临节前手工制作，例如自制卡片或圆圈天使。"
- },
  "https://lust-auf-leverkusen.de/veranstaltung/basteln-mit-gaby-und-anika/2026-12-02-16-00/ | Basteln mit Gaby und Anika": {
   "de": "Bastelexpertinnen laden Kinder und Eltern zu einem Bastelnachmittag mit lustigen Ideen ein.",
   "en": "Craft experts invite children and parents to an afternoon of crafting with fun ideas.",
@@ -1371,11 +1347,6 @@
   "en": "The nature conservation bazaar offers bird food, nesting aids, Christmas decorations and homemade treats, plus information on dormice and bats.",
   "zh": "自然保护集市提供鸟食、巢箱、圣诞装饰和自制点心，并介绍睡鼠和蝙蝠。"
  },
- "https://lust-auf-leverkusen.de/veranstaltung/nuberg-trio-special-guest-joerg-kaufmann/ | Nuberg Trio. Special Guest Jörg Kaufmann.": {
-  "de": "Das Nuberg Trio spielt Modern Jazz, ergänzt durch den Saxophonisten Jörg Kaufmann als Gast.",
-  "en": "The Nuberg Trio plays modern jazz, joined by saxophonist Jörg Kaufmann as a special guest.",
-  "zh": "Nuberg Trio 演奏现代爵士乐，特邀萨克斯风演奏家 Jörg Kaufmann 加入。"
- },
  "https://lust-auf-leverkusen.de/veranstaltung/olaf-der-elch/2026-12-01-11-00/ | AUSVERKAUFT: Olaf, der Elch (ausverkauft)": {
   "none": true,
   "read": 1
@@ -1472,34 +1443,27 @@
   "en": "Women's basketball game in the 2nd Basketball Bundesliga, with WINGS Leverkusen playing against SCALA Hamburg.",
   "zh": "女子篮球比赛，WINGS Leverkusen 对阵 SCALA Hamburg。"
  },
- "https://lust-auf-leverkusen.de/veranstaltung/winterbasteln/ | Winterbasteln": {
-  "de": "Im winterlichen Bastelworkshop werden alte Bücher durch Falten in kleine Kunstwerke verwandelt.",
-  "en": "In a winter craft workshop, old books are folded into small art pieces.",
-  "zh": "在冬季手工工作坊中，旧书通过折叠变成小型艺术品。",
-  "ages": [
-   12,
-   18
-  ]
- },
- "https://mmn-muenchen.snsb.de/termin/die-erstaunliche-welt-der-fledermaeuse/ | Die erstaunliche Welt der Fledermäuse": {
-  "de": "Führung durch das Museum, bei der Kinder Fledermausarten entdecken und mehr über ihre Anpassungen und Lebensweisen erfahren.",
-  "en": "A guided tour where children discover bat species in the museum and learn about their adaptations and lifestyles.",
-  "zh": "孩子们在博物馆里认识各种蝙蝠，了解它们的适应能力和生活方式。",
-  "ages": [
-   6,
-   18
-  ],
-  "sha": "710671d8d7a8c77c"
- },
  "https://mmn-muenchen.snsb.de/termin/jetzt-gehts-rund-kreislaeufe-statt-abfaelle/ | JETZT GEHT’S RUND – Kreisläufe statt Abfälle": {
   "de": "An interaktiven Stationen kann man einen kreislaufgerechten Sneaker designen und Verfahren zur Mülltrennung ausprobieren.",
   "en": "At interactive stations, visitors can virtually design a circular sneaker and try out waste separation methods.",
   "zh": "参观者可以在互动展站虚拟设计循环利用球鞋，并体验垃圾分类方法。"
  },
+ "https://mmn-muenchen.snsb.de/termin/molassic-park-eine-expedition-ins-fruehere-bayern-4/ | Molassic Park – eine Expedition ins frühere Bayern": {
+  "de": "Einstündige Familienführung mit Estelle Hower-Tilmann im Museum Mensch und Natur.",
+  "en": "A one-hour guided family tour with Estelle Hower-Tilmann at Museum Mensch und Natur.",
+  "zh": "由Estelle Hower-Tilmann带领的一小时家庭导览，在Museum Mensch und Natur进行。",
+  "sha": "4175abb41e11ea3e"
+ },
  "https://mmn-muenchen.snsb.de/termin/molassic-park-eine-expedition-zu-bayerns-menschenaffen-urelefanten-und-subtropischen-waeldern/ | Molassic Park – Eine Expedition zu Bayerns Menschenaffen, Urelefanten und subtropischen Wäldern": {
   "de": "Die Ausstellung zeigt Fossilien aus Bayern und Landschaftsrekonstruktionen aus der Zeit vor über zehn Millionen Jahren.",
   "en": "The exhibition displays fossils from Bavaria and landscape reconstructions from over ten million years ago.",
   "zh": "展览展示了来自巴伐利亚的古生物化石以及一千多万年前的景观复原。"
+ },
+ "https://mmn-muenchen.snsb.de/termin/swapmas-kleidertauschboerse-muenchen/ | Swapmas – Tauschen statt kaufen! Kleidertauschbörse im Museum Mensch und Natur": {
+  "de": "Besucher bringen eigene Kleidung mit und tauschen sie gegen andere Stücke.",
+  "en": "Visitors bring their own clothes and swap them for other items.",
+  "zh": "参加者带来自己的衣服，与他人交换。",
+  "sha": "6a5905c44a8092af"
  },
  "https://mmn-muenchen.snsb.de/termin/wegwerfen-war-gestern-wir-denken-rund-4/ | Wegwerfen war gestern – Wir denken rund": {
   "de": "Bei einer Führung entdecken Kinder Beispiele aus dem Alltag zu Recycling, Reparatur und Müllvermeidung.",
@@ -1536,6 +1500,16 @@
   "en": "A guided tour in Hessian dialect of Frankfurt-related objects, starting with a talk on Goethe and Hessian.",
   "zh": "用黑森方言导览与法兰克福相关的展品，先介绍歌德与黑森方言。",
   "sha": "0bf87b8360ab4f3a"
+ },
+ "https://museumfrankfurt.senckenberg.de/de/kalender/ | Nachts im Senckenberg Museum": {
+  "de": "Mit Taschenlampen führt ein Guide in kleinen Gruppen nachts durch das Museum nach Öffnungszeit.",
+  "en": "A guide leads small groups through the dimly lit museum at night after closing, using flashlights.",
+  "zh": "导游带领小组在闭馆后的昏暗博物馆中手持手电参观。",
+  "ages": [
+   8,
+   18
+  ],
+  "sha": "225b99d761fbfe0f"
  },
  "https://museumfrankfurt.senckenberg.de/de/kalender/ | Senckenberg-Highlights": {
   "de": "Eine Führung vermittelt Geschichten und Hintergründe zu ausgewählten Museumsexponaten wie T. rex, Finnwal und Anakonda.",
@@ -1740,12 +1714,6 @@
   "zh": "参与者带来损坏的小型电器，由志愿技术人员协助修理。",
   "sha": "ca479586158fe91b"
  },
- "https://technikmuseum.berlin/programm/kalender | Textil-Reparatur und Upcycling": {
-  "de": "Die Teilnehmenden sehen sich zu ändernde Kleidung an und lernen Techniken, um Textilien zu reparieren oder upcyclen.",
-  "en": "Participants look at clothing to be altered and learn techniques to repair or upcycle their garments.",
-  "zh": "大家一起查看需要修改的衣物，学习用不同技巧修补或再造衣服。",
-  "sha": "c877a794afee4ee8"
- },
  "https://uni-koeln.de/universitaet/aktuell/veranstaltungen/detail/koelnalumni-eisstockschiessen | KölnAlumni-Eisstockschießen": {
   "none": true,
   "read": 1,
@@ -1786,11 +1754,6 @@
   "none": true,
   "read": 1,
   "sha": "9b92a65fa162b0dc"
- },
- "https://visitessen.de/veranstaltungskalender/begegnet-vertraut-fotografiert-fotografien-von-ralf-schultheiss-e_101347758/?at=2026-11-27T10%3A00%3A00%2B01%3A00&date=2026-11-27 | Begegnet. Vertraut. Fotografiert. Fotografien von Ralf Schultheiß": {
-  "de": "Fotografische Porträts zeigen Menschen in ihrem beruflichen und privaten Umfeld.",
-  "en": "Photo portraits show people in their working and private surroundings.",
-  "zh": "展出Ralf Schultheiß的人物肖像照片，展示人们在工作和私人环境中的样子。"
  },
  "https://visitessen.de/veranstaltungskalender/begegnet-vertraut-fotografiert-fotografien-von-ralf-schultheiss-e_101347758/?at=2026-11-28T10%3A00%3A00%2B01%3A00&date=2026-11-28 | Begegnet. Vertraut. Fotografiert. Fotografien von Ralf Schultheiß": {
   "de": "Die Ausstellung zeigt Porträtfotografien von Menschen in ihrem beruflichen und privaten Umfeld.",
@@ -1898,12 +1861,6 @@
   "read": 1,
   "sha": "06a7354fe0395020"
  },
- "https://visitessen.de/veranstaltungskalender/domschatz-erleben-kurz-und-kompakt-in-der-mittagszeit-kurzfuehrungen-im-e_101394726/?at=2026-11-27T12%3A30%3A00%2B01%3A00&date=2026-11-27 | Domschatz erleben kurz und kompakt in der Mittagszeit.? Kurzführungen im Domschatz Essen vom 24. bis zum 27. November": {
-  "de": "Kurze Führungen zeigen Besuchern die Schätze im Essener Domschatz.",
-  "en": "Short guided tours show visitors the treasures of the Essen Cathedral Treasury.",
-  "zh": "简短导览带领参观者了解埃森 Domschatz（大教堂宝库）中的珍藏。",
-  "sha": "dbe3dd819291b957"
- },
  "https://visitessen.de/veranstaltungskalender/dornroeschen-e_101278414/?at=2026-11-29T14%3A30%3A00%2B01%3A00&date=2026-11-29 | Dornröschen": {
   "de": "Theaterfassung des Märchens: Rose wird verflucht, schläft hundert Jahre, und Prinz Owain muss den Fluch brechen.",
   "en": "Theatre version of the fairy tale: cursed Rose sleeps for a hundred years until Prince Owain breaks the spell.",
@@ -1919,11 +1876,6 @@
   "none": true,
   "read": 1,
   "sha": "172e519b08e48d7f"
- },
- "https://visitessen.de/veranstaltungskalender/ein-sommernachtstraum-e_101333674/?at=2026-11-27T20%3A00%3A00%2B01%3A00&date=2026-11-27 | Ein Sommernachtstraum": {
-  "none": true,
-  "read": 1,
-  "sha": "6c16394a7a9dbf47"
  },
  "https://visitessen.de/veranstaltungskalender/ein-sommernachtstraum-e_101333674/?at=2026-11-28T20%3A00%3A00%2B01%3A00&date=2026-11-28 | Ein Sommernachtstraum": {
   "none": true,
@@ -2027,15 +1979,15 @@
   "zh": "Ruhr Museum 导览，讲述 Ruhrgebiet 的历史。",
   "sha": "a9d4a0a6d498ab02"
  },
- "https://visitessen.de/veranstaltungskalender/hauerschicht-e_101288721/?at=2026-11-27T17%3A00%3A00%2B01%3A00&date=2026-11-27 | Hauerschicht": {
-  "none": true,
-  "read": 1,
-  "sha": "84568a0d8e4bd099"
- },
  "https://visitessen.de/veranstaltungskalender/hauerschicht-e_101288721/?at=2026-12-04T17%3A00%3A00%2B01%3A00&date=2026-12-04 | Hauerschicht": {
   "none": true,
   "read": 1,
   "sha": "c266109a7118cfb4"
+ },
+ "https://visitessen.de/veranstaltungskalender/hauerschicht-e_101288721/?at=2026-12-11T17%3A00%3A00%2B01%3A00&date=2026-12-11 | Hauerschicht": {
+  "none": true,
+  "read": 1,
+  "sha": "f58c869f5cab9eaa"
  },
  "https://visitessen.de/veranstaltungskalender/hoer-mal-wie-das-klingt-i-e_101278345/?at=2026-12-02T09%3A30%3A00%2B01%3A00&date=2026-12-02 | \"Hör mal, wie das klingt\" I": {
   "de": "Kleinste Kinder hören mit ihren Eltern und Großeltern Melodien und Töne, begleitet von Trompete, Horn und Posaune sowie Singspielen.",
@@ -2147,11 +2099,6 @@
   "read": 1,
   "sha": "5f4c6466e7fcf71a"
  },
- "https://visitessen.de/veranstaltungskalender/oeffentliche-theaterfuehrung-e_100912656/?at=2026-11-27T15%3A30%3A00%2B01%3A00&date=2026-11-27 | Öffentliche Theaterführung": {
-  "none": true,
-  "read": 1,
-  "sha": "203578594d99a0dc"
- },
  "https://visitessen.de/veranstaltungskalender/oeffentliche-theaterfuehrung-e_100912656/?at=2026-12-04T15%3A30%3A00%2B01%3A00&date=2026-12-04 | Öffentliche Theaterführung": {
   "none": true,
   "read": 1,
@@ -2190,11 +2137,6 @@
   "zh": "门厅设有游戏区，提供木质玩具、儿童书籍、桌游和手工材料。",
   "sha": "5b7ac7e357f4e757"
  },
- "https://visitessen.de/veranstaltungskalender/rundgang-essen-werden-e_101374897/?at=2026-11-27T17%3A15%3A00%2B01%3A00&date=2026-11-27 | Rundgang Essen-Werden": {
-  "none": true,
-  "read": 1,
-  "sha": "14a7161ab0d27f8b"
- },
  "https://visitessen.de/veranstaltungskalender/sheku-kanneh-mason-gabor-takacs-nagy-verbier-festival-chamber-orchestra-e_101273232/?at=2026-12-03T20%3A00%3A00%2B01%3A00&date=2026-12-03 | Sheku Kanneh-Mason Gábor Takács-Nagy Verbier Festival Chamber Orchestra": {
   "none": true,
   "read": 1,
@@ -2231,22 +2173,17 @@
   "read": 1,
   "sha": "956c7a4ddb589388"
  },
- "https://visitessen.de/veranstaltungskalender/swap-sound-solidarity-kleidertausch-mit-musik-e_101383614/?at=2026-11-27T17%3A00%3A00%2B01%3A00&date=2026-11-27 | Swap, Sound & Solidarity – Kleidertausch mit Musik": {
-  "de": "Besucher tauschen Kleidung untereinander und hören dazu Musik.",
-  "en": "Visitors swap clothes with each other while music plays.",
-  "zh": "参与者互相交换衣物，现场伴有音乐。",
-  "sha": "e7be8556ed386cd7"
+ "https://visitessen.de/veranstaltungskalender/stirnlampentour-zollverein-e_100499301/?at=2026-12-11T18%3A00%3A00%2B01%3A00&date=2026-12-11 | Stirnlampentour Zollverein": {
+  "de": "Führung bzw. Besichtigung auf der Zeche Zollverein.",
+  "en": "A guided tour or visit at Zeche Zollverein.",
+  "zh": "在Zeche Zollverein煤矿工业遗址进行导览或参观。",
+  "sha": "0b32eca36c0a6fb7"
  },
  "https://visitessen.de/veranstaltungskalender/tag-der-offenen-tuer-in-der-garnelenzucht-e_101335320/?at=2026-11-28T10%3A00%3A00%2B01%3A00&date=2026-11-28 | Tag der offenen Tür in der Garnelenzucht": {
   "de": "Bei einer Führung kann man die Garnelenzucht besichtigen.",
   "en": "Visitors can see the shrimp farm on a guided tour.",
   "zh": "可以参加导览，参观对虾养殖场。",
   "sha": "d1309c1d2b1ccffa"
- },
- "https://visitessen.de/veranstaltungskalender/ueberleben-e_101344586/?at=2026-11-27T19%3A00%3A00%2B01%3A00&date=2026-11-27 | ÜberLeben!": {
-  "none": true,
-  "read": 1,
-  "sha": "b7e7426ea70f862c"
  },
  "https://visitessen.de/veranstaltungskalender/ueberleben-e_101344586/?at=2026-11-28T19%3A00%3A00%2B01%3A00&date=2026-11-28 | ÜberLeben!": {
   "none": true,
@@ -2305,6 +2242,11 @@
   "en": "A Christmas concert by the choir, conducted by Luc Nelissen.",
   "zh": "合唱团演唱圣诞音乐会，由Luc Nelissen指挥。",
   "sha": "4afcdc8a8910f723"
+ },
+ "https://www.aachen.de/in-aachen-leben/kultur/musik-und-tanz/musikschule/ | Klassenvorspiel Blockflöte": {
+  "none": true,
+  "read": 1,
+  "sha": "0c9ba534f75fe025"
  },
  "https://www.aachen.de/in-aachen-leben/kultur/musik-und-tanz/musikschule/ | Klassenvorspiel Klavier": {
   "none": true,
@@ -2464,12 +2406,6 @@
   "zh": "爵士乐团（含歌声、萨克斯、低音提琴、鼓和钢琴）演奏圣诞音乐。",
   "sha": "365e50f4987331ef"
  },
- "https://www.alteoper.de/de/programm/adventssingen-der-alten-oper/19256 | Adventssingen der Alten Oper": {
-  "de": "Auf dem Opernplatz singen alle gemeinsam populäre Weihnachtslieder, geleitet von einem Dirigenten, mit ausgeteilten Textblättern.",
-  "en": "On Opernplatz, everyone sings popular Christmas songs together under a conductor, with lyric sheets handed out.",
-  "zh": "在 Opernplatz 广场上，大家在指挥带领下合唱流行的圣诞歌曲，并发放歌词单。",
-  "sha": "f66fc7558618d243"
- },
  "https://www.alteoper.de/de/programm/aus-dem-leben-eines-viersaiters/19078 | Aus dem Leben eines Viersaiters": {
   "de": "Vier Cellisten spielen ein Familienkonzert für Kinder, Konzept und Inszenierung von Cornelia Walther.",
   "en": "Four cellists perform a family concert for children, staged by Cornelia Walther.",
@@ -2545,6 +2481,12 @@
   "zh": "导览带领参观者了解Archäologische Staatssammlung München常设展的亮点。",
   "sha": "8cb8de2c9f5bb252"
  },
+ "https://www.archaeologie.bayern/programm/muenchen/ | Stonehenge Konservatorenführung": {
+  "de": "Einstündige Führung durch die Sonderausstellung zu Stonehenge, auf Deutsch.",
+  "en": "A one-hour guided tour of the Stonehenge special exhibition, in German.",
+  "zh": "一小时德语导览，参观Stonehenge特展。",
+  "sha": "70b51eea6a3b55d9"
+ },
  "https://www.archaeologie.bayern/programm/muenchen/ | Stonehenge-Führung mit der MVHS": {
   "de": "Auf einer Führung mit der MVHS lernen Besucher die aktuelle Sonderausstellung kennen.",
   "en": "Visitors explore the current special exhibition on a guided tour with the MVHS.",
@@ -2571,6 +2513,11 @@
   "en": "A short guided tour shows how people in antiquity made light; then children design their own bowl lamp from modelling clay.",
   "zh": "简短导览介绍古人如何制造光源，随后孩子们用造型泥制作自己的碗形灯。",
   "sha": "4641b19e781d29e5"
+ },
+ "https://www.archaeologisches-museum-frankfurt.de/veranstaltungen/einfach-reinkommen-inklusive-museums-f%C3%BChrung_03/ | Einfach reinkommen – inklusive Museums-Führung": {
+  "de": "Eine Museumsführung zeigt alte Funde im Archäologischen Museum und erklärt, woher sie stammen und wie Menschen früher lebten.",
+  "en": "A guided tour shows old finds and explains where they come from and how people lived long ago.",
+  "zh": "导览展示古老的出土文物，讲解它们的来源以及古人的生活方式。"
  },
  "https://www.archaeologisches-museum-frankfurt.de/veranstaltungen/gesichter-einer-neuen-%C3%A4ra_03/ | Gesichter einer neuen Ära": {
   "none": true,
@@ -2829,11 +2776,6 @@
   "en": "Seven young performers search on stage for stories that give support, using physical movement, music and choreography.",
   "zh": "七名年轻演员在舞台上通过肢体动作、音乐和编舞寻找能给人支撑的故事。"
  },
- "https://www.bonn.de/veranstaltungskalender/veranstaltungen/hauptkalender/extern/David-Friedman-Peter-Materna.php | David Friedman & Peter Materna": {
-  "de": "Vibraphonist David Friedman und Saxophonist Peter Materna spielen eigene Kompositionen und Jazzstandards im Bonner Münster.",
-  "en": "Vibraphonist David Friedman and saxophonist Peter Materna play their own compositions and jazz standards in Bonn Minster.",
-  "zh": "David Friedman（振动琴）与Peter Materna（萨克斯）在Bonner Münster教堂演奏自己的作品和爵士标准曲。"
- },
  "https://www.bonn.de/veranstaltungskalender/veranstaltungen/hauptkalender/extern/Der-Baer-der-nicht-da-war.php | Der Bär, der nicht da war": {
   "de": "Ein Bär macht sich auf die Suche nach sich selbst und begegnet dabei Bergrind, Salamander, Pinguin und Schildkröte.",
   "en": "A bear sets out to find out who he is and meets a cow, a salamander, a penguin and a turtle along the way.",
@@ -2937,6 +2879,15 @@
   "de": "Ein böser Zauberer und eine Geldhexe müssen einen Wunschpunsch brauen, während Kater Maurizio und Rabe Jakob sie stoppen wollen.",
   "en": "An evil wizard and a money witch must brew a wish punch, while a cat and a raven try to stop them.",
   "zh": "一个邪恶的巫师和一个财迷女巫要调制愿望潘趣酒，猫和乌鸦则想阻止他们。"
+ },
+ "https://www.bonn.de/veranstaltungskalender/veranstaltungen/hauptkalender/extern/JTB-im-Thalia-Die-Schneekoenigin-5-.php | JTB im Thalia: Die Schneekönigin (5+)": {
+  "de": "Bühnenfassung von Andersens Märchen „Die Schneekönigin“ über Freundschaft und Wärme, die Kälte überwinden.",
+  "en": "A stage version of Andersen's fairy tale The Snow Queen, about friendship and warmth overcoming the cold.",
+  "zh": "安徒生童话《雪王后》的舞台版，讲述友谊与温暖战胜严寒。",
+  "ages": [
+   5,
+   18
+  ]
  },
  "https://www.bonn.de/veranstaltungskalender/veranstaltungen/hauptkalender/extern/K-Pop-Dance-Kurs.php | K-Pop-Dance Kurs": {
   "de": "Kinder lernen gemeinsam K-Pop-Tanzchoreografien.",
@@ -3216,15 +3167,6 @@
   "en": "On a WhatsApp tour, participants solve puzzles and discover stories from medieval Bonn.",
   "zh": "参与者通过 WhatsApp 游览解谜，探索波恩中世纪的历史故事。"
  },
- "https://www.bonn.de/veranstaltungskalender/veranstaltungen/hauptkalender/haus-der-natur/puppentheater-oskar-orange-und-die-spielplatzsauerei.php | Puppentheater „Oskar Orange und die Spielplatzsaue": {
-  "de": "Der Fuchs Oskar Orange vermutet, dass Ratte Joe den Müll auf dem Spielplatz liegen ließ, und wird Detektiv.",
-  "en": "Fox Oskar Orange suspects rat Joe left litter on the playground and investigates as a detective.",
-  "zh": "狐狸奥斯卡·橙子怀疑老鼠乔弄脏了游乐场，于是当起侦探展开调查。",
-  "ages": [
-   5,
-   9
-  ]
- },
  "https://www.bonn.de/veranstaltungskalender/veranstaltungen/hauptkalender/kunstmuseum/kunstmuseum-freiraeume.php | Freiräume": {
   "de": "Die Ausstellung im Kunstmuseum Bonn zeigt multimediale Werke von acht internationalen Künstler*innen zu Freiräumen, Widerstand und Solidarität.",
   "en": "The exhibition at Kunstmuseum Bonn shows multimedia works by eight international artists on free spaces, resistance and solidarity.",
@@ -3249,6 +3191,11 @@
   "de": "Die Ausstellung zeigt Werke der Klassischen Moderne und der Rheinischen Expressionisten sowie Biografien der Kunstschaffenden.",
   "en": "The exhibition features Classical Modern and Rhenish Expressionist artworks along with biographies of the artists.",
   "zh": "展览展出经典现代主义和莱茵表现主义艺术作品以及艺术家的生平故事。"
+ },
+ "https://www.britzergarten.de/events/eventkalender/detail/2026-12-11_1000/winter-wonderland-3/ | Winter Wonderland": {
+  "de": "Kleiner Weihnachtsmarkt am Modellboothafen mit Live-Musik, Feuershow und Kindern, die dem Weihnachtsmann Gedichte oder Lieder vortragen.",
+  "en": "Small Christmas market at the Modellboothafen with live music, a fire show, and children reciting poems or singing for Santa.",
+  "zh": "Modellboothafen 港口圣诞小市场，有现场音乐和火焰表演，孩子可向圣诞老人朗诵或唱歌。"
  },
  "https://www.buecherhallen.de/alstertal-termin/bilderbuchkino-henri-und-henriette-feiern-weihnachten-3/datum/20261203.html | Bilderbuchkino: Henri und Henriette feiern Weihnachten": {
   "de": "Ein Bilderbuch erzählt, wie Hahn Henri und Henriette auf ihrem Bauernhof mit vielen Tieren Weihnachten vorbereiten.",
@@ -3284,6 +3231,11 @@
   "none": true,
   "read": 1,
   "sha": "07eae66557444d4a"
+ },
+ "https://www.buecherhallen.de/altona-termin/bilderbuchkino-archibald-allein-im-wald/datum/20261211.html | Bilderbuchkino: \"Archibald allein im Wald\"": {
+  "none": true,
+  "read": 1,
+  "sha": "b5508eecc762f98e"
  },
  "https://www.buecherhallen.de/altona-termin/bilderbuchkino-dr-brumm-feiert-weihnachten-4/datum/20261204.html | Bilderbuchkino: \"Dr. Brumm feiert Weihnachten\"": {
   "de": "Dr. Brumm, Pottwal und Dachs suchen einen Weihnachtsbaum, doch Bauer Hackenpiep schnappt ihn ihnen weg.",
@@ -3405,6 +3357,11 @@
   ],
   "sha": "ea3d90a8c20a37c0"
  },
+ "https://www.buecherhallen.de/bergedorf-termin/kaspertheater-der-weihnachtsraeuber/datum/20261211.html | Kaspertheater: Der Weihnachtsräuber": {
+  "none": true,
+  "read": 1,
+  "sha": "90a67f85f7d04948"
+ },
  "https://www.buecherhallen.de/bergedorf-termin/musikalische-bildergeschichte-es-klopft-bei-wanja-in-der-nacht/datum/20261205.html | Musikalische Bildergeschichte: Es klopft bei Wanja in der Nacht": {
   "de": "Kinder hören eine Geschichte über einen frierenden Hasen, Fuchs und Bär, begleitet von kleinen Instrumenten, Liedern und Geräuschen.",
   "en": "Children hear a story about a shivering hare, fox and bear, told with small instruments, songs and sounds.",
@@ -3415,16 +3372,6 @@
   ],
   "sha": "b7838796bca4ffc8"
  },
- "https://www.buecherhallen.de/bergedorf-termin/plietsche-kinner-weihnachtswerkstatt/datum/20261127.html | Plietsche Kinner: Weihnachtswerkstatt": {
-  "de": "Kinder basteln an vielen verschiedenen Bastelangeboten oder bringen eigene Ideen mit.",
-  "en": "Children can craft with a wide variety of materials, or bring their own ideas.",
-  "zh": "孩子们可以做各种手工，也可以带来自己的想法。",
-  "ages": [
-   6,
-   10
-  ],
-  "sha": "f5ee4042be0f1232"
- },
  "https://www.buecherhallen.de/bergedorf-termin/spiel-ganz-viel-miniedition/datum/20261201.html | Spiel ganz viel - Miniedition": {
   "de": "Kinder erkunden gemeinsam Farben, Formen, Tiere und Materialien, spielen frei und lernen einfache Regeln kennen.",
   "en": "Children explore colours, shapes, animals and materials together, play freely and get to know simple rules.",
@@ -3434,16 +3381,6 @@
    4
   ],
   "sha": "cc69407c47503edd"
- },
- "https://www.buecherhallen.de/billstedt-termin/gamezone-nintendo-switch-19974/datum/20261127.html | Gamezone - Nintendo Switch": {
-  "de": "Einmal im Monat können Kinder auf einer Nintendo Switch und einem großen Bildschirm gemeinsam spielen.",
-  "en": "Once a month, children play together on a Nintendo Switch shown on a large screen.",
-  "zh": "每月一次，孩子们在大屏幕上用任天堂Switch一起玩游戏。",
-  "ages": [
-   8,
-   16
-  ],
-  "sha": "c9f77a4e4d007ea7"
  },
  "https://www.buecherhallen.de/billstedt-termin/greenscreen-weihnachtskarten/datum/20261201.html | Greenscreen: Weihnachtskarten": {
   "de": "Kinder werden vor einer grünen Wand fotografiert und wählen ein Hintergrundbild für ihre Weihnachtskarte.",
@@ -3465,11 +3402,10 @@
   ],
   "sha": "0385048082a8d144"
  },
- "https://www.buecherhallen.de/billstedt-termin/woche-der-kinderrechte-basteltisch/datum/20261125.html | Woche der Kinderrechte: Aktionstisch": {
-  "de": "Kinder können am Aktionstisch ein Memory-Spiel spielen, ein Kinderrechte-Quiz lösen und Ausmalbilder ausmalen.",
-  "en": "Children can play a memory game, take a quiz on children's rights and colour in pictures at the activity table.",
-  "zh": "孩子们可以在活动桌玩记忆配对游戏、参加儿童权利问答并给图画涂色。",
-  "sha": "f6ada55a99356a23"
+ "https://www.buecherhallen.de/billstedt-termin/robo-kids-billstedt/datum/20261211.html | Robo-Kids Billstedt": {
+  "none": true,
+  "read": 1,
+  "sha": "de934349b7c30852"
  },
  "https://www.buecherhallen.de/bramfeld-termin/eigene-kunstwerke-aus-epoxidharz/datum/20261205.html | Eigene Kunstwerke aus Epoxidharz": {
   "de": "Kinder gestalten eigene Kunstwerke aus Epoxidharz, etwa Lesezeichen, Schmuck oder Schlüsselanhänger.",
@@ -3480,16 +3416,6 @@
    18
   ],
   "sha": "2cfd879604cefe8b"
- },
- "https://www.buecherhallen.de/bramfeld-termin/friedenstauben-aus-origamipapier/datum/20261127.html | Friedenstauben aus Origamipapier": {
-  "de": "Kinder falten eine Friedenstaube aus Origamipapier.",
-  "en": "Children fold a peace dove out of origami paper.",
-  "zh": "孩子们用折纸折一只和平鸽。",
-  "ages": [
-   8,
-   18
-  ],
-  "sha": "d7f441a2343c2cd9"
  },
  "https://www.buecherhallen.de/bramfeld-termin/live-art-club-winterzauber/datum/20261204.html | Live Art Club: Winterzauber": {
   "de": "Die Kinder zeichnen Schritt für Schritt eine Wichteltür und entdecken Lieblingsbücher rund um Wichtel und Weihnachten.",
@@ -3521,20 +3447,15 @@
   "read": 1,
   "sha": "4a5b9acb411b2bd2"
  },
+ "https://www.buecherhallen.de/bramfeld-termin/weihnachtliches-erzaehltheater/datum/20261211.html | Weihnachtliches Erzähltheater": {
+  "none": true,
+  "read": 1,
+  "sha": "cc5b9d3de5677a9f"
+ },
  "https://www.buecherhallen.de/bramfeld-termin/weihnachtskarten-basteln-2/datum/20261208.html | Weihnachtskarten basteln": {
   "none": true,
   "read": 1,
   "sha": "7eebbe4b42854cbd"
- },
- "https://www.buecherhallen.de/dehnhaide-termin/duplo-r-freitagnachmittag/datum/20261127.html | DUPLO®-Nachmittag": {
-  "de": "Kinder können mit der DUPLO®-Kiste bauen und spielen.",
-  "en": "Children can build and play with the DUPLO® box.",
-  "zh": "孩子们可以用DUPLO®积木盒搭建和玩耍。",
-  "ages": [
-   2,
-   18
-  ],
-  "sha": "26af72ab90031a25"
  },
  "https://www.buecherhallen.de/dehnhaide-termin/duplo-r-freitagnachmittag/datum/20261204.html | DUPLO®-Nachmittag": {
   "de": "Kinder können freitagnachmittags mit der DUPLO-Kiste bauen und spielen.",
@@ -3545,6 +3466,11 @@
    18
   ],
   "sha": "c9709a160cf0bce4"
+ },
+ "https://www.buecherhallen.de/dehnhaide-termin/duplo-r-freitagnachmittag/datum/20261211.html | DUPLO®-Nachmittag": {
+  "none": true,
+  "read": 1,
+  "sha": "b8bdfa000b897d5a"
  },
  "https://www.buecherhallen.de/eimsbuettel-termin/klask-turnier-2/datum/20261205.html | KLASK-Turnier": {
   "de": "Bei einem offenen Turnier spielen alle Besucher das Geschicklichkeitsspiel KLASK, das an Air Hockey erinnert.",
@@ -3617,26 +3543,6 @@
   "read": 1,
   "sha": "5f16a866bc93124b"
  },
- "https://www.buecherhallen.de/fuhlsbuettel-termin/fuhlsbasteln-tannenzapfenbastelei/datum/20261127.html | Fuhlsbasteln: Tannenzapfenbastelei": {
-  "de": "Kinder basteln aus Kiefernzapfen, Pompons und Adventsgeflüster kleine Tannenbäume und Waldwichtel.",
-  "en": "Children craft small fir trees and forest gnomes from pine cones, pompoms and Advent decorations.",
-  "zh": "孩子们用松果、绒球等材料制作小圣诞树和森林小精灵。",
-  "ages": [
-   5,
-   18
-  ],
-  "sha": "c77dc6f5e7303290"
- },
- "https://www.buecherhallen.de/fuhlsbuettel-termin/just-reading-vorlesen-fuer-kleine-und-grosse/datum/20261127.html | Just Reading - Vorlesen für Kleine und Große": {
-  "de": "Kinder lauschen einem Bilderbuchkino, bei dem jeden Freitag eine andere Geschichte vorgelesen wird.",
-  "en": "Children listen to a picture book cinema where a different story is read aloud each Friday.",
-  "zh": "孩子们坐着聆听每周五不同的绘本故事，以绘本电影的形式呈现。",
-  "ages": [
-   4,
-   18
-  ],
-  "sha": "ce969fcec287e9ca"
- },
  "https://www.buecherhallen.de/fuhlsbuettel-termin/just-reading-vorlesen-fuer-kleine-und-grosse/datum/20261204.html | Just Reading - Vorlesen für Kleine und Große": {
   "de": "Jeden Freitag hören Kinder und Erwachsene eine Geschichte aus einem Bilderbuch, die vorgelesen wird.",
   "en": "Each Friday, children and adults listen to a picture book story being read aloud.",
@@ -3646,6 +3552,11 @@
    18
   ],
   "sha": "e450b200db2008c1"
+ },
+ "https://www.buecherhallen.de/fuhlsbuettel-termin/just-reading-vorlesen-fuer-kleine-und-grosse/datum/20261211.html | Just Reading - Vorlesen für Kleine und Große": {
+  "none": true,
+  "read": 1,
+  "sha": "114ac8ac5bf12984"
  },
  "https://www.buecherhallen.de/fuhlsbuettel-termin/spielbar-mit-polli-18711/datum/20261203.html | spielbar! mit Polli": {
   "de": "Kinder probieren zusammen mit Polli Spiele wie 4 gewinnt und Obstgarten sowie neue XL-Spiele aus.",
@@ -3713,16 +3624,6 @@
   ],
   "sha": "b316987f66f7e0ac"
  },
- "https://www.buecherhallen.de/harburg-termin/spieletreff-fuer-familien-mit-kindern-ab-5-jahren/datum/20261127.html | Spieletreff für Familien mit Kindern ab 5 Jahren": {
-  "de": "Kinder und Familien spielen in der Bücherhalle Harburg, wechselnd mit Lego bauen, Robotik, Brettspielen oder GraviTrax bauen.",
-  "en": "Children and families play at the Bücherhalle Harburg library, alternating between Lego building, robotics, board games and GraviTrax building.",
-  "zh": "孩子与家人在Bücherhalle Harburg玩耍，轮流搭乐高、机器人、桌游和GraviTrax。",
-  "ages": [
-   5,
-   18
-  ],
-  "sha": "b8173e78a8b0f2cf"
- },
  "https://www.buecherhallen.de/harburg-termin/spieletreff-fuer-familien-mit-kindern-ab-5-jahren/datum/20261204.html | Spieletreff für Familien mit Kindern ab 5 Jahren": {
   "de": "Familien mit Kindern spielen in der Bücherhalle, je nach Freitag mit Lego, Robotik, Brettspielen oder GraviTrax Junior.",
   "en": "Families with children play in the library, with Lego, robotics, board games or GraviTrax Junior, depending on the Friday.",
@@ -3732,6 +3633,11 @@
    18
   ],
   "sha": "114b184908e384a0"
+ },
+ "https://www.buecherhallen.de/harburg-termin/spieletreff-fuer-familien-mit-kindern-ab-5-jahren/datum/20261211.html | Spieletreff für Familien mit Kindern ab 5 Jahren": {
+  "none": true,
+  "read": 1,
+  "sha": "847657435dd960d5"
  },
  "https://www.buecherhallen.de/harburg-termin/vorlesen-fuer-kinder-16046/datum/20261209.html | Vorlesen für Kinder": {
   "none": true,
@@ -3747,6 +3653,11 @@
   "none": true,
   "read": 1,
   "sha": "441d80953d020e05"
+ },
+ "https://www.buecherhallen.de/holstenstrasse-termin/holstenstrasse-bilderbuchkino/datum/20261211.html | Bilderbuchkino": {
+  "none": true,
+  "read": 1,
+  "sha": "85043320759682e0"
  },
  "https://www.buecherhallen.de/holstenstrasse-termin/julia-neuhaus-liest-aus-tokkis-reise/datum/20261205.html | Julia Neuhaus liest aus \"Tokkis Reise\"": {
   "de": "Die Illustratorin liest die Geschichte vom kleinen Außerirdischen Tokki vor, danach gibt es eine Malaktion.",
@@ -3764,46 +3675,15 @@
   "zh": "来访者带来一副保存完好的拼图，与他人交换一副新图案的拼图；现场备有拼图桌。",
   "sha": "9ab913cd93b70cbc"
  },
- "https://www.buecherhallen.de/horn-termin/flohmarkt-ausverkauf/datum/20261126.html | Flohmarkt Ausverkauf": {
-  "de": "Flohmarkt mit Büchern, Filmen und anderen Medien, die als Pakete für einen Euro verkauft werden.",
-  "en": "A flea market selling books, films and other media in bundles for one euro each.",
-  "zh": "跳蚤市场，出售书籍、电影等媒体的打包套装，每包1欧元。",
-  "sha": "aa037aec6719255c"
- },
- "https://www.buecherhallen.de/jenfelder-au-termin/Malnachmittag/datum/20261127.html | Kleiner Malnachmittag in der Bücherhalle": {
-  "de": "Kinder können hier nach Lust und Laune malen, Stifte, Malpapier und Vorlagen zum Ausmalen stehen bereit.",
-  "en": "Children can paint freely, with pens, paper and colouring templates provided in the children's area.",
-  "zh": "孩子们可以随心所欲地绘画，儿童区提供画笔、画纸和涂色图样。",
-  "ages": [
-   1,
-   18
-  ],
-  "sha": "28b3bff9956184fa"
+ "https://www.buecherhallen.de/jenfelder-au-termin/Malnachmittag/datum/20261211.html | Kleiner Malnachmittag in der Bücherhalle": {
+  "none": true,
+  "read": 1,
+  "sha": "f479b2089e650099"
  },
  "https://www.buecherhallen.de/jenfelder-au-termin/bilderbuchkino-familie-baer-wartet-auf-den-weihnachtsmann-2/datum/20261208.html | Bilderbuchkino - \"Familie Bär wartet auf den Weihnachtsmann\"": {
   "none": true,
   "read": 1,
   "sha": "af1eb5ab5fd0a389"
- },
- "https://www.buecherhallen.de/jenfelder-au-termin/bilderbuchkino-wo-geht-s-hier-zur-party/datum/20261127.html | Bilderbuchkino": {
-  "de": "Kinder sehen Bilder aus einem Bilderbuch auf einem großen Bildschirm, hören die Geschichte vor und sprechen darüber.",
-  "en": "Children watch picture book pages on a big screen, hear the story read aloud and talk about it.",
-  "zh": "孩子们在大屏幕上看绘本图片，听朗读故事，并一起讨论故事内容。",
-  "ages": [
-   3,
-   18
-  ],
-  "sha": "e2121cbfb3eb547a"
- },
- "https://www.buecherhallen.de/jenfelder-au-termin/bilderbuchkino-wo-geht-s-hier-zur-party/datum/20261127.html | Bilderbuchkino - \"Wir zwei im Winter\"": {
-  "de": "Die Kinder sehen die Bilder auf einem großen Bildschirm, hören den Text vorgelesen und sprechen über die Geschichte.",
-  "en": "Children see the picture book pages on a large screen, hear the text read aloud and talk about the story.",
-  "zh": "孩子们在大屏幕上看绘本图片，听朗读文字，并讨论故事。",
-  "ages": [
-   3,
-   18
-  ],
-  "sha": "e2121cbfb3eb547a"
  },
  "https://www.buecherhallen.de/jenfelder-au-termin/kleiner-lego-r-duplo-r-nachmittag-der-buecherhalle/datum/20261204.html | Kleiner LEGO®-DUPLO®-Nachmittag in der Bücherhalle": {
   "de": "Kleine Kinder bauen auf einem Spielteppich mit LEGO®-DUPLO® eigene Welten.",
@@ -3840,15 +3720,15 @@
   ],
   "sha": "ac713fdfb03f9e95"
  },
- "https://www.buecherhallen.de/kirchdorf-termin/spieleuniversum-kreatives-bilderbuchkino/datum/20261127.html | SpieleUniversum: Kreatives Bilderbuchkino": {
-  "de": "Die Kinder schauen das Bilderbuch „Stock & Stein“ auf einer großen Leinwand und gestalten danach Mut-Steine zum Mitnehmen.",
-  "en": "Children watch the picture book \"Stock & Stein\" on a big screen, then make courage stones to take home.",
-  "zh": "孩子们在大屏幕上观看绘本《Stock & Stein》，然后制作勇气石带回家。",
-  "ages": [
-   5,
-   18
-  ],
-  "sha": "94fb42ea8c6d42d8"
+ "https://www.buecherhallen.de/kirchdorf-termin/spieleuniversum-wir-gestalten-sternenanhaenger/datum/20261211.html | SpieleUniversum: Wir gestalten Sternenanhänger": {
+  "none": true,
+  "read": 1,
+  "sha": "bf7d60545acc3af0"
+ },
+ "https://www.buecherhallen.de/kirchdorf-termin/spieleuniversum-wir-gestalten-weihnachtssterne/datum/20261211.html | SpieleUniversum: Wir gestalten Weihnachtssterne": {
+  "none": true,
+  "read": 1,
+  "sha": "109eee5ca016914b"
  },
  "https://www.buecherhallen.de/kirchdorf-termin/vorlesen-fuer-kinder-kirchdorf/datum/20261201.html | Vorlesen für Kinder": {
   "de": "Ehrenamtliche lesen Kindern in der Bücherhalle Kirchdorf aus Bilderbüchern vor; die Kinder hören zu, fragen und erzählen.",
@@ -3905,6 +3785,11 @@
   "read": 1,
   "sha": "728485502af2c360"
  },
+ "https://www.buecherhallen.de/lokstedt-termin/Weihnachten-lokstedt/datum/20261211.html | Es weihnachtet in der Bücherhalle Lokstedt": {
+  "none": true,
+  "read": 1,
+  "sha": "59caacfafc5ac559"
+ },
  "https://www.buecherhallen.de/lokstedt-termin/bilderbuchkino-17195/datum/20261201.html | Bilderbuchkino": {
   "de": "Kinder hören eine Geschichte vor und betrachten gemeinsam die Bilder in Großformat.",
   "en": "Children listen to a story read aloud and look at its pictures together in large format.",
@@ -3925,16 +3810,6 @@
   "read": 1,
   "sha": "8f4d7d3ec7b34d08"
  },
- "https://www.buecherhallen.de/lokstedt-termin/lesefoerderung-mit-hund-mogli/datum/20261127.html | Leseförderung mit Hund Mogli": {
-  "de": "Kinder üben einzeln lesen mit dem ausgebildeten Lesehund Mogli, spielerisch und mit Hilfe bei Lesehemmungen.",
-  "en": "Children practise reading one-on-one with trained reading dog Mogli, through playful exercises and help with reading difficulties.",
-  "zh": "孩子与受过训练的阅读犬 Mogli 一对一练习阅读，通过游戏式练习并获得阅读障碍方面的帮助。",
-  "ages": [
-   6,
-   18
-  ],
-  "sha": "4b7a2ab00a729c63"
- },
  "https://www.buecherhallen.de/lokstedt-termin/lesefoerderung-mit-hund-mogli/datum/20261204.html | Leseförderung mit Hund Mogli": {
   "de": "Kinder üben einzeln mit dem ausgebildeten Lesehund Mogli spielerisch das Lesen.",
   "en": "Children practise reading one-on-one with the trained reading dog Mogli in playful sessions.",
@@ -3944,6 +3819,11 @@
    18
   ],
   "sha": "569b4fd4a6b878f0"
+ },
+ "https://www.buecherhallen.de/lokstedt-termin/lesefoerderung-mit-hund-mogli/datum/20261211.html | Leseförderung mit Hund Mogli": {
+  "none": true,
+  "read": 1,
+  "sha": "5fd85e76d06bf0ef"
  },
  "https://www.buecherhallen.de/lokstedt-termin/lesefoerderung-mit-hund/datum/20261202.html | Leseförderung mit Hündin Juna": {
   "de": "Kinder üben einzeln das Lesen mit der ausgebildeten Lesehündin Juna.",
@@ -4016,15 +3896,10 @@
   ],
   "sha": "a74753bdff119748"
  },
- "https://www.buecherhallen.de/neuallermoehe-termin/fleetkids-freitag-woche-der-kinderrechte-du-bestimmst-das-programm-24627/datum/20261127.html | FleetKids-Freitag: Woche der Kinderrechte - Du bestimmst das Programm!": {
-  "de": "Die Kinder sehen in der Bücherhalle einen Kinderfilm, den sie selbst im Oktober ausgewählt haben.",
-  "en": "Children watch a children's film in a cinema-style screening, chosen by the children themselves.",
-  "zh": "孩子们观看一部儿童电影，影片由他们自己选定。",
-  "ages": [
-   6,
-   18
-  ],
-  "sha": "fa609b33f41c0f4e"
+ "https://www.buecherhallen.de/neuallermoehe-termin/pfeifenputzerbasteln-25312/datum/20261211.html | FleetKids-Freitag: Winterbasteln mit Pfeifenputzern": {
+  "none": true,
+  "read": 1,
+  "sha": "d70378bfcde37d0e"
  },
  "https://www.buecherhallen.de/neuallermoehe-termin/puppentheater-25316/datum/20261210.html | Weihnachtliches Puppentheater": {
   "none": true,
@@ -4176,16 +4051,6 @@
   "read": 1,
   "sha": "299065416bb96ddb"
  },
- "https://www.buecherhallen.de/osdorf-termin/bilderbuchkino-das-kunterbunte-hotel-fuer-kaefer-2/datum/20261127.html | Bilderbuchkino: Das kunterbunte Hotel für Käfer": {
-  "de": "Die Kinder schauen sich Bilder auf dem Smartboard an, während die Geschichte vom Käferhotel vorgelesen wird.",
-  "en": "Children look at pictures on a smartboard while the story of a beetle hotel and a snail guest is read aloud.",
-  "zh": "孩子们一边看智能白板上的图片，一边听人朗读关于甲虫酒店和蜗牛客人的故事。",
-  "ages": [
-   4,
-   6
-  ],
-  "sha": "a4e110a75f0a1deb"
- },
  "https://www.buecherhallen.de/osdorf-termin/bilderbuchkino-der-winzige-vincent-und-eine-grosse-weihnachtsueberraschung/datum/20261208.html | Bilderbuchkino: Der winzige Vincent und eine große Weihnachtsüberraschung": {
   "none": true,
   "read": 1,
@@ -4206,16 +4071,6 @@
   "read": 1,
   "sha": "17a981213076b74a"
  },
- "https://www.buecherhallen.de/osdorf-termin/brettspielzimmer-11218/datum/20261127.html | Brettspielzimmer": {
-  "de": "Kinder spielen im Brettspielzimmer Brettspiele, vom Lego Duplo für Kleinkinder bis zu Spielen für Kinder ab 8 Jahren.",
-  "en": "Children play board games in the board game room, from Lego Duplo for toddlers to games for ages 8 and up.",
-  "zh": "孩子们在棋盘游戏室玩桌游，从适合幼儿的乐高Duplo到8岁以上的游戏。",
-  "ages": [
-   1,
-   18
-  ],
-  "sha": "155f57226ad5711e"
- },
  "https://www.buecherhallen.de/osdorf-termin/brettspielzimmer-11218/datum/20261204.html | Brettspielzimmer": {
   "de": "Kinder spielen im Brettspielzimmer Brettspiele, von Lego-Duplo-Bausteinen und Motorikspielen bis zu Spielen für ältere Kinder.",
   "en": "Children play board games in the library's game room, from Duplo bricks and motor-skill games to games for older children.",
@@ -4225,6 +4080,11 @@
    18
   ],
   "sha": "1a523fe1f4bce966"
+ },
+ "https://www.buecherhallen.de/osdorf-termin/brettspielzimmer-11218/datum/20261211.html | Brettspielzimmer": {
+  "none": true,
+  "read": 1,
+  "sha": "03ace3f23129263a"
  },
  "https://www.buecherhallen.de/osdorf-termin/brettspielzimmer-osdorfer-born/datum/20261201.html | Brettspielzimmer": {
   "de": "Kinder spielen im Brettspielzimmer allein oder mit anderen verschiedene Brettspiele zum Kennenlernen und Testen.",
@@ -4296,20 +4156,10 @@
   ],
   "sha": "187df56bc2bff233"
  },
- "https://www.buecherhallen.de/rahlstedt-termin/kleiner-lego-r-duplo-r-nachmittag-in-der-buecherhalle/datum/20261127.html | Kleiner LEGO®-DUPLO®-Nachmittag in der Bücherhalle": {
-  "de": "Kleine Besucher bauen auf einem Spielteppich mit LEGO®-DUPLO® eigene Welten.",
-  "en": "Children build their own worlds with LEGO DUPLO bricks on a play carpet.",
-  "zh": "孩子们在游戏毯上用LEGO DUPLO积木搭建自己的小世界。",
-  "ages": [
-   1,
-   18
-  ],
-  "sha": "d4bdc886669f4053"
- },
- "https://www.buecherhallen.de/rahlstedt-termin/kleiner-malnachmittag-in-rahlstedt/datum/20261127.html | Kleiner Malnachmittag in Rahlstedt!": {
+ "https://www.buecherhallen.de/rahlstedt-termin/kleiner-lego-r-duplo-r-nachmittag-in-der-buecherhalle/datum/20261211.html | Kleiner LEGO®-DUPLO®-Nachmittag in der Bücherhalle": {
   "none": true,
   "read": 1,
-  "sha": "2affefe864126091"
+  "sha": "04f519715bc4c2f2"
  },
  "https://www.buecherhallen.de/rahlstedt-termin/kleiner-malnachmittag-in-rahlstedt/datum/20261204.html | Kleiner Malnachmittag in Rahlstedt!": {
   "de": "Kinder können nach Lust und Laune malen; Stifte, Malpapier und Vorlagen stehen bereit.",
@@ -4320,6 +4170,11 @@
    18
   ],
   "sha": "a385ccd5291c87b2"
+ },
+ "https://www.buecherhallen.de/rahlstedt-termin/kleiner-malnachmittag-in-rahlstedt/datum/20261211.html | Kleiner Malnachmittag in Rahlstedt!": {
+  "none": true,
+  "read": 1,
+  "sha": "cf655f44c9568e97"
  },
  "https://www.buecherhallen.de/schnelsen-termin/bilderbuchkino-das-grosse-weihnachtsfest-im-zoo-2/datum/20261204.html | Bilderbuchkino \"Das große Weihnachtsfest im Zoo\"": {
   "de": "Kinder sehen ein Bilderbuch über Zootiere, die sich an Weihnachten Geschenke machen und diese miteinander teilen.",
@@ -4339,6 +4194,11 @@
  "https://www.buecherhallen.de/schnelsen-termin/bilderbuchkino-max-freut-sich-auf-weihnachten/datum/20261208.html | Bilderbuchkino \"Max freut sich auf Weihnachten\"": {
   "none": true,
   "read": 1
+ },
+ "https://www.buecherhallen.de/schnelsen-termin/bilderbuchkino-santa-clausi-ein-faultier-rettet-weihnachten/datum/20261211.html | Bilderbuchkino \"Santa Clausi - Ein Faultier rettet Weihnachten\"": {
+  "none": true,
+  "read": 1,
+  "sha": "94d07e33c0bcdf42"
  },
  "https://www.buecherhallen.de/schnelsen-termin/lego-r-duplo-r-nachmittag-in-der-buecherhalle/datum/20261204.html | LEGO®-DUPLO®-Nachmittag in der Bücherhalle": {
   "de": "Kinder bauen mit LEGO®-DUPLO® eigene Welten und experimentieren dabei.",
@@ -4360,15 +4220,10 @@
   ],
   "sha": "3ab24e0b0b09153b"
  },
- "https://www.buecherhallen.de/steilshoop-termin/buch-bingo-mit-gewinnpreis/datum/20261127.html | Buch-Bingo mit Gewinnpreis": {
-  "de": "Kinder lesen Bücher und können mit 5 oder 9 gelesenen Büchern ein Brettspiel gewinnen.",
-  "en": "Children read books for a bingo card and can win a board game after reading 5 or 9 books.",
-  "zh": "孩子们阅读图书完成Buch-Bingo，读满5或9本书即可赢得桌游。",
-  "ages": [
-   7,
-   16
-  ],
-  "sha": "c21656f434b8a858"
+ "https://www.buecherhallen.de/schnelsen-termin/vorlesen-fuer-kinder-24877/datum/20261211.html | Vorlesen für Kinder": {
+  "none": true,
+  "read": 1,
+  "sha": "c387abc5b088b321"
  },
  "https://www.buecherhallen.de/steilshoop-termin/buch-bingo-mit-gewinnpreis/datum/20261204.html | Buch-Bingo mit Gewinnpreis": {
   "de": "Kinder lesen Bücher und können mit 5 oder 9 gelesenen Büchern ein Brettspiel gewinnen.",
@@ -4379,6 +4234,11 @@
    16
   ],
   "sha": "a7a1a6f93a30dfef"
+ },
+ "https://www.buecherhallen.de/steilshoop-termin/buch-bingo-mit-gewinnpreis/datum/20261211.html | Buch-Bingo mit Gewinnpreis": {
+  "none": true,
+  "read": 1,
+  "sha": "086fa4b504d254c6"
  },
  "https://www.buecherhallen.de/steilshoop-termin/buchfragen/datum/20261202.html | Buchfragen": {
   "de": "Kinder leihen Bücher mit Fragebogen aus, beantworten nach dem Lesen die Fragen und dürfen ein Geschenk ziehen.",
@@ -4450,16 +4310,6 @@
   ],
   "sha": "84b27121ae515939"
  },
- "https://www.buecherhallen.de/volksdorf-termin/vorlesen-fuer-kinder-15563/datum/20261127.html | Vorlesen für Kinder": {
-  "de": "Kinder hören in der Bücherhalle Volksdorf zu, wie jeden Freitag vorgelesen wird.",
-  "en": "Children listen to stories read aloud every Friday at the Bücherhalle Volksdorf library.",
-  "zh": "孩子们在 Bücherhalle Volksdorf 图书馆听每周五的朗读。",
-  "ages": [
-   4,
-   10
-  ],
-  "sha": "6796184407ae468d"
- },
  "https://www.buecherhallen.de/volksdorf-termin/vorlesen-fuer-kinder-15563/datum/20261204.html | Vorlesen für Kinder": {
   "de": "In der Bücherhalle Volksdorf wird Kindern aus Büchern vorgelesen.",
   "en": "Children are read aloud to from books at the Bücherhalle Volksdorf library.",
@@ -4470,15 +4320,10 @@
   ],
   "sha": "1b866af0a71fb25c"
  },
- "https://www.buecherhallen.de/wandsbek-termin/bilderbuchkino-im-winterwald/datum/20261127.html | Bilderbuchkino: Im Winterwald": {
-  "de": "Bei Schnee suchen Eichhörnchen, Fuchs, Maus und Rabe gemeinsam die versteckten Vorräte im Winterwald.",
-  "en": "In the snowy forest, a squirrel, a fox, a mouse and a raven search together for the hidden food supplies.",
-  "zh": "雪中，松鼠与狐狸、老鼠和乌鸦一起寻找藏起来的食物。",
-  "ages": [
-   4,
-   18
-  ],
-  "sha": "921ae3de473d104c"
+ "https://www.buecherhallen.de/wandsbek-termin/bilderbuchkino-bastelspass/datum/20261211.html | Bilderbuchkino & Bastelspaß": {
+  "none": true,
+  "read": 1,
+  "sha": "4d614f80ecd1cf74"
  },
  "https://www.buecherhallen.de/wandsbek-termin/kamishibai-geschichten-fuer-kleine-leser/datum/20261201.html | Kamishibai - Geschichten für kleine Leser": {
   "de": "Geschichten werden als Kamishibai erzählt: große Bildkarten werden in einen Holzrahmen geschoben und gezeigt.",
@@ -4523,16 +4368,6 @@
   ],
   "sha": "0145fd73e282c836"
  },
- "https://www.buecherhallen.de/wandsbek-termin/vorlesetraining-mit-huendin-amy/datum/20261127.html | Vorlesetraining mit Hündin Amy": {
-  "de": "Kinder lesen der Lesehündin Amy in einer individuellen 30-minütigen Einzelstunde vor.",
-  "en": "Children read aloud to the reading dog Amy in an individual 30-minute session.",
-  "zh": "孩子们在一对一的30分钟时段里向阅读犬Amy朗读。",
-  "ages": [
-   6,
-   18
-  ],
-  "sha": "b37f1e2b5a5beba5"
- },
  "https://www.buecherhallen.de/wandsbek-termin/vorlesetraining-mit-huendin-amy/datum/20261204.html | Vorlesetraining mit Hündin Amy": {
   "de": "Kinder lesen der Lesehündin Amy vor, die dabei zuhört.",
   "en": "Children read aloud to the reading dog Amy, who listens to them.",
@@ -4542,6 +4377,11 @@
    18
   ],
   "sha": "6e09f7ccc7111b72"
+ },
+ "https://www.buecherhallen.de/wandsbek-termin/vorlesetraining-mit-huendin-amy/datum/20261211.html | Vorlesetraining mit Hündin Amy": {
+  "none": true,
+  "read": 1,
+  "sha": "b3689ecb71a2200d"
  },
  "https://www.buecherhallen.de/wilhelmsburg-termin/bilderbuchkino-das-endlos-lange-weihnachtswarten-3/datum/20261203.html | Bilderbuchkino - \"Das endlos lange Weihnachtswarten\"": {
   "de": "Kinder sehen Bilder der Geschichte um Mia und einen Engel auf einem großen Bildschirm, hören zu und sprechen darüber.",
@@ -4590,16 +4430,6 @@
   "read": 1,
   "sha": "06d07e583b7e312b"
  },
- "https://www.buecherhallen.de/wilhelmsburg-termin/spielezeit-10633/datum/20261127.html | SpieleZeit": {
-  "de": "Kinder spielen gemeinsam ausgewählte Gesellschaftsspiele, und Mitarbeitende erklären bei Bedarf die Regeln.",
-  "en": "Children play selected board games together, and staff explain the rules if needed.",
-  "zh": "孩子们一起玩精选的桌游，如有需要，工作人员会讲解规则。",
-  "ages": [
-   4,
-   18
-  ],
-  "sha": "044c08fd5b200030"
- },
  "https://www.buecherhallen.de/wilhelmsburg-termin/spielezeit-10633/datum/20261204.html | SpieleZeit": {
   "de": "Kinder spielen gemeinsam ausgesuchte Spiele, und Mitarbeitende helfen beim Erklären der Regeln.",
   "en": "Children play selected games together, and staff help explain the rules if needed.",
@@ -4610,15 +4440,10 @@
   ],
   "sha": "3ae39986a245e928"
  },
- "https://www.buecherhallen.de/winterhude-termin/bilderbuchkino-die-rittereule/datum/20261127.html | Bilderbuchkino: Die Rittereule": {
-  "de": "Kinder hören und sehen die Geschichte einer Eule, die gern ein echter Ritter wäre.",
-  "en": "Children watch and listen to the story of an owl who dreams of becoming a real knight.",
-  "zh": "孩子们观看并聆听一只梦想成为真正骑士的猫头鹰的故事。",
-  "ages": [
-   4,
-   18
-  ],
-  "sha": "4eb45ad555a0adb4"
+ "https://www.buecherhallen.de/wilhelmsburg-termin/spielezeit-10633/datum/20261211.html | SpieleZeit": {
+  "none": true,
+  "read": 1,
+  "sha": "05256dce5a63c996"
  },
  "https://www.buecherhallen.de/winterhude-termin/familienlesung-mit-torben-kuhlmann-maeuseabenteuer-live/datum/20261130.html | Familienlesung mit Torben Kuhlmann: Mäuseabenteuer live": {
   "de": "Der Illustrator Torben Kuhlmann stellt sein Buch „Armstrong“ als Bilderbuchkino vor und erzählt von fliegenden Mäusen und Erfindern.",
@@ -4639,6 +4464,11 @@
    18
   ],
   "sha": "7d8d94e391085f57"
+ },
+ "https://www.buecherhallen.de/winterhude-termin/kapla-nachmittag-3/datum/20261211.html | KAPLA-Nachmittag": {
+  "none": true,
+  "read": 1,
+  "sha": "716fae4fd5a5b0b6"
  },
  "https://www.buecherhallen.de/winterhude-termin/lerne-das-fingeralphabet-fuer-eine-3-oder-4-klasse/datum/20261209.html | FÄLLT AUS! Lerne das Fingeralphabet für eine 3. oder 4. Klasse": {
   "de": "Kinder lernen das Fingeralphabet.",
@@ -4814,20 +4644,6 @@
   "read": 1,
   "sha": "4dd631490c099887"
  },
- "https://www.deutsches-museum.de/museumsinsel/programm/veranstaltung/abenteuer-weltraum-fuer-mitglieder#2026-11-27T17:30:00+01:00 | Abenteuer Weltraum für Mitglieder": {
-  "de": "Mit Taschenlampen geht es durch das fast dunkle Museum, Highlights der Raumfahrt-Abteilung entdecken Kinder und Erwachsene mit einem Guide.",
-  "en": "Children and adults explore the almost dark museum with flashlights and discover space travel highlights with a guide.",
-  "zh": "手持手电筒游览昏暗的Deutsches Museum，探索航天展区的亮点。",
-  "ages": [
-   6,
-   18
-  ]
- },
- "https://www.deutsches-museum.de/museumsinsel/programm/veranstaltung/freie-maschinen#2026-11-27T09:00:00+01:00 | Freie Maschinen": {
-  "de": "Kunstmaschinen von Felix Scharstein zeigen Hebel, Zahnräder, Riemen und Motoren, deren Bewegung man sehen und hören kann.",
-  "en": "Art machines by Felix Scharstein show levers, gears, belts and motors whose movement can be seen and heard.",
-  "zh": "Felix Scharstein的艺术机械由杠杆、齿轮、皮带和电机组成，其运动可看可听。"
- },
  "https://www.deutsches-museum.de/museumsinsel/programm/veranstaltung/freie-maschinen#2026-11-28T09:00:00+01:00 | Freie Maschinen": {
   "de": "Kunstmaschinen mit Hebeln, Zahnrädern, Riemen und Motoren zeigen bewegte Konstruktionen, die man sehen und hören kann.",
   "en": "Art machines with levers, gears, belts and motors show moving constructions that can be seen and heard.",
@@ -4885,21 +4701,15 @@
   ],
   "sha": "aa558e72af6d4099"
  },
- "https://www.dhaus.de/home/junges-schauspiel/ | Kick-off D’Insiders": {
-  "de": "Auftakttreffen des Jugendbeirats des Jungen Schauspiels, zu dem man sich anmelden oder spontan vorbeikommen kann.",
-  "en": "Kick-off meeting of the youth advisory board of Junges Schauspiel, where young people can register or just drop by.",
-  "zh": "Junges Schauspiel 青少年顾问委员会的启动会，可报名或直接前来参加。",
-  "sha": "f87d4977a3ae115e"
- },
  "https://www.dhaus.de/home/junges-schauspiel/ | Samurai X": {
-  "de": "Ein Theaterstück des Jungen Schauspiels, frei nach Akira Kurosawas Film „Die sieben Samurai“.",
-  "en": "A theatre performance by Junges Schauspiel, loosely based on Akira Kurosawa's film Seven Samurai.",
-  "zh": "青少年剧团演出的一部戏剧，改编自黑泽明的电影《七武士》。",
+  "de": "Theaterstück, frei nach Akira Kurosawas Film „Die sieben Samurai“, vom Jungen Schauspiel.",
+  "en": "A theatre production loosely based on Akira Kurosawa's film Seven Samurai, by Junges Schauspiel.",
+  "zh": "改编自黑泽明电影《七武士》的戏剧演出，由Junges Schauspiel演出。",
   "ages": [
    12,
    18
   ],
-  "sha": "e25fb40651b5e056"
+  "sha": "c651192d2e5265b6"
  },
  "https://www.die-hamburgische-staatsoper.de/de/programm/oper/3019-alleine | ?Alleine!": {
   "de": "In diesem Musiktheater erwacht eine selbstgebastelte Papierfigur zum Leben, begleitet von kurdischer und europäischer Musik.",
@@ -5065,12 +4875,6 @@
   "none": true,
   "read": 1,
   "sha": "54c875aaffcfd76b"
- },
- "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/swap-the-canvas-gestalte-im-team-dein-kunstwerk | Swap the canvas - gestalte im Team dein Kunstwerk": {
-  "de": "Im Team wird eine Leinwand bemalt und so zu einem gemeinsamen Kunstwerk gestaltet.",
-  "en": "In teams, participants paint a canvas and create one artwork together.",
-  "zh": "分组合作，在画布上绘画，共同完成一件艺术作品。",
-  "sha": "095b073bbba54e83"
  },
  "https://www.dueren.de/kultur-tourismus/veranstaltungen/veranstaltungskalender/veranstaltung/undo-die-erste-geschichte-aus-dem-unland | UNDO - Die erste Geschichte aus dem Unland": {
   "de": "Autor Drakon Erberg liest aus seinem Werk vor.",
@@ -5668,6 +5472,12 @@
   ],
   "sha": "43b3838df7714463"
  },
+ "https://www.fruehehilfen-online.nrw.de/fhiangebot/details/id/152166 | Ponyzeit - Hallo kleines Pony!": {
+  "de": "Kinder lernen die Ponys Poldi und Löwe kennen, putzen, füttern und führen sie und reiten einige Runden.",
+  "en": "Children meet the ponies Poldi and Löwe, groom, feed and lead them, and ride several rounds.",
+  "zh": "孩子们认识小马Poldi和Löwe，给它们刷毛、喂食、牵引，并骑行几圈。",
+  "sha": "b995129b31eb2f62"
+ },
  "https://www.fruehehilfen-online.nrw.de/fhiangebot/details/id/152174 | Ab in die Werkstatt: Nistkasten": {
   "de": "Kinder bauen und gestalten gemeinsam mit ihren Eltern einen Nistkasten für einheimische Vögel.",
   "en": "Children and their parents build and decorate a nest box for native birds.",
@@ -6230,6 +6040,12 @@
   "zh": "家长和孩子一起用童话羊毛制作小矮人、精灵和巫师，设计有趣的小人偶。",
   "sha": "e2a52e4738fdeaf2"
  },
+ "https://www.fruehehilfen-online.nrw.de/fhiangebot/details/id/152990 | Zauberwolle- wir basteln Wichtel und Elfen für Eltern und Kinder ab 2,5 Jahren": {
+  "de": "Eltern und Kinder basteln zusammen Wichtel, Elfen und Zauberer aus Märchenwolle.",
+  "en": "Parents and children make gnomes, elves and wizards together from fairy-tale wool.",
+  "zh": "父母和孩子一起用童话羊毛制作小精灵、精灵和巫师。",
+  "sha": "3423f3f17c45da66"
+ },
  "https://www.fruehehilfen-online.nrw.de/fhiangebot/details/id/152993 | Kunst ohne Dach (Outdoor)für Eltern und Kinder ab 2 Jahren": {
   "de": "Kinder und Eltern basteln und malen im Wald mit Naturmaterialien, spielen Spiele und hören Waldgeschichten und Lieder.",
   "en": "Children and parents craft and paint in the forest using natural materials, play games, and hear stories and songs.",
@@ -6284,16 +6100,6 @@
    1,
    3
   ]
- },
- "https://www.fruehehilfen-online.nrw.de/fhiangebot/details/id/153031 | Naturphänomene erleben und verstehen für Eltern und Kinder ab 4 Jahren": {
-  "de": "Eltern und Kinder entdecken Naturphänomene und machen kleine Experimente mit Wasser und Haushaltsmaterialien.",
-  "en": "Parents and children discover natural phenomena and do small experiments with water and household materials.",
-  "zh": "家长和孩子一起观察自然现象，用水和家用材料做小实验。",
-  "ages": [
-   3,
-   6
-  ],
-  "sha": "1653cd249d7465cb"
  },
  "https://www.fruehehilfen-online.nrw.de/fhiangebot/details/id/153040 | Regenwurm - Aktionsnachmittag für Eltern und Kinder ab 3 Jahren": {
   "de": "Kinder lernen den Regenwurm kennen, singen ein Regenwurmlied, machen Experimente und basteln einen Wurm.",
@@ -7320,33 +7126,11 @@
   "zh": "孩子们在墙上自己的纸上作画，与其他人并排，共用颜色和画笔。",
   "sha": "d42cbc92b61e8211"
  },
- "https://www.fruehehilfen-online.nrw.de/fhiangebot/details/id/161084 | Kochkurs - Indische Köstlichkeiten": {
-  "de": "Die Teilnehmenden kochen gemeinsam indische Gerichte wie Dal, Paneer, Chapati und Möhren-Halwa.",
-  "en": "Participants cook Indian dishes together, such as dal, paneer, chapati and carrot halwa.",
-  "zh": "大家一起烹饪印度菜，如达尔豆汤、帕尼尔奶酪、恰帕提饼和胡萝卜哈尔瓦。",
-  "ages": [
-   18,
-   18
-  ],
-  "sha": "4e31be8fd767d789"
- },
  "https://www.fruehehilfen-online.nrw.de/fhiangebot/details/id/56175 | Familienfrühstück mit musikalischer Begleitung im Bürgerhaus Salzmannbau": {
   "de": "Familien frühstücken gemeinsam und werden dabei musikalisch begleitet.",
   "en": "Families have breakfast together while music accompanies them.",
   "zh": "家庭共进早餐，过程中有音乐伴奏。",
   "sha": "197dfc45fd0b3255"
- },
- "https://www.fruehehilfen-online.nrw.de/fhiangebot/details/id/77565 | Bilker Bollerwagen": {
-  "de": "Spiel und Spaß auf dem Spielplatz im Florapark und der Spielanlage hinter den Düsseldorf Arcaden.",
-  "en": "Children play on the playground in Florapark and on the play area behind the Düsseldorf Arcaden.",
-  "zh": "孩子们在Florapark公园和Düsseldorf Arcaden后的游乐场玩耍。",
-  "sha": "9762d671fa457023"
- },
- "https://www.fruehehilfen-online.nrw.de/fhiangebot/details/id/77567 | Sing‘ in Bilk": {
-  "de": "Menschen jeden Alters singen gemeinsam miteinander.",
-  "en": "People of all ages sing together.",
-  "zh": "各个年龄的人一起唱歌。",
-  "sha": "54294681bf5643ca"
  },
  "https://www.fruehehilfen-online.nrw.de/fhiangebot/details/id/78823 | Kreativworkshop- bunte Farben": {
   "de": "Kinder und Jugendliche malen, basteln und beschäftigen sich mit verschiedenen künstlerischen Handarbeiten.",
@@ -7366,17 +7150,6 @@
  "https://www.gut-hixholz.de/Weihnachten-im-Stall---Ein-Vorweihnachtsabend-auf-dem-Bauernhof_4437.aspx | Weihnachten im Stall ein gemütlicher Abend mit der Weihnachtsgeschichte": {
   "none": true,
   "read": 1
- },
- "https://www.gut-hixholz.de/Wintermaerchen-im-Stall---ein-romantischer-Abend-fuer-die-ganze-Familie_4284.aspx | Wintermärchen im Stall ein Winterabend für die ganze Familie": {
-  "de": "Die Kinder hören im Stroh eine Wichtelgeschichte, besuchen die Tiere in den Ställen und trinken Wichtelpunsch.",
-  "en": "Children listen to a Wichtel story in the straw, visit the animals in the stalls and drink Wichtel punch.",
-  "zh": "孩子们在稻草中听精灵故事，探访谷仓里的动物，并喝精灵潘趣酒。"
- },
- "https://www.hagenbeck.de/de/_events/botanische_fuehrung.php | Botanische Führung \"Grüne Exoten\"": {
-  "de": "Führung durch den Tierpark Hagenbeck, bei der exotische Pflanzen wie Philodendron, Strelitzia, Theobroma, Alocasia und Monstera gezeigt werden.",
-  "en": "A guided tour of exotic plants at Tierpark Hagenbeck, such as Philodendron, Strelitzia, Theobroma, Alocasia and Monstera.",
-  "zh": "Tierpark Hagenbeck 园内异国植物导览，如Monstera、Strelitzia等。",
-  "sha": "6fa3db75bd7c7392"
  },
  "https://www.hagenbeck.de/de/_events/zootisch_TA.php | Zooschule hautnah erleben": {
   "de": "Kinder und Erwachsene lernen das Tropen-Aquarium mit allen Sinnen kennen, begutachten Exponate und stellen Fragen zu verschiedenen Tieren.",
@@ -7409,16 +7182,6 @@
   ],
   "sha": "644f66c4f4988650"
  },
- "https://www.hamburger-kunsthalle.de/de/termin/zeichnen-fuer-jugendliche-17 | ZEICHNEN FÜR JUGENDLICHE": {
-  "de": "Vor den Originalen der Hamburger Kunsthalle lernen Jugendliche die Grundlagen des figürlichen Zeichnens und üben sie.",
-  "en": "Teens learn and practise the basics of figure drawing in front of original artworks in the Hamburger Kunsthalle.",
-  "zh": "青少年在Hamburger Kunsthalle的原作前学习并练习人物素描基础。",
-  "ages": [
-   13,
-   18
-  ],
-  "sha": "37ee861fe480d522"
- },
  "https://www.hamburger-kunsthalle.de/de/termin/zeichnen-fuer-jugendliche-18 | ZEICHNEN FÜR JUGENDLICHE": {
   "de": "Vor den Originalen der Hamburger Kunsthalle lernen Jugendliche die Grundlagen des figürlichen Zeichnens und üben sie.",
   "en": "In front of originals at the Hamburger Kunsthalle, young people learn and practise the basics of figure drawing.",
@@ -7428,6 +7191,16 @@
    18
   ],
   "sha": "a69abea8d22c8504"
+ },
+ "https://www.hamburger-kunsthalle.de/de/termin/zeichnen-fuer-jugendliche-19 | ZEICHNEN FÜR JUGENDLICHE": {
+  "de": "Zeichenkurs für Jugendliche in der Sammlung der Hamburger Kunsthalle.",
+  "en": "A drawing course for young people in the Hamburger Kunsthalle's collection.",
+  "zh": "在 Hamburger Kunsthalle 的展藏区举办青少年绘画课。",
+  "ages": [
+   13,
+   18
+  ],
+  "sha": "1336415e7ddeafdc"
  },
  "https://www.hellabrunn.de/eventdetailseite/bayerns-wilde-moore | Bayerns wilde Moore - Multivisionshow und Buchvorstellung": {
   "de": "Multivisionsshow und Buchvorstellung der Autoren und Fotografen Niklas Banowski und Christopher Meyer über Bayerns wilde Moore.",
@@ -7511,11 +7284,6 @@
   "en": "Acrobats, illusionists and a clown perform in the circus ring, accompanied by music and lighting.",
   "zh": "杂技演员、魔术师和小丑在马戏场地表演，伴有音乐和灯光。"
  },
- "https://www.koeln.de/event/11-koelner-weihnachtscircus-2/ | 11. Kölner Weihnachtscircus": {
-  "de": "Akrobaten, Illusionisten, Clowns und Trapezkünstler zeigen ihre Künste in der Manege, untermalt von Musik und Licht.",
-  "en": "Acrobats, illusionists, clowns and trapeze artists perform their acts in the circus ring, accompanied by music and lights.",
-  "zh": "杂技演员、魔术师、小丑和空中飞人在马戏场中表演，伴有音乐和灯光。"
- },
  "https://www.koeln.de/event/11-koelner-weihnachtscircus-4/ | 11. Kölner Weihnachtscircus": {
   "de": "Akrobaten, Illusionisten, Clowns und Trapezkünstler zeigen ihr Können in der Manege eines Weihnachtscircus.",
   "en": "Acrobats, illusionists, clowns and trapeze artists perform in the ring of a Christmas circus.",
@@ -7540,11 +7308,6 @@
   "en": "In the historic Flora building in the Botanischen Garten, visitors can see high-quality antiques and 20th-century design classics.",
   "zh": "Botanischen Garten内的Flora历史建筑中，可以看到高品质古董和20世纪设计经典作品。",
   "sha": "a3a6b1cf2bf0e7c6"
- },
- "https://www.koeln.de/event/ausstellung-film-ab-130-jahre-kino-und-film-in-koeln/2026-11-27/ | Film ab! 130 Jahre Kino und Film in Köln": {
-  "de": "Die Ausstellung zeigt historische und aktuelle Filmaufnahmen über Kino und Film sowie Köln als Filmkulisse.",
-  "en": "The exhibition shows historical and current film clips about cinema and how Cologne has been filmed.",
-  "zh": "展览通过历史和当代影片片段，展示电影院和电影的变化，以及科隆如何成为拍摄对象。"
  },
  "https://www.koeln.de/event/ausstellung-film-ab-130-jahre-kino-und-film-in-koeln/2026-11-28/ | Film ab! 130 Jahre Kino und Film in Köln": {
   "de": "Ausstellung im Kölnischen Stadtmuseum mit historischen und aktuellen Filmaufnahmen zur Kino- und Filmgeschichte Kölns.",
@@ -7600,6 +7363,11 @@
   "de": "Eine Ausstellung im Kölnischen Stadtmuseum zeigt 130 Jahre Kölner Kino- und Filmgeschichte mit historischen und aktuellen Filmaufnahmen.",
   "en": "An exhibition in the Kölnisches Stadtmuseum shows 130 years of Cologne film history through historical and current film clips.",
   "zh": "Kölnisches Stadtmuseum 展览通过历史与当代影片，展示科隆130年的电影与影院历史。"
+ },
+ "https://www.koeln.de/event/ausstellung-film-ab-130-jahre-kino-und-film-in-koeln/2026-12-11/ | Film ab! 130 Jahre Kino und Film in Köln": {
+  "de": "Besucher sehen Kurzfilme und Filmausschnitte aus 130 Jahren Kölner Filmgeschichte sowie Fotos historischer Kinos.",
+  "en": "Visitors watch short films and film clips from 130 years of Cologne film history, plus photos of historic cinemas.",
+  "zh": "参观者可观看科隆130年电影历史的短片和片段，以及历史影院的照片。"
  },
  "https://www.koeln.de/event/beatrice-rana-chamber-orchestra-of-europe-yannick-nezet-seguin/ | Beatrice Rana | Chamber Orchestra of Europe | Yannick Nézet-Séguin": {
   "de": "Konzert des Chamber Orchestra of Europe unter Yannick Nézet-Séguin mit Beatrice Rana.",
@@ -7668,10 +7436,10 @@
   "en": "Tchaikovsky's music is combined with ballet, acting and circus acrobatics in a winter fairy tale.",
   "zh": "柴可夫斯基的音乐与芭蕾、表演和马戏杂技结合，讲述一个充满杂技和平衡表演的冬日童话。"
  },
- "https://www.koeln.de/event/der-nussknacker-ballett-meets-variete-6/ | Der Nussknacker – Ballett meets Varieté": {
-  "de": "Tschaikowskys Musik trifft auf Ballett, Schauspiel und Zirkusartistik; der Nussknacker wird als Wintermärchen mit Akrobatik gezeigt.",
-  "en": "Tchaikovsky's music meets ballet, drama and circus acrobatics as the Nutcracker is retold as a winter fairy tale.",
-  "zh": "柴可夫斯基的音乐与芭蕾、戏剧和马戏杂技结合，讲述冬日童话版的胡桃夹子。"
+ "https://www.koeln.de/event/der-nussknacker-ballett-meets-variete-17/ | Der Nussknacker – Ballett meets Varieté": {
+  "de": "Tschaikowskys Musik verbindet Ballett, Schauspiel und Zirkusartistik zu einem Wintermärchen mit Akrobatik und Balance.",
+  "en": "Tchaikovsky's music meets ballet, acting and circus acrobatics in a winter fairy tale with balancing acts.",
+  "zh": "柴可夫斯基的音乐与芭蕾、表演和杂技结合，讲述充满杂技与平衡表演的冬日童话。"
  },
  "https://www.koeln.de/event/der-nussknacker-ballett-meets-variete-8/ | Der Nussknacker – Ballett meets Varieté": {
   "de": "Tschaikowskys Musik verbindet sich mit Ballett, Schauspiel und Zirkusartistik, und der Nussknacker wird als Wintermärchen mit Akrobatik erzählt.",
@@ -7713,12 +7481,6 @@
   "zh": "体育场后面的Jahnwiesen草地旁，许多商贩出售古董和旧货。",
   "sha": "a8448ec0aae6b0a9"
  },
- "https://www.koeln.de/event/flohmarkt-an-der-galopprennbahn-2/2026-11-27/ | Flohmarkt an der Galopprennbahn": {
-  "de": "Auf dem Flohmarkt an der Galopprennbahn in Weidenpesch können Besucher trödeln und feilschen.",
-  "en": "At the flea market by the Galopprennbahn in Weidenpesch, visitors can browse and haggle.",
-  "zh": "在Weidenpesch区Galopprennbahn赛马场的跳蚤市场上，人们可以闲逛和讨价还价。",
-  "sha": "19aacb6c2cbbb6f6"
- },
  "https://www.koeln.de/event/flohmarkt-an-der-galopprennbahn-2/2026-12-02/ | Flohmarkt an der Galopprennbahn": {
   "de": "Auf dem Flohmarkt an der Galopprennbahn in Weidenpesch können Besucher trödeln und feilschen.",
   "en": "Visitors can browse and haggle at the flea market at the Galopprennbahn racecourse in Weidenpesch.",
@@ -7735,6 +7497,12 @@
   "de": "Auf dem Flohmarkt können Besucher Trödel ansehen und über die Preise feilschen.",
   "en": "At this flea market, visitors browse second-hand goods and haggle over prices.",
   "zh": "Galopprennbahn 赛马场旁的跳蚤市场，可以逛旧货并讨价还价。",
+  "sha": "19aacb6c2cbbb6f6"
+ },
+ "https://www.koeln.de/event/flohmarkt-an-der-galopprennbahn-2/2026-12-11/ | Flohmarkt an der Galopprennbahn": {
+  "de": "Auf dem Flohmarkt an der Galopprennbahn in Weidenpesch können Besucher trödeln und feilschen.",
+  "en": "At the flea market at the Galopprennbahn in Weidenpesch, visitors browse for second-hand goods and haggle over prices.",
+  "zh": "Galopprennbahn 赛马场旁的跳蚤市场，人们可以淘旧货、讨价还价。",
   "sha": "19aacb6c2cbbb6f6"
  },
  "https://www.koeln.de/event/flohmarkt-an-der-galopprennbahn-3/2026-11-29/ | Flohmarkt an der Galopprennbahn": {
@@ -7838,12 +7606,6 @@
   "de": "Eishockey-Spiel der Kölner Haie live in der LANXESS arena, mit harten Checks.",
   "en": "Live ice hockey game with the Kölner Haie in the LANXESS arena, with hard body checks.",
   "zh": "在 LANXESS arena 现场观看科隆鲨鱼队的冰球比赛，有激烈的身体冲撞。",
-  "sha": "be672c761b055388"
- },
- "https://www.koeln.de/event/koelner-haie-straubing-tigers/ | Kölner Haie – Straubing Tigers": {
-  "de": "Eishockey-Spiel der Kölner Haie gegen die Straubing Tigers in der LANXESS arena.",
-  "en": "An ice hockey match between the Kölner Haie and the Straubing Tigers in the LANXESS arena.",
-  "zh": "在 LANXESS arena 观看 Kölner Haie 对阵 Straubing Tigers 的冰球比赛。",
   "sha": "be672c761b055388"
  },
  "https://www.koeln.de/event/koelsche-weihnacht-2026-6/ | Kölsche Weihnacht 2026": {
@@ -7953,6 +7715,11 @@
   "en": "Visitors explore the Arctic and Antarctic, see animal models, and watch polar bears, penguins and whales in a 360° room.",
   "zh": "参观者探索南北极，看到动物模型，并在360°影像室中见到北极熊、企鹅和鲸鱼。"
  },
+ "https://www.koeln.de/event/polarwelten-koeln-zeitfenstertickets-13/ | POLARWELTEN Köln | Zeitfenstertickets": {
+  "de": "In einer immersiven Ausstellung sehen die Besucher Gletscher, Eisbären und Pinguine, ein Forschungscamp und Polarlichter.",
+  "en": "In an immersive exhibition, visitors see glaciers, polar bears and penguins, a replica research camp and northern lights.",
+  "zh": "在沉浸式展览中，参观者可以看到冰川、北极熊、企鹅、极光和仿真的研究营地。"
+ },
  "https://www.koeln.de/event/polarwelten-koeln-zeitfenstertickets-2/ | POLARWELTEN Köln | Zeitfenstertickets": {
   "de": "Immersive Ausstellung über Arktis und Antarktis mit 360°-Erlebnisraum, nachgebildetem Forschungscamp, Eisbären, Pinguinen und Walen.",
   "en": "Immersive exhibition on the Arctic and Antarctic with a 360° projection room, a replica research camp, polar bears, penguins and whales.",
@@ -7992,12 +7759,6 @@
   "de": "Die Ausstellung zeigt Arktis und Antarktis mit Forschungscamp, Tierwelt und einem 360°-Erlebnisraum mit Gletschern, Eisbären und Pinguinen.",
   "en": "The exhibition shows the Arctic and Antarctic with a research camp, polar animals and a 360° room with glaciers, polar bears and penguins.",
   "zh": "展览介绍南北极，有研究营地、极地动物，以及展示冰川、北极熊和企鹅的360°空间。"
- },
- "https://www.koeln.de/event/polarwelten-koeln-zeitfenstertickets/ | POLARWELTEN Köln | Zeitfenstertickets": {
-  "de": "Die immersive Ausstellung nimmt Besucher mit in die Arktis und Antarktis.",
-  "en": "The immersive exhibition takes visitors into the Arctic and Antarctic regions.",
-  "zh": "沉浸式展览带观众走进北极和南极地区。",
-  "sha": "7d98c92568aa3159"
  },
  "https://www.koeln.de/event/puppenspiel-paw-patrol/2026-12-05/1/ | Puppenspiel „Paw Patrol“": {
   "de": "Kinder und Eltern treffen die Serienhelden Marshall, Chase und Skye in einer interaktiven Puppenshow.",
@@ -8052,10 +7813,9 @@
   "none": true,
   "read": 1
  },
- "https://www.koeln.de/event/vorbereitung-fuer-den-mond-von-luna-zu-artemis/ | Vorbereitung für den Mond – Von LUNA zu ARTEMIS": {
-  "de": "Ein Gastreferent spricht über die Mondforschung, die nächste Mondlandung und die LUNA-Anlage in Köln.",
-  "en": "A guest speaker talks about Moon research, the next lunar landing and the LUNA facility in Cologne.",
-  "zh": "嘉宾讲者介绍月球研究、下一次登月计划以及科隆的LUNA设施。"
+ "https://www.koeln.de/event/wdr-sinfonieorchester-abenteurer-macelaru-strauss/ | WDR Sinfonieorchester | Abenteurer – Măcelaru & Strauss": {
+  "none": true,
+  "read": 1
  },
  "https://www.koeln.de/event/wdr-sinfonieorchester-wdr-rundfunkchor-halleluja-haendels-messias/ | WDR Sinfonieorchester & WDR Rundfunkchor | Halleluja – Händels Messias": {
   "none": true,
@@ -8101,10 +7861,10 @@
   "en": "Hänneschen and Bärbelchen set off into a dark forest to help Manes, whose singing animal choir has stage fright.",
   "zh": "Hänneschen und Bärbelchen 进入黑暗的森林，帮助 Manes 解决会唱歌的动物们不敢登台的难题。"
  },
- "https://www.koeln.de/event/weihnachtsmaerchen-e-leech-zom-chressfess-9/ | Weihnachtsmärchen: E Leech zom Chressfess": {
-  "de": "Hänneschen und Bärbelchen helfen Manes im finsteren Wald und wollen auf einer riesigen Zauberbohne in den Himmel klettern.",
-  "en": "Hänneschen and Bärbelchen help Manes in a dark forest, then plan to climb a giant magic beanstalk.",
-  "zh": "Hänneschen 和 Bärbelchen 在黑暗的森林里帮助 Manes，之后打算爬上巨大的魔豆藤。"
+ "https://www.koeln.de/event/weihnachtsmaerchen-e-leech-zom-chressfess-28/ | Weihnachtsmärchen: E Leech zom Chressfess": {
+  "de": "Hänneschen und Bärbelchen helfen dem Sänger Manes im finsteren Wald und erleben ein musikalisches Weihnachtsmärchen.",
+  "en": "Hänneschen and Bärbelchen help Manes in a dark forest in this musical Christmas fairy tale.",
+  "zh": "Hänneschen和Bärbelchen在昏暗的森林里帮助Manes，这是一部音乐圣诞童话。"
  },
  "https://www.koeln.de/event/world-darts-gala-2026-night-of-champions/ | World Darts Gala 2026 – Night of Champions": {
   "de": "Einige der weltbesten Dartspieler treten gegeneinander an, darunter Weltmeister Luke Littler.",
@@ -8115,12 +7875,6 @@
  "https://www.koeln.de/event/zauberhafte-weihnachtszeit-mit-magier-felix-bergmann/ | Zauberhafte Weihnachtszeit mit Magier Felix Bergmann": {
   "none": true,
   "read": 1
- },
- "https://www.koeln.de/event/zum-mondjahr-des-pferdes/2026-11-27/ | Zum Mondjahr des Pferdes": {
-  "de": "Die Ausstellung zeigt rund 70 Werke mit Pferden aus über zwei Jahrtausenden, von Malerei bis Skulptur.",
-  "en": "The exhibition shows about 70 artworks featuring horses from over two thousand years, from painting to sculpture.",
-  "zh": "展览展出约70件以马为主题的作品，跨越两千多年，包括绘画、木刻、陶瓷和雕塑。",
-  "sha": "2e5cbd11b95349aa"
  },
  "https://www.koeln.de/event/zum-mondjahr-des-pferdes/2026-11-28/ | Zum Mondjahr des Pferdes": {
   "de": "Die Ausstellung zeigt rund 70 Werke aus über zwei Jahrtausenden, die das Pferd in der ostasiatischen Kunst darstellen.",
@@ -8186,6 +7940,12 @@
   "de": "Die Ausstellung zeigt rund 70 Werke mit Pferden aus über zwei Jahrtausenden aus China, Japan und Korea.",
   "en": "The exhibition shows about 70 artworks featuring horses from over two millennia, from China, Japan and Korea.",
   "zh": "展览展出约70件以马为主题的作品，涵盖中国、日本和韩国两千多年的艺术。",
+  "sha": "2e5cbd11b95349aa"
+ },
+ "https://www.koeln.de/event/zum-mondjahr-des-pferdes/2026-12-11/ | Zum Mondjahr des Pferdes": {
+  "de": "Die Ausstellung zeigt rund 70 Werke aus über zwei Jahrtausenden, die das Pferd in China, Japan und Korea darstellen.",
+  "en": "The exhibition shows about 70 works from over two millennia that depict horses in China, Japan and Korea.",
+  "zh": "展览展出两千多年来约70件作品，以马为主题，涉及中国、日本和韩国。",
   "sha": "2e5cbd11b95349aa"
  },
  "https://www.konzerthaus.de/de/programm/beschenkt/12520 | beschenkt": {
@@ -8277,16 +8037,6 @@
   "en": "Parents with babies tour the K20 artworks relaxed; the babies can look at art, drink or sleep.",
   "zh": "父母带婴儿在K20展馆欣赏艺术作品，宝宝可以看画、喝奶或睡觉。",
   "sha": "0530667ef0fb5964"
- },
- "https://www.kunstsammlung.de/de/events/k21-kleines-studio-xl-kunst-werkstattfuer-kinder-ab-3-jahren-und-ihre-erwachsene-begleitperson | K21 Kleines Studio XL: Kunst-Werkstattfür Kinder ab 3 Jahren und ihre erwachsene Begleitperson": {
-  "de": "Kinder malen, bauen und arbeiten frei mit Holz in einer offenen Kunst-Werkstatt.",
-  "en": "Children paint, build and work freely with wood in an open art workshop.",
-  "zh": "孩子们在开放的艺术工作坊里自由绘画、搭建并使用木材。",
-  "ages": [
-   3,
-   18
-  ],
-  "sha": "08b4a4734343bc66"
  },
  "https://www.kunstsammlung.de/de/events/vorlesezeit-im-playground | Vorlesezeit im Playground": {
   "de": "Ehrenamtliche Vorlesepat*innen lesen Bilderbuchgeschichten in der Ausstellung Playground vor.",
@@ -8401,6 +8151,11 @@
   ],
   "sha": "d927aa792b2e690d"
  },
+ "https://www.mpz-bayern.de/de/angebote/tanz-inklusive?date=8cfb4d58 | Tanz inklusive": {
+  "none": true,
+  "read": 1,
+  "sha": "778968c7fb724554"
+ },
  "https://www.muema-theater.de/programm/ | Der verschwundene Wunschzettel": {
   "none": true,
   "ages": [
@@ -8433,6 +8188,11 @@
   "none": true,
   "read": 1,
   "sha": "a31e44dbc79b2407"
+ },
+ "https://www.muenchen.de/veranstaltungen/event/familie-kinder?search=1&type=intro&field_category_one_target_id%5B0%5D=27895&field_category_two_target_id=Familie%20/%20Kinder%20%2827895%29&field_subevent_tags_target_id=&page=0 | Das fliegende Klassenzimmer": {
+  "none": true,
+  "read": 1,
+  "sha": "1046c8109634d548"
  },
  "https://www.muenchen.de/veranstaltungen/event/familie-kinder?search=1&type=intro&field_category_one_target_id%5B0%5D=27895&field_category_two_target_id=Familie%20/%20Kinder%20%2827895%29&field_subevent_tags_target_id=&page=0 | Die Sterntaler": {
   "none": true,
@@ -8497,7 +8257,7 @@
  "https://www.muenchen.de/veranstaltungen/kinder/himmelswerkstatt-christkindlmarkt-2026 | Himmelswerkstatt": {
   "none": true,
   "read": 1,
-  "sha": "ef53f3eb86fb3237"
+  "sha": "abf2d5a8cd8ed858"
  },
  "https://www.muenchen.de/veranstaltungen/muenchner-christkindlmarkt-marienplatz | Münchner Christkindlmarkt 2026": {
   "de": "Am Marienplatz verkaufen 138 Stände Weihnachtsgeschenke, Christbaumschmuck, Speisen und Getränke, dazu Adventsmusik und Krampuslauf.",
@@ -8526,12 +8286,6 @@
   "zh": "孩子们用蜂蜡浇铸、塑形或浸制蜡烛。",
   "sha": "4a044c0c304af33e"
  },
- "https://www.muenchner-stadtbibliothek.de/veranstaltungen/details/bilderbuchkino-45139 | Bilderbuchkino": {
-  "de": "Beim Bilderbuchkino werden Bilderbücher vorgelesen, während die Kinder die Illustrationen groß auf einer Leinwand sehen.",
-  "en": "Picture books are read aloud while children watch the illustrations enlarged on a screen, like at the cinema.",
-  "zh": "朗读绘本时，孩子们在银幕上看到放大的插图，像看电影一样。",
-  "sha": "353901035ed0a14a"
- },
  "https://www.muenchner-stadtbibliothek.de/veranstaltungen/details/bilderbuchkino-45335 | Bilderbuchkino": {
   "de": "Die Kinder sehen das Bilderbuch „Bruno und die Nervkaninchen“ von Ciara Flood.",
   "en": "Children watch the picture book “Bruno und die Nervkaninchen” by Ciara Flood.",
@@ -8556,16 +8310,6 @@
   "zh": "孩子们在绘本电影活动中聆听朗读的故事。",
   "sha": "769cf9362dddebef"
  },
- "https://www.muenchner-stadtbibliothek.de/veranstaltungen/details/bilderbuchzeit-44512 | BilderBuchZeit": {
-  "de": "Aus Bilderbüchern wird vorgelesen, und die Kinder werden interaktiv in die Geschichte eingebunden.",
-  "en": "Picture books are read aloud, and the children take part interactively in the story.",
-  "zh": "朗读绘本，孩子们互动参与故事。",
-  "ages": [
-   3,
-   6
-  ],
-  "sha": "5be3cb444dec9597"
- },
  "https://www.muenchner-stadtbibliothek.de/veranstaltungen/details/bilderbuchzeit-44513 | BilderBuchZeit": {
   "de": "Aus Bilderbüchern wird vorgelesen, und die Kinder werden interaktiv in die Geschichte einbezogen.",
   "en": "Picture books are read aloud, and the children are involved interactively in the story.",
@@ -8575,6 +8319,12 @@
    6
   ],
   "sha": "7e1e9bd9819ba628"
+ },
+ "https://www.muenchner-stadtbibliothek.de/veranstaltungen/details/bilderbuchzeit-44516 | BilderBuchZeit": {
+  "de": "Bilderbücher werden vorgelesen, und die Kinder können mitmachen.",
+  "en": "Picture books are read aloud, and children can join in.",
+  "zh": "朗读绘本，孩子们可以参与互动。",
+  "sha": "4e3a294963d5b0c7"
  },
  "https://www.muenchner-stadtbibliothek.de/veranstaltungen/details/bilderbuchzeit-45574 | BilderBuchZeit": {
   "de": "Kinder hören Bilderbücher vor, werden interaktiv in die Geschichte eingebunden und können danach malen und basteln.",
@@ -8628,17 +8378,17 @@
   "zh": "为儿童举办的圣诞朗读活动，现场朗读一个故事。",
   "sha": "30588c8d4348328e"
  },
- "https://www.muenchner-stadtbibliothek.de/veranstaltungen/details/elektro-co-46446 | Elektro & Co.": {
-  "de": "Kreatives Arbeiten mit Elektronik.",
-  "en": "Children get creative with electronics.",
-  "zh": "孩子们用电子元件进行创意制作。",
-  "sha": "d7f4c2311b447f22"
- },
  "https://www.muenchner-stadtbibliothek.de/veranstaltungen/details/elektro-co-46447 | Elektro & Co.": {
   "de": "Kinder gestalten kreativ mit Elektronik.",
   "en": "Children get creative with electronics.",
   "zh": "孩子们用电子元件进行创意活动。",
   "sha": "8c4a0ad6cc60a672"
+ },
+ "https://www.muenchner-stadtbibliothek.de/veranstaltungen/details/elektro-co-46448 | Elektro & Co.": {
+  "de": "Kinder basteln kreativ mit Elektronik.",
+  "en": "Children get creative with electronics.",
+  "zh": "孩子们用电子元件进行创意制作。",
+  "sha": "2e18edbf945d54d3"
  },
  "https://www.muenchner-stadtbibliothek.de/veranstaltungen/details/gaming-monday-45668 | Gaming Monday": {
   "de": "Kinder können an Konsolen und Gaming-Laptops allein oder mit Freunden zocken, mit Technik der Bibliothek oder eigenen Geräten.",
@@ -8752,16 +8502,6 @@
   "zh": "Stadtbibliothek Fürstenried 图书馆的媒体跳蚤市场，有书籍、DVD、杂志等。",
   "sha": "12223ccf35ced952"
  },
- "https://www.muenchner-stadtbibliothek.de/veranstaltungen/details/mitten-in-der-winternacht-43881 | Mitten in der Winternacht": {
-  "de": "Ein sprechender Elch stürzt durch ein Stalldach, und Max sucht den Weihnachtsmann, während Sternenstaub verschwindet.",
-  "en": "A talking elk crashes through a stable roof, and Max searches for Santa as star dust disappears.",
-  "zh": "一只会说话的麋鹿冲破马厩屋顶，Max寻找圣诞老人，星尘也不见了。",
-  "ages": [
-   6,
-   18
-  ],
-  "sha": "34a8334c8bac8f0b"
- },
  "https://www.muenchner-stadtbibliothek.de/veranstaltungen/details/open-art-library-47031 | Open Art Library": {
   "none": true,
   "read": 1,
@@ -8777,20 +8517,26 @@
   ],
   "sha": "14260985b637f98a"
  },
+ "https://www.muenchner-stadtbibliothek.de/veranstaltungen/details/sammelkarten-tauschboerse-45180 | Sammelkarten-Tauschbörse": {
+  "de": "Kinder tauschen untereinander Sammelkarten.",
+  "en": "Children swap collectible cards with each other.",
+  "zh": "孩子们互相交换收藏卡片。",
+  "sha": "c4975607b4fb61e5"
+ },
  "https://www.muenchner-stadtbibliothek.de/veranstaltungen/details/schlaues-schach-44535 | Schlaues Schach": {
   "none": true,
   "read": 1,
   "sha": "00365e65fb9318e9"
  },
- "https://www.muenchner-stadtbibliothek.de/veranstaltungen/details/schlaues-schach-44615 | Schlaues Schach": {
-  "none": true,
-  "read": 1,
-  "sha": "0218601eaf2ade8f"
- },
  "https://www.muenchner-stadtbibliothek.de/veranstaltungen/details/schlaues-schach-44616 | Schlaues Schach": {
   "none": true,
   "read": 1,
   "sha": "f9d063ccf82323cc"
+ },
+ "https://www.muenchner-stadtbibliothek.de/veranstaltungen/details/schlaues-schach-44617 | Schlaues Schach": {
+  "none": true,
+  "read": 1,
+  "sha": "12085fe74a648791"
  },
  "https://www.muenchner-stadtbibliothek.de/veranstaltungen/details/schlaues-schach-45080 | Schlaues Schach": {
   "none": true,
@@ -8841,15 +8587,11 @@
   "zh": "孩子们提供角色、地点和点子，Karin Ertl和Tatjana Kröll据此在舞台上即兴编出圣诞故事。",
   "sha": "df2f72fab29407be"
  },
- "https://www.muenchner-stadtbibliothek.de/veranstaltungen/details/weltkinder-42791 | Weltkinder": {
-  "de": "Jane Scheiring liest englische Bilderbücher vor, und die Kinder erleben die Geschichten spielerisch und kreativ.",
-  "en": "Jane Scheiring reads English picture books aloud, and the children experience the stories playfully and creatively.",
-  "zh": "Jane Scheiring用英语朗读绘本，孩子们以游戏和创意的方式体验故事。",
-  "ages": [
-   4,
-   18
-  ],
-  "sha": "a24ffd462102e902"
+ "https://www.muenchner-stadtbibliothek.de/veranstaltungen/details/weihnachtstheater-46195 | Weihnachtstheater": {
+  "de": "Improvisationstheater mit der Kinderimpro-Gruppe, die spontan spielt.",
+  "en": "An improvisation theatre show performed by a children's improv group.",
+  "zh": "由儿童即兴表演组演出的即兴戏剧。",
+  "sha": "b1abadb006e05029"
  },
  "https://www.muenchner-stadtbibliothek.de/veranstaltungen/details/weltkinder-43517 | Weltkinder": {
   "de": "Es werden Geschichten auf Englisch vorgelesen.",
@@ -8895,17 +8637,17 @@
   ],
   "sha": "57dafeaf9c7e09f7"
  },
- "https://www.museen.koeln/besuchen/veranstaltungen | Architektur-Modellbau für Teens": {
-  "de": "Die Teilnehmenden lernen ostasiatische Baukunst kennen und bauen in der Werkstatt das Modell eines chinesischen Pavillons.",
-  "en": "Participants explore East Asian architecture in the exhibition and build a model of a Chinese pavilion in the workshop.",
-  "zh": "参与者在展览中了解东亚建筑，并在工坊里制作一座中国亭子的模型。",
-  "sha": "6939a3a2bb0ce469"
+ "https://www.muenchner-stadtbibliothek.de/veranstaltungen/details/weltkinder-45629 | Weltkinder": {
+  "de": "Kinder hören eine Vorlesung auf Kroatisch.",
+  "en": "Children listen to a reading aloud in Croatian.",
+  "zh": "孩子们聆听一场克罗地亚语朗读。",
+  "sha": "19f1c872179d70e5"
  },
  "https://www.museen.koeln/besuchen/veranstaltungen | Bild|er|leben": {
-  "de": "Die Teilnehmenden betrachten ein Kunstwerk, machen Notizen und sprechen dann über ihr persönliches Bilderleben.",
-  "en": "Participants observe an artwork, take notes, and then discuss their personal experience of the picture in conversation.",
-  "zh": "参与者观察一件艺术作品并做笔记，随后通过交谈探讨个人的图像体验。",
-  "sha": "11742b4673d04a75"
+  "de": "Besucher betrachten ein Kunstwerk intensiv, machen Notizen und sprechen anschließend über ihr persönliches Bilderleben.",
+  "en": "Visitors look closely at an artwork, take notes and then discuss their personal experience of it.",
+  "zh": "参与者仔细观察一件艺术作品并做笔记，随后交流各自的感受。",
+  "sha": "daf23e2b3add1290"
  },
  "https://www.museen.koeln/besuchen/veranstaltungen | Boardgame-Nacht im Museum Schnütgen": {
   "de": "Große und kleine Fans können moderne Brettspiele zum Thema Mittelalter ausprobieren, die Sammlung besuchen, Vorträgen lauschen und Verlagsstände besuchen.",
@@ -9048,6 +8790,12 @@
   "en": "Participants design their own patterns and paint plates with porcelain painting, inspired by East Asian porcelain exhibits.",
   "zh": "参与者受东亚瓷器展品启发，设计自己的图案，并用瓷器彩绘装饰盘子。",
   "sha": "971bf89036fa6004"
+ },
+ "https://www.museen.koeln/besuchen/veranstaltungen | KOLLWITZ MIT ALLEN SINNEN ENTDECKEN": {
+  "de": "Bei einem Rundgang durch die Ausstellung nutzen die Teilnehmenden alle Sinne, um Kollwitz' Werke zu betrachten, und probieren danach Techniken in einer Kreativ-Werkstatt aus.",
+  "en": "On a tour of the exhibition, participants use all their senses to explore Kollwitz's works, then try out techniques in a creative workshop.",
+  "zh": "在展览导览中，参与者调动所有感官感受科勒惠支的作品，之后在创意工坊尝试各种技法。",
+  "sha": "f0a16ec109bbaaed"
  },
  "https://www.museen.koeln/besuchen/veranstaltungen | KUNST+KIND Madonnen, Engel, Christkind – Advent Special": {
   "de": "Eltern mit Babys sehen im Museum Schnütgen mittelalterliche Bilder der Weihnachtsgeschichte, etwa Engel und die Heiligen Drei Könige.",
@@ -9270,16 +9018,6 @@
   "zh": "参观者用手触摸博物馆展品，在显微镜下观察，并用铅笔画下来。",
   "sha": "8126f1eb62ea6c48"
  },
- "https://www.museumfuernaturkunde.berlin/programm/veranstaltungen/detail/taschenlampenfuehrung-1/#2026-11-27T19:00:00Z | Taschenlampenführung": {
-  "de": "Nach Museumsschluss schleichen die Teilnehmenden mit Taschenlampen durch dunkle Museumsräume und suchen nach Tieren der Nacht.",
-  "en": "After closing time, participants sneak through the dark museum rooms with torches, searching for animals of the night.",
-  "zh": "闭馆后，参与者手持手电筒穿过黑暗的博物馆展厅，寻找夜行动物。",
-  "ages": [
-   10,
-   18
-  ],
-  "sha": "7650ea08bf1773b6"
- },
  "https://www.museumfuernaturkunde.berlin/programm/veranstaltungen/detail/wissenschaft-natuerlich/#2026-11-30T17:00:00Z | Wissenschaft natürlich!": {
   "de": "Expert:innen diskutieren, wie Künstliche Intelligenz das Sammeln, Ordnen und Deuten von Daten verändert.",
   "en": "Speakers discuss how artificial intelligence changes the collecting, sorting and interpreting of data.",
@@ -9291,6 +9029,15 @@
   "en": "Participants look at natural objects under a microscope and explore perception between reality and imagination.",
   "zh": "参与者在显微镜下观察自然物体，探索现实与想象之间的感知。",
   "sha": "103887a89498425c"
+ },
+ "https://www.mvhs.de/kurse/jugend-ausbildung/familienprogramm/backen-zu-weihnachten/eltern-kind-backkurs-mit-kindern-von-4-bis-8-jahren-460-C-X381102 | Backen zu Weihnachten Eltern-Kind-Backkurs mit Kindern von 4 bis 8 Jahren": {
+  "de": "Gemeinsam mit Erwachsenen backen Kinder Butterplätzchen, Lebkuchen und Muffins, dekorieren und verkosten sie.",
+  "en": "Together with an adult, children bake butter cookies, gingerbread and muffins, then decorate and taste them.",
+  "zh": "和家长一起烤制黄油饼干、姜饼和松饼，然后装饰并品尝。",
+  "ages": [
+   4,
+   8
+  ]
  },
  "https://www.oper.koeln/produktion/der-koenig-verschenkt-was | Der König verschenkt was": {
   "de": "Eine Kinderoper über drei Königskinder, die nach dem Tod ihres Vaters um die Herrschaft streiten.",
@@ -9340,15 +9087,6 @@
   "read": 1,
   "sha": "eaaf2c89368212bc"
  },
- "https://www.parkaue.de/spielplan/ | Der satanarchäolügenialkohöllische Wunschpunsch": {
-  "none": true,
-  "ages": [
-   7,
-   18
-  ],
-  "read": 1,
-  "sha": "7d78740bf0ef56d7"
- },
  "https://www.parkaue.de/spielplan/ | Ich kann’s nicht lassen": {
   "de": "Ein partizipatives Stück mit Krump-Tänzer*innen.",
   "en": "A participatory piece with Krump dancers.",
@@ -9381,10 +9119,9 @@
   "sha": "9bf97a7c1a3ec20b"
  },
  "https://www.parkaue.de/spielplan/ | Pinocchio": {
-  "de": "Uraufführung eines Theaterstücks von Philipp Löhle nach Carlo Collodi.",
-  "en": "A world premiere stage play by Philipp Löhle, based on Carlo Collodi's story.",
-  "zh": "根据卡洛·科洛迪的故事改编的戏剧，由菲利普·勒勒创作，首次公演。",
-  "sha": "66a1f5c7de26bf02"
+  "none": true,
+  "read": 1,
+  "sha": "b1710594dc0b9ac0"
  },
  "https://www.parkaue.de/spielplan/ | Regiert euch!": {
   "de": "Eine interaktive Performance der Gruppe Turbo Pascal.",
@@ -9407,14 +9144,14 @@
   "sha": "faae4f645f537e32"
  },
  "https://www.parkaue.de/spielplan/ | Unterscheidet euch!": {
-  "de": "Ein Gesellschaftsspiel von Turbo Pascal auf der Bühne.",
+  "de": "Ein Gesellschaftsspiel von Turbo Pascal, aufgeführt auf der Bühne.",
   "en": "A social game by Turbo Pascal, performed on stage.",
-  "zh": "Turbo Pascal 创作的一场舞台社会游戏。",
+  "zh": "Turbo Pascal 制作的一场社会游戏演出。",
   "ages": [
    10,
    18
   ],
-  "sha": "14786648642770f0"
+  "sha": "2705520395597cb7"
  },
  "https://www.parkaue.de/spielplan/ | Wazn Teez?": {
   "de": "Auf der Bühne wird ein neues Insekten-Musical aufgeführt.",
@@ -9455,6 +9192,16 @@
   "read": 1,
   "sha": "4cedb48520e37487"
  },
+ "https://www.planetarium-hamburg.de/de/veranstaltungen-tickets/details/der-kleine-tag | Der kleine Tag": {
+  "de": "Der kleine Tag reist auf einem Lichtstrahl zur Erde; unter der Planetariumskuppel gibt es Musik und Laserlicht.",
+  "en": "The little day travels on a light beam to Earth, with music and laser light under the planetarium dome.",
+  "zh": "小白天乘光束飞往地球，在Planetarium穹顶下有音乐和激光灯光。",
+  "ages": [
+   6,
+   18
+  ],
+  "sha": "3ebd1dcca8b1b407"
+ },
  "https://www.planetarium-hamburg.de/de/veranstaltungen-tickets/details/der-stern-von-bethlehem | Der Stern von Bethlehem": {
   "none": true,
   "read": 1,
@@ -9491,7 +9238,7 @@
  "https://www.planetarium-hamburg.de/de/veranstaltungen-tickets/details/die-erde-von-oben-was-sehen-unsere-satelliten | Die Erde von oben – Was sehen unsere Satelliten?": {
   "none": true,
   "read": 1,
-  "sha": "8873757b4fec68d8"
+  "sha": "fffdd42ca2b7188c"
  },
  "https://www.planetarium-hamburg.de/de/veranstaltungen-tickets/details/die-olchis-aliens-im-anflug | Die Olchis – Aliens im Anflug!": {
   "de": "Ein 360-Grad-Film zeigt eine Weltraumreise der Olchis und vermittelt Wissen über Sterne, Planeten und Schwarze Löcher.",
@@ -9642,6 +9389,11 @@
   "read": 1,
   "sha": "819d10add14f007f"
  },
+ "https://www.planetarium-hamburg.de/de/veranstaltungen-tickets/details/unsere-weihnachtsshow-sternenhimmel-und-musik | Unsere Weihnachtsshow – Sternenhimmel und Musik": {
+  "none": true,
+  "read": 1,
+  "sha": "ddda284183b741a1"
+ },
  "https://www.planetarium-hamburg.de/de/veranstaltungen-tickets/details/unterwegs-in-der-milchstrasse | Unterwegs in der Milchstraße": {
   "none": true,
   "read": 1,
@@ -9726,11 +9478,6 @@
   "read": 1,
   "sha": "6e16ea985bbea4b8"
  },
- "https://www.planetarium.berlin/kino/fassaden | Fassaden": {
-  "none": true,
-  "read": 1,
-  "sha": "6e16ea985bbea4b8"
- },
  "https://www.planetarium.berlin/kino/frost-ohne-schnee-und-eis | Frost ohne Schnee und Eis": {
   "none": true,
   "read": 1,
@@ -9807,11 +9554,6 @@
    4,
    18
   ]
- },
- "https://www.planetarium.berlin/veranstaltungen/100-jahre-ewigkeit-das-berliner-sternentheater | 100 Jahre Ewigkeit: Das Berliner Sternentheater": {
-  "none": true,
-  "read": 1,
-  "sha": "78950c79a85f8418"
  },
  "https://www.planetarium.berlin/veranstaltungen/abenteuerreise-durchs-sonnensystem | Die große Abenteuerreise durchs Sonnensystem": {
   "de": "Kinder erleben mit Schiaparelli eine moderierte Reise durch das Sonnensystem vom Merkur bis zum Pluto.",
@@ -10162,6 +9904,16 @@
    6
   ]
  },
+ "https://www.planetarium.berlin/veranstaltungen/unendliche-weiten | Unendliche Weiten": {
+  "de": "Die Zuschauer erleben im Planetarium die Entstehung des Universums, von Sternen und Galaxien und fliegen zurück zur Erde.",
+  "en": "Visitors watch the origin of the universe, stars and galaxies in the planetarium, then fly back to Earth.",
+  "zh": "观众在天象馆中观看宇宙、恒星和星系的形成，然后飞回地球。",
+  "ages": [
+   12,
+   18
+  ],
+  "sha": "af51c7b84715fe44"
+ },
  "https://www.planetarium.berlin/veranstaltungen/unser-blauer-planet | Unser Blauer Planet": {
   "de": "Eine live moderierte Show über Wasserkreisläufe, Lebensräume der Erde und den Klimawandel.",
   "en": "A live-hosted show about Earth's water cycles, habitats and climate change.",
@@ -10290,6 +10042,15 @@
   "en": "A talk with guests about neighbourhood culture and Munich's music scene, with music by bands and local labels.",
   "zh": "与嘉宾谈论街区文化和慕尼黑音乐圈，并播放乐队和本地唱片厂牌的音乐。"
  },
+ "https://www.schauburg.net/de/programm/open-decks-dance | Open Decks & Dance": {
+  "de": "Hier kannst du tanzen, dich bewegen oder dein eigenes DJ-Set auflegen.",
+  "en": "Young people can dance, move, or play their own DJ set in the Schauburg rooms.",
+  "zh": "在Schauburg剧院的场地里，青少年可以跳舞、活动身体或播放自己的DJ混音。",
+  "ages": [
+   14,
+   18
+  ]
+ },
  "https://www.schauburg.net/de/programm/timm-thaler | Timm Thaler": {
   "de": "Timm verkauft sein Lachen an einen Baron, Freund*innen helfen ihm, es zurückzubekommen.",
   "en": "Timm sells his laugh to a baron for winning bets; friends help him try to get it back.",
@@ -10341,12 +10102,6 @@
   "zh": "带孩子参观Schloss Benrath城堡，了解选帝侯和宫廷生活的历史。",
   "sha": "cb379f70bf6b5586"
  },
- "https://www.schloss-benrath.de/veranstaltungs-detail/v/6557 | DIE LEUCHTENDEN GÄRTEN": {
-  "de": "Im Schlosspark führen leuchtende Pfade am Abend durch beleuchtete Alleen und zwischen Baumkronen.",
-  "en": "In the evening, illuminated paths lead through avenues and between tree crowns in the Schloss Benrath park.",
-  "zh": "夜晚，灯光小径穿过Schloss Benrath公园的林荫道和树冠。",
-  "sha": "ad156f7fdf49d6f2"
- },
  "https://www.schloss-benrath.de/veranstaltungs-detail/v/6558 | DIE LEUCHTENDEN GÄRTEN": {
   "de": "Teile des Schlossparks werden illuminiert, leuchtende Pfade führen durch Alleen zwischen alten Baumkronen.",
   "en": "Parts of the palace park are illuminated, with glowing paths leading through avenues between old tree crowns.",
@@ -10382,6 +10137,11 @@
   "none": true,
   "read": 1,
   "sha": "8c50b2eaff2f3f4f"
+ },
+ "https://www.schloss-benrath.de/veranstaltungs-detail/v/6567 | DIE LEUCHTENDEN GÄRTEN": {
+  "none": true,
+  "read": 1,
+  "sha": "d6b1d7fb0ce72864"
  },
  "https://www.schloss-benrath.de/veranstaltungs-detail/v/6597 | DIE LEUCHTENDEN GÄRTEN": {
   "de": "Leuchtende Pfade führen durch den Schlosspark, vorbei an beleuchteten alten Baumkronen und Alleen.",
@@ -10546,27 +10306,11 @@
   "zh": "Zentralbibliothek 图书馆的 Interim 内举办 Makerspace 工作坊，介绍“Einstiegsmethode”方法。",
   "sha": "c1b7a356c5f029a0"
  },
- "https://www.stadt-koeln.de/leben-in-koeln/veranstaltungen/daten/41035/index.html | Fachbereichskonzert: Tastenzauber": {
-  "de": "Die jüngsten Schülerinnen und Schüler des Fachbereichs Tasteninstrumente der Rheinischen Musikschule treten mit Musik auf.",
-  "en": "The youngest students of the keyboard department of the Rheinische Musikschule perform music.",
-  "zh": "Rheinische Musikschule 键盘乐器专业最年幼的学生登台演奏。",
-  "sha": "320317797b7ea0ad"
- },
  "https://www.stadt-koeln.de/leben-in-koeln/veranstaltungen/daten/41248/index.html | MINT-Workshop am Sonntag": {
   "de": "Kinder basteln und programmieren gemeinsam mit der fjmk.",
   "en": "Children craft and program together with the fjmk team.",
   "zh": "孩子们与fjmk一起动手制作并编程。",
   "sha": "5569791eb5e2d745"
- },
- "https://www.stadt-koeln.de/leben-in-koeln/veranstaltungen/daten/41301/index.html | LeseWelten": {
-  "de": "Kinder hören Vorlesegeschichten und Bilderbücher und können danach ein Bild zum Buch malen.",
-  "en": "Children listen to picture books being read aloud, look at the pictures, and can paint a picture about the book afterwards.",
-  "zh": "孩子们听朗读绘本故事、看图画，之后可以画一幅与书有关的画。",
-  "ages": [
-   3,
-   18
-  ],
-  "sha": "1413717442ca1ccf"
  },
  "https://www.stadt-koeln.de/leben-in-koeln/veranstaltungen/daten/41310/index.html | Vorlesezeit": {
   "de": "Kinder hören Geschichten aus Bilderbüchern mit bekannten Helden wie Findus und Lieselotte und schauen gemeinsam Bilder an.",
@@ -10594,12 +10338,6 @@
   "zh": "在 Stadtteilbibliothek Ehrenfeld 街区图书馆，培养最小孩子的语言与感官能力。",
   "sha": "1d6facb1d7d8ee26"
  },
- "https://www.stadt-koeln.de/leben-in-koeln/veranstaltungen/daten/41347/index.html | Nippes spielt!": {
-  "de": "Ein Brettspielnachmittag für Spielbegeisterte in der Stadtteilbibliothek Nippes.",
-  "en": "A board game afternoon for game enthusiasts at the Nippes district library.",
-  "zh": "Stadtteilbibliothek Nippes 的桌游下午活动，面向热爱桌游的人。",
-  "sha": "c314fe2afa9518f3"
- },
  "https://www.stadt-koeln.de/leben-in-koeln/veranstaltungen/daten/41378/index.html | Rüümcher, Leedcher un Verzällcher em Advent": {
   "de": "Weihnachtliches Beisammensein für ältere Menschen aus Porz mit Kaffee und Kuchen.",
   "en": "A Christmas get-together for older people from Porz, with coffee and cake.",
@@ -10611,16 +10349,6 @@
   "en": "Young musicians of a youth wind orchestra play festive brass music and fairy-tale pieces together with Gürzenich-Orchester players.",
   "zh": "青少年管乐团与Gürzenich-Orchester的乐手一起演奏节日铜管乐和童话音乐。",
   "sha": "25d7ca7d5acbc991"
- },
- "https://www.stadt-koeln.de/leben-in-koeln/veranstaltungen/daten/41437/index.html | MINT-Vorlesen": {
-  "de": "Die Kinder hören Bücher über Mathematik, Informatik, Naturwissenschaften und Technik und basteln und experimentieren danach.",
-  "en": "Children hear books about maths, computing, science and technology, then craft and experiment.",
-  "zh": "孩子们听取关于数学、信息学、自然科学和技术的书籍朗读，之后动手制作和做实验。",
-  "ages": [
-   4,
-   8
-  ],
-  "sha": "087b2db744bea848"
  },
  "https://www.stadt-koeln.de/leben-in-koeln/veranstaltungen/daten/41484/index.html | LeseWelten am Dienstag": {
   "de": "Kinder hören Vorlesegeschichten mit bekannten Helden wie Findus, Lieselotte und Zilly sowie neuen Bilderbüchern.",
@@ -10636,12 +10364,6 @@
   "none": true,
   "read": 1,
   "sha": "9fe80fc5822687db"
- },
- "https://www.stadt-koeln.de/leben-in-koeln/veranstaltungen/daten/41522/index.html | Vorweihnachtskonzert der Regionalschule Weiden": {
-  "de": "Ensembles und Solist*innen der Musikschule spielen ein Vorweihnachtskonzert.",
-  "en": "Ensembles and soloists from the music school perform a pre-Christmas concert.",
-  "zh": "音乐学校的乐团和独奏者演奏一场圣诞前音乐会。",
-  "sha": "78dcd86fd323f5ef"
  },
  "https://www.stadt-koeln.de/leben-in-koeln/veranstaltungen/daten/41539/index.html | Wir spielen Schach": {
   "de": "Kinder spielen Schach, gegeneinander und miteinander, und lernen gemeinsam, was das Spiel fasziniert.",
@@ -10662,16 +10384,6 @@
    18
   ],
   "sha": "cac5b2c0c5f531f6"
- },
- "https://www.stadt-koeln.de/leben-in-koeln/veranstaltungen/daten/41634/index.html | Vorlesezeit": {
-  "de": "Kinder hören Geschichten aus Bilderbüchern wie Findus, Lieselotte und Zilly und schauen sich die Bilder an.",
-  "en": "Children listen to picture book stories featuring Findus, Lieselotte and Zilly and look at the pictures together.",
-  "zh": "孩子们听图画书故事，人物有Findus、Lieselotte和Zilly，一起看图画。",
-  "ages": [
-   3,
-   18
-  ],
-  "sha": "7b737b1f04512d94"
  },
  "https://www.stadt-koeln.de/leben-in-koeln/veranstaltungen/daten/41662/index.html | Ausstellung: Fernweh und Heimat vom Kölner Maler-Kreis": {
   "de": "Eine Ausstellung zeigt Bilder von rund 40 Kunstschaffenden zu den Themen Heimat und Fernweh.",
@@ -10756,6 +10468,11 @@
   ],
   "sha": "0fd696c0513fe0bb"
  },
+ "https://www.theater-essen.de/programm/kalender/ | Jakub Józef Orliński Pergolesi „Stabat Mater“": {
+  "none": true,
+  "read": 1,
+  "sha": "a7b71d0f605cbe3a"
+ },
  "https://www.theater-essen.de/programm/kalender/60-bohnen-fuer-beethoven-160782/4231/ | 60 Bohnen für Beethoven": {
   "de": "Das Concerto Köln spielt Werke von Beethoven, Mozart, Haydn und anderen, mit Klavier und einem Sprecher.",
   "en": "The Concerto Köln plays works by Beethoven, Mozart, Haydn and others, with piano and a narrator.",
@@ -10838,12 +10555,6 @@
   ],
   "sha": "cd1a4ac965115b1e"
  },
- "https://www.theater-essen.de/programm/kalender/dvorak-7-153316/4228/ | Dvořák 7": {
-  "de": "Die Essener Philharmoniker spielen Werke von Dvořák, Viktor Ullmann und Wolfgang Amadeus Mozart.",
-  "en": "The Essen Philharmonic Orchestra performs works by Dvořák, Viktor Ullmann and Wolfgang Amadeus Mozart.",
-  "zh": "埃森爱乐乐团演奏德沃夏克、维克托·乌尔曼和莫扎特的作品。",
-  "sha": "47d76ba551bb5ca2"
- },
  "https://www.theater-essen.de/programm/kalender/elgar-cellokonzertlondon-philharmonic-orchestra-162516/4241/ | Elgar Cellokonzert London Philharmonic Orchestra": {
   "de": "Das London Philharmonic Orchestra spielt unter Edward Gardner Werke von Elgar, Rachmaninow und Sibelius, mit Cellistin Anastasia Kobekina.",
   "en": "The London Philharmonic Orchestra under Edward Gardner plays works by Elgar, Rachmaninov and Sibelius, with cellist Anastasia Kobekina.",
@@ -10882,6 +10593,12 @@
   ],
   "sha": "2e3e944c47904789"
  },
+ "https://www.theater-essen.de/programm/kalender/la-cenerentola-aschenputtel/4000/ | La Cenerentola": {
+  "de": "Gioacchino Rossinis zweiaktige Oper „La Cenerentola (Aschenputtel)“ wird im Aalto-Theater aufgeführt.",
+  "en": "Gioacchino Rossini's two-act opera La Cenerentola (Cinderella) is performed at the Aalto-Theater.",
+  "zh": "罗西尼两幕歌剧《灰姑娘》（Aschenputtel）在 Aalto-Theater 歌剧院上演。",
+  "sha": "0878eede536396f4"
+ },
  "https://www.theater-essen.de/programm/kalender/lieder-singe-lieder-hoeren-weihanchten/4393/ | Lieder singen, Lieder hören - Weihnachten": {
   "de": "Kinder singen Weihnachtslieder und hören Lieder zu.",
   "en": "Children sing Christmas songs and listen to songs.",
@@ -10902,12 +10619,6 @@
   ],
   "sha": "b0fd9ce2b1696152"
  },
- "https://www.theater-essen.de/programm/kalender/tanzhommage-an-queen/3952/ | Tanzhommage an Queen": {
-  "de": "Ein Tanzstück von Ben Van Cauwenbergh zu Musik von Queen.",
-  "en": "A dance piece by Ben Van Cauwenbergh set to music by Queen.",
-  "zh": "Ben Van Cauwenbergh 编舞的舞蹈作品，配以 Queen 乐队的音乐。",
-  "sha": "1989d1244753b40f"
- },
  "https://www.theater-essen.de/programm/kalender/weihnkzt/3976/ | Weihnachtskonzert": {
   "de": "Ein weihnachtliches Konzert zum Mitsingen mit Solist*innen, Chören, einem Jazz-Trio und den Essener Philharmonikern.",
   "en": "A Christmas concert where children sing along with soloists, choirs, a jazz trio and the Essener Philharmoniker.",
@@ -10927,6 +10638,11 @@
   "none": true,
   "read": 1,
   "sha": "fafc0b3f659bd8ec"
+ },
+ "https://www.theateraachen.de/de/spielplan/produktionen/1-sitzkissenkonzert-elmar-ein-elefant-bekennt-farbe.html?ID_Vorstellung=1558&m=13 | 1. Sitzkissenkonzert: »Elmar – Ein Elefant bekennt Farbe«": {
+  "none": true,
+  "read": 1,
+  "sha": "d853442f02749395"
  },
  "https://www.theateraachen.de/de/spielplan/produktionen/die-csrdsfuerstin.html?ID_Vorstellung=1351&m=13 | Die Csárdásfürstin": {
   "de": "Auf der Bühne wird die Operette in drei Akten von Emmerich Kálmán gespielt, mit deutschen und englischen Übertiteln.",
@@ -10963,6 +10679,12 @@
   "en": "A family theatre play on stage, based on the Brothers Grimm fairy tale.",
   "zh": "舞台上演的家庭剧，改编自格林兄弟童话。",
   "sha": "b17316afd7a7dcf9"
+ },
+ "https://www.theaterhaus-frankfurt.de/event/ox-und-esel/2026-12-11/2/ | Ox und Esel": {
+  "de": "Ox und Esel nehmen in einem Stall in Bethlehem ein schreiendes Kind auf und beschützen es tapfer.",
+  "en": "Ox and Donkey find a crying baby in their stable in Bethlehem and bravely protect it.",
+  "zh": "牛和驴在伯利恒的马厩里发现一个哭泣的婴儿，并勇敢地保护他。",
+  "sha": "8f706142108d59b7"
  },
  "https://www.theaterhaus-frankfurt.de/event/under-the-gloves-hexenpower/2026-12-08/ | Under the gloves – Hexenpower": {
   "de": "Drei Frauen als Hexen tanzen auf der Bühne und erzählen von Zugehörigkeit, Streit und Anderssein.",
@@ -11013,6 +10735,16 @@
    18
   ],
   "sha": "06017046bc67ae7a"
+ },
+ "https://www.theaterhaus-frankfurt.de/spielplan/detail/die-weihnachtsgans-auguste.html?tx_news_pi1%5Bindex%5D=12857&cHash=eb02b7a8d7204842357d37dcac0c1f1f | Die Weihnachtsgans Auguste": {
+  "de": "Ein Opernsänger bringt eine Gans nach Hause, die sein Sohn Peter liebgewinnt, während der Vater sie zu Weihnachten braten will.",
+  "en": "An opera singer brings home a goose that his son Peter grows fond of, while his father wants to cook it for Christmas.",
+  "zh": "歌剧演员带回家一只鹅，儿子彼得很喜欢它，而父亲却想在圣诞节把它烤来吃。",
+  "ages": [
+   4,
+   18
+  ],
+  "sha": "db93008b942368a5"
  },
  "https://www.theaterhaus-frankfurt.de/spielplan/detail/ox-und-esel.html?tx_news_pi1%5Bindex%5D=12892&cHash=67588747a3e88b2f2d47eb78e794e325 | Ox und Esel": {
   "de": "Ox und Esel finden in einem Stall in Bethlehem ein schreiendes Baby und kümmern sich liebevoll um es.",
@@ -11088,6 +10820,12 @@
   "zh": "牛和驴在马厩里准备晚餐，外面刮着暴风雪。",
   "sha": "6cdf4ee993747dd4"
  },
+ "https://www.tonhalle.de/veranstaltung/fuehrungenguided-tours/21884-von-sternen-zu-stars | Von Sternen zu Stars": {
+  "de": "Die Veranstaltung erklärt, wie aus einem Planetarium ein Konzerthaus wurde und welche Kunstwerke zu entdecken sind.",
+  "en": "The event explains how a planetarium became a concert hall and which artworks can be seen in the Tonhalle.",
+  "zh": "介绍Tonhalle Düsseldorf音乐厅由天文馆改建而来的历史及其中的艺术品。",
+  "sha": "8ec41b9225f90b26"
+ },
  "https://www.tonhalle.de/veranstaltung/heinersdorff-sonderkonzerte/20371-regensburger-domspatzen | Regensburger Domspatzen": {
   "de": "Kinderchöre singen bei brennenden Kerzen, und Schauspieler rezitieren Gedichte in der Weihnachtszeit.",
   "en": "Children's choirs sing while candles burn, and actors recite poems in the Christmas season.",
@@ -11116,21 +10854,13 @@
   "none": true,
   "read": 1
  },
- "https://www.tonhalle.de/veranstaltung/komet/22551-first-aid-kit | First Aid Kit": {
-  "de": "Das schwedische Schwestern-Duo Johanna und Klara Söderberg spielt Folk, Country und Pop.",
-  "en": "The Swedish sister duo Johanna and Klara Söderberg play folk, country and pop.",
-  "zh": "瑞典姐妹二人组 Johanna 和 Klara Söderberg 演奏民谣、乡村和流行音乐。",
-  "sha": "0d8af4b57661f39a"
- },
  "https://www.tonhalle.de/veranstaltung/meisterkonzerte/20296-orchestre-national-de-france | Orchestre National de France": {
   "none": true,
   "read": 1
  },
- "https://www.visitduesseldorf.de/redirect/event/019fcd1f-dcb7-70ab-b357-4440b3e30dc4/de | Eva Rubinstein. Proof of Life": {
-  "de": "Im Museum für Gartenkunst im Ostflügel von Schloss Benrath gibt es eine Sonderausstellung.",
-  "en": "A special exhibition takes place at the Museum für Gartenkunst in the east wing of Schloss Benrath.",
-  "zh": "Schloss Benrath 城堡东翼的 Museum für Gartenkunst 举办特别展览。",
-  "sha": "fb84a156091d961f"
+ "https://www.tonhalle.de/veranstaltung/sternzeichen/20794-der-nussknacker | Der Nussknacker": {
+  "none": true,
+  "read": 1
  },
  "https://www.visitduesseldorf.de/redirect/event/019fd0ee-8aab-7216-b536-9a048cb8711b/de | Opernhausführungen": {
   "de": "Die Führung zeigt Bereiche des Opernhauses, die Besucher normalerweise nicht sehen, etwa die Untermaschinerie, Bühnen und den Kostümfundus.",
@@ -11147,12 +10877,6 @@
    18
   ],
   "sha": "259e1125139c194c"
- },
- "https://www.visitduesseldorf.de/redirect/event/019fd73c-d742-734a-b497-d7cbf07e1c07/de | Plastikmüll im Rhein. Die große Reise des kleinen Plastiks": {
-  "de": "Ein Virtual-Reality-Erlebnis zeigt, wie Plastikmüll in die Umwelt gelangt.",
-  "en": "A virtual reality experience traces how plastic waste makes its way into the environment.",
-  "zh": "虚拟现实体验展示塑料垃圾如何进入环境。",
-  "sha": "e105dd87cda07e98"
  },
  "https://www.visitduesseldorf.de/redirect/event/019fdbbb-aa86-71c3-aefa-5d5979550c86/de | Japan entdecken: Facetten des Kimono": {
   "de": "Besucher erfahren mehr über Kimono-Kultur, befühlen seidene Kimonostoffe und entdecken Farben und Motive.",
@@ -11177,12 +10901,6 @@
   "en": "In an open creative space, you can bring in your own ideas, join with a spontaneous contribution, or just watch.",
   "zh": "在开放的创意空间里，你可以提出自己的想法，即兴参与，或者只是观看。",
   "sha": "2960c02580aef790"
- },
- "https://www.visitduesseldorf.de/redirect/event/019ff9c9-9cde-70a2-8933-185f71151151/de | Ritteressen Schloss Garath": {
-  "de": "Die Gäste erleben ein Festmahl im Rittersaal von Schloss Garath, versetzt ins 13. Jahrhundert.",
-  "en": "Guests enjoy a feast in the Rittersaal of Schloss Garath, set in the 13th century.",
-  "zh": "在Schloss Garath的Rittersaal（骑士厅）享用设定在13世纪的宴会。",
-  "sha": "71de9f69d965e4e2"
  },
  "https://www.visitduesseldorf.de/redirect/event/01a01922-ecb1-7193-b44d-894d948ecc0f/de | Blick hinter die Kulissen - Spezial": {
   "de": "Bei einer Führung zeigt die Deutsche Oper am Rhein Orte hinter den Kulissen, die dringend saniert werden müssen.",
@@ -11276,6 +10994,12 @@
   "en": "A concert for the youngest children in the Musikbibliothek, part of the junges Podium! series at KAP1.",
   "zh": "为最小的孩子举办的音乐会，在 KAP1 音乐厅的 Musikbibliothek 进行。",
   "sha": "1b8fd12740ee3c55"
+ },
+ "https://www.visitduesseldorf.de/redirect/event/01a0a010-bb75-7101-b17d-f018b345ec23/de | Christmas Unscripted - where every voice matters": {
+  "de": "Die Soulville-Jazz-Singers singen jazzige neue und vertraute Weihnachtslieder zum Zuhören und Mitsingen.",
+  "en": "The Soulville Jazz Singers perform jazzy new and familiar Christmas songs for listening and singing along.",
+  "zh": "Soulville-Jazz-Singers 爵士歌唱团演唱爵士风格的新旧圣诞歌曲，观众可聆听并一起唱。",
+  "sha": "4fe3dca1edfe1ac5"
  },
  "https://www.visitduesseldorf.de/redirect/event/01a0a022-2316-7086-848e-28de9fb29e6c/de | Till und die Kinderrechte": {
   "de": "Im Puppentheater beschützt Till Eulenspiegel ein kleines Kaninchen vor Pferden und einem Räuber; dabei lernt man spielerisch über Kinderrechte.",
@@ -11394,12 +11118,6 @@
   "zh": "孩子们在电影院与喜爱的配音演员一起收听 Masters of the Universe 广播剧。",
   "sha": "1c8cf4c3636b6f88"
  },
- "https://www.visitduesseldorf.de/redirect/event/01a17ceb-1d19-73cc-860c-1101bc84cb36/de | Wandelkonzerte \"Ein Fest der alten Klänge\"": {
-  "de": "Die Neue Düsseldorfer Hofmusik nimmt die Gäste mit auf eine musikalische Reise durch das 18. Jahrhundert.",
-  "en": "The Neue Düsseldorfer Hofmusik takes guests on a musical journey through the 18th century.",
-  "zh": "新杜塞尔多夫宫廷乐团带领观众踏上一段穿越18世纪的音乐之旅。",
-  "sha": "04e1ab58993fcb37"
- },
  "https://www.visitduesseldorf.de/redirect/event/01a17cef-b6f6-7338-91cc-b8b19f8dc05f/de | Selbsthilfechor Düsseldorf & Popchor Lebenshunger": {
   "de": "Zwei Chöre singen gemeinsam mit einer Stimme in weihnachtlicher Atmosphäre.",
   "en": "Two choirs sing together as one voice in a Christmas-themed programme.",
@@ -11440,6 +11158,12 @@
   "none": true,
   "read": 1,
   "sha": "1b17a7ab7aa2da9e"
+ },
+ "https://www.visitduesseldorf.de/redirect/event/01a18270-62fc-73a4-ae1b-92da2130306a/de | Sternzeichen: Der Nussknacker": {
+  "de": "Tschaikowskys Nussknacker wird mit Tanz, Märchen und Orchestermusik aufgeführt.",
+  "en": "Tchaikovsky's Nutcracker is staged with dance, a fairy tale and orchestral music.",
+  "zh": "演出柴可夫斯基的《胡桃夹子》，包括舞蹈、童话故事和管弦乐。",
+  "sha": "f7028925f56fbaaf"
  },
  "https://www.visitduesseldorf.de/redirect/event/01a19b2c-6f43-736a-9206-2505617dbd71/de | The Messiah": {
   "de": "Patrick Barlows britische Weihnachtskomödie „The Messiah“ wird auf Englisch aufgeführt.",
@@ -11501,11 +11225,6 @@
   "zh": "来自Mönchengladbach的大乐队演奏大乐队音乐。",
   "sha": "6bc0caaa427b7628"
  },
- "https://www.visitduesseldorf.de/redirect/event/01a1ca21-80c9-717d-ba8e-6f3af942467a/de | Sanifu": {
-  "none": true,
-  "read": 1,
-  "sha": "84b98c5dba75e517"
- },
  "https://www.visitduesseldorf.de/redirect/event/01a1ca2a-219c-7106-a8e2-62e831eedeed/de | Fantasy-Spiele-Nacht": {
   "de": "Spielende kämpfen mit ihrer Fantasyfigur gegen Unholde und tierische Kreaturen, etwa bei Drachenhort, Talisman oder DragonQuest.",
   "en": "Players fight with their fantasy figure against monsters and animal creatures in games such as Drachenhort, Talisman or DragonQuest.",
@@ -11516,12 +11235,6 @@
   "none": true,
   "read": 1,
   "sha": "188fe472477c5cad"
- },
- "https://www.visitduesseldorf.de/redirect/event/01a1ca8a-bd3c-70ed-bfea-99962f75a5cf/de | 24. Filmfest Düsseldorf - Ampere": {
-  "de": "Das Filmfest zeigt Filme im Motto der 2000er Jahre.",
-  "en": "The film festival shows films in the theme of the 2000s.",
-  "zh": "电影节以2000年代为主题放映电影。",
-  "sha": "d657e8ae95a447af"
  },
  "https://www.visitduesseldorf.de/redirect/event/01a1cedc-7cfe-7178-b58e-93ee0c680b9e/de | Makers Market": {
   "de": "Design, Kunst und echtes Handwerk treffen sich in der Halle am Wasserturm auf dem Areal Böhler.",
@@ -11547,6 +11260,11 @@
   "zh": "在座谈会上，参与者谈论歌剧和制作，之后有公开排练。",
   "sha": "e3ca83bb87c30e72"
  },
+ "https://www.visitduesseldorf.de/redirect/event/01a1ee0f-5b3c-7070-86d2-034d6e675df7/de | Swinging Christmas": {
+  "none": true,
+  "read": 1,
+  "sha": "52dee638c0fd039a"
+ },
  "https://www.visitduesseldorf.de/redirect/event/01a1ee80-e899-72f1-82d6-3d7c378d76fc/de | Fußball: Fortuna Düsseldorf - SV Wehen Wiesbaden": {
   "none": true,
   "read": 1,
@@ -11561,12 +11279,6 @@
    10
   ],
   "sha": "182be0f77d7c25fe"
- },
- "https://www.visitduesseldorf.de/redirect/event/01a1f887-f0c4-7348-8d00-b6bcac8d6215/de | Adventsdorf Gerresheim": {
-  "de": "Auf dem Gelände der evangelischen Kirchengemeinde Gerresheim gibt es einen gemütlichen Weihnachtsmarkt mit handwerklichen Angeboten.",
-  "en": "On the grounds of the Protestant church congregation in Gerresheim, there is a cosy Christmas market with handmade crafts.",
-  "zh": "在Gerresheim地区新教教区场地上举办圣诞市集，提供手工艺品。",
-  "sha": "52a5005c8aebaa3d"
  },
  "https://www.visitduesseldorf.de/redirect/event/01a1f8d8-3c7e-733e-b804-c42d14b47d40/de | Sonntagsführung: Schauspielhaus Düsseldorf": {
   "de": "Der Museumsleiter führt durch die Theaterwelt der 1910er und 1920er Jahre.",
@@ -11600,12 +11312,6 @@
   "de": "Einstündige Führung durch die Altstadt, vorbei an Königsallee und Kö-Bogen bis zur Rheinpromenade.",
   "en": "A one-hour guided tour through the Old Town, past Königsallee and Kö-Bogen, to the Rhine promenade.",
   "zh": "参观老城区、Königsallee购物街和Kö-Bogen建筑群，并沿莱茵河畔步行。"
- },
- "https://www.visitduesseldorf.de/redirect/event/41761c86-e4ad-4f4e-bb42-0b0a8aa55552/de | Weihnachtsmarkt Schloss Benrath": {
-  "de": "Weihnachtsmarkt auf dem Vorplatz von Schloss Benrath mit festlicher Atmosphäre und Ideen für Geschenke.",
-  "en": "Christmas market on the forecourt of Schloss Benrath with a festive atmosphere and gift ideas.",
-  "zh": "Schloss Benrath 城堡前的圣诞市场，节日氛围浓厚，有礼物创意灵感。",
-  "sha": "548be3b9d6c37a88"
  },
  "https://www.visitduesseldorf.de/redirect/event/4eae4032-b1d4-4354-9b10-0f5fc5b0eb2e/de | Düsseldorfs kulinarische Seele": {
   "de": "Kulinarischer Streifzug durch die Altstadt mit Kostproben auf dem Carlsplatz und Besuch einer Hausbrauerei.",
@@ -11702,12 +11408,6 @@
   "zh": "女高音歌手Sarah Brightman在舞台上演出她的新圣诞音乐表演《A Winter Symphony》。",
   "sha": "29077fb360c64eec"
  },
- "https://www.visitduesseldorf.de/redirect/event/a0fd81d6-2718-4ce3-8286-e718cc8232a6/de | Vivaldi - die vier Jahreszeiten": {
-  "de": "Ein Kammerorchester spielt unter Leitung von Tigran Mikaelyan Vivaldis „Die vier Jahreszeiten“ und weitere bekannte Meisterwerke.",
-  "en": "A chamber orchestra conducted by Tigran Mikaelyan plays Vivaldi's \"The Four Seasons\" and other well-known masterpieces.",
-  "zh": "Tigran Mikaelyan指挥室内乐团演奏维瓦尔第的《四季》及其他著名杰作。",
-  "sha": "945420a21825430b"
- },
  "https://www.visitduesseldorf.de/redirect/event/a104064c-cde4-4e86-9b4e-05e155147d35/de | Düsseldorf – Stadt der Kunst": {
   "de": "Eine Führung zu Düsseldorfs Kunstorten, Museen und Kulturbauten, mit Geschichten über Künstlerinnen und Künstler und einem Galeriebesuch.",
   "en": "A guided tour of Düsseldorf's art venues and museums, with stories about artists and a visit to a gallery.",
@@ -11718,6 +11418,12 @@
   "en": "A concert series with symphonic music for the Resident Evil anniversary.",
   "zh": "一场以《Resident Evil》周年为主题的交响音乐会系列。",
   "sha": "06eb22a0367361a5"
+ },
+ "https://www.visitduesseldorf.de/redirect/event/a17e95e3-31b0-49a5-8c05-2c22a86fc8da/de | SingAlong - Das große Mitsing-Event": {
+  "de": "Die Songtexte werden auf einer großen Leinwand gezeigt, damit alle mitsingen können.",
+  "en": "The song lyrics are shown on a large screen so everyone can sing along.",
+  "zh": "歌词投影在大屏幕上，大家可以跟着一起唱。",
+  "sha": "abcaba55ee797102"
  },
  "https://www.visitduesseldorf.de/redirect/event/a18b6720-2bb4-4bbe-9eca-266e383cee29/de | Orchestre National de France & Julia Fischer, Violine": {
   "de": "Die Geigerin Julia Fischer spielt mit dem Orchestre National de France das dritte Violinkonzert von Camille Saint-Saëns.",
@@ -11763,12 +11469,6 @@
    18
   ],
   "sha": "f33c3f1b9e0dc8e0"
- },
- "https://www.visitduesseldorf.de/redirect/event/a1c3ba2c-0ba1-4986-8b79-28f6cfc2d7df/de | Die Zauberflöte": {
-  "de": "Prinz Tamino flieht vor einer Riesenschlange, wird ohnmächtig, und drei Damen eilen ihm zu Hilfe.",
-  "en": "Prince Tamino flees a giant snake, faints, and three ladies hurry to help him.",
-  "zh": "王子塔米诺逃离巨蛇并昏厥，三位侍女前来相救。",
-  "sha": "6e446d9c3db8d36e"
  },
  "https://www.visitduesseldorf.de/redirect/event/a1c5bed9-fee2-402b-a35c-9da89850c29e/de | Phoebe Bridgers - 2026": {
   "de": "Die US-amerikanische Singer-Songwriterin Phoebe Bridgers tritt mit ihrer neuen „The Lost Tour“ live im PSD Bank Dome auf.",
@@ -11825,20 +11525,10 @@
   "en": "A guided walk past the Altstadt, Königsallee and Rheinturm, with local stories about the city.",
   "zh": "游览老城区、Königsallee 大街和 Rheinturm 电视塔周边。"
  },
- "https://www.visitduesseldorf.de/redirect/event/b0834632-3fc8-11ef-bcd7-00163e2945d0/de | Flingern kulinarisch – Die Food Tour": {
-  "de": "Dreistündige Stadtführung zu Fuß durch Flingern mit Geschichten über den Stadtteil und fünf Kostproben in internationalen Lokalen.",
-  "en": "A three-hour walking tour through Flingern with stories about the district and five tastings at international restaurants.",
-  "zh": "三小时步行美食导览，穿越 Flingern 区，听取该区的故事，并在国际餐馆品尝五种小吃。"
- },
  "https://www.visitduesseldorf.de/redirect/event/b2d3860e-e5d7-11ee-9c4a-00163e2945d0/de | Stadtführung in leichter Sprache": {
   "de": "Ein Gästeführer zeigt die Düsseldorfer Altstadt und erzählt Geschichten über die Kirche St. Lambertus, Heine und Schneider Wibbel.",
   "en": "A guide shows the Düsseldorf old town and tells stories about St. Lambertus church, Heine and Schneider Wibbel.",
   "zh": "导游带领参观 Düsseldorf Altstadt，讲述 St. Lambertus 教堂等故事。"
- },
- "https://www.visitduesseldorf.de/redirect/event/b36b8824-dfa1-4f76-a059-7c0754372462/de | Altstadt-Führung": {
-  "de": "Rundgang durch die historischen Altstadtgassen mit Geschichten über Stadtentwicklung, Anekdoten und Legenden.",
-  "en": "A walk through the historic old town lanes, with stories about the city's development, anecdotes and legends.",
-  "zh": "在历史悠久的老城小巷中散步，听当地人讲述城市发展、轶事和传说。"
  },
  "https://www.visitduesseldorf.de/redirect/event/bae0eceb-7c5b-44de-9e33-e56efcc954ac/de | MedienHafen-Führung": {
   "de": "Führung durch den Düsseldorfer MedienHafen mit Architektur internationaler Stararchitekten und der Geschichte des alten Hafens.",
@@ -11850,11 +11540,6 @@
   "en": "Participants sing along together as a group.",
   "zh": "参与者一起集体跟着唱歌。",
   "sha": "9934c1c49a5d5435"
- },
- "https://www.visitduesseldorf.de/redirect/event/e5c561b6-3981-455f-bdf3-eafafeff5b42/de | Panoramafahrt auf dem Rhein (KD Düsseldorf)": {
-  "de": "Eine einstündige Schifffahrt auf dem Rhein vorbei an Altstadt, Schlossturm und MedienHafen in Düsseldorf.",
-  "en": "A one-hour boat tour on the Rhine past the Altstadt, Schlossturm and MedienHafen in Düsseldorf.",
-  "zh": "沿莱茵河乘船一小时，经过老城区 Altstadt 和 MedienHafen 媒体港区。"
  },
  "https://www.visitduesseldorf.de/redirect/event/e65bddce-b9e4-11ee-ae10-00163e2945d0/de | Düsseldorf kompakt: Altstadt-Geschichten in 60 Minuten": {
   "de": "Eine einstündige Führung durch Altstadt, Königsallee und Rheinufer erzählt Stadtgeschichte, zeigt Kneipen und moderne Architektur.",
@@ -11911,6 +11596,12 @@
   "zh": "在家庭音乐会中，Ritter Rost想过一个标准的圣诞节，结果一切都乱了套。",
   "sha": "e577a583d31e1f6a"
  },
+ "https://www.zollverein.de/kalender/stirnlampen-fuehrung | Stirnlampen-Führung „Zollverein-by-Night“": {
+  "de": "Führung mit Stirnlampe durch den Kokskohlenbunker auf dem Zollverein-Gelände.",
+  "en": "A guided tour with headlamps through the Kokskohlenbunker on the Zollverein site.",
+  "zh": "在 Zollverein 园区的 Kokskohlenbunker（焦煤仓）中戴头灯参观导览。",
+  "sha": "668b4afecab6d99a"
+ },
  "https://www.zollverein.de/kalender/weihnachtsliederauffrischungsseminar | Weihnachtslieder-auffrischungsseminar": {
   "de": "Gemeinsames Singen zum Tag der Heiligen Barbara mit Punsch und Printen, um sich auf Weihnachten einzustimmen.",
   "en": "Everyone joins in singing Christmas carols on St. Barbara's Day, with punch and gingerbread.",
@@ -11928,11 +11619,6 @@
   "en": "A guide leads a winter walk through the zoo and shows how differently animals cope with the cold.",
   "zh": "导游带领参观冬季动物园，介绍不同动物如何应对寒冷。",
   "sha": "2c8ae9f34c5e3027"
- },
- "https://www.zoo-frankfurt.de/de/zoobesuch-planen/termine-und-veranstaltungen/event/abendoffnung-exotarium-mit-fuhrung | Abendöffnung Exotarium": {
-  "none": true,
-  "read": 1,
-  "sha": "be942b4632c80fdb"
  },
  "https://www.zoo-frankfurt.de/de/zoobesuch-planen/termine-und-veranstaltungen/event/adventsbasteln | Adventsbasteln": {
   "none": true,
